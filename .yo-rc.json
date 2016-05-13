@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "bciconfigGui",
+    "style": "css",
+    "postcss": true
+  }
+}

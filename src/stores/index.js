@@ -1,17 +1,15 @@
-const redux = require('redux');
-//const reducers = require('../reducers');
-import InitialData from '../reducers/reducer_initial_data';
 import ReduxPromise from 'redux-promise';
+const redux = require('redux');
+const reducers = require('../reducers');
 
 module.exports = function(initialState) {
-	const createStoreWithMiddleware = redux.applyMiddleware(ReduxPromise)(redux.createStore);
-
-    //const store = redux.createStore(InitialData, initialState)
-    const store = createStoreWithMiddleware(InitialData, initialState);
-    //createStoreWithMiddleware(reducers)
+ // const store = redux.createStore(reducers, initialState)
+  const createStoreWithMiddleware = redux.applyMiddleware(ReduxPromise)(redux.createStore);
+  const store = createStoreWithMiddleware(reducers, initialState);
 
   if (module.hot) {
-    // Enable Webpack hot module replacement for reducers
+    // Enable Web
+    //pack hot module replacement for reducers
     module.hot.accept('../reducers', () => {
       const nextReducer = require('../reducers')
       store.replaceReducer(nextReducer)
@@ -20,6 +18,3 @@ module.exports = function(initialState) {
 
   return store
 }
-
-
-

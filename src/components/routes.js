@@ -6,15 +6,15 @@ import CardList from './CardList'
 import Home from './Home' 
 import Layout from './Layout'
 import Main from './Main' 
+import NewHome from '../containers/Home' 
  
 export default class routes extends React.Component {
     
    render() {
      return (
-		  <Router history={hashHistory}>
-		    
+		  <Router history={hashHistory}>  
 		    <Route path="/" component={Layout} >
-		      <IndexRoute component={CardList} />
+		      <IndexRoute component={NewHome} />
 		      <Route path="home" component={Main} />    
 		    </Route>
 

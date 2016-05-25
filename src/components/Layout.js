@@ -12,6 +12,7 @@ import FontIcon from 'material-ui/FontIcon';
 import {red500, yellow500, blue500} from 'material-ui/styles/colors';
 import { Link } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import Tree from '../containers/Tree';
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -28,12 +29,34 @@ export default class Layout extends React.Component {
     this.state = {
     	open: false, 
     	headerClass : "col-md-12", 
-    	drawerClass : "col-md-0"
+    	drawerClass : "col-md-0",
+    	treeClass : "hidden",
        };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose = this.handleClose.bind(this); 
   }
 
+  componentWillMount() {
+    console.log("current",this.props.location.pathname);
+  
+
+    
+  }
+  componentWillReceiveProps(nextProps) {
+    const routeChanged = nextProps.location !== this.props.location;
+    
+    //this.setState({ showBackButton: routeChanged })
+    console.log("routechanged",routeChanged);
+    console.log("current",this.props.location);
+    console.log("next",nextProps.location);
+    
+
+    if(nextProps.location.pathname === "/")
+    	this.setState({treeClass: "hide"});
+    else
+       this.setState({treeClass: "show"});		
+    
+  }
 
   handleToggle(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
@@ -61,7 +84,8 @@ export default class Layout extends React.Component {
 	          width={220}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
-	          className={this.state.drawerClass}	          
+	          className={this.state.drawerClass}
+	          style={{"backgroundColor":"#21252B"}}	          
 	        >
 		       <AppBar 
 		         iconElementLeft= {<IconButton></IconButton>}
@@ -69,8 +93,11 @@ export default class Layout extends React.Component {
 		         onRightIconButtonTouchTap={()=>this.handleToggle}		         
 		       />
 
-	          <MenuItem onTouchTap={this.handleClose}>Menu Item</MenuItem>
-	          <MenuItem onTouchTap={this.handleClose}>Menu Item 2</MenuItem>
+	          <MenuItem>Menu Item</MenuItem>
+	          <MenuItem>Menu Item 2</MenuItem>
+	          <span className={this.state.treeClass}>
+                <Tree /> 
+              </span>
 	       </Drawer>
 	       
 	       <div className={this.state.headerClass} style={headerStyle}>
@@ -82,7 +109,8 @@ export default class Layout extends React.Component {
 		   
 		      
 		    <div className='container-fluid'>
-		       <h1>Dashboard</h1> 
+		       <h1>Dashboard</h1>
+
 		       <ul className="breadcrumb">
 					<li><FontIcon className="material-icons" style={iconStyles} color={red500}>home</FontIcon><Link to="/"><a href="#">Home</a></Link></li>
 					<li><a href="#">Applications Detail</a></li>

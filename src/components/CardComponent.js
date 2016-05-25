@@ -37,7 +37,7 @@ class CardComponent extends React.Component {
       <List>
           {
             this.props.data.value.map((value, index) => (            
-              <ListItem primaryText={value} />
+              <Link to={`/${this.props.data.type}/${value}`}><ListItem primaryText={value} /></Link>
               
             ))
            }      

@@ -8,12 +8,14 @@
  */
 import { combineReducers } from 'redux';
 import InitialData from './reducer_initial_data';
+import TreeData from './reducer_tree_data';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
 
 module.exports = combineReducers({
-	initialData: InitialData
+	initialData: InitialData,
+	treeData: TreeData
 });
 
 //const reducers = {addInitialAppData};

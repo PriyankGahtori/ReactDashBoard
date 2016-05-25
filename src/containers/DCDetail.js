@@ -1,24 +1,34 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchTreeData} from '../actions/index';
+import * as actionCreators  from '../actions/index';
+import RaisedButton from 'material-ui/RaisedButton';
 
- class DCDetail extends React.Component {
+class DCDetail extends React.Component {
 
   constructor(props) {
     super(props);
     console.log("in DCDetail.js--",this.props)
+    console.log(this.props.routeParams.something)
+    this.updateNode = this.updateNode.bind(this);
   }
 
+  updateNode(e){
+    e.preventDefault()
+    this.props.updateTreeNode(this.props.routeParams.something);
+  }
+   
   componentWillMount() {
-  this.props.loadInitTreeData()
-}
-
+  this.props.fetchTreeData(this.props.routeParams.something)
+  }
 
 
   render() {
     return (
-      <div>DCDetail.....</div>
+      <div>DCDetail.....
+        <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
+      </div>
+
     );
   }
 }
@@ -26,7 +36,9 @@ import {fetchTreeData} from '../actions/index';
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  return actionMap;
+  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
+  //return actionMap;
+return bindActionCreators(actionCreators, dispatch);
+  
 }
 export default connect(null,mapDispatchToProps)(DCDetail);

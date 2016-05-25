@@ -34,3 +34,17 @@ export function fetchTreeData() {
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
+
+export function updateTreeNode(data) {
+   
+  console.log("Heloo... from update node.... ");
+
+  
+
+  
+
+  return {
+    type: 'UPDATE_TREE_DATA',
+    payload:data    
+  };
+}

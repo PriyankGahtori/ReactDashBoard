@@ -22,9 +22,11 @@ export function fetchInitData() {
 }
 
 
-export function fetchTreeData() {
+export function fetchTreeData(value) {
   
-  const request_tree = axios.get(ROOT_URL_TREE);
+  const URL =  `../${value}.json`;
+  console.log("on action---",URL)
+  const request_tree = axios.get(URL);
 
   console.log("Action ajax.................",request_tree);
 
@@ -40,9 +42,6 @@ export function updateTreeNode(data) {
   console.log("Heloo... from update node.... ");
 
   
-
-  
-
   return {
     type: 'UPDATE_TREE_DATA',
     payload:data    

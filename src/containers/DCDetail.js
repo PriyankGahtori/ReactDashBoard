@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
 class DCDetail extends React.Component {
 
   constructor(props) {
@@ -27,6 +28,7 @@ class DCDetail extends React.Component {
     return (
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
+      
       </div>
 
     );

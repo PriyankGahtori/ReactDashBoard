@@ -5,27 +5,23 @@ import App from './Main'
 import CardList from './CardList'
 
 import Layout from './Layout'
-import Main from './Main' 
-import NewHome from '../containers/Home' 
+import Main from './Main'
+import NewHome from '../containers/Home'
 import DCDetail from '../containers/DCDetail'
- 
+import ApplicationDetail from './ApplicationDetail'
+
 export default class routes extends React.Component {
-    
+
    render() {
      return (
-		  <Router history={hashHistory}>  
+		  <Router history={hashHistory}>
 		    <Route path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
-		      <Route path="home" component={Main} />
-		      <Route path="Application/:something" component={DCDetail} />        
+		      <Route path="home" component={ApplicationDetail} />
+		      <Route path="Application/:something" component={DCDetail} />
 		    </Route>
 
-		  </Router>       
+		  </Router>
      );
    }
  }
- 
- 
- 
-  
-

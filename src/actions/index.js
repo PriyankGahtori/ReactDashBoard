@@ -9,7 +9,7 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 
 
 export function fetchInitData() {
-  
+
   const request = axios.get(ROOT_URL);
 
   console.log("Action ajax.................",request);
@@ -23,7 +23,7 @@ export function fetchInitData() {
 
 
 export function fetchTreeData(value) {
-  
+
   const URL =  `../${value}.json`;
   console.log("on action---",URL)
   const request_tree = axios.get(URL);
@@ -37,13 +37,26 @@ export function fetchTreeData(value) {
   };
 }
 
+export function fetchTableData(value){
+
+  const URLTable =  `../${value}Table.json`;
+
+
+  const request_table = axios.get(URLTable);
+
+  return {
+    type: 'FETCH_DCDETAIL_DATA',
+    payload: request_table
+  };
+}
+
 export function updateTreeNode(data) {
-   
+
   console.log("Heloo... from update node.... ");
 
-  
+
   return {
     type: 'UPDATE_TREE_DATA',
-    payload:data    
+    payload:data
   };
 }

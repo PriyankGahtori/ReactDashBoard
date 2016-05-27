@@ -11,6 +11,7 @@ class DCDetail extends React.Component {
     super(props);
     console.log("in DCDetail.js--",this.props)
     console.log(this.props.routeParams.something)
+    this.state ={dcDetail:[{"init":1}]}
     this.updateNode = this.updateNode.bind(this);
   }
 
@@ -18,9 +19,15 @@ class DCDetail extends React.Component {
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
-   
+
   componentWillMount() {
-  this.props.fetchTreeData(this.props.routeParams.something)
+    this.props.fetchTreeData(this.props.routeParams.something)
+    this.props.fetchTableData(this.props.routeParams.something)
+  }
+  componentWillReceiveProps(nextProps)
+  {
+  	if(this.props.dcDetail != nextProps.dcDetail)
+  		this.setState({dcDetail:nextProps.dcDetail});
   }
 
 
@@ -28,19 +35,27 @@ class DCDetail extends React.Component {
     return (
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-      
+        <pre>
+          {JSON.stringify(this.state.dcDetail, null, 4)}
+        </pre>
+
       </div>
 
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    dcDetail :state.dcDetail
+   };
+}
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
   //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
-  
+
 }
-export default connect(null,mapDispatchToProps)(DCDetail);
+export default connect(mapStateToProps,mapDispatchToProps)(DCDetail);

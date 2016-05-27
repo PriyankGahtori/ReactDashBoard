@@ -9,13 +9,15 @@
 import { combineReducers } from 'redux';
 import InitialData from './reducer_initial_data';
 import TreeData from './reducer_tree_data';
+import DCDetailData from './reducer_DCDetailTable';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
 
 module.exports = combineReducers({
 	initialData: InitialData,
-	treeData: TreeData
+	treeData: TreeData,
+	dcDetail: DCDetailData
 });
 
 //const reducers = {addInitialAppData};
@@ -23,7 +25,7 @@ module.exports = combineReducers({
 /*function addInitialAppData(state,action){
 	switch (action.type) {
     case INITIALIZE_APP:
-      
+
     default:
       return state
   }

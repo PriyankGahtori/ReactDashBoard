@@ -71,6 +71,7 @@
     "material-ui": "^0.15.0",
     "normalize.css": "^4.0.0",
     "react": "^15.0.0",
+    "react-bootstrap-table": "^2.3.2",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.5",
     "react-router": "^2.4.0",

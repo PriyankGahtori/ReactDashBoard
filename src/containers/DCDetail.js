@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
+import DataGrid from '../components/DCDetailTable';
 
 
 class DCDetail extends React.Component {
@@ -16,6 +17,7 @@ class DCDetail extends React.Component {
   }
 
   updateNode(e){
+    console.log("table ref ",this.refs.table.refs.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
@@ -24,6 +26,7 @@ class DCDetail extends React.Component {
     this.props.fetchTreeData(this.props.routeParams.something)
     this.props.fetchTableData(this.props.routeParams.something)
   }
+
   componentWillReceiveProps(nextProps)
   {
   	if(this.props.dcDetail != nextProps.dcDetail)
@@ -35,9 +38,7 @@ class DCDetail extends React.Component {
     return (
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <pre>
-          {JSON.stringify(this.state.dcDetail, null, 4)}
-        </pre>
+        <DataGrid data = {this.props.dcDetail}/>
 
       </div>
 

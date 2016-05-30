@@ -5,6 +5,16 @@ import * as actionCreators  from '../actions/index';
 import RaisedButton from 'material-ui/RaisedButton';
 import DataGrid from '../components/DCDetailTable';
 
+/*var columns = ['ID',
+               'DCName',
+               'DCIP',
+               'DCPort',
+              'NDEIP'];
+              */
+  var columns = {
+                "key" : "DCName",
+                "data":['ID', 'DCName', 'DCIP', 'DCPort', 'NDEIP']
+              };          
 
 class DCDetail extends React.Component {
 
@@ -17,9 +27,10 @@ class DCDetail extends React.Component {
   }
 
   updateNode(e){
-    console.log("table ref ",this.refs.table.refs.state.selectedRowKeys);
+    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
+    //this.props.addRowTable();
   }
 
   componentWillMount() {
@@ -38,7 +49,7 @@ class DCDetail extends React.Component {
     return (
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <DataGrid data = {this.props.dcDetail}/>
+        <DataGrid data = {this.props.dcDetail} ref="table" column = {columns} />
 
       </div>
 
@@ -57,6 +68,5 @@ function mapDispatchToProps(dispatch) {
   //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
-
 }
 export default connect(mapStateToProps,mapDispatchToProps)(DCDetail);

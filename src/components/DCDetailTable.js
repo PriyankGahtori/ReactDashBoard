@@ -21,7 +21,7 @@ class DataGridComponent extends React.Component {
 
     return (
       <BootstrapTable
-      data = {this.props.data}
+        data = {this.props.data}
         striped={true}
         hover={true}
         condensed={true}
@@ -29,11 +29,11 @@ class DataGridComponent extends React.Component {
         selectRow={selectRowProp}
         ref="dcDetailTable"
       >
-        <TableHeaderColumn dataField="id"  dataAlign="right" dataSort={true}>ID</TableHeaderColumn>
-        <TableHeaderColumn dataField="DCName" isKey={true} dataSort={true}>DCName</TableHeaderColumn>
-        <TableHeaderColumn dataField="DCIP"  >DCIP</TableHeaderColumn>
-        <TableHeaderColumn dataField="DCPort"  >DCPort</TableHeaderColumn>
-        <TableHeaderColumn dataField="NDEIP"  >NDEIP</TableHeaderColumn>
+
+      {this.props.column.data.map((val, index) => (            
+  
+        <TableHeaderColumn dataField={val} isKey={val === this.props.column.key ? true :false}>{val}</TableHeaderColumn>
+        ))}     
 
       </BootstrapTable>
     );

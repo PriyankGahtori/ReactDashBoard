@@ -24,6 +24,7 @@ class DCDetail extends React.Component {
     console.log(this.props.routeParams.something)
     this.state ={dcDetail:[{"init":1}]}
     this.updateNode = this.updateNode.bind(this);
+     this.delRow = this.delRow.bind(this);
   }
 
   updateNode(e){
@@ -31,6 +32,12 @@ class DCDetail extends React.Component {
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
     this.props.addRowTable(this.props.routeParams.something);
+  }
+
+  delRow(){
+    console.log("del row function called")
+    console.log("calling del method---table ref--",this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
+    this.props.delRowTable(this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
   }
 
   componentWillMount() {
@@ -49,6 +56,7 @@ class DCDetail extends React.Component {
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <DataGrid data = {this.props.dcDetail} pagination={false} ref="table" column = {columns} />
+        <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
     );
   }

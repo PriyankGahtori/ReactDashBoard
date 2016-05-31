@@ -63,6 +63,15 @@ export function addRowTable(value){
   };
 }
 
+export function delRowTable(key){
+  console.log("key---",key)
+
+  return{
+    type:'DEL_ROW_TABLE',
+    payload:key
+  }
+}
+
 export function updateTreeNode(data) {
 
   console.log("Heloo... from update node.... ");

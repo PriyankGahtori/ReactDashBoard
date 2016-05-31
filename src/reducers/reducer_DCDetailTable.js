@@ -18,6 +18,16 @@ export default function(state = [], action) {
     console.log("newState---",newState)
     return newState;
 
+  case 'DEL_ROW_TABLE':
+    console.log("inside DEL_ROW_TABLE---case")
+    var newState = Object.assign([], state);
+    console.log("line no 23---",action)
+    console.log("line no 24--newState---",newState)
+    console.log("line no 25--action.payload.data--",action.payload.data)
+    newState = newState.filter(function(val){ return val.DCName != action.payload})
+    console.log("newState----",newState)
+    return newState;   
+
 
   default :
     return state;

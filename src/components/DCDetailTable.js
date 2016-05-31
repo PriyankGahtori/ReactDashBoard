@@ -19,7 +19,7 @@ class DataGridComponent extends React.Component {
         clickToSelect: true,   //click row will trigger a selection on that row.
         bgColor: "rgb(238, 193, 213)"   //selected row background color
     };
-    
+
     const {data, column, striped, hover, condensed, pagination, selectRow} = this.props;
     return (
       <BootstrapTable

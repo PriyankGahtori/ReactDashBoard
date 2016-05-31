@@ -22,6 +22,7 @@ export function fetchInitData() {
 }
 
 
+
 export function fetchTreeData(value) {
 
   const URL =  `../${value}.json`;
@@ -47,6 +48,18 @@ export function fetchTableData(value){
   return {
     type: 'FETCH_DCDETAIL_DATA',
     payload: request_table
+  };
+}
+
+export function addRowTable(value){
+
+  const URLTable =  `../${value}Table.json`;
+  const add_Row_table = axios.get(URLTable);
+  console.log("add_Row_table----",add_Row_table)
+
+  return {
+    type: 'ADD_ROW_TABLE',
+    payload: add_Row_table
   };
 }
 

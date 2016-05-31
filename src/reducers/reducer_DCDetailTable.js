@@ -10,6 +10,13 @@ export default function(state = [], action) {
     return newState
     //return [{"id":1,"name":"priyank"},{"id":2,"name":"Gahtori"}]
 
+  case 'ADD_ROW_TABLE':
+    console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload.data);
+    var newState = Object.assign([], state);
+    console.log("newState- line no 16-",newState)
+    newState.push({"id":0,"index":1,"DCName":"New","DCIP":"30.20.88.11","DCPort":"jon@gmail.com","NDEIP":"10.10.40.11"});
+    console.log("newState---",newState)
+    return newState;
 
 
   default :

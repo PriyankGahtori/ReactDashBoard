@@ -30,7 +30,7 @@ class DCDetail extends React.Component {
     console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
-    //this.props.addRowTable();
+    this.props.addRowTable();
   }
 
   componentWillMount() {
@@ -49,7 +49,7 @@ class DCDetail extends React.Component {
     return (
       <div>DCDetail.....
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <DataGrid data = {this.props.dcDetail} ref="table" column = {columns} />
+        <DataGrid data = {this.props.dcDetail} pagination={false} ref="table" column = {columns} />
 
       </div>
 

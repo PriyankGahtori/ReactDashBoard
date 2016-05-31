@@ -2,19 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
+import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import DataGrid from '../components/DCDetailTable';
 
-/*var columns = ['ID',
-               'DCName',
-               'DCIP',
-               'DCPort',
-              'NDEIP'];
-              */
-  var columns = {
+var columns = {
                 "key" : "DCName",
                 "data":['ID', 'DCName', 'DCIP', 'DCPort', 'NDEIP']
               };          
+
+const style = {
+  height: 300,
+  width: 1280,
+  margin: 20,
+  textAlign: 'center',
+  display: 'inline-block',
+};
+
 
 class DCDetail extends React.Component {
 
@@ -53,17 +57,20 @@ class DCDetail extends React.Component {
 
   render() {
     return (
-      <div>DCDetail.....
+      <div className="row">
+      <Paper style={style} zDepth={2} >
+      
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <DataGrid data = {this.props.dcDetail} pagination={false} ref="table" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
+      
+      </Paper>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log("state.dcDetail----",state.dcDetail)
   return {
     dcDetail :state.dcDetail
    };

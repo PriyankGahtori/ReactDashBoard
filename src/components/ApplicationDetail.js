@@ -3,6 +3,7 @@ import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DialogNewApplication from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import FormNewApp from '../containers/Form_ApplicationDetail_NewApp.js';
 
 const NewButtonstyle = {
     margin: 0,
@@ -57,8 +58,10 @@ class ApplicationDetail extends React.Component {
           modal={false}
           open={this.state.openNewAppDialog}
           onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}
         >
           The actions in this window were passed in as an array of React objects.
+          <FormNewApp/>
         </DialogNewApplication>
 
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen}>

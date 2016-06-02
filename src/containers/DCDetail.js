@@ -12,9 +12,8 @@ var columns = {
               };          
 
 const style = {
-  height: 300,
-  width: 1280,
-  margin: 20,
+  
+  //margin: 20,
   textAlign: 'center',
   display: 'inline-block',
 };

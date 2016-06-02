@@ -8,14 +8,10 @@ export default function(state = [], action) {
   	newState=action.payload.data;
     return newState
 
-  //case 'FETCH_DCDETAIL_DATA':
-		//var newState = Object.assign({}, state);
-		///newState=action.treeData.data;
-		//return newState
-		//return [{"name":"dcDetail","toggled":true,"children":[]}];
-
+  
   case 'UPDATE_TREE_DATA':
 	  var newState = Object.assign([], state);
+    console.log("newState--",newState)
     newState[0].children.push({"name":"new Child","children":[]});
     console.log("bmmm State", state);
     return newState

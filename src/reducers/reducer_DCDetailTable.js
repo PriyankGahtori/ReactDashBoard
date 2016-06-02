@@ -23,11 +23,11 @@ export default function(state = [], action) {
     var newState = Object.assign([], state);
     console.log("line no 23---",action)
     console.log("line no 24--newState---",newState)
-    console.log("line no 25--action.payload.data--",action.payload.data)
-    newState = newState.filter(function(val){ return val.DCName != action.payload})
-    console.log("newState----",newState)
+    console.log("line no 25--action.payload--",action.payload.length)
+    newState = newState.filter(function(val){
+       return action.payload.indexOf(val['DCName']) == -1; //value sto be deleteed should return false
+     })
     return newState;   
-
 
   default :
     return state;

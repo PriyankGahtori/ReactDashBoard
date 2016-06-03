@@ -80,5 +80,13 @@ export function updateTreeNode(data) {
   return {
     type: 'UPDATE_TREE_DATA',
     payload:data
-  };
+  }
+}
+
+export function toggleStateDialogNewDC(){
+  console.log("action triggered---for new add dc")
+  return {
+    type:'TOGGLE_STATE_ADD_NEW_DC'
+
+  }
 }

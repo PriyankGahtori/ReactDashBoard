@@ -4,7 +4,11 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import AddNewButton from 'material-ui/FloatingActionButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
+import DialogNewDC from './Dialog_DCDetail_NewDC';
+
 
 var columns = {
                 "key" : "DCName",
@@ -17,6 +21,16 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
 };
+const NewButtonstyle = {
+    margin: 0,
+    top: 'auto',
+    right: 20,
+    bottom: 30,
+    left: 'auto',
+    position: 'fixed',
+
+};
+
 
 
 class DCDetail extends React.Component {
@@ -28,6 +42,8 @@ class DCDetail extends React.Component {
     this.state ={dcDetail:[{"init":1}]}
     this.updateNode = this.updateNode.bind(this);
      this.delRow = this.delRow.bind(this);
+      this.state ={openNewAppDialog:false}
+  this.handleOpen = this.handleOpen.bind(this);
   }
 
   updateNode(e){
@@ -43,6 +59,10 @@ class DCDetail extends React.Component {
     this.props.delRowTable(this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
   }
 
+  handleOpen(){
+        this.props.toggleStateDialogNewDC();
+  }
+
   componentWillMount() {
     this.props.fetchTreeData(this.props.routeParams.something)
     this.props.fetchTableData(this.props.routeParams.something)
@@ -56,22 +76,35 @@ class DCDetail extends React.Component {
 
   render() {
     return (
+    <div>
       <div className="row">
       <Paper style={style} zDepth={2} >
       
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <DataGrid data = {this.props.dcDetail} pagination={false} ref="table" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
-      
       </Paper>
       </div>
+
+
+      <div>
+         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen} >
+            <AddIcon />
+         </AddNewButton>
+         <DialogNewDC />
+      </div>
+
+
+   </div>
+
     );
   }
 }
 
 function mapStateToProps(state) {
+  console.log("state.dcDetail.tableData---",state.dcDetail.tableData)
   return {
-    dcDetail :state.dcDetail
+    dcDetail :state.dcDetail.tableData
    };
 }
 

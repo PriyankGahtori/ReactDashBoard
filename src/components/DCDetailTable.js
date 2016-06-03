@@ -1,17 +1,14 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
-
-var tabledata = [{"id":0,"index":1,"DCName":"John","DCIP":"London","DCPort":"jon@gmail.com","NDEIP":"10.10.40.11"}];
-
 class DataGridComponent extends React.Component {
 
-
   constructor(props) {
-    super(props);
+  super(props);
+ 
   }
-
-
+  
+  
 
   render() {
     var selectRowProp = {
@@ -21,7 +18,10 @@ class DataGridComponent extends React.Component {
     };
 
     const {data, column, striped, hover, condensed, pagination, selectRow} = this.props;
+
+   
     return (
+    <div>
       <BootstrapTable
         data = {data}
         striped={striped}
@@ -38,6 +38,8 @@ class DataGridComponent extends React.Component {
         ))}     
 
       </BootstrapTable>
+      
+        </div>
     );
   }
 }

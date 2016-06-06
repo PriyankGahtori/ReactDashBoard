@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
+import Is from 'is_js';
 export const fields = [ 'dcName', 'dcIP', 'dcPort','ndeIP','ndePort' ]
 
 const validate = values => {
@@ -10,34 +11,44 @@ const validate = values => {
     errors.dcName = 'Required'
   } else if (values.dcName.length > 15) {
     errors.dcName = 'Must be 15 characters or less'
+  }else if (!Is.alphaNumeric(values.dcName)) {
+    errors.dcName = 'Invalid DC Name'
   }
   if (!values.dcIP) {
     errors.dcIP = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.dcIP)) {
-    errors.dcIP = 'Invalid email address'
+  } else if (!Is.ip(values.dcIP)) {
+    errors.dcIP = 'Invalid IP address'
   }
   if (!values.dcPort) {
     errors.dcPort = 'Required'
   } else if (isNaN(Number(values.dcPort))) {
     errors.dcPort = 'Must be a number'
-  } else if (Number(values.dcPort) < 18) {
-    errors.dcPort = 'Sorry, you must be at least 18 years old'
+  } else if (values.dcPort.length > 4) {
+    errors.dcPort = 'Must be 4 digits'
   }
   if (!values.ndeIP) {
     errors.ndeIP = 'Required'
-  } else if (values.ndeIP.length > 15) {
-    errors.ndeIP = 'Must be 15 characters or less'
+  } else if (!Is.ip(values.ndeIP)) {
+    errors.ndeIP = 'Invalid IP address'
   }
   if (!values.ndePort) {
     errors.ndePort = 'Required'
-  } else if (values.ndePort.length > 15) {
-    errors.ndePort = 'Must be 15 characters or less'
+  } else if (isNaN(Number(values.ndePort))){
+    errors.ndePort = 'Must be a number'
+  } else if (values.ndePort.length > 4) {
+    errors.ndePort = 'Must be 4 digits'
   }
-
 
   return errors
 }
 class NewApplication extends React.Component {
+
+  constructor(props) {
+    super(props);
+    console.log("in form dc detail--",this.props)
+  }
+
+
   render() {
       console.log("props",this.props);
 
@@ -97,14 +108,7 @@ class NewApplication extends React.Component {
              </div>
 
             </div>
-             <div>
-               <button type="submit" disabled={submitting}>
-                 {submitting ? <i/> : <i/>} Submit
-               </button>
-               <button type="button" disabled={submitting} onClick={resetForm}>
-                 Clear Values
-               </button>
-             </div>
+            
 
        </form>
      );

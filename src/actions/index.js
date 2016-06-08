@@ -46,20 +46,18 @@ export function fetchTableData(value){
   const request_table = axios.get(URLTable);
 
   return {
-    type: 'FETCH_DCDETAIL_DATA',
+    type: 'FETCH_TABLE_DATA',
     payload: request_table
   };
 }
 
-export function addRowTable(value){
+export function addRowTable(formData){
 
-  const URLTable =  `../${value}Table.json`;
-  const add_Row_table = axios.get(URLTable);
-  console.log("add_Row_table----",add_Row_table)
+  console.log("add_Row_table--action called--",formData)
 
   return {
     type: 'ADD_ROW_TABLE',
-    payload: add_Row_table
+    payload: formData
   };
 }
 
@@ -87,6 +85,15 @@ export function toggleStateDialogNewDC(){
   console.log("action triggered---for new add dc")
   return {
     type:'TOGGLE_STATE_ADD_NEW_DC'
+
+  }
+}
+
+
+export function toggleStateDialogNewApp(){
+  console.log("action triggered---for new add app")
+  return {
+    type:'TOGGLE_STATE_NEW_APP'
 
   }
 }

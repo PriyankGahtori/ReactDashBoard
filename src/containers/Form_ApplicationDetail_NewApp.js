@@ -1,56 +1,50 @@
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
-export const fields = [ 'dcName', 'dcIP', 'dcPort','ndeIP','ndePort' ]
+import Is from 'is_js';
+export const fields = [ 'Name','Date', 'User' ]
 
 const validate = values => {
   const errors = {}
  
-  if (!values.dcName) {
-    errors.dcName = 'Required'
-  } else if (values.dcName.length > 15) {
-    errors.dcName = 'Must be 15 characters or less'
+  if (!values.Name) {
+    errors.Name = 'Required'
+  } else if (values.Name.length > 15) {
+    errors.Name = 'Must be 15 characters or less'
+  } else if (!Is.alphaNumeric(values.Name)) {
+    errors.Name = 'Invalid Application Name'
   }
-  if (!values.dcIP) {
-    errors.dcIP = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.dcIP)) {
-    errors.dcIP = 'Invalid email address'
+
+  if (!values.Date) {
+    errors.Date = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(Date)) {
+    errors.Date = 'Invalid email address'
   }
-  if (!values.dcPort) {
-    errors.dcPort = 'Required'
+
+  if (!values.User) {
+    errors.User = 'Required'
   } else if (isNaN(Number(values.dcPort))) {
     errors.dcPort = 'Must be a number'
-  } else if (Number(values.dcPort) < 18) {
-    errors.dcPort = 'Sorry, you must be at least 18 years old'
+  } else if (!Is.alphaNumeric(values.User)) {
+    errors.Name = 'Invalid User'
   }
-  if (!values.ndeIP) {
-    errors.ndeIP = 'Required'
-  } else if (values.ndeIP.length > 15) {
-    errors.ndeIP = 'Must be 15 characters or less'
-  }
-  if (!values.ndePort) {
-    errors.ndePort = 'Required'
-  } else if (values.ndePort.length > 15) {
-    errors.ndePort = 'Must be 15 characters or less'
-  }
-
-
+  
   return errors
 }
 class NewApplication extends React.Component {
   render() {
       console.log("props",this.props);
 
-     const { fields: { u2,dcName, dcIP, dcPort,ndeIP, ndePort}, resetForm, handleSubmit, submitting } = this.props
+     const { fields: { Name, Date, User}, resetForm, handleSubmit, submitting } = this.props
      return (
        <form onSubmit={handleSubmit(data =>{ alert(JSON.stringify(data))})}>
             <div className ="row" >
               <div className ="col-md-6">
                 <TextField
                   hintText="Hint Text"
-                  floatingLabelText="DCName"
-                  {...dcName}
-                  errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
+                  floatingLabelText="Name"
+                  {...Name}
+                  errorText={Name.touched && Name.error && <div>{Name.error}</div>}
                 />
              </div>
 
@@ -58,9 +52,9 @@ class NewApplication extends React.Component {
              <div className="col-md-6">
                <TextField
                   hintText="Hint Text"
-                  floatingLabelText="DCIP"
-                  {...dcIP}
-                  errorText={dcIP.touched && dcIP.error && <div>{dcIP.error}</div>}
+                  floatingLabelText="Date"
+                  {...Date}
+                  errorText={Date.touched && Date.error && <div>{Date.error}</div>}
                 />
              </div>
         </div>
@@ -69,43 +63,12 @@ class NewApplication extends React.Component {
               <div className ="col-md-6">
               <TextField
                   hintText="Hint Text"
-                  floatingLabelText="DCPort"
-                  {...dcPort}
-                  errorText={dcPort.touched && dcPort.error && <div>{dcPort.error}</div>}
+                  floatingLabelText="User"
+                  {...User}
+                  errorText={User.touched && User.error && <div>{User.error}</div>}
                 />
              </div>
             </div>
-
-            <div className="row">
-              <div className ="col-md-6">
-              <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="NDEIP"
-                  {...ndeIP}
-                  errorText={ndeIP.touched && ndeIP.error && <div>{ndeIP.error}</div>}
-                />
-             </div>
-
-
-             <div className="col-md-6">
-              <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="NDEPort"
-                  {...ndePort}
-                  errorText={ndePort.touched && ndePort.error && <div>{ndePort.error}</div>}
-                />
-             </div>
-
-            </div>
-             <div>
-               <button type="submit" disabled={submitting}>
-                 {submitting ? <i/> : <i/>} Submit
-               </button>
-               <button type="button" disabled={submitting} onClick={resetForm}>
-                 Clear Values
-               </button>
-             </div>
-
        </form>
      );
    }

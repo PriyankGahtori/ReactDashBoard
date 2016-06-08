@@ -8,7 +8,7 @@ import Layout from './Layout'
 import Main from './Main'
 import NewHome from '../containers/Home'
 import DCDetail from '../containers/DCDetail'
-import ApplicationDetail from './ApplicationDetail'
+import ApplicationDetail from '../containers/ApplicationDetail'
 
 export default class routes extends React.Component {
 

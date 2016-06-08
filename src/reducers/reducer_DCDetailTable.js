@@ -3,9 +3,11 @@ const initialState = {tableData:[], dialogNewDC:false};
 export default function(state = initialState, action) {
 
 	console.log("inside init reducer for tree", action.type);
+
+  console.log("reducerdcdetail called----")
   switch(action.type) {
 
-  case 'FETCH_DCDETAIL_DATA':
+  case 'FETCH_TABLE_DATA':
 	  console.log("inside  FETCH_DCDETAIL_DATA", action);
     var newState = Object.assign({}, state);
     newState.tableData=action.payload.data;
@@ -13,10 +15,11 @@ export default function(state = initialState, action) {
     //return [{"id":1,"name":"priyank"},{"id":2,"name":"Gahtori"}]
 
   case 'ADD_ROW_TABLE':
-    console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload.data);
+    console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload);
+    console.log("add row table-state--",state);
     var newState = Object.assign({}, state);
     console.log("newState- line no 16-",newState)
-    newState.tableData.push({"id":0,"index":1,"DCName":"New","DCIP":"30.20.88.11","DCPort":"jon@gmail.com","NDEIP":"10.10.40.11"});
+    newState.tableData.push(JSON.parse(action.payload));
     console.log("newState---",newState)
     return newState;
 

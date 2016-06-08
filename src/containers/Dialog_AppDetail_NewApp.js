@@ -1,14 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Component, PropTypes } from 'react';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
-import DialogNewDC from 'material-ui/Dialog';
+import DialogNewApp from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import FormNewDC from './Form_DCDetail_NewDC.js';
+import FormNewApp from './Form_ApplicationDetail_NewApp.js';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
-import { reset } from 'redux-form'
 
 
 
@@ -16,31 +14,28 @@ class Dialog_DCDetail_NewDC extends React.Component {
  
   constructor(props) {
   super(props);
-  console.log("onsubmit props", this.props.onSubmit)
-  this.state = {openNewDCDialog:this.props.openNewDCDialog};
+  console.log("loading......", this.props)
+  this.state = {openNewAppDialog:this.props.openNewAppDialog};
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps)
   {
-    if(this.props.openNewDCDialog != nextProps.openNewDCDialog)
-      this.setState({openNewDCDialog:nextProps.openNewDCDialog});
+    if(this.props.openNewAppDialog != nextProps.openNewAppDialog)
+      this.setState({openNewAppDialog:nextProps.openNewAppDialog});
   }
 
   handleCancel(){
-     this.props.toggleStateDialogNewDC();
+     this.props.toggleStateDialogNewApp();
   }
   
   handleSubmit(){
-  console.log("submit button called---")
-  this.refs.newDCForm.submit();
-  console.log("handlesubmit next console")
+   this.refs.newDCForm.submit();
   }
- 
-  render() {
-    const { onSubmit } = this.props
-  	const actions = [
+
+    render() {
+    const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
@@ -56,31 +51,31 @@ class Dialog_DCDetail_NewDC extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleSubmit}
+        onTouchTap={this.handleSubmit}
       />
     ];
     return (
       <div>
-      <DialogNewDC
-          title="New Data Center Configuration"
+      <DialogNewApp
+          title="New Application Configuration"
           actions={actions}
           modal={false}
-          open={this.state.openNewDCDialog}
+          open={this.state.openNewAppDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
-      <FormNewDC ref="newDCForm" onSubmit={data =>{this.props.addRowTable(JSON.stringify(data))}}/>
-      </DialogNewDC>
+          <FormNewApp ref="newAppForm" onSubmit={data =>{alert(JSON.stringify(data))}}/>
+      </DialogNewApp>
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log("dialogNewDC---",state.dcDetail.dialogNewDC)
+  console.log("dialogNewDC---",state.applicationdata.dialogNewpp)
   return {
-   openNewDCDialog :state.dcDetail.dialogNewDC
+   openNewAppDialog :state.applicationdata.dialogNewApp
    };
 }
 
@@ -90,4 +85,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Dialog_DCDetail_NewDC);
+export default connect(mapStateToProps,mapDispatchToProps)(Dialog_DCDetail_NewDC);

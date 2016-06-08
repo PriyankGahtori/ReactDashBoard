@@ -8,13 +8,22 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewDC from './Dialog_DCDetail_NewDC';
+import DialogNewApplication from './Dialog_AppDetail_NewApp';
 
 
 var columns = {
-                "key" : "DCName",
-                "data":['ID', 'DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort']
+                "key" : "Name",
+                "data":['Name', 'Date','User']
               };          
+var data =[{"Name":"nsecom",
+            "Date" : "07/06/2016",
+            "User" : "netstorm"
+          },
+          {"Name":"kohls",
+            "Date" : "07/04/2016",
+            "User" : "root"
+          }]
+
 
 const style = {
   
@@ -34,7 +43,7 @@ const NewButtonstyle = {
 
 
 
-class DCDetail extends React.Component {
+class ApplicationDetail extends React.Component {
 
   constructor(props) {
     super(props);
@@ -42,7 +51,7 @@ class DCDetail extends React.Component {
     console.log(this.props.routeParams.something)
     this.updateNode = this.updateNode.bind(this);
      this.delRow = this.delRow.bind(this);
-      this.state ={openNewAppDialog:false}
+  this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
   }
 
@@ -59,20 +68,20 @@ class DCDetail extends React.Component {
   }
 
   handleOpen(){
-        this.props.toggleStateDialogNewDC();
+        this.props.toggleStateDialogNewApp();
   }
 
   componentWillMount() {
-    this.props.fetchTreeData(this.props.routeParams.something)
-    this.props.fetchTableData(this.props.routeParams.something)
+    this.props.fetchTreeData("ApplicationDetail")
+    this.props.fetchTableData("ApplicationDetail")
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.dcDetail)
-     console.log("in componentWillReceiveProps--",this.props.dcDetail)
-  	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
-  		this.setState({dcDetail:nextProps.dcDetail.tableData});
+    console.log("in componentWillReceiveProps--",nextProps.appDetail)
+     console.log("in componentWillReceiveProps--",this.props.appDetail)
+    if(this.props.appDetail.tableData != nextProps.appDetail.tableData)
+      this.setState({appDetail:nextProps.appDetail.tableData});
   }
 
   render() {
@@ -81,7 +90,7 @@ class DCDetail extends React.Component {
       <div className="row">
       
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <DataGrid data = {this.props.dcDetail.tableData} pagination={false} ref="table" column = {columns} />
+        <DataGrid data = {this.props.appDetail.tableData} pagination={false} ref="table" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
 
@@ -90,7 +99,7 @@ class DCDetail extends React.Component {
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen} >
             <AddIcon />
          </AddNewButton>
-         <DialogNewDC />
+         <DialogNewApplication />
       </div>
 
 
@@ -101,9 +110,9 @@ class DCDetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("state.dcDetail.tableData---",state.dcDetail.tableData)
+  console.log("appDetail---",state.dcDetail.tableData)
   return {
-    dcDetail :state.dcDetail
+    appDetail :state.dcDetail
    };
 }
 
@@ -113,4 +122,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DCDetail);
+export default connect(mapStateToProps,mapDispatchToProps)(ApplicationDetail);

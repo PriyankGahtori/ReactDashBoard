@@ -10,7 +10,7 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 
 export function fetchInitData() {
 
-  const request = axios.get(ROOT_URL);
+  const request = axios.get("/configUI/home");
 
   console.log("Action ajax.................",request);
 
@@ -40,8 +40,8 @@ export function fetchTreeData(value) {
 
 export function fetchTableData(value){
 
-  const URLTable =  `../${value}Table.json`;
-
+  //const URLTable =  `../${value}Table.json`;
+  const URLTable =  "/configUI/dcdetail";
 
   const request_table = axios.get(URLTable);
 
@@ -54,7 +54,8 @@ export function fetchTableData(value){
 export function addRowTable(formData){
 
   console.log("add_Row_table--action called--",formData)
-
+    axios.post("/configUI/dcdetail",formData);
+    
   return {
     type: 'ADD_ROW_TABLE',
     payload: formData

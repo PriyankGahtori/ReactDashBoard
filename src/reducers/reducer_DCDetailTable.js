@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
   case 'FETCH_TABLE_DATA':
 	  console.log("inside  FETCH_DCDETAIL_DATA", action);
     var newState = Object.assign({}, state);
-    newState.tableData=action.payload.data;
+    newState.tableData=action.payload.data._embedded.dcdetail;
     return newState
     //return [{"id":1,"name":"priyank"},{"id":2,"name":"Gahtori"}]
 

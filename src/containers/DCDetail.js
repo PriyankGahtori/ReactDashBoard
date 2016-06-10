@@ -12,8 +12,9 @@ import DialogNewDC from './Dialog_DCDetail_NewDC';
 
 
 var columns = {
-                "key" : "DCName",
-                "data":['ID', 'DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort']
+                "key" : "dcName",
+                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort'],
+                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort']
               };          
 
 const style = {

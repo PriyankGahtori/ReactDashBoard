@@ -30,11 +30,12 @@ class DataGridComponent extends React.Component {
         pagination={pagination}
         selectRow={selectRow}
         ref="dcDetailTable"
+        style={{"width":"98%"}}
       >
 
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataField={val} isKey={val === column.key ? true :false}>{val}</TableHeaderColumn>
+        <TableHeaderColumn dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false}>{val}</TableHeaderColumn>
         ))}     
 
       </BootstrapTable>

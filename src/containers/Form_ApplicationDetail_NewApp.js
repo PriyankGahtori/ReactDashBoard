@@ -2,31 +2,32 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-export const fields = [ 'Name','Date', 'User' ]
-
+export const fields = ['appName', 'appDesc', 'userName'];
 const validate = values => {
   const errors = {}
  
-  if (!values.Name) {
-    errors.Name = 'Required'
-  } else if (values.Name.length > 15) {
-    errors.Name = 'Must be 15 characters or less'
-  } else if (!Is.alphaNumeric(values.Name)) {
-    errors.Name = 'Invalid Application Name'
+  if (!values.appName) {
+    errors.appName = 'Required'
+  } else if (values.appName.length > 15) {
+    errors.appName = 'Must be 15 characters or less'
+  } else if (!Is.alphaNumeric(values.appName)) {
+    errors.appName = 'Invalid Application Name'
   }
 
-  if (!values.Date) {
-    errors.Date = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(Date)) {
-    errors.Date = 'Invalid email address'
+  if (!values.appDesc) {
+    errors.appDesc = 'Required'
+  } else if (values.appDesc.length > 15) {
+    errors.appDesc = 'Must be 15 characters or less'
+  } else if (!Is.alphaNumeric(values.appDesc)) {
+    errors.appDesc = 'Invalid Application Name'
   }
 
-  if (!values.User) {
-    errors.User = 'Required'
-  } else if (isNaN(Number(values.dcPort))) {
-    errors.dcPort = 'Must be a number'
-  } else if (!Is.alphaNumeric(values.User)) {
-    errors.Name = 'Invalid User'
+  if (!values.userName) {
+    errors.userName = 'Required'
+  } else if (values.userName.length > 15) {
+    errors.userName = 'Must be 15 characters or less'
+  } else if (!Is.alphaNumeric(values.userName)) {
+    errors.userName = 'Invalid Application Name'
   }
   
   return errors

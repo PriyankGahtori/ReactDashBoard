@@ -32,6 +32,10 @@ class Dialog_DCDetail_NewDC extends React.Component {
   
   handleSubmit(){
    this.refs.newDCForm.submit();
+   console.log("aftr submitting")
+   this.handleCancel();
+   console.log("aftr closing the dialog----")
+
   }
 
     render() {

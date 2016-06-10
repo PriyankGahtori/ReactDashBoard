@@ -2,43 +2,44 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-export const fields = [ 'DCName', 'DCIP', 'DCPort','NDEIP','NDEPort' ]
+export const fields = [ 'dcName', 'dcIp', 'dcPort','ndeIp','ndePort' ]
 
 const validate = values => {
   const errors = {}
  
-  if (!values.DCName) {
-    errors.DCName = 'Required'
-  } else if (values.DCName.length > 15) {
-    errors.DCName = 'Must be 15 characters or less'
+  if (!values.dcName) {
+    errors.dcName = 'Required'
+  } else if (values.dcName.length > 15) {
+    errors.dcName = 'Must be 15 characters or less'
   }else if (!Is.alphaNumeric(values.DCName)) {
-    errors.DCName = 'Invalid DC Name'
-  }
-  if (!values.DCIP) {
-    errors.DCIP = 'Required'
-  } else if (!Is.ip(values.DCIP)) {
-    errors.DCIP = 'Invalid IP address'
+    errors.dcName = 'Invalid DC Name'
   }
 
-  if (!values.DCPort) {
-    errors.DCPort = 'Required'
-  } else if (isNaN(Number(values.DCPort))) {
-    errors.DCPort = 'Must be a number'
-  } else if (values.DCPort.length > 4) {
-    errors.DCPort = 'Must be 4 digits'
+  if (!values.dcIp) {
+    errors.dcIp = 'Required'
+  } else if (!Is.ip(values.dcIp)) {
+    errors.dcIp = 'Invalid IP address'
+  }
+
+  if (!values.dcPort) {
+    errors.dcPort = 'Required'
+  } else if (isNaN(Number(values.dcPort))) {
+    errors.dcPort = 'Must be a number'
+  } else if (values.dcPort.length > 4) {
+    errors.dcPort = 'Must be 4 digits'
   }
   
-  if (!values.NDEIP) {
-    errors.NDEIP = 'Required'
-  } else if (!Is.ip(values.NDEIP)) {
-    errors.NDEIP = 'Invalid IP address'
+  if (!values.ndeIp) {
+    errors.ndeIp = 'Required'
+  } else if (!Is.ip(values.ndeIp)) {
+    errors.ndeIp = 'Invalid IP address'
  }
-  if (!values.NDEPort) {
-    errors.NDEPort = 'Required'
-  } else if (isNaN(Number(values.NDEPort))){
-    errors.NDEPort = 'Must be a number'
-  } else if (values.NDEPort.length > 4) {
-    errors.NDEPort = 'Must be 4 digits'
+  if (!values.ndePort) {
+    errors.ndePort = 'Required'
+  } else if (isNaN(Number(values.ndePort))){
+    errors.ndePort = 'Must be a number'
+  } else if (values.ndePort.length > 4) {
+    errors.ndePort = 'Must be 4 digits'
   }
 
   return errors
@@ -54,7 +55,7 @@ class NewApplication extends React.Component {
   render() {
       console.log("props",this.props);
 
-     const { fields: { u2,DCName, DCIP, DCPort,NDEIP, NDEPort}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: { dcName, dcIp, dcPort,ndeIp, ndePort}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
   <form >
             <div className ="row" >
@@ -62,8 +63,8 @@ class NewApplication extends React.Component {
                 <TextField
                   hintText="Hint Text"
                   floatingLabelText="DCName"
-                  {...DCName}
-                  errorText={DCName.touched && DCName.error && <div>{DCName.error}</div>}
+                  {...dcName}
+                  errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
                 />
              </div>
 
@@ -72,8 +73,8 @@ class NewApplication extends React.Component {
                <TextField
                   hintText="Hint Text"
                   floatingLabelText="DCIP"
-                  {...DCIP}
-                  errorText={DCIP.touched && DCIP.error && <div>{DCIP.error}</div>}
+                  {...dcIp}
+                  errorText={dcIp.touched && dcIp.error && <div>{dcIp.error}</div>}
                 />
              </div>
         </div>
@@ -83,8 +84,8 @@ class NewApplication extends React.Component {
               <TextField
                   hintText="Hint Text"
                   floatingLabelText="DCPort"
-                  {...DCPort}
-                  errorText={DCPort.touched && DCPort.error && <div>{DCPort.error}</div>}
+                  {...dcPort}
+                  errorText={dcPort.touched && dcPort.error && <div>{dcPort.error}</div>}
                 />
              </div>
             </div>
@@ -94,8 +95,8 @@ class NewApplication extends React.Component {
               <TextField
                   hintText="Hint Text"
                   floatingLabelText="NDEIP"
-                  {...NDEIP}
-                  errorText={NDEIP.touched && NDEIP.error && <div>{NDEIP.error}</div>}
+                  {...ndeIp}
+                  errorText={ndeIp.touched && ndeIp.error && <div>{ndeIp.error}</div>}
                 />
              </div>
 
@@ -104,8 +105,8 @@ class NewApplication extends React.Component {
               <TextField
                   hintText="Hint Text"
                   floatingLabelText="NDEPort"
-                  {...NDEPort}
-                  errorText={NDEPort.touched && NDEPort.error && <div>{NDEPort.error}</div>}
+                  {...ndePort}
+                  errorText={ndePort.touched && ndePort.error && <div>{ndePort.error}</div>}
                 />
              </div>
 

@@ -12,9 +12,11 @@ import DialogNewApplication from './Dialog_AppDetail_NewApp';
 
 
 var columns = {
-                "key" : "Name",
-                "data":['Name', 'Date','User']
-              };          
+                "key" : "appName",
+                "data":['AppName', 'AppDesc','UserName'],
+                "field":['appName', 'appDesc', 'userName']
+              }; 
+
 var data =[{"Name":"nsecom",
             "Date" : "07/06/2016",
             "User" : "netstorm"
@@ -72,8 +74,8 @@ class ApplicationDetail extends React.Component {
   }
 
   componentWillMount() {
-    this.props.fetchTreeData("ApplicationDetail")
-    this.props.fetchTableData("ApplicationDetail")
+    //this.props.fetchTreeData("ApplicationDetail")
+    this.props.fetchAppTableData("ApplicationDetail")
   }
 
   componentWillReceiveProps(nextProps)
@@ -110,9 +112,9 @@ class ApplicationDetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("appDetail---",state.dcDetail.tableData)
+  console.log("appDetail---",state.applicationdata.tableData)
   return {
-    appDetail :state.dcDetail
+    appDetail :state.applicationdata
    };
 }
 

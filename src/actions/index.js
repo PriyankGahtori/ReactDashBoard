@@ -38,7 +38,7 @@ export function fetchTreeData(value) {
   };
 }
 
-export function fetchTableData(value){
+export function fetchDCTableData(value){
 
   //const URLTable =  `../${value}Table.json`;
   const URLTable =  "/configUI/dcdetail";
@@ -54,7 +54,13 @@ export function fetchTableData(value){
 export function addRowTable(formData){
 
   console.log("add_Row_table--action called--",formData)
-    axios.post("/configUI/dcdetail",formData);
+  //axios.post("/configUI/dcdetail",formData);
+  axios({
+    method:'post',
+    url: '/configUI/dcdetail',
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
     
   return {
     type: 'ADD_ROW_TABLE',
@@ -83,10 +89,9 @@ export function updateTreeNode(data) {
 }
 
 export function toggleStateDialogNewDC(){
-  console.log("action triggered---for new add dc")
+  console.log("action triggered--toggling----for new add dc")
   return {
     type:'TOGGLE_STATE_ADD_NEW_DC'
-
   }
 }
 
@@ -96,5 +101,16 @@ export function toggleStateDialogNewApp(){
   return {
     type:'TOGGLE_STATE_NEW_APP'
 
+  }
+}
+
+export function fetchAppTableData(){
+  console.log("fetching AppTable data--")
+  const URLTable =  "/configUI/application";
+  const request_table = axios.get(URLTable);
+
+  return {
+    type:'FETCH_APP_TABLE_DATA',
+    payload: request_table
   }
 }

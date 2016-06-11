@@ -36,7 +36,7 @@ class NewApplication extends React.Component {
   render() {
       console.log("props",this.props);
 
-     const { fields: { Name, Date, User}, resetForm, handleSubmit, submitting } = this.props
+     const { fields: { appName, appDesc, userName}, resetForm, handleSubmit, submitting } = this.props
      return (
        <form onSubmit={handleSubmit(data =>{ alert(JSON.stringify(data))})}>
             <div className ="row" >
@@ -44,8 +44,8 @@ class NewApplication extends React.Component {
                 <TextField
                   hintText="Hint Text"
                   floatingLabelText="Name"
-                  {...Name}
-                  errorText={Name.touched && Name.error && <div>{Name.error}</div>}
+                  {...appName}
+                  errorText={appName.touched && appName.error && <div>{appName.error}</div>}
                 />
              </div>
 
@@ -53,9 +53,9 @@ class NewApplication extends React.Component {
              <div className="col-md-6">
                <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Date"
-                  {...Date}
-                  errorText={Date.touched && Date.error && <div>{Date.error}</div>}
+                  floatingLabelText="AppDesc"
+                  {...appDesc}
+                  errorText={appDesc.touched && appDesc.error && <div>{appDesc.error}</div>}
                 />
              </div>
         </div>
@@ -65,8 +65,8 @@ class NewApplication extends React.Component {
               <TextField
                   hintText="Hint Text"
                   floatingLabelText="User"
-                  {...User}
-                  errorText={User.touched && User.error && <div>{User.error}</div>}
+                  {...userName}
+                  errorText={userName.touched && userName.error && <div>{userName.error}</div>}
                 />
              </div>
             </div>

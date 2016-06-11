@@ -31,7 +31,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
   }
   
   handleSubmit(){
-   this.refs.newDCForm.submit();
+   this.refs.newAppForm.submit();
    console.log("aftr submitting")
    this.handleCancel();
    console.log("aftr closing the dialog----")
@@ -69,7 +69,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
-          <FormNewApp ref="newAppForm" onSubmit={data =>{alert(JSON.stringify(data))}}/>
+          <FormNewApp ref="newAppForm" onSubmit={data =>{}}/>
       </DialogNewApp>
       </div>
     );

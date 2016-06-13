@@ -10,7 +10,7 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 
 export function fetchInitData() {
 
-  const request = axios.get("/configUI/home");
+  const request = axios.get("http://10.10.40.7:8050/configUI/home");
 
   console.log("Action ajax.................",request);
 
@@ -41,7 +41,7 @@ export function fetchTreeData(value) {
 export function fetchDCTableData(value){
 
   //const URLTable =  `../${value}Table.json`;
-  const URLTable =  "/configUI/dcdetail";
+  const URLTable =  "http://10.10.40.7:8050/configUI/dcdetail";
 
   const request_table = axios.get(URLTable);
 
@@ -57,7 +57,7 @@ export function addRowTable(formData){
   //axios.post("/configUI/dcdetail",formData);
   axios({
     method:'post',
-    url: '/configUI/dcdetail',
+    url: 'http://10.10.40.7:8050/configUI/dcdetail',
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -68,12 +68,21 @@ export function addRowTable(formData){
   };
 }
 
-export function delRowTable(key){
-  console.log("key---",key)
+export function delDCRowTable(selectedRowKeys){
 
+  console.log("selectedRowKeys----",selectedRowKeys)
+  selectedRowKeys.forEach(value => 
+    {
+     console.log("value--",value)
+     axios({
+        method : 'delete',
+        url : value
+        });
+})
+  
   return{
-    type:'DEL_ROW_TABLE',
-    payload:key
+    type:'DEL_DC_ROW_TABLE',
+    payload:selectedRowKeys
   }
 }
 

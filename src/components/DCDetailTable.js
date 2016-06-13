@@ -7,6 +7,20 @@ class DataGridComponent extends React.Component {
   super(props);
  
   }
+
+  linkFormat(cell,row){
+    console.log("#########################################################")
+    console.log("cell----",cell)
+     console.log("row---",row)
+     console.log(">>>>>>>>>>",cell)
+
+   if(cell.hasOwnProperty("self"))
+      return cell.self.href;
+      //console.log("hmmmmmmm",cell.self.href)
+    else
+      return cell;
+     
+  }
   
   
 
@@ -35,7 +49,7 @@ class DataGridComponent extends React.Component {
 
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false}>{val}</TableHeaderColumn>
+        <TableHeaderColumn dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false}>{val}</TableHeaderColumn>
         ))}     
 
       </BootstrapTable>

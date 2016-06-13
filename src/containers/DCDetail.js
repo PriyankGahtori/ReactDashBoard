@@ -12,9 +12,9 @@ import DialogNewDC from './Dialog_DCDetail_NewDC';
 
 
 var columns = {
-                "key" : "dcName",
-                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort'],
-                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort']
+                "key" : "_links",
+                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort','LINK'],
+                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','_links']
               };          
 
 const style = {
@@ -23,6 +23,7 @@ const style = {
   textAlign: 'center',
   display: 'inline-block',
 };
+
 const NewButtonstyle = {
     margin: 0,
     top: 'auto',
@@ -38,12 +39,12 @@ const NewButtonstyle = {
 class DCDetail extends React.Component {
 
   constructor(props) {
-    super(props);
-    console.log("in DCDetail.js--",this.props)
-    console.log(this.props.routeParams.something)
-    this.updateNode = this.updateNode.bind(this);
-     this.delRow = this.delRow.bind(this);
-      this.state ={openNewAppDialog:false}
+  super(props);
+  console.log("in DCDetail.js--",this.props)
+  console.log(this.props.routeParams.something)
+  this.updateNode = this.updateNode.bind(this);
+  this.delRow = this.delRow.bind(this);
+  this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
   }
 
@@ -54,9 +55,26 @@ class DCDetail extends React.Component {
   }
 
   delRow(){
+    var selectedRowKeys=[];
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
-    this.props.delRowTable(this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
+    let selectedRowKeysObj = this.refs.table.refs.dcDetailTable.state.selectedRowKeys;
+    for(let i=0 ; i < selectedRowKeys.length;i++)
+    {
+      console.log("href-----------",selectedRowKeys[i].self.href)
+    }
+    selectedRowKeysObj.forEach(
+                          value =>{
+                          selectedRowKeys.push(value.self.href)
+                          }) 
+    console.log("selectedRowKeys--",selectedRowKeys)
+
+  /*var selectRowsValueForServer= this.props.dcDetail.tableData
+                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
+                      .map((value,index) => value._links.self.href)
+
+  console.log("selectRowsValue--",selectRowsValueForServer)*/
+  this.props.delDCRowTable(selectedRowKeys)
   }
 
   handleOpen(){
@@ -71,7 +89,7 @@ class DCDetail extends React.Component {
   componentWillReceiveProps(nextProps)
   {
     console.log("in componentWillReceiveProps--",nextProps.dcDetail)
-     console.log("in componentWillReceiveProps--",this.props.dcDetail)
+    console.log("in componentWillReceiveProps--",this.props.dcDetail)
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
   		this.setState({dcDetail:nextProps.dcDetail.tableData});
   }
@@ -80,7 +98,6 @@ class DCDetail extends React.Component {
     return (
     <div>
       <div className="row">
-      
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <DataGrid data = {this.props.dcDetail.tableData} pagination={false} ref="table" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
@@ -93,10 +110,7 @@ class DCDetail extends React.Component {
          </AddNewButton>
          <DialogNewDC />
       </div>
-
-
    </div>
-
     );
   }
 }

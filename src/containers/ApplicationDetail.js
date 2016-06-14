@@ -12,19 +12,12 @@ import DialogNewApplication from './Dialog_AppDetail_NewApp';
 
 
 var columns = {
-                "key" : "appName",
-                "data":['AppName', 'AppDesc','UserName'],
-                "field":['appName', 'appDesc', 'userName']
+                "key" : "_links",
+                "data":['AppName', 'AppDesc','UserName','LINK'],
+                "field":['appName', 'appDesc', 'userName','_links']
               }; 
 
-var data =[{"Name":"nsecom",
-            "Date" : "07/06/2016",
-            "User" : "netstorm"
-          },
-          {"Name":"kohls",
-            "Date" : "07/04/2016",
-            "User" : "root"
-          }]
+
 
 
 const style = {
@@ -75,7 +68,7 @@ class ApplicationDetail extends React.Component {
 
   componentWillMount() {
     //this.props.fetchTreeData("ApplicationDetail")
-    this.props.fetchAppTableData("ApplicationDetail")
+    this.props.fetchAppTableData();
   }
 
   componentWillReceiveProps(nextProps)
@@ -90,7 +83,6 @@ class ApplicationDetail extends React.Component {
     return (
     <div>
       <div className="row">
-      
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <DataGrid data = {this.props.appDetail.tableData} pagination={false} ref="table" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>

@@ -9,6 +9,8 @@ import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
 import DialogNewDC from './Dialog_DCDetail_NewDC';
+import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 
 
 var columns = {
@@ -35,7 +37,6 @@ const NewButtonstyle = {
 };
 
 
-
 class DCDetail extends React.Component {
 
   constructor(props) {
@@ -46,6 +47,8 @@ class DCDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
+  this.state={headerBlockNoRowSelcted:"row Show"};
+  this.state={headerBlockRowSelected:"row hidden"};
   }
 
   updateNode(e){
@@ -59,10 +62,8 @@ class DCDetail extends React.Component {
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
     let selectedRowKeysObj = this.refs.table.refs.dcDetailTable.state.selectedRowKeys;
-    for(let i=0 ; i < selectedRowKeys.length;i++)
-    {
-      console.log("href-----------",selectedRowKeys[i].self.href)
-    }
+      console.log("href-----------",selectedRowKeysObj)
+    
     selectedRowKeysObj.forEach(
                           value =>{
                           selectedRowKeys.push(value.self.href)
@@ -79,6 +80,7 @@ class DCDetail extends React.Component {
 
   handleOpen(){
         this.props.toggleStateDialogNewDC();
+        
   }
 
   componentWillMount() {
@@ -94,16 +96,57 @@ class DCDetail extends React.Component {
   		this.setState({dcDetail:nextProps.dcDetail.tableData});
   }
 
+  onRowSelect(row, isSelected){
+   console.log("Iam triggered...")
+  }
+
   render() {
+  /* var selectRow: {
+        mode: "checkbox",  //checkbox for multi select, radio for single select.
+        clickToSelect: true,   //click row will trigger a selection on that row.
+        bgColor: "rgb(true238, 193, 213)" , //selected row background color
+        onSelect:this.onRowSelect 
+
+    };
+   */
     return (
     <div>
       <div className="row">
-        <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <DataGrid data = {this.props.dcDetail.tableData} pagination={false} ref="table" column = {columns} />
-        <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
+      <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
+        <Paper zDepth={2}>
+       <p>{this.state.headerBlockNoRowSelcted}</p>
+       <div className ={this.state.headerBlockNoRowSelcted}  >
+          <div className="col-md-9">
+              <h3>DC Detail</h3>
+          </div>
+
+          <div className="col-md-3 "  >
+              <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
+              <IconButton  onTouchTap={this.handleOpen}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
+          </div>
+       </div>
+
+       <p>{this.state.headerBlockRowSelected}</p>
+       <div className ={this.state.headerBlockRowSelected}  >
+          <div className="col-md-9">
+              <h3>Items Selected</h3>
+          </div>
+
+          <div className="col-md-3 "  >
+              <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
+          </div>
+       </div>
+        
+        <DataGrid data = {this.props.dcDetail.tableData} 
+                   pagination={false} 
+                   ref="table" 
+                   column = {columns} 
+                  
+        />
+
+         </Paper>
+      <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
-
-
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen} >
             <AddIcon />

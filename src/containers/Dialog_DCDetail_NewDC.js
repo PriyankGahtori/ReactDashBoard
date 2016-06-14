@@ -41,6 +41,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
   }
  
   render() {
+
     const { onSubmit } = this.props
   	const actions = [
       <FlatButton

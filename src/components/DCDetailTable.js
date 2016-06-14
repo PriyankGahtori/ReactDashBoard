@@ -1,6 +1,8 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 
+
+
 class DataGridComponent extends React.Component {
 
   constructor(props) {
@@ -11,8 +13,9 @@ class DataGridComponent extends React.Component {
   linkFormat(cell,row){
     console.log("#########################################################")
     console.log("cell----",cell)
-     console.log("row---",row)
-     console.log(">>>>>>>>>>",cell)
+    console.log("row---",row)
+    console.log(">>>>>>>>>>",cell)
+    
 
    if(cell.hasOwnProperty("self"))
       return cell.self.href;
@@ -22,20 +25,24 @@ class DataGridComponent extends React.Component {
      
   }
   
-  
-
+ 
   render() {
-    var selectRowProp = {
+       /*var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.
-        bgColor: "rgb(238, 193, 213)"   //selected row background color
-    };
+        bgColor: "rgb(true238, 193, 213)" , //selected row background color
+        onSelect:this.onRowSelect
 
-    const {data, column, striped, hover, condensed, pagination, selectRow} = this.props;
-
+    };*/
    
+
+  const {data, column, striped, hover, condensed, pagination, selectRow } = this.props;
+
     return (
     <div>
+       
+
+
       <BootstrapTable
         data = {data}
         striped={striped}
@@ -77,8 +84,11 @@ DataGridComponent.defaultProps = {
   selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.
-        bgColor: "rgb(238, 193, 213)"   //selected row background color
-    }
+        bgColor: "rgb(true238, 193, 213)" , //selected row background color
+        onSelect : ()=>(console.log("working......?????????????")) 
+    },
+
+ 
 };
 
 export default DataGridComponent;

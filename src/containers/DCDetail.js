@@ -60,8 +60,8 @@ class DCDetail extends React.Component {
   delRow(){
     var selectedRowKeys=[];
     console.log("del row function called")
-    console.log("calling del method---table ref--",this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.table.refs.dcDetailTable.state.selectedRowKeys;
+    console.log("calling del method---table ref--",this.refs.dcDetailTable.refs.table.state.selectedRowKeys)
+    let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
       console.log("href-----------",selectedRowKeysObj)
     
     selectedRowKeysObj.forEach(
@@ -75,7 +75,7 @@ class DCDetail extends React.Component {
                       .map((value,index) => value._links.self.href)
 
   console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delDCRowTable(selectedRowKeys)
+  this.props.delDCTableRow(selectedRowKeys)
   }
 
   handleOpen(){
@@ -139,7 +139,7 @@ class DCDetail extends React.Component {
         
         <DataGrid data = {this.props.dcDetail.tableData} 
                    pagination={false} 
-                   ref="table" 
+                   ref="dcDetailTable" 
                    column = {columns} 
                   
         />

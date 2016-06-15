@@ -9,6 +9,7 @@ import Main from './Main'
 import NewHome from '../containers/Home'
 import DCDetail from '../containers/DCDetail'
 import ApplicationDetail from '../containers/ApplicationDetail'
+import Testing from '../containers/Testing'
 
 export default class routes extends React.Component {
 
@@ -19,6 +20,7 @@ export default class routes extends React.Component {
 		      <IndexRoute component={NewHome} />
 		      <Route path="home" component={ApplicationDetail} />
 		      <Route path="Application/:something" component={DCDetail} />
+		      <Route path="testing" component={Testing} />
 		    </Route>
 
 		  </Router>

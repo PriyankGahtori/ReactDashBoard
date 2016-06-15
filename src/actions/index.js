@@ -51,24 +51,25 @@ export function fetchDCTableData(value){
   };
 }
 
-export function addRowTable(formData){
+export function addRowDCTable(formData){
 
   console.log("add_Row_table--action called--",formData)
   //axios.post("/configUI/dcdetail",formData);
-  axios({
+  var response = axios({
     method:'post',
     url: 'http://10.10.40.7:8050/configUI/dcdetail',
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
-    
+
+  console.log("response",response)
   return {
     type: 'ADD_ROW_TABLE',
-    payload: formData
+    payload: response
   };
 }
 
-export function delDCRowTable(selectedRowKeys){
+export function delDCTableRow(selectedRowKeys){
 
   console.log("selectedRowKeys----",selectedRowKeys)
   selectedRowKeys.forEach(value => 
@@ -114,13 +115,47 @@ export function toggleStateDialogNewApp(){
 }
 
 export function fetchAppTableData(){
-  //const URLTable =  `../${value}Table.json`;
   const URLTable =  "http://10.10.40.7:8050/configUI/application";
   const request_table = axios.get(URLTable);
   console.log("request_table",request_table)
 
   return {
-    type: 'FETCH_TABLE_DATA',
+    type: 'FETCH_APP_TABLE_DATA',
     payload: request_table
   };
+}
+
+export function delAppTableRow(selectedRowKeys){
+
+  console.log("selectedRowKeys----",selectedRowKeys)
+  selectedRowKeys.forEach(value => 
+    {
+     console.log("value--",value)
+     axios({
+        method : 'delete',
+        url : value
+        });
+})
+  
+  return{
+    type:'DEL_APPTABLE_ROW',
+    payload:selectedRowKeys
+  }
+}
+
+export function addRowApplicationTable(formData){
+
+  console.log("add_Row_table--action called--",formData)
+  var response = axios({
+    method:'post',
+    url: 'http://10.10.40.7:8050/configUI/application',
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+  console.log("response inadd row application---",response)
+  return {
+    type: 'ADD_APPTABLE_ROW',
+    payload: response
+  }; 
 }

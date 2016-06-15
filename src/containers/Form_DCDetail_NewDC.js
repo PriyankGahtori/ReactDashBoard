@@ -44,27 +44,34 @@ const validate = values => {
 
   return errors
 }
+
 class NewApplication extends React.Component {
 
   constructor(props) {
     super(props);
     console.log("in form dc detail--",this.props)
+      this.handleChange=this.handleChange.bind(this);
   }
 
 
+handleChange(){
+  this.setState({value:event.target.value})
+
+}
   render() {
-      console.log("props",this.props);
+      console.log("props in formdcdetail",this.props);
 
      const { fields: { dcName, dcIp, dcPort,ndeIp, ndePort}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
-  <form >
+        <form >
             <div className ="row" >
               <div className ="col-md-6">
-                <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="DCName"
-                  {...dcName}
-                  errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
+               <TextField
+                hintText="Hint Text"
+                id="text-field-default"
+                floatingLabelText="DCName"
+                {...dcName}
+                errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
                 />
              </div>
 

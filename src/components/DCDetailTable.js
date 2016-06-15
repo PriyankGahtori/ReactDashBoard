@@ -50,7 +50,7 @@ class DataGridComponent extends React.Component {
         condensed={condensed}
         pagination={pagination}
         selectRow={selectRow}
-        ref="dcDetailTable"
+        ref="table"
         style={{"width":"98%"}}
       >
 

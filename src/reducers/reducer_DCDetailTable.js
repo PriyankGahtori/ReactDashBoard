@@ -16,10 +16,10 @@ export default function(state = initialState, action) {
 
   case 'ADD_ROW_TABLE':
     console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload);
-    console.log("add row table-state--",state);
     var newState = Object.assign({}, state);
     console.log("newState- line no 16-",newState)
-    newState.tableData.push(JSON.parse(action.payload));
+    console.log("action.payload.data,",action.payload.data)
+    newState.tableData.push(action.payload.data);
     console.log("newState---",newState)
     return newState;
 

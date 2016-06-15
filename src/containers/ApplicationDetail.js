@@ -56,10 +56,24 @@ class ApplicationDetail extends React.Component {
     this.props.updateTreeNode(this.props.routeParams.something);
   }
 
-  delRow(){
+ delRow(){
+    var selectedRowKeys=[];
     console.log("del row function called")
-    console.log("calling del method---table ref--",this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
-    this.props.delRowTable(this.refs.table.refs.dcDetailTable.state.selectedRowKeys)
+    console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
+    let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("href-----------",selectedRowKeysObj)
+    selectedRowKeysObj.forEach(
+                          value =>{
+                          selectedRowKeys.push(value.self.href)
+                          }) 
+    console.log("selectedRowKeys--",selectedRowKeys)
+
+  /*var selectRowsValueForServer= this.props.dcDetail.tableData
+                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
+                      .map((value,index) => value._links.self.href)
+
+  console.log("selectRowsValue--",selectRowsValueForServer)*/
+  this.props.delAppTableRow(selectedRowKeys)
   }
 
   handleOpen(){
@@ -84,7 +98,7 @@ class ApplicationDetail extends React.Component {
     <div>
       <div className="row">
         <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <DataGrid data = {this.props.appDetail.tableData} pagination={false} ref="table" column = {columns} />
+        <DataGrid data = {this.props.appDetail.tableData} pagination={false} ref="appTable" column = {columns} />
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
 

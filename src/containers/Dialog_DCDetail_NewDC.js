@@ -73,7 +73,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
-      <FormNewDC ref="newDCForm" onSubmit={data =>{this.props.addRowTable(JSON.stringify(data))}}/>
+      <FormNewDC ref="newDCForm" onSubmit={data =>{this.props.addRowDCTable(JSON.stringify(data))}}/>
       </DialogNewDC>
       </div>
     );

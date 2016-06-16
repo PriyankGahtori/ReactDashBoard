@@ -1,4 +1,4 @@
-const initialState = {tableData:[], dialogNewDC:false};
+const initialState = {tableData:[], dialogNewDC:false,updateFormInitialValues:null,flagAddOREdit:null};
 
 export default function(state = initialState, action) {
 
@@ -42,8 +42,38 @@ export default function(state = initialState, action) {
     newState.dialogNewDC= !newState.dialogNewDC;
     console.log("newState.dialogNewDC---",newState.dialogNewDC)
     return newState;
-    
 
+  case 'UPDATE_FORM':
+    console.log("update form");
+    var newState = Object.assign({}, state);
+    console.log("in updating form----",action.payload)
+    console.log("in updating form  flag---",action.payload.flag)
+    newState.updateFormInitialValues=action.payload.data;
+    newState.flagAddOREdit=action.payload.flag;
+    console.log("newState.updateFormInitialValues--",newState.updateFormInitialValues)
+    return newState
+
+  case 'UPDATE_ROW_TABLE':
+    console.log("updating row--action.payload",action.payload)
+    console.log("updating row--action.payload",action.payload.data)
+    console.log("updatingrow table---",action.payload.data._links.self.href)
+    var newState = Object.assign({}, state);
+      newState.tableData = newState.tableData.filter(function(val){
+      console.log("line no 61-------val._links.self.href")
+      if(val._links.self.href == action.payload.data._links.self.href){
+          console.log("condition matched")
+          val.dcName=action.payload.data.dcName;
+          val.dcIp=action.payload.data.dcIp;
+          val.dcPort=action.payload.data.dcPort;
+          val.ndeIp=action.payload.data.ndeIp;
+          val.ndePort=action.payload.data.ndePort;
+      }
+
+
+      return val;
+     })
+     console.log(" newState.tableData ", newState.tableData )
+    return newState;
 
 
   default :

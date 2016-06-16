@@ -3,6 +3,13 @@ import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
 export const fields = [ 'dcName', 'dcIp', 'dcPort','ndeIp','ndePort' ]
+const initialValues = { 
+                'dcName' : "safasfasfa", 
+                'dcIp' : "sadasdasdas", 
+                'dcPort' :" asfasfasfas",
+                'ndeIp' : "SdDAD",
+                'ndePort' : "34342"
+              }
 
 const validate = values => {
   const errors = {}
@@ -48,19 +55,24 @@ const validate = values => {
 class NewApplication extends React.Component {
 
   constructor(props) {
-    super(props);
-    console.log("in form dc detail--",this.props)
-      this.handleChange=this.handleChange.bind(this);
+  super(props);
+  console.log("in form dc detail--",this.props)
+  this.handleChange=this.handleChange.bind(this);
+  this.state ={flagAddOREdit:this.props.flagAddOREdit};
   }
 
 
 handleChange(){
   this.setState({value:event.target.value})
-
 }
-  render() {
-      console.log("props in formdcdetail",this.props);
 
+ componentWillReceiveProps(nextProps)
+  {
+    if(this.props.flagAddOREdit!= nextProps.flagAddOREdit)
+      this.setState({flagAddOREdit:nextProps.flagAddOREdit});
+  }
+
+  render() {
      const { fields: { dcName, dcIp, dcPort,ndeIp, ndePort}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
@@ -68,7 +80,6 @@ handleChange(){
               <div className ="col-md-6">
                <TextField
                 hintText="Hint Text"
-                id="text-field-default"
                 floatingLabelText="DCName"
                 {...dcName}
                 errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
@@ -95,6 +106,8 @@ handleChange(){
                   errorText={dcPort.touched && dcPort.error && <div>{dcPort.error}</div>}
                 />
              </div>
+
+             
             </div>
 
             <div className="row">
@@ -135,4 +148,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
   fields,
   validate
-})(NewApplication);
+},
+  state => ({ // mapStateToProps
+  initialValues:state.dcDetail.updateFormInitialValues
+})
+) (NewApplication);

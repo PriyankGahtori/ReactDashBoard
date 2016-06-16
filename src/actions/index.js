@@ -51,10 +51,29 @@ export function fetchDCTableData(value){
   };
 }
 
-export function addRowDCTable(formData){
+export function addRowDCTable(formData,flagAddOREdit){
 
   console.log("add_Row_table--action called--",formData)
-  //axios.post("/configUI/dcdetail",formData);
+ console.log("flagAddOREdit----",flagAddOREdit);
+  //when action is called from updating form
+  if(flagAddOREdit == "edit"){
+
+   console.log("edit flag")
+   var response = axios({
+    method:'put',
+    url: formData._links.self.href,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+   console.log("response",response)
+      return {
+        type: 'UPDATE_ROW_TABLE',
+        payload: response
+      };
+  }
+ else{
+//action called for adding new DC
   var response = axios({
     method:'post',
     url: 'http://10.10.40.7:8050/configUI/dcdetail',
@@ -67,6 +86,8 @@ export function addRowDCTable(formData){
     type: 'ADD_ROW_TABLE',
     payload: response
   };
+}
+
 }
 
 export function delDCTableRow(selectedRowKeys){
@@ -102,6 +123,18 @@ export function toggleStateDialogNewDC(){
   console.log("action triggered--toggling----for new add dc")
   return {
     type:'TOGGLE_STATE_ADD_NEW_DC'
+  }
+}
+//initializing the form fields
+export function updateFormInitialValue(data,flag){
+  console.log("updateformInitialValue",data )
+  console.log("flag---",flag)
+  var payload={ "data":data,"flag":flag};
+
+  return {
+    type:'UPDATE_FORM',
+    payload:payload
+
   }
 }
 

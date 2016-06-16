@@ -11,6 +11,7 @@ import DataGrid from '../components/DCDetailTable';
 import DialogNewDC from './Dialog_DCDetail_NewDC';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
@@ -46,7 +47,9 @@ class DCDetail extends React.Component {
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
+  this.state={open:false}
   this.handleOpen = this.handleOpen.bind(this);
+  this.handleRequestClose=this.handleRequestClose.bind(this);
   this.state={headerBlockNoRowSelcted:"row Show"};
   this.state={headerBlockRowSelected:"row hidden"};
   }
@@ -59,29 +62,63 @@ class DCDetail extends React.Component {
 
   delRow(){
     var selectedRowKeys=[];
-    console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.dcDetailTable.refs.table.state.selectedRowKeys)
     let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
-      console.log("href-----------",selectedRowKeysObj)
-    
     selectedRowKeysObj.forEach(
                           value =>{
                           selectedRowKeys.push(value.self.href)
                           }) 
     console.log("selectedRowKeys--",selectedRowKeys)
-
-  /*var selectRowsValueForServer= this.props.dcDetail.tableData
-                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
-                      .map((value,index) => value._links.self.href)
-
-  console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delDCTableRow(selectedRowKeys)
+    this.props.delDCTableRow(selectedRowKeys)
   }
+  /*
+    * handleOpen(Flag)
+    * Flag:(edit or Add)
+    *    edit - when editing existing row
+    *    add - for Adding new row
+    *
+  */
+  handleOpen(flag){
+    console.log("in handleopen---",flag)
+    //for editing form
+    if(flag == "edit"){
+      console.log("editing the form")
 
-  handleOpen(){
-        this.props.toggleStateDialogNewDC();
+      // gets the selected key of table
+      let selectedRow= this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
+      
+      if(selectedRow.length == 1)
+      {
+        console.log("selectedRow----",selectedRow)
+        let selectedRowData = this.props.dcDetail.tableData
+                                  .filter(function(value){
+                                    return value._links.self.href === selectedRow[0].self.href
+                                  });
+        console.log("selectedRowData----",selectedRowData[0])
+
+        //action to dispatch selectRowData
+        this.props.updateFormInitialValue(selectedRowData[0],flag);
         
+        this.props.toggleStateDialogNewDC();
+      }
+      else{
+        //toster notification: Only one row can be edited
+        this.setState({open: true});
+      }
+
+    }
+    else if(flag == "add"){ //for adding new row
+      console.log("adding form")
+       this.props.updateFormInitialValue(null,flag); //clears previous/initial values
+       this.props.toggleStateDialogNewDC(); //opens dialog box
+    }
+
   }
+   handleRequestClose(){
+    this.setState({
+      open: false,
+    });
+  };
 
   componentWillMount() {
     this.props.fetchTreeData(this.props.routeParams.something)
@@ -94,24 +131,23 @@ class DCDetail extends React.Component {
     console.log("in componentWillReceiveProps--",this.props.dcDetail)
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
   		this.setState({dcDetail:nextProps.dcDetail.tableData});
+
   }
 
-  onRowSelect(row, isSelected){
-   console.log("Iam triggered...")
-  }
+ 
 
   render() {
-  /* var selectRow: {
+   var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.
         bgColor: "rgb(true238, 193, 213)" , //selected row background color
-        onSelect:this.onRowSelect 
-
-    };
-   */
+        
+      }
+   
     return (
     <div>
       <div className="row">
+
       <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <Paper zDepth={2}>
        <p>{this.state.headerBlockNoRowSelcted}</p>
@@ -122,7 +158,7 @@ class DCDetail extends React.Component {
 
           <div className="col-md-3 "  >
               <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
-              <IconButton  onTouchTap={this.handleOpen}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
+              <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
           </div>
        </div>
 
@@ -143,16 +179,22 @@ class DCDetail extends React.Component {
                    column = {columns} 
                   
         />
-
          </Paper>
       <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen} >
+         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
          <DialogNewDC />
       </div>
+
+      <Snackbar
+          open={this.state.open}
+          message="No row selected or multiple rows selected"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
    </div>
     );
   }

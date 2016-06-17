@@ -38,15 +38,14 @@ export function fetchTreeData(value) {
   };
 }
 
-export function fetchDCTableData(value){
+export function fetchDCTableData(appId){
 
-  //const URLTable =  `../${value}Table.json`;
-  const URLTable =  "http://10.10.40.7:8050/configUI/dcdetail";
-
+  console.log("appId-----",appId)
+  const URLTable = `http://10.10.40.7:8050/configUI/application/${appId}/dcDetails`;
   const request_table = axios.get(URLTable);
-
+  console.log("request_table----",request_table)
   return {
-    type: 'FETCH_TABLE_DATA',
+    type   :'FETCH_TABLE_DATA',
     payload: request_table
   };
 }

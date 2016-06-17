@@ -19,7 +19,7 @@ export default class routes extends React.Component {
 		    <Route path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
 		      <Route path="home" component={ApplicationDetail} />
-		      <Route path="Application/:something" component={DCDetail} />
+		      <Route path="application/:appId" component={DCDetail} />
 		      <Route path="testing" component={Testing} />
 		    </Route>
 

@@ -48,9 +48,16 @@ class ApplicationDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
+  this.handleClick = this.handleClick.bind(this);
   this.state={headerBlockNoRowSelcted:"row Show"};
   this.state={headerBlockRowSelected:"row hidden"};
+  this.onSelectRow=this.onSelectRow.bind(this);
   }
+
+
+onSelectRow(){
+  console.log("onSelectRow----")
+}
 
   updateNode(e){
     console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
@@ -76,6 +83,10 @@ class ApplicationDetail extends React.Component {
 
   console.log("selectRowsValue--",selectRowsValueForServer)*/
   this.props.delAppTableRow(selectedRowKeys)
+  }
+
+  handleClick(){
+    console.log("selecting row")
   }
 
   handleOpen(openAppDialogType){
@@ -130,6 +141,7 @@ class ApplicationDetail extends React.Component {
   }
 
   render() {
+      
     return (
     <div>
       <div className="row">
@@ -162,6 +174,7 @@ class ApplicationDetail extends React.Component {
                   pagination={false} 
                   ref="appTable" 
                   column = {columns}
+                  onClick={this.handleClick}
          />
         </Paper>
         <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>

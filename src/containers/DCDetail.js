@@ -43,7 +43,7 @@ class DCDetail extends React.Component {
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
-  console.log(this.props.routeParams.something)
+  console.log("this.props.routeParams.appId",this.props.routeParams.appId)
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
@@ -66,7 +66,7 @@ class DCDetail extends React.Component {
     let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
     selectedRowKeysObj.forEach(
                           value =>{
-                          selectedRowKeys.push(value.self.href)
+                          selectedRowKeys.push(value.self.href) 
                           }) 
     console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delDCTableRow(selectedRowKeys)
@@ -121,8 +121,8 @@ class DCDetail extends React.Component {
   };
 
   componentWillMount() {
-    this.props.fetchTreeData(this.props.routeParams.something)
-    this.props.fetchDCTableData(this.props.routeParams.something)
+    //this.props.fetchTreeData(this.props.routeParams.something)
+    this.props.fetchDCTableData(this.props.routeParams.appId)
   }
 
   componentWillReceiveProps(nextProps)
@@ -133,21 +133,17 @@ class DCDetail extends React.Component {
   		this.setState({dcDetail:nextProps.dcDetail.tableData});
 
   }
-
- 
-
   render() {
-   var selectRow: {
+    var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.
         bgColor: "rgb(true238, 193, 213)" , //selected row background color
-        
-      }
-   
+       
+    }
+
     return (
     <div>
       <div className="row">
-
       <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <Paper zDepth={2}>
        <p>{this.state.headerBlockNoRowSelcted}</p>

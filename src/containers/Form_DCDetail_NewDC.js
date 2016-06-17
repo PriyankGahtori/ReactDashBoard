@@ -150,6 +150,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
   state => ({ // mapStateToProps
-  initialValues:state.dcDetail.updateFormInitialValues
+  initialValues:state.dcDetail.dcDetailInitializeForm
 })
 ) (NewApplication);

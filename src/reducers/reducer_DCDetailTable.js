@@ -1,4 +1,4 @@
-const initialState = {tableData:[], dialogNewDC:false,updateFormInitialValues:null,flagAddOREdit:null};
+const initialState = {tableData:[], dialogNewDC:false,dcDetailInitializeForm:null,openDCDialogType:null};
 
 export default function(state = initialState, action) {
 
@@ -47,13 +47,14 @@ export default function(state = initialState, action) {
     console.log("update form");
     var newState = Object.assign({}, state);
     console.log("in updating form----",action.payload)
-    console.log("in updating form  flag---",action.payload.flag)
-    newState.updateFormInitialValues=action.payload.data;
-    newState.flagAddOREdit=action.payload.flag;
-    console.log("newState.updateFormInitialValues--",newState.updateFormInitialValues)
+    console.log("in updating form  flag---",action.payload.openDCDialogType)
+    newState.dcDetailInitializeForm=action.payload.data;
+    newState.openDCDialogType=action.payload.openDCDialogType;
+    console.log("newState.updateFormInitialValues--",newState.dcDetailInitializeForm)
+    console.log("newState.openDCDialogType--",newState.openDCDialogType)
     return newState
 
-  case 'UPDATE_ROW_TABLE':
+  case 'UPDATE_ROW_DCTABLE':
     console.log("updating row--action.payload",action.payload)
     console.log("updating row--action.payload",action.payload.data)
     console.log("updatingrow table---",action.payload.data._links.self.href)

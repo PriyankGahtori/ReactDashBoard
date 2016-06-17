@@ -21,7 +21,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state = {initialValues: this.props.initialValues};
-  this.state ={flagAddOREdit:this.props.flagAddOREdit};
+  this.state ={openDCDialogType:this.props.openDCDialogType};
   }
 
   componentWillReceiveProps(nextProps)
@@ -32,8 +32,8 @@ class Dialog_DCDetail_NewDC extends React.Component {
     if(this.props.initialValues != nextProps.initialValues)
       this.setState({initialValues:nextProps.initialValues});
 
-    if(this.props.flagAddOREdit != nextProps.flagAddOREdit)
-      this.setState({flagAddOREdit:nextProps.flagAddOREdit});
+    if(this.props.openDCDialogType != nextProps.openDCDialogType)
+      this.setState({openDCDialogType:nextProps.openDCDialogType});
   }
 
   handleCancel(){
@@ -82,16 +82,16 @@ class Dialog_DCDetail_NewDC extends React.Component {
         >
       <FormNewDC ref="newDCForm" onSubmit={data =>{
                                 console.log("data----",JSON.stringify(data))
-                            if(this.state.flagAddOREdit == "edit"){
-
+                               if(this.state.openDCDialogType == "edit"){
+                                
                                 data["_links"] = this.state.initialValues._links;
                                 console.log("data-aftr adding---",JSON.stringify(data))
-                                console.log("flagAddOREdit----",this.state.flagAddOREdit)
-                                this.props.addRowDCTable(data,this.state.flagAddOREdit)
+                                console.log("openDCDialogType----",this.state.openDCDialogType)
+                                this.props.addRowDCTable(data,this.state.openDCDialogType)
                               }
                               else{
-                                console.log("on submit---in else or add condition--",this.state.flagAddOREdit)
-                                 this.props.addRowDCTable(data,this.state.flagAddOREdit)
+                                console.log("on submit---in else or add condition--",this.state.openDCDialogType)
+                                 this.props.addRowDCTable(data,this.state.openDCDialogType)
                               }
 
       }}/>
@@ -103,11 +103,11 @@ class Dialog_DCDetail_NewDC extends React.Component {
 
 function mapStateToProps(state) {
   console.log("dialogNewDC---",state.dcDetail.dialogNewDC)
-  console.log("dialogNewDC---",state.dcDetail.updateFormInitialValues)
+  console.log("dialogNewDC---",state.dcDetail.dcDetailInitializeForm)
   return {
    openNewDCDialog :state.dcDetail.dialogNewDC,
-   initialValues   :state.dcDetail.updateFormInitialValues,
-   flagAddOREdit   :state.dcDetail.flagAddOREdit
+   initialValues   :state.dcDetail.dcDetailInitializeForm,
+   openDCDialogType   :state.dcDetail.openDCDialogType
    };
 }
 

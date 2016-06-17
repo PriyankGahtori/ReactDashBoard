@@ -3,6 +3,14 @@ import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
 export const fields = ['appName', 'appDesc', 'userName'];
+const initialValues = { 
+                'dcName' : "safasfasfa", 
+                'dcIp' : "sadasdasdas", 
+                'dcPort' :" asfasfasfas",
+                'ndeIp' : "SdDAD",
+                'ndePort' : "34342"
+              }
+
 const validate = values => {
   const errors = {}
  
@@ -85,4 +93,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
   fields,
   validate
-})(NewApplication);
+},state => ({ // mapStateToProps
+  initialValues:state.applicationdata.appDetailInitializeForm
+}))(NewApplication);

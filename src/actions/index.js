@@ -51,12 +51,12 @@ export function fetchDCTableData(value){
   };
 }
 
-export function addRowDCTable(formData,flagAddOREdit){
+export function addRowDCTable(formData,openDCDialogType){
 
   console.log("add_Row_table--action called--",formData)
- console.log("flagAddOREdit----",flagAddOREdit);
+ console.log("openDCDialogType----",openDCDialogType);
   //when action is called from updating form
-  if(flagAddOREdit == "edit"){
+  if(openDCDialogType == "edit"){
 
    console.log("edit flag")
    var response = axios({
@@ -68,7 +68,7 @@ export function addRowDCTable(formData,flagAddOREdit){
 
    console.log("response",response)
       return {
-        type: 'UPDATE_ROW_TABLE',
+        type: 'UPDATE_ROW_DCTABLE',
         payload: response
       };
   }
@@ -83,7 +83,7 @@ export function addRowDCTable(formData,flagAddOREdit){
 
   console.log("response",response)
   return {
-    type: 'ADD_ROW_TABLE',
+    type: 'ADD_ROW_DCTABLE',
     payload: response
   };
 }
@@ -125,19 +125,27 @@ export function toggleStateDialogNewDC(){
     type:'TOGGLE_STATE_ADD_NEW_DC'
   }
 }
-//initializing the form fields
-export function updateFormInitialValue(data,flag){
+
+/*
+ * Initializes value of Dialog box's form field
+ *    type :  add ( state is set to null) 
+ *            edit( state assigned to selected row )          
+*/
+export function dcDetailInitializeForm(data,openDCDialogType){
   console.log("updateformInitialValue",data )
-  console.log("flag---",flag)
-  var payload={ "data":data,"flag":flag};
+  console.log("flag---",openDCDialogType)
+  var payload={ "data":data,"openDCDialogType":openDCDialogType};
 
   return {
     type:'UPDATE_FORM',
     payload:payload
-
   }
 }
 
+/*
+* <----------------ActionCreators for ApplicationDetail Screen ---------------------->
+*
+*/
 
 export function toggleStateDialogNewApp(){
   console.log("action triggered---for new add app")
@@ -176,9 +184,28 @@ export function delAppTableRow(selectedRowKeys){
   }
 }
 
-export function addRowApplicationTable(formData){
+export function addRowApplicationTable(formData,openAppDialogType){
+ console.log("add_Row_table--action called--",formData)
+ console.log("openAppDialogType----",openAppDialogType);
+  //when action is called from updating form
+  if(openAppDialogType == "edit"){
 
-  console.log("add_Row_table--action called--",formData)
+   console.log("edit flag")
+   var response = axios({
+    method:'put',
+    url: formData._links.self.href,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+   console.log("response",response)
+      return {
+        type: 'UPDATE_ROW_APPTABLE',
+        payload: response
+      };
+  }
+ else{
+//action called for adding new DC
   var response = axios({
     method:'post',
     url: 'http://10.10.40.7:8050/configUI/application',
@@ -186,9 +213,26 @@ export function addRowApplicationTable(formData){
     headers:{'Content-Type':'application/json'}
   });
 
-  console.log("response inadd row application---",response)
+  console.log("response",response)
   return {
-    type: 'ADD_APPTABLE_ROW',
+    type: 'ADD_ROW_APPTABLE',
     payload: response
-  }; 
+  };
+}
+
+}
+/*
+*Initializes value of ApplicationDetail Screen Dialog box's form field
+ *    type :  add ( state is set to null) 
+ *            edit( state assigned to selected row )   
+*/
+export function appDetailInitializeForm(data,openAppDialogType){
+  console.log("openAppDialogType",data )
+  console.log("flag---",openAppDialogType)
+  var payload={ "data":data,"openAppDialogType":openAppDialogType};
+
+  return {
+    type:'UPDATE_APP_FORM',
+    payload:payload
+  }
 }

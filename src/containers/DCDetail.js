@@ -78,10 +78,10 @@ class DCDetail extends React.Component {
     *    add - for Adding new row
     *
   */
-  handleOpen(flag){
-    console.log("in handleopen---",flag)
+  handleOpen(openDCDialogType){
+    console.log("in handleopen---",openDCDialogType)
     //for editing form
-    if(flag == "edit"){
+    if(openDCDialogType == "edit"){
       console.log("editing the form")
 
       // gets the selected key of table
@@ -97,7 +97,7 @@ class DCDetail extends React.Component {
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.updateFormInitialValue(selectedRowData[0],flag);
+        this.props.dcDetailInitializeForm(selectedRowData[0],openDCDialogType);
         
         this.props.toggleStateDialogNewDC();
       }
@@ -107,9 +107,9 @@ class DCDetail extends React.Component {
       }
 
     }
-    else if(flag == "add"){ //for adding new row
+    else if(openDCDialogType == "add"){ //for adding new row
       console.log("adding form")
-       this.props.updateFormInitialValue(null,flag); //clears previous/initial values
+       this.props.dcDetailInitializeForm(null,openDCDialogType); //clears previous/initial values
        this.props.toggleStateDialogNewDC(); //opens dialog box
     }
 

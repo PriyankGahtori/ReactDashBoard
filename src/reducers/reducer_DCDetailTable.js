@@ -1,4 +1,4 @@
-const initialState = {tableData:[], dialogNewDC:false,dcDetailInitializeForm:null,openDCDialogType:null};
+const initialState = {tableData:[], openNewDCDialog:false,dcDetailInitializeForm:null,openDCDialogType:null,appId:null};
 
 export default function(state = initialState, action) {
 
@@ -10,15 +10,29 @@ export default function(state = initialState, action) {
   case 'FETCH_TABLE_DATA':
 	  console.log("inside  FETCH_DCDETAIL_DATA", action);
     var newState = Object.assign({}, state);
-    newState.tableData=action.payload.data._embedded.dcdetail;
+    console.log("action.payload.data._embedded.dcdetail---",action.payload.data._embedded.dcdetail)
+    var data=action.payload.data._embedded.dcdetail;
+      data.forEach(function(val){
+        console.log("in val---",val)
+        var index=val._links.self.href.lastIndexOf("/");
+        var id= val._links.self.href.slice(index+1,val._links.self.href.length)
+        val._links.self.href=id;
+        console.log("id----",id)
+        console.log(" val._links.self.href", val._links.self.href)
+    })
+    console.log("action.payload.data._embedded.dcdetail---",data)
+
+    newState.tableData = data;
     return newState
     //return [{"id":1,"name":"priyank"},{"id":2,"name":"Gahtori"}]
 
-  case 'ADD_ROW_TABLE':
+  case 'ADD_ROW_DCTABLE':
     console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload);
     var newState = Object.assign({}, state);
     console.log("newState- line no 16-",newState)
     console.log("action.payload.data,",action.payload.data)
+    action.payload.data._links={self:{href:action.payload.data.id}};
+    console.log("action.payload.data")
     newState.tableData.push(action.payload.data);
     console.log("newState---",newState)
     return newState;
@@ -38,9 +52,9 @@ export default function(state = initialState, action) {
 
   case 'TOGGLE_STATE_ADD_NEW_DC':
     var newState = Object.assign({}, state);
-    console.log("newState.dialogNewDC--",newState.dialogNewDC)
-    newState.dialogNewDC= !newState.dialogNewDC;
-    console.log("newState.dialogNewDC---",newState.dialogNewDC)
+    console.log("newState.openNewDCDialog--",newState.openNewDCDialog)
+    newState.openNewDCDialog= !newState.openNewDCDialog;
+    console.log("newState.openNewDCDialog---",newState.openNewDCDialog)
     return newState;
 
   case 'UPDATE_FORM':
@@ -50,18 +64,19 @@ export default function(state = initialState, action) {
     console.log("in updating form  flag---",action.payload.openDCDialogType)
     newState.dcDetailInitializeForm=action.payload.data;
     newState.openDCDialogType=action.payload.openDCDialogType;
+    newState.appId = action.payload.appId;
     console.log("newState.updateFormInitialValues--",newState.dcDetailInitializeForm)
     console.log("newState.openDCDialogType--",newState.openDCDialogType)
+    console.log(" newState.appId", newState.appId)
     return newState
 
   case 'UPDATE_ROW_DCTABLE':
     console.log("updating row--action.payload",action.payload)
-    console.log("updating row--action.payload",action.payload.data)
-    console.log("updatingrow table---",action.payload.data._links.self.href)
+    console.log("updating row--action.payload",action.payload.data.id)
     var newState = Object.assign({}, state);
       newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 61-------val._links.self.href")
-      if(val._links.self.href == action.payload.data._links.self.href){
+      if(val._links.self.href == action.payload.data.id){
           console.log("condition matched")
           val.dcName=action.payload.data.dcName;
           val.dcIp=action.payload.data.dcIp;
@@ -69,7 +84,6 @@ export default function(state = initialState, action) {
           val.ndeIp=action.payload.data.ndeIp;
           val.ndePort=action.payload.data.ndePort;
       }
-
 
       return val;
      })

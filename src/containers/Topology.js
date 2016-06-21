@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewDC from './Dialog_DCDetail_NewDC';
+import DialogNewApplication from './Dialog_AppDetail_NewApp';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -16,12 +16,11 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "_links",
-                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort','LINK'],
-                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','_links']
-              };          
+                "data":['TopoName', 'TopoDesc','Profile','State','LINK'],
+                "field":['topoName', 'topoDesc', 'profile','state','_links']
+              }; 
 
 const style = {
-  
   //margin: 20,
   textAlign: 'center',
   display: 'inline-block',
@@ -38,20 +37,25 @@ const NewButtonstyle = {
 };
 
 
-class DCDetail extends React.Component {
+
+class Topology extends React.Component {
 
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
-  console.log("this.props.routeParams.appId",this.props.routeParams.appId)
+  console.log(this.props.routeParams.something)
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
-  this.state={open:false}
   this.handleOpen = this.handleOpen.bind(this);
-  this.handleRequestClose=this.handleRequestClose.bind(this);
+  this.handleClick = this.handleClick.bind(this);
   this.state={headerBlockNoRowSelcted:"row Show"};
   this.state={headerBlockRowSelected:"row hidden"};
+  this.onSelectRow=this.onSelectRow.bind(this);
+  }
+
+  onSelectRow(){
+    console.log("onSelectRow----")
   }
 
   updateNode(e){
@@ -60,46 +64,53 @@ class DCDetail extends React.Component {
     this.props.updateTreeNode(this.props.routeParams.something);
   }
 
-  delRow(){
-    var selectedRowKeys=[];
-    console.log("calling del method---table ref--",this.refs.dcDetailTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
+   delRow(){
+      var selectedRowKeys=[];
+      console.log("del row function called")
+      console.log("calling del method---table ref--",this.refs.topoTable.refs.table.state.selectedRowKeys)
+    let selectedRowKeysObj = this.refs.topoTable.refs.table.state.selectedRowKeys;
+    console.log("href-----------",selectedRowKeysObj)
     selectedRowKeysObj.forEach(
                           value =>{
-                          selectedRowKeys.push(value.self.href) 
+                          selectedRowKeys.push(value.self.href)
                           }) 
     console.log("selectedRowKeys--",selectedRowKeys)
-    this.props.delDCTableRow(selectedRowKeys)
+
+  /*var selectRowsValueForServer= this.props.dcDetail.tableData
+                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
+                      .map((value,index) => value._links.self.href)
+
+  console.log("selectRowsValue--",selectRowsValueForServer)*/
+  this.props.delAppTableRow(selectedRowKeys)
   }
-  /*
-    * handleOpen(Flag)
-    * Flag:(edit or Add)
-    *    edit - when editing existing row
-    *    add - for Adding new row
-    *
-  */
-  handleOpen(openDCDialogType){
-    console.log("in handleopen---",openDCDialogType)
+
+  handleClick(){
+    console.log("selecting row")
+  }
+
+  handleOpen(openAppDialogType){
+
+    console.log("in handleopen---",openAppDialogType)
     //for editing form
-    if(openDCDialogType == "edit"){
-      console.log("editing the form")
+    if(openAppDialogType == "edit"){
+      console.log("editing the App form")
 
       // gets the selected key of table
-      let selectedRow= this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
+      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.dcDetail.tableData
+        let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
                                     return value._links.self.href === selectedRow[0].self.href
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.dcDetailInitializeForm(selectedRowData[0],openDCDialogType,this.props.routeParams.appId);
+        this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
         
-        this.props.toggleStateDialogNewDC();
+        this.props.toggleStateDialogNewApp();
       }
       else{
         //toster notification: Only one row can be edited
@@ -107,49 +118,39 @@ class DCDetail extends React.Component {
       }
 
     }
-    else if(openDCDialogType == "add"){ //for adding new row
+    else if(openAppDialogType == "add"){ //for adding new row
       console.log("adding form")
-       this.props.dcDetailInitializeForm(null,openDCDialogType,this.props.routeParams.appId); //clears previous/initial values
-       this.props.toggleStateDialogNewDC(); //opens dialog box
+       this.props.appDetailInitializeForm(null,openAppDialogType); //clears previous/initial values
+       this.props.toggleStateDialogNewApp(); //opens dialog box
     }
-
+       
   }
-   handleRequestClose(){
-    this.setState({
-      open: false,
-    });
-  };
 
   componentWillMount() {
-    //this.props.fetchTreeData(this.props.routeParams.something)
-    this.props.fetchDCTableData(this.props.routeParams.appId)
+    //this.props.fetchTreeData("ApplicationDetail")
+    console.log("componnet willmoiunr method called")
+    this.props.fetchTopologyTableData();
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.dcDetail)
-    console.log("in componentWillReceiveProps--",this.props.dcDetail)
-  	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
-  		this.setState({dcDetail:nextProps.dcDetail.tableData});
-
+    console.log("in componentWillReceiveProps--",nextProps.topologyData)
+     console.log("in componentWillReceiveProps--",this.props.topologyData)
+    if(this.props.topologyData != nextProps.topologyData)
+      this.setState({topologyData:nextProps.topologyData});
   }
-  render() {
-    var selectRow: {
-        mode: "checkbox",  //checkbox for multi select, radio for single select.
-        clickToSelect: true,   //click row will trigger a selection on that row.
-        bgColor: "rgb(true238, 193, 213)" , //selected row background color
-       
-    }
 
+  render() {
+      
     return (
     <div>
       <div className="row">
-      <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-        <Paper zDepth={2}>
-       <p>{this.state.headerBlockNoRowSelcted}</p>
-       <div className ={this.state.headerBlockNoRowSelcted}  >
+        <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
+         <Paper zDepth={2}>
+        <p>{this.state.headerBlockNoRowSelcted}</p>
+        <div className ={this.state.headerBlockNoRowSelcted}  >
           <div className="col-md-9">
-              <h3>DC Detail</h3>
+            <h3>Topology Detail</h3>
           </div>
 
           <div className="col-md-3 "  >
@@ -168,21 +169,23 @@ class DCDetail extends React.Component {
               <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
           </div>
        </div>
-        
-        <DataGrid data = {this.props.dcDetail.tableData} 
-                   pagination={false} 
-                   ref="dcDetailTable" 
-                   column = {columns} 
-                  
-        />
-         </Paper>
-      <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
+
+        <DataGrid data = {this.props.topologyData.tableData} 
+                  pagination={false} 
+                  ref="topoTable" 
+                  column = {columns}
+                  onClick={this.handleClick}
+         />
+        </Paper>
+        <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
+
+
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
-         <DialogNewDC />
+         <DialogNewApplication />
       </div>
 
       <Snackbar
@@ -191,15 +194,17 @@ class DCDetail extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
+
    </div>
+
     );
   }
 }
 
 function mapStateToProps(state) {
-  console.log("state.dcDetail.tableData---",state.dcDetail.tableData)
+  console.log("appDetail---",state.topologyData.tableData)
   return {
-    dcDetail :state.dcDetail
+    topologyData :state.topologyData
    };
 }
 
@@ -209,4 +214,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(DCDetail);
+export default connect(mapStateToProps,mapDispatchToProps)(Topology);

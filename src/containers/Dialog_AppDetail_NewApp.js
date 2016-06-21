@@ -15,23 +15,15 @@ class Dialog_DCDetail_NewDC extends React.Component {
   constructor(props) {
   super(props);
   console.log("loading......", this.props)
-  this.state = {openNewAppDialog:this.props.openNewAppDialog};
-  this.state = {openAppDialogType:this.props.openAppDialogType}
-  this.state = {initialValues: this.props.initialValues};
+  this.state = {applicationdata:this.props.applicationdata}
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps)
   {
-    if(this.props.openNewAppDialog != nextProps.openNewAppDialog)
-      this.setState({openNewAppDialog:nextProps.openNewAppDialog});
-
-     if(this.props.initialValues != nextProps.initialValues)
-      this.setState({initialValues:nextProps.initialValues});
-
-    if(this.props.openAppDialogType != nextProps.openAppDialogType)
-      this.setState({openAppDialogType:nextProps.openAppDialogType});
+    if(this.props.applicationdata != nextProps.applicationdata)
+      this.setState({applicationdata:nextProps.applicationdata});
   }
 
   handleCancel(){
@@ -72,23 +64,23 @@ class Dialog_DCDetail_NewDC extends React.Component {
           title="New Application Configuration"
           actions={actions}
           modal={false}
-          open={this.state.openNewAppDialog}
+          open={this.state.applicationdata.openNewAppDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
       <FormNewApp ref="newAppForm" onSubmit={data =>{
-                              console.log("data----",JSON.stringify(data))
-                               if(this.state.openAppDialogType == "edit"){
+                              console.log("data----",data)
+                               if(this.state.applicationdata.openAppDialogType == "edit"){
                                 
-                                data["_links"] = this.state.initialValues._links;
-                                console.log("data-aftr adding---",JSON.stringify(data))
-                                console.log("openAppDialogType----",this.state.openAppDialogType)
-                                this.props.addRowApplicationTable(data,this.state.openAppDialogType)
+                                data["_links"] = this.state.applicationdata.appDetailInitializeForm._links;
+                                console.log("data-aftr adding---",data)
+                                console.log("openAppDialogType----",this.state.applicationdata.openAppDialogType)
+                                this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openAppDialogType)
-                                 this.props.addRowApplicationTable(data,this.state.openAppDialogType)
+                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                                }
 
       }}/>
@@ -101,12 +93,9 @@ class Dialog_DCDetail_NewDC extends React.Component {
 function mapStateToProps(state) {
   console.log("dialogNewDC---",state.applicationdata.dialogNewpp)
   console.log("state.applicationdata.openAppDialogType",state.applicationdata.openAppDialogType)
+  console.log("state.applicationdata.initialValues",state.applicationdata.initialValues)
   return {
-   openNewAppDialog :state.applicationdata.dialogNewApp,
-   initialValues    :state.applicationdata.appDetailInitializeForm,
-   openAppDialogType:state.applicationdata.openAppDialogType
-
-
+   applicationdata :state.applicationdata
    };
 }
 

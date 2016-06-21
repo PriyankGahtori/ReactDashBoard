@@ -76,13 +76,7 @@ onSelectRow(){
                           selectedRowKeys.push(value.self.href)
                           }) 
     console.log("selectedRowKeys--",selectedRowKeys)
-
-  /*var selectRowsValueForServer= this.props.dcDetail.tableData
-                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
-                      .map((value,index) => value._links.self.href)
-
-  console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delAppTableRow(selectedRowKeys)
+    this.props.delAppTableRow(selectedRowKeys)
   }
 
   handleClick(){

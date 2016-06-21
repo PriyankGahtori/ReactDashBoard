@@ -34,9 +34,6 @@ class DataGridComponent extends React.Component {
 
     return (
     <div>
-       
-
-
       <BootstrapTable
         data = {data}
         striped={striped}
@@ -47,14 +44,11 @@ class DataGridComponent extends React.Component {
         ref="table"
         style={{"width":"98%"}}
       >
-
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false}>{val}</TableHeaderColumn>
+        <TableHeaderColumn dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} >{val}</TableHeaderColumn>
         ))}     
-
       </BootstrapTable>
-      
         </div>
     );
   }

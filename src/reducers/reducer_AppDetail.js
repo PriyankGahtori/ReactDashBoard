@@ -1,4 +1,4 @@
-const initialState = {tableData:[], dialogNewApp:false,appDetailInitializeForm:null,openAppDialogType:null};
+const initialState = {tableData:[], openNewAppDialog:false,appDetailInitializeForm:null,openAppDialogType:null};
 
 export default function(state = initialState, action) {
 
@@ -10,14 +10,23 @@ export default function(state = initialState, action) {
    case 'FETCH_APP_TABLE_DATA':
     console.log("inside  FETCH_APP_TABLE_DATA", action.payload.data);
     var newState = Object.assign({}, state);
-   newState.tableData=action.payload.data._embedded.application;
+    var data=action.payload.data._embedded.application;
+      data.forEach(function(val){
+        console.log("in val---ApplicationDetail",val)
+        var index=val._links.self.href.lastIndexOf("/");
+        var id= val._links.self.href.slice(index+1,val._links.self.href.length)
+        val._links.self.href=id;
+        console.log("id----",id)
+        console.log(" val._links.self.href", val._links.self.href)
+    })
+    newState.tableData = data;
     return newState;
   
   case 'TOGGLE_STATE_NEW_APP':
     var newState = Object.assign({}, state);
-    console.log("newState.dialogNewApp--",newState.dialogNewApp)
-    newState.dialogNewApp= !newState.dialogNewApp;
-    console.log("newState.dialogNewApp---",newState.dialogNewApp)
+    console.log("newState.openNewAppDialog--",newState.openNewAppDialog)
+    newState.openNewAppDialog= !newState.openNewAppDialog;
+    console.log("newState.openNewAppDialog---",newState.openNewAppDialog)
     return newState;
     
   case 'DEL_APPTABLE_ROW':
@@ -33,10 +42,10 @@ export default function(state = initialState, action) {
     return newState; 
 
   case 'ADD_ROW_APPTABLE':
-    console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload);
+    console.log("inside ADD_ROW_TABLE case-application reducer--action.payload.data",action.payload.data);
     var newState = Object.assign({}, state);
-    console.log("newState- line no 16-",newState)
-    console.log("action.payload.data,",action.payload.data)
+    action.payload.data._links={self:{href:action.payload.data.appId}}
+    console.log("aftr adding link in application adding row reducer--",action.payload.data)
     newState.tableData.push(action.payload.data);
     console.log("newState---",newState)
     return newState;
@@ -55,11 +64,10 @@ export default function(state = initialState, action) {
     case 'UPDATE_ROW_APPTABLE':
     console.log("updating row--action.payload",action.payload)
     console.log("updating row--action.payload",action.payload.data)
-    console.log("updatingrow table---",action.payload.data._links.self.href)
     var newState = Object.assign({}, state);
       newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 61-------val._links.self.href")
-      if(val._links.self.href == action.payload.data._links.self.href){
+      if(val._links.self.href == action.payload.data.appId){
           console.log("condition matched")
           val.appDesc=action.payload.data.appDesc;
           val.appName=action.payload.data.appName;

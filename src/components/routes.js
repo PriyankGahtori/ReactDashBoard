@@ -10,6 +10,7 @@ import NewHome from '../containers/Home'
 import DCDetail from '../containers/DCDetail'
 import ApplicationDetail from '../containers/ApplicationDetail'
 import Testing from '../containers/Testing'
+import Topology from '../containers/Topology'
 
 export default class routes extends React.Component {
 
@@ -21,6 +22,7 @@ export default class routes extends React.Component {
 		      <Route path="home" component={ApplicationDetail} />
 		      <Route path="application/:appId" component={DCDetail} />
 		      <Route path="testing" component={Testing} />
+		      <Route path="topology" component={Topology} />
 		    </Route>
 
 		  </Router>

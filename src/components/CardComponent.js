@@ -25,7 +25,6 @@ class CardComponent extends React.Component {
           {
             this.props.data.value.map((value, index) => (            
             <Link to={`/${this.props.data.type.toLowerCase()}/${value.id}`}><ListItem primaryText={value.name} /></Link>
-              
             ))
            }      
       </List>      

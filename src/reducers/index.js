@@ -12,6 +12,7 @@ import TreeData from './reducer_tree_data';
 import DCDetailData from './reducer_DCDetailTable';
 import {reducer as formReducer} from 'redux-form';
 import ApplicationData from './reducer_AppDetail';
+import TopologyData from './reducer_Topology';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -21,7 +22,8 @@ module.exports = combineReducers({
 	treeData: TreeData,
 	dcDetail: DCDetailData,
 	form: formReducer,
-	applicationdata : ApplicationData
+	applicationdata : ApplicationData,
+	topologyData : TopologyData
 });
 
 //const reducers = {addInitialAppData};

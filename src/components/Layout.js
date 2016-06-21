@@ -95,6 +95,7 @@ export default class Layout extends React.Component {
 
 	          <MenuItem>Menu Item</MenuItem>
 	          <MenuItem>Menu Item 2</MenuItem>
+            <MenuItem><Link to="/topology">PKY</Link></MenuItem>
 	          <span className={this.state.treeClass}>
                 <Tree /> 
               </span>

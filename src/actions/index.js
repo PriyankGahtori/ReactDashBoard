@@ -49,10 +49,19 @@ export function fetchDCTableData(appId){
     payload: request_table
   };
 }
+/*
+*  URL For adding- `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`
+*        editing -http://10.10.40.7:8050/configUI/custom/dcdetail/appId/dcId
+*   ie for POST / PUT method 
+        url should be : http://10.10.40.7:8050/configUI/custom/dcdetail/
+      and for get 
+      url :
+                  http://10.10.40.7:8050/configUI/dcdetail
+*/
 
-export function addRowDCTable(formData,openDCDialogType){
-
-  console.log("add_Row_table--action called--",formData)
+export function addRowDCTable(formData,openDCDialogType,appId){
+  console.log("appId",appId)
+ console.log("add_Row_table--action called--",formData)
  console.log("openDCDialogType----",openDCDialogType);
   //when action is called from updating form
   if(openDCDialogType == "edit"){
@@ -60,7 +69,7 @@ export function addRowDCTable(formData,openDCDialogType){
    console.log("edit flag")
    var response = axios({
     method:'put',
-    url: formData._links.self.href,
+    url:  `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}/${formData._links.self.href}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -75,7 +84,7 @@ export function addRowDCTable(formData,openDCDialogType){
 //action called for adding new DC
   var response = axios({
     method:'post',
-    url: 'http://10.10.40.7:8050/configUI/dcdetail',
+    url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -86,7 +95,6 @@ export function addRowDCTable(formData,openDCDialogType){
     payload: response
   };
 }
-
 }
 
 export function delDCTableRow(selectedRowKeys){
@@ -96,8 +104,8 @@ export function delDCTableRow(selectedRowKeys){
     {
      console.log("value--",value)
      axios({
-        method : 'delete',
-        url : value
+        method: 'delete',
+        url   : `http://10.10.40.7:8050/configUI/dcdetail/${value}`  //url-{value=dcId acting as a primary key}
         });
 })
   
@@ -108,10 +116,7 @@ export function delDCTableRow(selectedRowKeys){
 }
 
 export function updateTreeNode(data) {
-
   console.log("Heloo... from update node.... ");
-
-
   return {
     type: 'UPDATE_TREE_DATA',
     payload:data
@@ -130,10 +135,12 @@ export function toggleStateDialogNewDC(){
  *    type :  add ( state is set to null) 
  *            edit( state assigned to selected row )          
 */
-export function dcDetailInitializeForm(data,openDCDialogType){
+
+export function dcDetailInitializeForm(data,openDCDialogType,appId){
   console.log("updateformInitialValue",data )
   console.log("flag---",openDCDialogType)
-  var payload={ "data":data,"openDCDialogType":openDCDialogType};
+  console.log("appId",appId)
+  var payload={ "data":data,"openDCDialogType":openDCDialogType,"appId":appId};
 
   return {
     type:'UPDATE_FORM',
@@ -173,7 +180,7 @@ export function delAppTableRow(selectedRowKeys){
      console.log("value--",value)
      axios({
         method : 'delete',
-        url : value
+        url : `http://10.10.40.7:8050/configUI/application/${value}`
         });
 })
   
@@ -192,7 +199,7 @@ export function addRowApplicationTable(formData,openAppDialogType){
    console.log("edit flag")
    var response = axios({
     method:'put',
-    url: formData._links.self.href,
+    url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -207,7 +214,7 @@ export function addRowApplicationTable(formData,openAppDialogType){
 //action called for adding new DC
   var response = axios({
     method:'post',
-    url: 'http://10.10.40.7:8050/configUI/application',
+    url: 'http://10.10.40.7:8050/configUI/custom/application',
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -234,4 +241,22 @@ export function appDetailInitializeForm(data,openAppDialogType){
     type:'UPDATE_APP_FORM',
     payload:payload
   }
+}
+
+/*
+*Action Creators for Topology Screen
+*
+*
+*/
+
+export function fetchTopologyTableData(){
+  //const URLTable =  "http://10.10.40.7:8050/configUI/application";
+  const URLTable="../topology.json"
+  const request_table = axios.get(URLTable);
+  console.log("request_table in fetching topotable",request_table)
+
+  return {
+    type: 'FETCH_TOPOlOGYTABLE_DATA',
+    payload:request_table
+  };
 }

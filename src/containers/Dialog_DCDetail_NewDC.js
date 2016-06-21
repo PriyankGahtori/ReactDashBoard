@@ -17,23 +17,15 @@ class Dialog_DCDetail_NewDC extends React.Component {
   constructor(props) {
   super(props);
   console.log("onsubmit props", this.props.onSubmit)
-  this.state = {openNewDCDialog:this.props.openNewDCDialog};
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
-  this.state = {initialValues: this.props.initialValues};
-  this.state ={openDCDialogType:this.props.openDCDialogType};
+  this.state ={dcDetail:this.props.dcDetail};
   }
 
   componentWillReceiveProps(nextProps)
   {
-    if(this.props.openNewDCDialog != nextProps.openNewDCDialog)
-      this.setState({openNewDCDialog:nextProps.openNewDCDialog});
-
-    if(this.props.initialValues != nextProps.initialValues)
-      this.setState({initialValues:nextProps.initialValues});
-
-    if(this.props.openDCDialogType != nextProps.openDCDialogType)
-      this.setState({openDCDialogType:nextProps.openDCDialogType});
+    if(this.props.dcDetail != nextProps.dcDetail)
+      this.setState({dcDetail:nextProps.dcDetail});
   }
 
   handleCancel(){
@@ -75,23 +67,24 @@ class Dialog_DCDetail_NewDC extends React.Component {
           title="New Data Center Configuration"
           actions={actions}
           modal={false}
-          open={this.state.openNewDCDialog}
+          open={this.state.dcDetail.openNewDCDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
       <FormNewDC ref="newDCForm" onSubmit={data =>{
-                                console.log("data----",JSON.stringify(data))
-                               if(this.state.openDCDialogType == "edit"){
-                                
-                                data["_links"] = this.state.initialValues._links;
-                                console.log("data-aftr adding---",JSON.stringify(data))
-                                console.log("openDCDialogType----",this.state.openDCDialogType)
-                                this.props.addRowDCTable(data,this.state.openDCDialogType)
+                              console.log("data----",JSON.stringify(data))
+                               if(this.state.dcDetail.openDCDialogType == "edit"){
+
+                                data["_links"] = this.state.dcDetail.dcDetailInitializeForm._links;
+                                console.log("data-aftr adding---",data)
+                                console.log("openDCDialogType----",this.state.dcDetail.openDCDialogType)
+                                console.log("in editing con in dialog--",this.state.dcDetail.appId)
+                                this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openDCDialogType)
-                                 this.props.addRowDCTable(data,this.state.openDCDialogType)
+                                this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
                               }
 
       }}/>
@@ -102,12 +95,11 @@ class Dialog_DCDetail_NewDC extends React.Component {
 } 
 
 function mapStateToProps(state) {
-  console.log("dialogNewDC---",state.dcDetail.dialogNewDC)
+  console.log("openNewDCDialog---",state.dcDetail.openNewDCDialog)
   console.log("dialogNewDC---",state.dcDetail.dcDetailInitializeForm)
+  console.log("appId",state.dcDetail.appId)
   return {
-   openNewDCDialog :state.dcDetail.dialogNewDC,
-   initialValues   :state.dcDetail.dcDetailInitializeForm,
-   openDCDialogType   :state.dcDetail.openDCDialogType
+   dcDetail :state.dcDetail
    };
 }
 

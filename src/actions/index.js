@@ -21,15 +21,15 @@ export function fetchInitData() {
   };
 }
 
-
-
-export function fetchTreeData(value) {
-
-  const URL =  `../${value}.json`;
+/*
+*
+*  fetching Json for tree
+*/
+export function fetchTreeData(appId) {
+  const URL =  `http://10.10.40.7:8050/configUI/custom/tree/application/${appId}`;
   console.log("on action---",URL)
   const request_tree = axios.get(URL);
-
-  console.log("Action ajax.................",request_tree);
+  console.log("Action ajax...fetching trreeedataaa..............",request_tree);
 
   return {
     type: FETCH_TREE_DATA,
@@ -37,6 +37,7 @@ export function fetchTreeData(value) {
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
+
 
 export function fetchDCTableData(appId){
 
@@ -76,7 +77,7 @@ export function addRowDCTable(formData,openDCDialogType,appId){
 
    console.log("response",response)
       return {
-        type: 'UPDATE_ROW_DCTABLE',
+        type: 'DCTABLE_UPDATE_ROW_UPDATE_TREE',
         payload: response
       };
   }
@@ -91,7 +92,7 @@ export function addRowDCTable(formData,openDCDialogType,appId){
 
   console.log("response",response)
   return {
-    type: 'ADD_ROW_DCTABLE',
+    type: 'DCTABLE_ADD_ROW_UPDATE_TREE',
     payload: response
   };
 }
@@ -110,7 +111,7 @@ export function delDCTableRow(selectedRowKeys){
 })
   
   return{
-    type:'DEL_DC_ROW_TABLE',
+    type:'DCTABLE_DEL_ROW_UPDATE_TREE',
     payload:selectedRowKeys
   }
 }

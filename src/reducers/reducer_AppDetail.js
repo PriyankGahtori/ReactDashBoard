@@ -2,9 +2,9 @@ const initialState = {tableData:[], openNewAppDialog:false,appDetailInitializeFo
 
 export default function(state = initialState, action) {
 
-	console.log("inside reducerappdetail", action.type);
+	/*console.log("inside reducerappdetail", action.type);*/
 
-  console.log("reducerdcdetail called----",initialState)
+ /* console.log("reducerdcdetail called----",initialState)*/
   switch(action.type) {
 
    case 'FETCH_APP_TABLE_DATA':
@@ -61,7 +61,7 @@ export default function(state = initialState, action) {
     console.log("newState.openAppDialogType--",newState.openAppDialogType)
     return newState
 
-    case 'UPDATE_ROW_APPTABLE':
+    case 'DCTABLE_UPDATEROW_UPDATETREE':
     console.log("updating row--action.payload",action.payload)
     console.log("updating row--action.payload",action.payload.data)
     var newState = Object.assign({}, state);

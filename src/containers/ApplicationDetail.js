@@ -122,7 +122,6 @@ onSelectRow(){
   }
 
   componentWillMount() {
-    //this.props.fetchTreeData("ApplicationDetail")
     this.props.fetchAppTableData();
   }
 

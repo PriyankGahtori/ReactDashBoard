@@ -1,21 +1,48 @@
 export default function(state = [], action) {
 
-	console.log("inside init reducer for tree", action.type);
+	console.log("inside init reducer for tree--", action.type);
   switch(action.type) {
   case 'FETCH_TREE_DATA':
   	console.log("inside FETCH_INIT_DATA case");
   	var newState = Object.assign({}, state);
   	newState=action.payload.data;
     return newState
-
   
-  case 'UPDATE_TREE_DATA':
-	  var newState = Object.assign([], state);
-    console.log("newState--",newState)
-    newState[0].children.push({"name":"new Child","children":[]});
-    console.log("bmmm State", state);
+  case 'DCTABLE_ADD_ROW_UPDATE_TREE':
+	  var newState = Object.assign({}, state);
+    newState.children.push({"id":action.payload.data.id,"children":[],"name":action.payload.data.dcName})
+    console.log("new State", newState);
     return newState
 
+  case 'DCTABLE_DEL_ROW_UPDATE_TREE':
+    console.log("deleting dc row---action.payload-",action.payload)
+    var newState = Object.assign({}, state);
+    console.log("State--in tree.js",state)
+    newState.children = newState.children.filter(function(val){
+      console.log("val.id----",val.id)
+      console.log("action.payload--",action.payload)
+      console.log(action.payload.indexOf(""+val.id) == -1)
+       return action.payload.indexOf(""+val.id) == -1; 
+    })
+    console.log("new State for tree-----", newState);
+    return newState
+
+case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
+  console.log("in updating form")
+   var newState = Object.assign({}, state);
+    console.log("State--in tree.js",state)
+    console.log("action.payload---",action.payload.data)
+    console.log("action.payload.data.id",action.payload.data.id)
+    newState.children.filter(function(val){
+      if(val.id == action.payload.data.id){
+          console.log("val.id ---",val.id ) 
+          console.log("matched")
+          val.name=action.payload.data.dcName
+        
+      }
+     })
+    console.log("newState.children---",newState.children)
+    return newState;
 
 
   default :

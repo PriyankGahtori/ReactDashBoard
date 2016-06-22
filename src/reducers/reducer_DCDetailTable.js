@@ -3,7 +3,6 @@ const initialState = {tableData:[], openNewDCDialog:false,dcDetailInitializeForm
 export default function(state = initialState, action) {
 
 	console.log("inside init reducer for tree", action.type);
-
   console.log("reducerdcdetail called----")
   switch(action.type) {
 
@@ -26,7 +25,7 @@ export default function(state = initialState, action) {
     return newState
     //return [{"id":1,"name":"priyank"},{"id":2,"name":"Gahtori"}]
 
-  case 'ADD_ROW_DCTABLE':
+  case 'DCTABLE_ADD_ROW_UPDATE_TREE':
     console.log("inside ADD_ROW_TABLE case---action.payload.data",action.payload);
     var newState = Object.assign({}, state);
     console.log("newState- line no 16-",newState)
@@ -37,7 +36,7 @@ export default function(state = initialState, action) {
     console.log("newState---",newState)
     return newState;
 
-  case 'DEL_DC_ROW_TABLE':
+  case 'DCTABLE_DEL_ROW_UPDATE_TREE':
     console.log("inside DEL_ROW_TABLE---case")
     var newState = Object.assign({}, state);
     console.log("line no 23---",action)
@@ -45,6 +44,7 @@ export default function(state = initialState, action) {
     console.log("line no 25--action.payload--",action.payload)
     newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 33---",val._links.self.href)
+      console.log("action.payload.indexOf(val._links.self.href) == -1-----",action.payload.indexOf(val._links.self.href) == -1)
        return action.payload.indexOf(val._links.self.href) == -1; //value sto be deleteed should return false
      })
     console.log("newState.tableData---",newState.tableData)
@@ -70,7 +70,7 @@ export default function(state = initialState, action) {
     console.log(" newState.appId", newState.appId)
     return newState
 
-  case 'UPDATE_ROW_DCTABLE':
+  case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
     console.log("updating row--action.payload",action.payload)
     console.log("updating row--action.payload",action.payload.data.id)
     var newState = Object.assign({}, state);

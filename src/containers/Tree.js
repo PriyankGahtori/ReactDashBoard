@@ -22,13 +22,13 @@ import { bindActionCreators } from 'redux';
         this.setState({treedata:nextProps.treedata});
 }
 
-
 	onToggle(node, toggled){
         if(this.state.cursor){this.state.cursor.active = false;}
         node.active = true;
         if(node.children){ node.toggled = toggled; }
         this.setState({ cursor: node });
     }
+
 	render() {
 		return (
 			<Treebeard
@@ -40,7 +40,7 @@ import { bindActionCreators } from 'redux';
 }
 //receiving data from state set by reducers
 function mapStateToProps(state) {
-    console.log("in tree.js--",state.treeData)
+  console.log("in tree.js--",state.treeData)
   return {
    treedata : state.treeData
    };

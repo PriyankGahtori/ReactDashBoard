@@ -33,9 +33,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
   }
   
   handleSubmit(){
-  console.log("before submitting")
   this.refs.newDCForm.submit();
-  console.log("aftr submitting")
   this.handleCancel();
   console.log("aftr closing the dialog----")
   }
@@ -84,7 +82,10 @@ class Dialog_DCDetail_NewDC extends React.Component {
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openDCDialogType)
+                                this.props.fetchTreeData(this.state.dcDetail.appId)
                                 this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
+                                console.log("in dialog aftr adding n updating tree")
+
                               }
 
       }}/>

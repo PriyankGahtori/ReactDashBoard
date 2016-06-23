@@ -144,7 +144,6 @@ class DCDetail extends React.Component {
     return (
     <div>
       <div className="row">
-      <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
         <Paper zDepth={2}>
        <p>{this.state.headerBlockNoRowSelcted}</p>
        <div className ={this.state.headerBlockNoRowSelcted}  >

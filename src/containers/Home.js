@@ -40,6 +40,7 @@ componentWillReceiveProps(nextProps)
 
 //receiving data from state set by reducers
 function mapStateToProps(state) {
+  console.log("state.initialData------",state.initialData)
   return {
    list : state.list,
    homeData :state.initialData

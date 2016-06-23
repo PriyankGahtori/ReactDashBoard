@@ -38,10 +38,8 @@ export default class Layout extends React.Component {
 
   componentWillMount() {
     console.log("current",this.props.location.pathname);
-  
-
-    
   }
+
   componentWillReceiveProps(nextProps) {
     const routeChanged = nextProps.location !== this.props.location;
     
@@ -50,15 +48,22 @@ export default class Layout extends React.Component {
     console.log("current",this.props.location);
     console.log("next",nextProps.location);
     
-
     if(nextProps.location.pathname === "/")
-    	this.setState({treeClass: "hide"});
+    	this.setState({treeClass: "hide",
+                    open: false, 
+                    headerClass : "col-md-12", 
+                    drawerClass : "col-md-0"
+    });
     else
        this.setState({treeClass: "show"});		
-    
   }
 
   handleToggle(){ 
+    console.log("this.props.location.pathname--",this.props.location.pathname)
+     if(this.props.location.pathname === "/"){
+          console.log("home link--")
+          return       
+     }
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
 
@@ -67,8 +72,8 @@ export default class Layout extends React.Component {
   		headerClass: headercss,
   		drawerClass: drawercss
   	});
-
   }
+
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
@@ -93,8 +98,6 @@ export default class Layout extends React.Component {
 		         onRightIconButtonTouchTap={()=>this.handleToggle}		         
 		       />
 
-	          <MenuItem>Menu Item</MenuItem>
-	          <MenuItem>Menu Item 2</MenuItem>
             <MenuItem><Link to="/topology">PKY</Link></MenuItem>
 	          <span className={this.state.treeClass}>
                 <Tree /> 
@@ -102,7 +105,7 @@ export default class Layout extends React.Component {
 	       </Drawer>
 	       
 	       <div className={this.state.headerClass} style={headerStyle}>
-	      	<AppBar
+	      <AppBar
 	    	title="Config GUI"
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}

@@ -48,25 +48,31 @@ export default class Layout extends React.Component {
     console.log("current",this.props.location);
     console.log("next",nextProps.location);
     
-    if(nextProps.location.pathname === "/")
+    if(nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" )
     	this.setState({treeClass: "hide",
                     open: false, 
                     headerClass : "col-md-12", 
                     drawerClass : "col-md-0"
     });
     else
-       this.setState({treeClass: "show"});		
+       this.setState({treeClass: "show",
+                      open: true, 
+                      headerClass : "col-md-10", 
+                      drawerClass : "col-md-2"
+     });		
   }
 
   handleToggle(){ 
     console.log("this.props.location.pathname--",this.props.location.pathname)
-     if(this.props.location.pathname === "/"){
+     if(this.props.location.pathname === "/" || this.props.location.pathname === "/application" ){
           console.log("home link--")
           return       
      }
+
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-
+    console.log("line no 74---",headercss)
+    console.log("drawercss---",drawercss)
   	this.setState({
   		open: !this.state.open,
   		headerClass: headercss,

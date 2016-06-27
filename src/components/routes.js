@@ -19,7 +19,7 @@ export default class routes extends React.Component {
 		  <Router history={hashHistory}>
 		    <Route path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
-		      <Route path="home" component={ApplicationDetail} />
+		      <Route path="application" component={ApplicationDetail} />
 		      <Route path="application/:appId" component={DCDetail} />
 		      <Route path="testing" component={Testing} />
 		      <Route path="topology" component={Topology} />

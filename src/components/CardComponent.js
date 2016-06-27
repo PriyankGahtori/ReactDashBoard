@@ -17,9 +17,9 @@ class CardComponent extends React.Component {
    };
 
     return (
-   <div className="col-md-4" style={{padding:'15px'}}>
-    <Card style={myStyle}>
-    <CardTitle title={this.props.data.type} />
+   <div className="col-md-4" style={{padding:'10px'}}>
+    <Card style={{myStyle}}>
+    <CardTitle title={this.props.data.type} style={{padding:'10px'}} />
      <Divider />
       <List>
           {
@@ -30,7 +30,7 @@ class CardComponent extends React.Component {
       </List>      
     <Divider />
     <CardActions>
-      <Link to="/home"><FlatButton label="Show ALL" /></Link>      
+      <Link to="/application"><FlatButton label="Show ALL" /></Link>      
     </CardActions>
     
     </Card>

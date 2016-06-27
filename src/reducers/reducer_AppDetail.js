@@ -1,4 +1,8 @@
-const initialState = {tableData:[], openNewAppDialog:false,appDetailInitializeForm:null,openAppDialogType:null};
+const initialState = {tableData:[],
+                     openNewAppDialog:false,  //initializing varia
+                     appDetailInitializeForm:null,
+                     openAppDialogType:null
+                   };
 
 export default function(state = initialState, action) {
 
@@ -61,7 +65,7 @@ export default function(state = initialState, action) {
     console.log("newState.openAppDialogType--",newState.openAppDialogType)
     return newState
 
-    case 'DCTABLE_UPDATEROW_UPDATETREE':
+    case 'UPDATE_ROW_APPTABLE':
     console.log("updating row--action.payload",action.payload)
     console.log("updating row--action.payload",action.payload.data)
     var newState = Object.assign({}, state);

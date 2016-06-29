@@ -14,6 +14,12 @@ import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 
 
+/*
+* data --- table column name
+* key ---- acting as a primary key
+* 
+*/
+
 var columns = {
                 "key" : "_links",
                 "data":['AppName', 'AppDesc','UserName','LINK'],
@@ -23,7 +29,7 @@ var columns = {
 const style = {
   //margin: 20,
   textAlign: 'center',
-  display: 'inline-block',
+  display: 'inline-block'
 };
 
 const NewButtonstyle = {
@@ -32,7 +38,7 @@ const NewButtonstyle = {
     right: 20,
     bottom: 30,
     left: 'auto',
-    position: 'fixed',
+    position: 'fixed'
 
 };
 
@@ -44,34 +50,24 @@ class ApplicationDetail extends React.Component {
   super(props);
   console.log("in DCDetail.js--",this.props)
   console.log(this.props.routeParams.something)
-  this.updateNode = this.updateNode.bind(this);
+
   this.delRow = this.delRow.bind(this);
-  this.state ={openNewAppDialog:false}
+  this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
+
   this.handleClick = this.handleClick.bind(this);
   this.state={headerBlockNoRowSelcted:"row Show"};
   this.state={headerBlockRowSelected:"row hidden"};
-  this.onSelectRow=this.onSelectRow.bind(this);
   }
 
-
-onSelectRow(){
-  console.log("onSelectRow----")
-}
-
-  updateNode(e){
-    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
-    e.preventDefault()
-    this.props.updateTreeNode(this.props.routeParams.something);
-  }
-
+ 
  delRow(){
     var selectedRowKeys=[];
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
     let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
     console.log("href-----------",selectedRowKeysObj)
-    selectedRowKeysObj.forEach(
+    selectedRowKeysObj.map(
                           value =>{
                           selectedRowKeys.push(value.self.href)
                           }) 
@@ -83,6 +79,10 @@ onSelectRow(){
     console.log("selecting row")
   }
 
+/*
+* flag "openAppDialogType" used to determine FormDialog to be opened will be for which functionality
+* add OR edit
+*/
   handleOpen(openAppDialogType){
 
     console.log("in handleopen---",openAppDialogType)
@@ -102,12 +102,14 @@ onSelectRow(){
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
-        //action to dispatch selectRowData
+        //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
         this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
-        
+       
+       //called this action to toggle the state of opened FormDialog. 
         this.props.toggleStateDialogNewApp();
       }
       else{
+       
         //toster notification: Only one row can be edited
         this.setState({open: true});
       }
@@ -121,6 +123,7 @@ onSelectRow(){
        
   }
 
+//this function is called first when component gets first loaded
   componentWillMount() {
     this.props.fetchAppTableData();
   }
@@ -138,7 +141,7 @@ onSelectRow(){
     return (
     <div>
       <div className="row">
-         <Paper zDepth={2}>
+        <Paper zDepth={2}>
         <p>{this.state.headerBlockNoRowSelcted}</p>
         <div className ={this.state.headerBlockNoRowSelcted}  >
           <div className="col-md-9">
@@ -161,7 +164,10 @@ onSelectRow(){
               <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
           </div>
        </div>
-
+        {/* Rendering table component  ,
+          * passing data (received from store) to the table component to be displayed at table 
+         */  
+       }
         <DataGrid data = {this.props.appDetail.tableData} 
                   pagination={false} 
                   ref="appTable" 
@@ -177,7 +183,9 @@ onSelectRow(){
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
+
          <DialogNewApplication />
+
       </div>
 
       <Snackbar

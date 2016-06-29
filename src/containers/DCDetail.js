@@ -61,15 +61,15 @@ class DCDetail extends React.Component {
   }
 
   delRow(){
-    var selectedRowKeys=[];
+    var selectedRowKeys=[]; //used for storing url with unique id for selected row
     console.log("calling del method---table ref--",this.refs.dcDetailTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
-    selectedRowKeysObj.forEach(
+    let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys; /// selectedRowKeysObj :=> primary key of selected row 
+    selectedRowKeysObj.map(
                           value =>{
                           selectedRowKeys.push(value.self.href) 
                           }) 
     console.log("selectedRowKeys--",selectedRowKeys)
-    this.props.delDCTableRow(selectedRowKeys)
+    this.props.delDCTableRow(selectedRowKeys) 
   }
   /*
     * handleOpen(Flag)
@@ -167,20 +167,24 @@ class DCDetail extends React.Component {
               <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
           </div>
        </div>
-        
+        {/* rendering Table component
+        */}
         <DataGrid data = {this.props.dcDetail.tableData} 
                    pagination={false} 
                    ref="dcDetailTable" 
                    column = {columns} 
                   
         />
-         </Paper>
+      </Paper>
+      
       <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
       </div>
+      
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
+       
          <DialogNewDC />
       </div>
 

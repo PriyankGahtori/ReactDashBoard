@@ -15,7 +15,7 @@ export default function(state = initialState, action) {
     console.log("inside  FETCH_APP_TABLE_DATA", action.payload.data);
     var newState = Object.assign({}, state);
     var data=action.payload.data._embedded.application;
-      data.forEach(function(val){
+      data.map(function(val){
         console.log("in val---ApplicationDetail",val)
         var index=val._links.self.href.lastIndexOf("/");
         var id= val._links.self.href.slice(index+1,val._links.self.href.length)

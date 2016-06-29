@@ -5,7 +5,7 @@ const reducers = require('../reducers');
 module.exports = function(initialState) {
  // const store = redux.createStore(reducers, initialState)
   const createStoreWithMiddleware = redux.applyMiddleware(ReduxPromise)(redux.createStore);
-  const store = createStoreWithMiddleware(reducers, initialState);
+  const store = createStoreWithMiddleware(reducers, initialState,redux.compose( window.devToolsExtension ? window.devToolsExtension() : f => f));
 
   if (module.hot) {
     // Enable Web

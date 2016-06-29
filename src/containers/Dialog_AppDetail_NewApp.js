@@ -69,6 +69,13 @@ class Dialog_DCDetail_NewDC extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
+
+         { /* As new updated form when passed to server or store must contain its primary key field 
+           * i.e ._links to update the same row .So inserting property _links to data .
+           * when condition this.state.applicationdata.openAppDialogType == "edit" satisfies
+           */
+        }
+       
       <FormNewApp ref="newAppForm" onSubmit={data =>{
                               console.log("data----",data)
                                if(this.state.applicationdata.openAppDialogType == "edit"){
@@ -101,8 +108,6 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  //return actionMap;
-return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(actionCreators, dispatch);
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Dialog_DCDetail_NewDC);

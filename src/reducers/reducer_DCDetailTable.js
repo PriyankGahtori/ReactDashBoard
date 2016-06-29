@@ -11,7 +11,7 @@ export default function(state = initialState, action) {
     var newState = Object.assign({}, state);
     console.log("action.payload.data._embedded.dcdetail---",action.payload.data._embedded.dcdetail)
     var data=action.payload.data._embedded.dcdetail;
-      data.forEach(function(val){
+      data.map(function(val){
         console.log("in val---",val)
         var index=val._links.self.href.lastIndexOf("/");
         var id= val._links.self.href.slice(index+1,val._links.self.href.length)

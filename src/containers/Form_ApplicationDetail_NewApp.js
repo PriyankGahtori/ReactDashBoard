@@ -11,6 +11,7 @@ const initialValues = {
                 'ndePort' : "34342"
               }
 
+//validating the fields of form
 const validate = values => {
   const errors = {}
  

@@ -1,5 +1,6 @@
 
 import React from 'react';
+import * as actionCreators  from '../actions/index';
 import { connect } from 'react-redux';
 import  {activeData} from '../actions/index';
 import { bindActionCreators } from 'redux';
@@ -14,7 +15,7 @@ import {fetchInitData} from '../actions/index'
    }
 
 componentWillMount() {
-  this.props.loadInitData()
+  this.props.fetchInitData()
 }
 
 componentWillReceiveProps(nextProps)
@@ -49,7 +50,7 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  const actionMap = { loadInitData: bindActionCreators(fetchInitData, dispatch) };
-  return actionMap;
+ // const actionMap = { loadInitData: bindActionCreators(fetchInitData, dispatch) };
+  return  bindActionCreators(actionCreators, dispatch);
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Home);

@@ -7,6 +7,9 @@ const ROOT_URL_TREE = '../treedata.json';
 export const FETCH_INIT_DATA = 'FETCH_INIT_DATA';
 export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 
+/*
+*  Action Creators for fetching home Screen Data
+*/
 
 export function fetchInitData() {
 
@@ -20,6 +23,8 @@ export function fetchInitData() {
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
+
+
 
 /*
 *
@@ -37,6 +42,7 @@ export function fetchTreeData(appId) {
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
+
 
 
 export function fetchDCTableData(appId){

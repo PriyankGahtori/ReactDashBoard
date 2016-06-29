@@ -70,6 +70,11 @@ class Dialog_DCDetail_NewDC extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
         >
+         { /* As new updated form when passed to server or store must contain its primary key field 
+           * i.e ._links to update the same row .So inserting property _links to data .
+           * when condition this.state.applicationdata.openAppDialogType == "edit" satisfies
+           */
+        }
       <FormNewDC ref="newDCForm" onSubmit={data =>{
                               console.log("data----",JSON.stringify(data))
                                if(this.state.dcDetail.openDCDialogType == "edit"){

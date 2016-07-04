@@ -251,15 +251,17 @@ export function appDetailInitializeForm(data,openAppDialogType){
 }
 
 /*
-*Action Creators for Topology Screen
+*   Action Creators for Topology Screen
+*   
 *
-*
+
 */
 
-export function fetchTopologyTableData(){
-  //const URLTable =  "http://10.10.40.7:8050/configUI/application";
-  const URLTable="../topology.json"
-  const request_table = axios.get(URLTable);
+// fetching data for the table Topology screens loads
+export function fetchTopologyTableData(dcId){
+  const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+  /*const URLTable="../topology.json"
+*/  const request_table = axios.get(URLTable);
   console.log("request_table in fetching topotable",request_table)
 
   return {

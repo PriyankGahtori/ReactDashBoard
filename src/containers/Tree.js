@@ -3,6 +3,9 @@ import {Treebeard} from 'react-treebeard';
 import { connect } from 'react-redux';
 import  {fetchTreeData} from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { withRouter  } from 'react-router';
+import { browserHistory } from 'react-router';
+
 
 
 
@@ -23,18 +26,31 @@ import { bindActionCreators } from 'redux';
 }
 
 	onToggle(node, toggled){
-        if(this.state.cursor){this.state.cursor.active = false;}
+     console.log("on toggled---",node.id)
+     browserHistory.push(`/topology/${node.id}`);
+     //this.context.router.push('/treeNodeClicked')*/
+        if(this.state.cursor)
+          {
+            console.log("on toggled---",this.state.cursor.id)
+            this.state.cursor.active = false;
+          }
         node.active = true;
-        if(node.children){ node.toggled = toggled; }
+        if(node.children)
+        {
+          console.log("if children-",toggled)
+         node.toggled = toggled; }
         this.setState({ cursor: node });
+
+
     }
 
 	render() {
 		return (
-			<Treebeard
+     <Treebeard
                 data={this.state.treedata}
                 onToggle={this.onToggle}
             />
+			
 		);
 	}
 }

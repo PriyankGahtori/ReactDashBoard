@@ -11,7 +11,8 @@ class DataGridComponent extends React.Component {
   }
 
   linkFormat(cell,row){
-     if(cell.hasOwnProperty("self"))
+
+     if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
     else

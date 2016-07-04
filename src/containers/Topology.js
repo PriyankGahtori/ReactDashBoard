@@ -15,9 +15,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key" : "_links",
-                "data":['TopoName', 'TopoDesc','Profile','State','LINK'],
-                "field":['topoName', 'topoDesc', 'profile','state','_links']
+                "key" : "dcTopoId",
+                "data":['TopoName', 'TopoDesc','Profile','State','dcTopoId'],
+                "field":['topoName', 'topoDesc', 'profileName','topoState','dcTopoId']
               }; 
 
 const style = {
@@ -42,7 +42,7 @@ class Topology extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
+  console.log("in topology.js--",this.props)
   console.log(this.props.routeParams.something)
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
@@ -127,17 +127,23 @@ class Topology extends React.Component {
   }
 
   componentWillMount() {
-    //this.props.fetchTreeData("ApplicationDetail")
-    console.log("componnet willmoiunr method called")
-    this.props.fetchTopologyTableData();
+    //triggerring an action to fetch topology table data
+    this.props.fetchTopologyTableData(this.props.routeParams.dcId);
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.topologyData)
-     console.log("in componentWillReceiveProps--",this.props.topologyData)
-    if(this.props.topologyData != nextProps.topologyData)
+    /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
+     * for new DC  selected.
+     */
+     if(this.props.routeParams.dcId != nextProps.routeParams.dcId){
+        this.props.fetchTopologyTableData(nextProps.routeParams.dcId);
+     }
+  
+
+    if(this.props.topologyData != nextProps.topologyData){
       this.setState({topologyData:nextProps.topologyData});
+    }
   }
 
   render() {

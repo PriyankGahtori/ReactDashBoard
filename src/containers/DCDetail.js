@@ -154,6 +154,7 @@ class DCDetail extends React.Component {
           <div className="col-md-3 "  >
               <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
               <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
+              <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 
@@ -177,7 +178,7 @@ class DCDetail extends React.Component {
         />
       </Paper>
       
-      <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
+      
       </div>
       
       <div>

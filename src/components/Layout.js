@@ -22,6 +22,14 @@ const headerStyle = {
 const iconStyles = {
  // marginRight: 24,
 };
+
+const title={
+  backgroundImage:"url('../images/cavi_logo_new.png')",
+  backgroundRepeat: "no-repeat",
+  marginTop:"13px",
+  height:"55px"
+}
+  
 export default class Layout extends React.Component {
 
   constructor(props) {
@@ -101,7 +109,9 @@ export default class Layout extends React.Component {
 		       <AppBar 
 		         iconElementLeft= {<IconButton></IconButton>}
 		         iconElementRight={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
-		         onRightIconButtonTouchTap={()=>this.handleToggle}		         
+		         onRightIconButtonTouchTap={()=>this.handleToggle}	
+             
+              
 		       />
 
             <MenuItem><Link to="/topology">PKY</Link></MenuItem>
@@ -112,9 +122,12 @@ export default class Layout extends React.Component {
 	       
 	       <div className={this.state.headerClass} style={headerStyle}>
 	      <AppBar
-	    	title="Config GUI"
+	    	
+        titleStyle={title}
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
+         iconElementRight={<div><IconButton><Link to="/"><FontIcon className="material-icons">home</FontIcon></Link></IconButton>
+        <IconButton><FontIcon className="material-icons" >settings</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

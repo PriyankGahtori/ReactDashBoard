@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, hashHistory, IndexRoute,browserHistory } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute} from 'react-router'
 import App from './Main'
 import CardList from './CardList'
 
@@ -21,7 +21,7 @@ export default class routes extends React.Component {
 
    render() {
      return (
-		  <Router history={browserHistory}>
+		  <Router history={hashHistory}>
 		    <Route path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
 		      <Route path="application" component={ApplicationDetail} />

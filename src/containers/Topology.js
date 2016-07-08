@@ -43,14 +43,12 @@ class Topology extends React.Component {
   constructor(props) {
   super(props);
   console.log("in topology.js--",this.props)
- this.state = {treedata:this.props.treedata};
+  this.state = {treedata:this.props.treedata};
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
-  this.state={headerBlockNoRowSelcted:"row Show"};
-  this.state={headerBlockRowSelected:"row hidden"};
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
   }
@@ -166,22 +164,16 @@ class Topology extends React.Component {
       
     return (
     <div>
-      <div className="row">
-        <RaisedButton label="Primary" primary={true} onClick={this.updateNode}/>
-         <Paper zDepth={2}>
-        <p>{this.state.headerBlockNoRowSelcted}</p>
-        <div className ={this.state.headerBlockNoRowSelcted}  >
-          <div className="col-md-9">
-            <h3>Topology Detail</h3>
+       <Paper zDepth={2}>     
+      <div className='row row-no-margin tableheader'>
+          <div className="col-md-10">
+              <h4>Topology Detail</h4>
           </div>
-
-          <div className="col-md-3 "  >
-              <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
-              <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
+          <div className="col-md-2"  >
+            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
-
-      
 
         <DataGrid data = {this.props.topologyData.tableData} 
                   pagination={false} 
@@ -190,8 +182,6 @@ class Topology extends React.Component {
                   onClick={this.handleClick}
          />
         </Paper>
-        <RaisedButton label="Delete" primary={true} onClick={this.delRow}/>
-      </div>
 
 
       <div>

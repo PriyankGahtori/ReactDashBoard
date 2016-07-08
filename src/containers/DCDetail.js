@@ -54,7 +54,6 @@ class DCDetail extends React.Component {
   }
 
   updateNode(e){
-    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
@@ -67,7 +66,6 @@ class DCDetail extends React.Component {
                           value =>{
                           selectedRowKeys.push(value.self.href) 
                           }) 
-    console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delDCTableRow(selectedRowKeys) 
   }
   /*
@@ -97,7 +95,6 @@ class DCDetail extends React.Component {
 
         //action to dispatch selectRowData
         this.props.dcDetailInitializeForm(selectedRowData[0],openDCDialogType,this.props.routeParams.appId);
-        
         this.props.toggleStateDialogNewDC();
       }
       else{
@@ -107,12 +104,12 @@ class DCDetail extends React.Component {
 
     }
     else if(openDCDialogType == "add"){ //for adding new row
-      console.log("adding form")
        this.props.dcDetailInitializeForm(null,openDCDialogType,this.props.routeParams.appId); //clears previous/initial values
        this.props.toggleStateDialogNewDC(); //opens dialog box
     }
 
   }
+
    handleRequestClose(){
     this.setState({
       open: false,
@@ -130,7 +127,6 @@ class DCDetail extends React.Component {
          this.props.fetchTreeData(this.props.routeParams.appId)
          this.props.fetchDCTableData(this.props.routeParams.appId)
     }
-   
   }
 
   componentWillReceiveProps(nextProps)
@@ -141,6 +137,7 @@ class DCDetail extends React.Component {
   		this.setState({dcDetail:nextProps.dcDetail});
 
   }
+  
   render() {
     var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
@@ -173,9 +170,6 @@ class DCDetail extends React.Component {
 
       </Paper>
       
-      
-      
-      
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
@@ -195,6 +189,7 @@ class DCDetail extends React.Component {
   }
 }
 
+//method to get data from store
 function mapStateToProps(state) {
   console.log("state.dcDetail.tableData---",state.dcDetail.tableData)
   return {

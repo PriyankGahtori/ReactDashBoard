@@ -15,23 +15,21 @@ import * as actionCreators  from '../actions/index';
 	constructor(props){
 		super(props);
 		this.state = {treedata:this.props.treedata};
-        this.onToggle = this.onToggle.bind(this);
-        console.log("in tree --",this.props.treedata)
-
+    this.onToggle = this.onToggle.bind(this);
 	}
 
 
     componentWillReceiveProps(nextProps)
-{
+  {
     if(this.props.treedata != nextProps.treedata)
         this.setState({treedata:nextProps.treedata});
-      console.log("in tree.js treedata active topo--",this.state.treedata)
-}
+  }
 
-	onToggle(node, toggled){
-     console.log("on toggled---",node.type)     
+	 onToggle(node, toggled){
+      console.log("on toggled---",node.type)     
       hashHistory.push(`/${node.type}/${node.id}`)
-     if(node.type == "dcdetail" && (Object.keys(this.state.treedata).length == 0) ){
+
+     if(node.type == "dcdetail" ){
         console.log("fetchtopologytreedata")
         this.props.fetchTopologyTreeData(node)
       }

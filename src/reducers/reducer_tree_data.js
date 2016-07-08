@@ -1,3 +1,4 @@
+var _ = require('lodash');
 export default function(state = [], action) {
 
 	console.log("inside init reducer for tree--", action.type);
@@ -28,7 +29,7 @@ export default function(state = [], action) {
     return newState
 
 case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
-  console.log("in updating form")
+   console.log("in updating form")
    var newState = Object.assign({}, state);
     console.log("State--in tree.js",state)
     console.log("action.payload---",action.payload.data)
@@ -44,6 +45,43 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
     console.log("newState.children---",newState.children)
     return newState;
 
+  //Reducer for adding active topology to parent DC Node
+  case 'FETCH_ACTIVE_TOPOLOGY':
+
+      var newState = Object.assign({}, state);
+      var node = action.payload.data.childNode.parentId;
+      var nodeArr = node.split(".");
+      var stateObj = newState.children;
+      var parent ;
+      function getNode(obj,id){
+        let index = _.findIndex(obj,(o)=> o.id == id)
+        console.log("index---",index);
+        if(index >= 0){
+             parent = obj[index];
+            return obj[index].children;
+          }
+          else {
+            return obj;
+          }
+        
+    }
+
+      console.log("nodeArr.length--",nodeArr.length)
+      for(var i = 1;i < nodeArr.length;i++){
+        console.log("nodeArr[i]---",nodeArr[i])
+        stateObj= getNode(stateObj ,nodeArr[i])
+        console.log("stateObj---",stateObj)
+      }
+
+
+     console.log("stateObj---aftr for loop--",stateObj)
+      console.log("parent.loading --",parent.loading )
+      parent.loading = false;
+      console.log("parent.loading --",parent.loading)
+    
+     stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
+
+     return newState;
 
   default :
 	    return state;

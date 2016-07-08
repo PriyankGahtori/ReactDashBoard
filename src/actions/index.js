@@ -259,13 +259,30 @@ export function appDetailInitializeForm(data,openAppDialogType){
 
 // fetching data for the table Topology screens loads
 export function fetchTopologyTableData(dcId){
+  console.log("fetchTopologyTableData action called");
   const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  /*const URLTable="../topology.json"
-*/  const request_table = axios.get(URLTable);
+  const request_table = axios.get(URLTable);
   console.log("request_table in fetching topotable",request_table)
 
   return {
     type: 'FETCH_TOPOlOGYTABLE_DATA',
     payload:request_table
   };
+}
+
+export function fetchTopologyTreeData(parentDCNode){
+
+  console.log("in post request for fetchtreetopodata")
+   var response = axios({
+    method:'post',
+    url:   `http://10.10.40.7:8050/configUI/custom/tree/topology/${parentDCNode.id}`,
+    data: parentDCNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("in activetopologydata--response---",response)
+  return {
+    type:'FETCH_ACTIVE_TOPOLOGY',
+    payload:response
+  }
 }

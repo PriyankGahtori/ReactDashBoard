@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Treebeard} from 'react-treebeard';
 import { connect } from 'react-redux';
-import  {fetchTreeData} from '../actions/index';
 import { bindActionCreators } from 'redux';
 import treeStyle from '../styles/treeStyle';
 import {hashHistory } from 'react-router';
+import * as actionCreators  from '../actions/index';
+
+
 
 
 
@@ -23,12 +25,15 @@ import {hashHistory } from 'react-router';
 {
     if(this.props.treedata != nextProps.treedata)
         this.setState({treedata:nextProps.treedata});
+      console.log("in tree.js treedata active topo--",this.state.treedata)
 }
 
 	onToggle(node, toggled){
      console.log("on toggled---",node)     
      
      hashHistory.push(`/topology/${node.id}`)
+     this.props.fetchTopologyTreeData(node)
+     console.log("action triggered for tree")
      
         if(this.state.cursor)
           {
@@ -66,7 +71,8 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  return actionMap;
+  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
+   return bindActionCreators(actionCreators, dispatch);
+
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Tree);

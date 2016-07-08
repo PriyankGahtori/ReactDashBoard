@@ -114,7 +114,7 @@ export default class Layout extends React.Component {
               
 		       />
 
-            <MenuItem><Link to="/topology">PKY</Link></MenuItem>
+            <MenuItem><Link to="/testing">PKY</Link></MenuItem>
 	          <span className={this.state.treeClass}>
                 <Tree /> 
               </span>

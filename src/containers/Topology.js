@@ -16,8 +16,8 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "dcTopoId",
-                "data":['TopoName', 'TopoDesc','Profile','State','dcTopoId'],
-                "field":['topoName', 'topoDesc', 'profileName','topoState','dcTopoId']
+                "data":['TopoName', 'TopoDesc','State','dcTopoId'],
+                "field":['topoName', 'topoDesc','topoState','dcTopoId']
               }; 
 
 const style = {
@@ -43,7 +43,7 @@ class Topology extends React.Component {
   constructor(props) {
   super(props);
   console.log("in topology.js--",this.props)
-  console.log(this.props.routeParams.something)
+ this.state = {treedata:this.props.treedata};
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
@@ -127,8 +127,16 @@ class Topology extends React.Component {
   }
 
   componentWillMount() {
-    //triggerring an action to fetch topology table data
-    this.props.fetchTopologyTableData(this.props.routeParams.dcId);
+    
+    /*
+    * triggerring an action to fetch topology table data
+    *   here node.id is dc_id  
+    */
+     console.log("in mount methos--",this.props.routeParams.dcId)
+
+     this.props.fetchTopologyTableData(this.props.routeParams.dcId);
+
+   
   }
 
   componentWillReceiveProps(nextProps)
@@ -136,13 +144,19 @@ class Topology extends React.Component {
     /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
      * for new DC  selected.
      */
-     if(this.props.routeParams.dcId != nextProps.routeParams.dcId){
+     console.log("nextProps---")
+     if(this.props.routeParams.dcId!= nextProps.routeParams.dcId){
+        console.log("nextProps.routeParams.dcId---",nextProps.routeParams.dcId)
         this.props.fetchTopologyTableData(nextProps.routeParams.dcId);
-     }
+  }
   
 
     if(this.props.topologyData != nextProps.topologyData){
       this.setState({topologyData:nextProps.topologyData});
+    }
+
+    if(this.props.treedata != nextProps.treedata){
+      this.setState({treedata:nextProps.treedata});
     }
   }
 
@@ -209,8 +223,10 @@ class Topology extends React.Component {
 
 function mapStateToProps(state) {
   console.log("appDetail---",state.topologyData.tableData)
+  console.log("treeData--",state.treeData)
   return {
-    topologyData :state.topologyData
+    topologyData :state.topologyData,
+    treedata : state.treeData
    };
 }
 

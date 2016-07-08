@@ -48,6 +48,7 @@ class DCDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
   this.state={open:false}
+  this.state ={dcDetail:this.props.dcDetail}
   this.handleOpen = this.handleOpen.bind(this);
   this.handleRequestClose=this.handleRequestClose.bind(this);  
   }
@@ -119,8 +120,17 @@ class DCDetail extends React.Component {
   };
 
   componentWillMount() {
-    this.props.fetchTreeData(this.props.routeParams.appId)
-    this.props.fetchDCTableData(this.props.routeParams.appId)
+    
+    /*
+    * checking whether data is already available at store or not if "Not present" then 
+    * only action gets triggered and request goes to server
+    */
+    if(Object.keys(this.state.dcDetail.tableData).length == 0){
+
+         this.props.fetchTreeData(this.props.routeParams.appId)
+         this.props.fetchDCTableData(this.props.routeParams.appId)
+    }
+   
   }
 
   componentWillReceiveProps(nextProps)
@@ -128,7 +138,7 @@ class DCDetail extends React.Component {
     console.log("in componentWillReceiveProps--",nextProps.dcDetail)
     console.log("in componentWillReceiveProps--",this.props.dcDetail)
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
-  		this.setState({dcDetail:nextProps.dcDetail.tableData});
+  		this.setState({dcDetail:nextProps.dcDetail});
 
   }
   render() {

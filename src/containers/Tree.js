@@ -29,12 +29,13 @@ import * as actionCreators  from '../actions/index';
 }
 
 	onToggle(node, toggled){
-     console.log("on toggled---",node)     
-     
-     hashHistory.push(`/topology/${node.id}`)
-     this.props.fetchTopologyTreeData(node)
-     console.log("action triggered for tree")
-     
+     console.log("on toggled---",node.type)     
+      hashHistory.push(`/${node.type}/${node.id}`)
+     if(node.type == "dcdetail" && (Object.keys(this.state.treedata).length == 0) ){
+        console.log("fetchtopologytreedata")
+        this.props.fetchTopologyTreeData(node)
+      }
+    console.log("ontoggled---",this.state.treedata)
         if(this.state.cursor)
           {
             console.log("on toggled---",this.state.cursor.id)
@@ -44,11 +45,9 @@ import * as actionCreators  from '../actions/index';
         if(node.children)
         {
           console.log("if children-",toggled)
-         node.toggled = toggled; }
-        this.setState({ cursor: node });
-
-
-    }
+          node.toggled = toggled; }
+          this.setState({ cursor: node });
+        }
 
 	render() {
 		return (

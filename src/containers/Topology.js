@@ -51,6 +51,7 @@ class Topology extends React.Component {
   this.handleClick = this.handleClick.bind(this);
   this.state={headerBlockNoRowSelcted:"row Show"};
   this.state={headerBlockRowSelected:"row hidden"};
+  this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
   }
 
@@ -133,8 +134,11 @@ class Topology extends React.Component {
     *   here node.id is dc_id  
     */
      console.log("in mount methos--",this.props.routeParams.dcId)
-
-     this.props.fetchTopologyTableData(this.props.routeParams.dcId);
+     console.log("in topology mount method---",Object.keys(this.state.topologyData.tableData).length)
+     if(Object.keys(this.state.topologyData.tableData).length == 0){
+          console.log("componentWillMount method called")
+         this.props.fetchTopologyTableData(this.props.routeParams.dcId);
+   }
 
    
   }
@@ -155,9 +159,7 @@ class Topology extends React.Component {
       this.setState({topologyData:nextProps.topologyData});
     }
 
-    if(this.props.treedata != nextProps.treedata){
-      this.setState({treedata:nextProps.treedata});
-    }
+  
   }
 
   render() {
@@ -179,16 +181,7 @@ class Topology extends React.Component {
           </div>
        </div>
 
-       <p>{this.state.headerBlockRowSelected}</p>
-       <div className ={this.state.headerBlockRowSelected}  >
-          <div className="col-md-9">
-              <h3>Items Selected</h3>
-          </div>
-
-          <div className="col-md-3 "  >
-              <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
-          </div>
-       </div>
+      
 
         <DataGrid data = {this.props.topologyData.tableData} 
                   pagination={false} 

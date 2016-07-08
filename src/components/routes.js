@@ -27,7 +27,7 @@ export default class routes extends React.Component {
 		      <Route path="application" component={ApplicationDetail} />
 		      <Route path="application/:appId" component={DCDetail} />
 		      <Route path="testing" component={Testing} />
-		      <Route path="topology/:dcId" component={Topology} />
+		      <Route path="dcdetail/:dcId" component={Topology} />
 
 		    </Route>
 

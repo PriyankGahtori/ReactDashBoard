@@ -16,7 +16,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "_links",
-                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort','LINK'],
+                "data":['DC Name', 'DC IP', 'DC Port', 'NDE IP','NDE Port','LINK'],
                 "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','_links']
               };          
 
@@ -49,9 +49,7 @@ class DCDetail extends React.Component {
   this.state ={openNewAppDialog:false}
   this.state={open:false}
   this.handleOpen = this.handleOpen.bind(this);
-  this.handleRequestClose=this.handleRequestClose.bind(this);
-  this.state={headerBlockNoRowSelcted:"row Show"};
-  this.state={headerBlockRowSelected:"row hidden"};
+  this.handleRequestClose=this.handleRequestClose.bind(this);  
   }
 
   updateNode(e){
@@ -140,46 +138,33 @@ class DCDetail extends React.Component {
         bgColor: "rgb(true238, 193, 213)" , //selected row background color
        
     }
-
-    return (
+   return (
     <div>
-      <div className="row">
-        <Paper zDepth={2}>
-       <p>{this.state.headerBlockNoRowSelcted}</p>
-       <div className ={this.state.headerBlockNoRowSelcted}  >
-          <div className="col-md-9">
-              <h3>DC Detail</h3>
+      
+      <Paper zDepth={2}>     
+       
+       <div className='row row-no-margin tableheader'>
+          <div className="col-md-10">
+              <h4>DC Detail</h4>
           </div>
-
-          <div className="col-md-3 "  >
-              <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
-              <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
-              <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <div className="col-md-2"  >
+            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 
-       <p>{this.state.headerBlockRowSelected}</p>
-       <div className ={this.state.headerBlockRowSelected}  >
-          <div className="col-md-9">
-              <h3>Items Selected</h3>
-          </div>
-
-          <div className="col-md-3 "  >
-              <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
-          </div>
-       </div>
-        {/* rendering Table component
-        */}
+        {/* rendering Table component*/}
+       
         <DataGrid data = {this.props.dcDetail.tableData} 
                    pagination={false} 
                    ref="dcDetailTable" 
-                   column = {columns} 
-                  
+                   column = {columns}                   
         />
+
       </Paper>
       
       
-      </div>
+      
       
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >

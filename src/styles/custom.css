@@ -1,0 +1,10 @@
+.table {
+	margin-bottom: 0px;
+}
+.row-no-margin{
+  margin-right: 0px;
+  margin-left: 0px;	
+}
+.tableheader{
+	background-color: #E0F7FA;
+}

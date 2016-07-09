@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import {Treebeard} from 'react-treebeard';
 import { connect } from 'react-redux';
-import  {fetchTreeData} from '../actions/index';
 import { bindActionCreators } from 'redux';
-import { withRouter  } from 'react-router';
-import { browserHistory } from 'react-router';
+import treeStyle from '../styles/treeStyle';
+import {hashHistory } from 'react-router';
+import * as actionCreators  from '../actions/index';
+
+
 
 
 
@@ -13,22 +15,25 @@ import { browserHistory } from 'react-router';
 	constructor(props){
 		super(props);
 		this.state = {treedata:this.props.treedata};
-        this.onToggle = this.onToggle.bind(this);
-        console.log("in tree --",this.props.treedata)
-
+    this.onToggle = this.onToggle.bind(this);
 	}
 
 
     componentWillReceiveProps(nextProps)
-{
+  {
     if(this.props.treedata != nextProps.treedata)
         this.setState({treedata:nextProps.treedata});
-}
+  }
 
-	onToggle(node, toggled){
-     console.log("on toggled---",node.id)
-     browserHistory.push(`/topology/${node.id}`);
-     //this.context.router.push('/treeNodeClicked')*/
+	 onToggle(node, toggled){
+      console.log("on toggled---",node.type)     
+      hashHistory.push(`/${node.type}/${node.id}`)
+
+     if(node.type == "dcdetail" ){
+        console.log("fetchtopologytreedata")
+        this.props.fetchTopologyTreeData(node)
+      }
+    console.log("ontoggled---",this.state.treedata)
         if(this.state.cursor)
           {
             console.log("on toggled---",this.state.cursor.id)
@@ -38,17 +43,16 @@ import { browserHistory } from 'react-router';
         if(node.children)
         {
           console.log("if children-",toggled)
-         node.toggled = toggled; }
-        this.setState({ cursor: node });
-
-
-    }
+          node.toggled = toggled; }
+          this.setState({ cursor: node });
+        }
 
 	render() {
 		return (
      <Treebeard
                 data={this.state.treedata}
                 onToggle={this.onToggle}
+                style={treeStyle}
             />
 			
 		);
@@ -64,7 +68,8 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  return actionMap;
+  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
+   return bindActionCreators(actionCreators, dispatch);
+
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Tree);

@@ -16,7 +16,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "_links",
-                "data":['DCName', 'DCIP', 'DCPort', 'NDEIP','NDEPort','LINK'],
+                "data":['DC Name', 'DC IP', 'DC Port', 'NDE IP','NDE Port','LINK'],
                 "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','_links']
               };          
 
@@ -48,14 +48,12 @@ class DCDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false}
   this.state={open:false}
+  this.state ={dcDetail:this.props.dcDetail}
   this.handleOpen = this.handleOpen.bind(this);
-  this.handleRequestClose=this.handleRequestClose.bind(this);
-  this.state={headerBlockNoRowSelcted:"row Show"};
-  this.state={headerBlockRowSelected:"row hidden"};
+  this.handleRequestClose=this.handleRequestClose.bind(this);  
   }
 
   updateNode(e){
-    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
@@ -68,7 +66,6 @@ class DCDetail extends React.Component {
                           value =>{
                           selectedRowKeys.push(value.self.href) 
                           }) 
-    console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delDCTableRow(selectedRowKeys) 
   }
   /*
@@ -98,7 +95,6 @@ class DCDetail extends React.Component {
 
         //action to dispatch selectRowData
         this.props.dcDetailInitializeForm(selectedRowData[0],openDCDialogType,this.props.routeParams.appId);
-        
         this.props.toggleStateDialogNewDC();
       }
       else{
@@ -108,12 +104,12 @@ class DCDetail extends React.Component {
 
     }
     else if(openDCDialogType == "add"){ //for adding new row
-      console.log("adding form")
        this.props.dcDetailInitializeForm(null,openDCDialogType,this.props.routeParams.appId); //clears previous/initial values
        this.props.toggleStateDialogNewDC(); //opens dialog box
     }
 
   }
+
    handleRequestClose(){
     this.setState({
       open: false,
@@ -121,8 +117,16 @@ class DCDetail extends React.Component {
   };
 
   componentWillMount() {
-    this.props.fetchTreeData(this.props.routeParams.appId)
-    this.props.fetchDCTableData(this.props.routeParams.appId)
+    
+    /*
+    * checking whether data is already available at store or not if "Not present" then 
+    * only action gets triggered and request goes to server
+    */
+    if(Object.keys(this.state.dcDetail.tableData).length == 0){
+
+         this.props.fetchTreeData(this.props.routeParams.appId)
+         this.props.fetchDCTableData(this.props.routeParams.appId)
+    }
   }
 
   componentWillReceiveProps(nextProps)
@@ -130,9 +134,10 @@ class DCDetail extends React.Component {
     console.log("in componentWillReceiveProps--",nextProps.dcDetail)
     console.log("in componentWillReceiveProps--",this.props.dcDetail)
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
-  		this.setState({dcDetail:nextProps.dcDetail.tableData});
+  		this.setState({dcDetail:nextProps.dcDetail});
 
   }
+  
   render() {
     var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
@@ -140,46 +145,30 @@ class DCDetail extends React.Component {
         bgColor: "rgb(true238, 193, 213)" , //selected row background color
        
     }
-
-    return (
+   return (
     <div>
-      <div className="row">
-        <Paper zDepth={2}>
-       <p>{this.state.headerBlockNoRowSelcted}</p>
-       <div className ={this.state.headerBlockNoRowSelcted}  >
-          <div className="col-md-9">
-              <h3>DC Detail</h3>
+      
+      <Paper zDepth={2}>     
+       
+       <div className='row row-no-margin tableheader'>
+          <div className="col-md-10">
+              <h4>DC Detail</h4>
           </div>
-
-          <div className="col-md-3 "  >
-              <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
-              <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
-              <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <div className="col-md-2"  >
+            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 
-       <p>{this.state.headerBlockRowSelected}</p>
-       <div className ={this.state.headerBlockRowSelected}  >
-          <div className="col-md-9">
-              <h3>Items Selected</h3>
-          </div>
-
-          <div className="col-md-3 "  >
-              <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
-          </div>
-       </div>
-        {/* rendering Table component
-        */}
+        {/* rendering Table component*/}
+       
         <DataGrid data = {this.props.dcDetail.tableData} 
                    pagination={false} 
                    ref="dcDetailTable" 
-                   column = {columns} 
-                  
+                   column = {columns}                   
         />
+
       </Paper>
-      
-      
-      </div>
       
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
@@ -200,6 +189,7 @@ class DCDetail extends React.Component {
   }
 }
 
+//method to get data from store
 function mapStateToProps(state) {
   console.log("state.dcDetail.tableData---",state.dcDetail.tableData)
   return {

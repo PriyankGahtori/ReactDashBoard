@@ -8,10 +8,11 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewTopology from './Dialog_Topo_NewTopo';
+import DialogNewApplication from './Dialog_AppDetail_NewApp';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+
 
 var columns = {
                 "key" : "dcTopoId",
@@ -45,7 +46,7 @@ class Topology extends React.Component {
   this.state = {treedata:this.props.treedata};
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
-  this.state ={openNewTopoDialog:false}
+  this.state ={openNewAppDialog:false}
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
   this.state = {topologyData:this.props.topologyData};
@@ -57,7 +58,7 @@ class Topology extends React.Component {
   }
 
   updateNode(e){
-    console.log("table ref ",this.refs.table.refs.topoTable.state.selectedRowKeys);
+    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
@@ -79,16 +80,16 @@ class Topology extends React.Component {
                       .map((value,index) => value._links.self.href)
 
   console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delTopoTableRow(selectedRowKeys)
+  this.props.delAppTableRow(selectedRowKeys)
   }
 
   handleClick(){
     console.log("selecting row")
   }
 
-  handleOpen(openTopoDialogType){
+  handleOpen(openAppDialogType){
 
-    console.log("in handleopen---",openTopoDialogType)
+    console.log("in handleopen---",openAppDialogType)
     //for editing form
     if(openAppDialogType == "edit"){
       console.log("editing the App form")
@@ -99,16 +100,16 @@ class Topology extends React.Component {
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.topologyData.tableData
+        let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
                                     return value._links.self.href === selectedRow[0].self.href
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-       this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType,this.props.routeParams.dcId);
+        this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
         
-        this.props.toggleStateDialogNewTopo();
+        this.props.toggleStateDialogNewApp();
       }
       else{
         //toster notification: Only one row can be edited
@@ -118,8 +119,8 @@ class Topology extends React.Component {
     }
     else if(openAppDialogType == "add"){ //for adding new row
       console.log("adding form")
-        this.props.topoInitializeForm(null,openTopoDialogType,this.props.routeParams.dcId); 
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
+       this.props.appDetailInitializeForm(null,openAppDialogType); //clears previous/initial values
+       this.props.toggleStateDialogNewApp(); //opens dialog box
     }
        
   }
@@ -219,4 +220,3 @@ function mapDispatchToProps(dispatch) {
 return bindActionCreators(actionCreators, dispatch);
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Topology);
-

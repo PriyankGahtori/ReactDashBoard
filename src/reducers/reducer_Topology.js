@@ -14,7 +14,7 @@ console.log("inside init reducer for tree topo", action.type);
   	newState.tableData=action.payload.data;
   	console.log("newState---",newState.tableData)
     return newState;
-  }
+  
     case 'TOGGLE_STATE_ADD_NEW_TOPO':
 	    var newState = Object.assign({},state);
 	    console.log("newState.openNewTopoDialog--",newState.openNewTopoDialog)

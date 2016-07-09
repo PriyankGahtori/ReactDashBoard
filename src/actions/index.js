@@ -285,7 +285,6 @@ console.log("in activetopologydata--response---",response)
     type:'FETCH_ACTIVE_TOPOLOGY',
     payload:response
   }
-<<<<<<< HEAD
 }
 
 

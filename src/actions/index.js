@@ -259,13 +259,75 @@ export function appDetailInitializeForm(data,openAppDialogType){
 
 // fetching data for the table Topology screens loads
 export function fetchTopologyTableData(dcId){
+  console.log("fetchTopologyTableData action called");
   const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  /*const URLTable="../topology.json"
-*/  const request_table = axios.get(URLTable);
+  const request_table = axios.get(URLTable);
   console.log("request_table in fetching topotable",request_table)
 
   return {
     type: 'FETCH_TOPOlOGYTABLE_DATA',
     payload:request_table
   };
+}
+
+export function fetchTopologyTreeData(parentDCNode){
+
+  console.log("in post request for fetchtreetopodata")
+   var response = axios({
+    method:'post',
+    url:   `http://10.10.40.7:8050/configUI/custom/tree/topology/${parentDCNode.id}`,
+    data: parentDCNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("in activetopologydata--response---",response)
+  return {
+    type:'FETCH_ACTIVE_TOPOLOGY',
+    payload:response
+  }
+}
+
+
+export function toggleStateDialogNewTopo(){
+  console.log("action triggered---for new topology")
+  return {
+    type:'TOGGLE_STATE_ADD_NEW_TOPO'
+
+  }
+}
+
+/*
+ * Initializes value of Dialog box's form field
+ *    type :  add ( state is set to null) 
+ *            edit( state assigned to selected row )          
+*/
+
+export function topoInitializeForm(data,openTopoDialogType,dcId){
+  console.log("updateformInitialValue Topo",data )
+  console.log("flag---",openTopoDialogType)
+  console.log("dcId",dcId)
+  var payload={ "data":data,"openTopoDialogType":openTopoDialogType,"dcId":dcId};
+
+  return {
+    type:'UPDATE_TOPO_FORM',
+    payload:payload
+  }
+}
+
+export function delTopoTableRow(selectedRowKeys){
+
+  console.log("selectedRowKeys----",selectedRowKeys)
+  selectedRowKeys.forEach(value => 
+    {
+     console.log("value--",value)
+     axios({
+        method: 'delete',
+        url   : `http://10.10.40.7:8050/configUI/dcdetail/${value}`  //url-{value=dcId acting as a primary key}
+        });
+})
+  
+  return{
+    type:'TOPOTABLE_DEL_ROW_UPDATE_TREE',
+    payload:selectedRowKeys
+  }
 }

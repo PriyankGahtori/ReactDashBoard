@@ -9,12 +9,12 @@ console.log("inside init reducer for tree topo", action.type);
   console.log("reducertopo called----")
   switch(action.type) {
     case 'FETCH_TOPOlOGYTABLE_DATA':
-	  	console.log("inside FETCH_TOPOlOGYTABLE_DATA case action.payload.data-----",action.payload.data);
-	  	var newState = Object.assign({}, state);
-	  	newState.tableData=action.payload.data;
-	  	console.log("newState---",newState.tableData)
-	    return newState;
-
+  	console.log("inside FETCH_TOPOlOGYTABLE_DATA case action.payload.data-----",action.payload);
+  	var newState = Object.assign({}, state);
+  	newState.tableData=action.payload.data;
+  	console.log("newState---",newState.tableData)
+    return newState;
+  }
     case 'TOGGLE_STATE_ADD_NEW_TOPO':
 	    var newState = Object.assign({},state);
 	    console.log("newState.openNewTopoDialog--",newState.openNewTopoDialog)

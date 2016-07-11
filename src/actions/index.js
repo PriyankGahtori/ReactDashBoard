@@ -286,3 +286,30 @@ console.log("in activetopologydata--response---",response)
     payload:response
   }
 }
+
+//Topology Screen
+export function toggleStateDialogNewTopo(){
+  console.log("action triggered---for new topology")
+  return {
+    type:'TOGGLE_STATE_ADD_NEW_TOPO'
+
+  }
+}
+
+/*
+ * Initializes value of Dialog box's form field
+ *    type :  add ( state is set to null) 
+ *            edit( state assigned to selected row )          
+*/
+
+export function topoInitializeForm(data,openTopoDialogType,dcId){
+  console.log("updateformInitialValue Topo",data )
+  console.log("flag---",openTopoDialogType)
+  console.log("dcId",dcId)
+  var payload={ "data":data,"openTopoDialogType":openTopoDialogType,"dcId":dcId};
+
+  return {
+    type:'UPDATE_TOPO_FORM',
+    payload:payload
+  }
+}

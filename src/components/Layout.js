@@ -28,7 +28,7 @@ const title={
   backgroundImage:"url('../images/cavi_logo_new.png')",
   backgroundRepeat: "no-repeat",
   marginTop:"13px",
-  height:"55px"
+  height:"51px"
 }
   
 export default class Layout extends React.Component {
@@ -101,7 +101,7 @@ export default class Layout extends React.Component {
     	<div>
     	   <Drawer
 	          docked={true}
-	          width={220}
+	          width={230}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}

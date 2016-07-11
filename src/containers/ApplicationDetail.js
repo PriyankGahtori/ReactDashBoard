@@ -50,14 +50,10 @@ class ApplicationDetail extends React.Component {
   super(props);
   console.log("in DCDetail.js--",this.props)
   console.log(this.props.routeParams.something)
-
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
-
   this.handleClick = this.handleClick.bind(this);
-  this.state={headerBlockNoRowSelcted:"row Show"};
-  this.state={headerBlockRowSelected:"row hidden"};
   }
 
  
@@ -71,6 +67,7 @@ class ApplicationDetail extends React.Component {
                           value =>{
                           selectedRowKeys.push(value.self.href)
                           }) 
+
     console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delAppTableRow(selectedRowKeys)
   }
@@ -140,31 +137,19 @@ class ApplicationDetail extends React.Component {
       
     return (
     <div>
-      <div className="row">
-        <Paper zDepth={2}>
-        <p>{this.state.headerBlockNoRowSelcted}</p>
-        <div className ={this.state.headerBlockNoRowSelcted}  >
-          <div className="col-md-9">
-            <h3>Application   Detail</h3>
+        <Paper zDepth={2}>     
+       <div className='row row-no-margin tableheader'>
+          <div className="col-md-10">
+              <h4>Application Detail</h4>
           </div>
 
-          <div className="col-md-3 "  >
-              <IconButton><FontIcon className="material-icons pull-right">search</FontIcon></IconButton>
-              <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons pull-right">edit_mode</FontIcon></IconButton>
-              <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <div className="col-md-2"  >
+            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
-
-       <p>{this.state.headerBlockRowSelected}</p>
-       <div className ={this.state.headerBlockRowSelected}  >
-          <div className="col-md-9">
-              <h3>Items Selected</h3>
-          </div>
-
-          <div className="col-md-3 "  >
-              <IconButton ><FontIcon className="material-icons pull-right">delete</FontIcon></IconButton>
-          </div>
-       </div>
+          
+       
         {/* Rendering table component  ,
           * passing data (received from store) to the table component to be displayed at table 
          */  
@@ -177,9 +162,6 @@ class ApplicationDetail extends React.Component {
          />
         </Paper>
        
-      </div>
-
-
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />

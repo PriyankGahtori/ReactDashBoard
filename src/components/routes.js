@@ -22,12 +22,12 @@ export default class routes extends React.Component {
    render() {
      return (
 		  <Router history={hashHistory}>
-		    <Route path="/" component={Layout} >
+		    <Route name="Home" path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
-		      <Route path="application" component={ApplicationDetail} />
-		      <Route path="application/:appId" component={DCDetail} />
-		      <Route path="testing" component={Testing} />
-		      <Route path="dcdetail/:dcId" component={Topology} />
+		      <Route name="Application" path="application" component={ApplicationDetail} />
+		      <Route name="DC Configuration" staticName={true} path="application/:appId" component={DCDetail} />
+		      <Route name="Testing" path="testing" component={Testing} />
+		      <Route name="Topology Configuration" staticName={true} path="dcdetail/:dcId" component={Topology} />
 
 		    </Route>
 

@@ -14,6 +14,7 @@ import {red500, yellow500, blue500} from 'material-ui/styles/colors';
 import { Link } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Tree from '../containers/Tree';
+import Breadcrumbs from 'react-breadcrumbs';
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -133,15 +134,20 @@ export default class Layout extends React.Component {
 		   
 		      
 		    <div className='container-fluid'>
-		       <h1>Dashboard</h1>
+		       <h2>NetDiagnostics</h2>
+          
+          <Breadcrumbs 
+             routes={this.props.routes}
+             params={this.props.params}
+          />
 
-		       <ul className="breadcrumb">
-					<li><FontIcon className="material-icons" style={iconStyles} color={red500}>home</FontIcon><Link to="/"><a href="#">Home</a></Link></li>
-					<li><a href="#">Applications Detail</a></li>
-					<li><a href="#">DC Config</a></li>
-					<li><a href="#">Instrumentation</a></li>
-					<li><a href="#">Service Entry Point</a></li>
-				</ul>            
+		       {/*<ul className="breadcrumb">
+                                 <li><FontIcon className="material-icons" style={iconStyles} color={red500}>home</FontIcon><Link to="/"><a href="#">Home</a></Link></li>
+                                 <li><a href="#">Applications Detail</a></li>
+                                 <li><a href="#">DC Config</a></li>
+                                 <li><a href="#">Instrumentation</a></li>
+                                 <li><a href="#">Service Entry Point</a></li>
+                               </ul>*/}            
 		  	   {this.props.children}
 		    </div>
 			   

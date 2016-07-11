@@ -122,11 +122,11 @@ class DCDetail extends React.Component {
     * checking whether data is already available at store or not if "Not present" then 
     * only action gets triggered and request goes to server
     */
-    if(Object.keys(this.state.dcDetail.tableData).length == 0){
+   // if(Object.keys(this.state.dcDetail.tableData).length == 0){
 
          this.props.fetchTreeData(this.props.routeParams.appId)
          this.props.fetchDCTableData(this.props.routeParams.appId)
-    }
+    //}
   }
 
   componentWillReceiveProps(nextProps)

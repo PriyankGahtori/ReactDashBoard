@@ -15,9 +15,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key" : "dcTopoId",
-                "data":['TopoName', 'TopoDesc','State','dcTopoId'],
-                "field":['topoName', 'topoDesc','topoState','dcTopoId']
+                "key"  : "dcTopoId",
+                "data" : ['TopoName', 'TopoDesc','State','dcTopoId'],
+                "field": ['topoName', 'topoDesc','topoState','dcTopoId']
               }; 
 
 const style = {

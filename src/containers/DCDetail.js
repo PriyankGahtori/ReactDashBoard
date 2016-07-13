@@ -136,6 +136,12 @@ class DCDetail extends React.Component {
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
   		this.setState({dcDetail:nextProps.dcDetail});
 
+    if(this.props.routeParams.appId != nextProps.routeParams.appId){
+      console.log("appid changed--")
+      this.props.fetchTreeData(nextProps.routeParams.appId)
+      this.props.fetchDCTableData(nextProps.routeParams.appId)
+    }
+
   }
   
   render() {

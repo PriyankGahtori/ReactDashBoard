@@ -15,6 +15,7 @@ import { Link } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Tree from '../containers/Tree';
 import Breadcrumbs from 'react-breadcrumbs';
+import DropDownAppList from '../containers/DropDownAppList';
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -116,7 +117,8 @@ export default class Layout extends React.Component {
               
 		       />
 
-            <MenuItem><Link to="/testing">PKY</Link></MenuItem>
+            {/*<MenuItem><Link to="/testing">PKY</Link></MenuItem>*/}
+            <DropDownAppList value = {this.props.params.appId}/>
 	          <span className={this.state.treeClass}>
                 <Tree /> 
               </span>

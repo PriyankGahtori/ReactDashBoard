@@ -11,6 +11,8 @@ import DCDetail from '../containers/DCDetail'
 import ApplicationDetail from '../containers/ApplicationDetail'
 import Testing from '../containers/Testing'
 import Topology from '../containers/Topology'
+import TopologyDetail from '../containers/TopologyDetail';
+import ProfileDetail from '../containers/ProfileDetail';
 
 export default class routes extends React.Component {
 
@@ -24,10 +26,13 @@ export default class routes extends React.Component {
 		  <Router history={hashHistory}>
 		    <Route name="Home" path="/" component={Layout} >
 		      <IndexRoute component={NewHome} />
-		      <Route name="Application" path="application" component={ApplicationDetail} />
-		      <Route name="DC Configuration" staticName={true} path="application/:appId" component={DCDetail} />
-		      <Route name="Testing" path="testing" component={Testing} />
-		      <Route name="Topology Configuration" staticName={true} path="dcdetail/:dcId" component={Topology} />
+		      <Route name = "Application" path = "application" component = {ApplicationDetail} />
+		      <Route name = "DC Configuration" staticName = {true} path = "application/:appId" component = {DCDetail} />
+		      <Route name = "Testing" path = "testing" component = {Testing} />
+		      <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId" component = {Topology} />
+		      <Route name = "Topology" path = "topology" component = {TopologyDetail} />
+		      <Route name = "Profile"  path = "profile" component = {ProfileDetail} />
+		   
 
 		    </Route>
 

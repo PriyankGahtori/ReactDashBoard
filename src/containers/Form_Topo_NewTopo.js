@@ -52,7 +52,7 @@ componentWillMount() {
                 {
                   /* Iterate over topology data */
                   this.props.topoData[2].value.map((data, index) => (   
-                  <MenuItem value={data.id} key={data.id}primaryText={data.name}/>
+                  <MenuItem value={data.id} key={data.id} primaryText={data.name}/>
                   ))
                 }
                  

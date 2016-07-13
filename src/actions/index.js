@@ -313,3 +313,42 @@ export function topoInitializeForm(data,openTopoDialogType,dcId){
     payload:payload
   }
 }
+
+/*
+* Action creators for TopologyDetail Screen
+*
+*/
+
+export function fetchTopoDetailTable(){
+  console.log("fetch topo detail action called")
+  const URLTable =  "http://10.10.40.7:8050/configUI/topology";
+  const request_table = axios.get(URLTable);
+  console.log("request_table",request_table)
+
+  return {
+    type: 'FETCH_TOPODETAIL_TABLE_DATA',
+    payload: request_table
+  };
+
+
+}
+
+/*
+*
+*  ActionCreators for ProfileDetail
+*
+*/
+
+export function fetchProfileDetailData(){
+  console.log("fetch topo detail action called")
+  const URLTable =  "http://10.10.40.7:8050/configUI/profiles";
+  const request_table = axios.get(URLTable);
+  console.log("request_table",request_table)
+
+  return {
+    type: 'FETCH_PROFILEDETAIL_TABLEDATA',
+    payload: request_table
+  };
+
+
+}

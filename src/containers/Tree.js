@@ -29,7 +29,7 @@ import * as actionCreators  from '../actions/index';
       console.log("on toggled---",node.type)     
       hashHistory.push(`/${node.type}/${node.id}`)
 
-     if(node.type == "dcdetail" ){
+      if(node.type == "dcdetail" ){
         console.log("fetchtopologytreedata")
         this.props.fetchTopologyTreeData(node)
       }

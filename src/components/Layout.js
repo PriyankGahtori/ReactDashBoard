@@ -58,7 +58,7 @@ export default class Layout extends React.Component {
     console.log("current",this.props.location);
     console.log("next",nextProps.location);
     
-    if(nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" )
+    if(nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" || nextProps.location.pathname === "/topology" || nextProps.location.pathname === "/profile")
     	this.setState({treeClass: "hide",
                     open: false, 
                     headerClass : "col-md-12", 
@@ -74,7 +74,7 @@ export default class Layout extends React.Component {
 
   handleToggle(){ 
     console.log("this.props.location.pathname--",this.props.location.pathname)
-     if(this.props.location.pathname === "/" || this.props.location.pathname === "/application" ){
+     if(this.props.location.pathname === "/" || this.props.location.pathname === "/application" || this.props.location.pathname === "/topology" ){
           console.log("home link--")
           return       
      }

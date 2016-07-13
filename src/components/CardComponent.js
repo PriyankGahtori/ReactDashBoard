@@ -30,7 +30,7 @@ class CardComponent extends React.Component {
       </List>      
     <Divider />
     <CardActions>
-      <Link to="/application"><FlatButton label="Show ALL" /></Link>      
+      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" /></Link>      
     </CardActions>
     
     </Card>

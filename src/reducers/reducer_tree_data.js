@@ -49,7 +49,7 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
   case 'FETCH_ACTIVE_TOPOLOGY':
 
       var newState = Object.assign({}, state);
-      if(action.payload.data == null){
+      if(action.payload.data == null || action.payload.data.childNode == null){
           return newState;
       }
 

@@ -38,12 +38,13 @@ export default function(state = initialState, action) {
 	    console.log("line no 24--newState---",newState)
 	    console.log("line no 25--action.payload--",action.payload)
 	    newState.tableData = newState.tableData.filter(function(val){
-	      console.log("line no 33---",val._links.self.href)
-	      console.log("action.payload.indexOf(val._links.self.href) == -1-----",action.payload.indexOf(val._links.self.href) == -1)
-	       return action.payload.indexOf(val._links.self.href) == -1; //value sto be deleteed should return false
+	      console.log("line no 33---",val.dcTopoId)
+	      console.log("action.payload.indexOf(val._links.self.href) == -1-----",action.payload.indexOf(val.dcTopoId) == -1)
+	       return action.payload.indexOf(val.dcTopoId) == -1; //value sto be deleted should return false
 	     })
 	    console.log("newState.tableData---",newState.tableData)
 	    return newState; 
+
 	  }
   
 

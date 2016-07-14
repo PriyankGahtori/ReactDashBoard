@@ -69,10 +69,10 @@ class Topology extends React.Component {
       console.log("calling del method---table ref--",this.refs.topoTable.refs.table.state.selectedRowKeys)
     let selectedRowKeysObj = this.refs.topoTable.refs.table.state.selectedRowKeys;
     console.log("href-----------",selectedRowKeysObj)
-    selectedRowKeysObj.forEach(
+   /* selectedRowKeysObj.forEach(
                           value =>{
                           selectedRowKeys.push(value.self.href)
-                          }) 
+                          }) */
     console.log("selectedRowKeys--",selectedRowKeys)
 
   /*var selectRowsValueForServer= this.props.dcDetail.tableData
@@ -80,7 +80,7 @@ class Topology extends React.Component {
                       .map((value,index) => value._links.self.href)
 
   console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delTopoTableRow(selectedRowKeys)
+  this.props.delTopoTableRow(selectedRowKeysObj)
   }
 
   handleClick(){

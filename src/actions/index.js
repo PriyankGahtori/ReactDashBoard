@@ -333,6 +333,27 @@ export function fetchTopoDetailTable(){
 
 }
 
+/**
+  * function used for the deletion of row for the topology table
+*/
+export function delTopoTableRow(selectedRowKeys){
+
+  console.log("selectedRowKeys REDUCER----",selectedRowKeys)
+  selectedRowKeys.forEach(value => 
+    {
+     console.log("value--",value)
+     axios({
+        method: 'delete',
+        url   : `http://10.10.40.7:8050/configUI/dctopoassociation/${value}`  //url-{value=dcId acting as a primary key}
+        });
+})
+  
+  return{
+    type:'TOPOTABLE_DEL_ROW_UPDATE_TREE',
+    payload:selectedRowKeys
+  }
+}
+
 /*
 *
 *  ActionCreators for ProfileDetail

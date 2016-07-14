@@ -22,7 +22,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "_links",
-                "data":['AppName', 'AppDesc','UserName','LINK'],
+                "data":['Application Name', 'Application Desc','User Name','LINK'],
                 "field":['appName', 'appDesc', 'userName','_links']
               }; 
 

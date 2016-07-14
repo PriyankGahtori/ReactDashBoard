@@ -6,10 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import {hashHistory } from 'react-router';
 
-var menuStyle = { 
-  position:'relative',
-   left:'10px',
-   width: '235px',
+var menuStyle = {
+   width: '220px',
    marginBottom:'10px' 
   }
 
@@ -53,7 +51,12 @@ class DropDownAppList extends React.Component {
   if(this.props.dropDownData!=null){
     return (
      <div>
-      <DropDownMenu onChange={this.menuChange} style={menuStyle} value={this.state.value}>
+      <DropDownMenu 
+        onChange={this.menuChange} 
+        style={menuStyle} 
+        value={this.state.value}
+        underlineStyle={{borderTopWidth:0}}
+      >
        {
          this.props.dropDownData[0].value.map((data, index) => (
          <MenuItem value={data.id}  primaryText={data.name}/> 

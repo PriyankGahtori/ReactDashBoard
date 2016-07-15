@@ -52,7 +52,7 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
       if(action.payload.data == null || action.payload.data.childNode == null){
           return newState;
       }
-
+      console.log("action.payload.data.childNode",action.payload.data.childNode)
       var node = action.payload.data.childNode.parentId;
       var nodeArr = node.split(".");
       var stateObj = newState.children;
@@ -83,14 +83,120 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
       parent.loading = false;
       console.log("parent.loading --",parent.loading)
     
-     stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
-
+     //stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
+      stateObj.push(action.payload.data.childNode);
      return newState;
 
+  
+
+  //Reducer for adding tier chilld node to parent topology Node
+  case 'FETCH_TIER_NODE':
+
+      var newState = Object.assign({}, state);
+      if(action.payload.data == null || action.payload.data.childNode == null){
+          return newState;
+      }
+      console.log("action.payload.data.childNode",action.payload.data.childNode)
+/* 
+*function to identify parent node
+*/
+      var parent ;
+      function getNode(obj,id){
+        let index = _.findIndex(obj,(o)=> o.id == id)
+        console.log("index---",index);
+        if(index >= 0){
+             parent = obj[index];
+            return obj[index].children;
+          }
+          else {
+            return obj;
+          }
+        
+    }
+
+  var childArr= action.payload.data.childNode;
+   var stateObj = newState.children;
+    for(var i=0;i<childArr.length;i++){
+      console.log("i-----",i)
+      var node = action.payload.data.childNode[i].parentId;
+      console.log("node---",node)
+      var nodeArr = node.split(".");
+      console.log("in children----",stateObj)
+      console.log("nodeArr.length--",nodeArr.length)
+      for(var j = 1;j < nodeArr.length;j++){
+        console.log("nodeArr[i]---",nodeArr[j])
+        stateObj= getNode(stateObj ,nodeArr[j])
+        console.log("stateObj---",stateObj)
+      }
+
+
+     console.log("stateObj---aftr for loop--",stateObj)
+      console.log("parent.loading --",parent.loading )
+      parent.loading = false;
+      console.log("parent.loading --",parent.loading)
+    
+     //stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
+      stateObj.push(action.payload.data.childNode[i]);
+      }
+     return newState;
+
+       //Reducer for adding server chilld node to parent tier Node
+  case 'FETCH_SERVER_NODE':
+
+      var newState = Object.assign({}, state);
+      if(action.payload.data == null || action.payload.data.childNode == null){
+          return newState;
+      }
+      console.log("action.payload.data.childNode",action.payload.data.childNode)
+/* 
+*function to identify parent node
+*/
+      var parent ;
+      function getNode(obj,id){
+        let index = _.findIndex(obj,(o)=> o.id == id)
+        console.log("index---",index);
+        if(index >= 0){
+             parent = obj[index];
+            return obj[index].children;
+          }
+          else {
+            return obj;
+          }
+        
+    }
+
+  var childArr= action.payload.data.childNode;
+   var stateObj = newState.children;
+    for(var i=0;i<childArr.length;i++){
+      console.log("i-----",i)
+      var node = action.payload.data.childNode[i].parentId;
+      console.log("node---",node)
+      var nodeArr = node.split(".");
+      console.log("in children----",stateObj)
+      console.log("nodeArr.length--",nodeArr.length)
+      for(var j = 1;j < nodeArr.length;j++){
+        console.log("nodeArr[i]---",nodeArr[j])
+        stateObj= getNode(stateObj ,nodeArr[j])
+        console.log("stateObj---",stateObj)
+      }
+
+
+     console.log("stateObj---aftr for loop--",stateObj)
+      console.log("parent.loading --",parent.loading )
+      parent.loading = false;
+      console.log("parent.loading --",parent.loading)
+    
+     //stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
+      stateObj.push(action.payload.data.childNode[i]);
+      }
+     return newState;
+
+
   default :
-	    return state;
+      return state;
     //return [{"name":"rooting","toggled":true,"children":[{"name":"parent","children":[{"name":"child1"},{"name":"child2"}]},{"name":"loading parent","loading":true,"children":[]},{"name":"parent","children":[{"name":"nested parent","children":[{"name":"nested child 1"},{"name":"nested child 2"}]}]}]}];
 
   }
 
+  
 }

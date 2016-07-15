@@ -16,6 +16,8 @@ import TopologyData from './reducer_Topology';
 import { routerReducer } from 'react-router-redux';
 import TopoDetailData from './reducer_TopologyDetail';
 import ProfileData from './reducer_ProfileDetail';
+import TierData from './reducer_Tier';
+import ServerData from './reducer_Server';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -29,7 +31,9 @@ module.exports = combineReducers({
 	topologyData   : TopologyData,
 	routing        : routerReducer,
 	topoDetailData : TopoDetailData,
-	profileDetailData : ProfileData
+	profileDetailData : ProfileData,
+	tierData:TierData,
+	serverData :ServerData
 });
 
 //const reducers = {addInitialAppData};

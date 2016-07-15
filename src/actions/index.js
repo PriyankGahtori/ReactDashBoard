@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import * as url from './restURL';
 
 const ROOT_URL = '../data.json';
 const ROOT_URL_TREE = '../treedata.json';
@@ -12,9 +12,9 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 */
 
 export function fetchInitData() {
-
-  const request = axios.get("http://10.10.40.7:8050/configUI/home");
-
+  
+  console.log("url.HOME_URL - ",url)
+  const request = axios.get(url.HOME_SCREEN_URL);
   console.log("Action ajax.................",request);
 
   return {
@@ -24,15 +24,15 @@ export function fetchInitData() {
   };
 }
 
-
-
 /*
-*
 *  fetching Json for tree
 */
 export function fetchTreeData(appId) {
-  const URL =  `http://10.10.40.7:8050/configUI/custom/tree/application/${appId}`;
-  console.log("on action---",URL)
+  console.log("inside fetchTreeData-----------------------------------",appId)
+ //const URL =  `http://10.10.40.7:8050/configUI/custom/tree/application/${appId}`;
+  const URL =  `${url.APP_TREE_URL}/${appId}`;
+
+  console.log("URL - - ",URL)
   const request_tree = axios.get(URL);
   console.log("Action ajax...fetching trreeedataaa..............",request_tree);
 
@@ -43,13 +43,12 @@ export function fetchTreeData(appId) {
   };
 }
 
-
-
 export function fetchDCTableData(appId){
 
   console.log("appId-----",appId)
-  const URLTable = `http://10.10.40.7:8050/configUI/application/${appId}/dcDetails`;
-  const request_table = axios.get(URLTable);
+  //const URLTable = `http://10.10.40.7:8050/configUI/application/${appId}/dcDetails`;
+  const URL = `${url.DC_TABLE_DATA_URL}/${appId}/dcDetails`;
+  const request_table = axios.get(URL);
   console.log("request_table----",request_table)
   return {
     type   :'FETCH_TABLE_DATA',
@@ -76,7 +75,8 @@ export function addRowDCTable(formData,openDCDialogType,appId){
    console.log("edit flag")
    var response = axios({
     method:'put',
-    url:  `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}/${formData._links.self.href}`,
+     url : `${url.ADD_ROW_DC_URL}/${appId}/${formData._links.self.href}`,
+  //  url:  `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}/${formData._links.self.href}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -91,7 +91,8 @@ export function addRowDCTable(formData,openDCDialogType,appId){
 //action called for adding new DC
   var response = axios({
     method:'post',
-    url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
+   // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
+     url : `${url.ADD_ROW_DC_URL}/${appId}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -112,7 +113,8 @@ export function delDCTableRow(selectedRowKeys){
      console.log("value--",value)
      axios({
         method: 'delete',
-        url   : `http://10.10.40.7:8050/configUI/dcdetail/${value}`  //url-{value=dcId acting as a primary key}
+        url : `${url.DEL_ROW_DC_URL}/${value}`
+     //   url   : `http://10.10.40.7:8050/configUI/dcdetail/${value}`  //url-{value=dcId acting as a primary key}
         });
 })
   
@@ -187,7 +189,8 @@ export function delAppTableRow(selectedRowKeys){
      console.log("value--",value)
      axios({
         method : 'delete',
-        url : `http://10.10.40.7:8050/configUI/application/${value}`
+         url : `${url.DEL_ROW_APP_URL}/${value}`
+       // url : `http://10.10.40.7:8050/configUI/application/${value}`
         });
 })
   
@@ -206,7 +209,8 @@ export function addRowApplicationTable(formData,openAppDialogType){
    console.log("edit flag")
    var response = axios({
     method:'put',
-    url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
+    //url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
+    url : `${url.ADD_ROW_APP_URL}/${formData._links.self.href}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -221,7 +225,8 @@ export function addRowApplicationTable(formData,openAppDialogType){
 //action called for adding new DC
   var response = axios({
     method:'post',
-    url: 'http://10.10.40.7:8050/configUI/custom/application',
+    //url: 'http://10.10.40.7:8050/configUI/custom/application',
+     url : `${url.ADD_ROW_APP_URL}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -260,8 +265,9 @@ export function appDetailInitializeForm(data,openAppDialogType){
 // fetching data for the table Topology screens loads
 export function fetchTopologyTableData(dcId){
   console.log("fetchTopologyTableData action called");
-  const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  const request_table = axios.get(URLTable);
+  const URL =  `${url.FETCH_TOPO_TABLE_URL}/${dcId}`;
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+  const request_table = axios.get(URL);
   console.log("request_table in fetching topotable",request_table)
 
   return {
@@ -275,7 +281,8 @@ export function fetchTopologyTreeData(parentDCNode){
   console.log("in post request for fetchtreetopodata")
    var response = axios({
     method:'post',
-    url:   `http://10.10.40.7:8050/configUI/custom/tree/topology/${parentDCNode.id}`,
+    url : `${url.FETCH_TOPO_TREE_URL}/${parentDCNode.id}`,
+    //url:   `http://10.10.40.7:8050/configUI/custom/tree/topology/${parentDCNode.id}`,
     data: parentDCNode,
     headers:{'Content-Type':'application/json'}
   });
@@ -344,7 +351,8 @@ export function delTopoTableRow(selectedRowKeys){
      console.log("value--",value)
      axios({
         method: 'delete',
-        url   : `http://10.10.40.7:8050/configUI/dctopoassociation/${value}`  //url-{value=dcId acting as a primary key}
+        url : `${url.DEL_TOPO_ROW_URL}/${value}`,
+        //url   : `http://10.10.40.7:8050/configUI/dctopoassociation/${value}`  //url-{value=dcId acting as a primary key}
         });
 })
   
@@ -370,6 +378,78 @@ export function fetchProfileDetailData(){
     type: 'FETCH_PROFILEDETAIL_TABLEDATA',
     payload: request_table
   };
+}
 
+/*
+* Action creators for adding Tier node to parent Topo node
+*/
+export function fetchTierTreeData(parentTopologyNode){
+  console.log("in post request for fetchtreetopodata")
+   var response = axios({
+    method:'post',
+   // url: `http://10.10.40.74:8090/configUI/custom/tree/tier/${parentTopologyNode.id}`,
+    url :  `${url.FETCH_TIER_TREE_URL}/${parentTopologyNode.id}`,
+    data: parentTopologyNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("in activetopologydata--response---",response)
+  return {
+    type:'FETCH_TIER_NODE',
+    payload:response
+  }
+
+}
+
+export function fetchTierTableData(topoId){
+  console.log("fetchTierTableData action called");
+  const URL =  `${url.FETCH_TIER_TABLE_URL}/${topoId}/tier`;
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching topotable",request_table)
+
+  return {
+    type: 'FETCH_TIER_TABLE_DATA',
+    payload:request_table
+  };
+
+}
+
+/*
+action creators for server
+*/
+
+export function fetchServerTreeData(parentTierNode){
+  console.log("fetchServerTreeData")
+   console.log("in post request for fetchtreetopodata")
+   var response = axios({
+    method:'post',
+   // url: `http://10.10.40.74:8090/configUI/custom/tree/tier/${parentTopologyNode.id}`,
+    url :  `${url.FETCH_SERVER_TREE_URL}/${parentTierNode.id}`,
+    data: parentTierNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("in activetopologydata--response---",response)
+  return {
+    type:'FETCH_SERVER_NODE',
+    payload:response
+  }
+
+
+}
+
+
+export function fetchServerTableData(tierId){
+  console.log("fetchTierTableData action called");
+  const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}/server`;
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching topotable",request_table)
+
+  return {
+    type: 'FETCH_SERVER_TABLE_DATA',
+    payload:request_table
+  };
 
 }

@@ -25,14 +25,26 @@ import * as actionCreators  from '../actions/index';
         this.setState({treedata:nextProps.treedata});
   }
 
-	 onToggle(node, toggled){
-      console.log("on toggled---",node.type)     
+	   onToggle(node, toggled){
+     
+      console.log("on toggled---",node.type) 
+      console.log(`/${node.type}/${node.id}`)    
       hashHistory.push(`/${node.type}/${node.id}`)
 
       if(node.type == "dcdetail" ){
         console.log("fetchtopologytreedata")
         this.props.fetchTopologyTreeData(node)
       }
+
+      if (node.type == "topology"){
+        console.log("fetch treedata")
+        this.props.fetchTierTreeData(node)
+      }
+       if (node.type == "tier"){
+        console.log("fetch treedata server")
+        this.props.fetchServerTreeData(node)
+      }
+
     console.log("ontoggled---",this.state.treedata)
         if(this.state.cursor)
           {

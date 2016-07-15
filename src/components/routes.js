@@ -13,6 +13,8 @@ import Testing from '../containers/Testing'
 import Topology from '../containers/Topology'
 import TopologyDetail from '../containers/TopologyDetail';
 import ProfileDetail from '../containers/ProfileDetail';
+import Tier from '../containers/Tier';
+import Server from '../containers/Server';
 
 export default class routes extends React.Component {
 
@@ -32,7 +34,8 @@ export default class routes extends React.Component {
 		      <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId" component = {Topology} />
 		      <Route name = "Topology" path = "topology" component = {TopologyDetail} />
 		      <Route name = "Profile"  path = "profile" component = {ProfileDetail} />
-		   
+		      <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId" component = {Tier} />
+		      <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" component = {Server} />
 
 		    </Route>
 

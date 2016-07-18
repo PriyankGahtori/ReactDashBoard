@@ -12,6 +12,7 @@ import DialogNewDC from './Dialog_DCDetail_NewDC';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import { Link } from 'react-router';
 
 
 var columns = {
@@ -160,10 +161,11 @@ class DCDetail extends React.Component {
           <div className="col-md-10">
               <h4>DC Detail</h4>
           </div>
-          <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          </div>
+        <div className="col-md-2"  >
+          <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <IconButton><Link to ="/Configuration"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
+        </div>
        </div>
 
         {/* rendering Table component*/}

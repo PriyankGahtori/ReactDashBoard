@@ -39,11 +39,15 @@ class DropDownAppList extends React.Component {
         console.log("setting values in if block-------------->")
         this.setState({dropDownData:nextProps.dropDownData});
     }
+    console.log("this.props.value---",this.props.value)
     console.log("DropDownAppList component constructor called willreceiveprops--",nextProps.value)
-    if(this.props.value != nextProps.value){
-        console.log("setting values in componentwillreceive props-------------->")
-        this.setState({value:nextProps.value});
-    }
+    if(nextProps.value != null){
+      
+        if(this.props.value != nextProps.value){
+            console.log("setting values in componentwillreceive props-------------->")
+            this.setState({value:nextProps.value});
+        }
+  }
 }
 
  render() {

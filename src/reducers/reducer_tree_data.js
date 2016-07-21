@@ -192,6 +192,47 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
      return newState;
 
 
+case 'FETCH_INSTANCE_NODE':
+
+      var newState = Object.assign({}, state);
+      if(action.payload.data == null || action.payload.data.childNode == null){
+          return newState;
+      }
+    /* 
+    *function to identify parent node
+    */
+      var parent ;
+      function getNode(obj,id){
+        let index = _.findIndex(obj,(o)=> o.id == id)
+        console.log("index---",index);
+        if(index >= 0){
+             parent = obj[index];
+            return obj[index].children;
+          }
+          else {
+            return obj;
+          }
+        
+      }
+
+      var childArr= action.payload.data.childNode;
+      var stateObj = newState.children;
+      for(var i=0;i<childArr.length;i++){
+        var node = action.payload.data.childNode[i].parentId;
+        var nodeArr = node.split(".");
+        for(var j = 1;j < nodeArr.length;j++){
+          stateObj= getNode(stateObj ,nodeArr[j])
+        }
+
+        parent.loading = false;
+        stateObj.push(action.payload.data.childNode[i]);
+      }
+     return newState;
+
+
+
+
+
   default :
       return state;
     //return [{"name":"rooting","toggled":true,"children":[{"name":"parent","children":[{"name":"child1"},{"name":"child2"}]},{"name":"loading parent","loading":true,"children":[]},{"name":"parent","children":[{"name":"nested parent","children":[{"name":"nested child 1"},{"name":"nested child 2"}]}]}]}];

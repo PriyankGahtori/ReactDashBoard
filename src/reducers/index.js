@@ -18,22 +18,24 @@ import TopoDetailData from './reducer_TopologyDetail';
 import ProfileData from './reducer_ProfileDetail';
 import TierData from './reducer_Tier';
 import ServerData from './reducer_Server';
+import InstanceData from './reducer_Instance';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
 
 module.exports = combineReducers({
-	initialData    : InitialData,
-	treeData       : TreeData,
-	dcDetail       : DCDetailData,
-	form           : formReducer,
-	applicationdata: ApplicationData,
-	topologyData   : TopologyData,
-	routing        : routerReducer,
-	topoDetailData : TopoDetailData,
+	initialData       : InitialData,
+	treeData          : TreeData,
+	dcDetail          : DCDetailData,
+	form              : formReducer,
+	applicationdata   : ApplicationData,
+	topologyData      : TopologyData,
+	routing           : routerReducer,
+	topoDetailData    : TopoDetailData,
 	profileDetailData : ProfileData,
-	tierData:TierData,
-	serverData :ServerData
+	tierData          : TierData,
+	serverData        : ServerData,
+	instanceData      : InstanceData
 });
 
 //const reducers = {addInitialAppData};

@@ -453,3 +453,38 @@ export function fetchServerTableData(tierId){
   };
 
 }
+
+/*
+  Action creators for Instance screen
+*/
+
+export function fetchInstanceTableData(serverId){
+  console.log("fetchTierTableData action called");
+  const URL =  `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}/instance`;
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching topotable",request_table)
+
+  return {
+    type: 'FETCH_INSTANCE_TABLE_DATA',
+    payload:request_table
+  };
+
+}
+
+export function fetchInstanceTreeData(parentTierNode){
+   console.log("in post request for fetchtreetopodata")
+   var response = axios({
+    method:'post',
+    url :  `${url.FETCH_INSTANCE_TREE_URL}/${parentTierNode.id}`,
+    data: parentTierNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("in activetopologydata--response---",response)
+  return {
+    type:'FETCH_INSTANCE_NODE',
+    payload:response
+  }
+
+
+}

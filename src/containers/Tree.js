@@ -44,6 +44,10 @@ import * as actionCreators  from '../actions/index';
         console.log("fetch treedata server")
         this.props.fetchServerTreeData(node)
       }
+       if (node.type == "server"){
+        console.log("fetch instance data")
+        this.props.fetchInstanceTreeData(node)
+      }
 
     console.log("ontoggled---",this.state.treedata)
         if(this.state.cursor)

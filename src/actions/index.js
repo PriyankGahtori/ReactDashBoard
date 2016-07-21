@@ -362,6 +362,25 @@ export function delTopoTableRow(selectedRowKeys){
   }
 }
 
+
+/*
+* uppdating state of topo aftr toggling the toggle button for topo table
+*/
+
+export function updateStateofTableData(row){
+  
+
+  console.log("updateStateofTableData");
+  const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}/server`;
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching topotable",request_table)
+
+  return {
+    type: '',
+    payload:request_table
+  };
+}
 /*
 *
 *  ActionCreators for ProfileDetail

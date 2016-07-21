@@ -1,6 +1,18 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators  from '../actions/index';
+import Toggle from 'material-ui/Toggle';
 
+const styles = {
+  block: {
+    maxWidth: 250,
+  },
+  toggle: {
+   
+  }
+};
 
 
 class DataGridComponent extends React.Component {
@@ -10,12 +22,35 @@ class DataGridComponent extends React.Component {
  
   }
 
+   onToggle(row){
+    console.log("ontoggle function ---",row)
+  
+    row.topoState=!row.topoState;
+    console.log("aftr toggling--row.topoState-----",row.topoState)
+    this.props.updateStateofTableData(row)
+  }
+
   linkFormat(cell,row){
 
      if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
+
+      else if(cell == 'true' || cell == 'false')
+    {
+      /*
+      *  {cell === 'true'} returns true if cell = true as [===]  compares with type as well as value
+      *   string === string
+      * 
+      */
+      console.log("row in linkFormat--- ",row)
+      return (
+        <Toggle style={styles.toggle} defaultToggled={cell === 'true'} onToggle={this.onToggle.bind(this,row)}/>
+        );
+    }
+
     else
+      console.log("in cell returning condition")
       return cell;
      
   }

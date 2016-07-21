@@ -10,7 +10,7 @@ const styles = {
   },
 };
 
-export default class Configuration extends React.Component {
+export default class Instrumentation extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,7 +21,7 @@ export default class Configuration extends React.Component {
   }
 
   handleChange(value){
-    console.log("valu ein handlechamge--",value)
+    console.log("value in handlechamge--",value)
     this.setState({value: value});
   }
 

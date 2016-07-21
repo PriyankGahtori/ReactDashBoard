@@ -164,7 +164,7 @@ class DCDetail extends React.Component {
         <div className="col-md-2"  >
           <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
           <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          <IconButton><Link to ="/Configuration"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
+          <IconButton><Link to ="/Instrumentation"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
         </div>
        </div>
 

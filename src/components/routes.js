@@ -3,7 +3,6 @@ import { render } from 'react-dom'
 import { Router, Route, hashHistory, IndexRoute} from 'react-router'
 import App from './Main'
 import CardList from './CardList'
-
 import Layout from './Layout'
 import Main from './Main'
 import NewHome from '../containers/Home'
@@ -17,6 +16,8 @@ import Tier from '../containers/Tier';
 import Server from '../containers/Server';
 import Instance from '../containers/Instance';
 import Instrumentation from '../containers/Instrumentation';
+import ServiceEntryPoints from '../containers/ServiceEntryPoints';
+import BackendDetection from '../containers/BackendDetection';
 
 
 export default class routes extends React.Component {
@@ -40,7 +41,11 @@ export default class routes extends React.Component {
 		      <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId" component = {Tier} />
 		      <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" component = {Server} />
   			  <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" component = {Instance} />
-		      <Route name = "Instrumentation" staticName = {true} path = "Instrumentation" component = {Instrumentation} />
+		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component = {Instrumentation} >
+		      	 <IndexRoute component={ServiceEntryPoints} />
+		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection} />
+
+		      </Route>
 		      																											
 		    </Route>
 

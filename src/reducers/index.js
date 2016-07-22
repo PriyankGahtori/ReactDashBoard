@@ -19,6 +19,7 @@ import ProfileData from './reducer_ProfileDetail';
 import TierData from './reducer_Tier';
 import ServerData from './reducer_Server';
 import InstanceData from './reducer_Instance';
+import ServiceEntryPoints from './reducer_ServiceEntryPoints';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -35,7 +36,8 @@ module.exports = combineReducers({
 	profileDetailData : ProfileData,
 	tierData          : TierData,
 	serverData        : ServerData,
-	instanceData      : InstanceData
+	instanceData      : InstanceData,
+	ServiceEntryPoints:ServiceEntryPoints
 });
 
 //const reducers = {addInitialAppData};

@@ -9,6 +9,9 @@ const styles = {
     marginBottom: 12,
     fontWeight: 400,
   },
+  block:{
+    paddingBottom: 25,
+  }
 };
 
 export default class Instrumentation extends React.Component {
@@ -29,12 +32,13 @@ export default class Instrumentation extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className ='container-fluid'>
+      <div style ={styles.block}>
       <Tabs
         value={this.state.value}
         onChange={this.handleChange}
       >
-        <Tab label="Service Entry Point" value="/" >
+        <Tab label="Service Entry Point" value="instrumentation" >
         </Tab>
 
         <Tab label="Backend Detection" value="/instrumentation/backenddetection" >
@@ -67,7 +71,12 @@ export default class Instrumentation extends React.Component {
           </div>
         </Tab>
       </Tabs>
+      </div>
+
+
+
       {this.props.children}
+
       </div>
 
     );

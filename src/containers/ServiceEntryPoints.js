@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewTopology from './Dialog_Topo_NewTopo';
+import DialogNewServiceEntryPts from './Dialog_ServiceEntryPts';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -86,11 +86,12 @@ class ServiceEntryPoints extends React.Component {
   handleClick(){
     console.log("selecting row")
   }
-  handleOpen(openTopoDialogType){
 
-    console.log("in handleopen---",openTopoDialogType)
+  handleOpen(openServicePointDialogType){
+
+    console.log("in handleopen---",openServicePointDialogType)
     //for editing form
-    if(openTopoDialogType == "edit"){
+    if(openServicePointDialogType == "edit"){
       console.log("editing the App form")
 
       // gets the selected key of table
@@ -115,10 +116,10 @@ class ServiceEntryPoints extends React.Component {
       }
 
     }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
+    else if(openServicePointDialogType == "add"){ //for adding new row
+      console.log("adding service entry pts form")
+     /*  this.props.topoInitializeForm(null,openTopoDialogType);*/ //clears previous/initial values
+       this.props.toggleStateDialogNewServiceEntryPts(); //opens dialog box
     }
        
   }
@@ -180,7 +181,7 @@ class ServiceEntryPoints extends React.Component {
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
-         <DialogNewTopology />
+         <DialogNewServiceEntryPts />
       </div>
 
       <Snackbar

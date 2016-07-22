@@ -507,3 +507,12 @@ console.log("in activetopologydata--response---",response)
 
 
 }
+/*
+* Action creators for service entry points
+*/
+export function toggleStateDialogNewServiceEntryPts(){
+  console.log("action triggered--toggling----for new serviceentrypints")
+  return {
+    type:'TOGGLE_STATE_ADD_NEW_SERVICEENTRY_PTS'
+  }
+}

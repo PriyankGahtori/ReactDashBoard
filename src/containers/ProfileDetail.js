@@ -12,6 +12,9 @@ import DialogNewApplication from './Dialog_AppDetail_NewApp';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import { Link } from 'react-router';
+import {hashHistory } from 'react-router';
+
 
 
 /*
@@ -53,7 +56,7 @@ class ProfileDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
-  this.handleClick = this.handleClick.bind(this);
+  this.ConfigureProfile = this.ConfigureProfile.bind(this);
   }
 
  
@@ -72,8 +75,12 @@ class ProfileDetail extends React.Component {
     this.props.delAppTableRow(selectedRowKeys)
   }
 
-  handleClick(){
-    console.log("selecting row")
+  ConfigureProfile(){
+    console.log("ConfigureProfile called---")
+    var selectedRow=this.refs.profTable.refs.table.state.selectedRowKeys;
+    console.log("selected row----",selectedRow)
+    hashHistory.push(`/instrumentation/${selectedRow[0].self.href}`)
+
   }
 
 /*
@@ -146,6 +153,7 @@ class ProfileDetail extends React.Component {
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">power_settings_new</FontIcon></IconButton>
           </div>
        </div>
           
@@ -156,7 +164,7 @@ class ProfileDetail extends React.Component {
        }
         <DataGrid data = {this.props.profileDetail.tableData} 
                   pagination={false} 
-                  ref="appTable" 
+                  ref="profTable" 
                   column = {columns}
                   onClick={this.handleClick}
          />

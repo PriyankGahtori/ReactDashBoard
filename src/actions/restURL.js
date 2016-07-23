@@ -22,14 +22,15 @@ export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
 
 export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/server`;
 
-export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 
 
 export const FETCH_TIER_TABLE_URL = `${SERVICE_URL}/topology`;
 
 export const FETCH_SERVER_TABLE_URL = `${SERVICE_URL}/tier`;
 
-export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/server`;
+export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;
+
+
 
 
 

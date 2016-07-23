@@ -16,7 +16,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
  
   constructor(props) {
   super(props);
-  console.log("onsubmit props", this.props.onSubmit)
+  console.log("onsubmit props", this.props)
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state ={dcDetail:this.props.dcDetail};

@@ -18,6 +18,7 @@ export default class Instrumentation extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log("props of instrumentration---",this.props)
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       value: 'a',

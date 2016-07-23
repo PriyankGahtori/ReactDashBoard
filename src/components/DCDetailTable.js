@@ -24,33 +24,32 @@ class DataGridComponent extends React.Component {
 
    onToggle(row){
     console.log("ontoggle function ---",row)
-  
     row.topoState=!row.topoState;
     console.log("aftr toggling--row.topoState-----",row.topoState)
     this.props.updateStateofTableData(row)
   }
 
   linkFormat(cell,row){
-
+      console.log("value of cell---",cell)
      if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
 
-      else if(cell == 'true' || cell == 'false')
+      else if(cell === 'true' || cell === 'false' || cell === true || cell === false)
     {
       /*
       *  {cell === 'true'} returns true if cell = true as [===]  compares with type as well as value
       *   string === string
-      * 
       */
+      console.log("in linkformat ---",cell)
       console.log("row in linkFormat--- ",row)
       return (
-        <Toggle style={styles.toggle} defaultToggled={cell === 'true'} onToggle={this.onToggle.bind(this,row)}/>
+        <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.onToggle.bind(this,row)}/>
         );
     }
 
     else
-      console.log("in cell returning condition")
+      console.log("in cell returning condition----",cell)
       return cell;
      
   }

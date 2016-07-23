@@ -509,10 +509,31 @@ console.log("in activetopologydata--response---",response)
 }
 /*
 * Action creators for service entry points
+*
 */
+
+export function fetchServiceEntryPointsTabledata(profileId){
+  console.log("fetchServiceEntryPointsTabledata action triggere-----")
+  const URL = `${url.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching serviceentrypoints---",request_table)
+  return {
+    type:'FETCH_SERVICE_POINTS_TABLEDATA',
+    payload:request_table
+  }
+}
+
+
 export function toggleStateDialogNewServiceEntryPts(){
   console.log("action triggered--toggling----for new serviceentrypints")
   return {
     type:'TOGGLE_STATE_ADD_NEW_SERVICEENTRY_PTS'
+  }
+}
+
+export function ServiceEntryPointsOfSelectedEntryType(value){
+  console.log("ServiceEntryPointsOfSelectedEntryType action called----",value)
+  return {
+    type:''
   }
 }

@@ -1,7 +1,15 @@
+
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {ServiceEntryPointsOfSelectedEntryType}  from '../actions/index';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+import {List, ListItem} from 'material-ui/List';
+import ContentSend from 'material-ui/svg-icons/content/send';
 export const fields = [ 'dcName', 'dcIp', 'dcPort','ndeIp','ndePort' ]
 const initialValues = { 
                 'dcName' : "safasfasfa", 
@@ -10,6 +18,7 @@ const initialValues = {
                 'ndeIp' : "SdDAD",
                 'ndePort' : "34342"
               }
+
 
 const validate = values => {
   const errors = {}
@@ -52,92 +61,103 @@ const validate = values => {
   return errors
 }
 
-class NewApplication extends React.Component {
+const styles = {
+    customWidth: {
+      width: 200
+    }
+  };
+
+
+class ServiceEntryPointsForm extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form dc detail--",this.props)
+  console.log("in form serviceEntryPoints detail--",this.props)
   this.handleChange=this.handleChange.bind(this);
   this.state ={flagAddOREdit:this.props.flagAddOREdit};
+  this.state ={ServiceEntryPointsTableData:this.props.ServiceEntryPointsTableData};
+  this.state ={value:this.props.ServiceEntryPointsTableData[0].id}
+  console.log("this.state.value--",this.state.value)
+  console.log("ServiceEntryPointsTableData--in constructor---",this.state.ServiceEntryPointsTableData)
   }
 
 
-handleChange(){
-  this.setState({value:event.target.value})
+handleChange(event,index,value){  
+  console.log("event-----",event)
+  console.log("index------",index)                             
+  console.log("on handleChange----",value)
+  this.props.load(value);
+  this.setState({value:value})
 }
 
  componentWillReceiveProps(nextProps)
   {
+    console.log("ServiceEntryPointsTableData---",nextProps.ServiceEntryPointsTableData)
     if(this.props.flagAddOREdit!= nextProps.flagAddOREdit)
       this.setState({flagAddOREdit:nextProps.flagAddOREdit});
+
+    if(this.props.ServiceEntryPointsTableData!= nextProps.ServiceEntryPointsTableData){
+      console.log("componentwillreceiveprops---")
+      this.setState({ServiceEntryPointsTableData:nextProps.ServiceEntryPointsTableData})
+    }
   }
 
   render() {
-     const { fields: { dcName, dcIp, dcPort,ndeIp, ndePort}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: { entryType, Name,firstName}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row" >
               <div className ="col-md-6">
-               <TextField
-                hintText="Hint Text"
-                floatingLabelText="DCName"
-                {...dcName}
-                errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
-                />
-             </div>
+                <label>Entry Type</label>
+                 <DropDownMenu 
+                  value={this.state.value}                
+                  style={styles.customWidth}
+                  autoWidth={false}
+                  onChange={this.handleChange.bind(this)} 
+                >
 
+                {
+                  /* Iterate over serviceEntryPoints table data to get list of entry Type*/
 
-             <div className="col-md-6">
-               <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="DCIP"
-                  {...dcIp}
-                  errorText={dcIp.touched && dcIp.error && <div>{dcIp.error}</div>}
-                />
+                  this.props.ServiceEntryPointsTableData.map((data, index) => (   
+                  <MenuItem value={data.id} key={data.id} primaryText={data.entryType}/>
+                  ))
+                }
+                 
+                </DropDownMenu>
              </div>
         </div>
 
              <div className ="row">
-              <div className ="col-md-6">
-              <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="DCPort"
-                  {...dcPort}
-                  errorText={dcPort.touched && dcPort.error && <div>{dcPort.error}</div>}
-                />
-             </div>
-
-             
+                <div className ="col-md-2">
+                  <label>Name</label>
+                </div>
+                <div className="col-md-6">
+                    <input type="text" placeholder="Name" {...Name}/>
+                </div>
             </div>
 
-            <div className="row">
-              <div className ="col-md-6">
-              <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="NDEIP"
-                  {...ndeIp}
-                  errorText={ndeIp.touched && ndeIp.error && <div>{ndeIp.error}</div>}
-                />
+
+          <div>
+              <div className="row">
+                <div className="col-md-6">
+                  <label>Entry Point Names</label>
+                </div>
+              </div>
+
+             <div>
+               <List>
+                  <ListItem primaryText="Inbox" leftIcon={<ContentSend />} />
+               </List>
              </div>
-
-
-             <div className="col-md-6">
-              <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="NDEPort"
-                  {...ndePort}
-                  errorText={ndePort.touched && ndePort.error && <div>{ndePort.error}</div>}
-                />
-             </div>
-
-            </div>
-            
+          </div>
 
        </form>
      );
    }
 }
-NewApplication.propTypes = {
+
+ServiceEntryPointsForm.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -150,6 +170,9 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
   state => ({ // mapStateToProps
-  initialValues:state.dcDetail.dcDetailInitializeForm
-})
-) (NewApplication);
+  initialValues               : state.dcDetail.dcDetailInitializeForm,
+  ServiceEntryPointsTableData : state.ServiceEntryPoints.tableData
+}),
+ { load: ServiceEntryPointsOfSelectedEntryType} // mapDispatchToProps (will bind action creator to dispatch)
+) (ServiceEntryPointsForm);
+

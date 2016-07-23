@@ -12,12 +12,13 @@ import DialogNewServiceEntryPts from './Dialog_ServiceEntryPts';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import { Link } from 'react-router';
 
 
 var columns = {
-                "key"  : "serverId",
-                "data" : ['Type', 'Name','Details','state'],
-                "field": ['serverName', 'serverDesc','serverId']
+                "key"  : "id",
+                "data" : ['Type','Name','Desc','Enabled','ID'],
+                "field": ['entryType','name','desc','enabled','id']
               }; 
 
 const style = {
@@ -42,7 +43,6 @@ class ServiceEntryPoints extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in topology.js--",this.props)
   this.state = {treedata:this.props.treedata};
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
@@ -125,30 +125,15 @@ class ServiceEntryPoints extends React.Component {
   }
 
   componentWillMount() {
-    
-    /*
-    * triggerring an action to fetch topology table data
-    *   here node.id is dc_id  
-    */
-   
-
-   
+      console.log("this.props.params.profileId--in compomnentwillmount---",this.props.params.profileId)
+      this.props.fetchServiceEntryPointsTabledata(this.props.params.profileId);    
   }
 
   componentWillReceiveProps(nextProps)
   {
-    /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
-     * for new DC  selected.
-     */
      console.log("nextProps---")
-     if(this.props.routeParams.tierId!= nextProps.routeParams.tierId){
-        console.log("nextProps.routeParams.tierId---",nextProps.routeParams.tierId)
-        this.props.fetchServerTableData(nextProps.routeParams.tierId);
-    }
-  
-
-    if(this.props.serverData != nextProps.serverData){
-      this.setState({serverData:nextProps.serverData});
+    if(this.props.ServiceEntryPoints != nextProps.ServiceEntryPoints){
+      this.setState({ServiceEntryPoints:nextProps.ServiceEntryPoints});
     }
 }
   
@@ -165,10 +150,11 @@ class ServiceEntryPoints extends React.Component {
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          </div>
+          
+        </div>
        </div>
 
-        <DataGrid data = {this.props.serverData.tableData} 
+        <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
                   pagination={false} 
                   ref="topoTable" 
                   column = {columns}
@@ -198,9 +184,9 @@ class ServiceEntryPoints extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("serverData--",state.serverData)
+  console.log("serverData--",state.ServiceEntryPoints)
   return {
-    serverData :state.serverData,
+    ServiceEntryPoints :state.ServiceEntryPoints,
    };
 }
 

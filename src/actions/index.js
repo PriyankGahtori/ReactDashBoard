@@ -531,9 +531,26 @@ export function toggleStateDialogNewServiceEntryPts(){
   }
 }
 
-export function ServiceEntryPointsOfSelectedEntryType(value){
-  console.log("ServiceEntryPointsOfSelectedEntryType action called----",value)
+export function ListOfServiceEntryPointType(){
+  console.log("action triggered---")
+  const URL =`${url.FETCHING_SERVICE_ENTRYPOINTS_FORM}`
+  const response = axios.get(URL);
+  console.log("ListOfServiceEntryPointType----",response)
+  return{
+    type :'LIST_SERVICEENTRYPOINT_TYPE',
+    payload:response
+  }
+}
+
+export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
+
+  console.log("ServiceEntryPointsOfSelectedEntryType action called----",entryTypeId)
+  const URL =`${url.FETCHING_SERVICE_ENTRYPOINTS_FORM}/${entryTypeId}/serviceEntryPoint`
+  const response = axios.get(URL);
+  console.log("respose of getting sep od entrytypeid--",response)
+  
   return {
-    type:''
+    type:'FETCHING_SERVICE_ENTRYPOINTS_FORM',
+    payload:response
   }
 }

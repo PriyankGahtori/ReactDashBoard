@@ -59,7 +59,7 @@ export default class Layout extends React.Component {
     console.log("current",this.props.location);
     console.log("next",nextProps.location);
     
-    if(nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" || nextProps.location.pathname === "/topology" || nextProps.location.pathname === "/profile")
+    if(nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" || nextProps.location.pathname === "/topology" || nextProps.location.pathname === "/profile" || nextProps.location.pathname === "/instrumnetat" )
     	this.setState({treeClass: "hide",
                     open: false, 
                     headerClass : "col-md-12", 

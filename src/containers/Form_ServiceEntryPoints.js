@@ -1,12 +1,11 @@
-
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {ServiceEntryPointsOfSelectedEntryType}  from '../actions/index';
+import {ServiceEntryPointsOfSelectedEntryType,ListOfServiceEntryPointType} from '../actions/index';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenu from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
@@ -73,11 +72,14 @@ class ServiceEntryPointsForm extends React.Component {
   constructor(props) {
   super(props);
   console.log("in form serviceEntryPoints detail--",this.props)
+  this.state={ServiceEntryPoints:this.props.ServiceEntryPoints}
   this.handleChange=this.handleChange.bind(this);
   this.state ={flagAddOREdit:this.props.flagAddOREdit};
-  this.state ={ServiceEntryPointsTableData:this.props.ServiceEntryPointsTableData};
-  this.state ={value:this.props.ServiceEntryPointsTableData[0].id}
-  console.log("this.state.value--",this.state.value)
+  this.state ={listOfEntryType:this.props.listOfEntryType};
+  console.log("this.props.listOfEntryType--",this.props.listOfEntryType)
+  console.log("this.state.listOfEntryType--",this.state.listOfEntryType)
+  //this.state ={value:this.props.ListOfServiceEntryPointType[0].id}
+  //console.log("this.state.value--",this.state.value)
   console.log("ServiceEntryPointsTableData--in constructor---",this.state.ServiceEntryPointsTableData)
   }
 
@@ -90,67 +92,80 @@ handleChange(event,index,value){
   this.setState({value:value})
 }
 
+  componentWillMount() {
+    //console.log(this.state.value)
+  
+    this.props.loadEntryType();
+   
+  }
+
+
  componentWillReceiveProps(nextProps)
   {
-    console.log("ServiceEntryPointsTableData---",nextProps.ServiceEntryPointsTableData)
+    console.log("ServiceEntryPointsTableData---",nextProps.listOfEntryType)
+    console.log("ServiceEntryPointsServiceEntryPoints----",nextProps.ServiceEntryPoints)
+
     if(this.props.flagAddOREdit!= nextProps.flagAddOREdit)
       this.setState({flagAddOREdit:nextProps.flagAddOREdit});
 
-    if(this.props.ServiceEntryPointsTableData!= nextProps.ServiceEntryPointsTableData){
-      console.log("componentwillreceiveprops---")
-      this.setState({ServiceEntryPointsTableData:nextProps.ServiceEntryPointsTableData})
+    
+
+    if(this.props.ServiceEntryPoints != nextProps.ServiceEntryPoints){
+      console.log("changing props of serviceEntryPoints")
+      this.setState({ServiceEntryPoints:nextProps.ServiceEntryPoints})
+      console.log("this.state.ServiceEntryPoints--",this.state.ServiceEntryPoints)
     }
   }
 
   render() {
+ 
      const { fields: { entryType, Name,firstName}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
-            <div className ="row" >
+            <div className ="row"  >
+
               <div className ="col-md-6">
-                <label>Entry Type</label>
                  <DropDownMenu 
                   value={this.state.value}                
                   style={styles.customWidth}
                   autoWidth={false}
                   onChange={this.handleChange.bind(this)} 
+                  floatingLabelText="Entry Point Type"
                 >
-
-                {
-                  /* Iterate over serviceEntryPoints table data to get list of entry Type*/
-
-                  this.props.ServiceEntryPointsTableData.map((data, index) => (   
-                  <MenuItem value={data.id} key={data.id} primaryText={data.entryType}/>
-                  ))
-                }
-                 
+               {
+                this.props.ListOfServiceEntryPointType.map((data, index) => (
+                    <MenuItem value={data.id}  primaryText={data.entryTypeName} />
+                ))
+               }
+               
                 </DropDownMenu>
              </div>
-        </div>
 
-             <div className ="row">
-                <div className ="col-md-2">
-                  <label>Name</label>
-                </div>
-                <div className="col-md-6">
-                    <input type="text" placeholder="Name" {...Name}/>
+                <div className ="col-md-6">
+                    <TextField
+                     hintText="Hint Text"
+                        floatingLabelText="Name"
+                    />
                 </div>
             </div>
 
 
+
           <div>
-              <div className="row">
-                <div className="col-md-6">
+              <div >
                   <label>Entry Point Names</label>
-                </div>
               </div>
 
              <div>
                <List>
-                  <ListItem primaryText="Inbox" leftIcon={<ContentSend />} />
+               {
+                this.props.ServiceEntryPoints.map((value, index)=>(
+                  <ListItem primaryText={value.entryFQM} leftIcon={<ContentSend />} />
+                ))
+               }
                </List>
              </div>
-          </div>
+        </div>
 
        </form>
      );
@@ -171,8 +186,12 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
 },
   state => ({ // mapStateToProps
   initialValues               : state.dcDetail.dcDetailInitializeForm,
-  ServiceEntryPointsTableData : state.ServiceEntryPoints.tableData
+  ServiceEntryPointsTableData : state.ServiceEntryPoints.tableData,
+  ServiceEntryPoints          : state.ServiceEntryPoints.serviceEntryPoints,
+  ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType
 }),
- { load: ServiceEntryPointsOfSelectedEntryType} // mapDispatchToProps (will bind action creator to dispatch)
+ { load          : ServiceEntryPointsOfSelectedEntryType,
+   loadEntryType : ListOfServiceEntryPointType
+ } // mapDispatchToProps (will bind action creator to dispatch)
 ) (ServiceEntryPointsForm);
 

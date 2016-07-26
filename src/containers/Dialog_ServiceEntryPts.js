@@ -71,7 +71,7 @@ class Dialog_ServiceEntryPts extends React.Component {
            */
         }
       <FormNewServiceEntry ref="newServiceEntryPtsForm" onSubmit={data =>{
-                              console.log("data----",JSON.stringify(data))
+                              console.log("data---serviceEtryForm-",JSON.stringify(data))
                                if(this.state.ServiceEntryPoints== "edit"){
 
                                 data["_links"] = this.state.dcDetail.dcDetailInitializeForm._links;

@@ -9,7 +9,9 @@ import DropDownMenu from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
-export const fields = [ 'dcName', 'dcIp', 'dcPort','ndeIp','ndePort' ]
+import Toggle from 'material-ui/Toggle';
+import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+export const fields = [ 'entryType', 'name', 'enable','fqm','desc' ]
 const initialValues = { 
                 'dcName' : "safasfasfa", 
                 'dcIp' : "sadasdasdas", 
@@ -60,29 +62,50 @@ const validate = values => {
   return errors
 }
 
+
+
 const styles = {
-    customWidth: {
+  block: {
+    maxWidth: 250,
+    paddingBottom:5
+  },
+  toggle: {
+      marginTop:30 ,
+      paddingLeft:80
+  },
+  customWidth: {
       width: 200
-    }
-  };
+    },
+  toggleCustomFQM :{
+     paddingLeft:5
+  },
+  entryPointBlock:{
+    paddingLeft:10,
+    paddingTop:5
+  }
+};
 
 
 class ServiceEntryPointsForm extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form serviceEntryPoints detail--",this.props)
-  this.state={ServiceEntryPoints:this.props.ServiceEntryPoints}
+  this.state={ServiceEntryPoints:null}
   this.handleChange=this.handleChange.bind(this);
   this.state ={flagAddOREdit:this.props.flagAddOREdit};
   this.state ={listOfEntryType:this.props.listOfEntryType};
-  console.log("this.props.listOfEntryType--",this.props.listOfEntryType)
-  console.log("this.state.listOfEntryType--",this.state.listOfEntryType)
-  //this.state ={value:this.props.ListOfServiceEntryPointType[0].id}
-  //console.log("this.state.value--",this.state.value)
-  console.log("ServiceEntryPointsTableData--in constructor---",this.state.ServiceEntryPointsTableData)
+  this.state ={enable:false}
   }
 
+handleEntryPoints(enableSEP){
+  console.log("handleEntryPoints function called--enableSEP--",enableSEP)
+  this.setState({enable:!enableSEP})
+}
+
+ onToggle(){
+    console.log("ontoggle function --ttttttttttt-")
+    console.log("aftr toggling--row.topoState-----")
+  }
 
 handleChange(event,index,value){  
   console.log("event-----",event)
@@ -94,11 +117,63 @@ handleChange(event,index,value){
 
   componentWillMount() {
     //console.log(this.state.value)
-  
     this.props.loadEntryType();
-   
   }
 
+
+//method to create comboBox of entry Type 
+  renderDropDown(){
+      return(
+
+         <DropDownMenu 
+          value={this.state.value}                
+          style={styles.customWidth}
+          autoWidth={false}
+          onChange={this.handleChange.bind(this)} 
+          floatingLabelText="Entry Point Type"
+         >
+           {
+            this.props.ListOfServiceEntryPointType.map((data, index) => (
+                <MenuItem value={data.id}  primaryText={data.entryTypeName} />
+            ))
+           }
+         </DropDownMenu>
+        );
+     }
+
+//method for displaying Service entry Point List according to entry Type selected from entry type comboBox
+ renderEntryPointList(){
+  console.log("entryPointList----")
+  if(this.state.ServiceEntryPoints == null){
+    return(
+        <div>
+        </div>
+      );
+  }
+  else{
+    return(
+       <div styles={styles.entryPointBlock}>
+              <div className="row" >
+                  <label>Entry Point Names</label>
+              </div>
+
+             <div className="row">
+                <RadioButtonGroup name ="entryPointList" defaultSelected={this.state.ServiceEntryPoints != null ? this.state.ServiceEntryPoints[0]._links.self.href : "-1"} >
+                {
+                  this.props.ServiceEntryPoints.map((value, index)=>(
+                  <RadioButton
+                      value={value._links.self.href} 
+                      label={value.entryName} 
+                      disabled={this.state.enable}
+                  />
+                   ))
+                }
+                 </RadioButtonGroup>
+             </div>
+        </div>
+    );
+    }
+ }
 
  componentWillReceiveProps(nextProps)
   {
@@ -119,56 +194,53 @@ handleChange(event,index,value){
 
   render() {
  
-     const { fields: { entryType, Name,firstName}, resetForm, handleSubmit,onSubmit, submitting } = this.props
-     return (
+     const { fields: { entryType,name,enable,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+        
+        return (
         <form >
-            <div className ="row"  >
+          <div className ="row"  >
 
-              <div className ="col-md-6">
-                 <DropDownMenu 
-                  value={this.state.value}                
-                  style={styles.customWidth}
-                  autoWidth={false}
-                  onChange={this.handleChange.bind(this)} 
-                  floatingLabelText="Entry Point Type"
-                >
-               {
-                this.props.ListOfServiceEntryPointType.map((data, index) => (
-                    <MenuItem value={data.id}  primaryText={data.entryTypeName} />
-                ))
-               }
-               
-                </DropDownMenu>
-             </div>
+                <div className ="col-md-4">
+                  {this.renderDropDown()} 
+               </div>
 
-                <div className ="col-md-6">
-                    <TextField
-                     hintText="Hint Text"
-                        floatingLabelText="Name"
-                    />
-                </div>
-            </div>
-
-
-
-          <div>
-              <div >
-                  <label>Entry Point Names</label>
+              <div className ="col-md-3">
+                  <TextField
+                   hintText="Hint Text"
+                      floatingLabelText="Name"
+                       {...name}
+                  />
               </div>
 
-             <div>
-               <List>
-               {
-                this.props.ServiceEntryPoints.map((value, index)=>(
-                  <ListItem primaryText={value.entryFQM} leftIcon={<ContentSend />} />
-                ))
-               }
-               </List>
-             </div>
+              <div className ="col-md-5">
+                  <Toggle style={styles.toggle} defaultToggled={false}  labelPosition="right" label="Enabled" onToggle={this.onToggle.bind(this)}/>
+              </div>
+
+
+          </div>
+
+          {this.renderEntryPointList()}
+
+          <div>
+
+          <Toggle style={styles.toggleCustomFQM} defaultToggled={false}  labelPosition="right" label="Custom Fully Qualified Name" onToggle={this.handleEntryPoints.bind(this,this.state.enable)}/>        
+            <TextField
+             hintText="Hint Text"
+             floatingLabelText="Entry FQM"
+             {...fqm}
+             />
+
         </div>
 
        </form>
      );
+
+
+
+
+
+
+   
    }
 }
 

@@ -21,46 +21,7 @@ const initialValues = {
               }
 
 
-const validate = values => {
-  const errors = {}
- 
-  if (!values.dcName) {
-    errors.dcName = 'Required'
-  } else if (values.dcName.length > 15) {
-    errors.dcName = 'Must be 15 characters or less'
-  }else if (!Is.alphaNumeric(values.DCName)) {
-    errors.dcName = 'Invalid DC Name'
-  }
 
-  if (!values.dcIp) {
-    errors.dcIp = 'Required'
-  } else if (!Is.ip(values.dcIp)) {
-    errors.dcIp = 'Invalid IP address'
-  }
-
-  if (!values.dcPort) {
-    errors.dcPort = 'Required'
-  } else if (isNaN(Number(values.dcPort))) {
-    errors.dcPort = 'Must be a number'
-  } else if (values.dcPort.length > 4) {
-    errors.dcPort = 'Must be 4 digits'
-  }
-  
-  if (!values.ndeIp) {
-    errors.ndeIp = 'Required'
-  } else if (!Is.ip(values.ndeIp)) {
-    errors.ndeIp = 'Invalid IP address'
- }
-  if (!values.ndePort) {
-    errors.ndePort = 'Required'
-  } else if (isNaN(Number(values.ndePort))){
-    errors.ndePort = 'Must be a number'
-  } else if (values.ndePort.length > 4) {
-    errors.ndePort = 'Must be 4 digits'
-  }
-
-  return errors
-}
 
 
 
@@ -137,6 +98,7 @@ handleChange(event,index,value){
                 <MenuItem value={data.id}  primaryText={data.entryTypeName} />
             ))
            }
+
          </DropDownMenu>
         );
      }
@@ -194,7 +156,7 @@ handleChange(event,index,value){
 
   render() {
  
-     const { fields: { entryType,name,enable,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: { entryType,name,enable,value,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
         
         return (
         <form >
@@ -202,13 +164,14 @@ handleChange(event,index,value){
 
                 <div className ="col-md-4">
                   {this.renderDropDown()} 
+                   
                </div>
 
               <div className ="col-md-3">
                   <TextField
                    hintText="Hint Text"
-                      floatingLabelText="Name"
-                       {...name}
+                   floatingLabelText="Name"
+                   {...name}
                   />
               </div>
 
@@ -234,13 +197,6 @@ handleChange(event,index,value){
 
        </form>
      );
-
-
-
-
-
-
-   
    }
 }
 
@@ -254,7 +210,7 @@ ServiceEntryPointsForm.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
   fields,
-  validate
+  
 },
   state => ({ // mapStateToProps
   initialValues               : state.dcDetail.dcDetailInitializeForm,

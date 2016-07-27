@@ -1,4 +1,7 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
+
+export const  SERVICE_URL = 'http://10.10.40.7:8050/configUI';
+
 
 //export const HOME_URL = 'http://10.10.40.7:8050/configUI/home';
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -32,6 +35,9 @@ export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserv
 
 export const FETCHING_SERVICE_ENTRYPOINTS_FORM = `${SERVICE_URL}/entryTypes`;
 
+export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
+
+ export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/server`;
 
 
 

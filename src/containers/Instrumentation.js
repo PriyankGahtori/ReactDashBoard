@@ -40,9 +40,10 @@ export default class Instrumentation extends React.Component {
         onChange={this.handleChange}
       >
         <Tab label="Service Entry Point" value="instrumentation" >
+        
         </Tab>
 
-        <Tab label="Backend Detection" value="/instrumentation/backenddetection" >
+        <Tab label="Backend Detection" value="instrumentation/backenddetection" >
           
         </Tab>
 

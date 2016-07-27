@@ -79,7 +79,7 @@ class ProfileDetail extends React.Component {
     console.log("ConfigureProfile called---")
     var selectedRow=this.refs.profTable.refs.table.state.selectedRowKeys;
     console.log("selected row----",selectedRow)
-    hashHistory.push(`/instrumentation/${selectedRow[0].self.href}`)
+    hashHistory.push(`/configuration/${selectedRow[0].self.href}`)
 
   }
 
@@ -153,7 +153,7 @@ class ProfileDetail extends React.Component {
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">power_settings_new</FontIcon></IconButton>
+            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">settings</FontIcon></IconButton>
           </div>
        </div>
           

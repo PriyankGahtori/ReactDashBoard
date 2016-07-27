@@ -46,12 +46,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
         primary={true}
         onTouchTap={this.handleCancel}
       />,
-      <FlatButton
-        label="Clear Values"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
-      />,
+      
       <FlatButton
         label="Submit"
         primary={true}

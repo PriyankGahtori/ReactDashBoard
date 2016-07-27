@@ -30,7 +30,6 @@ class DataGridComponent extends React.Component {
   }
 
   linkFormat(cell,row){
-      console.log("value of cell---",cell)
      if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
@@ -41,15 +40,12 @@ class DataGridComponent extends React.Component {
       *  {cell === 'true'} returns true if cell = true as [===]  compares with type as well as value
       *   string === string
       */
-      console.log("in linkformat ---",cell)
-      console.log("row in linkFormat--- ",row)
       return (
         <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.onToggle.bind(this,row)}/>
         );
     }
 
     else
-      console.log("in cell returning condition----",cell)
       return cell;
      
   }

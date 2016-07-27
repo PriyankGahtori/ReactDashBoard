@@ -5,6 +5,7 @@ export default function(state = initialState, action) {
   switch(action.type) {
   case 'FETCH_SERVICE_POINTS_TABLEDATA':
       var newState = Object.assign({}, state);
+      console.log("action.payload.data----",action.payload.data)
       newState.tableData=action.payload.data;
       console.log("newState---",newState.tableData)
       return newState;

@@ -15,9 +15,10 @@ import ProfileDetail from '../containers/ProfileDetail';
 import Tier from '../containers/Tier';
 import Server from '../containers/Server';
 import Instance from '../containers/Instance';
+import Configuration from '../containers/ConfigurationSettings';
+import BackEndDetection from '../containers/Form_BussinessTransaction';
 import Instrumentation from '../containers/Instrumentation';
 import ServiceEntryPoints from '../containers/ServiceEntryPoints';
-import BackendDetection from '../containers/BackendDetection';
 
 
 export default class routes extends React.Component {
@@ -41,12 +42,13 @@ export default class routes extends React.Component {
 		      <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId" component = {Tier} />
 		      <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" component = {Server} />
   			  <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" component = {Instance} />
-		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component = {Instrumentation} >
-		      	 <IndexRoute component={ServiceEntryPoints} />
-		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection} />
+  			  
+  			  <Route name = "Configuration" staticName = {true} path = "configuration/:profileId"  component = {Configuration} />
+			      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
+			      	 <IndexRoute component={ServiceEntryPoints} />
+			      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackEndDetection}/>
+			      </Route>
 
-		      </Route>
-		      																											
 		    </Route>
 
 		  </Router>

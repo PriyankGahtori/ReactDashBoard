@@ -87,6 +87,16 @@ handleCheck(event,isInputChecked){
     
   }
 
+  renderTextField(){
+    console.log("rendering tectfiled")
+    return(
+         <TextField
+                   hintText="Hint Text"
+                   floatingLabelText="Name"
+                  />
+      );
+  }
+
   render() {
      
      return (
@@ -125,11 +135,13 @@ handleCheck(event,isInputChecked){
                     label="Complete"
                     style={styles.radioButton}
                   />
+
                    <RadioButton
                     value="btSegment"
                     label="Use Segments of URI"
                     style={styles.radioButton}
                   />
+
                    </RadioButtonGroup>
                    <div className ="row">
                       <DropDownMenu 
@@ -155,19 +167,23 @@ handleCheck(event,isInputChecked){
             <div className='col-md-6'>
                  <Checkbox
                  label="Dynamic part of Request"
-                 defaultChecked={this.state.dynamicBox}
+                 defaultChecked={!this.state.dynamicBox}
                  style={styles.checkbox}
                 className={'col-xs-4 col-md-3'}
                  onCheck={this.handleCheck}
                    />
                  
                 <RadioButtonGroup name="btDynamicReq" defaultSelected="reqParam">
+                 <div className ="row">
                   <RadioButton
                     value="reqParam"
-                    label="Request Parameter Value"
+                    label= "Req Param Value"
                     style={styles.radioButton}
                     disabled={this.state.dynamicBox}
                   />
+
+                  {this.renderTextField()}
+                  </div>
 
                    <RadioButton
                     value="reqMethod"

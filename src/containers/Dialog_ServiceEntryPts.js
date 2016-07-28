@@ -74,18 +74,11 @@ class Dialog_ServiceEntryPts extends React.Component {
                               console.log("data---serviceEtryForm-",JSON.stringify(data))
                                if(this.state.ServiceEntryPoints== "edit"){
 
-                                data["_links"] = this.state.dcDetail.dcDetailInitializeForm._links;
-                                console.log("data-aftr adding---",data)
-                                console.log("openDCDialogType----",this.state.dcDetail.openDCDialogType)
-                                console.log("in editing con in dialog--",this.state.dcDetail.appId)
-                                this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
+                               
                               }
                               else{
-                                console.log("on submit---in else or add condition--",this.state.openDCDialogType)
-                                this.props.fetchTreeData(this.state.dcDetail.appId)
-                                this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
-                                console.log("in dialog aftr adding n updating tree")
-
+                                console.log("on submit---in else or add condition--")
+                                
                               }
 
       }}/>

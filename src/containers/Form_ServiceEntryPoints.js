@@ -83,29 +83,28 @@ handleChange(event,index,value){
 
 
 //method to create comboBox of entry Type 
-  renderDropDown(){
+  renderDropDown(entryType){
       return(
-
          <DropDownMenu 
+          {...entryType}
           value={this.state.value}                
           style={styles.customWidth}
           autoWidth={false}
           onChange={this.handleChange.bind(this)} 
-          floatingLabelText="Entry Point Type"
+          floatingLabelText="Entry Point Type"          
          >
            {
             this.props.ListOfServiceEntryPointType.map((data, index) => (
-                <MenuItem value={data.id}  primaryText={data.entryTypeName} />
-            ))
+                <MenuItem value={data.id}  primaryText={data.entryTypeName}/>
+            )) 
            }
-
          </DropDownMenu>
         );
      }
 
 //method for displaying Service entry Point List according to entry Type selected from entry type comboBox
- renderEntryPointList(){
-  console.log("entryPointList----")
+ renderEntryPointList(fqm){
+  console.log("entryPointList----",fqm)
   if(this.state.ServiceEntryPoints == null){
     return(
         <div>
@@ -127,6 +126,7 @@ handleChange(event,index,value){
                       value={value._links.self.href} 
                       label={value.entryName} 
                       disabled={this.state.enable}
+                      {...fqm}  
                   />
                    ))
                 }
@@ -156,15 +156,14 @@ handleChange(event,index,value){
 
   render() {
  
-     const { fields: { entryType,name,enable,value,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: { entryType,name,enable,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
         
         return (
         <form >
           <div className ="row"  >
 
                 <div className ="col-md-4">
-                  {this.renderDropDown()} 
-                   
+                  {this.renderDropDown(entryType)} 
                </div>
 
               <div className ="col-md-3">
@@ -176,17 +175,17 @@ handleChange(event,index,value){
               </div>
 
               <div className ="col-md-5">
-                  <Toggle style={styles.toggle} defaultToggled={false}  labelPosition="right" label="Enabled" onToggle={this.onToggle.bind(this)}/>
+                  <Toggle {...enable} style={styles.toggle} defaultToggled={true}  labelPosition="right" label="Enabled" />
               </div>
 
 
           </div>
-
-          {this.renderEntryPointList()}
+          
+          {this.renderEntryPointList(fqm) }
 
           <div>
 
-          <Toggle style={styles.toggleCustomFQM} defaultToggled={false}  labelPosition="right" label="Custom Fully Qualified Name" onToggle={this.handleEntryPoints.bind(this,this.state.enable)}/>        
+          <Toggle style={styles.toggleCustomFQM} defaultToggled={false}  labelPosition="right" label="Custom Fully Qualified Name" onToggle={this.handleEntryPoints.bind(this,this.state.enable)} />        
             <TextField
              hintText="Hint Text"
              floatingLabelText="Entry FQM"

@@ -24,9 +24,9 @@ import {hashHistory } from 'react-router';
 */
 
 var columns = {
-                "key" : "_links",
+                "key" : "id",
                 "data":['Profile Name', 'Profile Desc','LINK'],
-                "field":['profileName', 'profileDesc','_links']
+                "field":['profileName', 'profileDesc','id']
               }; 
 
 const style = {
@@ -134,8 +134,8 @@ class ProfileDetail extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.appDetail)
-     console.log("in componentWillReceiveProps--",this.props.appDetail)
+    console.log("in componentWillReceiveProps--",nextProps.profileDetail)
+     console.log("in componentWillReceiveProps--",this.props.profileDetail)
     if(this.props.profileDetail != nextProps.profileDetail)
       this.setState({profileDetail:nextProps.profileDetail});
   }

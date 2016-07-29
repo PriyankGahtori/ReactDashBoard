@@ -20,7 +20,7 @@ class DataGridComponent extends React.Component {
   constructor(props) {
   super(props);
  
-  }
+}
 
    onToggle(row){
     console.log("ontoggle function ---",row)
@@ -30,6 +30,7 @@ class DataGridComponent extends React.Component {
   }
 
   linkFormat(cell,row){
+    
      if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
@@ -77,7 +78,7 @@ class DataGridComponent extends React.Component {
       >
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataSort={true} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false} >{val}</TableHeaderColumn>
+        <TableHeaderColumn dataSort={true} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? false :false} >{val}</TableHeaderColumn>
         ))}     
       </BootstrapTable>
         </div>
@@ -109,5 +110,7 @@ DataGridComponent.defaultProps = {
 
  
 };
+
+
 
 export default DataGridComponent;

@@ -80,7 +80,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
                               console.log("data----",data)
                                if(this.state.applicationdata.openAppDialogType == "edit"){
                                 
-                                data["_links"] = this.state.applicationdata.appDetailInitializeForm._links;
+                                data["id"] = this.state.applicationdata.appDetailInitializeForm.id;
                                 console.log("data-aftr adding---",data)
                                 console.log("openAppDialogType----",this.state.applicationdata.openAppDialogType)
                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)

@@ -19,9 +19,10 @@ export default function(state = initialState, action) {
         console.log("in val---ApplicationDetail",val)
         var index=val._links.self.href.lastIndexOf("/");
         var id= val._links.self.href.slice(index+1,val._links.self.href.length)
-        val._links.self.href=id;
+//        val._links.self.href=id;
+        val.id = id ;
         console.log("id----",id)
-        console.log(" val._links.self.href", val._links.self.href)
+        console.log(" val._links.self.href", val.id)
     })
     newState.tableData = data;
     return newState;
@@ -40,7 +41,7 @@ export default function(state = initialState, action) {
     console.log("line no 25--action.payload--",action.payload)
     newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 33---",val._links.self.href)
-       return action.payload.indexOf(val._links.self.href) == -1; //value sto be deleteed should return false
+       return action.payload.indexOf(val.id) == -1; //value sto be deleteed should return false
      })
     console.log("newState.tableData---",newState.tableData)
     return newState; 
@@ -71,7 +72,8 @@ export default function(state = initialState, action) {
     var newState = Object.assign({}, state);
       newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 61-------val._links.self.href")
-      if(val._links.self.href == action.payload.data.appId){
+      console.log("val-------",val)
+      if(val.id == action.payload.data.appId){
           console.log("condition matched")
           val.appDesc=action.payload.data.appDesc;
           val.appName=action.payload.data.appName;

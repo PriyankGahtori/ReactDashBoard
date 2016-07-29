@@ -75,7 +75,7 @@ export function addRowDCTable(formData,openDCDialogType,appId){
    console.log("edit flag")
    var response = axios({
     method:'put',
-     url : `${url.ADD_ROW_DC_URL}/${appId}/${formData._links.self.href}`,
+     url : `${url.ADD_ROW_DC_URL}/${appId}/${formData.id}`,
   //  url:  `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}/${formData._links.self.href}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
@@ -210,7 +210,7 @@ export function addRowApplicationTable(formData,openAppDialogType){
    var response = axios({
     method:'put',
     //url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
-    url : `${url.ADD_ROW_APP_URL}/${formData._links.self.href}`,
+    url : `${url.ADD_ROW_APP_URL}/${formData.id}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });

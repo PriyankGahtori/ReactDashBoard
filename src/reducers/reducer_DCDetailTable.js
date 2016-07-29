@@ -13,11 +13,10 @@ export default function(state = initialState, action) {
     var data=action.payload.data._embedded.dcdetail;
       data.map(function(val){
         console.log("in val---",val)
-        var index=val._links.self.href.lastIndexOf("/");
-        var id= val._links.self.href.slice(index+1,val._links.self.href.length)
-        val._links.self.href=id;
+        var index = val._links.self.href.lastIndexOf("/");
+        var id = val._links.self.href.slice(index+1,val._links.self.href.length)
+        val.id = id;
         console.log("id----",id)
-        console.log(" val._links.self.href", val._links.self.href)
     })
     console.log("action.payload.data._embedded.dcdetail---",data)
 
@@ -30,7 +29,7 @@ export default function(state = initialState, action) {
     var newState = Object.assign({}, state);
     console.log("newState- line no 16-",newState)
     console.log("action.payload.data,",action.payload.data)
-    action.payload.data._links={self:{href:action.payload.data.id}};
+    //action.payload.data._l={self:{href:action.payload.data.id}};
     console.log("action.payload.data")
     newState.tableData.push(action.payload.data);
     console.log("newState---",newState)
@@ -39,13 +38,12 @@ export default function(state = initialState, action) {
   case 'DCTABLE_DEL_ROW_UPDATE_TREE':
     console.log("inside DEL_ROW_TABLE---case")
     var newState = Object.assign({}, state);
-    console.log("line no 23---",action)
     console.log("line no 24--newState---",newState)
     console.log("line no 25--action.payload--",action.payload)
     newState.tableData = newState.tableData.filter(function(val){
-      console.log("line no 33---",val._links.self.href)
-      console.log("action.payload.indexOf(val._links.self.href) == -1-----",action.payload.indexOf(val._links.self.href) == -1)
-       return action.payload.indexOf(val._links.self.href) == -1; //value sto be deleteed should return false
+      console.log("line no 33---",val.id)
+      console.log("action.payload.indexOf(val._links.self.href) == -1-----",action.payload.indexOf(val.id) == -1)
+       return action.payload.indexOf(val.id) == -1; //value sto be deleteed should return false
      })
     console.log("newState.tableData---",newState.tableData)
     return newState; 
@@ -75,8 +73,8 @@ export default function(state = initialState, action) {
     console.log("updating row--action.payload",action.payload.data.id)
     var newState = Object.assign({}, state);
       newState.tableData = newState.tableData.filter(function(val){
-      console.log("line no 61-------val._links.self.href")
-      if(val._links.self.href == action.payload.data.id){
+      console.log("line no 61-------val.id",val.id)
+      if(val.id == action.payload.data.id){
           console.log("condition matched")
           val.dcName=action.payload.data.dcName;
           val.dcIp=action.payload.data.dcIp;

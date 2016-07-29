@@ -34,7 +34,6 @@ class Dialog_DCDetail_NewDC extends React.Component {
   
   handleSubmit(){
   this.refs.newDCForm.submit();
-  this.handleCancel();
   console.log("aftr closing the dialog----")
   }
  
@@ -74,16 +73,18 @@ class Dialog_DCDetail_NewDC extends React.Component {
                               console.log("data----",JSON.stringify(data))
                                if(this.state.dcDetail.openDCDialogType == "edit"){
 
-                                data["_links"] = this.state.dcDetail.dcDetailInitializeForm._links;
+                                data["id"] = this.state.dcDetail.dcDetailInitializeForm.id;
                                 console.log("data-aftr adding---",data)
                                 console.log("openDCDialogType----",this.state.dcDetail.openDCDialogType)
                                 console.log("in editing con in dialog--",this.state.dcDetail.appId)
                                 this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
+                                this.handleCancel();
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openDCDialogType)
                                 this.props.fetchTreeData(this.state.dcDetail.appId)
                                 this.props.addRowDCTable(data,this.state.dcDetail.openDCDialogType,this.state.dcDetail.appId)
+                                this.handleCancel();
                                 console.log("in dialog aftr adding n updating tree")
 
                               }

@@ -16,9 +16,9 @@ import { Link } from 'react-router';
 
 
 var columns = {
-                "key" : "_links",
+                "key" : "id",
                 "data":['DC Name', 'DC IP', 'DC Port', 'NDE IP','NDE Port','LINK'],
-                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','_links']
+                "field":['dcName', 'dcIp', 'dcPort', 'ndeIp', 'ndePort','id']
               };          
 
 const style = {
@@ -60,15 +60,21 @@ class DCDetail extends React.Component {
   }
 
   delRow(){
+
     var selectedRowKeys=[]; //used for storing url with unique id for selected row
     console.log("calling del method---table ref--",this.refs.dcDetailTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.dcDetailTable.refs.table.state.selectedRowKeys; /// selectedRowKeysObj :=> primary key of selected row 
-    selectedRowKeysObj.map(
+     selectedRowKeys = this.refs.dcDetailTable.refs.table.state.selectedRowKeys; /// selectedRowKeysObj :=> primary key of selected row 
+    console.log("selectedRowKeys----",selectedRowKeys)
+   /* selectedRowKeysObj.map(
                           value =>{
-                          selectedRowKeys.push(value.self.href) 
-                          }) 
-    this.props.delDCTableRow(selectedRowKeys) 
+                            console.log("value-----",value.id)
+                          selectedRowKeys.push(value.id) 
+                          }) */
+
+    this.props.delDCTableRow(this.refs.dcDetailTable.refs.table.state.selectedRowKeys) 
+    this.refs.dcDetailTable.refs.table.state.selectedRowKeys=[];
   }
+  
   /*
     * handleOpen(Flag)
     * Flag:(edit or Add)
@@ -84,13 +90,14 @@ class DCDetail extends React.Component {
 
       // gets the selected key of table
       let selectedRow= this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
+      console.log("selectedRow-----",selectedRow)
       
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
         let selectedRowData = this.props.dcDetail.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    return value.id === selectedRow[0]
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
@@ -135,7 +142,10 @@ class DCDetail extends React.Component {
     console.log("in componentWillReceiveProps--",nextProps.dcDetail)
     console.log("in componentWillReceiveProps--",this.props.dcDetail)
   	if(this.props.dcDetail.tableData != nextProps.dcDetail.tableData)
+    {
+      console.log("dcDEtail data changed----")
   		this.setState({dcDetail:nextProps.dcDetail});
+    }
 
     if(this.props.routeParams.appId != nextProps.routeParams.appId){
       console.log("appid changed--")

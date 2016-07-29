@@ -21,9 +21,9 @@ import Snackbar from 'material-ui/Snackbar';
 */
 
 var columns = {
-                "key" : "_links",
+                "key" : "id",
                 "data":['Application Name', 'Application Desc','User Name','LINK'],
-                "field":['appName', 'appDesc', 'userName','_links']
+                "field":['appName', 'appDesc', 'userName','id']
               }; 
 
 const style = {
@@ -61,15 +61,15 @@ class ApplicationDetail extends React.Component {
     var selectedRowKeys=[];
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
-    console.log("href-----------",selectedRowKeysObj)
-    selectedRowKeysObj.map(
+   // let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
+   // console.log("href-----------",selectedRowKeysObj)
+    /*selectedRowKeysObj.map(
                           value =>{
                           selectedRowKeys.push(value.self.href)
-                          }) 
+                          }) */
 
-    console.log("selectedRowKeys--",selectedRowKeys)
-    this.props.delAppTableRow(selectedRowKeys)
+    //console.log("selectedRowKeys--",selectedRowKeys)
+    this.props.delAppTableRow( this.refs.appTable.refs.table.state.selectedRowKeys)
   }
 
   handleClick(){
@@ -95,7 +95,7 @@ class ApplicationDetail extends React.Component {
         console.log("selectedRow----",selectedRow)
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    return value.id === selectedRow[0]
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 

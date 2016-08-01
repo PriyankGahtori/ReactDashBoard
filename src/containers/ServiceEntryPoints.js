@@ -167,7 +167,7 @@ class ServiceEntryPoints extends React.Component {
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
-         <DialogNewServiceEntryPts />
+         <DialogNewServiceEntryPts profileId ={this.props.params.profileId}/>
       </div>
 
       <Snackbar

@@ -554,3 +554,22 @@ export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
     payload:response
   }
 }
+
+export function addServiceEntryPoint(formData,profileId){
+
+  console.log("addServiceEntryPoint------in actions--",formData)
+  console.log("profileId----",profileId)
+   var response = axios({
+    method:'post',
+     url : `${url.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("response----adding sepss---",response)
+  return {
+    type : 'ADD_NEW_SEP',
+    payload : response
+  }
+  
+}

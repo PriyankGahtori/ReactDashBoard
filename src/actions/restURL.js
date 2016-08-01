@@ -39,6 +39,6 @@ export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 
  export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/server`;
 
-
-
+export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
+ 
 

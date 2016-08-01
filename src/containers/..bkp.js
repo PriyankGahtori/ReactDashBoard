@@ -13,14 +13,8 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import Toggle from '../components/ToggleWrapper';
 //import Toggle from 'material-ui/Toggle';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-export const fields = [ 'entryTypeId', 'name', 'enabled','fqm','customFQMToggle','customFQM','desc' ]
-const initialValues = {
-              'customFQMToggle':false
-}
-/*
-* defaultSelected={this.state.ServiceEntryPoints != null ? this.state.ServiceEntryPoints[0]._links.self.href : "-1"} 
-* to be uded in future in Radio button group to be by default selected
-*/               
+export const fields = [ 'entryType', 'name', 'enable','fqm','customFQMToggle','customFQM','desc' ]
+const initialValues = {}               
 
 const styles = {
   block: {
@@ -101,22 +95,13 @@ handleChange(event,index,value){
 
 //method for displaying Service entry Point List according to entry Type selected from entry type comboBox
  renderEntryPointList(fqm){
-
   console.log("entryPointList----",fqm)
-  if(this.state.ServiceEntryPoints == null || this.state.ServiceEntryPoints.length ==0){
-    console.log("serviceEntryPoints null----")
+  if(this.state.ServiceEntryPoints == null){
     return(
-        <div>
-          <div className="row" >
-            <label>Entry Point Names</label>
-          </div>
-          <em>No Entry Point Present </em>
-        </div>
+        <div></div>
       );
   }
-
   else{
-    console.log("serviceEntryPoints not null")
     return(
       <div styles={styles.entryPointBlock}>
         
@@ -128,12 +113,13 @@ handleChange(event,index,value){
          <RadioButtonGroup 
               {...fqm}  
               name ="entryPointList" 
+              defaultSelected={this.state.ServiceEntryPoints != null ? this.state.ServiceEntryPoints[0]._links.self.href : "-1"} 
           >
           {
            this.props.ServiceEntryPoints.map((value, index)=>(
             <RadioButton
-              value = {value._links.self.href} 
-              label = {value.entryName} 
+              value={value._links.self.href} 
+              label={value.entryName} 
               disabled={this.state.enable}                      
             />
            ))
@@ -165,14 +151,14 @@ handleChange(event,index,value){
 
   render() {
  
-     const { fields: { entryTypeId,name,enabled,fqm,customFQMToggle,customFQM,desc}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: { entryType,name,enable,fqm,customFQMToggle,customFQM,desc}, resetForm, handleSubmit,onSubmit, submitting } = this.props
         
   return (
     <form >
     <div className ="row">
 
       <div className ="col-md-4">
-       {this.renderDropDown(entryTypeId)}  
+       {this.renderDropDown(entryType)}  
       </div>
 
       <div className ="col-md-3">
@@ -185,28 +171,29 @@ handleChange(event,index,value){
 
       <div className ="col-md-5">
         <Toggle 
-          {...enabled} 
+          {...enable} 
           style={styles.toggle} 
+          defaultToggled={false}  
+          labelPosition="left" 
           label="Enabled" 
         />
       </div>
       
-  </div>
-  
+      </div>
         {this.renderEntryPointList(fqm) }
-
       <div>
-        <Toggle 
-          style={styles.toggleCustomFQM} 
-          {...customFQMToggle}
-          defaultToggled={false}  
-          labelPosition="right" 
-          label="Custom Fully Qualified Name"         
-          onToggleChange={this.handleEntryPoints.bind(this,this.state.enable)} 
-        />        
+
+      <Toggle 
+        style={styles.toggleCustomFQM} 
+        {...customFQMToggle}
+        defaultToggled={false}  
+        labelPosition="right" 
+        label="Custom Fully Qualified Name"         
+        onToggleChange={this.handleEntryPoints.bind(this,this.state.enable)} 
+      />        
       
       <TextField
-        {...fqm}
+        {...customFQM}
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Entry FQM"
         disabled={!this.state.enable}        
@@ -232,7 +219,7 @@ ServiceEntryPointsForm.propTypes = {
 }
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'Service Entry Points ',                           // a unique name for this form
+  form: 'contact',                           // a unique name for this form
   fields,
   
 },

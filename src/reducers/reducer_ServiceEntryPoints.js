@@ -41,7 +41,15 @@ export default function(state = initialState, action) {
     newState.listOfEntryType = data;
     return newState;
 
+ 
+   case 'ADD_NEW_SEP' :
+     console.log("in reducer of adding new seps---payloaf--",action.payload.data)
+     var newState = Object.assign({},state);
+     console.log("newState----",newState)
+     newState.tableData.push(action.payload.data)
+     console.log("newState.tableData--adding new sep-",newState.tableData)
+     return newState;
+
    }
-    
   return state;
 }

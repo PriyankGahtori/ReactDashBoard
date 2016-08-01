@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewApplication from './Dialog_AppDetail_NewApp';
+import DialogProfile from './Dialog_ServiceEntryPts';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -79,7 +79,7 @@ class ProfileDetail extends React.Component {
     console.log("ConfigureProfile called---")
     var selectedRow=this.refs.profTable.refs.table.state.selectedRowKeys;
     console.log("selected row----",selectedRow)
-    hashHistory.push(`/configuration/${selectedRow[0].self.href}`)
+    hashHistory.push(`/configuration/${selectedRow[0]}`)
 
   }
 
@@ -175,7 +175,7 @@ class ProfileDetail extends React.Component {
             <AddIcon />
          </AddNewButton>
 
-         <DialogNewApplication />
+         <DialogProfile />
 
       </div>
 

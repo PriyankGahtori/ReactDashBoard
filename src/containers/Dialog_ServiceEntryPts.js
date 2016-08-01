@@ -16,10 +16,12 @@ class Dialog_ServiceEntryPts extends React.Component {
  
   constructor(props) {
   super(props);
+  console.log("this.props-----ppppppppppppppppp",this.props)
   console.log("onsubmit props", this.props.onSubmit)
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state ={ServiceEntryPoints:this.props.ServiceEntryPoints};
+  this.submitForm =this.submitForm.bind(this);
   }
 
   componentWillReceiveProps(nextProps)
@@ -38,6 +40,66 @@ class Dialog_ServiceEntryPts extends React.Component {
   console.log("aftr closing the dialog----")
   }
  
+ /*
+ *
+ */
+  getEntryTypeOfSelectedEntryTypeId(data){
+
+     this.state.ServiceEntryPoints.listOfEntryType.forEach(function(val){
+            console.log("value---aftr submitting---",val)
+            if ( val.id == data.entryTypeId ){
+                console.log("val.entryTypeName---",val.entryTypeName)
+                data["entryType"]=val.entryTypeName;
+                return data ;
+            }
+     }) 
+   }
+
+/*
+*
+*/
+
+  getDescOfSelectedEntryPoint(data){
+    console.log("data in appending----",data)
+    this.state.ServiceEntryPoints.serviceEntryPoints.forEach(function(value){
+      if(value._links.self.href == data.fqm)
+      {
+        console.log("cond matched--")
+        data.fqm = value.entryFQM;
+        data["desc"] = "Pooja";
+        data["tableType"]="serviceEntryPoint"
+      }
+      return data;
+
+    }) 
+
+  }
+
+  submitForm(data){
+
+    console.log("data---serviceEtryForm-",JSON.stringify(data))
+                               
+     console.log("on submit---in else or add condition--",this.state.ServiceEntryPoints.listOfEntryType)
+    
+    /*
+    * adding property entryType to data object
+    */
+
+     this.getEntryTypeOfSelectedEntryTypeId(data)
+    /* console.log("entryTypeOfSelectedEntryTypeId----",entryTypeOfSelectedEntryTypeId)
+     data["entryType"] = entryTypeOfSelectedEntryTypeId;*/
+     console.log("data--adding entryType--",data)
+
+   /*
+    * adding property description to data object from Service entry Point data 
+   */
+
+   this.getDescOfSelectedEntryPoint(data)
+   console.log("data ------",data)
+   this.props.addServiceEntryPoint(data,this.props.profileId)
+  }
+
+
   render() {
     const { onSubmit } = this.props
   	const actions = [
@@ -70,18 +132,7 @@ class Dialog_ServiceEntryPts extends React.Component {
            * when condition this.state.applicationdata.openAppDialogType == "edit" satisfies
            */
         }
-      <FormNewServiceEntry ref="newServiceEntryPtsForm" onSubmit={data =>{
-                              console.log("data---serviceEtryForm-",JSON.stringify(data))
-                               if(this.state.ServiceEntryPoints== "edit"){
-
-                               
-                              }
-                              else{
-                                console.log("on submit---in else or add condition--")
-                                
-                              }
-
-      }}/>
+      <FormNewServiceEntry ref="newServiceEntryPtsForm" onSubmit={this.submitForm.bind(this)}/>
       </DialogNewEntryPts>
       </div>
     );
@@ -91,7 +142,8 @@ class Dialog_ServiceEntryPts extends React.Component {
 function mapStateToProps(state) {
   console.log("openNewDCDialog---",state.ServiceEntryPoints)
   return {
-   ServiceEntryPoints :state.ServiceEntryPoints
+   ServiceEntryPoints :state.ServiceEntryPoints,
+   ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType
    };
 }
 

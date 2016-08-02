@@ -61,7 +61,7 @@ class ApplicationDetail extends React.Component {
     var selectedRowKeys=[];
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
-   // let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
+    selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
    // console.log("href-----------",selectedRowKeysObj)
     /*selectedRowKeysObj.map(
                           value =>{
@@ -69,7 +69,8 @@ class ApplicationDetail extends React.Component {
                           }) */
 
     //console.log("selectedRowKeys--",selectedRowKeys)
-    this.props.delAppTableRow( this.refs.appTable.refs.table.state.selectedRowKeys)
+    this.props.delAppTableRow(selectedRowKeys)
+    this.refs.appTable.refs.table.cleanSelected();
   }
 
   handleClick(){
@@ -102,8 +103,9 @@ class ApplicationDetail extends React.Component {
         //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
         this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
        
-       //called this action to toggle the state of opened FormDialog. 
+       //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
         this.props.toggleStateDialogNewApp();
+        this.refs.appTable.refs.table.state.cleanSelected();
       }
       else{
        

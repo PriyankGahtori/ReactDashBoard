@@ -40,7 +40,6 @@ export default function(state = initialState, action) {
     console.log("line no 24--newState---",newState)
     console.log("line no 25--action.payload--",action.payload)
     newState.tableData = newState.tableData.filter(function(val){
-      console.log("line no 33---",val._links.self.href)
        return action.payload.indexOf(val.id) == -1; //value sto be deleteed should return false
      })
     console.log("newState.tableData---",newState.tableData)
@@ -49,7 +48,7 @@ export default function(state = initialState, action) {
   case 'ADD_ROW_APPTABLE':
     console.log("inside ADD_ROW_TABLE case-application reducer--action.payload.data",action.payload.data);
     var newState = Object.assign({}, state);
-    action.payload.data._links={self:{href:action.payload.data.appId}}
+    action.payload.data.id=action.payload.data.appId;
     console.log("aftr adding link in application adding row reducer--",action.payload.data)
     newState.tableData.push(action.payload.data);
     console.log("newState---",newState)

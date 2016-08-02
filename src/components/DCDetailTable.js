@@ -21,7 +21,10 @@ class DataGridComponent extends React.Component {
   super(props);
  
 }
-
+clearState()
+{
+  alert("CLear State");
+}
    onToggle(row){
     console.log("ontoggle function ---",row)
     row.topoState=!row.topoState;

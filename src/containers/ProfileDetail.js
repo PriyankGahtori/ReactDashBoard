@@ -60,10 +60,13 @@ class ProfileDetail extends React.Component {
   }
 
  delRow(){
-    console.log("del row function called")
+    console.log("del row function called--",selectedRowKeys)
     let selectedRowKeys = this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
-    console.log("del row function called------------->",selectedRowKeys)
     this.props.delProfileTableRow(selectedRowKeys)
+
+  //cleaning state of selectedRowKeys
+    this.refs.profileDetailTable.refs.table.cleanSelected();
+    console.log("aftr cleaning---",this.refs.profileDetailTable.refs.table.state.selectedRowKeys)
   }
 
   ConfigureProfile(){
@@ -99,6 +102,7 @@ class ProfileDetail extends React.Component {
                                   });
          this.props.profileInitializeForm(selectedRowData[0],openProfileDialogType);
          this.props.toggleStateDialogNewProfile(); //opens dialog box
+         this.refs.profileDetailTable.refs.table.cleanSelected();
 
       }
     }

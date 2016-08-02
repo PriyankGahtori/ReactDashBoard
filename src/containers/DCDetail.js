@@ -72,7 +72,7 @@ class DCDetail extends React.Component {
                           }) */
 
     this.props.delDCTableRow(this.refs.dcDetailTable.refs.table.state.selectedRowKeys) 
-    this.refs.dcDetailTable.refs.table.state.selectedRowKeys=[];
+    this.refs.dcDetailTable.refs.table.cleanSelected();
   }
   
   /*
@@ -104,6 +104,8 @@ class DCDetail extends React.Component {
         //action to dispatch selectRowData
         this.props.dcDetailInitializeForm(selectedRowData[0],openDCDialogType,this.props.routeParams.appId);
         this.props.toggleStateDialogNewDC();
+        this.refs.dcDetailTable.refs.table.cleanSelected();
+
       }
       else{
         //toster notification: Only one row can be edited

@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogProfile from './Dialog_ServiceEntryPts';
+import DialogProfile from './Dialog_Profile_NewProfile';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -59,74 +59,57 @@ class ProfileDetail extends React.Component {
   this.ConfigureProfile = this.ConfigureProfile.bind(this);
   }
 
- 
  delRow(){
-    var selectedRowKeys=[];
     console.log("del row function called")
-    console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.appTable.refs.table.state.selectedRowKeys;
-    console.log("href-----------",selectedRowKeysObj)
-    selectedRowKeysObj.map(
-                          value =>{
-                          selectedRowKeys.push(value.self.href)
-                          }) 
-
-    console.log("selectedRowKeys--",selectedRowKeys)
-    this.props.delAppTableRow(selectedRowKeys)
+    let selectedRowKeys = this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
+    console.log("del row function called------------->",selectedRowKeys)
+    this.props.delProfileTableRow(selectedRowKeys)
   }
 
   ConfigureProfile(){
     console.log("ConfigureProfile called---")
-    var selectedRow=this.refs.profTable.refs.table.state.selectedRowKeys;
+    var selectedRow=this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
     console.log("selected row----",selectedRow)
     hashHistory.push(`/configuration/${selectedRow[0]}`)
 
   }
 
 /*
-* flag "openAppDialogType" used to determine FormDialog to be opened will be for which functionality
+* flag "openProfileDialogType" used to determine FormDialog to be opened will be for which functionality
 * add OR edit
 */
-  handleOpen(openAppDialogType){
+  handleOpen(openProfileDialogType){
+   
+   let selectedRowData = [];
+    console.log(" in handleopen ------------------------------------>",openProfileDialogType)
 
-    console.log("in handleopen---",openAppDialogType)
-    //for editing form
-    if(openAppDialogType == "edit"){
-      console.log("editing the App form")
-
-      // gets the selected key of table
-      let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
-      
-      if(selectedRow.length == 1)
+    if(openProfileDialogType == "edit"){
+    
+    console.log(" in profile ---edit button clicked-------------------->",this.refs.profileDetailTable.props.data)
+     let selectedRow = this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
+     console.log(" selectedRow -------self---- href------------>",selectedRow)
+     if(selectedRow.length == 1)
       {
-        console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.appDetail.tableData
+        console.log(" select row------------->in profile")
+        selectedRowData = this.props.profileDetail.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    console.log("slectedRow[0]------->",selectedRow[0])
+                                    console.log("value----",value)
+                                    return value.id === selectedRow[0]
                                   });
-        console.log("selectedRowData----",selectedRowData[0])
+         this.props.profileInitializeForm(selectedRowData[0],openProfileDialogType);
+         this.props.toggleStateDialogNewProfile(); //opens dialog box
 
-        //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
-        this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
-       
-       //called this action to toggle the state of opened FormDialog. 
-        this.props.toggleStateDialogNewApp();
       }
-      else{
-       
-        //toster notification: Only one row can be edited
-        this.setState({open: true});
-      }
-
     }
-    else if(openAppDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.appDetailInitializeForm(null,openAppDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewApp(); //opens dialog box
+    
+    else if(openProfileDialogType == "add"){ //for adding new row
+      console.log("in profile dialog--------------->adding form")
+       this.props.profileInitializeForm(null,openProfileDialogType); //clears previous/initial values
+       this.props.toggleStateDialogNewProfile(); //opens dialog box
     }
        
   }
-
 //this function is called first when component gets first loaded
   componentWillMount() {
     this.props.fetchProfileDetailData();
@@ -153,7 +136,8 @@ class ProfileDetail extends React.Component {
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">settings</FontIcon></IconButton>
+         */  
+            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">event_note</FontIcon></IconButton>
           </div>
        </div>
           
@@ -163,8 +147,8 @@ class ProfileDetail extends React.Component {
          */  
        }
         <DataGrid data = {this.props.profileDetail.tableData} 
-                  pagination={false} 
-                  ref="profTable" 
+                  pagination ={false} 
+                  ref ="profileDetailTable" 
                   column = {columns}
                   onClick={this.handleClick}
          />

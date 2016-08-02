@@ -25,6 +25,8 @@ export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
 
 export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/server`;
 
+export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+
 
 
 export const FETCH_TIER_TABLE_URL = `${SERVICE_URL}/topology`;

@@ -381,6 +381,7 @@ export function updateStateofTableData(row){
     payload:request_table
   };
 }
+
 /*
 *
 *  ActionCreators for ProfileDetail
@@ -397,6 +398,79 @@ export function fetchProfileDetailData(){
     type: 'FETCH_PROFILEDETAIL_TABLEDATA',
     payload: request_table
   };
+}
+
+export function toggleStateDialogNewProfile(){
+  console.log(" in actions------------->profile" )
+  return{
+    type:'TOGGLE_STATE_NEW_PROFILE'
+  }
+}
+
+export function delProfileTableRow(selectedRowKeys){
+  console.log(" in delete row function ------------------------> ",selectedRowKeys)
+   selectedRowKeys.forEach(value => 
+    {
+     console.log(" value in action---------------> ",value)
+     console.log(" selectedRowKeys------------------>",selectedRowKeys)
+     axios({
+        method : 'delete',
+        url : `${url.UPDATE_PROFILE_TABLE}/${value}`,
+   });
+})
+  
+  return {
+    type: 'DELETE_PROFILE_ROW',
+    payload: selectedRowKeys
+  }
+}
+
+export function profileInitializeForm(data,type)
+{
+  console.log("in profileDetailInitializeForm-------data----->",data)
+  console.log("in profileDetailInitializeForm--type---------->",type)
+  var profileData = {"data":data,"openProfileDialogType":type};
+  return {
+     type    : 'UPDATE_PROFILE',
+     payload :profileData
+  }
+}
+
+export function addRowProfileTable(data,type)
+{
+  console.log(" in actions profile----------------data--------->",data)
+  console.log(" in actions profile----------------type--------->",type)
+   if(type =="edit")
+   {
+        console.log("type is edit--------------------------->")
+        var response = axios({
+        method:'put',
+        url : `${url.UPDATE_PROFILE_TABLE}/${data.id}`,
+        data: data
+      });
+    console.log("  edit data when -submit is clicked-->",response)
+
+    return{
+      type: 'EDIT_PROFILE',
+      payload: response
+    }
+      
+  }
+ 
+   else{
+   console.log("adding console triggered-------------->")   
+    var response = axios({
+    method:'post',
+    url : `${url.UPDATE_PROFILE_TABLE}`,
+    data: data,
+  
+  });
+  console.log(" response------------------->",response)
+  return{
+    type: 'ADD_PROFILE',
+    payload: response
+  }
+ }
 }
 
 /*

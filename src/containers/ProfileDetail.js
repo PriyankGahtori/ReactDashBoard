@@ -71,6 +71,7 @@ class ProfileDetail extends React.Component {
 
   ConfigureProfile(){
     console.log("ConfigureProfile called---")
+    console.log("this.refs.profileDetailTable.refs.table.state.selectedRowKeys--",this.refs.profileDetailTable.refs.table.state.selectedRowKeys)
     var selectedRow=this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
     console.log("selected row----",selectedRow)
     hashHistory.push(`/configuration/${selectedRow[0]}`)
@@ -102,7 +103,7 @@ class ProfileDetail extends React.Component {
                                   });
          this.props.profileInitializeForm(selectedRowData[0],openProfileDialogType);
          this.props.toggleStateDialogNewProfile(); //opens dialog box
-         this.refs.profileDetailTable.refs.table.cleanSelected();
+         this.refs.profileDetailTable.refs.table.state.cleanState();
 
       }
     }

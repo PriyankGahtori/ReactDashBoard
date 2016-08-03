@@ -50,6 +50,22 @@ export default function(state = initialState, action) {
      console.log("newState.tableData--adding new sep-",newState.tableData)
      return newState;
 
+    case 'TOGGLE_STATE_SEP' :
+    console.log("toggling state reducer---",action.payload) 
+    var newState = Object.assign({},state);
+    newState.tableData.forEach(function(value){
+      
+      if(value.id == action.payload.data.id){
+          console.log("val---",value)
+          value.enabled = action.payload.data.enabled ;
+      }
+    })
+    console.log("aaftr changing---",newState.tableData)
+    return newState;
+
    }
+
+   
+
   return state;
 }

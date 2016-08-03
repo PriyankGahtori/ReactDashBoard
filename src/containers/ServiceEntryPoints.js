@@ -66,8 +66,8 @@ class ServiceEntryPoints extends React.Component {
    delRow(){
       var selectedRowKeys=[];
       console.log("del row function called")
-      console.log("calling del method---table ref--",this.refs.topoTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.topoTable.refs.table.state.selectedRowKeys;
+      console.log("calling del method---table ref--",this.refs.sepTable.refs.table.state.selectedRowKeys)
+    let selectedRowKeysObj = this.refs.sepTable.refs.table.state.selectedRowKeys;
    
    /* selectedRowKeysObj.forEach(
                           value =>{
@@ -95,7 +95,7 @@ class ServiceEntryPoints extends React.Component {
       console.log("editing the App form")
 
       // gets the selected key of table
-      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
+      let selectedRow= this.refs.sepTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
@@ -136,6 +136,16 @@ class ServiceEntryPoints extends React.Component {
       this.setState({ServiceEntryPoints:nextProps.ServiceEntryPoints});
     }
 }
+
+onToggle(row){
+    console.log("ontoggle function --event triggered---",row)
+    if(row.tableType === "serviceEntryPoint")
+    {
+      row.enabled = !row.enabled;
+    }
+    console.log("aftr toggling--row.topoState-----",row.enabled)
+    this.props.updateToggleState(row)
+  }
   
 
   render() {
@@ -155,10 +165,11 @@ class ServiceEntryPoints extends React.Component {
        </div>
 
         <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
-                  pagination={false} 
-                  ref="topoTable" 
-                  column = {columns}
-                  onClick={this.handleClick}
+            pagination = {false} 
+            ref        = "sepTable" 
+            column     = {columns}
+            onClick    = {this.handleClick}
+            onToggle   = {this.onToggle.bind(this)}
          />
         </Paper>
 

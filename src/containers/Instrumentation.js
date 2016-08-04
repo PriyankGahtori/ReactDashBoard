@@ -19,35 +19,32 @@ export default class Instrumentation extends React.Component {
   constructor(props) {
     super(props);
     console.log("props of instrumentration---",this.props)
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      value: 'a',
-    };
+    this.handleChange = this.handleChange.bind(this);    
   }
 
   handleChange(value){
-    console.log("value in handlechamge--",value)
-    this.setState({value: value});
-    hashHistory.push(value);
+    console.log("value in handlechamge--",value)    
+    let profileId = this.props.routeParams.profileId;
+    let routeURL = `instrumentation/${profileId}/${value}`;
+    hashHistory.push(routeURL);
   }
 
   render() {
     return (
       <div className ='container-fluid'>
       <div style ={styles.block}>
-      <Tabs
-        value={this.state.value}
+      <Tabs      
         onChange={this.handleChange}
       >
-        <Tab label="Service Entry Point" value="instrumentation" >
+        <Tab label="Service Entry Point" value="" >
         
         </Tab>
 
-        <Tab label="Backend Detection" value="instrumentation/backenddetection" >
+        <Tab label="Backend Detection" value="backenddetection" >
           
         </Tab>
 
-         <Tab label="Transaction Configuration" value="c">
+         <Tab label="Transaction Configuration" value="bt">
           
         </Tab>
 

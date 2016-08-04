@@ -4,14 +4,6 @@ import SelectField from 'material-ui/SelectField';
 export default class SelectFieldWrapper extends React.Component{
   onChange(evt, index, value) {
 
-    console.info("Onchange inside Wrapper",this.props.onChange);
-      console.log("event inside Wrapper",evt);
-      console.log("index inside Wrapper",index);
-      console.log("value inside Wrapper",value);
-     
-     console.error("props",this.props);
-     console.error("myCustom",this.props.customOnChange);
-
     if (this.props.onChange) {
       this.props.onChange(value);
       

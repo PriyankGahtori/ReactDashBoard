@@ -19,6 +19,9 @@ import Configuration from '../containers/ConfigurationSettings';
 import BackEndDetection from '../containers/Form_BussinessTransaction';
 import Instrumentation from '../containers/Instrumentation';
 import ServiceEntryPoints from '../containers/ServiceEntryPoints';
+import BusinessTransaction from '../containers/BusinessTransaction';
+import GlobalBT from '../containers/GlobalBusinessTransaction';
+import PatternBT from '../containers/PatternBusinessTransaction';
 
 
 export default class routes extends React.Component {
@@ -44,10 +47,16 @@ export default class routes extends React.Component {
   			  <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" component = {Instance} />
   			  
   			  <Route name = "Configuration" staticName = {true} path = "configuration/:profileId"  component = {Configuration} />
-			      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
-			      	 <IndexRoute component={ServiceEntryPoints} />
-			      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackEndDetection}/>
-			      </Route>
+			      
+		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
+		      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackEndDetection}/>
+		      	 
+		      	 <Route name = "Business Transaction" path ="bt" component = {BusinessTransaction}>
+		      	 	<IndexRoute name="Global" component={GlobalBT} />
+		      	 	<Route name="Pattern" path ="pattern" component={PatternBT} />
+		      	 </Route>
+		      </Route>
 
 		    </Route>
 

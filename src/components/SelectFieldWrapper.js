@@ -6,7 +6,6 @@ export default class SelectFieldWrapper extends React.Component{
 
     if (this.props.onChange) {
       this.props.onChange(value);
-      
     }
     
     //Custom callback event handling

@@ -1,9 +1,10 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Toggle from 'material-ui/Toggle';
+import { connect } from 'react-redux';
+
 
 const styles = {
   block: {
@@ -19,17 +20,14 @@ class DataGridComponent extends React.Component {
 
   constructor(props) {
   super(props);
- 
+  console.log("this.props-in dcdetailtable---",this.props)
 }
-clearState()
-{
-  alert("CLear State");
-}
-   onToggle(row){
-    console.log("ontoggle function ---",row)
-    row.topoState=!row.topoState;
-    console.log("aftr toggling--row.topoState-----",row.topoState)
-    this.props.updateStateofTableData(row)
+
+ handleToggle(row){
+    console.log("ontoggle function ---stilll not changed",row)
+    //calling function onToggle defined in parent component i.e service Entry Points 
+    this.props.onToggle(row);
+    console.log("aftr triggering  parent function")
   }
 
   linkFormat(cell,row){
@@ -40,12 +38,13 @@ clearState()
 
       else if(cell === 'true' || cell === 'false' || cell === true || cell === false)
     {
+      console.log("row---",row)
       /*
       *  {cell === 'true'} returns true if cell = true as [===]  compares with type as well as value
       *   string === string
       */
       return (
-        <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.onToggle.bind(this,row)}/>
+        <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.handleToggle.bind(this,row)}/>
         );
     }
 
@@ -113,7 +112,5 @@ DataGridComponent.defaultProps = {
 
  
 };
-
-
 
 export default DataGridComponent;

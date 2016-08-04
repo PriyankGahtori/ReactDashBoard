@@ -647,3 +647,21 @@ console.log("response----adding sepss---",response)
   }
   
 }
+
+/*
+* Action creators for updating toggle button
+*/
+export function updateToggleState(rowToggled){
+  console.log("in actions---",rowToggled)
+   var response = axios({
+        method: 'put',
+        url : `${url.UPDATE_TOGGLE_PROFSEPASSOC}/${rowToggled.id}/${rowToggled.enabled}`,
+
+        });
+   console.log("response og toggling toggle button---",response)
+
+   return {
+    type : 'TOGGLE_STATE_SEP',
+    payload : response
+  }
+}

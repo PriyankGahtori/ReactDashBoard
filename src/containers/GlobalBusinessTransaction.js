@@ -1,13 +1,13 @@
 import React,{PropTypes} from 'react';
 import { reduxForm } from 'redux-form';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import RadioButton from 'material-ui/RadioButton';
+import RadioButtonGroup from '../components/RadioButtonGroupWrapper';
 import SelectField from '../components/SelectFieldWrapper';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-//import Checkbox from 'material-ui/Checkbox';
 import Checkbox from '../components/CheckboxWrapper';
 
-export const fields = ["uriType","segType","parameter","method","header"];
+export const fields = ["uriType","segType","segValue","dynamicReqType","dynamicReqValue","parameter","method","header"];
 export const initialValues = {'uriType':'complete',"segType":"first"};
 class GlobalBusinessTransaction extends React.Component {
   
@@ -16,9 +16,10 @@ class GlobalBusinessTransaction extends React.Component {
     super(props);
     this.state={
     	'segmentDivCSS' : 'hidden',
-    	'parameterCheckbox' : false,
-    	'methodCheckbox' : false,
-    	'headerCheckbox' : false
+    	'dynamicReqType' : false,
+    	'paramDiv' : true, 
+  		'methodDiv': false,
+  		'headerDiv': false    	
     }
   }
   handleURITypeChange(event, value){
@@ -26,17 +27,25 @@ class GlobalBusinessTransaction extends React.Component {
   	let css = value === 'segment' ? 'show' : 'hidden';
   	this.setState({'segmentDivCSS':css})
   }
-  handleCheckboxChange(type,event,value){
-  	console.log("event",event);
-  	console.log("value",value);
-  	console.log("type",type);
-  	this.setState({'parameterCheckbox': value});
+  handleDReqCheckboxChange(event,value){
+  	this.setState({'dynamicReqType': value})	
+  }
+  handleDReqRadioChange(event,value){
+  	let paramDiv  = value === "parameter";
+  	let methodDiv = value === "method";
+  	let headerDiv = value === "header";
+  	this.setState({'paramDiv': paramDiv,
+  					'methodDiv': methodDiv, 
+  					'headerDiv':headerDiv 
+  				  });	
+  	
+  	console.info(value);
   }
 
   render() {
 
   	const {
-      fields: {uriType, segType, parameter, method, header},
+      fields: {uriType, segType, segValue, dynamicReqType,dynamicReqValue,parameter, method, header},
       handleSubmit,
       resetForm,
       submitting
@@ -52,7 +61,7 @@ class GlobalBusinessTransaction extends React.Component {
 	  		{...uriType}
 	  		name="uriType" 
 	  		defaultSelected="complete"
-	  		onChange={this.handleURITypeChange.bind(this) }
+	  		onCustomChange={this.handleURITypeChange.bind(this) }
 	  		>
        <RadioButton
           value="complete"
@@ -70,32 +79,77 @@ class GlobalBusinessTransaction extends React.Component {
           <MenuItem value={"last"} primaryText="Last" />
           <MenuItem value={"segNo"} primaryText="Segment Number" />
         </SelectField>
-        <TextField      	  
+        <TextField      	 
+          {...segValue}	 
           floatingLabelText="Segments of URI in Transaction"
         />        
       </div>
 
-      <Checkbox
-      	  {...parameter}	
+{/*---------------------Dynamic Request Type--------------------------*/}
+
+<div style={{'marginTop':30, 'marginBottom':30}}>
+	 <Checkbox
+ 	  {...dynamicReqType}
+      value="dynamicReq"
+      label="Use Dynamic Request Type ?"
+      labelStyle={{"fontSize":18,"fontWeight":0}}           
+      onCustomChange={this.handleDReqCheckboxChange.bind(this)}
+      checked={this.state.dynamicReqType}              
+     />
+
+  {/*------------Radio Button Group---------------*/}
+
+     <div className='row'>
+     <RadioButtonGroup
+     	{...dynamicReqValue} 
+  		className={'col-xs-4 col-md-3'} 
+  		style={{display: 'flex'}}  		
+  		name="requestType" 
+  		defaultSelected="parameter"
+  		onCustomChange={this.handleDReqRadioChange.bind(this)}
+	  >
+       <RadioButton
           value="parameter"
-          label="Parameter Value"
-          checked={this.state.parameterCheckbox}
-          onCustomChange={this.handleCheckboxChange.bind(this,"parameter")}              
+          label="Parameter Name"
+          disabled={!this.state.dynamicReqType}                    
        />
-       <Checkbox
-       	  {...method}
+       <RadioButton
           value="method"
           label="Method"
-                          
-          onCustomChange={this.handleCheckboxChange.bind(this,"method")}
-       />       
-       <Checkbox
-          {...header}
+          disabled={!this.state.dynamicReqType}          
+       />
+       <RadioButton
           value="header"
           label="Header"
-          
-          onCustomChange={this.handleCheckboxChange.bind(this,"header")}                    
+          disabled={!this.state.dynamicReqType}          
        />
+     </RadioButtonGroup>
+     </div>
+
+  {/*------------Dynamic Request Type Div---------------*/}
+
+  	<div className={this.state.dynamicReqType === true ? 'show' :'hidden'}>
+		<div className={this.state.paramDiv === true ? 'show' :'hidden'}>
+			<TextField      	  
+          		floatingLabelText="Parameter Name"
+          		{...parameter}
+        	/>
+		</div>
+		
+		<div className={this.state.methodDiv === true ? 'show' :'hidden'}>
+			<p>Use the request method (GET/POST/PUT) in Transaction names.</p>
+		</div>
+		
+		<div className={this.state.headerDiv === true ? 'show' :'hidden'}>
+			<TextField
+				{...header}      	  
+          		floatingLabelText="Header Name"
+        	/>
+		</div>
+  	</div>   
+
+	</div> 	
+      
 		
 		<div>
           <button type="submit" disabled={submitting}>

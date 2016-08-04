@@ -1,6 +1,6 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 
-//export const  SERVICE_URL = 'http://10.10.40.7:8050/configUI';
+export const  SERVICE_URL = 'http://10.10.40.7:8050/configUI';
 
 
 //export const HOME_URL = 'http://10.10.40.7:8050/configUI/home';

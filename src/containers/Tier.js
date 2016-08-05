@@ -179,13 +179,6 @@ class Tier extends React.Component {
         </Paper>
 
 
-      <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
-            <AddIcon />
-         </AddNewButton>
-         <DialogNewTopology />
-      </div>
-
       <Snackbar
           open={this.state.open}
           message="No row selected or multiple rows selected"

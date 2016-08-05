@@ -12,6 +12,8 @@ import DialogNewApplication from './Dialog_AppDetail_NewApp';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import ConfirmDialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 
 /*
@@ -54,9 +56,26 @@ class ApplicationDetail extends React.Component {
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
+  this.handleConfirm = this.handleConfirm.bind(this);
+  this.handleClose = this.handleClose.bind(this);
+  this.state = {open:false, openSnack:false};
   }
 
  
+ handleConfirm(){
+    console.log("-------------")
+    let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+
+    if(selectedRow.length == 1)
+    {
+      this.setState({open: true});
+    }
+  };
+
+  handleClose(){
+    this.setState({open: false});
+  };
+
  delRow(){
     var selectedRowKeys=[];
     console.log("del row function called")
@@ -71,6 +90,7 @@ class ApplicationDetail extends React.Component {
     //console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delAppTableRow(selectedRowKeys)
     this.refs.appTable.refs.table.cleanSelected();
+    this.handleClose();
   }
 
   handleClick(){
@@ -110,7 +130,7 @@ class ApplicationDetail extends React.Component {
       else{
        
         //toster notification: Only one row can be edited
-        this.setState({open: true});
+        this.setState({openSnack: true});
       }
 
     }
@@ -136,6 +156,19 @@ class ApplicationDetail extends React.Component {
   }
 
   render() {
+     const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Delete"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.delRow}
+      />,
+    ];
       
     return (
     <div>
@@ -147,10 +180,22 @@ class ApplicationDetail extends React.Component {
 
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            <IconButton onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
           
+       <div>
+       <ConfirmDialog
+          title="Are you sure want to delete the Application?"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+         
+        </ConfirmDialog>
+      </div>
+       
        
         {/* Rendering table component  ,
           * passing data (received from store) to the table component to be displayed at table 
@@ -174,7 +219,7 @@ class ApplicationDetail extends React.Component {
       </div>
 
       <Snackbar
-          open={this.state.open}
+          open={this.state.openSnack}
           message="No row selected or multiple rows selected"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}

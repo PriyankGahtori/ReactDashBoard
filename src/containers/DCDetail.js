@@ -13,6 +13,8 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
+import ConfirmDialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 
 var columns = {
@@ -47,17 +49,35 @@ class DCDetail extends React.Component {
   console.log("this.props.routeParams.appId",this.props.routeParams.appId)
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
-  this.state ={openNewAppDialog:false}
-  this.state={open:false}
+  this.state ={openNewAppDialog:false, open:false, openSnack: false}
   this.state ={dcDetail:this.props.dcDetail}
   this.handleOpen = this.handleOpen.bind(this);
   this.handleRequestClose=this.handleRequestClose.bind(this);  
+  this.handleConfirm = this.handleConfirm.bind(this);
+  this.handleClose = this.handleClose.bind(this);
+ // this.handleRequestClose = this.handleRequestClose.bind(this);
+  
   }
 
   updateNode(e){
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
+
+
+ handleConfirm(){
+    console.log("-------------")
+    let selectedRow= this.refs.dcDetailTable.refs.table.state.selectedRowKeys;
+
+    if(selectedRow.length == 1)
+    {
+      this.setState({open: true});
+    }
+  };
+
+  handleClose(){
+    this.setState({open: false});
+  };
 
   delRow(){
 
@@ -73,6 +93,7 @@ class DCDetail extends React.Component {
 
     this.props.delDCTableRow(this.refs.dcDetailTable.refs.table.state.selectedRowKeys) 
     this.refs.dcDetailTable.refs.table.cleanSelected();
+    this.handleClose();
   }
   
   /*
@@ -109,7 +130,7 @@ class DCDetail extends React.Component {
       }
       else{
         //toster notification: Only one row can be edited
-        this.setState({open: true});
+        this.setState({openSnack: true});
       }
 
     }
@@ -122,7 +143,7 @@ class DCDetail extends React.Component {
 
    handleRequestClose(){
     this.setState({
-      open: false,
+      openSnack: false,
     });
   };
 
@@ -158,6 +179,20 @@ class DCDetail extends React.Component {
   }
   
   render() {
+     const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Delete"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.delRow}
+      />,
+    ];
+
     var selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.
@@ -175,10 +210,22 @@ class DCDetail extends React.Component {
           </div>
         <div className="col-md-2"  >
           <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-          <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <IconButton onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           <IconButton><Link to ="/Instrumentation"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
         </div>
        </div>
+
+       <div>
+       <ConfirmDialog
+          title="Are you sure want to delete the Data Center?"
+          actions={actions}
+          modal={false}
+          open={this.state.open}
+          onRequestClose={this.handleClose}
+        >
+         
+        </ConfirmDialog>
+      </div>
 
         {/* rendering Table component*/}
        
@@ -199,7 +246,7 @@ class DCDetail extends React.Component {
       </div>
 
       <Snackbar
-          open={this.state.open}
+          open={this.state.openSnack}
           message="No row selected or multiple rows selected"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}

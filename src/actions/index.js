@@ -390,7 +390,7 @@ export function updateStateofTableData(row){
 
 export function fetchProfileDetailData(){
   console.log("fetch topo detail action called")
-  const URLTable =  "http://10.10.40.7:8050/configUI/profiles";
+  const URLTable =  `${url.FETCH_PROFILE_TABLEDATA}`;
   const request_table = axios.get(URLTable);
   console.log("request_table",request_table)
 
@@ -663,5 +663,32 @@ export function updateToggleState(rowToggled){
    return {
     type : 'TOGGLE_STATE_SEP',
     payload : response
+  }
+}
+
+/*
+* Action creators for BT Global
+*
+*/
+export function initializeBTFields(){
+  console.log("initializebt compo action called")
+  return {
+    type:'INITIALIZE_FIELDS',
+  }
+}
+
+export function addBTData(data,profileId){
+  console.log("addBTData func called profileId",profileId)
+  var response = axios({
+    method : 'post',
+    url    : `${url.ADD_BT}/${profileId}`,
+    data   : data,
+    headers: {'Content-Type':'application/json'}
+  })
+
+  console.log("response----",response)
+  return{
+    type:'ADD_BT_DATA',
+    payload:response
   }
 }

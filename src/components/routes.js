@@ -41,7 +41,9 @@ export default class routes extends React.Component {
 		      <Route name = "Testing" path = "testing" component = {Testing} />
 		      <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId" component = {Topology} />
 		      <Route name = "Topology" path = "topology" component = {TopologyDetail} />
-		      <Route name = "Profile"  staticName = {true} path = "profile/:profileId"  component = {ProfileDetail} />
+
+		      <Route name = "Profile"  staticName = {true} path = "profile"  component = {ProfileDetail} />
+		      
 		      <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId" component = {Tier} />
 		      <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" component = {Server} />
   			  <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" component = {Instance} />

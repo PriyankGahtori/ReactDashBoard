@@ -20,6 +20,7 @@ import TierData from './reducer_Tier';
 import ServerData from './reducer_Server';
 import InstanceData from './reducer_Instance';
 import ServiceEntryPoints from './reducer_ServiceEntryPoints';
+import BTGlobal from './reducer_BTGlobal'
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -37,7 +38,8 @@ module.exports = combineReducers({
 	tierData          : TierData,
 	serverData        : ServerData,
 	instanceData      : InstanceData,
-	ServiceEntryPoints:ServiceEntryPoints
+	ServiceEntryPoints:ServiceEntryPoints,
+	BTGlobal          : BTGlobal
 });
 
 //const reducers = {addInitialAppData};

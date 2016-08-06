@@ -69,6 +69,7 @@ handleChange(event,index,value){
   console.log("event-----",event)
   console.log("index------",index)                             
   console.log("on handleChange----",value)
+
   this.props.load(value);
   this.setState({value:value});
 }
@@ -103,7 +104,7 @@ handleChange(event,index,value){
  renderEntryPointList(fqm){
 
   console.log("entryPointList----",fqm)
-  if(this.state.ServiceEntryPoints == null || this.state.ServiceEntryPoints.length ==0){
+  if(this.state.enable === false && (this.state.ServiceEntryPoints == null || this.state.ServiceEntryPoints.length ==0) ){
     console.log("serviceEntryPoints null----")
     return(
         <div>
@@ -114,11 +115,19 @@ handleChange(event,index,value){
         </div>
       );
   }
+  else if(this.state.enable === true)
+  {
+    console.log("state enable true")
+    return(
+    <div>
+    </div>
+    );
+  }
 
   else{
     console.log("serviceEntryPoints not null")
     return(
-      <div styles={styles.entryPointBlock}>
+      <div styles={styles.entryPointBlock} >
         
         <div className="row" >
           <label>Entry Point Names</label>
@@ -192,8 +201,9 @@ handleChange(event,index,value){
       </div>
       
   </div>
-  
-        {this.renderEntryPointList(fqm) }
+      
+  {this.renderEntryPointList(fqm)}
+       
 
       <div>
         <Toggle 
@@ -201,7 +211,7 @@ handleChange(event,index,value){
           {...customFQMToggle}
           defaultToggled={false}  
           labelPosition="right" 
-          label="Custom Fully Qualified Name"         
+          label="New Service Entry Points"         
           onToggleChange={this.handleEntryPoints.bind(this,this.state.enable)} 
         />        
       
@@ -210,7 +220,7 @@ handleChange(event,index,value){
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Entry FQM"
         disabled={!this.state.enable}        
-      /><br />
+      /><br/>
       <TextField
         {...desc}
         hintText="This is a for getting initial Data"

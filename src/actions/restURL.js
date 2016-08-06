@@ -25,6 +25,8 @@ export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
 
 export const FETCH_SERVER_TREE_URL = `${SERVICE_URL}/custom/tree/server`;
 
+export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
+
 export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
 
 
@@ -46,3 +48,8 @@ export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 export const  ADD_NEW_SERVICE_ENTRY_POINTS = `${SERVICE_URL}/custom/profileserviceentryasso`;
  
 export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileserviceentryasso` ;
+
+/*
+* BT
+*/
+export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;

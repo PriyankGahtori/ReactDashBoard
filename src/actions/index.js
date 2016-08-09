@@ -670,10 +670,14 @@ export function updateToggleState(rowToggled){
 * Action creators for BT Global
 *
 */
-export function initializeBTFields(){
-  console.log("initializebt compo action called")
+export function initializeBTFields(profileId){
+  console.log("initializebt compo action called--",profileId)
+  const URL = `${url.GET_BT}/${profileId}/bussinessTransGlobal`
+  var response = axios.get(URL);
+  console.log("response--",response)
   return {
-    type:'INITIALIZE_FIELDS',
+    type    :'INITIALIZE_FIELDS',
+    payload :response 
   }
 }
 

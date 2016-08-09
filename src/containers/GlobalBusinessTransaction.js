@@ -11,16 +11,6 @@ import { bindActionCreators } from 'redux';
 import {initializeBTFields,addBTData}  from '../actions/index';
 
 export const fields = ["uriType","segmentType","segmentValue","dynamicReqType","dynamicReqValue","requestParam","httpMethod","requestHeader"];
-/*export const initialValues = {
-                              "uriType"      :"complete",
-                              "segmentType"   :"first",
-                              "segmentValue"  : "NA",
-                              "dynamicReqType":false,
-                              "dynamicReqValue":"NA",
-                              "requestParam" :"NA",
-                              "method"       :false,
-                              "header"       :"NA"
-                            };*/
 class GlobalBusinessTransaction extends React.Component {
   
 
@@ -33,19 +23,47 @@ class GlobalBusinessTransaction extends React.Component {
     	'dynamicReqType' : false,
     	'paramDiv' : true, 
   		'methodDiv': false,
-  		'headerDiv': false    	
+  		'headerDiv': false,
+      'uriType':"complete"    	
     }
   }
 
-   componentWillMount() {
-    console.log("componentWillMount")
-    this.props.initializeBTFields();
+ componentWillMount() {
+    console.log("componentWillMount--",this.props.params.profileId)
+    this.props.initializeBTFields(this.props.params.profileId);
   }
 
- 
+ componentWillReceiveProps(nextProps){
+  
+  console.info("initial",this.props.fields.uriType.initialValue);
+  console.info("nextProps",nextProps.fields.uriType.initialValue );
+  console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
+      console.info("initial",this.props.initialData.uriType)
+      console.info("next",nextProps.initialData.uriType)  
+
+  if(this.props.initialData != nextProps.initialData){
+    let data = nextProps.initialData ; 
+    this.setState({
+       "segmentDivCSS" : data.uriType === "segment" ? "show" : "hidden",
+       "dynamicReqType" : data.dynamicReqType,
+       "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
+       "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
+       "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
+     })
+  }
+  if(this.props.initialData.uriType != nextProps.initialData.uriType)
+    {
+      console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
+      console.info("initial",this.props.initialData.uriType)
+      console.info("next",nextProps.initialData.uriType)  
+      this.setState({"uriType": nextProps.initialData.uriType})
+    }
+ }
+
 
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide
+    console.info("uriType",value)
   	let css = value === 'segment' ? 'show' : 'hidden';
   	this.setState({'segmentDivCSS':css})
   }
@@ -55,6 +73,8 @@ class GlobalBusinessTransaction extends React.Component {
   }
 
   handleDReqRadioChange(event,value){
+    console.log("value--handleDReqRadioChange---",value)
+    console.log("event-----",event)
   	let paramDiv  = value === "requestParam";
   	let methodDiv = value === "httpMethod";
   	let headerDiv = value === "requestHeader";
@@ -66,7 +86,7 @@ class GlobalBusinessTransaction extends React.Component {
   	console.info(value);
   }
 
-submit(data){
+  submit(data){
     data = JSON.stringify(data);
     console.log("data---",data)
     console.log("profileId--",this.props.params.profileId)
@@ -83,6 +103,7 @@ submit(data){
       } = this.props;
 
     return (
+
     <form onSubmit ={handleSubmit(this.submit.bind(this)) }>
 
       <div style={{'paddingTop':20}}>
@@ -90,8 +111,8 @@ submit(data){
       </div>
 	  <RadioButtonGroup 
 	  		{...uriType}
-	  		name="uriType" 
-	  		defaultSelected={uriType.initialValue}
+	  		name = "uriType" 
+	  		defaultSelected={this.state.uriType}
 	  		onCustomChange={this.handleURITypeChange.bind(this) }
 	  		>
        <RadioButton
@@ -105,7 +126,7 @@ submit(data){
 
       </RadioButtonGroup>
 
-      <div className={`row ${this.state.segmentDivCSS}`} style={{'marginLeft':30}} enabled={false}>
+   <div className={`row ${this.state.segmentDivCSS}`} style={{'marginLeft':30}} enabled={false}>
 		<SelectField value={"first"} {...segmentType} >
           <MenuItem value={"first"} primaryText="First" />
           <MenuItem value={"last"} primaryText="Last" />
@@ -132,6 +153,7 @@ submit(data){
   {/*------------Radio Button Group---------------*/}
 
      <div className='row'>
+     <p>{dynamicReqValue.initialValue}</p>
      <RadioButtonGroup
      	{...dynamicReqValue} 
   		className={'col-xs-4 col-md-3'} 
@@ -208,7 +230,8 @@ export default reduxForm({
   fields
 },
   state => ({ // mapStateToProps
-  initialValues:state.BTGlobal.btGlobalInitialize
+  initialValues:state.BTGlobal.btGlobalInitialize, //used by redux-form
+  initialData:state.BTGlobal.btGlobalInitialize // for initializing state
 }),
   { 
    initializeBTFields : initializeBTFields,

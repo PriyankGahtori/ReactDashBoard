@@ -53,3 +53,5 @@ export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileservice
 * BT
 */
 export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;
+
+export const GET_BT = `${SERVICE_URL}/profiles`;

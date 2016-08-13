@@ -1,7 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import AddNewButton from 'material-ui/FloatingActionButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
 import DialogNewApp from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FormNewApp from './Form_ApplicationDetail_NewApp.js';

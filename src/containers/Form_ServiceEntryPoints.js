@@ -1,15 +1,10 @@
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import {ServiceEntryPointsOfSelectedEntryType,ListOfServiceEntryPointType} from '../actions/index';
 import TextField from 'material-ui/TextField';
-import Is from 'is_js';
 //import DropDownMenu from 'material-ui/SelectField';
 import DropDownMenu from '../components/SelectFieldWrapper';
 import MenuItem from 'material-ui/MenuItem';
-import {List, ListItem} from 'material-ui/List';
-import ContentSend from 'material-ui/svg-icons/content/send';
 import Toggle from '../components/ToggleWrapper';
 //import Toggle from 'material-ui/Toggle';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
@@ -82,7 +77,7 @@ handleChange(event,index,value){
 
 //method to create comboBox of entry Type 
   renderDropDown(entryType){
-    let menuItems= this.props.ListOfServiceEntryPointType.map((data, index) => (
+    let menuItems= this.props.ListOfServiceEntryPointType.map((data) => (
                 <MenuItem value={data.id}  primaryText={data.entryTypeName}/>
             ));            
 
@@ -139,7 +134,7 @@ handleChange(event,index,value){
               name ="entryPointList" 
           >
           {
-           this.props.ServiceEntryPoints.map((value, index)=>(
+           this.props.ServiceEntryPoints.map((value)=>(
             <RadioButton
               value = {value._links.self.href} 
               label = {value.entryName} 

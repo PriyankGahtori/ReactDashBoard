@@ -1,9 +1,7 @@
 import React from 'react';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Toggle from 'material-ui/Toggle';
-import { connect } from 'react-redux';
 
 
 const styles = {

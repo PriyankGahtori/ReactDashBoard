@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Component, PropTypes } from 'react';
-import AddNewButton from 'material-ui/FloatingActionButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
 import DialogNewDC from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FormNewDC from './Form_DCDetail_NewDC.js';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
-import { reset } from 'redux-form'
 
 
 

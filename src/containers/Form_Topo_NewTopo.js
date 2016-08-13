@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
-import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
 

@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Component, PropTypes } from 'react';
-import AddNewButton from 'material-ui/FloatingActionButton';
-import AddIcon from 'material-ui/svg-icons/content/add';
 import DialogNewTopo from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FormNewTopo from './Form_Topo_NewTopo';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
-import { reset } from 'redux-form'
+
 
 
 class Dialog_Topo_NewTopo extends React.Component {
@@ -18,10 +15,6 @@ class Dialog_Topo_NewTopo extends React.Component {
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state ={topologyData:this.props.topologyData};
-  }
-
-  componentWillMount() {
-    console.log("inside will mount")  
   }
 
   componentWillReceiveProps(nextProps)

@@ -63,6 +63,15 @@ export default function(state = initialState, action) {
     console.log("aaftr changing---",newState.tableData)
     return newState;
 
+    case 'DELETE_SEP_ROW' :
+    
+    var newState = Object.assign({},state)
+    newState.tableData = newState.tableData.filter(function(value){
+           return action.payload.indexOf(value.id) == -1;
+     });
+
+    return newState ;
+
    }
 
    

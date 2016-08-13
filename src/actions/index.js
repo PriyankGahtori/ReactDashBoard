@@ -647,6 +647,23 @@ console.log("response----adding sepss---",response)
   }
   
 }
+export function delSepRow(selectedRowKeys){
+
+   selectedRowKeys.forEach(value=>{
+    axios({
+       method: 'delete',
+       url : `${url.DEL_SERVICE_ENTRY_POINTS}/${value}`,
+    })
+
+   })
+  return {
+    type: "DELETE_SEP_ROW",
+    payload: selectedRowKeys
+  }
+
+
+}
+
 
 /*
 * Action creators for updating toggle button

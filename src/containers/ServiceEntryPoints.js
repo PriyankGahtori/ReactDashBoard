@@ -65,23 +65,9 @@ class ServiceEntryPoints extends React.Component {
 
    delRow(){
       var selectedRowKeys=[];
-      console.log("del row function called")
-      console.log("calling del method---table ref--",this.refs.sepTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.sepTable.refs.table.state.selectedRowKeys;
-   
-   /* selectedRowKeysObj.forEach(
-                          value =>{
-                          selectedRowKeys.push(value.self.href)
-                          }) */
-    console.log("selectedRowKeys--",selectedRowKeys)
-
-  /*var selectRowsValueForServer= this.props.dcDetail.tableData
-                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
-                      .map((value,index) => value._links.self.href)
-
-  console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delTopoTableRow(selectedRowKeysObj)
-  }
+      let selectedRowKeysObj = this.refs.sepTable.refs.table.state.selectedRowKeys;
+      this.props.delSepRow(selectedRowKeysObj)
+    }
 
   handleClick(){
     console.log("selecting row")

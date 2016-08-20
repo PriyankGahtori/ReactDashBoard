@@ -13,7 +13,8 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
-
+import FlatButton from 'material-ui/FlatButton';
+import SepDelDialog from 'material-ui/Dialog';
 
 var columns = {
                 "key"  : "id",
@@ -51,6 +52,10 @@ class ServiceEntryPoints extends React.Component {
   this.handleClick = this.handleClick.bind(this);
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
+  this.delDialog = this.delDialog.bind(this);
+  this.handleCancel = this.handleCancel.bind(this);
+  this.handleRequestClose = this.handleRequestClose.bind(this);
+
   }
 
   onSelectRow(){
@@ -67,7 +72,27 @@ class ServiceEntryPoints extends React.Component {
       var selectedRowKeys=[];
       let selectedRowKeysObj = this.refs.sepTable.refs.table.state.selectedRowKeys;
       this.props.delSepRow(selectedRowKeysObj)
+      this.refs.sepTable.refs.table.cleanSelected();
+      this.handleCancel();
     }
+    delDialog()
+   {
+     var selectedKeys = this.refs.sepTable.refs.table.state.selectedRowKeys;
+     if(selectedKeys.length == 0)
+     {
+         this.setState({open:true})
+      }
+     else{
+        this.setState({sepDialog:true})
+     }
+   }
+handleRequestClose(){
+  this.setState({open:false})
+}
+
+ handleCancel(){
+    this.setState({ sepDialog:false})
+   }
 
   handleClick(){
     console.log("selecting row")
@@ -132,9 +157,21 @@ onToggle(row){
     console.log("aftr toggling--row.topoState-----",row.enabled)
     this.props.updateToggleState(row)
   }
+
   
 
   render() {
+      const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancel} />,
+     
+      <FlatButton
+        label="Delete"
+        primary={true}
+        onTouchTap={this.delRow}/>
+    ];
       
     return (
     <div>
@@ -145,11 +182,13 @@ onToggle(row){
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            <IconButton onTouchTap={this.delDialog}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           
         </div>
        </div>
-
+        <SepDelDialog  title="Are you sure want to delete the ServiceEntryPoint(s)?"
+                      open= {this.state.sepDialog}
+                      actions={actions} />
         <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
             pagination = {false} 
             ref        = "sepTable" 

@@ -18,7 +18,11 @@ export default function(state = initialState, action) {
         console.log(" lastIndexOf --------------> ",index)
         var id= val._links.self.href.slice(index+1,val._links.self.href.length)
         val.id=id;
+  //converting profileName as a string to object so as to make profileName field to act as hyperlink
+        var profileName = {"href":val.profileName}
+        val.profileName = profileName;
         console.log("id--of profile------------------>",id)
+
     })
     newState.tableData = data;
     console.log(" new State---------of profile-------->",newState.tableData)

@@ -171,7 +171,8 @@ export function toggleStateDialogNewApp(){
 }
 
 export function fetchAppTableData(){
-  const URLTable =  "http://10.10.40.7:8050/configUI/application";
+//  const URLTable =  "http://10.10.40.7:8050/configUI/application";
+  const URLTable =  `${url.APP_TABLE_DATA}`
   const request_table = axios.get(URLTable);
   console.log("request_table",request_table)
 

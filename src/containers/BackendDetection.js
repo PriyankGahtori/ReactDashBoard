@@ -52,7 +52,7 @@ export default class BackendDetection extends React.Component {
   
   handleHref(row)
   {
-  	console.log(row);
+  	console.log("in function handleHref--",row);
   	this.setState({backendType: row.type.href ,openBackendList: true,selecteRow: row});  	
   } 
 

@@ -53,7 +53,7 @@ class ProfileDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
-  this.ConfigureProfile = this.ConfigureProfile.bind(this);
+ 
   }
 
  delRow(){
@@ -66,14 +66,11 @@ class ProfileDetail extends React.Component {
     console.log("aftr cleaning---",this.refs.profileDetailTable.refs.table.state.selectedRowKeys)
   }
 
-  ConfigureProfile(){
-    console.log("ConfigureProfile called---")
-    console.log("this.refs.profileDetailTable.refs.table.state.selectedRowKeys--",this.refs.profileDetailTable.refs.table.state.selectedRowKeys)
-    var selectedRow=this.refs.profileDetailTable.refs.table.state.selectedRowKeys;
-    console.log("selected row----",selectedRow)
-    hashHistory.push(`/configuration/${selectedRow[0]}`)
-
-  }
+  handleHref(row)
+  {
+    console.log("in function handleHref-in profileDetail-",row);
+    hashHistory.push(`/configuration/${row.id}`)
+  } 
 
 /*
 * flag "openProfileDialogType" used to determine FormDialog to be opened will be for which functionality
@@ -138,8 +135,7 @@ class ProfileDetail extends React.Component {
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-         */  
-            <IconButton onTouchTap={this.ConfigureProfile}><FontIcon className="material-icons">event_note</FontIcon></IconButton>
+           
           </div>
        </div>
           
@@ -153,6 +149,7 @@ class ProfileDetail extends React.Component {
                   ref ="profileDetailTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  onhref={this.handleHref.bind(this)}
          />
         </Paper>
        

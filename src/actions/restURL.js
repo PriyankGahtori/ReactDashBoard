@@ -1,12 +1,13 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 
-export const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+//export const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //export const HOME_URL = 'http://10.10.40.7:8050/configUI/home';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 
 /* Url for Application Table */
+export const APP_TABLE_DATA = `${SERVICE_URL}/application`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
 export const DEL_ROW_APP_URL = `${SERVICE_URL}/application`;

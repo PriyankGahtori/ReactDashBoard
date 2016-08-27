@@ -28,11 +28,25 @@ class DataGridComponent extends React.Component {
     console.log("aftr triggering  parent function")
   }
 
+   handleHyperlink(row){
+    this.props.onhref(row);
+  }
+
+  
   linkFormat(cell,row){
     
      if(cell != undefined && cell.hasOwnProperty("self"))
       return cell.self.href;
       //console.log("hmmmmmmm",cell.self.href)
+
+    //providing the hyperlink on cell 
+    else  if(cell != undefined && cell.hasOwnProperty("href"))
+    {
+      return (
+        <a onTouchTap={this.handleHyperlink.bind(this,row)} >{cell.href}</a>
+        );
+    }
+
 
       else if(cell === 'true' || cell === 'false' || cell === true || cell === false)
     {

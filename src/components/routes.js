@@ -16,7 +16,7 @@ import Tier from '../containers/Tier';
 import Server from '../containers/Server';
 import Instance from '../containers/Instance';
 import Configuration from '../containers/ConfigurationSettings';
-import BackEndDetection from '../containers/Form_BussinessTransaction';
+import BackendDetection from '../containers/BackendDetection';
 import Instrumentation from '../containers/Instrumentation';
 import ServiceEntryPoints from '../containers/ServiceEntryPoints';
 import BusinessTransaction from '../containers/BusinessTransaction';
@@ -53,7 +53,7 @@ export default class routes extends React.Component {
 
 		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
 		      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackEndDetection}/>
+		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
 		      	 
 		      	 <Route name = "Business Transaction" path ="bt" component = {BusinessTransaction}>
 		      	 	<IndexRoute name="Global" component={GlobalBT} />

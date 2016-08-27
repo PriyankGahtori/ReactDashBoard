@@ -1,29 +1,37 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewTopology from './Dialog_Topo_NewTopo';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import Snackbar from 'material-ui/Snackbar';
+import DialogBackendList from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import BackendDetectionList from './BackendDetectionList'
 
+
+/*
+* data --- table column name
+* key ---- acting as a primary key
+* 
+*/
 
 var columns = {
-                "key"  : "serverId",
-                "data" : ['bkendType', 'bkendName','Details','state'],
-                "field": ['serverName', 'serverDesc','serverId']
+                "key" : "id",
+                "data":['Type', 'Description','Enable All','LINK'],
+                "field":['type', 'desc', 'enable','id']
               }; 
+
+var data = [{"type": {"href":"HTTP"},"desc": "All HTTP Backends", "enable": true,"id": 1},
+			{"type": {"href":"DB"},"desc": "All HTTP Backends", "enable": true,"id": 2},
+			{"type": {"href":"RMI"},"desc": "All HTTP Backends", "enable": true,"id": 3}
+			];
 
 const style = {
   //margin: 20,
   textAlign: 'center',
-  display: 'inline-block',
+  display: 'inline-block'
 };
 
 const NewButtonstyle = {
@@ -32,181 +40,93 @@ const NewButtonstyle = {
     right: 20,
     bottom: 30,
     left: 'auto',
-    position: 'fixed',
+    position: 'fixed'
 
 };
-
-
-
-class BackendDetection extends React.Component {
+export default class BackendDetection extends React.Component {  
 
   constructor(props) {
-  super(props);
-  console.log("in topology.js--",this.props)
-  this.state = {treedata:this.props.treedata};
-  this.updateNode = this.updateNode.bind(this);
-  this.delRow = this.delRow.bind(this);
-  this.state ={openNewTopoDialog:false}
-  this.handleOpen = this.handleOpen.bind(this);
-  this.handleClick = this.handleClick.bind(this);
-  this.state = {topologyData:this.props.topologyData};
-  this.onSelectRow=this.onSelectRow.bind(this);
+    super(props);
+    this.state = {'openBackendList': false, 'backendType': 'Backends','selecteRow':{}}
   }
-
-  onSelectRow(){
-    console.log("onSelectRow----")
-  }
-
-  updateNode(e){
-    console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
-    e.preventDefault()
-    this.props.updateTreeNode(this.props.routeParams.something);
-  }
-
-   delRow(){
-      var selectedRowKeys=[];
-      console.log("del row function called")
-      console.log("calling del method---table ref--",this.refs.topoTable.refs.table.state.selectedRowKeys)
-    let selectedRowKeysObj = this.refs.topoTable.refs.table.state.selectedRowKeys;
-   
-   /* selectedRowKeysObj.forEach(
-                          value =>{
-                          selectedRowKeys.push(value.self.href)
-                          }) */
-    console.log("selectedRowKeys--",selectedRowKeys)
-
-  /*var selectRowsValueForServer= this.props.dcDetail.tableData
-                      .filter(value => selectedRowKeysForUI.indexOf(value.dcName)!= -1)
-                      .map((value,index) => value._links.self.href)
-
-  console.log("selectRowsValue--",selectRowsValueForServer)*/
-  this.props.delTopoTableRow(selectedRowKeysObj)
-  }
-
-  handleClick(){
-    console.log("selecting row")
-  }
-  handleOpen(openTopoDialogType){
-
-    console.log("in handleopen---",openTopoDialogType)
-    //for editing form
-    if(openTopoDialogType == "edit"){
-      console.log("editing the App form")
-
-      // gets the selected key of table
-      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
-      
-      if(selectedRow.length == 1)
-      {
-        console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.topologyData.tableData
-                                  .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
-                                  });
-        console.log("selectedRowData----",selectedRowData[0])
-
-        //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType);
-        
-        this.props.toggleStateDialogNewTopo();
-      }
-      else{
-        //toster notification: Only one row can be edited
-      }
-
-    }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
-    }
-       
-  }
-
-  componentWillMount() {
-    
-    /*
-    * triggerring an action to fetch topology table data
-    *   here node.id is dc_id  
-    */
-    
-
-   
-  }
-
-  componentWillReceiveProps(nextProps)
+  
+  handleHref(row)
   {
-    /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
-     * for new DC  selected.
-     */
-     console.log("nextProps---")
-     if(this.props.routeParams.tierId!= nextProps.routeParams.tierId){
-        console.log("nextProps.routeParams.tierId---",nextProps.routeParams.tierId)
-        this.props.fetchServerTableData(nextProps.routeParams.tierId);
-    }
-  
+  	console.log(row);
+  	this.setState({backendType: row.type.href ,openBackendList: true,selecteRow: row});  	
+  } 
 
-    if(this.props.serverData != nextProps.serverData){
-      this.setState({serverData:nextProps.serverData});
-    }
-}
-  
+  handleOpen(){
+    this.setState({openBackendList: true});
+  };
+
+  handleClose(){
+    this.setState({openBackendList: false});
+  };
 
   render() {
-      
+   
+   const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose.bind(this)}
+      />,
+      <FlatButton
+        label="Discard"
+        primary={true}
+        onTouchTap={this.handleClose.bind(this)}
+      />,
+    ];
+
+
     return (
-    <div>
-       <Paper zDepth={2}>     
-      <div className='row row-no-margin tableheader'>
+      <div>
+        <Paper zDepth={2}>     
+       <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Backend Detection</h4>
           </div>
+
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            <IconButton><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
-
-        <DataGrid data = {this.props.serverData.tableData} 
-                  pagination={false} 
-                  ref="topoTable" 
-                  column = {columns}
-                  onClick={this.handleClick}
-         />
+             
+        {/* Rendering table component  ,
+          * passing data (received from store) to the table component to be displayed at table 
+         */}
+        <DataGrid 
+          pagination={false} 
+          ref="appTable" 
+          column = {columns}
+          data={data}
+          onhref={this.handleHref.bind(this)}
+        />
         </Paper>
+		
+		<DialogBackendList
+		  title={this.state.backendType}
+		  actions={actions}
+          modal={true}
+          autoScrollBodyContent={true}
+          open={this.state.openBackendList}
+          onRequestClose={this.handleClose.bind(this)}
 
+		>
+		  <BackendDetectionList 
+		    backendType={this.state.backendType}
+		    selectedRow={this.state.selecteRow}/>
+		</DialogBackendList>       
 
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
+         <AddNewButton style={NewButtonstyle}>
             <AddIcon />
-         </AddNewButton>
-         <DialogNewTopology />
+         </AddNewButton>      
       </div>
 
-      <Snackbar
-          open={this.state.open}
-          message="No row selected or multiple rows selected"
-          autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
-        />
-
    </div>
-
     );
   }
 }
-
-function mapStateToProps(state) {
-  console.log("serverData--",state.serverData)
-  return {
-    serverData :state.serverData,
-   };
-}
-
-//method to dispatch actions to the reducers
-function mapDispatchToProps(dispatch) {
-  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  //return actionMap;
-return bindActionCreators(actionCreators, dispatch);
-}
-export default connect(mapStateToProps,mapDispatchToProps)(BackendDetection);

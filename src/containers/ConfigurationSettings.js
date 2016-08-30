@@ -25,13 +25,14 @@ export default class ConfigurationSettings extends React.Component {
     super(props);
     console.log("this.props of configurationsetting---",this.props)
      this.configClicked = this.configClicked.bind(this);
-      this.instrClicked = this.instrClicked.bind(this);
+    this.instrClicked = this.instrClicked.bind(this);
     }
 
   configClicked(){
     console.log(" in configClicked method--------------->")
   //  hashHistory.push("ConfigSettings");
    }
+
   instrClicked(){
     console.log("in instrClicked ----------->",this.props.params.profileId)
    // hashHistory.push("InstrSettings");

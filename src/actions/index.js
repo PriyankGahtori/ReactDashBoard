@@ -665,6 +665,13 @@ export function delSepRow(selectedRowKeys){
 
 }
 
+export function toggleGenerateFileDialog(){
+  console.log("action triggered--toggling dialog generatimf sep")
+  return {
+    type:'TOGGLE_DIALOG_GENERATEFILE'
+  }
+}
+
 
 /*
 * Action creators for updating toggle button
@@ -712,5 +719,19 @@ export function addBTData(data,profileId){
   return{
     type:'ADD_BT_DATA',
     payload:response
+  }
+}
+
+/*
+* Action creators for backend detection screen
+*/
+
+export function fetchBackendTableData(profileId){
+  console.log("fetchBackendTableData function called profileId---",profileId)
+  var response = axios.get(`${url.FETCH_BACKEND_TABLEDATA}/${profileId}`);
+  console.log("agtr getting backend data")
+  return{
+    type :'FETCH_BACKEND_TABLEDATA',
+    payload :response
   }
 }

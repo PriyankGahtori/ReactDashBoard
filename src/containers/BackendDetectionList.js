@@ -24,17 +24,19 @@ export default class BackendDetectionList extends React.Component {
 			<div className='row'>
 			 <h3>Naming Rules</h3>
 			 <div className={'col-xs-4 col-md-3'} style={{display: 'flex'}}>
-				<Checkbox label="Host" />
-				<Checkbox label="Port" />
-				<Checkbox label="URL" />
-				<Checkbox label="Prefix" />
+				<Checkbox label="Host"  defaultChecked = {this.props.selectedRow.namingRule.host}/>
+				<Checkbox label="Port"  defaultChecked = {this.props.selectedRow.namingRule.Port}/>
+				<Checkbox label="URL"   defaultChecked = {this.props.selectedRow.namingRule.URL}/>
+				<Checkbox label="serviceName" defaultChecked = {this.props.selectedRow.namingRule.serviceName} />
+        <Checkbox label="topicName"   defaultChecked = {this.props.selectedRow.namingRule.topicName}/>
+        <Checkbox label="tableName"   defaultChecked = {this.props.selectedRow.namingRule.tableName}/>
 			 </div>
 			</div>
 
       <div>
       	<h3>End Points</h3>
           {
-          	list.map((value,index) =>(
+          	this.props.selectedRow.lstEndPoints.map((value,index) =>(
           		<Toggle label={value.name} onToggle={this.handleToggle.bind(this,value)} />	
           	))
           } 

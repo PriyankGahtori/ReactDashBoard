@@ -1,4 +1,9 @@
-const initialState = {tableData :[],openNewServiceEntryPtsDialog:false,serviceEntryPoints:[],listOfEntryType:[]};
+const initialState = {tableData :[],
+                      openNewServiceEntryPtsDialog:false,
+                      serviceEntryPoints:[],
+                      listOfEntryType:[],
+                      openGenerateFileDialog :false
+                    };
 
 export default function(state = initialState, action) {
 
@@ -71,6 +76,13 @@ export default function(state = initialState, action) {
      });
 
     return newState ;
+
+    case 'TOGGLE_DIALOG_GENERATEFILE' :
+    var newState = Object.assign({}, state);
+    console.log("newState.openNewServiceEntryPtsDialog--",newState.openNewServiceEntryPtsDialog)
+    newState.openGenerateFileDialog= !newState.openGenerateFileDialog;
+    console.log("newState.openGenerateFileDialog---",newState.openGenerateFileDialog)
+    return newState;     
 
    }
 

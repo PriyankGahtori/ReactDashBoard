@@ -15,6 +15,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import SepDelDialog from 'material-ui/Dialog';
+import DialogGenerateFile from './Dialog_GenerateFile';
 
 var columns = {
                 "key"  : "id",
@@ -53,6 +54,7 @@ class ServiceEntryPoints extends React.Component {
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
   this.delDialog = this.delDialog.bind(this);
+  this.generateFile = this.generateFile.bind(this);
   this.handleCancel = this.handleCancel.bind(this);
   this.handleRequestClose = this.handleRequestClose.bind(this);
 
@@ -158,6 +160,11 @@ onToggle(row){
     this.props.updateToggleState(row)
   }
 
+  generateFile(){
+    console.log("generate   file function called")
+    this.props.toggleGenerateFileDialog();
+  }
+
   
 
   render() {
@@ -183,12 +190,16 @@ onToggle(row){
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delDialog}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
           
         </div>
        </div>
         <SepDelDialog  title="Are you sure want to delete the ServiceEntryPoint(s)?"
                       open= {this.state.sepDialog}
                       actions={actions} />
+
+        <DialogGenerateFile/>
+
         <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
             pagination = {false} 
             ref        = "sepTable" 

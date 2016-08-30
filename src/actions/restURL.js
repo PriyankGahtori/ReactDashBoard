@@ -1,7 +1,7 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 
-//export const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//export const HOME_URL = 'http://10.10.40.7:8050/configUI/home';
+export const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+//export const HOME_URL = 'http://10.10.40.7:8006/configUI/home';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -50,3 +50,6 @@ export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileservice
 /* Url fot BussinessTransaction */
 export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;
 export const GET_BT = `${SERVICE_URL}/profiles`;
+
+/* Url for Backend Detection */
+export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;

@@ -8,7 +8,11 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import DialogBackendList from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import BackendDetectionList from './BackendDetectionList'
+import BackendDetectionList from './BackendDetectionList';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators  from '../actions/index';
+
 
 
 /*
@@ -20,13 +24,13 @@ import BackendDetectionList from './BackendDetectionList'
 var columns = {
                 "key" : "id",
                 "data":['Type', 'Description','Enable All','LINK'],
-                "field":['type', 'desc', 'enable','id']
+                "field":['type', 'detail', 'enabled','id']
               }; 
 
-var data = [{"type": {"href":"HTTP"},"desc": "All HTTP Backends", "enable": true,"id": 1},
+/*var data = [{"type": {"href":"HTTP"},"desc": "All HTTP Backends", "enable": true,"id": 1},
 			{"type": {"href":"DB"},"desc": "All HTTP Backends", "enable": true,"id": 2},
 			{"type": {"href":"RMI"},"desc": "All HTTP Backends", "enable": true,"id": 3}
-			];
+			];*/
 
 const style = {
   //margin: 20,
@@ -43,13 +47,29 @@ const NewButtonstyle = {
     position: 'fixed'
 
 };
-export default class BackendDetection extends React.Component {  
+ class BackendDetection extends React.Component {  
 
   constructor(props) {
     super(props);
     this.state = {'openBackendList': false, 'backendType': 'Backends','selecteRow':{}}
+
   }
   
+  componentWillMount() {
+    console.log("in compwilmount method---",this.props.params.profileId)
+    this.props.fetchBackendTableData(this.props.params.profileId);
+  }
+
+  componentWillReceiveProps(nextProps)
+  {
+    if(this.props.backEndDetection.tableData != nextProps.backEndDetection.tableData)
+    {
+      console.log("backend tabledatat data changed----")
+      this.setState({backEndDetection:nextProps.backEndDetection});
+    }
+
+  }
+
   handleHref(row)
   {
   	console.log("in function handleHref--",row);
@@ -97,11 +117,12 @@ export default class BackendDetection extends React.Component {
         {/* Rendering table component  ,
           * passing data (received from store) to the table component to be displayed at table 
          */}
+         
         <DataGrid 
           pagination={false} 
           ref="appTable" 
           column = {columns}
-          data={data}
+          data = {this.props.backEndDetection.tableData}
           onhref={this.handleHref.bind(this)}
         />
         </Paper>
@@ -130,3 +151,17 @@ export default class BackendDetection extends React.Component {
     );
   }
 }
+function mapStateToProps(state) {
+  console.log("backEndDetection---",state.backEndDetection.tableData)
+  return {
+    backEndDetection :state.backEndDetection
+   };
+}
+
+//method to dispatch actions to the reducers
+function mapDispatchToProps(dispatch) {
+  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
+  //return actionMap;
+return bindActionCreators(actionCreators, dispatch);
+}
+export default connect(mapStateToProps,mapDispatchToProps)(BackendDetection);

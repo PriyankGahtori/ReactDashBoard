@@ -735,3 +735,20 @@ export function fetchBackendTableData(profileId){
     payload :response
   }
 }
+
+export function fetchBackendTypes(){   
+  var response = axios.get(`${url.FETCH_BACKEND_TYPES}`);  
+  return{
+    type :'FETCH_BACKEND_TYPES',
+    payload :response
+  }
+}
+
+export function fetchBackendPoints(backendId){   
+  var response = axios.get(`${url.FETCH_BACKEND_TYPES}/${backendId}/backendPoints`);  
+  return{
+    type :'FETCH_BACKEND_POINTS',
+    payload :response
+  }
+}
+

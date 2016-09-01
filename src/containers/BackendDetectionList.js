@@ -27,12 +27,14 @@ export default class BackendDetectionList extends React.Component {
 				<Checkbox label="Host"  defaultChecked = {this.props.selectedRow.namingRule.host}/>
 				<Checkbox label="Port"  defaultChecked = {this.props.selectedRow.namingRule.Port}/>
 				<Checkbox label="URL"   defaultChecked = {this.props.selectedRow.namingRule.URL}/>
-				<Checkbox label="serviceName" defaultChecked = {this.props.selectedRow.namingRule.serviceName} />
-        <Checkbox label="topicName"   defaultChecked = {this.props.selectedRow.namingRule.topicName}/>
-        <Checkbox label="tableName"   defaultChecked = {this.props.selectedRow.namingRule.tableName}/>
+       </div></div>
+       <div className='row'>   
+       <div className={'col-xs-4 col-md-3'} style={{display: 'flex'}}>
+				<Checkbox label="ServiceName" defaultChecked = {this.props.selectedRow.namingRule.serviceName} />
+        <Checkbox label="Topic Name"   defaultChecked = {this.props.selectedRow.namingRule.topicName}/>
+        <Checkbox label="Table Name"   defaultChecked = {this.props.selectedRow.namingRule.tableName}/>
 			 </div>
 			</div>
-
       <div>
       	<h3>End Points</h3>
           {
@@ -41,7 +43,7 @@ export default class BackendDetectionList extends React.Component {
           	))
           } 
       List Wala Data : {this.props.backendType}<br/>
-      Props : {JSON.stringify(this.props.selectedRow)}
+      Props : {/*JSON.stringify(this.props.selectedRow)*/}
       </div>
     </div>  
     );

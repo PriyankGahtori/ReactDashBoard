@@ -7,8 +7,10 @@ import DataGrid from '../components/DCDetailTable';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import DialogBackendList from 'material-ui/Dialog';
+import DialogNewBackendPoint from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import BackendDetectionList from './BackendDetectionList';
+import FormNewEndPoint from './Form_BackendDetection_AddNew';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
@@ -51,7 +53,7 @@ const NewButtonstyle = {
 
   constructor(props) {
     super(props);
-    this.state = {'openBackendList': false, 'backendType': 'Backends','selecteRow':{}}
+    this.state = {'openBackendList': false, 'openNewBackendPointDialog': false,'backendType': 'Backends','selecteRow':{}}
 
   }
   
@@ -84,6 +86,21 @@ const NewButtonstyle = {
     this.setState({openBackendList: false});
   };
 
+  handleOpenNewendPoint(){
+    this.setState({openNewBackendPointDialog:true});
+  };
+
+  handleCloseNewendPoint(){
+    this.setState({openNewBackendPointDialog:false});
+  };
+  handleSubmitNewendPoint(){
+    this.refs.newBackendPoint.submit();
+    this.handleCloseNewendPoint();
+  }
+  submitNewEndPointForm(data){
+      console.info("submitNewEndPointForm",data);
+  }
+
   render() {
    
    const actions = [
@@ -96,6 +113,19 @@ const NewButtonstyle = {
         label="Discard"
         primary={true}
         onTouchTap={this.handleClose.bind(this)}
+      />,
+    ];
+
+  const actionsNewEndPoint = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCloseNewendPoint.bind(this)}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        onTouchTap={this.handleSubmitNewendPoint.bind(this)}
       />,
     ];
 
@@ -142,13 +172,25 @@ const NewButtonstyle = {
 		</DialogBackendList>       
 
       <div>
-         <AddNewButton style={NewButtonstyle}>
+         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
             <AddIcon />
-         </AddNewButton>      
+         </AddNewButton>
+               {/* Dialog For Adding New EndPoint*/}
+        <DialogNewBackendPoint
+          title="Add New Backend Entry Point"
+          actions={actionsNewEndPoint}
+          modal={false}
+          open={this.state.openNewBackendPointDialog}
+          onRequestClose={this.handleCloseNewendPoint.bind(this)}
+          autoScrollBodyContent={true}
+        >
+          <FormNewEndPoint ref="newBackendPoint" onSubmit={this.submitNewEndPointForm.bind(this)}/>
+        </DialogNewBackendPoint>
+
       </div>
 
-   </div>
-    );
+   </div>   
+   );
   }
 }
 function mapStateToProps(state) {

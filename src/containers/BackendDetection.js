@@ -10,6 +10,7 @@ import DialogBackendList from 'material-ui/Dialog';
 import DialogNewBackendPoint from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import BackendDetectionList from './BackendDetectionList';
+import FormEditBackEndPts from './Form_BackendDetection_Edit';
 import FormNewEndPoint from './Form_BackendDetection_AddNew';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -30,7 +31,7 @@ var columns = {
               }; 
 
 /*var data = [{"type": {"href":"HTTP"},"desc": "All HTTP Backends", "enable": true,"id": 1},
-			{"type": {"href":"DB"},"desc": "All HTTP Backends", "enable": true,"id": 2},
+s			{"type": {"href":"DB"},"desc": "All HTTP Backends", "enable": true,"id": 2},
 			{"type": {"href":"RMI"},"desc": "All HTTP Backends", "enable": true,"id": 3}
 			];*/
 
@@ -53,7 +54,11 @@ const NewButtonstyle = {
 
   constructor(props) {
     super(props);
-    this.state = {'openBackendList': false, 'openNewBackendPointDialog': false,'backendType': 'Backends','selecteRow':{}}
+     this.state ={endpoints :[]};
+    this.state = {'openBackendList': false, 
+                  'openNewBackendPointDialog': false,
+                  'backendType': 'Backends',
+                  'selecteRow':{}}
 
   }
   
@@ -75,50 +80,120 @@ const NewButtonstyle = {
   handleHref(row)
   {
   	console.log("in function handleHref--",row);
+    this.props.initializeBackendPtsEditForm(row)
+    /*
+    * openBackendList state use to open dialog of edit form
+    */
   	this.setState({backendType: row.type.href ,openBackendList: true,selecteRow: row});  	
-  } 
+  } ;
 
   handleOpen(){
     this.setState({openBackendList: true});
   };
 
-  handleClose(){
-    this.setState({openBackendList: false});
-  };
+  //For adding form
 
   handleOpenNewendPoint(){
     this.setState({openNewBackendPointDialog:true});
   };
 
-  handleCloseNewendPoint(){
+ handleCloseNewendPoint(){
     this.setState({openNewBackendPointDialog:false});
   };
+
   handleSubmitNewendPoint(){
     this.refs.newBackendPoint.submit();
     this.handleCloseNewendPoint();
   }
-  submitNewEndPointForm(data){
-      console.info("submitNewEndPointForm",data);
+
+   //This handles the form submittion for adding new end point
+   submitNewEndPointForm(data){
+       console.info("submitNewEndPointForm",data);
+
+      //get backendTypeName from ID
+      let backendTypeName;
+      let arr = this.props.backEndDetection.tableData.filter(function(val) {        
+        return val.id == data.backendTypeId;
+      });
+      if(arr.length !=0)
+        backendTypeName = arr[0].type.href;
+      
+      //get fqm and desc if not custom by parsing data.fqm
+      if(data.customFQMToggle != true && data.fqm != undefined)
+      {
+        var parsedObj = Object.assign({},JSON.parse(data.fqm));
+        data.fqm = parsedObj.fqm;
+        data.desc = parsedObj.desc;
+      }
+        //calling action for updating 
+     this.props.addNewBackendPoint(data,this.props.params.profileId);
+      console.info("backendTypeName",backendTypeName);
+      console.info("backendTypeName arr",arr);
+}
+//function called for buttons used in Dialog for editing backend end points
+  handleCloseEditEndPt(){
+       this.setState({openBackendList: false});
   }
 
-  render() {
+  handleSubmitEditEndPt(){
+    this.refs.editBackendPt.submit();
+    console.log("handleSubmitEditEndPt")
+  }
+
+  submitEditEndPointForm(data){  
+    console.log("data----",data);
+    data.endPoints=[];
+    Object.keys(data).map(function(key){
+      var endPointObj = {};
+      console.log("value---",key);
+      if(key.startsWith("endPoint")){
+        console.log("key----",key)
+
+        /*let splitArr = key.split("_");
+        
+        console.log("id--",splitArr[1])
+        console.log("value--",data[key]
+        
+        endPointObj.id = splitArr[1];
+        endPointObj.enabled = data[key]
+        data.endPoints.push(endPointObj);
+        //console.log("data---",data)*/
+      }
+    })
+    console.log("data---aftr splitting--",data)
    
+    
+  }
+
+ 
+  handleToggleBackendPts(value){
+  console.log("toggle button changed---",value)
+
+  //this.state.endpoints.
+ 
+
+  }
+ 
+
+  render() {
+  // buttons for edit form 
    const actions = [
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onTouchTap={this.handleCloseEditEndPt.bind(this)}
       />,
       <FlatButton
-        label="Discard"
+        label="Submit"
         primary={true}
-        onTouchTap={this.handleClose.bind(this)}
+        onTouchTap={this.handleSubmitEditEndPt.bind(this)}
       />,
     ];
 
+// buttons for add form
   const actionsNewEndPoint = [
       <FlatButton
-        label="Cancel"
+        label = "Cancel"
         primary={true}
         onTouchTap={this.handleCloseNewendPoint.bind(this)}
       />,
@@ -156,6 +231,8 @@ const NewButtonstyle = {
           onhref={this.handleHref.bind(this)}
         />
         </Paper>
+
+       { /* Dialog and form for editing backend end points*/}
 		
 		<DialogBackendList
 		  title={this.state.backendType}
@@ -163,19 +240,30 @@ const NewButtonstyle = {
           modal={true}
           autoScrollBodyContent={true}
           open={this.state.openBackendList}
-          onRequestClose={this.handleClose.bind(this)}
+          onRequestClose={this.handleCloseEditEndPt.bind(this)}
 
 		>
-		  <BackendDetectionList 
+		  {/*<BackendDetectionList 
 		    backendType={this.state.backendType}
-		    selectedRow={this.state.selecteRow}/>
+		    selectedRow={this.state.selecteRow}/>*/}
+
+    <FormEditBackEndPts ref="editBackendPt" 
+        selectedRow={this.state.selecteRow} 
+        backendType={this.state.backendType} 
+        handleToggleBackendPts={this.handleToggleBackendPts.bind(this)}
+
+        onSubmit={this.submitEditEndPointForm.bind(this)} />
+
 		</DialogBackendList>       
+
+  {/*------------------------------------------------------------------------------*/}
 
       <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
             <AddIcon />
          </AddNewButton>
-               {/* Dialog For Adding New EndPoint*/}
+
+      {/*----------- Dialog For Adding New EndPoint--------------*/}
         <DialogNewBackendPoint
           title="Add New Backend Entry Point"
           actions={actionsNewEndPoint}

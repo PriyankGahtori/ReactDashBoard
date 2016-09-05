@@ -4,6 +4,10 @@ import Checkbox from 'material-ui/Checkbox';
 export default class CheckboxWrapper extends React.Component {
  
   onCheck(evt, value) {
+    console.log("on check fun called",this.props)
+    console.log("value---",value)
+
+    if(this.props.onChange)
       this.props.onChange(value); 
 
     //custom callback function  

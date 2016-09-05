@@ -21,9 +21,9 @@ import Snackbar from 'material-ui/Snackbar';
 */
 
 var columns = {
-                "key" : "_links",
+                "key" : "id",
                 "data":['TopoName', 'TopoDesc','LINK'],
-                "field":['topoName', 'topoDesc','_links']
+                "field":['topoName', 'topoDesc','id']
               }; 
 
 const style = {
@@ -128,8 +128,8 @@ class TopologyDetail extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.appDetail)
-    console.log("in componentWillReceiveProps--",this.props.appDetail)
+    console.log("in componentWillReceiveProps--",nextProps.topoDetailData)
+    console.log("in componentWillReceiveProps--",this.props.topoDetailData)
     if(this.props.topoDetailData!= nextProps.topoDetailData)
       this.setState({topoDetailData:nextProps.topoDetailData});
   }
@@ -186,7 +186,7 @@ class TopologyDetail extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("appDetail---",state.topoDetailData.tableData)
+  console.log("topoDetailData---",state.topoDetailData.tableData)
   return {
     topoDetailData :state.topoDetailData
    };

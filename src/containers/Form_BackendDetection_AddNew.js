@@ -8,7 +8,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Toggle from '../components/ToggleWrapper';
 //import Toggle from 'material-ui/Toggle';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-export const fields = [ 'entryTypeId', 'name', 'enabled','fqm','customFQMToggle','customFQM','desc' ]
+export const fields = [ 'backendTypeId', 'name', 'enabled','fqm','customFQMToggle','customFQM','desc' ]
 const initialValues = {
               'customFQMToggle':false
 }
@@ -134,8 +134,10 @@ handleChange(event,index,value){
           >
           {
            this.props.listBackendPoints.map((value)=>(
+             //assigning both fqm and desc to same radio button, can be parsed to get value
             <RadioButton
               value = {value.id} 
+               value = {`{"fqm":"${value.endPointFQM}","desc":"${value.endPointDesc}","id":"${value.id}"}`} 
               label = {value.endPointName} 
               disabled={this.state.enable}                      
             />
@@ -158,14 +160,14 @@ handleChange(event,index,value){
 
   render() {
  
-     const { fields: { entryTypeId,name,enabled,fqm,customFQMToggle,customFQM,desc}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+    const { fields: { backendTypeId,name,enabled,fqm,customFQMToggle,customFQM,desc}, resetForm, handleSubmit,onSubmit, submitting } = this.props 
         
   return (
     <form >
     <div className ="row">
 
       <div className ="col-md-4">
-       {this.renderDropDown(entryTypeId)}  
+         {this.renderDropDown(backendTypeId)}  
       </div>
 
       <div className ="col-md-3">
@@ -226,12 +228,12 @@ AddNewEndPointForm.propTypes = {
 }
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'Backend Entry Points ',                           // a unique name for this form
-  fields,
+  form: 'Backend Entry Points '                          // a unique name for this form
+  //fields
   
 },
   state => ({ // mapStateToProps
- 
+ fields ,
   listBackendTypes : state.backEndDetection.listBackendTypes,
   listBackendPoints : state.backEndDetection.listBackendPoints
 }),

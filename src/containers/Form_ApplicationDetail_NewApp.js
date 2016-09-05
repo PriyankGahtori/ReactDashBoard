@@ -2,14 +2,19 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-export const fields = ['appName', 'appDesc', 'userName'];
-const initialValues = { 
-                'dcName' : "safasfasfa", 
-                'dcIp' : "sadasdasdas", 
-                'dcPort' :" asfasfasfas",
-                'ndeIp' : "SdDAD",
-                'ndePort' : "34342"
-              }
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
+
+export const fields = ['appName', 'appDesc', 'userName' ,'topoName'];
+
+ const styles = {
+    customWidth: {
+      width: 300
+    }
+  };
+
+
+
 
 //validating the fields of form
 const validate = values => {
@@ -42,10 +47,25 @@ const validate = values => {
   return errors
 }
 class NewApplication extends React.Component {
+
+  constructor(props) {
+  super(props);
+  this.handleChange = this.handleChange.bind(this);
+   this.state = {
+                 value:this.props.topoData[2].value[0].id
+               };
+  }
+
+
+  handleChange(event, index, value){
+  console.log("inside handleChange")
+  this.setState({value})
+}
+
   render() {
       console.log("props",this.props);
 
-     const { fields: { appName, appDesc, userName}, resetForm, handleSubmit, submitting } = this.props
+     const { fields: { appName, appDesc, userName,topoId}, resetForm, handleSubmit, submitting } = this.props
      return (
        <form onSubmit={handleSubmit(data =>{ alert(JSON.stringify(data))})}>
             <div className ="row" >
@@ -78,6 +98,26 @@ class NewApplication extends React.Component {
                   errorText={userName.touched && userName.error && <div>{userName.error}</div>}
                 />
              </div>
+          
+
+           
+             <div className ="col-md-6">
+                <DropDownMenu 
+                  value={this.state.value}                
+                  style={styles.customWidth}
+                  autoWidth={false}
+                  onChange={this.handleChange.bind(this)} 
+                >
+
+                {
+                  /* Iterate over topology data */
+                  this.props.topoData[2].value.map((data, index) => (   
+                  <MenuItem value={data.id} key={data.id} primaryText={data.name}/>
+                  ))
+                }
+                 
+                </DropDownMenu>
+                </div>
             </div>
        </form>
      );
@@ -95,5 +135,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields,
   validate
 },state => ({ // mapStateToProps
-  initialValues:state.applicationdata.appDetailInitializeForm
+  initialValues:state.applicationdata.appDetailInitializeForm,
+  topoData:state.initialData
 }))(NewApplication);

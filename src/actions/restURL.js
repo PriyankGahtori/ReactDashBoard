@@ -54,3 +54,7 @@ export const GET_BT = `${SERVICE_URL}/profiles`;
 /* Url for Backend Detection */
 export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;
 export const FETCH_BACKEND_TYPES = `${SERVICE_URL}/backendTypes`;
+export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`
+
+
+export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;

@@ -1,9 +1,12 @@
 const initialState = { 
 						tableData :[],
 						listBackendTypes : [], 
-						listBackendPoints : []
+						listBackendPoints : [],
+            initializeBackendForm :{} ,
+            fields:[]
 				      }
 export default function(state = initialState ,action){
+  console.log("in main reducer func bacjend--",action)
 
 switch(action.type){
 
@@ -41,6 +44,46 @@ switch(action.type){
 	newState.listBackendPoints = responseData;
 	console.info("responseData listBackendPoints",responseData);
   return newState;
+
+  case 'INITIALIZE_BACKEND_FORM':
+  var newState = Object.assign({},state);
+  let fields = ['backend_Type_id','host','port','url','serviceName','topicName','tableName'];
+  console.log("in reducer ---",action.payload)
+   console.log("in INITIALIZE_BACKEND_FORM--",newState.initializeBackendForm)
+
+  newState.initializeBackendForm.backend_Type_id = action.payload.id;
+  newState.initializeBackendForm.host = action.payload.namingRule.host,
+  newState.initializeBackendForm.port = action.payload.namingRule.port,
+  newState.initializeBackendForm.url  = action.payload.namingRule.url,
+  newState.initializeBackendForm.serviceName = action.payload.namingRule.serviceName,
+  newState.initializeBackendForm.tableName = action.payload.namingRule.tableName,
+  newState.initializeBackendForm.topicName = action.payload.namingRule.topicName
+
+  action.payload.lstEndPoints.map(function(value){
+    console.log("value---",value)
+    fields.push("endPoint_"+value.id);
+    newState.initializeBackendForm["endPoint_"+value.id ]= value.enabled;
+  })
+  newState.fields = fields;
+  console.log("aftr initializing---",newState.initializeBackendForm)
+  return newState;
+
+  case 'ADD_NEW_BACKEND_POINT':
+    var newState = Object.assign({},state);
+    var responseData = action.payload.data;
+               //creating endpoint from responseobj    
+    var endPointObj = {};
+        endPointObj.id = responseData.id;
+        endPointObj.name = responseData.name;
+        endPointObj.description = responseData.desc;
+        endPointObj.enabled = responseData.enabled;
+       //Adding new endpoint 
+    newState.tableData.map(function(val){
+       if(val.id === responseData.backendTypeId)
+               val.lstEndPoints.push(endPointObj);
+    });        
+
+   return newState;
 
 }
 return state;

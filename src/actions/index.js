@@ -231,6 +231,7 @@ export function addRowApplicationTable(formData,openAppDialogType){
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
+  
 
   console.log("response",response)
   return {
@@ -329,7 +330,8 @@ export function topoInitializeForm(data,openTopoDialogType,dcId){
 
 export function fetchTopoDetailTable(){
   console.log("fetch topo detail action called")
-  const URLTable =  "http://10.10.40.7:8050/configUI/topology";
+  //const URLTable =  "http://10.10.40.7:8050/configUI/topology";
+  const URLTable = `${url.FETCH_ALL_TOPODATA}`; 
   const request_table = axios.get(URLTable);
   console.log("request_table",request_table)
 
@@ -752,3 +754,25 @@ export function fetchBackendPoints(backendId){
   }
 }
 
+
+export function initializeBackendPtsEditForm(selectedRow){
+  console.log("in initializeBackendPtsEditForm--",selectedRow)
+ 
+  return{
+    type :'INITIALIZE_BACKEND_FORM',
+    payload :selectedRow
+  }
+}
+
+export function addNewBackendPoint(data,profileId){
+  var response = axios({
+    method : 'post',
+    url    : `${url.ADD_NEW_BACKEND_POINT}/${profileId}`,
+    data   : data,
+    headers: {'Content-Type':'application/json'}
+  });
+  return{
+    type : 'ADD_NEW_BACKEND_POINT',
+    payload : response
+  }
+}

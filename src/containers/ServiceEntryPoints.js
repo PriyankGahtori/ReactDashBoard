@@ -152,6 +152,7 @@ handleRequestClose(){
 
 onToggle(row){
     console.log("ontoggle function --event triggered---",row)
+    //
     if(row.tableType === "serviceEntryPoint")
     {
       row.enabled = !row.enabled;
@@ -162,7 +163,7 @@ onToggle(row){
 
   generateFile(){
     console.log("generate   file function called")
-    this.props.toggleGenerateFileDialog();
+    this.props.generateConfFile(this.props.params.profileId,"NDEntryPoints");
   }
 
   
@@ -198,7 +199,7 @@ onToggle(row){
                       open= {this.state.sepDialog}
                       actions={actions} />
 
-        <DialogGenerateFile/>
+        
 
         <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
             pagination = {false} 

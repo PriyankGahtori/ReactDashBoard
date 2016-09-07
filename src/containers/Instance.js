@@ -18,9 +18,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key"  : "instanceId",
+                "key"  : "id",
                 "data" : ['Instance Name', 'Instance Description','instanceId'],
-                "field": ['instanceName', 'instanceDesc','instanceId']
+                "field": ['instanceName', 'instanceDesc','id']
               }; 
 
 const style = {

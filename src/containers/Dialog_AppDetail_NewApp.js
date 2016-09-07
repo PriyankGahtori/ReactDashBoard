@@ -85,6 +85,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openAppDialogType)
+                                console.log("data in adding---",data)
                                  this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                                }
 

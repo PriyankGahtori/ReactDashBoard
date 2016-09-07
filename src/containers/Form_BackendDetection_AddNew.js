@@ -120,7 +120,7 @@ handleChange(event,index,value){
 
   else{
     console.log("listBackendPoints not null")
-    return(
+   return(
       <div styles={styles.entryPointBlock} >
         
         <div className="row" >

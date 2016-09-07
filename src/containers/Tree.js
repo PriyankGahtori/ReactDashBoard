@@ -32,14 +32,15 @@ import * as actionCreators  from '../actions/index';
       hashHistory.push(`/${node.type}/${node.id}`)
 
       if(node.type == "dcdetail" ){
-        console.log("fetchtopologytreedata")
+        console.log("fetchtopologytreedata--",node)
         this.props.fetchTopologyTreeData(node)
       }
 
       if (node.type == "topology"){
-        console.log("fetch treedata")
+        console.log("fetch treedata--tier--",node)
         this.props.fetchTierTreeData(node)
       }
+
        if (node.type == "tier"){
         console.log("fetch treedata server")
         this.props.fetchServerTreeData(node)

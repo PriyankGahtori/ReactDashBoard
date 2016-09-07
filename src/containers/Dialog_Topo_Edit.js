@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DialogNewTopo from 'material-ui/Dialog';
+import DialogEditTopo from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import FormNewTopo from './Form_Topo_NewTopo';
+import FormEditTopo from './Form_Topo_EditTopo';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 
@@ -15,6 +15,7 @@ class Dialog_Topo_NewTopo extends React.Component {
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state ={topologyData:this.props.topologyData};
+  
   }
 
   componentWillReceiveProps(nextProps)
@@ -24,13 +25,19 @@ class Dialog_Topo_NewTopo extends React.Component {
   }
 
   handleCancel(){
-     this.props.toggleStateDialogNewTopo();
+     this.props.toggleStateDialogEditTopo();
   }
   
   handleSubmit(){
-  this.refs.newTopoForm.submit();
+  this.refs.editTopoForm.submit();
   this.handleCancel();
   console.log("after closing the dialog----")
+  }
+
+  submitForm(data){
+    //here data conatins {"dctopoId",profileId}
+    console.log("data---",data)
+    this.props.attachProfToTopology(data)
   }
  
   render() {
@@ -51,11 +58,11 @@ class Dialog_Topo_NewTopo extends React.Component {
 
     return (
       <div>
-      <DialogNewTopo
+      <DialogEditTopo
           title="Select Topology"
           actions={actions}
           modal={false}
-          open={this.state.topologyData.openNewTopoDialog}
+          open={this.state.topologyData.openEditTopoDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={false}
           refs="insidedialog"
@@ -66,34 +73,15 @@ class Dialog_Topo_NewTopo extends React.Component {
            */
         }
         
-      <FormNewTopo ref="newTopoForm" onSubmit={data =>{
-                console.log("this.state.topologyData.openTopoDialogType - ",this.state.topologyData.openTopoDialogType)
-                               if(this.state.topologyData.openTopoDialogType == "edit"){
-
-                                data["_links"] = this.state.topologyData.topoDetailInitializeForm._links;
-                                console.log("data-aftr adding---",data)
-                                console.log("openTopoDialogType----",this.state.topologyData.openTopoDialogType)
-                                this.props.addRowTopoTable(data,this.state.topologyData.openTopoDialogType,this.state.topoDetail.dcId)
-                              }
-                              else{
-                                console.log("on submit---in else or add condition--data--",data)
-                                console.log("this.state.topologyData.openTopoDialogType--",this.state.topologyData.openTopoDialogType)
-                                console.log("dcId----",dcId)
-                                this.props.fetchTreeData(this.state.topologyData.appId)
-                                this.props.addRowTopoTable(data,this.state.topologyData.openTopoDialogType,this.state.topoDetail.dcId)
-                                console.log("in dialog aftr adding n updating tree")
-
-                              }
-
-      }}/>
-      </DialogNewTopo>
+      <FormEditTopo ref="editTopoForm" onSubmit={this.submitForm.bind(this)}/>
+      </DialogEditTopo>
       </div>
     );
   }
 } 
 
 function mapStateToProps(state) {
-  console.log("openNewTopoDialog--22222221111-",state.topologyData.openNewTopoDialog)
+  console.log("openNewTopoDialog--22222221111-",state.topologyData.openEditTopoDialog)
   console.log("DialogNewTopo---11111111122222",state.topologyData.topoInitializeForm)
   console.log("inside DialogNewTopo")
   return {

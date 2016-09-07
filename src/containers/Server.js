@@ -15,9 +15,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key"  : "serverId",
+                "key"  : "id",
                 "data" : ['Server Name', 'Server Description','serverId'],
-                "field": ['serverName', 'serverDesc','serverId']
+                "field": ['serverName', 'serverDesc','id']
               }; 
 
 const style = {

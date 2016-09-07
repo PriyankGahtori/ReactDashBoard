@@ -7,7 +7,7 @@ const SERVICE_URL = 'http://localhost:8090';
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 
 /* Url for Application Table */
-export const APP_TABLE_DATA = `${SERVICE_URL}/application`;
+export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/application`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
 export const DEL_ROW_APP_URL = `${SERVICE_URL}/application`;
@@ -21,6 +21,7 @@ export const DEL_ROW_DC_URL = `${SERVICE_URL}/dcdetail`;
 export const FETCH_TOPO_TABLE_URL = `${SERVICE_URL}/custom/topology`;
 export const FETCH_TOPO_TREE_URL = `${SERVICE_URL}/custom/tree/topology`;
 export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
+export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`

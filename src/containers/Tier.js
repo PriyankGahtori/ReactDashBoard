@@ -15,9 +15,9 @@ import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key"  : "tierId",
+                "key"  : "id",
                 "data" : ['Tier Name', 'Tier Desc','tierId'],
-                "field": ['tierName', 'tierDesc','tierId']
+                "field": ['tierName', 'tierDesc','id']
               }; 
 
 const style = {

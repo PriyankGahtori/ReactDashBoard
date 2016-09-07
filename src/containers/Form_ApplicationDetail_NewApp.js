@@ -2,21 +2,23 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenu from '../components/SelectFieldWrapper';
 import MenuItem from 'material-ui/MenuItem';
 
-export const fields = ['appName', 'appDesc', 'userName' ,'topoName'];
-
+export const fields = ['appName', 'appDesc', 'userName','topoId'];
+const initialValues = { 
+                'dcName' : "safasfasfa", 
+                'dcIp' : "sadasdasdas", 
+                'dcPort' :" asfasfasfas",
+                'ndeIp' : "SdDAD",
+                'ndePort' : "34342"
+              }
  const styles = {
     customWidth: {
       width: 300
     }
   };
-
-
-
-
-//validating the fields of form
+/*//validating the fields of form
 const validate = values => {
   const errors = {}
  
@@ -45,22 +47,22 @@ const validate = values => {
   }
   
   return errors
-}
+}*/
 class NewApplication extends React.Component {
 
-  constructor(props) {
+constructor(props) {
   super(props);
-  this.handleChange = this.handleChange.bind(this);
-   this.state = {
-                 value:this.props.topoData[2].value[0].id
-               };
+  console.log("in form topo-- !!!",this.props.data)
+  console.log("this.props.data[2]value - ")
+  this.state = {value:this.props.data[2].value[0].id};
+
   }
 
-
-  handleChange(event, index, value){
-  console.log("inside handleChange")
-  this.setState({value})
+handleChangeTopology(event, index, value){
+  console.log("inside handleChangeTopology---",value)
+  this.setState({value:value})
 }
+
 
   render() {
       console.log("props",this.props);
@@ -98,26 +100,28 @@ class NewApplication extends React.Component {
                   errorText={userName.touched && userName.error && <div>{userName.error}</div>}
                 />
              </div>
-          
 
-           
-             <div className ="col-md-6">
+             <div className = "col-md-6">
+
                 <DropDownMenu 
+                {...topoId}
                   value={this.state.value}                
                   style={styles.customWidth}
                   autoWidth={false}
-                  onChange={this.handleChange.bind(this)} 
+                  customOnChange={this.handleChangeTopology.bind(this)} 
+                  floatingLabelText="Select Topology"
                 >
 
                 {
                   /* Iterate over topology data */
-                  this.props.topoData[2].value.map((data, index) => (   
-                  <MenuItem value={data.id} key={data.id} primaryText={data.name}/>
+                  this.props.data[2].value.map((val, index) => (   
+
+                  <MenuItem value={val.id} key={val.id} primaryText={val.name}/>
                   ))
                 }
                  
                 </DropDownMenu>
-                </div>
+              </div>
             </div>
        </form>
      );
@@ -132,9 +136,10 @@ NewApplication.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields,
-  validate
-},state => ({ // mapStateToProps
+  fields
+ // validate
+},
+state => ({ // mapStateToProps
   initialValues:state.applicationdata.appDetailInitializeForm,
-  topoData:state.initialData
+  data:state.initialData
 }))(NewApplication);

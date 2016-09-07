@@ -1,5 +1,6 @@
 const initialState = {tableData:[],
 					 openNewTopoDialog:false,  //initializing varia
+					 openEditTopoDialog:false,
                      topoInitializeForm:null,
                      openTopoDialogType:null};
 
@@ -21,14 +22,36 @@ export default function(state = initialState, action) {
 	    console.log("newState.openNewTopoDialog--",newState.openNewTopoDialog)
 	    return newState;
 
+	 case 'TOGGLE_STATE_EDIT_TOPO':
+	 	var newState = Object.assign({},state);
+	    console.log("newState.openEditTopoDialog--",newState.openEditTopoDialog)
+	    newState.openEditTopoDialog = !newState.openEditTopoDialog;
+	    console.log("newState.openEditTopoDialog--",newState.openEditTopoDialog)
+	    return newState;
+
+	case 'ATTACH_PROFTO_TOPO':
+		var newState = Object.assign({},state);
+		console.log("payload data--",action.payload.data)
+		newState.tableData.map(function(value){
+			console.log("iterating topotable--",value)
+			if(value.dcTopoId == action.payload.data.dcTopoId)
+			{
+				value.profileName = action.payload.data.profileName ;
+			}
+		})
+		console.log("aftr updating--",newState.tableData)
+		return newState;
+
 	case 'UPDATE_TOPO_FORM':
 	    console.log("update form topoooooooooooooo");
 	    var newState = Object.assign({}, state);
 	    console.log("in updating form----",action.payload)
 	    console.log("in updating form  flag---",action.payload.openTopoDialogType)
-	    newState.topoInitializeForm=action.payload.data;
-	    newState.openTopoDialogType=action.payload.openTopoDialogType;
-	    newState.dcId = action.payload.dcId;
+	    var initial = {"dcTopoId":action.payload[0]};
+	    newState.topoInitializeForm = initial;
+	    console.log("reducer topo---", newState.topoInitializeForm)
+	    //newState.openTopoDialogType=action.payload.openTopoDialogType;
+	   // newState.dcId = action.payload.dcId;
 	    return newState;
 
 	case 'TOPOTABLE_DEL_ROW_UPDATE_TREE':

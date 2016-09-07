@@ -72,6 +72,7 @@ class ApplicationDetail extends React.Component {
     }
   };
 
+
   handleClose(){
     this.setState({open: false});
   };
@@ -81,6 +82,7 @@ class ApplicationDetail extends React.Component {
     console.log("del row function called")
     console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRowKeys--",selectedRowKeys)
    // console.log("href-----------",selectedRowKeysObj)
     /*selectedRowKeysObj.map(
                           value =>{

@@ -172,7 +172,7 @@ export function toggleStateDialogNewApp(){
 
 export function fetchAppTableData(){
 //  const URLTable =  "http://10.10.40.7:8050/configUI/application";
-  const URLTable =  `${url.APP_TABLE_DATA}`
+  const URLTable =  `${url.FETCH_APP_TABLE_DATA}`;
   const request_table = axios.get(URLTable);
   console.log("request_table",request_table)
 
@@ -305,24 +305,49 @@ export function toggleStateDialogNewTopo(){
   }
 }
 
+export function toggleStateDialogEditTopo(){
+  console.log("action triggered---for new topology")
+  return {
+    type:'TOGGLE_STATE_EDIT_TOPO'
+
+  }
+}
+
 /*
  * Initializes value of Dialog box's form field
  *    type :  add ( state is set to null) 
  *            edit( state assigned to selected row )          
 */
 
-export function topoInitializeForm(data,openTopoDialogType,dcId){
-  console.log("updateformInitialValue Topo",data )
-  console.log("flag---",openTopoDialogType)
-  console.log("dcId",dcId)
-  var payload={ "data":data,"openTopoDialogType":openTopoDialogType,"dcId":dcId};
+export function topoInitializeForm(dcTopoId){
+ 
+  console.log("dcTopoId--",dcTopoId)
+  //var payload={ "data":data,"openTopoDialogType":openTopoDialogType,"dcId":dcId};
 
   return {
     type:'UPDATE_TOPO_FORM',
-    payload:payload
+    payload:dcTopoId
   }
 }
 
+export function attachProfToTopology(data){
+  console.log("in action cfreator--",data)
+  
+ var response = axios({
+        method: 'put',
+        url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
+
+        }); 
+ return{
+  type:'ATTACH_PROFTO_TOPO',
+  payload:response
+ }
+}
+
+export function addRowTopoTable(data,type,dcId){
+  console.log("addRowTopoTable function called--",data)
+  
+}
 /*
 * Action creators for TopologyDetail Screen
 *

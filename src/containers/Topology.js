@@ -9,6 +9,7 @@ import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
 import DialogNewTopology from './Dialog_Topo_NewTopo';
+import DialogEditTopology from './Dialog_Topo_Edit';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -16,8 +17,8 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key"  : "dcTopoId",
-                "data" : ['Topology Name', 'Topology Desc','State','dcTopoId'],
-                "field": ['topoName', 'topoDesc','topoState','dcTopoId']
+                "data" : ['Topology Name', 'Topology Desc','State','Profile','dcTopoId'],
+                "field": ['topoName', 'topoDesc','topoState','profileName','dcTopoId']
               }; 
 
 const style = {
@@ -86,6 +87,30 @@ class Topology extends React.Component {
   handleClick(){
     console.log("selecting row")
   }
+
+  handleOpenEdit(){
+      console.log("editing the App form")
+
+      // gets the selected key of table
+      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
+      
+      if(selectedRow.length == 1)
+      {
+       console.log("selectedRow--in editing form--",selectedRow)
+      /*  let selectedRowData = this.props.topologyData.tableData
+                                  .filter(function(value){
+                                    console.log("value---in selectrow----",value)
+                                //    return value._ === selectedRow[0].self.href
+                                  });*/
+        
+        //action to dispatch selectRowData
+        this.props.topoInitializeForm(selectedRow);
+        
+        this.props.toggleStateDialogEditTopo();
+    
+}
+  }
+
   handleOpen(openTopoDialogType){
 
     console.log("in handleopen---",openTopoDialogType)
@@ -130,13 +155,8 @@ class Topology extends React.Component {
     * triggerring an action to fetch topology table data
     *   here node.id is dc_id  
     */
-     console.log("in mount methos--",this.props.routeParams.dcId)
-     console.log("in topology mount method---",Object.keys(this.state.topologyData.tableData).length)
-     if(Object.keys(this.state.topologyData.tableData).length == 0){
-          console.log("componentWillMount method called")
-         this.props.fetchTopologyTableData(this.props.routeParams.dcId);
-   }
-
+  
+     this.props.fetchTopologyTableData(this.props.routeParams.dcId);
    
   }
 
@@ -169,7 +189,7 @@ class Topology extends React.Component {
               <h4>Topology Detail</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
@@ -187,6 +207,7 @@ class Topology extends React.Component {
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
+         <DialogEditTopology/>
          <DialogNewTopology />
       </div>
 

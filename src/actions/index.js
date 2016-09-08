@@ -801,3 +801,87 @@ export function addNewBackendPoint(data,profileId){
     payload : response
   }
 }
+
+
+/* Action creators for Bussiness Transaction pattern screen*/
+
+export function ListOfGroupNames(){
+  console.log("action triggered- fetchListOfGroupNames --")
+  const URL =`${url.FETCH_LIST_GROUP_NAMES_FORM}`
+  const response = axios.get(URL);
+  console.log("ListOf group names----",response)
+  return{
+    type :'LIST_GROUP_NAMES',
+    payload:response
+  }
+}
+
+export function fetchBTPatternTableData(profileId){
+  console.log("fetchBTPatternTabledata action triggere-----")
+  const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching bt pattern---",request_table)
+  return {
+    type:'FETCH_BT_PATTERN_TABLEDATA',
+    payload:request_table
+  }
+}
+
+export function addBTPatternData(formData,profileId,groupId){
+
+  console.log("addBTPatternData------in actions--",formData)
+  console.log("profileId----",profileId)
+  console.log("groupId----",groupId)
+   var response = axios({
+    method:'post',
+     url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}/${groupId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("response----adding addBTPatternData---",response)
+  return {
+    type : 'ADD_NEW_BT_PATTERN',
+    payload : response
+  }
+  
+}
+
+export function toggleStateAddBTPattern(){
+  console.log("action triggered--toggling----for new bt pattern")
+  return {
+    type:'TOGGLE_STATE_ADD_BT_PATTERN'
+  }
+}
+
+export function addBTGroupData(formData,profileId){
+
+  console.log("addBTPatternData------in actions--",formData.chkNewGroup)
+  console.log("profileId----",profileId)
+
+  if(formData.chkNewGroup == true)
+  {
+      var response = axios({
+      method:'post',
+       url : `${url.ADD_NEW_BT_GROUP_DETAILS}/${profileId}`,
+      data: formData,
+      headers:{'Content-Type':'application/json'}
+    });
+    return {
+      type : 'ADD_NEW_BT_GROUP',
+      payload : response
+    }
+  }
+  else
+  {
+     const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}/${formData.id}`
+     const request_table = axios.get(URL);
+
+    return {
+      type : 'SELECTED_BT_GROUP',
+      payload:request_table,
+      meta:formData
+    }
+  }
+   
+ }

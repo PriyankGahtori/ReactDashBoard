@@ -51,6 +51,10 @@ export const UPDATE_TOGGLE_PROFSEPASSOC = ` ${SERVICE_URL}/custom/profileservice
 /* Url fot BussinessTransaction */
 export const ADD_BT = `${SERVICE_URL}/custom/btGlobal`;
 export const GET_BT = `${SERVICE_URL}/profiles`;
+export const FETCH_LIST_GROUP_NAMES_FORM = `${SERVICE_URL}/btgroup`;
+export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
+export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
+export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
 
 /* Url for Backend Detection */
 export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;

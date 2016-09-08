@@ -72,6 +72,11 @@ class ApplicationDetail extends React.Component {
     }
   };
 
+ handleHref(row)
+  {
+    console.log("in function handleHref-in Application-",row);
+    hashHistory.push(`/application/${row.appId}`)
+  } 
 
   handleClose(){
     this.setState({open: false});

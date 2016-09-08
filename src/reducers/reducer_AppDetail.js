@@ -21,6 +21,7 @@ export default function(state = initialState, action) {
         var id= val._links.self.href.slice(index+1,val._links.self.href.length)
 //        val._links.self.href=id;
         val.id = id ;
+        val.appName ={"href":val.appName};
         console.log("id----",id)
         console.log(" val._links.self.href", val.id)
     })

@@ -939,11 +939,14 @@ export function addNewBackendPoint(data,profileId){
 }
 
 
+<<<<<<< HEAD
 
 /*
 * BTpattern screen
 */
 
+=======
+>>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
 /* Action creators for Bussiness Transaction pattern screen*/
 
 export function ListOfGroupNames(){
@@ -959,8 +962,13 @@ export function ListOfGroupNames(){
 
 export function fetchBTPatternTableData(profileId){
   console.log("fetchBTPatternTabledata action triggere-----")
+<<<<<<< HEAD
    const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
    const request_table = axios.get(URL);
+=======
+  const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
+>>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
   console.log("request_table in fetching bt pattern---",request_table)
   return {
     type:'FETCH_BT_PATTERN_TABLEDATA',
@@ -985,7 +993,11 @@ console.log("response----adding addBTPatternData---",response)
     type : 'ADD_NEW_BT_PATTERN',
     payload : response
   }
+<<<<<<< HEAD
  
+=======
+  
+>>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
 }
 
 export function toggleStateAddBTPattern(){
@@ -1013,7 +1025,11 @@ export function addBTGroupData(formData,profileId){
       payload : response
     }
   }
+<<<<<<< HEAD
  else
+=======
+  else
+>>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
   {
      const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}/${formData.id}`
      const request_table = axios.get(URL);
@@ -1025,4 +1041,8 @@ export function addBTGroupData(formData,profileId){
     }
   }
    
+<<<<<<< HEAD
  }
+=======
+ }
+>>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2

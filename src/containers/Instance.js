@@ -11,16 +11,16 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewTopology from './Dialog_Topo_NewTopo';
+import DialogNewInstance from './DialogAttachProfile_Instance';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key"  : "id",
-                "data" : ['Instance Name', 'Instance Description','instanceId'],
-                "field": ['instanceName', 'instanceDesc','id']
+                "key"  : "instanceId",
+                "data" : ['Instance Name', 'Instance Description','profileName','instanceId'],
+                "field": ['instanceName', 'instanceDesc','profLink','instanceId']
               }; 
 
 const style = {
@@ -69,38 +69,50 @@ class Instance extends React.Component {
   }
 
 
-  handleOpen(openTopoDialogType){
+  handleOpen(){
     //for editing form
-    if(openTopoDialogType == "edit"){
-
+    
+  console.log("editing the instance form")
       // gets the selected key of table
       let selectedRow= this.refs.instanceTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
+        console.log("selectedRow----",selectedRow)
         let selectedRowData = this.props.instanceData.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    console.log("value.instanceId ---",value.instanceId)
+                                    console.log("selectedRow[0].instanceId---",selectedRow[0].instanceId)
+                                    console.log(value.instanceId === selectedRow[0])
+                                    console.log(value.instanceId == selectedRow[0])
+                                    return value.instanceId === selectedRow[0];
                                   });
+        console.log("selectedRowData----",selectedRowData[0])
+
         //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType);
-        this.props.toggleStateDialogNewTopo();
+        this.props.instanceInitializeForm(selectedRowData[0],this.props.routeParams.serverId);
+        this.props.toggleStateDialogInstance();
+         this.refs.instanceTable.refs.table.cleanSelected();
       }
       else{
         //toster notification: Only one row can be edited
-      }
-
-    }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
-    }
+        this.setState({open: true});
+      }       
+    
        
   }
 
   componentWillMount() {
-         this.props.fetchInstanceTableData(this.props.routeParams.serverId);
+    console.log("this.props.tierData.tableData---",this.props.serverData.tableData)
+    var serverId = this.props.routeParams.serverId;
+    console.log("serverId----",serverId)
+    var server = this.props.serverData.tableData.filter(function(value){
+      console.log("value---",value)
+      console.log("value.serverId === serverId---",value.serverId == serverId)
+                      return value.serverId == serverId ;
+                  })
+    console.log("tier in server componet--",server[0])
+    this.props.fetchInstanceTableData(this.props.routeParams.serverId,server[0]);
   }
 
   componentWillReceiveProps(nextProps)
@@ -110,8 +122,16 @@ class Instance extends React.Component {
      */
      console.log("nextProps---")
      if(this.props.routeParams.serverId!= nextProps.routeParams.serverId){
-        console.log("nextProps.routeParams.serverId---",nextProps.routeParams.serverId)
-        this.props.fetchInstanceTableData(nextProps.routeParams.serverId);
+
+    var serverId = nextProps.routeParams.serverId;
+    console.log("serverId--nextprops--",serverId)
+    var server = nextProps.serverData.tableData.filter(function(value){
+      console.log("value---",value)
+      console.log("value.serverId === serverId---",value.serverId == serverId)
+                      return value.serverId == serverId ;
+                  })
+    console.log("tier in server componet--",server[0])
+    this.props.fetchInstanceTableData(nextProps.routeParams.serverId,server[0]);
     }
   
     if(this.props.instanceData != nextProps.instanceData){
@@ -130,7 +150,7 @@ class Instance extends React.Component {
               <h4>Instance Detail</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
@@ -150,7 +170,7 @@ class Instance extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-
+        <DialogNewInstance/>
    </div>
 
     );
@@ -161,6 +181,7 @@ function mapStateToProps(state) {
   console.log("instanceData--",state.instanceData)
   return {
     instanceData :state.instanceData,
+    serverData:state.serverData
    };
 }
 

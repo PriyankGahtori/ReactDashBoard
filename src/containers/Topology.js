@@ -48,7 +48,7 @@ class Topology extends React.Component {
   this.updateNode = this.updateNode.bind(this);
   this.delRow = this.delRow.bind(this);
   this.state ={openNewTopoDialog:false}
-  this.handleOpen = this.handleOpen.bind(this);
+  this.handleOpenAddDialog = this.handleOpenAddDialog.bind(this);
   this.handleClick = this.handleClick.bind(this);
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
@@ -97,56 +97,31 @@ class Topology extends React.Component {
       if(selectedRow.length == 1)
       {
        console.log("selectedRow--in editing form--",selectedRow)
-      /*  let selectedRowData = this.props.topologyData.tableData
-                                  .filter(function(value){
-                                    console.log("value---in selectrow----",value)
-                                //    return value._ === selectedRow[0].self.href
-                                  });*/
-        
+       let selectedRowData = this.props.topologyData.tableData
+                                 .filter(function(value){
+                                  console.log("value---in selectrow----",value)
+                                  if(value.dcTopoId === selectedRow[0]){
+                                    console.log("condition satisfied")
+                                    // return value;
+                                  }
+                                  return value.dcTopoId === selectedRow[0]
+
+                                }); 
+         console.log("selectedRow--in editing form-gettimg whole object-",selectedRowData)        
         //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRow);
-        
+        this.props.topoInitializeForm(selectedRowData,this.props.routeParams.dcId);
         this.props.toggleStateDialogEditTopo();
     
 }
   }
 
-  handleOpen(openTopoDialogType){
+  handleOpenAddDialog(){
 
-    console.log("in handleopen---",openTopoDialogType)
+   
     //for editing form
-    if(openTopoDialogType == "edit"){
-      console.log("editing the App form")
-
-      // gets the selected key of table
-      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
-      
-      if(selectedRow.length == 1)
-      {
-        console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.topologyData.tableData
-                                  .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
-                                  });
-        console.log("selectedRowData----",selectedRowData[0])
-
-        //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType);
-        
-        this.props.toggleStateDialogNewTopo();
-      }
-      else{
-        //toster notification: Only one row can be edited
-        this.setState({open: true});
-      }
-
-    }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
-    }
-       
+    console.log("adding form")
+    this.props.topoInitializeForm(null,this.props.routeParams.dcId); //clears previous/initial values
+    this.props.toggleStateDialogNewTopo(); //opens dialog box
   }
 
   componentWillMount() {
@@ -203,8 +178,9 @@ class Topology extends React.Component {
         </Paper>
 
 
+
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
+         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpenAddDialog.bind(this)} >
             <AddIcon />
          </AddNewButton>
          <DialogEditTopology/>
@@ -213,7 +189,7 @@ class Topology extends React.Component {
 
       <Snackbar
           open={this.state.open}
-          message="No row selected or multiple rows selected"
+          message="No row selected or multiple rows selected "         
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />

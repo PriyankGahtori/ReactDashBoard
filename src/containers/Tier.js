@@ -12,12 +12,14 @@ import DialogNewTopology from './Dialog_Topo_NewTopo';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import DialogAttachProfile from './DialogAttachProfile_Tier';
+import {hashHistory } from 'react-router';
 
-
+ 
 var columns = {
-                "key"  : "id",
-                "data" : ['Tier Name', 'Tier Desc','tierId'],
-                "field": ['tierName', 'tierDesc','id']
+                "key"  : "tierId",
+                "data" : ['Tier Name', 'Tier Desc','profileName','tierId'],
+                "field": ['tierName', 'tierDesc','profLink','tierId']
               }; 
 
 const style = {
@@ -85,42 +87,39 @@ class Tier extends React.Component {
   handleClick(){
     console.log("selecting row")
   }
-  handleOpen(openTopoDialogType){
 
-    console.log("in handleopen---",openTopoDialogType)
+   handleHref(row)
+  {
+    console.log("in function handleHref-in Application-",row);
+    hashHistory.push(`/configuration/${row.profileId}`)
+  } 
+
+  handleOpen(){
+
+    
     //for editing form
-    if(openTopoDialogType == "edit"){
-      console.log("editing the App form")
-
+    console.log("editing the App form")
       // gets the selected key of table
-      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
+      let selectedRow= this.refs.tierTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.topologyData.tableData
+        let selectedRowData = this.props.tierData.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    return value.id === selectedRow[0].id;
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType);
-        
-        this.props.toggleStateDialogNewTopo();
-      }
+        this.props.tierInitializeForm(selectedRowData[0],this.props.routeParams.topoId);
+        this.props.toggleStateDialogTier();
+        this.refs.tierTable.refs.table.cleanSelected(); 
+             }
       else{
         //toster notification: Only one row can be edited
         this.setState({open: true});
-      }
-
-    }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
-    }
-       
+      }       
   }
 
   componentWillMount() {
@@ -129,9 +128,14 @@ class Tier extends React.Component {
     * triggerring an action to fetch topology table data
     *   here node.id is dc_id  
     */
+    console.log("tier component loaded---")
+    console.log("in component will mount---",this.props.topologyData)
+    var topoId = this.props.routeParams.topoId;
+    var topology = this.props.topologyData.tableData.filter(function(value){
+                      return value.topoId === topoId ;
+                  })
      console.log("in mount methos--",this.props.routeParams.topoId)
-   
-         this.props.fetchTierTableData(this.props.routeParams.topoId);
+    this.props.fetchTierTableData(this.props.routeParams.topoId,topology[0]);
   
 
    
@@ -144,8 +148,13 @@ class Tier extends React.Component {
      */
      console.log("nextProps---")
      if(this.props.routeParams.topoId!= nextProps.routeParams.topoId){
-        console.log("nextProps.routeParams.dcId---",nextProps.routeParams.dcId)
-        this.props.fetchTierTableData(nextProps.routeParams.topoId);
+     var topoId = nextProps.routeParams.topoId;
+      var topology = nextProps.topologyData.tableData.filter(function(value){
+                      return value.topoId === topoId ;
+                  })
+     console.log("in mount methos--",nextProps.routeParams.topoId)
+    this.props.fetchTierTableData(nextProps.routeParams.topoId,topology[0]);
+  
   }
 
     if(this.props.tierData != nextProps.tierData){
@@ -165,16 +174,17 @@ class Tier extends React.Component {
               <h4>Tier Detail</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 
         <DataGrid data = {this.props.tierData.tableData} 
                   pagination={false} 
-                  ref="topoTable" 
+                  ref = "tierTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  onhref={this.handleHref.bind(this)}
          />
         </Paper>
 
@@ -186,6 +196,7 @@ class Tier extends React.Component {
           onRequestClose={this.handleRequestClose}
         />
 
+    <DialogAttachProfile />
    </div>
 
     );
@@ -196,6 +207,7 @@ function mapStateToProps(state) {
   console.log("appDetail---",state.tierData)
   return {
     tierData :state.tierData,
+    topologyData :state.topologyData
    };
 }
 

@@ -31,7 +31,8 @@ componentWillReceiveProps(nextProps)
     }
     return (   
             <div className="row">       
-        		{this.props.homeData.map((data, index) => (            
+        		{this.props.homeData.map((data, index) => (
+                          
             	<CardComponent key={data.id} data={data}/>
         ))}   
       </div> 

@@ -23,7 +23,7 @@ export default function(state = initialState, action) {
         val.id = id ;
         val.appName ={"href":val.appName};
         console.log("id----",id)
-        console.log(" val._links.self.href", val.id)
+        
     })
     newState.tableData = data;
     return newState;

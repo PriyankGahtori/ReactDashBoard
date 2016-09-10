@@ -1,36 +1,46 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import DialogNewTopo from 'material-ui/Dialog';
+import DialogEditInstance from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import FormNewTopo from './Form_Topo_NewTopo';
+import FormInstance from './Form_Instance';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 
 
 
-class Dialog_Topo_NewTopo extends React.Component {
+class DialogAttachProfile_Instance extends React.Component {
   constructor(props) {
   super(props);
   console.log("inside DialogNewTopo class")
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
-  this.state ={topologyData:this.props.topologyData};
+  this.state ={instanceData:this.props.instanceData};
+    
+
+  
   }
 
   componentWillReceiveProps(nextProps)
   {
-    if(this.props.topologyData != nextProps.topologyData)
-      this.setState({topologyData:nextProps.topologyData});
+    if(this.props.instanceData != nextProps.instanceData)
+      this.setState({instanceData:nextProps.instanceData});
   }
 
   handleCancel(){
-     this.props.toggleStateDialogNewTopo();
+    // this.props.toggleStateDialogEditTopo();
+    this.props.toggleStateDialogInstance();
   }
   
   handleSubmit(){
-  this.refs.newTopoForm.submit();
+  this.refs.editInstanceForm.submit();
   this.handleCancel();
   console.log("after closing the dialog----")
+  }
+
+  submitForm(data){
+    //here data conatins {"dctopoId",profileId}
+    console.log("data---",data)
+    this.props.attachProfToInstance(data)
   }
  
   render() {
@@ -51,11 +61,11 @@ class Dialog_Topo_NewTopo extends React.Component {
 
     return (
       <div>
-      <DialogNewTopo
-          title="Select Topology"
+      <DialogEditInstance
+          title="Attach Profile"
           actions={actions}
           modal={false}
-          open={this.state.topologyData.openNewTopoDialog}
+          open={this.state.instanceData.openInstanceDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={false}
           refs="insidedialog"
@@ -66,25 +76,21 @@ class Dialog_Topo_NewTopo extends React.Component {
            */
         }
         
-      <FormNewTopo ref="newTopoForm" onSubmit={data =>{
-                                this.props.addRowTopoTable(data,this.state.topologyData.dcId)
-                                console.log("in dialog aftr adding n updating tree")
-                                // this.props.fetchTreeData(this.state.topologyData.appId)
-                              }}
-
-    />
-      </DialogNewTopo>
+      <FormInstance ref="editInstanceForm" onSubmit={this.submitForm.bind(this)}/>
+      </DialogEditInstance>
       </div>
     );
   }
 } 
 
 function mapStateToProps(state) {
-  console.log("openNewTopoDialog--22222221111-",state.topologyData.openNewTopoDialog)
+  console.log("openNewTopoDialog--22222221111-",state.topologyData.openEditTopoDialog)
   console.log("DialogNewTopo---11111111122222",state.topologyData.topoInitializeForm)
   console.log("inside DialogNewTopo")
   return {
-   topologyData :state.topologyData
+     instanceData :state.instanceData,
+   serverData :state.serverData
+  
    };
 }
 
@@ -94,4 +100,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Dialog_Topo_NewTopo);
+export default connect(mapStateToProps, mapDispatchToProps)(DialogAttachProfile_Instance);

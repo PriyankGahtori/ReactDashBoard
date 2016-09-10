@@ -3,7 +3,7 @@ import {reduxForm} from 'redux-form';
 import DropDownMenu from '../components/SelectFieldWrapper';
 import MenuItem from 'material-ui/MenuItem';
 
-export const fields = [ 'topoId','profileId' ]
+export const fields = [ 'instanceId','profileId' ]
 
   const styles = {
     customWidth: {
@@ -17,14 +17,12 @@ class NewApplication extends React.Component {
   super(props);
   console.log("in form topo-- !!!",this.props.data)
   console.log("this.props.data[2]value - ")
-  this.state = {valueTopo:1};
+  this.state={valueProf:1}
+ 
 
   }
 
-handleChangeTopology(event, index, value){
-  console.log("inside handleChangeTopology---")
-  this.setState({valueTopo:value})
-}
+
 
 handleChangeProfile(event, index, value){
   console.log("inside handleChangeProfile--",value)
@@ -41,29 +39,11 @@ componentWillMount() {
   }
 
   render() {
-     const { fields: { topoId,profileId}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {instanceId, profileId}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row" >
-              <div className = "col-md-6">
-                <DropDownMenu 
-                {...topoId}
-                  value={this.state.valueTopo}                
-                  style={styles.customWidth}
-                  autoWidth={false}
-                  customOnChange={this.handleChangeTopology.bind(this)} 
-                  floatingLabelText = "Topology"
-                >
-
-                {
-                  /* Iterate over topology data */
-                  this.props.data[2].value.map((val, index) => (   
-                  <MenuItem value={val.id} key={val.id} primaryText={val.name}/>
-                  ))
-                }
-                 
-                </DropDownMenu>
-              </div>
+              
 
               <div className = "col-md-6">
                 <DropDownMenu
@@ -99,6 +79,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-  data:state.initialData
+  data:state.initialData,
+  initialValues :state.instanceData.instanceInitializeForm
 })
 ) (NewApplication);

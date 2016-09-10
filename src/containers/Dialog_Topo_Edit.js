@@ -37,7 +37,7 @@ class Dialog_Topo_NewTopo extends React.Component {
   submitForm(data){
     //here data conatins {"dctopoId",profileId}
     console.log("data---",data)
-    this.props.attachProfToTopology(data)
+    this.props.attachProfToTopology(data,this.state.topologyData.dcId)
   }
  
   render() {

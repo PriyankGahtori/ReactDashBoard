@@ -194,7 +194,7 @@ export function delAppTableRow(selectedRowKeys){
        // url : `http://10.10.40.7:8050/configUI/application/${value}`
         });
 })
-  
+console.log()  
   return{
     type:'DEL_APPTABLE_ROW',
     payload:selectedRowKeys
@@ -319,22 +319,23 @@ export function toggleStateDialogEditTopo(){
  *            edit( state assigned to selected row )          
 */
 
-export function topoInitializeForm(dcTopoId){
+export function topoInitializeForm(data,dcId){
  
-  console.log("dcTopoId--",dcTopoId)
-  //var payload={ "data":data,"openTopoDialogType":openTopoDialogType,"dcId":dcId};
+  console.log("dcTopoId--",data)
+  var payload={ "data":data,"dcId":dcId};
 
   return {
     type:'UPDATE_TOPO_FORM',
-    payload:dcTopoId
+    payload:payload
   }
 }
-
+//called on submitting edit profile to topology form
 export function attachProfToTopology(data){
   console.log("in action cfreator--",data)
+  console.log("in action cfreator--",dcId)
   
  var response = axios({
-        method: 'put',
+        method: 'GET',
         url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
 
         }); 
@@ -344,9 +345,23 @@ export function attachProfToTopology(data){
  }
 }
 
-export function addRowTopoTable(data,type,dcId){
+export function addRowTopoTable(data,dcId){
   console.log("addRowTopoTable function called--",data)
-  
+   var response = axios({
+    method:'post',
+   
+     url : `${url.ADD_ROW_TOPOLOGY_URL}/${dcId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+  });
+
+  console.log("response",response)
+  return {
+    type: 'TOPOLOGY_ADD_ROW',
+    payload: response
+  };
+
+
 }
 /*
 * Action creators for TopologyDetail Screen
@@ -505,7 +520,7 @@ export function addRowProfileTable(data,type)
 * Action creators for adding Tier node to parent Topo node
 */
 export function fetchTierTreeData(parentTopologyNode){
-  console.log("in post request for fetchtreetopodata")
+  console.log("in post request for fetchtreetopodata---",parentTopologyNode)
    var response = axios({
     method:'post',
    // url: `http://10.10.40.74:8090/configUI/custom/tree/tier/${parentTopologyNode.id}`,
@@ -522,19 +537,58 @@ console.log("in activetopologydata--response---",response)
 
 }
 
-export function fetchTierTableData(topoId){
-  console.log("fetchTierTableData action called");
-  const URL =  `${url.FETCH_TIER_TABLE_URL}/${topoId}/tier`;
-  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  const request_table = axios.get(URL);
-  console.log("request_table in fetching topotable",request_table)
-
+export function fetchTierTableData(topoId,topology){
+  console.log("fetchTierTableData action called-topology-",topology);
+ 
+  
+  var response = axios({
+    method:'post',
+    url :   `${url.FETCH_TIER_TABLE_URL}/${topoId}`,
+    data: topology,
+    headers:{'Content-Type':'application/json'}
+  
+  });
+ 
+  console.log("request_table in fetching topotable",response)
   return {
     type: 'FETCH_TIER_TABLE_DATA',
-    payload:request_table
+    payload:response
   };
 
 }
+
+
+export function tierInitializeForm(data,topoId){
+ 
+  console.log("tier data--",data)
+  //var payload={ "data":data};
+
+  return {
+    type:'UPDATE_TIER_FORM',
+    payload: data
+  }
+}
+
+export function toggleStateDialogTier(){
+  return {
+    type:'TOGGLE_STATE_TIER_DIALOG'
+
+  }
+
+}
+
+export function attachProfToTier(data){
+  console.log("darta--",data)
+   
+  const response = axios.get(`${url.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
+
+    return {
+    type: 'ATTACH_PROFTO_TIER',
+    payload:response
+    }
+}
+
+
 
 /*
 action creators for server
@@ -561,35 +615,87 @@ console.log("in activetopologydata--response---",response)
 }
 
 
-export function fetchServerTableData(tierId){
-  console.log("fetchTierTableData action called");
-  const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}/server`;
-  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  const request_table = axios.get(URL);
-  console.log("request_table in fetching topotable",request_table)
+export function fetchServerTableData(tierId,tier){
 
+  console.log("fetchTierTableData action called---",tier);
+  const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}`;
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+ 
+  
+  var response = axios({
+    method:'post',
+    url : `${url.FETCH_SERVER_TABLE_URL}/${tierId}`,
+    data: tier,
+    headers:{'Content-Type':'application/json'}
+  
+  });
+ 
+ console.log("fetching srver---",response)
   return {
     type: 'FETCH_SERVER_TABLE_DATA',
-    payload:request_table
+    payload:response
   };
 
+}
+
+export function serverInitializeForm(data){
+ 
+  console.log("tier data--",data)
+  //var payload={ "data":data};
+
+  return {
+    type:'UPDATE_SERVER_FORM',
+    payload: data
+  }
+}
+
+export function toggleStateDialogServer(){
+  return {
+    type:'TOGGLE_STATE_SERVER_DIALOG'
+
+  }
+
+}
+
+export function attachProfToServer(data){
+  console.log("darta- i  server-",data)
+   
+  const response = axios.get(`${url.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}`);
+
+    return {
+    type: 'ATTACH_PROFTO_SERVER',
+    payload:response
+    }
 }
 
 /*
   Action creators for Instance screen
 */
 
-export function fetchInstanceTableData(serverId){
-  console.log("fetchTierTableData action called");
-  const URL =  `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}/instance`;
-  const request_table = axios.get(URL);
-  console.log("request_table in fetching topotable",request_table)
+export function fetchInstanceTableData(serverId,server){
+  console.log("fetchInstanceTableData action called");
+
+  /*const URL =  `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}/instance`;
+  const response = axios.get(URL);
+  console.log("request_table in fetching topotable",response)
+*/
+
+  console.log("fetchTierTableData action called---",server);
+ 
+  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+ 
+  var response = axios({
+    method:'post',
+    url : `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}`,
+    data: server,
+    headers:{'Content-Type':'application/json'}
+  
+  });
 
   return {
     type: 'FETCH_INSTANCE_TABLE_DATA',
-    payload:request_table
+    payload:response
   };
-
 }
 
 export function fetchInstanceTreeData(parentTierNode){
@@ -608,6 +714,36 @@ console.log("in activetopologydata--response---",response)
   }
 
 
+}
+
+export function instanceInitializeForm(data){
+   console.log("instance data--",data)
+  //var payload={ "data":data};
+
+  return {
+    type:'UPDATE_INSTANCE_FORM',
+    payload: data
+  }
+
+}
+
+export function toggleStateDialogInstance(){
+  return {
+    type:'TOGGLE_STATE_INSTANCE_DIALOG'
+
+  }
+
+}
+
+export function attachProfToInstance(data){
+  console.log("darta- i  instance",data)
+   
+  const response = axios.get(`${url.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
+  console.log("response---",response)
+    return {
+    type: 'ATTACH_PROFTO_INSTANCE',
+    payload:response
+    }
 }
 /*
 * Action creators for service entry points
@@ -801,3 +937,92 @@ export function addNewBackendPoint(data,profileId){
     payload : response
   }
 }
+
+
+
+/*
+* BTpattern screen
+*/
+
+/* Action creators for Bussiness Transaction pattern screen*/
+
+export function ListOfGroupNames(){
+  console.log("action triggered- fetchListOfGroupNames --")
+  const URL =`${url.FETCH_LIST_GROUP_NAMES_FORM}`
+  const response = axios.get(URL);
+  console.log("ListOf group names----",response)
+  return{
+    type :'LIST_GROUP_NAMES',
+    payload:response
+  }
+}
+
+export function fetchBTPatternTableData(profileId){
+  console.log("fetchBTPatternTabledata action triggere-----")
+   const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
+   const request_table = axios.get(URL);
+  console.log("request_table in fetching bt pattern---",request_table)
+  return {
+    type:'FETCH_BT_PATTERN_TABLEDATA',
+    payload:request_table
+  }
+}
+
+export function addBTPatternData(formData,profileId,groupId){
+
+  console.log("addBTPatternData------in actions--",formData)
+  console.log("profileId----",profileId)
+  console.log("groupId----",groupId)
+   var response = axios({
+    method:'post',
+     url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}/${groupId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("response----adding addBTPatternData---",response)
+  return {
+    type : 'ADD_NEW_BT_PATTERN',
+    payload : response
+  }
+ 
+}
+
+export function toggleStateAddBTPattern(){
+  console.log("action triggered--toggling----for new bt pattern")
+  return {
+    type:'TOGGLE_STATE_ADD_BT_PATTERN'
+  }
+}
+
+export function addBTGroupData(formData,profileId){
+
+  console.log("addBTPatternData------in actions--",formData.chkNewGroup)
+  console.log("profileId----",profileId)
+
+  if(formData.chkNewGroup == true)
+  {
+      var response = axios({
+      method:'post',
+       url : `${url.ADD_NEW_BT_GROUP_DETAILS}/${profileId}`,
+      data: formData,
+      headers:{'Content-Type':'application/json'}
+    });
+    return {
+      type : 'ADD_NEW_BT_GROUP',
+      payload : response
+    }
+  }
+ else
+  {
+     const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}/${formData.id}`
+     const request_table = axios.get(URL);
+
+    return {
+      type : 'SELECTED_BT_GROUP',
+      payload:request_table,
+      meta:formData
+    }
+  }
+   
+ }

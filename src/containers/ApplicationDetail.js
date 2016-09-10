@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import ConfirmDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import {hashHistory } from 'react-router';
 
 
 /*
@@ -75,7 +76,7 @@ class ApplicationDetail extends React.Component {
  handleHref(row)
   {
     console.log("in function handleHref-in Application-",row);
-    hashHistory.push(`/application/${row.appId}`)
+    hashHistory.push(`/application/${row.id}`)
   } 
 
   handleClose(){
@@ -213,6 +214,7 @@ class ApplicationDetail extends React.Component {
                   ref="appTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  onhref={this.handleHref.bind(this)}
          />
         </Paper>
        

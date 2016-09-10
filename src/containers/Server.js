@@ -8,16 +8,16 @@ import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogNewTopology from './Dialog_Topo_NewTopo';
+import DialogAttachProfile from './DialogAttachProfile_Server';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 
 
 var columns = {
-                "key"  : "id",
-                "data" : ['Server Name', 'Server Description','serverId'],
-                "field": ['serverName', 'serverDesc','id']
+                "key"  : "serverId",
+                "data" : ['Server Name', 'Server Description','profileName','serverId'],
+                "field": ['serverName', 'serverDesc','profLink','serverId']
               }; 
 
 const style = {
@@ -68,11 +68,7 @@ class Server extends React.Component {
       console.log("del row function called")
       console.log("calling del method---table ref--",this.refs.topoTable.refs.table.state.selectedRowKeys)
     let selectedRowKeysObj = this.refs.topoTable.refs.table.state.selectedRowKeys;
-   
-   /* selectedRowKeysObj.forEach(
-                          value =>{
-                          selectedRowKeys.push(value.self.href)
-                          }) */
+  
     console.log("selectedRowKeys--",selectedRowKeys)
 
   /*var selectRowsValueForServer= this.props.dcDetail.tableData
@@ -86,58 +82,54 @@ class Server extends React.Component {
   handleClick(){
     console.log("selecting row")
   }
-  handleOpen(openTopoDialogType){
 
-    console.log("in handleopen---",openTopoDialogType)
+  handleOpen(){
     //for editing form
-    if(openTopoDialogType == "edit"){
-      console.log("editing the App form")
-
+    console.log("editing the server form")
       // gets the selected key of table
-      let selectedRow= this.refs.topoTable.refs.table.state.selectedRowKeys;
+      let selectedRow= this.refs.serverTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
-        let selectedRowData = this.props.topologyData.tableData
+        let selectedRowData = this.props.serverData.tableData
                                   .filter(function(value){
-                                    return value._links.self.href === selectedRow[0].self.href
+                                    console.log("value.serverId ---",value.serverId)
+                                    console.log("selectedRow[0].serverId---",selectedRow[0].serverId)
+                                    console.log(value.serverId === selectedRow[0])
+                                    console.log(value.serverId == selectedRow[0])
+                                    return value.serverId === selectedRow[0];
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData[0],openTopoDialogType);
-        
-        this.props.toggleStateDialogNewTopo();
+        this.props.serverInitializeForm(selectedRowData[0],this.props.routeParams.tierId);
+        this.props.toggleStateDialogServer();
+         this.refs.serverTable.refs.table.cleanSelected();
       }
       else{
         //toster notification: Only one row can be edited
-      }
-
-    }
-    else if(openTopoDialogType == "add"){ //for adding new row
-      console.log("adding form")
-       this.props.topoInitializeForm(null,openTopoDialogType); //clears previous/initial values
-       this.props.toggleStateDialogNewTopo(); //opens dialog box
-    }
+        this.setState({open: true});
+      }       
        
   }
 
   componentWillMount() {
     
     /*
-    * triggerring an action to fetch topology table data
+    * triggerring an action to fetch server table data
     *   here node.id is dc_id  
     */
-     console.log("in mount methos--",this.props.routeParams.dcId)
-    // console.log("in topology mount method---",Object.keys(this.state.topologyData.tableData).length)
-   /*  if(Object.keys(this.state.topologyData.tableData).length == 0){*/
-          console.log("componentWillMount method called")
-          console.log(this.props.routeParams.tierId)
-         this.props.fetchServerTableData(this.props.routeParams.tierId);
-  // }
-
-   
+    console.log("this.props.tierData.tableData---",this.props.tierData.tableData)
+    var tierId = this.props.routeParams.tierId;
+    console.log("tierId----",tierId)
+    var tier = this.props.tierData.tableData.filter(function(value){
+      console.log("value---",value)
+      console.log("value.tierId === tierId---",value.tierId == tierId)
+                      return value.tierId == tierId ;
+                  })
+    console.log("tier in server componet--",tier[0])
+     this.props.fetchServerTableData(this.props.routeParams.tierId,tier[0]);
   }
 
   componentWillReceiveProps(nextProps)
@@ -147,8 +139,17 @@ class Server extends React.Component {
      */
      console.log("nextProps---")
      if(this.props.routeParams.tierId!= nextProps.routeParams.tierId){
-        console.log("nextProps.routeParams.tierId---",nextProps.routeParams.tierId)
-        this.props.fetchServerTableData(nextProps.routeParams.tierId);
+      
+      var tierId = nextProps.routeParams.tierId;
+      console.log("nextProps.routeParams.tierId---",nextProps.routeParams.tierId)
+      console.log("tierId----",tierId)
+      var tier = nextProps.tierData.tableData.filter(function(value){
+        console.log("value---",value)
+        console.log("value.tierId === tierId---",value.tierId == tierId)
+                      return value.tierId == tierId ;
+                  })
+    console.log("tier in server componet--",tier[0])
+     this.props.fetchServerTableData(nextProps.routeParams.tierId,tier[0]);
     }
   
 
@@ -168,14 +169,14 @@ class Server extends React.Component {
               <h4>Server Detail</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 
         <DataGrid data = {this.props.serverData.tableData} 
                   pagination={false} 
-                  ref="topoTable" 
+                  ref="serverTable" 
                   column = {columns}
                   onClick={this.handleClick}
          />
@@ -188,7 +189,8 @@ class Server extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
         />
-
+        
+        <DialogAttachProfile/>
    </div>
 
     );
@@ -199,6 +201,7 @@ function mapStateToProps(state) {
   console.log("serverData--",state.serverData)
   return {
     serverData :state.serverData,
+    tierData:state.tierData
    };
 }
 

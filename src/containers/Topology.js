@@ -13,12 +13,13 @@ import DialogEditTopology from './Dialog_Topo_Edit';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import {hashHistory } from 'react-router';
 
 
 var columns = {
                 "key"  : "dcTopoId",
                 "data" : ['Topology Name', 'Topology Desc','State','Profile','dcTopoId'],
-                "field": ['topoName', 'topoDesc','topoState','profileName','dcTopoId']
+                "field": ['topoName', 'topoDesc','topoState','profLink','dcTopoId']
               }; 
 
 const style = {
@@ -57,6 +58,13 @@ class Topology extends React.Component {
   onSelectRow(){
     console.log("onSelectRow----")
   }
+  
+    handleHref(row)
+  {
+    console.log("in function handleHref-in Application-",row);
+    hashHistory.push(`/configuration/${row.profileId}`)
+  } 
+
 
   updateNode(e){
     console.log("table ref ",this.refs.table.refs.dcDetailTable.state.selectedRowKeys);
@@ -113,6 +121,13 @@ class Topology extends React.Component {
         this.props.toggleStateDialogEditTopo();
     
 }
+  }
+
+  onToggle(row){
+    console.log("ontoggle function --event triggered---",row)
+    row.topoState = !row.topoState;
+    console.log("aftr toggling--row.topoState-----",row.topoState)
+    this.props.updateToggleStateTopology(row)
   }
 
   handleOpenAddDialog(){
@@ -174,6 +189,8 @@ class Topology extends React.Component {
                   ref="topoTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  onhref={this.handleHref.bind(this)}
+                  onToggle   = {this.onToggle.bind(this)}
          />
         </Paper>
 

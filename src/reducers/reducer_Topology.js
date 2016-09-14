@@ -8,9 +8,13 @@ export default function(state = initialState, action) {
 
   switch(action.type) {
     case 'FETCH_TOPOlOGYTABLE_DATA':
-    	console.log("inside FETCH_TOPOlOGYTABLE_DATA case action.payload.data-----",action.payload);
+      console.log("inside FETCH_TOPOlOGYTABLE_DATA case action.payload.data-----",action.payload);
   	   var newState = Object.assign({}, state);
-  	   newState.tableData=action.payload.data;
+  	   var data =action.payload.data;
+       data.map(function(val){
+        	val.profLink = {"href":val.profileName}
+   	 });
+    	newState.tableData = data;
   	   console.log("newState---",newState.tableData)
        return newState;
 
@@ -77,12 +81,20 @@ export default function(state = initialState, action) {
   		newState.tableData.push(action.payload.data);
   		return newState; 
 
-	  }
-  	
-  	
+    case 'TOGGLE_STATE' :
+    console.log("toggling state reducer--in topology--",action.payload) 
+    var newState = Object.assign({},state);
+    newState.tableData.forEach(function(value){
+      
+      if(value.dcTopoId == action.payload.data.dcTopoId){
+          console.log("val---",value)
+          value.topoState = action.payload.data.topoState ;
+      }
+    })
+    console.log("aaftr changing-topology--",newState.tableData)
+    return newState;
 
-
-
+  }
 
   return state;
 }

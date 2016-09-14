@@ -1,6 +1,8 @@
-//const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = '/configUI';
 
-export const  SERVICE_URL = 'http://10.10.40.77:8090';
+//export const  SERVICE_URL = 'http://10.10.40.77:8090';
+
+export const  SERVICE_URL = 'http://localhost:8090';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -22,6 +24,7 @@ export const FETCH_TOPO_TREE_URL = `${SERVICE_URL}/custom/tree/topology`;
 export const DEL_TOPO_ROW_URL = `${SERVICE_URL}/dctopoassociation`;
 export const ATTACH_PROFTO_TOPO = `${SERVICE_URL}/custom/topology`;
 export const ADD_ROW_TOPOLOGY_URL = `${SERVICE_URL}/custom/topology`;
+export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`

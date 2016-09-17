@@ -24,13 +24,14 @@ export default class ConfigurationSettings extends React.Component {
   constructor(props) {
     super(props);
     console.log("this.props of configurationsetting---",this.props)
-     this.configClicked = this.configClicked.bind(this);
+    
     this.instrClicked = this.instrClicked.bind(this);
+    this.handleGeneralkeywordTab = this.handleGeneralkeywordTab.bind(this);
     }
 
-  configClicked(){
-    console.log(" in configClicked method--------------->")
-  //  hashHistory.push("ConfigSettings");
+  handleGeneralkeywordTab(){
+    console.log(" in handleGeneralkeywordTab method--------------->")
+    hashHistory.push(`generalsettings/${this.props.params.profileId}`);
    }
 
   instrClicked(){
@@ -47,7 +48,7 @@ export default class ConfigurationSettings extends React.Component {
           <div>
            <ListItem primaryText=" General" 
                      secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics" 
-                    onTouchTap={this.configClicked}/>
+                    onTouchTap={this.handleGeneralkeywordTab}/>
                     </div>
            <Divider/>
            <ListItem primaryText=" Instrumentation" 

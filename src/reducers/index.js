@@ -23,6 +23,7 @@ import ServiceEntryPoints from './reducer_ServiceEntryPoints';
 import BTGlobal from './reducer_BTGlobal';
 import BackEndDetection from './reducer_BackendDetection';
 import BTPattern from './reducer_BTPattern';
+import KeyWords from './reducer_keywords';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -43,7 +44,8 @@ module.exports = combineReducers({
 	ServiceEntryPoints:ServiceEntryPoints,
 	BTGlobal          : BTGlobal,
 	backEndDetection  : BackEndDetection,
-	BTPattern         : BTPattern
+	BTPattern         : BTPattern,
+	Keywords          : KeyWords
 });
 
 //const reducers = {addInitialAppData};

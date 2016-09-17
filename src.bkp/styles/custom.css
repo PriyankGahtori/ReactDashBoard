@@ -1,0 +1,17 @@
+.table {
+	margin-bottom: 0px;
+}
+.row-no-margin{
+  margin-right: 0px;
+  margin-left: 0px;	
+}
+.tableheader{
+	background-color: #E0F7FA;
+}
+.breadcrumbs {
+  padding: 8px 15px;
+  margin-bottom: 20px;
+  list-style: none;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}

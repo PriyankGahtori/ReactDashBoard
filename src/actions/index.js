@@ -329,10 +329,9 @@ export function topoInitializeForm(data,dcId){
     payload:payload
   }
 }
+
 //called on submitting edit profile to topology form
 export function attachProfToTopology(data){
-  console.log("in action cfreator--",data)
-  console.log("in action cfreator--",dcId)
   
  var response = axios({
         method: 'GET',
@@ -382,6 +381,27 @@ export function fetchTopoDetailTable(){
 
 
 }
+
+/*
+* Action creators for toggling topology 
+*/
+
+export function updateToggleStateTopology(rowToggled){
+  console.log("in actions---",rowToggled)
+   var response = axios({
+        method: 'put',
+        url : `${url.TOGGLE_STATE_TOPOLOGY}/${rowToggled.dcTopoId}/${rowToggled.topoState}`,
+
+ });
+   console.log("response og toggling toggle button---",response)
+
+   return {
+    type : 'TOGGLE_STATE',
+    payload : response
+  }
+}
+
+
 
 /**
   * function used for the deletion of row for the topology table
@@ -939,17 +959,20 @@ export function addNewBackendPoint(data,profileId){
 }
 
 
+
+
 /*
 * BTpattern screen
 */
+
 /* Action creators for Bussiness Transaction pattern screen*/
 
 
 
 export function fetchBTPatternTableData(profileId){
-  console.log("fetchBTPatternTabledata action triggere-----")
-   const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
-   const request_table = axios.get(URL);
+
+  const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
   console.log("request_table in fetching bt pattern---",request_table)
   return {
     type:'FETCH_BT_PATTERN_TABLEDATA',
@@ -997,5 +1020,48 @@ export function toggleStateAddBTPattern(){
     type: 'GENERATE_ND_CONF_REDU',
     payload:request
   };
-  
  }
+
+ /*
+  * Action creators for General keywords screen
+ */
+export function getKeywordsData(profileId){
+
+  const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
+  console.log("response---",response)
+
+  return{
+    type : 'GET_ALL_KEYWORDS',
+    payload : response
+  }
+}
+
+export function submitKeywordData(data,profileId){
+  console.log("data----",data)
+   var response = axios({
+      method:'post',
+       url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+    });
+   return{
+    type : 'UPDATE_KEYWORDS_DATA',
+    payload : response
+   }
+}
+
+export function generateNdConf(){
+      const URL =  `${url.UPDATE_TOPOLOGY}`;
+      console.log(" in generate topology --------->",URL)
+      const response = axios.get(URL);
+      console.log(" response from generate  -----------------> ",response)
+      return ;
+}
+
+export function updateTopology(){
+    const URL =  `${url.UPDATE_TOPOLOGY}`;
+    console.log(" in update topology --------->",URL)
+    const response = axios.get(URL);
+    console.log(" response from update ----------->",response)
+    return ;
+}

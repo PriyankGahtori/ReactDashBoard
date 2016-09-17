@@ -35,31 +35,30 @@ class GlobalBusinessTransaction extends React.Component {
 
  componentWillReceiveProps(nextProps){
   
-  console.info("initial",this.props.fields.uriType.initialValue);
-  console.info("nextProps",nextProps.fields.uriType.initialValue );
-  console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
-      console.info("initial",this.props.initialData.uriType)
-      console.info("next",nextProps.initialData.uriType)  
+  
+  console.log("this.props.initialData ---",this.props.initialData)
+  console.log("nextProps.initialData---",nextProps.initialData)
+  if(null != nextProps.initialData){
 
-  if(this.props.initialData != nextProps.initialData){
-    let data = nextProps.initialData ; 
-    this.setState({
-       "segmentDivCSS" : data.uriType === "segment" ? "show" : "hidden",
-       "dynamicReqType" : data.dynamicReqType,
-       "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
-       "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
-       "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
-     })
-  }
-  if(this.props.initialData.uriType != nextProps.initialData.uriType)
-    {
-      console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
-      console.info("initial",this.props.initialData.uriType)
-      console.info("next",nextProps.initialData.uriType)  
-      this.setState({"uriType": nextProps.initialData.uriType})
-    }
+      if(this.props.initialData != nextProps.initialData){
+        let data = nextProps.initialData ; 
+        this.setState({
+           "segmentDivCSS" : data.uriType === "segment" ? "show" : "hidden",
+           "dynamicReqType" : data.dynamicReqType,
+           "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
+           "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
+           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
+         })
+      }
+    if(this.props.initialData.uriType != nextProps.initialData.uriType)
+      {
+        console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
+        console.info("initial",this.props.initialData.uriType)
+        console.info("next",nextProps.initialData.uriType)  
+        this.setState({"uriType": nextProps.initialData.uriType})
+      }
  }
-
+}
 
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide

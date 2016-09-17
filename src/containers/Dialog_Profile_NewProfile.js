@@ -27,11 +27,8 @@ class Dialog_Profile_NewProfile extends React.Component {
   }
    
    handleSubmit(){
-    console.log(" in handleSubmit profile form---b4 submit---------------->")
      this.refs.newProfileForm.submit();
-     console.log(" in handleSubmit profile form---after submit---------------->")
-    this.handleCancel();
-    console.log("aftr closing the dialog--in profile--------------->")
+    
   }
  
   render() {
@@ -64,13 +61,14 @@ class Dialog_Profile_NewProfile extends React.Component {
                 data['id'] = this.state.profileDetailData.profileInitializeForm.id;
                 console.log("data----",data)
                 this.props.addRowProfileTable(data,this.state.profileDetailData.openProfileDialogType);
-               
+                 this.handleCancel();
               }
                 else
                   {
                     console.log(" add button clicked------------------------->")
                     this.props.addRowProfileTable(data,this.state.profileDetailData.openProfileDialogType);
-                    console.log(" in add buttton   addRowProfileTable called------------->",data)
+                    this.handleCancel();
+
                   } 
 
                   }}

@@ -12,6 +12,7 @@ import DialogAttachProfile from './DialogAttachProfile_Server';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
+import {hashHistory } from 'react-router';
 
 
 var columns = {
@@ -62,6 +63,11 @@ class Server extends React.Component {
     e.preventDefault()
     this.props.updateTreeNode(this.props.routeParams.something);
   }
+   handleHref(row)
+  {
+    console.log("in function handleHref-in Application-",row);
+    hashHistory.push(`/configuration/${row.profileId}`)
+  } 
 
    delRow(){
       var selectedRowKeys=[];
@@ -179,6 +185,7 @@ class Server extends React.Component {
                   ref="serverTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                   onhref={this.handleHref.bind(this)}
          />
         </Paper>
 

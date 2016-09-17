@@ -16,6 +16,11 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import Tree from '../containers/Tree';
 import Breadcrumbs from 'react-breadcrumbs';
 import DropDownAppList from '../containers/DropDownAppList';
+import SettingsDialog from 'material-ui/Dialog';
+import Dialog_Setting from '../containers/Dialog_Settings';
+import FlatButton from 'material-ui/FlatButton';
+
+
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -45,6 +50,8 @@ export default class Layout extends React.Component {
        };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose = this.handleClose.bind(this); 
+    this.settingScreen = this.settingScreen.bind(this);
+
   }
 
   componentWillMount() {
@@ -90,17 +97,33 @@ export default class Layout extends React.Component {
   		drawerClass: drawercss
   	});
   }
-
+  settingScreen(){
+  this.setState({settingOpen: true})
+ }
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-  	this.setState({open: false}); 
+  	this.setState({open: false,settingOpen:false}); 
   }
 
   render() {
+      const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleClose} 
+        style={{bottom:'15',right:'5'}}/>
+    ];
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
     	<div>
+       <SettingsDialog  
+               title="Settings"
+             open={this.state.settingOpen}
+             actions={actions} 
+             contentStyle={{width: '550'}}>
+             <Dialog_Setting/>
+             </SettingsDialog >
     	   <Drawer
 	          docked={true}
 	          width={230}
@@ -131,7 +154,7 @@ export default class Layout extends React.Component {
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
          iconElementRight={<div><IconButton><Link to="/"><FontIcon className="material-icons">home</FontIcon></Link></IconButton>
-        <IconButton><FontIcon className="material-icons" >settings</FontIcon></IconButton></div>}
+        <IconButton><FontIcon className="material-icons" onTouchTap={this.settingScreen}>settings</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

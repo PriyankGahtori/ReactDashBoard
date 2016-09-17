@@ -15,7 +15,7 @@ import DialogNewInstance from './DialogAttachProfile_Instance';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
-
+import {hashHistory } from 'react-router';
 
 var columns = {
                 "key"  : "instanceId",
@@ -53,6 +53,12 @@ class Instance extends React.Component {
   this.state = {instanceData:this.props.instanceData};
   this.onSelectRow=this.onSelectRow.bind(this);
   }
+
+   handleHref(row)
+  {
+    console.log("in function handleHref-in Application-",row);
+    hashHistory.push(`/configuration/${row.profileId}`)
+  } 
 
   onSelectRow(){
     console.log("onSelectRow----")
@@ -160,6 +166,7 @@ class Instance extends React.Component {
                   ref="instanceTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  onhref={this.handleHref.bind(this)}
          />
         </Paper>
 

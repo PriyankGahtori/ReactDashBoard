@@ -1051,4 +1051,18 @@ export function addBTGroupData(formData,profileId){
    
 
  }
+export function updateTopology(){
+    const URL =  `${url.UPDATE_TOPOLOGY}`;
+    console.log(" in update topology --------->",URL)
+    const response = axios.get(URL);
+    console.log(" response from update ----------->",response)
+    return ;
+}
 
+export function generateTopology(){
+      const URL =  `${url.UPDATE_TOPOLOGY}`;
+      console.log(" in generate topology --------->",URL)
+      const response = axios.get(URL);
+      console.log(" response from generate  -----------------> ",response)
+      return ;
+}

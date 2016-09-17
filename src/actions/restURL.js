@@ -1,12 +1,12 @@
 //const SERVICE_URL = '/configUI';
 
 //export const  SERVICE_URL = 'http://10.10.40.77:8090';
-
-export const  SERVICE_URL = 'http://localhost:8090';
+export const  SERVICE_URL = 'http://10.10.40.77/configUI';
+//export const  SERVICE_URL = 'http://localhost:8090';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
-
+export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtesting`;
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/application`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;

@@ -18,7 +18,7 @@ const initialValues = {
       width: 300
     }
   };
-/*//validating the fields of form
+//validating the fields of form
 const validate = values => {
   const errors = {}
  
@@ -28,33 +28,44 @@ const validate = values => {
     errors.appName = 'Must be 15 characters or less'
   } else if (!Is.alphaNumeric(values.appName)) {
     errors.appName = 'Invalid Application Name'
+  }else if(Number(values.appName)){
+    errors.appName = "Must enter only characters."
   }
 
   if (!values.appDesc) {
     errors.appDesc = 'Required'
-  } else if (values.appDesc.length > 15) {
-    errors.appDesc = 'Must be 15 characters or less'
-  } else if (!Is.alphaNumeric(values.appDesc)) {
-    errors.appDesc = 'Invalid Application Name'
+  } else if (values.appDesc.length > 50) {
+    errors.appDesc = 'Must be 50 characters or less'
+  }else if (Number(values.appDesc)){
+    errors.appDesc = 'Must enter only characters'
   }
-
   if (!values.userName) {
     errors.userName = 'Required'
   } else if (values.userName.length > 15) {
     errors.userName = 'Must be 15 characters or less'
   } else if (!Is.alphaNumeric(values.userName)) {
     errors.userName = 'Invalid Application Name'
+  }else if (Number(values.userName)){
+    errors.userName = 'Must enter only characters'
   }
   
+  if(values.topoId == undefined){
+    errors.topoId = 'Required'
+  }else if(values.topoId == null) {
+    errors.topoId = 'Required'
+  }else if(!values.topoId) {
+    errors.topoId = 'Required'
+  }
+ 
   return errors
-}*/
+}
 class NewApplication extends React.Component {
 
 constructor(props) {
   super(props);
   console.log("in form topo-- !!!",this.props.data)
   console.log("this.props.data[2]value - ")
-  this.state = {value:this.props.data[2].value[0].id};
+  this.state = {value: null};
 
   }
 
@@ -108,6 +119,7 @@ handleChangeTopology(event, index, value){
                   value={this.state.value}                
                   style={styles.customWidth}
                   autoWidth={false}
+                  errorText={topoId.touched && topoId.error && <div>{topoId.error}</div>}
                   customOnChange={this.handleChangeTopology.bind(this)} 
                   floatingLabelText="Select Topology"
                 >
@@ -136,10 +148,10 @@ NewApplication.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
- // validate
+  fields,
+  validate
 },
 state => ({ // mapStateToProps
-  initialValues:state.applicationdata.appDetailInitializeForm,
+  initialValues:{topoId:state.initialData[2].value[0].id},
   data:state.initialData
 }))(NewApplication);

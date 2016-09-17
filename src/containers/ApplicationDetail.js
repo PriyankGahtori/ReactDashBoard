@@ -60,6 +60,7 @@ class ApplicationDetail extends React.Component {
   this.handleConfirm = this.handleConfirm.bind(this);
   this.handleClose = this.handleClose.bind(this);
   this.state = {open:false, openSnack:false};
+  this.createConfFile = this.createConfFile.bind(this);
   }
 
  
@@ -78,6 +79,24 @@ class ApplicationDetail extends React.Component {
     console.log("in function handleHref-in Application-",row);
     hashHistory.push(`/application/${row.id}`)
   } 
+
+   createConfFile()
+    {
+      console.log("inside createConfFile");
+      let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+
+
+        if(selectedRow.length == 1)
+        {
+          console.log("selectedRow----",selectedRow)
+          let selectedRowData = this.props.appDetail.tableData
+                                    .filter(function(value){
+                                      return value.id === selectedRow[0]
+                                    });
+          console.log("selectedRowData id----",selectedRowData[0].id)
+          this.props.createConfFile(selectedRowData[0].id);
+        }
+    }
 
   handleClose(){
     this.setState({open: false});
@@ -187,6 +206,7 @@ class ApplicationDetail extends React.Component {
           </div>
 
           <div className="col-md-2"  >
+          <IconButton  onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>

@@ -11,7 +11,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Toggle from '../components/ToggleWrapper';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
-export const fields = ['grpId','btName','matchType','urlName','include','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
+export const fields = ['btName','matchType','urlName','include','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
 
              
 
@@ -39,8 +39,6 @@ class Form_BussinessTransPattern extends React.Component {
   constructor(props) {
   super(props);
   this.handleChange=this.handleChange.bind(this);
-  this.state = {ListOfGroupNames: {data:[]}};
-  this.state ={listOfGroupNames:this.props.listOfGroupNames};
   this.state ={enable:false}
   this.state ={'dynamicReqDiv' : false}
   this.state ={BTPattern:null}
@@ -65,19 +63,9 @@ handleCheck(event,value)
 }
 
   render() {
-     const { fields: {grpId,btName,include,matchType,urlName,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {btName,include,matchType,urlName,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
-
-      <div className ="row">
-        <div className ="col-md-6">
-        <h4>Selected Bussiness Transaction Set</h4>
-        </div>
-        <div className ="col-md-6"  style={{'paddingTop':12}}>
-        <label>{this.props.BTPattern.selectedGroupName}</label>
-        </div>
-      </div>
-
     <div className ="row">
         <div className ="col-md-8">
           <TextField
@@ -208,9 +196,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-    ListOfGroupNames : state.BTPattern.listOfGroupNames,
-    BTPattern : state.BTPattern,
-    initialValues: {"grpId" :state.BTPattern.selectedGrpId}
+    BTPattern : state.BTPattern
   
 }),
  { 

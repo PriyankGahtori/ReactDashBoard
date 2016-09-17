@@ -53,7 +53,7 @@ class NewApplication extends React.Component {
 constructor(props) {
   super(props);
   console.log("in form topo-- !!!",this.props.data)
-  console.log("this.props.data[2]value - ")
+  console.log("this.props.data[2]value - ",this.props.data[2])
   this.state = {value:this.props.data[2].value[0].id};
 
   }

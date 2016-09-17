@@ -21,7 +21,7 @@ class Dialog_BTPattern extends React.Component {
   }
 
  submitForm(data){
-  this.props.addBTPatternData(data,this.props.profileId,this.state.BTPattern.selectedGrpId)
+  this.props.addBTPatternData(data,this.props.profileId)
   }
 
   componentWillReceiveProps(nextProps)

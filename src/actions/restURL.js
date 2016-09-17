@@ -1,6 +1,6 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 
-export const  SERVICE_URL = 'http://10.10.40.77:8090';
+// export const  SERVICE_URL = 'http://10.10.40.77:8090';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -68,3 +68,6 @@ export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`
 
 
 export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
+
+/* URL for generating nd.conf file  */
+export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;

@@ -34,6 +34,12 @@ export default function(state = initialState, action) {
     newState.openNewAppDialog= !newState.openNewAppDialog;
     console.log("newState.openNewAppDialog---",newState.openNewAppDialog)
     return newState;
+
+  case 'GENERATE_ND_CONF_REDU':
+    console.log("inside nd conf reducer");
+    var newState = Object.assign({}, state);
+    newState=action.payload.data;
+    return newState;
     
   case 'DEL_APPTABLE_ROW':
     var newState = Object.assign({}, state);

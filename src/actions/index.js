@@ -939,36 +939,17 @@ export function addNewBackendPoint(data,profileId){
 }
 
 
-<<<<<<< HEAD
-
 /*
 * BTpattern screen
 */
-
-=======
->>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
 /* Action creators for Bussiness Transaction pattern screen*/
 
-export function ListOfGroupNames(){
-  console.log("action triggered- fetchListOfGroupNames --")
-  const URL =`${url.FETCH_LIST_GROUP_NAMES_FORM}`
-  const response = axios.get(URL);
-  console.log("ListOf group names----",response)
-  return{
-    type :'LIST_GROUP_NAMES',
-    payload:response
-  }
-}
+
 
 export function fetchBTPatternTableData(profileId){
   console.log("fetchBTPatternTabledata action triggere-----")
-<<<<<<< HEAD
    const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
    const request_table = axios.get(URL);
-=======
-  const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
-  const request_table = axios.get(URL);
->>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
   console.log("request_table in fetching bt pattern---",request_table)
   return {
     type:'FETCH_BT_PATTERN_TABLEDATA',
@@ -976,14 +957,14 @@ export function fetchBTPatternTableData(profileId){
   }
 }
 
-export function addBTPatternData(formData,profileId,groupId){
+export function addBTPatternData(formData,profileId){
 
   console.log("addBTPatternData------in actions--",formData)
   console.log("profileId----",profileId)
-  console.log("groupId----",groupId)
+
    var response = axios({
     method:'post',
-     url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}/${groupId}`,
+    url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -993,11 +974,6 @@ console.log("response----adding addBTPatternData---",response)
     type : 'ADD_NEW_BT_PATTERN',
     payload : response
   }
-<<<<<<< HEAD
- 
-=======
-  
->>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
 }
 
 export function toggleStateAddBTPattern(){
@@ -1007,42 +983,19 @@ export function toggleStateAddBTPattern(){
   }
 }
 
-export function addBTGroupData(formData,profileId){
+/* Action creators for generating the nd.conf file */
 
-  console.log("addBTPatternData------in actions--",formData.chkNewGroup)
-  console.log("profileId----",profileId)
+ export function createConfFile(appId)
+ {
+  console.log("inside index.js createConfFile");
+  const URL = `${url.GENERATE_ND_CONF}/${appId}`;
+  console.log("URL - ",URL);
+  const request = axios.get(URL);
+  console.log("Action ajax.................",request);
 
-  if(formData.chkNewGroup == true)
-  {
-      var response = axios({
-      method:'post',
-       url : `${url.ADD_NEW_BT_GROUP_DETAILS}/${profileId}`,
-      data: formData,
-      headers:{'Content-Type':'application/json'}
-    });
-    return {
-      type : 'ADD_NEW_BT_GROUP',
-      payload : response
-    }
-  }
-<<<<<<< HEAD
- else
-=======
-  else
->>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2
-  {
-     const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}/${formData.id}`
-     const request_table = axios.get(URL);
-
-    return {
-      type : 'SELECTED_BT_GROUP',
-      payload:request_table,
-      meta:formData
-    }
-  }
-   
-<<<<<<< HEAD
+  return {
+    type: 'GENERATE_ND_CONF_REDU',
+    payload:request
+  };
+  
  }
-=======
- }
->>>>>>> a8c5c839ac424d7b651162db045ff45a0e21ece2

@@ -11,7 +11,6 @@ import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
 import DialogBTPattern from './Dialog_BTPattern';
-import DialogBTGroup from 'material-ui/Dialog';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
@@ -19,8 +18,7 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from '../components/SelectFieldWrapper';
-import FormBTGroup from './Form_BTGroup';
-export const fields = ['groupTypeId', 'brgroup','chkGroup', 'groupName','txtGroupName','btName','activeToggle','matchType','URL','include','reqParam','reqMethod','reqHeader','reqCookie' ]
+export const fields = ['btName','activeToggle','matchType','URL','include','reqParam','reqMethod','reqHeader']
 
 var columns = {
                 "key" : "id",
@@ -72,20 +70,15 @@ const styles = {
   constructor(props) {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
-     this.handleOpenBTSet=this.handleOpenBTSet.bind(this);
-     this.handleCloseBTSet=this.handleCloseBTSet.bind(this); 
-     this.state = {openBTSet:false};
-     this.submitForm =this.submitForm.bind(this);
      this.handleSubmit =this.handleSubmit.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
-     this.handleSet =this.handleSet.bind(this);
-     this.state ={menuGroupName : "default"}
      console.log("this.props - ", this.props)
   }
 
   componentWillMount() {
     console.log("inside  componentWillMount ");
     console.log("profile id - ", this.props)
+    this.props.fetchBTPatternTableData(this.props.params.profileId); 
   }
 
   onToggle(row){
@@ -93,52 +86,16 @@ const styles = {
    
   }
 
-  handleSet(){
-    console.log("inside handleSet")
-    // this.props.toggleStateAddBTPattern();
-    this.props.fetchBTPatternTableData(this.props.params.profileId); 
-  }
-
   handleCancel(){
     console.log("inside handle cancel")
     // this.props.toggleStateAddBTPattern();
-  }
-
-  submitForm(data){
-
-   console.log("data---- BT Pattern",JSON.stringify(data))
-
-   console.log("data ------",data)
-   console.log("this.props.profileId - ",this.props.params.profileId)
-   // console.log("data - ",data)
-
-   console.log("data.name - ", data.menuGroupName)
-    console.log("data.id - ", data.chkNewGroup)
-
- if(data.menuGroupName != undefined)
-      {
-        var parsedObj = Object.assign({},JSON.parse(data.menuGroupName));
-        data.menuGroupName = parsedObj.name;
-        data.id = parsedObj.id;
-      }
-
-
-  this.props.addBTGroupData(data,this.props.params.profileId)
   }
 
  handleCheck(event,value){
     console.log("inside handle check")
    
   };
-
-  handleOpenBTSet(){
-    this.setState({openBTSet: true});
-  };
-
-  handleCloseBTSet(){
-    this.setState({openBTSet: false});
-  };
-
+ 
   handleSubmit(){
     // this.setState({open: true});
   this.refs.newBTGroupForm.submit();
@@ -173,7 +130,6 @@ const styles = {
        
   }
 
-
   render() {
 
      const actions = [
@@ -191,38 +147,10 @@ const styles = {
 
     return (
     <div>
-
-    <div className ="row">
-
-       <div style={{'paddingTop':20}} className="col-md-4">
-        <h4>Select Bussiness Transaction Set </h4>
-       </div>
-
-       <div style={{'paddingTop':25}} className="col-md-2">
-         <label>{this.props.BTPattern.selectedGroupName}</label>
-       </div>
-
-      <div style={{'paddingTop':15}} className="col-md-6">
-        <RaisedButton label="Change Set" primary={true} onTouchTap={this.handleOpenBTSet} />
-        <DialogBTGroup
-          title="Bussiness Transaction Pattern Set"
-          actions={actions}
-          modal={true}
-          open={this.state.openBTSet}
-        >
-        <FormBTGroup ref="newBTGroupForm" onSubmit={this.submitForm.bind(this)}/>
-        </DialogBTGroup>
-
-         
-      </div>
-
-      
-         
-    </div>
-
+   
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
-              <h4>Bussiness Transaction Pattern table</h4>
+              <h4>Bussiness Transaction Pattern(s)</h4>
         </div>
 
          <DataGrid data = {this.props.BTPattern.tableData} 

@@ -243,7 +243,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-  initialValues               : state.dcDetail.dcDetailInitializeForm,
+  
   ServiceEntryPointsTableData : state.ServiceEntryPoints.tableData,
   ServiceEntryPoints          : state.ServiceEntryPoints.serviceEntryPoints,
   ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType

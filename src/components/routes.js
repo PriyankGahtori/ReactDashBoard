@@ -22,6 +22,7 @@ import ServiceEntryPoints from '../containers/ServiceEntryPoints';
 import BusinessTransaction from '../containers/BusinessTransaction';
 import GlobalBT from '../containers/GlobalBusinessTransaction';
 import PatternBT from '../containers/PatternBusinessTransaction';
+import GeneralKeywords from '../containers/GeneralKeywords';
 
 
 export default class routes extends React.Component {
@@ -50,6 +51,8 @@ export default class routes extends React.Component {
   			  
   			  <Route name = "Configuration" staticName = {true} path = "configuration/:profileId"  component = {Configuration} />
 			  <Route name = "Configuration" staticName = {true} path = "profile/:profileId"  component = {Configuration} />
+
+			  <Route name = "Configuration" staticName = {true} path = "generalsettings/:profileId"  component = {GeneralKeywords} />
 
 		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
 		      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />

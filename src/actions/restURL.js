@@ -71,3 +71,7 @@ export const ADD_NEW_BACKEND_POINT = `${SERVICE_URL}/custom/backenddetection`
 
 
 export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
+
+/* Url for General Keywords Screen*/
+export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
+export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;

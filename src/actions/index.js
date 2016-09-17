@@ -1047,8 +1047,34 @@ export function addBTGroupData(formData,profileId){
       payload:request_table,
       meta:formData
     }
-  }
-   
+  }   
 
  }
 
+ /*
+  * Action creators for General keywords screen
+ */
+export function getKeywordsData(profileId){
+
+  const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
+  console.log("response---",response)
+
+  return{
+    type : 'GET_ALL_KEYWORDS',
+    payload : response
+  }
+}
+
+export function submitKeywordData(data,profileId){
+  console.log("data----",data)
+   var response = axios({
+      method:'post',
+       url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+    });
+   return{
+    type : 'UPDATE_KEYWORDS_DATA',
+    payload : response
+   }
+}

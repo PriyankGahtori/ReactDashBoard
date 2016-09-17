@@ -19,7 +19,7 @@ updateTopo(){
 
 }
 generateTopo(){
-  this.props.generateTopology();
+  this.props.generateNdConf();
 }
 
   render() {

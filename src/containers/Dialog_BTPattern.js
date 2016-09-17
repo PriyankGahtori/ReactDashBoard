@@ -18,6 +18,7 @@ class Dialog_BTPattern extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state={BTPattern : this.props.BTPattern};
   this.submitForm =this.submitForm.bind(this);
+  console.log("")
   }
 
  submitForm(data){
@@ -58,6 +59,7 @@ class Dialog_BTPattern extends React.Component {
     ];
     return (
       <div>
+        <p>{this.state.BTPattern.openNewBTPatternDialog}</p>    
         <DialogBTPattern
           title="New Bussiness Transaction pattern"
           actions={actions}
@@ -82,6 +84,7 @@ class Dialog_BTPattern extends React.Component {
 } 
 
 function mapStateToProps(state) {
+  console.log("BTPattern---",state.BTPattern.openNewBTPatternDialog)
   return {
     BTPattern : state.BTPattern
    };

@@ -1,7 +1,6 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 
 // export const  SERVICE_URL = 'http://10.10.40.77:8090';
-=======
 //const SERVICE_URL = '/configUI';
 
 //export const  SERVICE_URL = 'http://10.10.40.77:8090';
@@ -78,6 +77,7 @@ export const FETCH_ALL_TOPODATA = `${SERVICE_URL}/topology`;
 
 /* URL for generating nd.conf file  */
 export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
+
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;

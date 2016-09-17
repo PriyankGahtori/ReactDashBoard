@@ -29,11 +29,11 @@ generateTopo(){
          <p style={{paddingLeft:'100' , paddingTop:'20'}}>Update Topology </p>
          <FlatButton style={{left:'270',bottom: '37'  }} label="Update" onTouchTap={this.updateTopo} primary={true} /> 
         </div>
-        <div >
+     {/*   <div >
        <p style={{paddingLeft:'100'}}>Generate ndonfig ile </p>
        <FlatButton style={{left:'270',bottom: '40'}} label="Generate" onTouchTap={this.generateTopo} primary={true} /> 
        </div>
-      
+     */} 
       </div>
 
     );

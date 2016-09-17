@@ -148,8 +148,8 @@ class DCDetail extends React.Component {
   };
 
   componentWillMount() {
-     // this.props.fetchTreeData(this.props.routeParams.appId)
-      //this.props.fetchDCTableData(this.props.routeParams.appId)
+      this.props.fetchTreeData(this.props.routeParams.appId)
+      this.props.fetchDCTableData(this.props.routeParams.appId)
   
   }
 

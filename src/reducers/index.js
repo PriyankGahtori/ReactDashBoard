@@ -23,7 +23,7 @@ import ServiceEntryPoints from './reducer_ServiceEntryPoints';
 import BTGlobal from './reducer_BTGlobal';
 import BackEndDetection from './reducer_BackendDetection';
 import BTPattern from './reducer_BTPattern';
-import KeyWords from './reducer_keywords';
+import KeyWords from './reducer_Keywords';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -31,7 +31,7 @@ import KeyWords from './reducer_keywords';
 module.exports = combineReducers({
 	initialData       : InitialData,
 	treeData          : TreeData,
-	dcDetail          : DCDetailData,
+	dcDetail          : DCDetailData,	
 	form              : formReducer,
 	applicationdata   : ApplicationData,
 	topologyData      : TopologyData,

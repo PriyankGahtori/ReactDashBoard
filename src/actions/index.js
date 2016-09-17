@@ -1051,6 +1051,8 @@ export function addBTGroupData(formData,profileId){
 
  }
 
+
+
  /*
   * Action creators for General keywords screen
  */
@@ -1077,4 +1079,20 @@ export function submitKeywordData(data,profileId){
     type : 'UPDATE_KEYWORDS_DATA',
     payload : response
    }
+}
+
+export function generateNdConf(){
+      const URL =  `${url.UPDATE_TOPOLOGY}`;
+      console.log(" in generate topology --------->",URL)
+      const response = axios.get(URL);
+      console.log(" response from generate  -----------------> ",response)
+      return ;
+}
+
+export function updateTopology(){
+    const URL =  `${url.UPDATE_TOPOLOGY}`;
+    console.log(" in update topology --------->",URL)
+    const response = axios.get(URL);
+    console.log(" response from update ----------->",response)
+    return ;
 }

@@ -30,10 +30,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
   
   handleSubmit(){
    this.refs.newAppForm.submit();
-   console.log("aftr submitting")
-   this.handleCancel();
-   console.log("aftr closing the dialog----")
-
+  
   }
 
     render() {
@@ -41,20 +38,12 @@ class Dialog_DCDetail_NewDC extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancel}
-      />,
-      <FlatButton
-        label="Clear Values"
-        primary={true}
-        keyboardFocused={true}
-        onTouchTap={this.handleClose}
-      />,
+        onTouchTap={this.handleCancel} />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onTouchTap={this.handleSubmit}
-      />
+        onTouchTap={this.handleSubmit} />
     ];
     return (
       <div>
@@ -82,11 +71,13 @@ class Dialog_DCDetail_NewDC extends React.Component {
                                 console.log("data-aftr adding---",data)
                                 console.log("openAppDialogType----",this.state.applicationdata.openAppDialogType)
                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
+                                this.handleCancel();
                               }
                               else{
                                 console.log("on submit---in else or add condition--",this.state.openAppDialogType)
                                 console.log("data in adding---",data)
-                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
+                                this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
+                                this.handleCancel();
                                }
 
       }}/>

@@ -1,15 +1,15 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 
 // export const  SERVICE_URL = 'http://10.10.40.77:8090';
 //const SERVICE_URL = '/configUI';
 
 //export const  SERVICE_URL = 'http://10.10.40.77:8090';
-export const  SERVICE_URL = 'http://10.10.40.77/configUI';
+// export const  SERVICE_URL = 'http://10.10.40.77/configUI';
 //export const  SERVICE_URL = 'http://localhost:8090';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
-export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtesting`;
+export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/application`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
@@ -81,3 +81,7 @@ export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+
+/* URL for monitors  */
+export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
+export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;

@@ -14,7 +14,7 @@ const styles = {
   }
 };
 
-export default class Instrumentation extends React.Component {
+export default class InstrumentMonitors extends React.Component {
 
   constructor(props) {
     super(props);
@@ -25,7 +25,7 @@ export default class Instrumentation extends React.Component {
   handleChange(value){
     console.log("value in handlechamge--",value)    
     let profileId = this.props.routeParams.profileId;
-    let routeURL = `instrumentation/${profileId}/${value}`;
+    let routeURL = `instrumentation/${profileId}/monitors/${value}`;
     hashHistory.push(routeURL);
   }
 
@@ -36,34 +36,18 @@ export default class Instrumentation extends React.Component {
       <Tabs      
         onChange={this.handleChange}
       >
-        <Tab label="Service Entry Point" value="" >
+        <Tab label="Method monitors" value="methodmon" >
         
         </Tab>
 
-        <Tab label="Backend Detection" value="backenddetection" >
+        <Tab label="Exception Monitors" value="methodmon" >
           
         </Tab>
 
-         <Tab label="Transaction Configuration" value="bt">
+         <Tab label="HTTP stats monitors" value="methodmon">
           
         </Tab>
 
-        <Tab label="Instrument Monitors" value="monitors">
-        
-        </Tab>
-
-        <Tab label="Error Detection" value="d">
-          <div>
-            <h2 style={styles.headline}>Controllable Tab D</h2>
-            <p>
-              This is another example of a controllable tab. Remember, if you
-              use controllable Tabs, you need to give all of your tabs values or else
-              you wont be able to select them.
-            </p>
-          </div>
-        </Tab>
-
-       
       </Tabs>
       </div>
 

@@ -1065,3 +1065,44 @@ export function updateTopology(){
     console.log(" response from update ----------->",response)
     return ;
 }
+
+
+/* Action Creators for the method monitor screen  */
+
+export function toggleStateAddMethodMonitor(){
+  console.log("action triggered--toggling----toggleStateAddMethodMonitor")
+  return {
+    type:'TOGGLE_STATE_ADD_METHOD_MON'
+  }
+}
+
+
+export function fetchMethodMonitorTableData(profileId){
+
+  const URL = `${url.FETCH_METHOD_MON_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching method monitor---",request_table)
+  return {
+    type:'FETCH_METHOD_MON_TABLEDATA',
+    payload:request_table
+  }
+}
+
+export function insertMethodMonitorDetails(formData,profileId){
+
+  console.log("addMethodMonitorDetails------in actions--",formData)
+  console.log("profileId----",profileId)
+
+   var response = axios({
+    method:'post',
+    url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("response----adding addMethodMonitorDetails---",response)
+  return {
+    type : 'ADD_METHOD_MONITOR',
+    payload : response
+  }
+}

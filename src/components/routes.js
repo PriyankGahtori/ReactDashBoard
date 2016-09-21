@@ -23,6 +23,9 @@ import BusinessTransaction from '../containers/BusinessTransaction';
 import GlobalBT from '../containers/GlobalBusinessTransaction';
 import PatternBT from '../containers/PatternBusinessTransaction';
 import GeneralKeywords from '../containers/GeneralKeywords';
+import InstrumentMonitors from '../containers/InstrumentMonitors';
+import MethodMonitors from '../containers/MethodMonitors';
+
 
 
 export default class routes extends React.Component {
@@ -60,7 +63,11 @@ export default class routes extends React.Component {
 		      	 
 		      	 <Route name = "Business Transaction" path ="bt" component = {BusinessTransaction}>
 		      	 	<IndexRoute name="Global" component={GlobalBT} />
-		      	 	<Route name="Pattern" path ="pattern" component={PatternBT} />
+		      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
+		      	 </Route>
+
+		      	 <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
+		      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
 		      	 </Route>
 		      </Route>
 

@@ -152,7 +152,7 @@ class GlobalBusinessTransaction extends React.Component {
   {/*------------Radio Button Group---------------*/}
 
      <div className='row'>
-     <p>{dynamicReqValue.initialValue}</p>
+     
      <RadioButtonGroup
      	{...dynamicReqValue} 
   		className={'col-xs-4 col-md-3'} 
@@ -206,11 +206,10 @@ class GlobalBusinessTransaction extends React.Component {
 		
 		<div>
           <button type="submit" disabled={submitting}>
-            {submitting ? <i/> : <i/>} Submit
+                     {submitting ? <i/> : <i/>} Submit
           </button>
-          <button type="button" disabled={submitting} onClick={resetForm}>
-            Clear Values
-          </button>
+
+
         </div>  
     </form>  
     );

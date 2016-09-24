@@ -2,7 +2,7 @@
 const initialState = {btGlobalInitialize:{"uriType":"segment",
                                           "segmentType":"first",
                                           "segmentValue":"2",
-                                          "dynamicReqType":true,
+                                          "dynamicReqType":false,
                                           "dynamicReqValue":"requestParam",
                                           "requestParam":'',
                                           "httpMethod":false,

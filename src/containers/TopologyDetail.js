@@ -145,8 +145,8 @@ class TopologyDetail extends React.Component {
           </div>
 
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            {/*  <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+                          <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
           </div>
        </div>
           
@@ -164,9 +164,9 @@ class TopologyDetail extends React.Component {
         </Paper>
        
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
-            <AddIcon />
-         </AddNewButton>
+         {/*<AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
+                     <AddIcon />
+                  </AddNewButton>*/}
 
          <DialogNewApplication />
 

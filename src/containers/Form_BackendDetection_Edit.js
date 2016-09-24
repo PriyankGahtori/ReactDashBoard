@@ -174,8 +174,7 @@ handleToggleChange(value){
                /> 
             ))
           } 
-      List Wala Data : {this.props.backendType}<br/>
-      Props : {/*JSON.stringify(this.props.selectedRow)*/}
+    
       </div>
     </div>
 

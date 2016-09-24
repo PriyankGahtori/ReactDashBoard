@@ -40,12 +40,11 @@ export default function(state = initialState, action) {
     return newState;
 
      case 'ADD_PROFILE':
-     console.log(" in reducer add profile-$------>",action.payload.data)
      var newState = Object.assign({}, state);
      var data = action.payload.data
-     var index = data._links.self.href.lastIndexOf("/");
-     var id = data._links.self.href.slice(index+1,data._links.self.href.length);
-     data["id"] = id;
+     //var index = data._links.self.href.lastIndexOf("/");
+     //var id = data._links.self.href.slice(index+1,data._links.self.href.length);
+     data["id"] = data.profileId;
      console.log("aftr appending--",action.payload.data)
      newState.tableData.push(data)
      console.log("new state after push------------> ",newState.tableData)
@@ -55,7 +54,7 @@ export default function(state = initialState, action) {
      var newState = Object.assign({}, state);
      console.log(" in delete reducer profile---payload --------->",action.payload)
      newState.tableData = newState.tableData.filter(function(val){
-        console.log(" value --in delete profile----------> ",val)
+        console.log(" varofilue --in delete profile----------> ",val)
         return action.payload.indexOf(val.id) == -1; //vtalue to be deleteed should return false
       })
      console.log(" newState.tableData --in delete profile-------> ",newState.tableData)

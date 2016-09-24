@@ -1,15 +1,16 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 
-// export const  SERVICE_URL = 'http://10.10.40.77:8090';
+//export const  SERVICE_URL = 'http://10.10.40.77:8090';
 //const SERVICE_URL = '/configUI';
 
 //export const  SERVICE_URL = 'http://10.10.40.77:8090';
-export const  SERVICE_URL = 'http://10.10.40.77/configUI';
+//export const  SERVICE_URL = 'http://10.10.40.77/configUI';
 //export const  SERVICE_URL = 'http://localhost:8090';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtesting`;
+
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/application`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
@@ -31,7 +32,8 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
-export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
 
 /* Url for Tier */
 export const FETCH_TIER_TREE_URL = `${SERVICE_URL}/custom/tree/tier`;
@@ -81,3 +83,8 @@ export const GENERATE_ND_CONF = `${SERVICE_URL}/custom/application/ndconf`;
 /* Url for General Keywords Screen*/
 export const GET_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords` ;
 export const UPDATE_KEYWORDS_DATA = `${SERVICE_URL}/custom/profilekeywords`;
+
+/*Instrumentation Profile List*/
+export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xmlfiles` ;
+
+

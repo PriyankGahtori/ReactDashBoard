@@ -1045,11 +1045,24 @@ export function submitKeywordData(data,profileId){
       headers:{'Content-Type':'application/json'}
     });
    return{
-    type : 'UPDATE_KEYWORDS_DATA',
+    type : 'GET_ALL_KEYWORDS',
     payload : response
    }
 }
 
+export function setDefValBCICapturingKeywords() {
+  return{
+    type : 'SET_DEFAULT_BCICapturingKeywords'
+
+  }
+}
+
+export function setDefValHotSpotCapturingKeywords(){
+  return{
+    type : 'SET_DEFAULT_HOTSPOTKEYWORDS'
+
+  }
+}
 export function generateNdConf(){
       const URL =  `${url.UPDATE_TOPOLOGY}`;
       console.log(" in generate topology --------->",URL)
@@ -1064,4 +1077,22 @@ export function updateTopology(){
     const response = axios.get(URL);
     console.log(" response from update ----------->",response)
     return ;
+}
+
+
+export function getListOfXmlFiles(){
+  const URL = `${url.GET_INSTR_PROFILE_LIST}`;
+  const response = axios.get(URL);
+  console.log("response---",response)
+  return{
+    type : 'LIST_OF_XMLFILES',
+    payload :response
+  }
+}
+
+export function initializeInstrProf(argument) {
+  return{
+    type : 'INITIALIZE_INSTRPROFILE'
+
+  }
 }

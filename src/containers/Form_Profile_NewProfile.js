@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
-export const fields = ['profileName', 'profileDesc'];
+export const fields = ['profileName', 'profileDesc','parentProfileId'];
 
 const initialValues={
                           'profileName' :"profileName" ,
@@ -39,7 +39,7 @@ class NewApplication extends React.Component {
     super(props);
   }
    render() {
-         const { fields: { profileName, profileDesc}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+         const { fields: { profileName, profileDesc,parentProfileId}, resetForm, handleSubmit,onSubmit, submitting } = this.props
 
     return (
    
@@ -79,6 +79,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-  initialValues:state.profileDetailData.profileInitializeForm
+ // initialValues:state.profileDetailData.profileInitializeForm
+  initialValues:{parentProfileId:1}
 })
 ) (NewApplication);

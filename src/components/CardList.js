@@ -63,7 +63,8 @@ componentWillMount() {
 render() {  	
     return (
       <div className="row">       
-        {this.state.data.map((data, index) => (            
+        {
+          this.state.data.map((data, index) => (            
             <CardComponent key={data.id} data={data}/>
         ))}   
       </div>      

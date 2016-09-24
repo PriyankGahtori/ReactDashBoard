@@ -5,9 +5,18 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import MultiSelect from 'react-select';
+import 'react-select/dist/react-select.css';
+
+
 import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
     FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
 
+var options = [
+    { value: 'one', label: 'One' },
+    { value: 'two', label: 'Two' },
+    { value: 'three', label: 'Three' }
+];
 const Main = React.createClass({
 
   /**
@@ -75,94 +84,17 @@ const Main = React.createClass({
     let { wordsError, numericError, urlError } = this.errorMessages;
 
     return (
-      <MuiThemeProvider muiTheme={getMuiTheme()}>
-        <Paper style={paperStyle}>
-          <Formsy.Form
-            onValid={this.enableButton}
-            onInvalid={this.disableButton}
-            onValidSubmit={this.submitForm}
-            onInvalidSubmit={this.notifyFormError}
-          >
-            <FormsyText
-              name="name"
-              validations="isWords"
-              validationError={wordsError}
-              required
-              hintText="What is your name?"
-              floatingLabelText="Name"
-            />
-            <FormsyText
-              name="age"
-              validations="isNumeric"
-              validationError={numericError}
-              hintText="Are you a wrinkly?"
-              floatingLabelText="Age (optional)"
-            />
-            <FormsyText
-              name="url"
-              validations="isUrl"
-              validationError={urlError}
-              required
-              hintText="http://www.example.com"
-              floatingLabelText="URL"
-            />
-            <FormsySelect
-              name="frequency"
-              required
-              floatingLabelText="How often do you?"
-              menuItems={this.selectFieldItems}
-            >
-              <MenuItem value={'never'} primaryText="Never" />
-              <MenuItem value={'nightly'} primaryText="Every Night" />
-              <MenuItem value={'weeknights'} primaryText="Weeknights" />
-            </FormsySelect>
-            <FormsyDate
-              name="date"
-              required
-              floatingLabelText="Date"
-            />
-            <FormsyTime
-              name="time"
-              required
-              floatingLabelText="Time"
-            />
-            <FormsyCheckbox
-              name="agree"
-              label="Do you agree to disagree?"
-              style={switchStyle}
-            />
-            <FormsyToggle
-              name="toggle"
-              label="Toggle"
-              style={switchStyle}
-            />
-            <FormsyRadioGroup name="shipSpeed" defaultSelected="not_light">
-              <FormsyRadio
-                value="light"
-                label="prepare for light speed"
-                style={switchStyle}
-              />
-              <FormsyRadio
-                value="not_light"
-                label="light speed too slow"
-                style={switchStyle}
-              />
-              <FormsyRadio
-                value="ludicrous"
-                label="go to ludicrous speed"
-                style={switchStyle}
-                disabled={true}
-              />
-            </FormsyRadioGroup>
-            <RaisedButton
-              style={submitStyle}
-              type="submit"
-              label="Submit"
-              disabled={!this.state.canSubmit}
-            />
-          </Formsy.Form>
-        </Paper>
-      </MuiThemeProvider>
+      <div>
+      
+
+        <MultiSelect
+          name ="form-field-name"
+          value = "one"
+          options={options}
+          multi={true}
+        
+      />
+      </div>
     );
   },
 });

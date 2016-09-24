@@ -1080,7 +1080,7 @@ export function updateTopology(){
 }
 
 
-<<<<<<< HEAD
+
 export function getListOfXmlFiles(){
   const URL = `${url.GET_INSTR_PROFILE_LIST}`;
   const response = axios.get(URL);
@@ -1091,11 +1091,11 @@ export function getListOfXmlFiles(){
   }
 }
 
-export function initializeInstrProf(argument) {
+export function initializeInstrProf(profileId) {
   return{
     type : 'INITIALIZE_INSTRPROFILE'
+  }
 }
-
 
 /* Action Creators for the method monitor screen  */
 

@@ -32,7 +32,7 @@ const styles = {
   }
 
   componentWillMount(){
-       this.props.initializeInstrProf();
+      this.props.initializeInstrProf();
       this.props.getListOfXmlFiles();
      
   }

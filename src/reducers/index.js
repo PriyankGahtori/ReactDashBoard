@@ -24,6 +24,7 @@ import BTGlobal from './reducer_BTGlobal';
 import BackEndDetection from './reducer_BackendDetection';
 import BTPattern from './reducer_BTPattern';
 import KeyWords from './reducer_Keywords';
+import MethodMonitor from './reducer_MethodMonitor';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -45,7 +46,8 @@ module.exports = combineReducers({
 	BTGlobal          : BTGlobal,
 	backEndDetection  : BackEndDetection,
 	BTPattern         : BTPattern,
-	Keywords          : KeyWords
+	Keywords          : KeyWords,
+	methodMonitor     : MethodMonitor
 });
 
 //const reducers = {addInitialAppData};

@@ -3,27 +3,24 @@ import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
-import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import DataGrid from '../components/DCDetailTable';
-import DialogBTPattern from './Dialog_BTPattern';
+import DialogMethodMon from './Dialog_MethodMonitor';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
-import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
-import MenuItem from 'material-ui/MenuItem';
-import DropDownMenu from '../components/SelectFieldWrapper';
-export const fields = ['btName','activeToggle','matchType','URL','include','reqParam','reqMethod','reqHeader']
+
+export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
-                "key" : "id",
-                "data":['BT Name', 'Match type', 'URL', 'BT Included','Req Param key Value','Http Method','Req Header key Value','ID'],
-                "field":['btName', 'matchType', 'urlName', 'include','paramKeyValue','reqMethod','headerKeyValue','id']
+                "key" : "methodId",
+                "data":['Method Display Name', 'Method Name', 'Method Description','ID'],
+                "field":['methodDisplayName', 'methodName', 'methodDesc', 'methodId']
               };          
 
 const style = {
@@ -65,7 +62,7 @@ const styles = {
   }
 };
 
- class PatternBusinessTransaction extends React.Component {
+ class MethodMonitors extends React.Component {
   
   constructor(props) {
     super(props);
@@ -76,9 +73,20 @@ const styles = {
 
   componentWillMount() {
     console.log("inside  componentWillMount ");
-    console.log("profile id - ", this.props)
-    this.props.fetchBTPatternTableData(this.props.params.profileId); 
+    this.props.fetchMethodMonitorTableData(this.props.params.profileId);
+    console.log("this.state - ",this.state) 
   }
+
+  componentWillReceiveProps(nextProps)
+  {
+     console.log("nextProps---",nextProps)
+    if(this.props.methodMonitor.tableData != nextProps.methodMonitor.tableData){
+      console.log("inside if conddddddddddddddddd")
+      this.setState({methodMonitor:nextProps.methodMonitor});
+
+       console.log("this.propssss - ", this.state)
+    }
+}
 
   onToggle(row){
     console.log("ontoggle function --event triggered---",row)
@@ -87,7 +95,7 @@ const styles = {
 
   handleCancel(){
     console.log("inside handle cancel")
-    // this.props.toggleStateAddBTPattern();
+    this.props.toggleStateAddMethodMonitor();
   }
 
  handleCheck(event,value){
@@ -95,56 +103,34 @@ const styles = {
    
   };
  
-
- handleOpen(openBTPatternDialog){
-
-    console.log("in handleopen---",openBTPatternDialog)
-    //for editing form
-    if(openBTPatternDialog == "edit"){
-      console.log("editing the App form")
-
-      // gets the selected key of table
-      let selectedRow= this.refs.sepTable.refs.table.state.selectedRowKeys;
-      
-      if(selectedRow.length == 1)
-      {
-        
-      }
-      else{
-        //toster notification: Only one row can be edited
-      }
-
-    }
-    else if(openBTPatternDialog == "add"){ //for adding new row
-      console.log("adding service entry pts form")
-       this.props.toggleStateAddBTPattern(); //opens dialog box
-    }
-       
+  handleOpen(){
+       this.props.toggleStateAddMethodMonitor(); //opens dialog box
   }
 
   render() {
+
 
     return (
     <div>
    
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
-              <h4>Bussiness Transaction Pattern(s)</h4>
+              <h4>Method Monitor(s)</h4>
         </div>
 
-         <DataGrid data = {this.props.BTPattern.tableData} 
+        <DataGrid data = {this.props.methodMonitor.tableData} 
             pagination = {false} 
-            ref        = "btPatternTable" 
+            ref        = "methodMonitorTable" 
             column     = {columns}
             onClick    = {this.handleClick}
             onToggle   = {this.onToggle.bind(this)}
          />
 
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
+         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
             <AddIcon />
          </AddNewButton>
-         <DialogBTPattern profileId ={this.props.params.profileId}/>
+         <DialogMethodMon profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
@@ -155,15 +141,15 @@ const styles = {
 
 
 function mapStateToProps(state) {
+  console.log("methodMonitor state -  " + state.methodMonitor)
   return {
-    BTPattern : state.BTPattern
-   
+     methodMonitor : state.methodMonitor
    };
 }
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(actionCreators, dispatch);
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(PatternBusinessTransaction);
+export default connect(mapStateToProps,mapDispatchToProps)(MethodMonitors);

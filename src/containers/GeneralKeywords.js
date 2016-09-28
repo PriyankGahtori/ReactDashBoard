@@ -39,21 +39,8 @@ const styles = {
     },
   toggleCustomFQM :{
      paddingLeft:-4
-  },
-  entryPointBlock:{
-    paddingLeft:10,
-    paddingTop:5
-  },
-  mainBlock:{
-    paddingLeft:10,
-   paddingBottom:20
-  },
-  row1:{
-     paddingBottom:20
-  },
-  row2:{
-    paddingTop : 40
   }
+ 
 };
 /*
 * data --- table column name
@@ -123,103 +110,6 @@ class GeneralKeywords extends React.Component {
 
   }
 
-
-   handleDReqCheckboxChange(event,value){
-   console.log("event---",event)
-   console.log("value---",value)
-  }
-  /*
-  *  functions for enableBCICapturing Dialog
-  */
-
-  enableBCICapturingDialog(){
-    
-    this.setState({openEnableBCICapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
-  }
-
-  handleenableBCICapturingCheckboxChange(event,isInputChecked){
-    console.log("isInputChecked---",isInputChecked)
-
-    if(isInputChecked === true)
-    {
-      console.log("action trigegerd")
-      //this.props.setDefValBCICapturingKeywords();
-        this.setState({openCnfrmBCIDialog:true})
-    }
-    this.setState({disableAdvancedSettingTab1:!isInputChecked})
-  }
-
-   handleCancelEnableBCICapturing(){
-    // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableBCICapturingDialog:false});
-  }
- 
-
-handleSubmitEnableBCICapturing(){
-  console.log("handleSubmit---", this.refs)
-  this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
-  console.log("after closing the dialog----")
-  }
-
-
-/*
-* functions for hotSpot capturing
-*/
-handleenableHotSpotCapturingCheckboxChange(event,isInputChecked){
-  if(isInputChecked === true)
-    {
-      //console.log("action trigegerd")
-    //  this.props.setDefValHotSpotCapturingKeywords();
-    /*
-    * opening cnfirm dialog 
-    */
-    this.setState({openCnfrmHotSpotDialog:true})
-   
-    }
-    this.setState({disableAdvancedSettingTab2:!isInputChecked})
-  }
-
-enableHotSpotCapturingDialog(){
-  this.setState({openEnableHotSpotCapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
-}
-
- handleCancelEnableHotSpotCapturing(){
-    // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableHotSpotCapturingDialog:false});
-  }
- 
-
-handleSubmitEnableHotSpotCapturing(){
-  console.log("handleSubmit---", this.refs)
-  this.refs.enableHotSpotCapturingForm.submit();
-  this.handleCancelEnableHotSpotCapturing();
-  console.log("after closing the dialog----")
-  }
-
-
-/*
-* cnfirmation dialog
-*/
-cnfrmEnableBCIDefVal(){
-   this.props.setDefValBCICapturingKeywords();
-   this.handleCancelEnableBCIDefVal();
-}
-handleCancelEnableBCIDefVal(){
-  this.setState({openCnfrmBCIDialog:false})
-}
-
-cnfrmEnableHotSpotDefVal(){
-   this.props.setDefValHotSpotCapturingKeywords();
-   this.handleCancelEnableHotSpotDefVal();
-}
-
-handleCancelEnableHotSpotDefVal(){
-  this.setState({openCnfrmHotSpotDialog:false})
-}
-
   submitForm(formData){
     console.log("submitForm----",formData)
    
@@ -251,18 +141,13 @@ handleCancelEnableHotSpotDefVal(){
     this.props.submitKeywordData(keywordData,this.props.params.profileId);     
 }
 
-
-  
-
-
   render() {
   
     return (
       <div>
-      <EnableBCICapturing profileId = {this.props.params.profileId}/>
-      <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
-      <InstrProfiles handleSubmit = {this.submitForm.bind(this)}/>
-      
+        <EnableBCICapturing profileId = {this.props.params.profileId}/>
+        <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
+        <InstrProfiles handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );
   }

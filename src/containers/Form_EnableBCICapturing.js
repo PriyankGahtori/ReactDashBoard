@@ -7,8 +7,8 @@ import Input from '../components/InputWrapper';
 import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
 
-//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
-export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug'];
+export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
+//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug'];
 const initialValues = { 
                 'logLevelOneFpMethod' : true, 
                 'doNotDiscardLevel1FP' : false,
@@ -37,8 +37,12 @@ class NewApplication extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form topo-- !!!",this.props.data)
+  console.log("in form topo-- !!!",this.props)
   console.log("this.props.data[2]value - ")
+  this.state = { 'enableCpuTime':this.props.initialData.enableCpuTime,
+               'enableForcedFPChain':this.props.initialData.enableForcedFPChain
+
+    }
  
   }
 
@@ -46,19 +50,30 @@ class NewApplication extends React.Component {
 
 
 componentWillMount() {
-    console.log("inside will mount")  
+
+   
   }
 
  componentWillReceiveProps(nextProps)
   {
+    console.log("nextProps---",nextProps.initialData)
+    console.log("this,props---",this.props.initialData)
+    if(this.props.initialData != nextProps.initialData){
+        this.setState({enableCpuTime:nextProps.initialData.enableCpuTime,
+                       enableForcedFPChain:nextProps.initialData.enableForcedFPChain 
+        })
+    }
     
   }
+
 ChangeEnableCpuTime(event, index, value){
   console.log("ChangeEnableCpuTime method called",value)
+  this.setState({enableCpuTime:value})
 }
 
 ChangeEnableForcedFPChain(event,index ,value){
   console.log("ChangeEnableForcedFPChain---",value)
+  this.setState({enableForcedFPChain:value})
 }
 
   render() {
@@ -149,9 +164,8 @@ ChangeEnableForcedFPChain(event,index ,value){
                  
                  />
              </div>
-               </div>
 
-          {/*      <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
+                <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
                   hintText="Hint Text"
@@ -161,24 +175,28 @@ ChangeEnableForcedFPChain(event,index ,value){
                 />
               </div>
 
-        
+</div>        
 
         <div className = "row">
             <div className = "col-md-6">
-           
+             
                <DropDownMenu 
                 {...enableCpuTime}
-                                
+                              
                   style={styles.customWidth}
+                  value = {this.state.enableCpuTime}
                   autoWidth={false}
                   customOnChange={this.ChangeEnableCpuTime.bind(this)} 
                   floatingLabelText="Enable Cpu Time"
                 >
 
-                  <MenuItem value = {0}  primaryText = "Disable"/>
-                  <MenuItem value = {1}  primaryText = "Enable at flowpath / BT level"/>
-                  <MenuItem value = {2}  primaryText = "Enable at method level" />
-                  <MenuItem value = {3}  primaryText = "Enable at bot method and flowpath level" />
+                  <MenuItem value = {"0"}  primaryText = "Disable"/>
+                  <MenuItem value = {"1"}  primaryText = "Enable at flowpath / BT level"/>
+                  <MenuItem value = {"2"}  primaryText = "Enable at method level" />
+                  <MenuItem value = {"3"}  primaryText = "Enable at bot method and flowpath level" />
+                  <MenuItem value = {"1%201"}  primaryText = "CPU Time Ca[turing at flowpath level where child flowpath cpu time will also be added in bt monitor data" />
+                  <MenuItem value = {"3%201"} primaryText = "cpu time capturing for method & BT level where child fp genereated by thread callout will also be added in cpu time for bt monitor"/>
+
     
                 </DropDownMenu>
             </div>
@@ -189,18 +207,19 @@ ChangeEnableForcedFPChain(event,index ,value){
                             
                   style={styles.customWidth}
                   autoWidth={false}
+                  value={this.state.enableForcedFPChain}
                   customOnChange={this.ChangeEnableForcedFPChain.bind(this)} 
                   floatingLabelText="Enable Forced FPChain"
                 >
 
-                  <MenuItem value = {0}  primaryText = "Disable"/>
-                  <MenuItem value = {1}  primaryText = "Enable to not discard any child fp"/>
-                  <MenuItem value = {2}  primaryText = "Enable not to discard and also complete child flowpaths" />
+                  <MenuItem value = {"0"}  primaryText = "Disable"/>
+                  <MenuItem value = {"1"}  primaryText = "Enable to not discard any child fp"/>
+                  <MenuItem value = {"2"}  primaryText = "Not to discard and  complete child flowpaths" />
     
                 </DropDownMenu>
             </div>
           </div>
-       */}</form>
+       </form>
      );
    }
 }
@@ -214,7 +233,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-   initialValues : state.Keywords.initializeKeywords
+   initialValues : state.Keywords.initializeKeywords,
+   initialData : state.Keywords.initializeKeywords
 
 })
 ) (NewApplication);

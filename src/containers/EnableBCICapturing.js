@@ -27,7 +27,7 @@ import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
 import InstrProfiles from './InstrProfileMultiSelect';
 import DialogEnableBCICapturing from 'material-ui/Dialog';
-
+import * as validate from '../actions/validateGeneralKeywords'
 
 
 const styles = {
@@ -75,7 +75,7 @@ class enableBCICapturing extends React.Component {
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
- 
+  console.log("------",validate) 
   this.state ={enableBCIDebug:false}
   this.state = {openEnableBCICapturingDialog : false}
   console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
@@ -133,6 +133,7 @@ class enableBCICapturing extends React.Component {
     else{
     this.setState({enableBCICheckBox :isInputChecked })
     this.props.enableBCICheckBoxStatus(isInputChecked);
+    this.setState({openCnfrmDisbleDialog:true})
    }
   }
 
@@ -173,6 +174,22 @@ handleCancelEnableBCIDefVal(){
   this.props.enableBCICheckBoxStatus(false);
 }
 
+/*
+* Disable Dialog functions
+*/
+cnfrmDisableBCIVal(){
+    
+   this.submitForm(validate.disabledBCICapturing);
+   this.props.enableBCICheckBoxStatus(false);
+   this.setState({ openCnfrmDisbleDialog:false
+   })
+  
+}
+
+handleCancelDisableBCIVal(){
+  this.setState({ openCnfrmDisbleDialog:false
+   })
+}
 
   submitForm(formData){
     console.log("submitForm----",formData)
@@ -241,6 +258,19 @@ handleCancelEnableBCIDefVal(){
       />
     ];  
 
+const actionsBCIDisable =[
+        <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelDisableBCIVal.bind(this)}
+      />,
+      <FlatButton
+        label="OK"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.cnfrmDisableBCIVal.bind(this)}
+      />
+]
     
 
     return (
@@ -278,6 +308,15 @@ handleCancelEnableBCIDefVal(){
           actions={actionsBCIDefault}
           modal={false}
           open={this.state.openCnfrmBCIDialog}
+          onRequestClose={this.handleClose}
+        >
+        </ConfirmDialog>
+
+        <ConfirmDialog
+          title="Are you sure want to disable the keywords ?"
+          actions={actionsBCIDisable}
+          modal={false}
+          open={this.state.openCnfrmDisbleDialog}
           onRequestClose={this.handleClose}
         >
         </ConfirmDialog>

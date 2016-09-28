@@ -1092,7 +1092,10 @@ export function updateTopology(){
     console.log(" in update topology --------->",URL)
     const response = axios.get(URL);
     console.log(" response from update ----------->",response)
-    return ;
+    return {
+      type : 'UPDATE_TOPOLOGY',
+      payload : response
+    }
 }
 
 

@@ -6,7 +6,8 @@ const initialState = {initializeKeywords:{} ,
 					data:null,
 					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
-					listOfXmlFilesInstr :[]
+					listOfXmlFilesInstr :[],
+					uploadTopology :null
 					}
 
 
@@ -51,9 +52,10 @@ export default function (state = initialState,action){
 		let BCICapturingInitial = _.forEach(newState.data,function(value,key){
 			console.log("key---",key)
 			console.log("value----",value)
-			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'enableBciError' || key === 'logLevelOneFpMethod'){
+			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'enableBciError'
+			 || key === 'logLevelOneFpMethod' || key === 'enableCpuTime' || key === 'enableForcedFPChain' || key === 'setCavNVCookie'){
 				console.log("newState-",newState.data[key]["defaultValue"])
-				/*value = newState.data[key]["defaultValue"];*/
+				
 				newState.initializeKeywords[key] = value["defaultValue"];
 				console.log("value---",newState.initializeKeywords[key])
 
@@ -64,9 +66,7 @@ export default function (state = initialState,action){
 
 
 		console.log("BCICapturingInitial----",BCICapturingInitial)
-		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
-		//newState.enableBCICheckBox = true;
 		return newState;
 
 		case 'SET_DEFAULT_HOTSPOTKEYWORDS':
@@ -133,6 +133,16 @@ export default function (state = initialState,action){
 		console.log("hotspot checkbox---",action.payload)
 		newState.hotSpotCapturingCheckBox = action.payload;
 		return newState;
+
+		case 'UPDATE_TOPOLOGY':
+		var newState = Object.assign({}, state);
+		console.log("update topo reducer--",action.payload.data)
+		newState.uploadTopology = action.payload.data;
+		return newState;
+
+
+
+
 
 	}
 	return state;

@@ -8,8 +8,8 @@ import TextField from 'material-ui/TextField';
 //import Checkbox from '../components/CheckboxWrapper';
 import Checkbox from 'material-ui/Checkbox';
 
-//export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel'];
-export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
+export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel'];
+//export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
 
 const initialValues = { 
               

@@ -1057,6 +1057,22 @@ export function setDefValBCICapturingKeywords() {
   }
 }
 
+export function enableBCICheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_BCI_CHECKBOX',
+    payload:flag
+
+  }
+}
+
+export function enableHotSpotCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_HOTSPOT_CHECKBOX',
+    payload:flag
+
+  }
+}
+
 export function setDefValHotSpotCapturingKeywords(){
   return{
     type : 'SET_DEFAULT_HOTSPOTKEYWORDS'

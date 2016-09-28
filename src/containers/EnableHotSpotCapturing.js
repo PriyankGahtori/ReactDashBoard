@@ -5,6 +5,10 @@ import { connect } from 'react-redux';
 
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
+import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
+import AddNewButton from 'material-ui/FloatingActionButton';
+import AddIcon from 'material-ui/svg-icons/content/add';
 
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
@@ -12,42 +16,23 @@ import Snackbar from 'material-ui/Snackbar';
 
 import FlatButton from 'material-ui/FlatButton';
 import {hashHistory } from 'react-router';
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from '../components/CheckboxWrapper';
 import TextField from 'material-ui/TextField';
 import { reduxForm } from 'redux-form';
 import _ from "lodash";
-
+import DialogEnableHotSpotCapturing from 'material-ui/Dialog';
 import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
+import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
-import InstrProfiles from './InstrProfileMultiSelect';
 
-import EnableBCICapturing from './EnableBCICapturing';
-import EnableHotSpotCapturing from './EnableHotSpotCapturing';
 
 const styles = {
   text: {
     fontSize:18,
     paddingLeft:6
   },
-  toggle: {
-      marginTop:30 ,
-      paddingLeft:80
-  },
-  customWidth: {
-      width: 200
-    },
-  toggleCustomFQM :{
-     paddingLeft:-4
-  },
-  entryPointBlock:{
-    paddingLeft:10,
-    paddingTop:5
-  },
-  mainBlock:{
-    paddingLeft:10,
-   paddingBottom:20
-  },
+ 
   row1:{
      paddingBottom:20
   },
@@ -78,18 +63,16 @@ const NewButtonstyle = {
 
 };
 
-class GeneralKeywords extends React.Component {
+class EnableHotSpotCapturing extends React.Component {
 
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
   
   this.state ={enableBCIDebug:false}
-  this.state = {openEnableBCICapturingDialog : false}
    this.state = {openEnableHotSpotCapturingDialog : false}
    console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-  this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-  this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
+ // this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
  
   
@@ -102,7 +85,7 @@ class GeneralKeywords extends React.Component {
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.getKeywordsData(this.props.params.profileId);
+    this.props.getKeywordsData(this.props.profileId);
   }
 
   componentWillReceiveProps(nextProps)
@@ -111,15 +94,15 @@ class GeneralKeywords extends React.Component {
     console.log("nextprops---",nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
       console.log("getAllKeywordData data cahnged")
-      this.setState({getAllKeywordData:nextProps.getAllKeywordData});
+      this.setState({getAllKeywordData:nextProps.getAllKeywordData,
+                    hotSpotCapturingCheckBox :nextProps.getAllKeywordData.hotSpotCapturingCheckBox,
+                    disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox
+      });
+
     }
 
-    if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
-      this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.BCICapturingCheckBox})
-
-
-    if(this.props.getAllKeywordData.hotSpotCapturingCheckBox != nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
-      this.setState({disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox})
+    /*if(this.props.getAllKeywordData.hotSpotCapturingCheckBox != nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
+      this.setState({disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox})*/
 
   }
 
@@ -128,42 +111,7 @@ class GeneralKeywords extends React.Component {
    console.log("event---",event)
    console.log("value---",value)
   }
-  /*
-  *  functions for enableBCICapturing Dialog
-  */
-
-  enableBCICapturingDialog(){
-    
-    this.setState({openEnableBCICapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
-  }
-
-  handleenableBCICapturingCheckboxChange(event,isInputChecked){
-    console.log("isInputChecked---",isInputChecked)
-
-    if(isInputChecked === true)
-    {
-      console.log("action trigegerd")
-      //this.props.setDefValBCICapturingKeywords();
-        this.setState({openCnfrmBCIDialog:true})
-    }
-    this.setState({disableAdvancedSettingTab1:!isInputChecked})
-  }
-
-   handleCancelEnableBCICapturing(){
-    // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableBCICapturingDialog:false});
-  }
  
-
-handleSubmitEnableBCICapturing(){
-  console.log("handleSubmit---", this.refs)
-  this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
-  console.log("after closing the dialog----")
-  }
-
-
 /*
 * functions for hotSpot capturing
 */
@@ -178,7 +126,10 @@ handleenableHotSpotCapturingCheckboxChange(event,isInputChecked){
     this.setState({openCnfrmHotSpotDialog:true})
    
     }
-    this.setState({disableAdvancedSettingTab2:!isInputChecked})
+    else{
+      this.props.enableHotSpotCheckBoxStatus(isInputChecked);
+    }
+    
   }
 
 enableHotSpotCapturingDialog(){
@@ -203,21 +154,18 @@ handleSubmitEnableHotSpotCapturing(){
 /*
 * cnfirmation dialog
 */
-cnfrmEnableBCIDefVal(){
-   this.props.setDefValBCICapturingKeywords();
-   this.handleCancelEnableBCIDefVal();
-}
-handleCancelEnableBCIDefVal(){
-  this.setState({openCnfrmBCIDialog:false})
-}
+
 
 cnfrmEnableHotSpotDefVal(){
    this.props.setDefValHotSpotCapturingKeywords();
-   this.handleCancelEnableHotSpotDefVal();
+   this.props.enableHotSpotCheckBoxStatus(true);
+   this.setState({openCnfrmHotSpotDialog:false})
 }
 
 handleCancelEnableHotSpotDefVal(){
   this.setState({openCnfrmHotSpotDialog:false})
+  this.props.enableHotSpotCheckBoxStatus(false);
+
 }
 
   submitForm(formData){
@@ -225,7 +173,7 @@ handleCancelEnableHotSpotDefVal(){
    
     console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
     console.log("data---general keywords--",formData)
-    console.log("profileId--",this.props.params.profileId)
+    console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
@@ -248,22 +196,87 @@ handleCancelEnableHotSpotDefVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.params.profileId);     
+    this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
 
-  
-
+ 
 
   render() {
-  
+     
+    
+    const actionsHotSpotCapturing = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelEnableHotSpotCapturing.bind(this)}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleSubmitEnableHotSpotCapturing.bind(this)}
+      />
+    ];
+
+    
+    const actionsHotSpotDefault = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelEnableHotSpotDefVal.bind(this)}
+      />,
+      <FlatButton
+        label="OK"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.cnfrmEnableHotSpotDefVal.bind(this)}
+      />
+    ];  
+
     return (
       <div>
-      <EnableBCICapturing profileId = {this.props.params.profileId}/>
-      <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
-      <InstrProfiles handleSubmit = {this.submitForm.bind(this)}/>
-      
+      <div className = "row">
+        <div className = "col-md-3">
+         <Checkbox
+                  value = "enableHotSpotCapturing"
+                  label = "Enable HotSpot Capturing"
+                 
+                  checked  = {this.state.hotSpotCapturingCheckBox}
+                  onCustomChange={this.handleenableHotSpotCapturingCheckboxChange.bind(this)}
+                              
+              />
+          </div>
+          <div>
+    <FlatButton disabled ={!this.state.hotSpotCapturingCheckBox} onClick ={this.enableHotSpotCapturingDialog.bind(this)} label="Advanced Settings" />
+     </div>
     </div>
+
+   <DialogEnableHotSpotCapturing
+     title="Enable HotSpot Capturing keywords"
+          actions={actionsHotSpotCapturing}
+          modal={false}
+          open={this.state.openEnableHotSpotCapturingDialog}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={false} 
+      >
+         <FormEnableHotSpotCapturing ref="enableHotSpotCapturingForm" onSubmit ={this.submitForm.bind(this) } />
+    </DialogEnableHotSpotCapturing> 
+
+         
+
+   <ConfirmDialog
+    title="Are you sure want to enable the HotSpot keywords with default Values?"
+    actions={actionsHotSpotDefault}
+    modal={false}
+    open={this.state.openCnfrmHotSpotDialog}
+    onRequestClose={this.handleClose}
+    >
+         
+   </ConfirmDialog>
+
+
+  </div>
     );
   }
 }
@@ -282,4 +295,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(GeneralKeywords);
+export default connect(mapStateToProps,mapDispatchToProps)(EnableHotSpotCapturing);

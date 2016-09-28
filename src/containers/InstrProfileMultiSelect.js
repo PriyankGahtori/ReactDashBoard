@@ -72,7 +72,7 @@ const styles = {
       <div>
       <div className = "row">
        <div className = "col-md-3">
-        <p style={styles.text}>Instr Profiles </p>
+        <p style={styles.text}>Choose Instr Profiles </p>
       </div>
         <div className ="col-md-3">
         	<MultiSelect multi

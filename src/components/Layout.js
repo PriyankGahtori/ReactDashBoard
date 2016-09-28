@@ -123,7 +123,7 @@ export default class Layout extends React.Component {
              actions={actions} 
              contentStyle={{width: '550'}}>
              <Dialog_Setting/>
-             </SettingsDialog >
+        </SettingsDialog >
     	   <Drawer
 	          docked={true}
 	          width={230}

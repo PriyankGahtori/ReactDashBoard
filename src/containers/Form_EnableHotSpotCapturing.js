@@ -8,7 +8,9 @@ import TextField from 'material-ui/TextField';
 //import Checkbox from '../components/CheckboxWrapper';
 import Checkbox from 'material-ui/Checkbox';
 
-export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval'];
+//export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel'];
+export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
+
 const initialValues = { 
               
 
@@ -53,7 +55,7 @@ componentWillMount() {
   }
 
   render() {
-     const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval,ASDepthFilter,ASTraceLevel}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row" >
@@ -106,7 +108,34 @@ componentWillMount() {
                 />
              </div>
 
+              <div className= "col-md-6">
+                   <TextField
+                  hintText="Hint Text"
+                  floatingLabelText="AS Depth Filter"
+                  disabled={this.state.enableHotSpotBlock}
+                  {...ASDepthFilter}
+                  />
+              </div>
              </div>
+
+           
+
+             <div className = "row">
+
+             <div className= "col-md-6">
+                   <TextField
+                  hintText="Hint Text"
+                  floatingLabelText="AS Trace Level"
+                    disabled={this.state.enableHotSpotBlock}
+                  {...ASTraceLevel}
+                  
+                />
+             </div>
+
+              
+         </div>
+
+
 
 
            

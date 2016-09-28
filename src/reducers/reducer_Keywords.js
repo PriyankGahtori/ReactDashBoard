@@ -4,10 +4,9 @@ import * as validate from '../actions/validateGeneralKeywords';
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{} ,
 					data:null,
-					BCICapturingCheckBox : false,
+					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
 					listOfXmlFilesInstr :[]
-				
 					}
 
 
@@ -33,9 +32,9 @@ export default function (state = initialState,action){
 		newState.data = action.payload.data ;
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
 		console.log("booleanEnableBCICapturing---",booleanEnableBCICapturing)
-		newState.BCICapturingCheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
+		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
 
-		console.log("newState.enableBCICapturingCheckBox---",newState.BCICapturingCheckBox)
+		console.log("newState.enableBCICheckBox---",newState.enableBCICheckBox)
 
 		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
@@ -52,7 +51,7 @@ export default function (state = initialState,action){
 		let BCICapturingInitial = _.forEach(newState.data,function(value,key){
 			console.log("key---",key)
 			console.log("value----",value)
-			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'enableBciError' || key === 'enableLevel1FPCapturing'){
+			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'enableBciError' || key === 'logLevelOneFpMethod'){
 				console.log("newState-",newState.data[key]["defaultValue"])
 				/*value = newState.data[key]["defaultValue"];*/
 				newState.initializeKeywords[key] = value["defaultValue"];
@@ -67,6 +66,7 @@ export default function (state = initialState,action){
 		console.log("BCICapturingInitial----",BCICapturingInitial)
 		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+		//newState.enableBCICheckBox = true;
 		return newState;
 
 		case 'SET_DEFAULT_HOTSPOTKEYWORDS':
@@ -75,11 +75,12 @@ export default function (state = initialState,action){
 		let hotSpotCapturingInitial = _.forEach(newState.data,function(value,key){
 			console.log("key---",key)
 			console.log("value----",value)
-			if(key === 'ASSampleInterval' || key === 'ASThresholdMatchCount' || key === 'ASReportInterval' ){
+			if(key === 'ASSampleInterval' || key === 'ASThresholdMatchCount' || key === 'ASReportInterval' || key === 'ASDepthFilter' || key === 'ASTraceLevel'){
 				console.log("newState-",newState.data[key]["defaultValue"])
 				/*value = newState.data[key]["defaultValue"];*/
 				newState.initializeKeywords[key] = value["defaultValue"];
 				console.log("value---",newState.initializeKeywords[key])
+
 
 			}
 
@@ -88,6 +89,7 @@ export default function (state = initialState,action){
 		console.log("hotSpotCapturingInitial----",hotSpotCapturingInitial)
 		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+		newState.hotSpotCapturingCheckBox = true;
 		return newState;
 		
 		/*
@@ -118,7 +120,19 @@ export default function (state = initialState,action){
 
 		});
 
+		 return newState;
 
+		case 'ENABLE_BCI_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("bci checkbox---",action.payload)
+		newState.enableBCICheckBox = action.payload;
+		return newState;
+
+		case 'ENABLE_HOTSPOT_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("hotspot checkbox---",action.payload)
+		newState.hotSpotCapturingCheckBox = action.payload;
+		return newState;
 
 	}
 	return state;

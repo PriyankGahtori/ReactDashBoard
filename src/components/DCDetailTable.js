@@ -92,7 +92,7 @@ class DataGridComponent extends React.Component {
       >
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataSort={true} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false} >{val}</TableHeaderColumn>
+        <TableHeaderColumn dataSort={true} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? false :false} >{val}</TableHeaderColumn>
         ))}     
       </BootstrapTable>
         </div>

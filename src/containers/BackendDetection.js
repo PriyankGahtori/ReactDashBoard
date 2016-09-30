@@ -26,8 +26,8 @@ import * as actionCreators  from '../actions/index';
 
 var columns = {
                 "key" : "id",
-                "data":['Type', 'Description','Enable All','LINK'],
-                "field":['type', 'detail', 'enabled','id']
+                "data":['Type', 'Description','LINK'],
+                "field":['type', 'detail','id']
               }; 
 
 /*var data = [{"type": {"href":"HTTP"},"desc": "All HTTP Backends", "enable": true,"id": 1},
@@ -84,7 +84,7 @@ const NewButtonstyle = {
     /*
     * openBackendList state use to open dialog of edit form
     */
-  	this.setState({backendType: row.type.href ,openBackendList: true,selecteRow: row});  	
+  	this.setState({backendType: row.type.href,openBackendList: true,selecteRow: row});  	
   } ;
 
   handleOpen(){
@@ -138,29 +138,25 @@ const NewButtonstyle = {
   handleSubmitEditEndPt(){
     this.refs.editBackendPt.submit();
     console.log("handleSubmitEditEndPt")
+    this.handleCloseEditEndPt();
   }
 
   submitEditEndPointForm(data){  
-    console.log("data----",data);
-    data.endPoints=[];
+    console.info("data---submit edit end dorm---",data);
+    let endPoints=[];
     Object.keys(data).map(function(key){
-      var endPointObj = {};
-      console.log("value---",key);
+      let endPointObj = {};
       if(key.startsWith("endPoint")){
-        console.log("key----",key)
-
-        /*let splitArr = key.split("_");
-        
-        console.log("id--",splitArr[1])
-        console.log("value--",data[key]
-        
+        let splitArr = key.split("_");
         endPointObj.id = splitArr[1];
-        endPointObj.enabled = data[key]
-        data.endPoints.push(endPointObj);
-        //console.log("data---",data)*/
+        endPointObj.enabled = data[key];
+        endPoints.push(endPointObj);
       }
-    })
-    console.log("data---aftr splitting--",data)
+    });
+    
+  data.endPoints = endPoints;
+  console.info("data---aftr splitting--",data)
+   this.props.updateBackendType(data,this.props.params.profileId)
    
     
   }

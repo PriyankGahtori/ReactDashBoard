@@ -9,7 +9,7 @@ import Toggle from '../components/ToggleWrapper';
 //import Toggle from 'material-ui/Toggle';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import CheckBox from '../components/CheckboxWrapper';
-export var fields = ['backend_Type_id','host','port','url','serviceName','topicName','tableName'];
+export var fields = ['backend_Type_id','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
 const initialValues = {
               'backend_Type_id':'1',
               'host':false,
@@ -52,14 +52,54 @@ class Form_BackendDetection_Edit extends React.Component {
 
   constructor(props) {
   super(props);
+  console.log("form bacend edit -----",this.props)
   this.state={listBackendPoints:null}
   this.handleChange=this.handleChange.bind(this);
   this.state ={flagAddOREdit:this.props.flagAddOREdit};
   this.state ={listOfEntryType:this.props.listOfEntryType};
   this.state ={enable:false};
   this.handleCheck= this.handleCheck.bind(this);
- 
-  }
+  this.state = { hostPortUrl:false,
+                 query      :false,
+                 serviceName:false,
+                 hostPortUrl:false,
+                 databaseProductName:false,
+                 databaseProductVersion:false,
+                 driverName:false,
+                 driverVersion:false,
+                 userName :false,
+                 tableName:false }
+
+  let backendType = this.props.backendType.trim();
+
+    if(backendType == "HTTP"){
+       this.state = { hostPortUrl:true,
+                      query      :true};
+    }
+    else if(backendType == "WS"){
+      this.state = {serviceName:true,
+                    hostPortUrl:true};
+    }
+   
+    else if(backendType == "JDBC"){
+      this.state = { hostPortUrl:true,
+                    databaseProductName:true,
+                    databaseProductVersion:true,
+                    driverName:true,
+                    driverVersion:true,
+                    userName :true};
+    }
+    else if(backendType == "RMI"){
+      this.state = { hostPortUrl:true,
+                      serviceName:true}
+    }
+    else if(backendType == "HADOOP"){
+      console.log("backend type hadoop")
+      this.state = { tableName:true}
+    }
+
+  
+    }
 
 handleCheck(event,isInputChecked){
     console.log("event--in backendformedit----",event)
@@ -89,7 +129,7 @@ handleToggleChange(value){
 
   componentWillUnmount(){
     console.log("componentWillUnmount---func called")
-    fields =  ['backend_Type_id','host','port','url','serviceName','topicName','tableName'];
+    fields =  ['backend_Type_id','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
     
   }
 
@@ -97,6 +137,7 @@ handleToggleChange(value){
    console.log("component mount called",fields)
    console.log("this.props---in comp wil mount--",this.props.selectedRow.lstEndPoints)
   /*
+  *
   */
    this.props.selectedRow.lstEndPoints.map(function(value){
     fields.push("endPoint_"+value.id);
@@ -116,25 +157,33 @@ handleToggleChange(value){
 
   render() {
     console.log("render function called")
-    const { fields: { host,port,url,serviceName,topicName,tableName}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+    const { fields: { host,port,url,serviceName,topicName,tableName,query,databaseProductName,databaseProductVersion,driverName,driverVersion,userName}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      
 
   return (
     <form >
     <div> 
-      <div className='row'>
+      <p>{this.props.backendType}</p>     
        <h3>Naming Rules</h3>
-       <div className={'col-xs-4 col-md-3'} style={{display: 'flex'}}>
+        <div className='row' >
+        <div className = {`col-md-3 ${this.state.hostPortUrl === true ? 'show' :'hidden'}`}>
+
         <CheckBox label="Host" 
           {...host}
-         onCustomChange={this.handleCheck}
+         onCustomChange={this.handleCheck }
+        
         />
+        </div>
 
+
+        <div className = {`col-md-3 ${this.state.hostPortUrl === true ? 'show' :'hidden'}`}>
         <CheckBox label="Port" 
         {...port} 
         onCustomChange={this.handleCheck}
         />
+        </div>
 
+        <div className = {`col-md-3 ${this.state.hostPortUrl === true ? (this.props.backendType == "RMI" ?'hidden': 'show' ):'hidden'}`}>
         <CheckBox label="URL"
         {...url}   
         onCustomChange={this.handleCheck}
@@ -142,18 +191,23 @@ handleToggleChange(value){
        </div>
       </div>
 
-    <div className='row'>   
-    <div className={'col-xs-4 col-md-3'} style={{display: 'flex'}}>
+    <div className='row' style={{display: 'flex'}}>   
+    <div className={`col-md-3 ${this.state.serviceName === true ? 'show' :'hidden'}`} >
       <CheckBox label="ServiceName"
       {...serviceName} 
-      
       onCustomChange={this.handleCheck}
       />
+      </div>
+
+      <div className = {`col-md-3 ${this.state.topicName === true ? 'show' :'hidden'}`} >
       <CheckBox label="Topic Name"
       {...topicName}   
       
       onCustomChange={this.handleCheck}
       />
+      </div>
+
+      <div className = {`col-md-3 ${this.state.tableName === true ? 'show' :'hidden'}`}>
       <CheckBox label="Table Name"
       {...tableName}
        onCustomChange={this.handleCheck}
@@ -161,8 +215,62 @@ handleToggleChange(value){
        </div>
       </div>
 
+
+       <div className='row' style={{display: 'flex'}}>   
+    <div className= {`col-md-3 ${this.state.query === true ? 'show' :'hidden'}`}>
+      <CheckBox label="query"
+      {...query} 
+      onCustomChange={this.handleCheck}
+  
+      />
+      </div>
+
+      <div className = {`col-md-3 ${this.state.databaseProductName === true ? 'show' :'hidden'}`}>
+      <CheckBox label="Database ProductName"
+      {...databaseProductName}   
+      
+      onCustomChange={this.handleCheck}
+      />
+      </div>
+      <div className = {`col-md-3 ${this.state.databaseProductVersion === true ? 'show' :'hidden'}`}>
+      <CheckBox label="Database ProductVersion"
+      {...databaseProductVersion}
+       onCustomChange={this.handleCheck}
+      />
+       </div>
+
+      </div>
+
+
+
+
+    <div className='row' style={{display: 'flex'}}>   
+    <div className={`col-md-3 ${this.state.driverName === true ? 'show' :'hidden'}`} >
+      <CheckBox label="Driver Name"
+      {...driverName} 
+      
+      onCustomChange={this.handleCheck}
+      />
+      </div>
+
+      <div className = {`col-md-3 ${this.state.driverVersion === true ? 'show' :'hidden'}`}>
+      <CheckBox label="Driver Version"
+      {...driverVersion}   
+      onCustomChange={this.handleCheck}
+      />
+      </div>
+
+      <div className = {`col-md-3 ${this.state.userName === true ? 'show' :'hidden'}`}>
+      <CheckBox label="User Name"
+      {...userName}
+       onCustomChange={this.handleCheck}
+      />
+       </div>
+      </div>
+
+
     <div>
-        <h3>End Points</h3>
+        <h3>Exit Points</h3>
           {
             this.props.selectedRow.lstEndPoints.map((value,index) =>(
               <Toggle  

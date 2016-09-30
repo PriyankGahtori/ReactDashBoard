@@ -195,6 +195,7 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
 case 'FETCH_INSTANCE_NODE':
 
       var newState = Object.assign({}, state);
+      console.log("action.apyload ---",action.payload.data)
       if(action.payload.data == null || action.payload.data.childNode == null){
           return newState;
       }

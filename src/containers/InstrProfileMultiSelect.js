@@ -19,9 +19,10 @@ var options = [
   
 const styles = {
   text: {
-    fontSize:18,
-    paddingLeft:6
-  }};
+    fontSize:16,
+    paddingLeft:6,
+    paddingTop:20,
+      }};
 
  class InstrProfileMultiSelect extends React.Component {
   
@@ -72,7 +73,7 @@ const styles = {
       <div>
       <div className = "row">
        <div className = "col-md-3">
-        <p style={styles.text}>Instr Profiles </p>
+        <p style={styles.text}>Choose Instrumentation Profiles </p>
       </div>
         <div className ="col-md-3">
         	<MultiSelect multi
@@ -81,6 +82,7 @@ const styles = {
             value = {this.state.value}
             options = {this.props.getAllKeywordData.listOfXmlFilesInstr}
             onChange={this.updateSelected.bind(this)}
+            style={{top:15}}
         	/>
           </div>
 
@@ -90,6 +92,7 @@ const styles = {
           primary={true}
           keyboardFocused={true}
           onClick={this.submitInstr.bind(this)}
+          style={{top:15}}
         />
       </div>
   </div>

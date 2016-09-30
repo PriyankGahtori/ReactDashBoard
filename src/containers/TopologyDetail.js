@@ -22,7 +22,7 @@ import Snackbar from 'material-ui/Snackbar';
 
 var columns = {
                 "key" : "id",
-                "data":['TopoName', 'TopoDesc','LINK'],
+                "data":['Name', 'Description','LINK'],
                 "field":['topoName', 'topoDesc','id']
               }; 
 

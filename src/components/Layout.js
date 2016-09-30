@@ -118,12 +118,12 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme()}>
     	<div>
        <SettingsDialog  
-               title="Settings"
+               title="Topology Migration"
              open={this.state.settingOpen}
              actions={actions} 
              contentStyle={{width: '550'}}>
-             <Dialog_Setting/>
-             </SettingsDialog >
+             <Dialog_Setting closeDialog={this.handleClose}/>
+        </SettingsDialog >
     	   <Drawer
 	          docked={true}
 	          width={230}
@@ -154,12 +154,12 @@ export default class Layout extends React.Component {
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
          iconElementRight={<div><IconButton><Link to="/"><FontIcon className="material-icons">home</FontIcon></Link></IconButton>
-        <IconButton><FontIcon className="material-icons" onTouchTap={this.settingScreen}>settings</FontIcon></IconButton></div>}
+        <IconButton><FontIcon className="material-icons" onTouchTap={this.settingScreen}>assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      
 		    <div className='container-fluid'>
-		       <h2>NetDiagnostics</h2>
+		       <h2>NetDiagnostics Configuration</h2>
           
           <Breadcrumbs 
              routes={this.props.routes}

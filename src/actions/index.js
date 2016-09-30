@@ -958,6 +958,19 @@ export function addNewBackendPoint(data,profileId){
   }
 }
 
+export function updateBackendType(data,profileId){
+  console.log("data---in index,js---",data)
+  var response = axios({
+    method : 'post',
+    url    : `${url.UPDATE_BACKEND_POINT}/${data.backend_Type_id}/${profileId}`,
+    data   : data,
+    headers: {'Content-Type':'application/json'}
+  });
+  return{
+    type : 'UPDATE_BACKEND_POINT',
+    payload : response
+  }
+}
 
 
 
@@ -1057,6 +1070,22 @@ export function setDefValBCICapturingKeywords() {
   }
 }
 
+export function enableBCICheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_BCI_CHECKBOX',
+    payload:flag
+
+  }
+}
+
+export function enableHotSpotCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_HOTSPOT_CHECKBOX',
+    payload:flag
+
+  }
+}
+
 export function setDefValHotSpotCapturingKeywords(){
   return{
     type : 'SET_DEFAULT_HOTSPOTKEYWORDS'
@@ -1076,7 +1105,10 @@ export function updateTopology(){
     console.log(" in update topology --------->",URL)
     const response = axios.get(URL);
     console.log(" response from update ----------->",response)
-    return ;
+    return {
+      type : 'UPDATE_TOPOLOGY',
+      payload : response
+    }
 }
 
 

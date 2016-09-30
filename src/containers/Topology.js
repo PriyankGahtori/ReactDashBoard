@@ -18,7 +18,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key"  : "dcTopoId",
-                "data" : ['Topology Name', 'Topology Desc','State','Profile','dcTopoId'],
+                "data" : [' Name', ' Description','State','Profile','dcTopoId'],
                 "field": ['topoName', 'topoDesc','topoState','profLink','dcTopoId']
               }; 
 

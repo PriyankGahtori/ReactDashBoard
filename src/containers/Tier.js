@@ -18,7 +18,7 @@ import {hashHistory } from 'react-router';
  
 var columns = {
                 "key"  : "tierId",
-                "data" : ['Tier Name', 'Tier Desc','profileName','tierId'],
+                "data" : [' Name', ' Description','Profile Name','Id'],
                 "field": ['tierName', 'tierDesc','profLink','tierId']
               }; 
 
@@ -107,7 +107,7 @@ class Tier extends React.Component {
         console.log("selectedRow----",selectedRow)
         let selectedRowData = this.props.tierData.tableData
                                   .filter(function(value){
-                                    return value.id === selectedRow[0].id;
+                                    return value.tierId === selectedRow[0];
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 
@@ -175,7 +175,7 @@ class Tier extends React.Component {
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          //  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 

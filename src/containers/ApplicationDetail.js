@@ -25,7 +25,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key" : "id",
-                "data":['Application Name', 'Application Desc','User Name','LINK'],
+                "data":['Name', 'Description','User Name','LINK'],
                 "field":['appName', 'appDesc', 'userName','id']
               }; 
 
@@ -52,7 +52,7 @@ class ApplicationDetail extends React.Component {
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
-  console.log(this.props.routeParams.something)
+  
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);

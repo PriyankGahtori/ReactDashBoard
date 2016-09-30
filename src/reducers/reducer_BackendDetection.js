@@ -71,7 +71,8 @@ switch(action.type){
   case 'ADD_NEW_BACKEND_POINT':
     var newState = Object.assign({},state);
     var responseData = action.payload.data;
-               //creating endpoint from responseobj    
+               //creating endpoint from responseobj  
+    console.log("responseData--",responseData)  
     var endPointObj = {};
         endPointObj.id = responseData.id;
         endPointObj.name = responseData.name;
@@ -84,6 +85,12 @@ switch(action.type){
     });        
 
    return newState;
+
+   case 'UPDATE_BACKEND_POINT':
+   var newState = Object.assign({},state);
+   var responseData = action.payload.data;
+   console.log("in updating---",responseData)
+
 
 }
 return state;

@@ -235,8 +235,8 @@ handleCancelEnableHotSpotDefVal(){
     ];  
 
     return (
-      <div>
-      <div className = "row">
+      <div >
+      <div className = "row" style={{paddingBottom:15}}>
         <div className = "col-md-3">
          <Checkbox
                   value = "enableHotSpotCapturing"
@@ -253,12 +253,12 @@ handleCancelEnableHotSpotDefVal(){
     </div>
 
    <DialogEnableHotSpotCapturing
-     title="Enable HotSpot Capturing keywords"
+     title="Enable HotSpot Capturing"
           actions={actionsHotSpotCapturing}
           modal={false}
           open={this.state.openEnableHotSpotCapturingDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={false} 
+          autoScrollBodyContent={true} 
       >
          <FormEnableHotSpotCapturing ref="enableHotSpotCapturingForm" onSubmit ={this.submitForm.bind(this) } />
     </DialogEnableHotSpotCapturing> 

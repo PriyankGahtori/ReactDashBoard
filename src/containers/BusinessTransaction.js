@@ -19,7 +19,7 @@ export default class BusinessTransaction extends React.Component {
   render() {
     
     return (    
-      <div>
+      <div><h3>Bussiness Transaction Configuration</h3>
 	    <div className='row'>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-3'} 
@@ -29,11 +29,11 @@ export default class BusinessTransaction extends React.Component {
 
 	        <RadioButton
 	          value="global"
-	          label="Global"              
+	          label="Global Rule"              
 	        /> 
 	        <RadioButton
 	          value="pattern"
-	          label="Pattern"              
+	          label="Pattern Rule"              
 	        />
 	      </RadioButtonGroup>
 	    </div> 

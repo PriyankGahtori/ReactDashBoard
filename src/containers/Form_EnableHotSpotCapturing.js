@@ -58,11 +58,11 @@ componentWillMount() {
      const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval,ASDepthFilter,ASTraceLevel}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
-            <div className ="row" >
+            <div className ="row" style={{paddingTop:8}}>
               <div className = "col-md-6">
                 <Checkbox  
                 value="enableLevel1FPCapturing"
-                label="Enable / Disable HotSPots"
+                label="Enable HotSpots"
                  defaultChecked = {true} 
                 onCheck={this.handleEnableHotSpot.bind(this)}            
             />
@@ -75,7 +75,7 @@ componentWillMount() {
             <p>{this.state.enableHotSpotBlock}</p>
              <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Sample Interval For Stack Trace"
+                  floatingLabelText="AS Sample Interval For Stack Trace"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASSampleInterval}
                 />
@@ -89,7 +89,7 @@ componentWillMount() {
              <div className = "col-md-6" style = {styles.block}>
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Threshold Match Count"
+                  floatingLabelText="AS Threshold Match Count"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASThresholdMatchCount}
                 />
@@ -101,7 +101,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Reporting Interval HotSpots"
+                  floatingLabelText="HotSpot Reporting Interval "
                     disabled={this.state.enableHotSpotBlock}
                   {...ASReportInterval}
                   
@@ -111,7 +111,7 @@ componentWillMount() {
               <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Depth Filter"
+                  floatingLabelText="Min Stack Depth for HotSpot"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASDepthFilter}
                   />
@@ -125,7 +125,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Trace Level"
+                  floatingLabelText="AS Debug Level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
                   

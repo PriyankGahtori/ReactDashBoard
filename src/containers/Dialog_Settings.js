@@ -16,6 +16,7 @@ import * as actionCreators  from '../actions/index';
 
 updateTopo(){
   this.props.updateTopology();
+   this.props.closeDialog();
 
 }
 generateTopo(){
@@ -26,8 +27,8 @@ generateTopo(){
     return (
       <div   > 
           <div >
-         <p style={{paddingLeft:'100' , paddingTop:'20'}}>Update Topology </p>
-         <FlatButton style={{left:'270',bottom: '37'  }} label="Update" onTouchTap={this.updateTopo} primary={true} /> 
+      
+         <FlatButton style={{left:'150' }} label="Migrate Topologies" onTouchTap={this.updateTopo} primary={true} /> 
         </div>
      {/*   <div >
        <p style={{paddingLeft:'100'}}>Generate ndonfig ile </p>

@@ -19,7 +19,7 @@ import DialogGenerateFile from './Dialog_GenerateFile';
 
 var columns = {
                 "key"  : "id",
-                "data" : ['Type','Name','Desc','Enabled','ID'],
+                "data" : ['Type','Name','Description','Enabled','ID'],
                 "field": ['entryType','name','desc','enabled','id']
               }; 
 
@@ -186,7 +186,7 @@ onToggle(row){
        <Paper zDepth={2}>     
       <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
-              <h4>ServiceEntryPoints Detail</h4>
+              <h4>Service Entry Points Detail(s)</h4>
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>

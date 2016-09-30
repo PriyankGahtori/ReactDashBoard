@@ -19,7 +19,7 @@ export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
                 "key" : "methodId",
-                "data":['Method Display Name', 'Method Name', 'Method Description','ID'],
+                "data":['Display Name', 'Method Name', 'Description','ID'],
                 "field":['methodDisplayName', 'methodName', 'methodDesc', 'methodId']
               };          
 

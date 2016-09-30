@@ -25,7 +25,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key" : "id",
-                "data":['Application Name', 'Application Desc','User Name','LINK'],
+                "data":['Name', 'Description','User Name','LINK'],
                 "field":['appName', 'appDesc', 'userName','id']
               }; 
 

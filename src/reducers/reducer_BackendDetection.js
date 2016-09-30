@@ -47,11 +47,11 @@ switch(action.type){
 
   case 'INITIALIZE_BACKEND_FORM':
   var newState = Object.assign({},state);
-  let fields = ['backend_Type_id','host','port','url','serviceName','topicName','tableName'];
+  let fields = ['backendTypeId','host','port','url','serviceName','topicName','tableName'];
   console.log("in reducer ---",action.payload)
    console.log("in INITIALIZE_BACKEND_FORM--",newState.initializeBackendForm)
 
-  newState.initializeBackendForm.backend_Type_id = action.payload.id;
+  newState.initializeBackendForm.backendTypeId = action.payload.id;
   newState.initializeBackendForm.host = action.payload.namingRule.host,
   newState.initializeBackendForm.port = action.payload.namingRule.port,
   newState.initializeBackendForm.url  = action.payload.namingRule.url,
@@ -89,9 +89,15 @@ switch(action.type){
    case 'UPDATE_BACKEND_POINT':
    var newState = Object.assign({},state);
    var responseData = action.payload.data;
-   console.log("in updating---",responseData)
+      let endPoints = responseData.endPoints;
+       endPoints.forEach(function(value){
+          responseData["endPoint_"+value.id] = value.enabled;
+       })       
+      
 
-
+   console.info("in updating---",responseData)
+  
+   return newState;
 }
 return state;
 

@@ -962,7 +962,8 @@ export function updateBackendType(data,profileId){
   console.log("data---in index,js---",data)
   var response = axios({
     method : 'post',
-    url    : `${url.UPDATE_BACKEND_POINT}/${data.backend_Type_id}/${profileId}`,
+    //url    : `${url.UPDATE_BACKEND_POINT}/${data.backend_Type_id}/${profileId}`,
+    url    : `${url.UPDATE_BACKEND_POINT}/${profileId}/${data.backendTypeId}`,
     data   : data,
     headers: {'Content-Type':'application/json'}
   });

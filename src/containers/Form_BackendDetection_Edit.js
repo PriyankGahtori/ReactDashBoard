@@ -9,9 +9,9 @@ import Toggle from '../components/ToggleWrapper';
 //import Toggle from 'material-ui/Toggle';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import CheckBox from '../components/CheckboxWrapper';
-export var fields = ['backend_Type_id','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
+export var fields = ['backendTypeId','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
 const initialValues = {
-              'backend_Type_id':'1',
+              'backendTypeId':'1',
               'host':false,
               'port':false,
               'url':false,
@@ -129,7 +129,7 @@ handleToggleChange(value){
 
   componentWillUnmount(){
     console.log("componentWillUnmount---func called")
-    fields =  ['backend_Type_id','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
+    fields =  ['backendTypeId','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
     
   }
 

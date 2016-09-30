@@ -11,8 +11,8 @@ import MenuItem from 'material-ui/MenuItem';
 import Toggle from '../components/ToggleWrapper';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
-export const fields = ['btName','matchType','urlName','include','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
 
+export const fields = ['btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
              
 
 const styles = {
@@ -63,7 +63,7 @@ handleCheck(event,value)
 }
 
   render() {
-     const { fields: {btName,include,matchType,urlName,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
     <div className ="row">
@@ -105,6 +105,23 @@ handleCheck(event,value)
         />
         </div>
     
+     </div>
+
+     <div className ="row">
+        <div className="col-md-6">
+         <TextField        
+            {...slowTransaction}  
+            floatingLabelText="Slow Transaction Threshold (ms)"
+          /> 
+         </div>
+         <div className="col-md-6">
+           <TextField        
+            {...verySlowTransaction}  
+            floatingLabelText="Very Slow Transaction Threshold (ms)"
+          />  
+      </div>
+
+
      </div>
      
      <div className="row">

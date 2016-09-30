@@ -10,21 +10,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {initializeBTFields,addBTData}  from '../actions/index';
 
-export const fields = ["uriType","segmentType","segmentValue","dynamicReqType","dynamicReqValue","requestParam","httpMethod","requestHeader"];
+export const fields = ["uriType","segmentType","segmentValue","slowTransaction","verySlowTransaction","dynamicReqType","dynamicReqValue","requestParam","httpMethod","requestHeader"];
+
 class GlobalBusinessTransaction extends React.Component {
-  
 
   constructor(props) {
     super(props);
     console.log("in globalbt---",this.props)
-    console.log("mountinf compo")
     this.state={
-    	'segmentDivCSS' : 'hidden',
+    	'segmentDivCSS' : 'show',
     	'dynamicReqType' : false,
     	'paramDiv' : true, 
   		'methodDiv': false,
   		'headerDiv': false,
-      'uriType':"complete"    	
+      'uriType':"segment"    	
     }
   }
 
@@ -68,6 +67,7 @@ class GlobalBusinessTransaction extends React.Component {
   }
 
   handleDReqCheckboxChange(event,value){
+    console.log("value - ",value)
   	this.setState({'dynamicReqType': value})	
   }
 
@@ -95,7 +95,7 @@ class GlobalBusinessTransaction extends React.Component {
   render() {
 
   	const {
-      fields: {uriType, segmentType, segmentValue, dynamicReqType,dynamicReqValue,requestParam, httpMethod, requestHeader},
+      fields: {uriType, segmentType, segmentValue,slowTransaction,verySlowTransaction, dynamicReqType,dynamicReqValue,requestParam, httpMethod, requestHeader},
       handleSubmit,
       resetForm,
       submitting
@@ -106,7 +106,7 @@ class GlobalBusinessTransaction extends React.Component {
     <form onSubmit ={handleSubmit(this.submit.bind(this)) }>
 
       <div style={{'paddingTop':20}}>
-      	<h4>What Part of URI should be used in Transaction Name.</h4>
+      	<h4>Select part of URI used in Transaction name</h4>
       </div>
 	  <RadioButtonGroup 
 	  		{...uriType}
@@ -120,10 +120,12 @@ class GlobalBusinessTransaction extends React.Component {
        />
        <RadioButton
           value="segment"
-          label="Use Segment of URI"          
+          label="Segment of URI"          
        />
 
       </RadioButtonGroup>
+
+
 
    <div className={`row ${this.state.segmentDivCSS}`} style={{'marginLeft':30}} enabled={false}>
 		<SelectField value={"first"} {...segmentType} >
@@ -137,14 +139,26 @@ class GlobalBusinessTransaction extends React.Component {
         />        
       </div>
 
+      <div className="col-md-12">
+         <TextField        
+            {...slowTransaction}  
+            floatingLabelText="Slow Transaction Threshold (ms)"
+          /> 
+
+           <TextField        
+            {...verySlowTransaction}  
+            floatingLabelText="Very Slow Transaction Threshold (ms)"
+          />  
+      </div>
+
 {/*---------------------Dynamic Request Type--------------------------*/}
 
 <div style={{'marginTop':30, 'marginBottom':30}}>
 	 <Checkbox
  	  {...dynamicReqType}
       value="dynamicReq"
-      label="Use Dynamic Request Type ?"
-      labelStyle={{"fontSize":18,"fontWeight":0}}           
+      label="Choose Dynamic Request type "
+      labelStyle={{"fontSize":16,"fontWeight":0}}           
       onCustomChange={this.handleDReqCheckboxChange.bind(this)}
       checked={this.state.dynamicReqType}              
      />

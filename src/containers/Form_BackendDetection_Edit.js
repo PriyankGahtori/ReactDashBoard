@@ -163,7 +163,7 @@ handleToggleChange(value){
   return (
     <form >
     <div> 
-      <p>{this.props.backendType}</p>     
+       
        <h3>Naming Rules</h3>
         <div className='row' >
         <div className = {`col-md-3 ${this.state.hostPortUrl === true ? 'show' :'hidden'}`}>

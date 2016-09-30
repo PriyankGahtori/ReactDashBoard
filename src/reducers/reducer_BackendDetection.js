@@ -88,15 +88,33 @@ switch(action.type){
 
    case 'UPDATE_BACKEND_POINT':
    var newState = Object.assign({},state);
-   var responseData = action.payload.data;
+   /*var response = action.payload.data;
       let endPoints = responseData.endPoints;
        endPoints.forEach(function(value){
           responseData["endPoint_"+value.id] = value.enabled;
        })       
-      
+  let tableData = newState.tableData ;
+  //get data for current backendTypeId
+  let backendTypeId = response.backendTypeId;
+  let currentObj;
+  tableData.forEach(function(val){ 
+                    if(backendTypeId == val.id)
+                        currentObj = val;
+                  });
+//modify the currentObj's Naming Rule
+Object.keys(currentObj.namingRule).forEach(function(key) {
+    //console.log(key, obj[key]);
+    currentObj.namingRule[key] = response[key];
+});
+
+//modify the lstEndPoints enabled value as per response
+currentObj.lstEndPoints.forEach(function(val){
+    val.enabled = response["endPoint_"+val.id];
+    
+})      
 
    console.info("in updating---",responseData)
-  
+*/
    return newState;
 }
 return state;

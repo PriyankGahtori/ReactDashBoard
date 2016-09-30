@@ -48,14 +48,14 @@ class NewApplication extends React.Component {
               <div className ="col-md-6">
                <TextField
                 hintText="Hint Text"
-                floatingLabelText="Profile Name"  
+                floatingLabelText="Name"  
                  {...profileName}
                 errorText={profileName.touched && profileName.error && <div>{profileName.error}</div>}/>   
                </div>
                 <div className ="col-md-6">
                <TextField
                 hintText="Hint Text"
-                floatingLabelText="Profile Desc" 
+                floatingLabelText=" Description" 
                  {...profileDesc}
                 errorText={profileDesc.touched && profileDesc.error && <div>{profileDesc.error}</div>}/>
             </div>

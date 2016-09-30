@@ -25,7 +25,6 @@ import {getKeywordsData,submitKeywordData}  from '../actions/index';
 import FormEnableBCICapturing from './Form_EnableBCICapturing';
 import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
-import InstrProfiles from './InstrProfileMultiSelect';
 import DialogEnableBCICapturing from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords'
 
@@ -139,9 +138,7 @@ class enableBCICapturing extends React.Component {
 
    handleCancelEnableBCICapturing(){
     // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableBCICapturingDialog:false
-                   
-     });
+     this.setState({openEnableBCICapturingDialog:false});
   }
  
 
@@ -271,8 +268,7 @@ const actionsBCIDisable =[
         onClick={this.cnfrmDisableBCIVal.bind(this)}
       />
 ]
-    
-
+  
     return (
       <div>
 
@@ -292,18 +288,16 @@ const actionsBCIDisable =[
 
     
     <DialogEnableBCICapturing
-          title="Enable BCI Capturing keywords"
+          title="Enable BCI Capturing"
           actions={actions}
           modal={false}
           open={this.state.openEnableBCICapturingDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={false}         
+          autoScrollBodyContent={true}         
     >
       <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />
    </DialogEnableBCICapturing>
-
-   
-       <ConfirmDialog
+  <ConfirmDialog
           title="Are you sure want to enable the keywords with default Values?"
           actions={actionsBCIDefault}
           modal={false}

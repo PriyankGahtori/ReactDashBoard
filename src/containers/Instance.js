@@ -19,7 +19,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key"  : "instanceId",
-                "data" : ['Instance Name', 'Instance Description','profileName','instanceId'],
+                "data" : [' Name', ' Description','Profile Name','Id'],
                 "field": ['instanceName', 'instanceDesc','profLink','instanceId']
               }; 
 
@@ -157,7 +157,7 @@ class Instance extends React.Component {
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          //  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 

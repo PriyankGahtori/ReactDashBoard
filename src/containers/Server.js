@@ -17,7 +17,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key"  : "serverId",
-                "data" : ['Server Name', 'Server Description','profileName','serverId'],
+                "data" : [' Name', ' Description','Profile Name','Id'],
                 "field": ['serverName', 'serverDesc','profLink','serverId']
               }; 
 
@@ -176,7 +176,7 @@ class Server extends React.Component {
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          //  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 

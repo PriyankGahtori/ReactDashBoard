@@ -28,9 +28,7 @@ const validate = values => {
     errors.appName = 'Required'
   } else if (values.appName.length > 15) {
     errors.appName = 'Must be 15 characters or less'
-  } else if (!Is.alphaNumeric(values.appName)) {
-    errors.appName = 'Invalid Application Name'
-  }else if(Number(values.appName)){
+  } else if(Number(values.appName)){
     errors.appName = "Must enter only characters."
   }
 
@@ -45,9 +43,7 @@ const validate = values => {
     errors.userName = 'Required'
   } else if (values.userName.length > 15) {
     errors.userName = 'Must be 15 characters or less'
-  } else if (!Is.alphaNumeric(values.userName)) {
-    errors.userName = 'Invalid Application Name'
-  }else if (Number(values.userName)){
+  } else if (Number(values.userName)){
     errors.userName = 'Must enter only characters'
   }
   
@@ -99,7 +95,7 @@ handleChangeTopology(event, index, value){
              <div className="col-md-6">
                <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AppDesc"
+                  floatingLabelText="Description"
                   {...appDesc}
                   errorText={appDesc.touched && appDesc.error && <div>{appDesc.error}</div>}
                 />

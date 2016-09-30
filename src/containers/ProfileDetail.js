@@ -22,7 +22,7 @@ import {hashHistory } from 'react-router';
 
 var columns = {
                 "key" : "id",
-                "data":['Profile Name', 'Profile Desc','LINK'],
+                "data":['Name', ' Description','LINK'],
                 "field":['profileName', 'profileDesc','id']
               }; 
 

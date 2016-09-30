@@ -146,7 +146,7 @@ class GeneralKeywords extends React.Component {
       <div>
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
-        <InstrProfiles handleSubmit = {this.submitForm.bind(this)}/>
+        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );
   }

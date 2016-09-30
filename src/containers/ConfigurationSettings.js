@@ -16,7 +16,7 @@ import InstrSettings  from  '../containers/Instrumentation';
      height:"14",
   }
    const cardStyle = {
-    height: "365",
+    height: "150",
    }
 
 export default class ConfigurationSettings extends React.Component {
@@ -47,25 +47,15 @@ export default class ConfigurationSettings extends React.Component {
          <List style={listStyle} > 
           <div>
            <ListItem primaryText=" General" 
-                     secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics" 
+                     secondaryText="Enable BCI Capturing, Enable HotSpot Capturing, Choose Instrumentation Profiles." 
                     onTouchTap={this.handleGeneralkeywordTab}/>
                     </div>
            <Divider/>
            <ListItem primaryText=" Instrumentation" 
-                     secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics" 
+                     secondaryText=" Service Entry Point, Backend Detection, Transaction Configuration, Instrument Monitors." 
                       onTouchTap={this.instrClicked}/>
               <Divider/>
-             <ListItem primaryText=" AutoSensor Settings" 
-                     secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics"
-                      />
-              <Divider/>
-           <ListItem primaryText=" Slow Transaction Threshold" 
-                     secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics" 
-                     />
-              <Divider/>
-           <ListItem primaryText=" Baselines" 
-                     secondaryText="Configure Threshold  for slow and stalled Configuration. Configure when Diagnostics" 
-                 />
+        
     
         
          </List> 

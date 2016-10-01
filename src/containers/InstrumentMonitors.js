@@ -40,11 +40,11 @@ export default class InstrumentMonitors extends React.Component {
         
         </Tab>
 
-        <Tab label="Exception Monitors" value="methodmon" >
-          
+        <Tab label="Exception Monitors" value="exceptionmonitors" >
+
         </Tab>
 
-         <Tab label="HTTP stats monitors" value="methodmon">
+        <Tab label="HTTP stats monitors" value="httpstatmonitors">
           
         </Tab>
 

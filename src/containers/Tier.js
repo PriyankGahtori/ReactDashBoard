@@ -171,11 +171,10 @@ class Tier extends React.Component {
        <Paper zDepth={2}>     
       <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
-              <h4>Tier Detail</h4>
+              <h4>Tier Detail(s)</h4>
           </div>
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-          //  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
 

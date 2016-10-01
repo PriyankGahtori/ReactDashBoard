@@ -25,6 +25,9 @@ import PatternBT from '../containers/PatternBusinessTransaction';
 import GeneralKeywords from '../containers/GeneralKeywords';
 import InstrumentMonitors from '../containers/InstrumentMonitors';
 import MethodMonitors from '../containers/MethodMonitors';
+import ErrorDetection from '../containers/ErrorDetection';
+import ExceptionMonitors from '../containers/ExceptionMonitors';
+import HTTPStatsMonitors from '../containers/HTTPStatsMonitors';
 
 
 
@@ -60,7 +63,7 @@ export default class routes extends React.Component {
 		      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
 		      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
 		      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-		      	 
+		      	 <Route name = "Error Detection" path ="errordetection" component = {ErrorDetection}/>
 		      	 <Route name = "Business Transaction" path ="bt" component = {BusinessTransaction}>
 		      	 	<IndexRoute name="Global" component={GlobalBT} />
 		      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -68,6 +71,8 @@ export default class routes extends React.Component {
 
 		      	 <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
 		      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
+		      	 	<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+		      	 	<Route name="HTTP stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
 		      	 </Route>
 		      </Route>
 

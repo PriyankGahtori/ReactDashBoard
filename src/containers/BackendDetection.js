@@ -154,7 +154,7 @@ const NewButtonstyle = {
       }
     });
     
-  data.endPoints = endPoints;
+  data.lstEndPoints = endPoints;
   console.info("data---aftr splitting--",data)
    this.props.updateBackendType(data,this.props.params.profileId)
    

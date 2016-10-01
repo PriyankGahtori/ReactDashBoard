@@ -3,7 +3,7 @@ const initialState = {
 						listBackendTypes : [], 
 						listBackendPoints : [],
             initializeBackendForm :{} ,
-            fields:[]
+            fields: []
 				      }
 export default function(state = initialState ,action){
   console.log("in main reducer func bacjend--",action)
@@ -47,7 +47,7 @@ switch(action.type){
 
   case 'INITIALIZE_BACKEND_FORM':
   var newState = Object.assign({},state);
-  let fields = ['backendTypeId','host','port','url','serviceName','topicName','tableName'];
+  let fields = ['backendTypeId','host','port','url','serviceName','topicName','tableName','query','databaseProductName','databaseProductVersion','driverName','driverVersion','userName'];
   console.log("in reducer ---",action.payload)
    console.log("in INITIALIZE_BACKEND_FORM--",newState.initializeBackendForm)
 
@@ -57,7 +57,13 @@ switch(action.type){
   newState.initializeBackendForm.url  = action.payload.namingRule.url,
   newState.initializeBackendForm.serviceName = action.payload.namingRule.serviceName,
   newState.initializeBackendForm.tableName = action.payload.namingRule.tableName,
-  newState.initializeBackendForm.topicName = action.payload.namingRule.topicName
+  newState.initializeBackendForm.topicName = action.payload.namingRule.topicName,
+  newState.initializeBackendForm.query = action.payload.namingRule.query,
+  newState.initializeBackendForm.databaseProductName = action.payload.namingRule.databaseProductName,
+  newState.initializeBackendForm.databaseProductVersion = action.payload.namingRule.databaseProductVersion,
+  newState.initializeBackendForm.driverName = action.payload.namingRule.driverName,
+  newState.initializeBackendForm.driverVersion = action.payload.namingRule.driverVersion,
+  newState.initializeBackendForm.userName = action.payload.namingRule.userName
 
   action.payload.lstEndPoints.map(function(value){
     console.log("value---",value)
@@ -88,22 +94,26 @@ switch(action.type){
 
    case 'UPDATE_BACKEND_POINT':
    var newState = Object.assign({},state);
-   /*var response = action.payload.data;
-      let endPoints = responseData.endPoints;
+   var response = action.payload.data;
+   console.log("response aftr updating---",response)
+     /* let endPoints = response.endPoints;
        endPoints.forEach(function(value){
+        console.log("in update ----",value)
           responseData["endPoint_"+value.id] = value.enabled;
-       })       
+       })  
+  console.log("responseData---",responseData)     
   let tableData = newState.tableData ;
   //get data for current backendTypeId
-  let backendTypeId = response.backendTypeId;
+  let backendTypeId = response.id;
   let currentObj;
   tableData.forEach(function(val){ 
                     if(backendTypeId == val.id)
                         currentObj = val;
                   });
 //modify the currentObj's Naming Rule
+console.log("currentObj---",currentObj)
 Object.keys(currentObj.namingRule).forEach(function(key) {
-    //console.log(key, obj[key]);
+    console.log("key",key);
     currentObj.namingRule[key] = response[key];
 });
 
@@ -115,6 +125,40 @@ currentObj.lstEndPoints.forEach(function(val){
 
    console.info("in updating---",responseData)
 */
+  
+   newState.tableData.forEach(function(value){
+    console.log("in updating from ---",value)
+    if(value.id === response.backendTypeId){
+        value.namingRule.host = response.host;
+        value.namingRule.port = response.port;
+        value.namingRule.url = response.url;
+        value.namingRule.serviceName = response.serviceName;
+        value.namingRule.tableName = response.tableName;
+        value.namingRule.topicName = response.topicName;
+        value.namingRule.query = response.query;
+        value.namingRule.databaseProductName = response.databaseProductName;
+        value.namingRule.databaseProductVersion = response.databaseProductVersion;
+        value.namingRule.driverName = response.driverName;
+        value.namingRule.driverVersion = response.driverVersion;
+        value.namingRule.userName = response.userName;
+
+        value.lstEndPoints.forEach(function(val){
+           console.log("tabldata--endpoints---",val)
+                response.lstEndPoints.forEach(function(resEndPoints){
+                  if(resEndPoints.id === val.id){
+                    console.log("response endpoints---",resEndPoints)
+                    val.enabled = resEndPoints.enabled;
+                  }
+                })
+
+
+        })
+
+       
+      }
+   })
+
+   console.log("newState.tableData----",newState.tableData)
    return newState;
 }
 return state;

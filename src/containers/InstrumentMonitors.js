@@ -24,8 +24,11 @@ export default class InstrumentMonitors extends React.Component {
 
   handleChange(value){
     console.log("value in handlechamge--",value)    
-    let profileId = this.props.routeParams.profileId;
-    let routeURL = `instrumentation/${profileId}/monitors/${value}`;
+    //let profileId = this.props.routeParams.profileId;
+    //let routeURL = `instrumentation/monitors/${value}`;
+    let currPath = `${this.props.location.pathname}`;
+        currPath = currPath.substring(0, currPath.indexOf("monitors")+8)
+    let routeURL = `${currPath}/${value}`;
     hashHistory.push(routeURL);
   }
 
@@ -36,7 +39,7 @@ export default class InstrumentMonitors extends React.Component {
       <Tabs      
         onChange={this.handleChange}
       >
-        <Tab label="Method monitors" value="methodmon" >
+        <Tab label="Method monitors" value="" >
         
         </Tab>
 

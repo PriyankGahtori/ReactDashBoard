@@ -91,7 +91,7 @@ class Tier extends React.Component {
    handleHref(row)
   {
     console.log("in function handleHref-in Application-",row);
-    hashHistory.push(`/configuration/${row.profileId}`)
+    hashHistory.push(`${this.props.location.pathname}/tier/${row.tierId}/configuration/${row.profileId}`)
   } 
 
   handleOpen(){
@@ -112,7 +112,7 @@ class Tier extends React.Component {
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.tierInitializeForm(selectedRowData[0],this.props.routeParams.topoId);
+        this.props.tierInitializeForm(selectedRowData[0],this.props.params.topoId);
         this.props.toggleStateDialogTier();
         this.refs.tierTable.refs.table.cleanSelected(); 
              }
@@ -130,12 +130,12 @@ class Tier extends React.Component {
     */
     console.log("tier component loaded---")
     console.log("in component will mount---",this.props.topologyData)
-    var topoId = this.props.routeParams.topoId;
+    var topoId = this.props.params.topoId;
     var topology = this.props.topologyData.tableData.filter(function(value){
                       return value.topoId === topoId ;
                   })
-     console.log("in mount methos--",this.props.routeParams.topoId)
-    this.props.fetchTierTableData(this.props.routeParams.topoId,topology[0]);
+     console.log("in mount methos--",this.props.params.topoId)
+    this.props.fetchTierTableData(this.props.params.topoId,topology[0]);
   
 
    
@@ -147,13 +147,13 @@ class Tier extends React.Component {
      * for new DC  selected.
      */
      console.log("nextProps---")
-     if(this.props.routeParams.topoId!= nextProps.routeParams.topoId){
-     var topoId = nextProps.routeParams.topoId;
+     if(this.props.params.topoId!= nextProps.params.topoId){
+     var topoId = nextProps.params.topoId;
       var topology = nextProps.topologyData.tableData.filter(function(value){
                       return value.topoId === topoId ;
                   })
-     console.log("in mount methos--",nextProps.routeParams.topoId)
-    this.props.fetchTierTableData(nextProps.routeParams.topoId,topology[0]);
+     console.log("in mount methos--",nextProps.params.topoId)
+    this.props.fetchTierTableData(nextProps.params.topoId,topology[0]);
   
   }
 

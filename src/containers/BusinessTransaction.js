@@ -11,7 +11,10 @@ export default class BusinessTransaction extends React.Component {
   handleChange(event,value){
   	value = value === "global" ? "" : value
   	let profileId = this.props.params.profileId;
-    let routeURL = `instrumentation/${profileId}/bt/${value}`;
+    //let routeURL = `instrumentation/${profileId}/bt/${value}`;
+    let currPath = `${this.props.location.pathname}`;
+        currPath = currPath.substring(0, currPath.indexOf("bt")+2)
+    let routeURL = `${currPath}/${value}`;
     hashHistory.push(routeURL);
     
   }

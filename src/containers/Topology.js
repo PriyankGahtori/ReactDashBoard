@@ -62,7 +62,7 @@ class Topology extends React.Component {
     handleHref(row)
   {
     console.log("in function handleHref-in Application-",row);
-    hashHistory.push(`/configuration/${row.profileId}`)
+    hashHistory.push(`${this.props.location.pathname}/topology/${row.topoId}/configuration/${row.profileId}`)
   } 
 
 
@@ -117,7 +117,7 @@ class Topology extends React.Component {
                                 }); 
          console.log("selectedRow--in editing form-gettimg whole object-",selectedRowData)        
         //action to dispatch selectRowData
-        this.props.topoInitializeForm(selectedRowData,this.props.routeParams.dcId);
+       this.props.topoInitializeForm(selectedRowData,this.props.params.dcId);
         this.props.toggleStateDialogEditTopo();
     
 }
@@ -135,7 +135,7 @@ class Topology extends React.Component {
    
     //for editing form
     console.log("adding form")
-    this.props.topoInitializeForm(null,this.props.routeParams.dcId); //clears previous/initial values
+    this.props.topoInitializeForm(null,this.props.params.dcId); //clears previous/initial values
     this.props.toggleStateDialogNewTopo(); //opens dialog box
   }
 
@@ -146,7 +146,7 @@ class Topology extends React.Component {
     *   here node.id is dc_id  
     */
   
-     this.props.fetchTopologyTableData(this.props.routeParams.dcId);
+     this.props.fetchTopologyTableData(this.props.params.dcId);
    
   }
 
@@ -156,10 +156,10 @@ class Topology extends React.Component {
      * for new DC  selected.
      */
      console.log("nextProps---")
-     if(this.props.routeParams.dcId!= nextProps.routeParams.dcId){
-        console.log("nextProps.routeParams.dcId---",nextProps.routeParams.dcId)
-        this.props.fetchTopologyTableData(nextProps.routeParams.dcId);
-  }
+   if(this.props.params.dcId!= nextProps.params.dcId){
+        console.log("nextProps.params.dcId---",nextProps.params.dcId)
+        this.props.fetchTopologyTableData(nextProps.params.dcId);
+    }
   
 
     if(this.props.topologyData != nextProps.topologyData){

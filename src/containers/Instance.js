@@ -57,7 +57,7 @@ class Instance extends React.Component {
    handleHref(row)
   {
     console.log("in function handleHref-in Application-",row);
-    hashHistory.push(`/configuration/${row.profileId}`)
+    hashHistory.push(`${this.props.location.pathname}/instance/${row.instanceId}/configuration/${row.profileId}`)
   } 
 
   onSelectRow(){
@@ -96,7 +96,7 @@ class Instance extends React.Component {
         console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectRowData
-        this.props.instanceInitializeForm(selectedRowData[0],this.props.routeParams.serverId);
+        this.props.instanceInitializeForm(selectedRowData[0],this.props.params.serverId);
         this.props.toggleStateDialogInstance();
          this.refs.instanceTable.refs.table.cleanSelected();
       }
@@ -110,7 +110,7 @@ class Instance extends React.Component {
 
   componentWillMount() {
     console.log("this.props.tierData.tableData---",this.props.serverData.tableData)
-    var serverId = this.props.routeParams.serverId;
+    var serverId = this.props.params.serverId;
     console.log("serverId----",serverId)
     var server = this.props.serverData.tableData.filter(function(value){
       console.log("value---",value)
@@ -118,7 +118,7 @@ class Instance extends React.Component {
                       return value.serverId == serverId ;
                   })
     console.log("tier in server componet--",server[0])
-    this.props.fetchInstanceTableData(this.props.routeParams.serverId,server[0]);
+    this.props.fetchInstanceTableData(this.props.params.serverId,server[0]);
   }
 
   componentWillReceiveProps(nextProps)
@@ -127,9 +127,9 @@ class Instance extends React.Component {
      * for new DC  selected.
      */
      console.log("nextProps---")
-     if(this.props.routeParams.serverId!= nextProps.routeParams.serverId){
+     if(this.props.params.serverId!= nextProps.params.serverId){
 
-    var serverId = nextProps.routeParams.serverId;
+    var serverId = nextProps.params.serverId;
     console.log("serverId--nextprops--",serverId)
     var server = nextProps.serverData.tableData.filter(function(value){
       console.log("value---",value)
@@ -137,7 +137,7 @@ class Instance extends React.Component {
                       return value.serverId == serverId ;
                   })
     console.log("tier in server componet--",server[0])
-    this.props.fetchInstanceTableData(nextProps.routeParams.serverId,server[0]);
+    this.props.fetchInstanceTableData(nextProps.params.serverId,server[0]);
     }
   
     if(this.props.instanceData != nextProps.instanceData){

@@ -31,13 +31,15 @@ export default class ConfigurationSettings extends React.Component {
 
   handleGeneralkeywordTab(){
     console.log(" in handleGeneralkeywordTab method--------------->")
-    hashHistory.push(`generalsettings/${this.props.params.profileId}`);
+    //hashHistory.push(`generalsettings/${this.props.params.profileId}`);
+    hashHistory.push(`${this.props.location.pathname}/generalsettings`);
    }
 
   instrClicked(){
     console.log("in instrClicked ----------->",this.props.params.profileId)
    // hashHistory.push("InstrSettings");
-    hashHistory.push(`instrumentation/${this.props.params.profileId}`)
+    //hashHistory.push(`instrumentation/${this.props.params.profileId}`)
+    hashHistory.push(`${this.props.location.pathname}/instrumentation`)
    }
   
   render() {

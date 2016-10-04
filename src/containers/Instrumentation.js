@@ -25,7 +25,10 @@ export default class Instrumentation extends React.Component {
   handleChange(value){
     console.log("value in handlechamge--",value)    
     let profileId = this.props.routeParams.profileId;
-    let routeURL = `instrumentation/${profileId}/${value}`;
+    //let routeURL = `instrumentation/${profileId}/${value}`;
+    let currPath = `${this.props.location.pathname}`;
+        currPath = currPath.substring(0, currPath.indexOf("instrumentation")+15)
+    let routeURL = `${currPath}/${value}`;
     hashHistory.push(routeURL);
   }
 

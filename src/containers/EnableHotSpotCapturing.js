@@ -25,6 +25,8 @@ import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
 import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
+import * as validate from '../actions/validateGeneralKeywords'
+
 
 
 const styles = {
@@ -123,12 +125,18 @@ handleenableHotSpotCapturingCheckboxChange(event,isInputChecked){
     /*
     * opening cnfirm dialog 
     */
-    this.setState({openCnfrmHotSpotDialog:true})
+    this.setState({openSnackBar:true
+    })
+   this.props.setDefValHotSpotCapturingKeywords();
+   this.props.enableHotSpotCheckBoxStatus(true);
+
    
     }
     else{
       this.props.enableHotSpotCheckBoxStatus(isInputChecked);
-    }
+      this.setState({openCnfrmDisbleDialog:true})
+   }
+    
     
   }
 
@@ -155,7 +163,7 @@ handleSubmitEnableHotSpotCapturing(){
 * cnfirmation dialog
 */
 
-
+/*
 cnfrmEnableHotSpotDefVal(){
    this.props.setDefValHotSpotCapturingKeywords();
    this.props.enableHotSpotCheckBoxStatus(true);
@@ -166,6 +174,28 @@ handleCancelEnableHotSpotDefVal(){
   this.setState({openCnfrmHotSpotDialog:false})
   this.props.enableHotSpotCheckBoxStatus(false);
 
+}*/
+
+handleRequestClose(){
+  this.setState({openSnackBar:false
+  })
+}
+/*
+* Disable Dialog functions
+*/
+cnfrmDisableBCIVal(){
+    
+   this.submitForm(validate.disabledHotSpotCapturing);
+   this.props.enableHotSpotCheckBoxStatus(false);
+   this.setState({ openCnfrmDisbleDialog:false
+   })
+  
+}
+
+handleCancelDisableBCIVal(){
+  this.setState({ openCnfrmDisbleDialog:false,
+                  hotSpotCapturingCheckBox:true
+   })
 }
 
   submitForm(formData){
@@ -196,7 +226,7 @@ handleCancelEnableHotSpotDefVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId);     
+    this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing");     
 }
 
 
@@ -220,7 +250,7 @@ handleCancelEnableHotSpotDefVal(){
     ];
 
     
-    const actionsHotSpotDefault = [
+   /* const actionsHotSpotDefault = [
       <FlatButton
         label="Cancel"
         primary={true}
@@ -232,7 +262,22 @@ handleCancelEnableHotSpotDefVal(){
         keyboardFocused={true}
         onClick={this.cnfrmEnableHotSpotDefVal.bind(this)}
       />
-    ];  
+    ];  */
+
+    const actionsHotSpotDisable =[
+        <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelDisableBCIVal.bind(this)}
+      />,
+      <FlatButton
+        label="OK"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.cnfrmDisableBCIVal.bind(this)}
+      />
+]
+  
 
     return (
       <div >
@@ -265,7 +310,7 @@ handleCancelEnableHotSpotDefVal(){
 
          
 
-   <ConfirmDialog
+ { /* <ConfirmDialog
     title="Are you sure want to enable the HotSpot keywords with default Values?"
     actions={actionsHotSpotDefault}
     modal={false}
@@ -273,7 +318,24 @@ handleCancelEnableHotSpotDefVal(){
     onRequestClose={this.handleClose}
     >
          
-   </ConfirmDialog>
+   </ConfirmDialog>*/}
+
+    <Snackbar
+          open={this.state.openSnackBar}
+          message="enabled  HotSpot capturing keywords with default values"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)}
+        />
+
+
+    <ConfirmDialog
+          title="Are you sure want to disable the keywords ?"
+          actions={actionsHotSpotDisable}
+          modal={false}
+          open={this.state.openCnfrmDisbleDialog}
+          onRequestClose={this.handleClose}
+        >
+        </ConfirmDialog>
 
 
   </div>

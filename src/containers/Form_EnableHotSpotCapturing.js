@@ -7,6 +7,7 @@ import Input from '../components/InputWrapper';
 import TextField from 'material-ui/TextField';
 //import Checkbox from '../components/CheckboxWrapper';
 import Checkbox from 'material-ui/Checkbox';
+import {initializeKeywords} from '../actions/index';
 
 export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel'];
 //export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
@@ -46,7 +47,8 @@ handleEnableHotSpot(event,isInputChecked){
 
 
 componentWillMount() {
-    console.log("inside will mount")  
+    console.log("inside will mount") 
+  // this.props.initializeKeywords();
   }
 
  componentWillReceiveProps(nextProps)
@@ -153,7 +155,12 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-   initialValues : state.Keywords.initializeKeywords,
-
+   //initialValues : state.Keywords.initializeKeywords,
+   initialValues :{ ASSampleInterval:state.Keywords.initializeKeywords.ASSampleInterval,
+                    ASThresholdMatchCount:state.Keywords.initializeKeywords.ASThresholdMatchCount,
+                    ASReportInterval:state.Keywords.initializeKeywords.ASReportInterval,
+                    ASDepthFilter:state.Keywords.initializeKeywords.ASDepthFilter,
+                    ASTraceLevel:state.Keywords.initializeKeywords.ASTraceLevel
+                  }
 })
 ) (Form_EnableHotSpotCapturing);

@@ -133,11 +133,11 @@ class GeneralKeywords extends React.Component {
         value = "0" ;
       }
       console.log("value for boolean values---",value)
-       keywordData[key]["value"] = String(value); 
+      keywordData[key]["value"] = String(value); 
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.params.profileId);     
+    this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");     
 }
 
   render() {

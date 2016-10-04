@@ -15,8 +15,8 @@ export default function (state = initialState,action){
 
 	switch(action.type){
 	case 'GET_ALL_KEYWORDS':
-	    console.log("inside  GET_ALL_KEYWORDS", action.payload.data);
-	    console.log("validate----",validate)
+	    console.log("inside  GET_ALL_KEYWORDS");
+	    console.log("get all keywords----",action.payload.data)
 	    
 
 		var newState = Object.assign({}, state);	
@@ -28,9 +28,10 @@ export default function (state = initialState,action){
 				return obj.value;
 			});
 
-		console.log("mapvalues",obj); 
+		console.log("mapvalues-------in 1st getting data---",obj); 
 		newState.initializeKeywords = obj;
 		newState.data = action.payload.data ;
+	
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
 		console.log("booleanEnableBCICapturing---",booleanEnableBCICapturing)
 		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
@@ -119,8 +120,44 @@ export default function (state = initialState,action){
 
 
 		});
-
 		 return newState;
+
+
+	case 'UPDATE_BCI_KEYWORDS':
+		var newState = Object.assign({},state);
+		console.log("in update bci keywords---",action.payload.data)
+		newState.data = action.payload.data ;
+
+		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
+		console.log("newState.enableBCICheckBox---",newState.enableBCICheckBox)
+
+		let objBci = _.mapValues(action.payload.data, function(objBci)
+			{
+				console.log("obj---",objBci)
+				return objBci.value;
+			});
+
+		console.log("mapvalues-------bci initialize--",objBci); 
+		newState.initializeKeywords = objBci;
+		return newState;
+
+
+		case 'UPDATE_HOTSPOT_KEYWORDS':
+		var newState = Object.assign({},state);
+		newState.data = action.payload.data ;
+		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
+		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
+
+		let objHotspot = _.mapValues(action.payload.data, function(obj)
+			{
+				console.log("obj---",obj)
+				return obj.value;
+			});
+
+		console.log("hotspot initialize values--",objHotspot); 
+		newState.initializeKeywords = objHotspot;
+		return newState;
+
 
 		case 'ENABLE_BCI_CHECKBOX':
 		var newState = Object.assign({}, state);

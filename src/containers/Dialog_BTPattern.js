@@ -59,7 +59,6 @@ class Dialog_BTPattern extends React.Component {
     ];
     return (
       <div>
-        <p>{this.state.BTPattern.openNewBTPatternDialog}</p>    
         <DialogBTPattern
           title="New Bussiness Transaction pattern"
           actions={actions}

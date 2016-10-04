@@ -26,7 +26,7 @@ import FormEnableBCICapturing from './Form_EnableBCICapturing';
 import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogEnableBCICapturing from 'material-ui/Dialog';
-import * as validate from '../actions/validateGeneralKeywords'
+import * as validate from '../actions/validateGeneralKeywords';
 
 
 const styles = {
@@ -81,17 +81,20 @@ class enableBCICapturing extends React.Component {
   this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
   this.state = {enableBCICheckBox:false}
+  this.state = {openSnackBar:false}
   }
 
  
 //this function is called first when component gets first loaded
- /* componentWillMount() {
-    this.props.getKeywordsData(this.props.params.profileId);
+  componentWillMount() {
+   // this.props.getKeywordsData(this.props.params.profileId);
+    this.state = {openSnackBar:false}
   }
-*/
   componentWillReceiveProps(nextProps)
   {
+     this.state = {openSnackBar:false}
     console.log("nextprops---",nextProps.getAllKeywordData.enableBCICheckBox)
+    
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
       console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
@@ -120,17 +123,19 @@ class enableBCICapturing extends React.Component {
   }
 
   handleenableBCICapturingCheckboxChange(event,isInputChecked){
-    console.log("isInputChecked---",isInputChecked)
+    console.log("isInputChecked--enableBCICAPTURING CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
     {
-      console.log("action trigegerd")
+      console.log("action trigegerd opening Snackbar")
       //this.props.setDefValBCICapturingKeywords();
-        this.setState({openCnfrmBCIDialog:true
+        this.setState({openSnackBar:true
         })
+       this.props.setDefValBCICapturingKeywords();
+       this.props.enableBCICheckBoxStatus(true);
+   
     }
     else{
-    this.setState({enableBCICheckBox :isInputChecked })
     this.props.enableBCICheckBoxStatus(isInputChecked);
     this.setState({openCnfrmDisbleDialog:true})
    }
@@ -155,20 +160,21 @@ handleSubmitEnableBCICapturing(){
 /*
 * cnfirmation dialog
 */
-cnfrmEnableBCIDefVal(){
+/*cnfrmEnableBCIDefVal(){
     console.log("ok button")
-   this.props.setDefValBCICapturingKeywords();
-   this.props.enableBCICheckBoxStatus(true);
+  // this.props.setDefValBCICapturingKeywords();
+   //this.props.enableBCICheckBoxStatus(true);
    this.setState({ openCnfrmBCIDialog:false
    })
    
    
-}
+}*/
 
-handleCancelEnableBCIDefVal(){
-  this.setState({openCnfrmBCIDialog:false
+handleRequestClose(){
+  console.log("handle close")
+  this.setState({openSnackBar:false
   })
-  this.props.enableBCICheckBoxStatus(false);
+//  this.props.enableBCICheckBoxStatus(false);
 }
 
 /*
@@ -184,7 +190,8 @@ cnfrmDisableBCIVal(){
 }
 
 handleCancelDisableBCIVal(){
-  this.setState({ openCnfrmDisbleDialog:false
+  this.setState({ openCnfrmDisbleDialog:false,
+                  enableBCICheckBox :true 
    })
 }
 
@@ -217,11 +224,8 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId);     
+    this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing");     
 }
-
-
-  
 
 
   render() {
@@ -241,7 +245,7 @@ handleCancelDisableBCIVal(){
     
     
 
-    const actionsBCIDefault = [
+    {/*const actionsBCIDefault = [
       <FlatButton
         label="Cancel"
         primary={true}
@@ -253,7 +257,7 @@ handleCancelDisableBCIVal(){
         keyboardFocused={true}
         onClick={this.cnfrmEnableBCIDefVal.bind(this)}
       />
-    ];  
+    ];  */}
 
 const actionsBCIDisable =[
         <FlatButton
@@ -288,7 +292,7 @@ const actionsBCIDisable =[
 
     
     <DialogEnableBCICapturing
-          title="Enable BCI Capturing"
+          title="Enable FlowPath Capturing"
           actions={actions}
           modal={false}
           open={this.state.openEnableBCICapturingDialog}
@@ -297,21 +301,28 @@ const actionsBCIDisable =[
     >
       <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />
    </DialogEnableBCICapturing>
-  <ConfirmDialog
+  {/*<ConfirmDialog
           title="Are you sure want to enable the keywords with default Values?"
           actions={actionsBCIDefault}
           modal={false}
           open={this.state.openCnfrmBCIDialog}
           onRequestClose={this.handleClose}
         >
-        </ConfirmDialog>
+        </ConfirmDialog>*/}
+
+
+         <Snackbar
+          open={this.state.openSnackBar}
+          message="enabled  BCI capturing keywords with default values"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)}
+        />
 
         <ConfirmDialog
           title="Are you sure want to disable the keywords ?"
           actions={actionsBCIDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
-          onRequestClose={this.handleClose}
         >
         </ConfirmDialog>
 

@@ -1050,7 +1050,7 @@ export function getKeywordsData(profileId){
   }
 }
 
-export function submitKeywordData(data,profileId){
+export function submitKeywordData(data,profileId,keywordsGroup){
   console.log("data----",data)
    var response = axios({
       method:'post',
@@ -1058,10 +1058,24 @@ export function submitKeywordData(data,profileId){
       data: data,
       headers:{'Content-Type':'application/json'}
     });
-   return{
-    type : 'GET_ALL_KEYWORDS',
-    payload : response
-   }
+
+   if(keywordsGroup === 'bciCapturing')
+     return{
+      type : 'UPDATE_BCI_KEYWORDS',
+      payload : response
+     }
+
+    else if(keywordsGroup === 'hotSpotCapturing')
+      return{
+        type :'UPDATE_HOTSPOT_KEYWORDS',
+        payload : response
+      }
+
+    else if(keywordsGroup === 'instrProfile')
+      return{
+        type : 'UPDATE_INSTRPROFILE_KEYWORDS',
+        payload :response
+      }
 }
 
 export function setDefValBCICapturingKeywords() {

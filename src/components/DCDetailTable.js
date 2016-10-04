@@ -50,7 +50,6 @@ class DataGridComponent extends React.Component {
 
       else if(cell === 'true' || cell === 'false' || cell === true || cell === false)
     {
-      console.log("row---",row)
       /*
       *  {cell === 'true'} returns true if cell = true as [===]  compares with type as well as value
       *   string === string

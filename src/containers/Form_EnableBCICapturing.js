@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Input from '../components/InputWrapper';
 import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
-
+import {initializeInstrProf} from '../actions/index';
 export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
 //export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug'];
 const initialValues = { 
@@ -50,7 +50,6 @@ class NewApplication extends React.Component {
 
 
 componentWillMount() {
-
    
   }
 
@@ -234,7 +233,16 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-   initialValues : state.Keywords.initializeKeywords,
+  // initialValues : state.Keywords.initializeKeywords,
+   initialValues :{bciInstrSessionPct:state.Keywords.initializeKeywords.bciInstrSessionPct,
+                   logLevelOneFpMethod:state.Keywords.initializeKeywords.logLevelOneFpMethod,
+                   enableBciError:state.Keywords.initializeKeywords.enableBciError,
+                   doNotDiscardFlowPaths:state.Keywords.initializeKeywords.doNotDiscardFlowPaths,
+                   enableBciDebug:state.Keywords.initializeKeywords.enableBciDebug,
+                   setCavNVCookie:state.Keywords.initializeKeywords.setCavNVCookie,
+                   enableCpuTime:state.Keywords.initializeKeywords.enableCpuTime,
+                   enableForcedFPChain:state.Keywords.initializeKeywords.enableForcedFPChain
+                  },
    initialData : state.Keywords.initializeKeywords
 
 })

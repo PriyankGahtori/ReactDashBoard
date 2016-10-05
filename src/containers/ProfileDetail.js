@@ -69,7 +69,7 @@ class ProfileDetail extends React.Component {
   handleHref(row)
   {
     console.log("in function handleHref-in profileDetail-",row);
-    hashHistory.push(`/configuration/${row.id}`)
+    hashHistory.push(`/profile/${row.id}`)
   } 
 
 /*

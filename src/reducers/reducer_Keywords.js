@@ -6,6 +6,7 @@ const initialState = {initializeKeywords:{} ,
 					data:null,
 					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
+					enableDebugCheckBox :false,
 					listOfXmlFilesInstr :[],
 					uploadTopology :null
 					}
@@ -41,6 +42,7 @@ export default function (state = initialState,action){
 		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
+		newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
 		console.log("newState.initializeKeyword---",newState.initializeKeywords);
 		//console.log("newState.enableBCICapturingCheckBox---",newState.enableBCICapturingCheckBox)
 		console.log("newState.hotSpotCapturingCheckBox----",newState.hotSpotCapturingCheckBox)
@@ -91,6 +93,29 @@ export default function (state = initialState,action){
 		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 		newState.hotSpotCapturingCheckBox = true;
+		return newState;
+
+		case 'SET_DEFAULT_DEBUGKEYWORDS':
+		var newState = Object.assign({}, state);	
+		
+		let debugCapturingInitial = _.forEach(newState.data,function(value,key){
+			console.log("key---",key)
+			console.log("value----",value)
+			if(key === 'enableBciDebug' || key === 'enableBciError' || key === 'InstrTraceLevel'){
+				console.log("newState-",newState.data[key]["defaultValue"])
+				/*value = newState.data[key]["defaultValue"];*/
+				newState.initializeKeywords[key] = value["defaultValue"];
+				console.log("value---",newState.initializeKeywords[key])
+
+
+			}
+
+		});
+
+		console.log("hotSpotCapturingInitial----",debugCapturingInitial)
+		//newState.initializeKeywords = BCICapturingInitial;
+		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+		newState.enableDebugCheckBox = true;
 		return newState;
 		
 		/*
@@ -148,10 +173,10 @@ export default function (state = initialState,action){
 		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
-		let objHotspot = _.mapValues(action.payload.data, function(obj)
+		let objHotspot = _.mapValues(action.payload.data, function(objHotspot)
 			{
-				console.log("obj---",obj)
-				return obj.value;
+				console.log("obj---",objHotspot)
+				return objHotspot.value;
 			});
 
 		console.log("hotspot initialize values--",objHotspot); 
@@ -177,6 +202,25 @@ export default function (state = initialState,action){
 		newState.uploadTopology = action.payload.data;
 		return newState;
 
+		case 'ENABLE_DEBUG_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("bci checkbox---",action.payload)
+		newState.enableDebugCheckBox = action.payload;
+		return newState;
+
+
+		case 'UPDATE_DEBUG_KEYWORDS':
+		var newState = Object.assign({},state);
+		newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
+		let objDebug = _.mapValues(action.payload.data, function(objDebug)
+			{
+				console.log("obj---",objDebug)
+				return objDebug.value;
+			});
+
+		console.log("hotspot initialize values--",objDebug); 
+		newState.initializeKeywords = objDebug;
+		return newState;
 
 
 

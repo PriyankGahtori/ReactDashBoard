@@ -19,8 +19,8 @@ import DialogGenerateFile from './Dialog_GenerateFile';
 
 var columns = {
                 "key"  : "id",
-                "data" : ['Type','Name','Description','Enabled','ID'],
-                "field": ['entryType','name','desc','enabled','id']
+                "data" : ['Type','Name','Enabled','Description','ID'],
+                "field": ['entryType','name','enabled','desc','id']
               }; 
 
 const style = {

@@ -23,6 +23,7 @@ import InstrProfiles from './InstrProfileMultiSelect';
 
 import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
+import EnableDebugCapturing from './DebugLevel';
 
 const styles = {
   text: {
@@ -137,7 +138,8 @@ class GeneralKeywords extends React.Component {
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");     
+    this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");  
+  // this.props.submitKeywordData(keywordData,this.props.params.profileId);    
 }
 
   render() {
@@ -146,6 +148,7 @@ class GeneralKeywords extends React.Component {
       <div>
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
+        <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );

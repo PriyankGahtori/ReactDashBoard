@@ -15,11 +15,17 @@ export function validateHotSpotCapturingKeywords(data) {
    
   return data.ASThresholdMatchCount.value === "0" && 
          data.ASSampleInterval.value === "0" && 
-         data.ASReportInterval.value === "0" ;
+         data.ASReportInterval.value === "0" &&
          data.ASDepthFilter.value === "0" &&
          data.ASTraceLevel.value ===  "0" ;
   		 
 }
+
+export function validateDebugKeywords(data){
+  return  data.enableBciDebug.value === "0" && 
+        data.enableBciError.value === "0" &&
+        data.InstrTraceLevel.value === "0"; 
+      }
 
 export const disabledBCICapturing = {
                                       "bciInstrSessionPct" : "0", 
@@ -40,3 +46,9 @@ export const disabledHotSpotCapturing = {
                                       "ASTraceLevel":"0"
 
 };
+
+export const disabledDebugCapturing = {
+                               "enableBciDebug" : "0",
+                                "enableBciError" : "0",
+                                "InstrTraceLevel":"0"
+}

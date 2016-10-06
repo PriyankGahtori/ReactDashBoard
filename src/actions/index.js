@@ -1050,6 +1050,22 @@ export function getKeywordsData(profileId){
   }
 }
 
+/*export function submitKeywordData(data,profileId,keywordsGroup){
+  console.log("data----",data)
+   var response = axios({
+      method:'post',
+       url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+    });
+
+   
+     return{
+      type : 'GET_ALL_KEYWORDS',
+      payload : response
+     }
+}
+*/
 export function submitKeywordData(data,profileId,keywordsGroup){
   console.log("data----",data)
    var response = axios({
@@ -1076,6 +1092,11 @@ export function submitKeywordData(data,profileId,keywordsGroup){
         type : 'UPDATE_INSTRPROFILE_KEYWORDS',
         payload :response
       }
+    else if(keywordsGroup === 'debugCapturing')
+      return{
+        type:'UPDATE_DEBUG_KEYWORDS',
+        payload:response
+      }
 }
 
 export function setDefValBCICapturingKeywords() {
@@ -1100,6 +1121,10 @@ export function enableHotSpotCheckBoxStatus(flag){
 
   }
 }
+
+
+
+
 
 export function setDefValHotSpotCapturingKeywords(){
   return{
@@ -1126,6 +1151,22 @@ export function updateTopology(){
     }
 }
 
+/*
+* function for Debug Level Capturing keywords 
+*/
+export function enableDebugCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_DEBUG_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValDebugCapturingKeywords() {
+  return{
+    type : 'SET_DEFAULT_DEBUGKEYWORDS'
+
+  }
+}
 
 
 export function getListOfXmlFiles(){

@@ -66,7 +66,7 @@ handleChange(event,index,value){
   console.log("index------",index)                             
   console.log("on handleChange----",value)
 
-  this.props.load(value);
+ // this.props.load(value);
   this.setState({value:value});
 }
 
@@ -198,30 +198,30 @@ handleChange(event,index,value){
       
   </div>
       
-  {this.renderEntryPointList(fqm)}
+{/* {this.renderEntryPointList(fqm)} */}
        
 
       <div>
-        <Toggle 
+     {/*   <Toggle 
           style={styles.toggleCustomFQM} 
           {...customFQMToggle}
           defaultToggled={false}  
           labelPosition="right" 
           label="New Service Entry Points"         
           onToggleChange={this.handleEntryPoints.bind(this,this.state.enable)} 
-        />        
+        /> */}       
       
       <TextField
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Entry FQM"
-        disabled={!this.state.enable}        
+       // disabled={!this.state.enable}        
       /><br/>
       <TextField
         {...desc}
         hintText="This is a for getting initial Data"
         floatingLabelText="Entry Description"
-        disabled={!this.state.enable}        
+       // disabled={!this.state.enable}        
       />
 
     </div>
@@ -246,7 +246,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
   ServiceEntryPointsTableData : state.ServiceEntryPoints.tableData,
   ServiceEntryPoints          : state.ServiceEntryPoints.serviceEntryPoints,
-  ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType
+  ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType,
+  initialValues:{customFQMToggle:true}
 }),
  { load          : ServiceEntryPointsOfSelectedEntryType,
    loadEntryType : ListOfServiceEntryPointType

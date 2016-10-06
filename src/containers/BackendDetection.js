@@ -210,8 +210,8 @@ const NewButtonstyle = {
           </div>
 
           <div className="col-md-2"  >
-            <IconButton><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton><FontIcon className="material-icons">delete</FontIcon></IconButton>
+            {/*<IconButton><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
           </div>
        </div>
              

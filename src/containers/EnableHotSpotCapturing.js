@@ -226,7 +226,8 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing");     
+   this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing"); 
+   //this.props.submitKeywordData(keywordData,this.props.profileId);    
 }
 
 

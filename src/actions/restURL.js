@@ -1,4 +1,4 @@
-//const SERVICE_URL = 'http://localhost:8090';
+// const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.77/configUI';
 
 //For Production use this SERVICE_URL
@@ -92,3 +92,8 @@ export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xml
 /* URL for monitors  */
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
+
+/* URL for Error Detection  */
+export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
+export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
+

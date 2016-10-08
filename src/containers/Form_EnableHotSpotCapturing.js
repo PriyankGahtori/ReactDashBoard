@@ -165,7 +165,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Debug Level"
+                  floatingLabelText="AS Trace Level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
                    errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}

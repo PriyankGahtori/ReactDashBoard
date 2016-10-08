@@ -19,7 +19,7 @@ var options = [
   
 const styles = {
   text: {
-    fontSize:16,
+    fontSize:15,
     paddingLeft:6,
     paddingTop:20,
       }};
@@ -33,7 +33,7 @@ const styles = {
   }
 
   componentWillMount(){
-      this.props.initializeInstrProf();
+     // this.props.initializeInstrProf();
       this.props.getListOfXmlFiles();
      
   }
@@ -73,7 +73,7 @@ const styles = {
       <div>
       <div className = "row">
        <div className = "col-md-3">
-        <p style={styles.text}>Choose Instrumentation Profiles </p>
+        <p style={styles.text}><b>Choose Instrumentation Profiles</b></p>
       </div>
         <div className ="col-md-3">
         	<MultiSelect multi

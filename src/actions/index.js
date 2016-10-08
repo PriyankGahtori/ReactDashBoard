@@ -1086,8 +1086,9 @@ export function submitKeywordData(data,profileId,keywordsGroup){
         type :'UPDATE_HOTSPOT_KEYWORDS',
         payload : response
       }
-
-    else if(keywordsGroup === 'instrProfile')
+    else if(keywordsGroup === 'instrProfile')   /* No need of ds case in reducer as ds keyword is
+                                                * not in seperate dialog,so no need to initialize again till
+                                                */
       return{
         type : 'UPDATE_INSTRPROFILE_KEYWORDS',
         payload :response
@@ -1097,9 +1098,17 @@ export function submitKeywordData(data,profileId,keywordsGroup){
         type:'UPDATE_DEBUG_KEYWORDS',
         payload:response
       }
+    else if(keywordsGroup === 'instrException')
+      return{
+        type :'UPDATE_INSTREXCEPTION',
+        payload:response
+      }
 }
 
 export function setDefValBCICapturingKeywords() {
+
+
+  
   return{
     type : 'SET_DEFAULT_BCICapturingKeywords'
 
@@ -1185,6 +1194,11 @@ export function initializeInstrProf(profileId) {
   }
 }
 
+export function initializeInstrException(){
+  return{
+    type:'INITIALIZE_INSTREXCEPTION'
+  }
+}
 /* Action Creators for the method monitor screen  */
 
 export function toggleStateAddMethodMonitor(){

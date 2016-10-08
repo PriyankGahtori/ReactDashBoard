@@ -24,7 +24,9 @@ import InstrProfiles from './InstrProfileMultiSelect';
 import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
 import EnableDebugCapturing from './DebugLevel';
-
+import InstrException from './InstrExceptionKeyword';
+/*import PutDelayInMethod from './PutDelayInMethod';
+*/
 const styles = {
   text: {
     fontSize:18,
@@ -149,8 +151,10 @@ class GeneralKeywords extends React.Component {
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
-        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
-    </div>
+        <InstrException profileId = {this.props.params.profileId}  />
+       {/* <PutDelayInMethod profileId = {this.props.params.profileId} />*/}
+        <InstrProfiles  profileId = {this.props.params.profileId}/>
+          </div>
     );
   }
 }

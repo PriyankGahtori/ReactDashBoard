@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
-
-
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -92,7 +90,6 @@ class enableBCICapturing extends React.Component {
   }
   componentWillReceiveProps(nextProps)
   {
-     this.state = {openSnackBar:false}
     console.log("nextprops---",nextProps.getAllKeywordData.enableBCICheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){

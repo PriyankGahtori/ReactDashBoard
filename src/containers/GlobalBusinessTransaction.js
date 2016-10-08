@@ -109,6 +109,7 @@ class GlobalBusinessTransaction extends React.Component {
       <div style={{'paddingTop':20}}>
       	<h4>Select part of URI used in Transaction name</h4>
       </div>
+     
 	  <RadioButtonGroup 
 	  		{...uriType}
 	  		name = "uriType" 

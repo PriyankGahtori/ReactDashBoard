@@ -7,8 +7,8 @@ import Input from '../components/InputWrapper';
 import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
 import {initializeInstrProf} from '../actions/index';
-export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
-//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug'];
+export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
+//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','enableBciDebug'];
 const initialValues = { 
                 'logLevelOneFpMethod' : true, 
                 'doNotDiscardLevel1FP' : false,
@@ -76,7 +76,7 @@ ChangeEnableForcedFPChain(event,index ,value){
 }
 
   render() {
-     const { fields: {bciInstrSessionPct,logLevelOneFpMethod,enableBciError,doNotDiscardFlowPaths,enableBciDebug,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,enableBciDebug,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row"  style={{paddingTop:15}}>
@@ -147,22 +147,16 @@ ChangeEnableForcedFPChain(event,index ,value){
 
 
              <div className = "row" style={{paddingTop:10}}>
-              <div className = "col-md-3">
-                <label for="sess_perct"> Error Level </label>
+           <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
+                 
+                <TextField
+                  hintText="Hint Text"
+                  floatingLabelText="Correlation ID Header"
+                  {...correlationIDHeader}
+                  
+                />
               </div>
 
-              <div className = "col-md-3">
-                 <Input
-                {...enableBciError} 
-                 id="sess_perct"
-                style={styles.input} 
-                 type="number" 
-                 min="0" 
-                 max="6" 
-                 step="1" 
-                 
-                 />
-             </div>
 
                 <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
@@ -236,7 +230,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   // initialValues : state.Keywords.initializeKeywords,
    initialValues :{bciInstrSessionPct:state.Keywords.initializeKeywords.bciInstrSessionPct,
                    logLevelOneFpMethod:state.Keywords.initializeKeywords.logLevelOneFpMethod,
-                   enableBciError:state.Keywords.initializeKeywords.enableBciError,
+                   correlationIDHeader:state.Keywords.initializeKeywords.correlationIDHeader,
                    doNotDiscardFlowPaths:state.Keywords.initializeKeywords.doNotDiscardFlowPaths,
                    enableBciDebug:state.Keywords.initializeKeywords.enableBciDebug,
                    setCavNVCookie:state.Keywords.initializeKeywords.setCavNVCookie,

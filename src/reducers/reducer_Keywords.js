@@ -2,7 +2,7 @@ import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
 
 //var mapValues = require('lodash.mapvalues');
-const initialState = {initializeKeywords:{} ,
+const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
 					data:null,
 					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
@@ -14,53 +14,60 @@ const initialState = {initializeKeywords:{} ,
 
 export default function (state = initialState,action){
 
-	switch(action.type){
-	case 'GET_ALL_KEYWORDS':
-	    console.log("inside  GET_ALL_KEYWORDS");
-	    console.log("get all keywords----",action.payload.data)
-	    
-
-		var newState = Object.assign({}, state);	
-		var data = action.payload.data;
-
-		let obj = _.mapValues(data, function(obj)
-			{
-				console.log("obj---",obj)
-				return obj.value;
-			});
-
-		console.log("mapvalues-------in 1st getting data---",obj); 
-		newState.initializeKeywords = obj;
-		newState.data = action.payload.data ;
+switch(action.type){
 	
+	case 'GET_ALL_KEYWORDS':
+	   	var newState = Object.assign({}, state);
+		newState.data = action.payload.data ;
+
+		var data = action.payload.data;
+		let obj = _.mapValues(data, function(obj){ return obj.value; });
+
+		var instrExceptionFields = obj.instrExceptions.split('%20');
+		console.log("instrExceptionFields--",instrExceptionFields)		
+		let instrExceptionObj = {};
+		if(instrExceptionFields.length > 0)
+		{
+		    instrExceptionObj.enable = instrExceptionFields[0] ==='1';	
+		    instrExceptionObj.enableCaptureExcepStackTrace = instrExceptionFields[1] === '1'
+		    instrExceptionObj.exceptionType = instrExceptionFields[2] === '1' ? "handledException" : "unhandledException";
+		    
+		    // if stackTraceDepthValue is not selected
+		    if(instrExceptionFields.length < 4)
+		      instrExceptionObj.stackTraceDepthValue = instrExceptionFields[3] = '0' ; 
+
+			//add this object to initial value obj
+		}
+
+		obj.instrExceptionObj = instrExceptionObj;			 
+
+		newState.initializeKeywords = obj;
+		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
-		console.log("booleanEnableBCICapturing---",booleanEnableBCICapturing)
 		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
-
-		console.log("newState.enableBCICheckBox---",newState.enableBCICheckBox)
-
+		
 		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
 		newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
-		console.log("newState.initializeKeyword---",newState.initializeKeywords);
-		//console.log("newState.enableBCICapturingCheckBox---",newState.enableBCICapturingCheckBox)
-		console.log("newState.hotSpotCapturingCheckBox----",newState.hotSpotCapturingCheckBox)
-		return newState;
+	return newState;
 
 	
-		case 'SET_DEFAULT_BCICapturingKeywords':
+	case 'SET_DEFAULT_BCICapturingKeywords':
 		var newState = Object.assign({}, state);	
-		
+		//let BCICapturingInitial = {};
+
+
+
 		let BCICapturingInitial = _.forEach(newState.data,function(value,key){
 			console.log("key---",key)
 			console.log("value----",value)
-			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'enableBciError'
+			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'correlationIDHeader'
 			 || key === 'logLevelOneFpMethod' || key === 'enableCpuTime' || key === 'enableForcedFPChain' || key === 'setCavNVCookie'){
 				console.log("newState-",newState.data[key]["defaultValue"])
 				
 				newState.initializeKeywords[key] = value["defaultValue"];
-				console.log("value---",newState.initializeKeywords[key])
+				console	.log("value---",newState.initializeKeywords[key])
 
 			}
 
@@ -70,9 +77,9 @@ export default function (state = initialState,action){
 
 		console.log("BCICapturingInitial----",BCICapturingInitial)
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
-		return newState;
+	return newState;
 
-		case 'SET_DEFAULT_HOTSPOTKEYWORDS':
+	case 'SET_DEFAULT_HOTSPOTKEYWORDS':
 		var newState = Object.assign({}, state);	
 		
 		let hotSpotCapturingInitial = _.forEach(newState.data,function(value,key){
@@ -93,9 +100,9 @@ export default function (state = initialState,action){
 		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 		newState.hotSpotCapturingCheckBox = true;
-		return newState;
+	return newState;
 
-		case 'SET_DEFAULT_DEBUGKEYWORDS':
+	case 'SET_DEFAULT_DEBUGKEYWORDS':
 		var newState = Object.assign({}, state);	
 		
 		let debugCapturingInitial = _.forEach(newState.data,function(value,key){
@@ -116,13 +123,13 @@ export default function (state = initialState,action){
 		//newState.initializeKeywords = BCICapturingInitial;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 		newState.enableDebugCheckBox = true;
-		return newState;
+	return newState;
 		
 		/*
 		* storing data of xml files in path [NSWDIR/instrprof/.whitlist]
 		*/
 
-		case 'LIST_OF_XMLFILES':
+	case 'LIST_OF_XMLFILES':
 		var newState = Object.assign({}, state);
 		newState.listOfXmlFilesInstr = [];
 		console.log("at initial--",newState.listOfXmlFilesInstr)	
@@ -131,11 +138,27 @@ export default function (state = initialState,action){
 			newState.listOfXmlFilesInstr.push({value:value , label:value})
 		})
 		console.log("newState.listOfXmlFilesInstr---",newState.listOfXmlFilesInstr)
-		return newState ;
+	return newState ;
 
-		case 'INITIALIZE_INSTRPROFILE' :
+		/*case 'INITIALIZE_INSTRPROFILE' :
 		var newState = Object.assign({}, state);
 		 _.forEach(newState.data,function(value,key){
+			console.log("key---",key)
+			console.log("value----",value)
+			
+				console.log("newState-",newState.data[key]["defaultValue"])
+				newState.initializeKeywords[key] = value["value"];
+				console.log("value---",newState.initializeKeywords[key])
+
+
+		});
+		 return newState;*/
+
+
+		 case 'INITIALIZE_INSTREXCEPTION':
+		 var newState =Object.assign({},state);
+		 console.log("initialize-INITIALIZE_INSTREXCEPTION----s-",newState.initializeKeywords)
+		  _.forEach(newState.data,function(value,key){
 			console.log("key---",key)
 			console.log("value----",value)
 			
@@ -148,7 +171,7 @@ export default function (state = initialState,action){
 		 return newState;
 
 
-	case 'UPDATE_BCI_KEYWORDS':
+		case 'UPDATE_BCI_KEYWORDS':
 		var newState = Object.assign({},state);
 		console.log("in update bci keywords---",action.payload.data)
 		newState.data = action.payload.data ;
@@ -221,6 +244,14 @@ export default function (state = initialState,action){
 		console.log("hotspot initialize values--",objDebug); 
 		newState.initializeKeywords = objDebug;
 		return newState;
+
+		case 'UPDATE_INSTREXCEPTION':
+		var newState = Object.assign({},state);
+
+		return newState;
+
+
+
 
 
 

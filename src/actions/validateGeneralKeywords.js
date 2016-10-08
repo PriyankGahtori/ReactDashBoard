@@ -5,7 +5,7 @@ export function validateBCICapturingKeywords(data) {
   return data.bciInstrSessionPct.value === "0" && 
          data.doNotDiscardFlowPaths.value === "0" && 
          data.enableBciDebug.value === "0" && 
-  		  data.enableBciError.value === "0" &&
+  		  data.correlationIDHeader.value === "0" &&
   		 data.logLevelOneFpMethod.value === "0" ;
 }
 
@@ -17,7 +17,8 @@ export function validateHotSpotCapturingKeywords(data) {
          data.ASSampleInterval.value === "0" && 
          data.ASReportInterval.value === "0" &&
          data.ASDepthFilter.value === "0" &&
-         data.ASTraceLevel.value ===  "0" ;
+         data.ASTraceLevel.value ===  "0" &&
+         data.ASStackComparingDepth.value === "0";
   		 
 }
 
@@ -31,7 +32,7 @@ export const disabledBCICapturing = {
                                       "bciInstrSessionPct" : "0", 
                                       "doNotDiscardFlowPaths" : "0",
                                       "enableBciDebug" : "0",
-                                      "enableBciError" : "0",
+                                      "correlationIDHeader" : "0",
                                        "logLevelOneFpMethod" : "0",
                                        "setCavNVCookie":"0",
                                        "enableCpuTime":"0",
@@ -43,7 +44,8 @@ export const disabledHotSpotCapturing = {
                                       "ASSampleInterval":"0",
                                       "ASReportInterval":"0",
                                       "ASDepthFilter":"0",
-                                      "ASTraceLevel":"0"
+                                      "ASTraceLevel":"0",
+                                      "ASStackComparingDepth":"0"
 
 };
 

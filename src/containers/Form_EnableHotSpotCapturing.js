@@ -9,7 +9,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from 'material-ui/Checkbox';
 import {initializeKeywords} from '../actions/index';
 
-export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel'];
+export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel','ASStackComparingDepth'];
 //export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
 
 const initialValues = { 
@@ -57,7 +57,7 @@ componentWillMount() {
   }
 
   render() {
-     const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval,ASDepthFilter,ASTraceLevel}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval,ASDepthFilter,ASTraceLevel,ASStackComparingDepth}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row" style={{paddingTop:8}}>
@@ -127,19 +127,28 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Debug Level"
+                  floatingLabelText="AS Trace Level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
                   
                 />
              </div>
 
+             <div className= "col-md-6">
+                   <TextField
+                  hintText="Hint Text"
+                  floatingLabelText="ASStackComparingDepth"
+                  disabled={this.state.enableHotSpotBlock}
+                  {...ASStackComparingDepth}
+                  
+                />
+             </div>
+
+
               
          </div>
 
-
-
-
+      
            
        </form>
      );
@@ -160,7 +169,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
                     ASThresholdMatchCount:state.Keywords.initializeKeywords.ASThresholdMatchCount,
                     ASReportInterval:state.Keywords.initializeKeywords.ASReportInterval,
                     ASDepthFilter:state.Keywords.initializeKeywords.ASDepthFilter,
-                    ASTraceLevel:state.Keywords.initializeKeywords.ASTraceLevel
+                    ASTraceLevel:state.Keywords.initializeKeywords.ASTraceLevel,
+                    ASStackComparingDepth:state.Keywords.initializeKeywords.ASStackComparingDepth
                   }
 })
 ) (Form_EnableHotSpotCapturing);

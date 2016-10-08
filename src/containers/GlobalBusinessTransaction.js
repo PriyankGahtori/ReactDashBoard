@@ -4,7 +4,7 @@ import RadioButton from 'material-ui/RadioButton';
 import RadioButtonGroup from '../components/RadioButtonGroupWrapper';
 import SelectField from '../components/SelectFieldWrapper';
 import MenuItem from 'material-ui/MenuItem';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
 import { connect } from 'react-redux';
@@ -221,9 +221,9 @@ class GlobalBusinessTransaction extends React.Component {
       
 		
 		<div>
-          <FlatButton type="submit" disabled={submitting}>
+         <RaisedButton type="submit" disabled={submitting}>
                      {submitting ? <i/> : <i/>} Submit
-          </FlatButton>
+          </RaisedButton>
 
 
         </div>  

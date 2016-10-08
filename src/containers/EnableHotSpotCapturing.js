@@ -154,7 +154,6 @@ enableHotSpotCapturingDialog(){
 handleSubmitEnableHotSpotCapturing(){
   console.log("handleSubmit---", this.refs)
   this.refs.enableHotSpotCapturingForm.submit();
-  this.handleCancelEnableHotSpotCapturing();
   console.log("after closing the dialog----")
   }
 
@@ -228,6 +227,7 @@ handleCancelDisableBCIVal(){
     console.log("finalFormData---",keywordData)
    this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing"); 
    //this.props.submitKeywordData(keywordData,this.props.profileId);    
+   this.handleCancelEnableHotSpotCapturing();   
 }
 
 

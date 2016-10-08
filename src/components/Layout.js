@@ -19,7 +19,7 @@ import DropDownAppList from '../containers/DropDownAppList';
 import SettingsDialog from 'material-ui/Dialog';
 import Dialog_Setting from '../containers/Dialog_Settings';
 import FlatButton from 'material-ui/FlatButton';
-
+import {hashHistory } from 'react-router';
 
 injectTapEventPlugin();
 
@@ -99,7 +99,11 @@ export default class Layout extends React.Component {
   }
   settingScreen(){
   this.setState({settingOpen: true})
- }
+  }
+  homeScreen(){
+    console.log(" in home screen")
+    hashHistory.push(`/`)
+  }
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
@@ -153,8 +157,8 @@ export default class Layout extends React.Component {
         titleStyle={title}
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
-         iconElementRight={<div><IconButton><Link to="/"><FontIcon className="material-icons">home</FontIcon></Link></IconButton>
-        <IconButton><FontIcon className="material-icons" onTouchTap={this.settingScreen}>assignment_returned</FontIcon></IconButton></div>}
+        iconElementRight={<div><IconButton onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
+        <IconButton onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

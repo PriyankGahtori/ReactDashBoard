@@ -63,6 +63,25 @@ class DataGridComponent extends React.Component {
       return cell;
      
   }
+  handleSort(a, b, order, sortField){  
+   
+    if(order == "desc")
+    {
+      //check if it has href(link), get the field.href : value
+      if( a[sortField].hasOwnProperty("href") )
+        return a[sortField]["href"] < b[sortField]["href"];
+      else
+        return a[sortField] < b[sortField];
+    }
+    else
+    {
+      if( a[sortField].hasOwnProperty("href") )
+        return a[sortField]["href"] > b[sortField]["href"];
+      else
+        return a[sortField] > b[sortField];
+    }
+  }
+
   
  
   render() {
@@ -91,7 +110,7 @@ class DataGridComponent extends React.Component {
       >
       {column.data.map((val, index) => (            
   
-        <TableHeaderColumn dataSort={true} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false} >{val}</TableHeaderColumn>
+        <TableHeaderColumn dataSort={true} sortFunc={this.handleSort.bind(this)} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true :false} hidden={column.field[index] === column.key ? true :false} >{val}</TableHeaderColumn>
         ))}     
       </BootstrapTable>
         </div>

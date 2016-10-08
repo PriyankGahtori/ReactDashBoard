@@ -12,10 +12,44 @@ import {initializeKeywords} from '../actions/index';
 export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel','ASStackComparingDepth'];
 //export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
 
-const initialValues = { 
-              
+const initialValues = {  
 
-              }
+}
+
+const validate = values =>{ 
+    const errors = { }
+ 
+
+  if(!values.ASSampleInterval){
+    errors.ASSampleInterval = 'Required'
+  }else if (isNaN(values.ASSampleInterval)){
+    errors.ASSampleInterval = 'Please Enter Only Numbers'
+  }
+    if(!values.ASThresholdMatchCount){
+    errors.ASThresholdMatchCount = 'Required'
+  }else if (isNaN(values.ASThresholdMatchCount)){
+    errors.ASThresholdMatchCount = 'Please Enter Only Numbers'
+  }
+
+   if(!values.ASReportInterval){
+    errors.ASReportInterval = 'Required'
+  }else if(isNaN(values.ASReportInterval)){
+    errors.ASReportInterval = 'Please Enter Only Numbers'
+  } 
+
+   if(!values.ASDepthFilter){
+    errors.ASDepthFilter = 'Required'
+  }else if (isNaN(values.ASDepthFilter)){
+    errors.ASDepthFilter =  'Please Enter Only Numbers'
+  }
+  if(!values.ASTraceLevel){
+    errors.ASTraceLevel = 'Required'
+  }else if (isNaN(values.ASTraceLevel)){
+    errors.ASTraceLevel = 'Please Enter Only Numbers'
+  }
+ return errors;
+}
+
 
   
   const styles = {
@@ -80,6 +114,7 @@ componentWillMount() {
                   floatingLabelText="AS Sample Interval For Stack Trace"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASSampleInterval}
+                  errorText={ASSampleInterval.touched && ASSampleInterval.error && <div>{ASSampleInterval.error}</div>}
                 />
             
 
@@ -94,6 +129,7 @@ componentWillMount() {
                   floatingLabelText="AS Threshold Match Count"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASThresholdMatchCount}
+                  errorText={ASThresholdMatchCount.touched && ASThresholdMatchCount.error && <div>{ASThresholdMatchCount.error}</div>}
                 />
              </div>
              </div>
@@ -106,6 +142,7 @@ componentWillMount() {
                   floatingLabelText="HotSpot Reporting Interval "
                     disabled={this.state.enableHotSpotBlock}
                   {...ASReportInterval}
+                  errorText={ASReportInterval.touched && ASReportInterval.error && <div>{ASReportInterval.error}</div>}
                   
                 />
              </div>
@@ -116,6 +153,7 @@ componentWillMount() {
                   floatingLabelText="Min Stack Depth for HotSpot"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASDepthFilter}
+                   errorText={ASDepthFilter.touched && ASDepthFilter.error && <div>{ASDepthFilter.error}</div>}
                   />
               </div>
              </div>
@@ -127,9 +165,10 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Trace Level"
+                  floatingLabelText="AS Debug Level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
+                   errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
                   
                 />
              </div>

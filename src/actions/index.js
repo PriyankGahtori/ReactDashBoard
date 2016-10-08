@@ -1239,3 +1239,44 @@ console.log("response----adding addMethodMonitorDetails---",response)
 
   }
 }
+
+/*********** Error Detection *************/
+
+
+
+export function fetchErrorDetectionTableData(profileId){
+  console.log("inside error detection")
+  const URL = `${url.FETCH_ERROR_DETECTION_TABLEDATA}/${profileId}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching bt pattern---",request_table)
+  return {
+    type:'FETCH_ERROR_DETECTION_TABLE',
+    payload:request_table
+  }
+}
+
+export function insertErrorDetectionData(formData,profileId){
+
+  console.log("insertErrorDetectionData------in actions--",formData)
+  console.log("profileId----",profileId)
+
+   var response = axios({
+    method:'post',
+    url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+console.log("response----adding insertErrorDetectionData---",response)
+  return {
+    type : 'ADD_NEW_ERROR_DETECTION',
+    payload : response
+  }
+}
+
+export function toggleStateErrorDetection(){
+  console.log("action triggered--toggling----for error detection")
+  return {
+    type:'TOGGLE_STATE_ADD_ERROR_DETECTION'
+  }
+}

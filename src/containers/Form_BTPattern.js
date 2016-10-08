@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Checkbox from 'material-ui/Checkbox';
+import Checkbox from '../components/CheckboxWrapper';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
 import {ListOfGroupNames} from '../actions/index';
@@ -128,7 +128,8 @@ handleCheck(event,value)
       <Checkbox
            style={styles.checkbox}
            label="Dynamic part Request"
-           onCheck={this.handleCheck.bind(this)}
+          
+           onCustomChange={this.handleCheck.bind(this)}
            />
      </div>
 

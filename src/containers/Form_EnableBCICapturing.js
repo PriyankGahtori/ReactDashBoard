@@ -7,7 +7,7 @@ import Input from '../components/InputWrapper';
 import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
 import {initializeInstrProf} from '../actions/index';
-export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','enableBciDebug','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
+export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
 //export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','enableBciDebug'];
 const initialValues = { 
                 'logLevelOneFpMethod' : true, 
@@ -76,7 +76,7 @@ ChangeEnableForcedFPChain(event,index ,value){
 }
 
   render() {
-     const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,enableBciDebug,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
             <div className ="row"  style={{paddingTop:15}}>
@@ -115,23 +115,7 @@ ChangeEnableForcedFPChain(event,index ,value){
              <div className = "row" style = {styles.block}>
 
 
-               <div className = "col-md-3">
-                <label for="sess_perct"> Debug Level </label>
-              </div>
-
-              <div className = "col-md-3">
-                 <Input
-                {...enableBciDebug} 
-                 id="sess_perct"
-                style={styles.input} 
-                 type="number" 
-                 min="1" 
-                 max="6" 
-                 step="1" 
-                 
-                 />
-
-             </div>
+           
 
              <div className= "col-md-6">
               <Checkbox

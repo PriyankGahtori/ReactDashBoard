@@ -18,10 +18,12 @@ switch(action.type){
 	
 	case 'GET_ALL_KEYWORDS':
 	   	var newState = Object.assign({}, state);
+	   	console.log("action .payload-in keyords reducer-",action.payload.data )
 		newState.data = action.payload.data ;
 
 		var data = action.payload.data;
 		let obj = _.mapValues(data, function(obj){ return obj.value; });
+		console.log("obj--in get all keywords-",obj)
 
 		var instrExceptionFields = obj.instrExceptions.split('%20');
 		console.log("instrExceptionFields--",instrExceptionFields)		
@@ -39,92 +41,54 @@ switch(action.type){
 			//add this object to initial value obj
 		}
 
-		obj.instrExceptionObj = instrExceptionObj;			 
+		obj.instrExceptionObj = instrExceptionObj;	
+
+		/*for initializing fields of putDelayInMethod Keywords
+		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
+		* so need to split /modify it in order to initialize its fields
+		*/
+	if(obj.putDelayInMethod != 0){
+		var putDelayInMethodFields=  obj.putDelayInMethod.split(':');
+		console.log("putDelayInMethodFields--",putDelayInMethodFields)
+		/*
+		*  
+		*/
+		let putDelayInMethodObj = {};
+		
+		putDelayInMethodObj.fromRange = putDelayInMethodFields[0];
+		putDelayInMethodObj.toRange = putDelayInMethodFields[1];
+		putDelayInMethodObj.isCpuHogg = putDelayInMethodFields[2] ==='1';
+
+		/* 
+		* putDelayInMethodFields[3] can be  "1%20com.cav.pp" ,"1" ,"0";
+		*/
+
+		var lastField = decodeURI(putDelayInMethodFields[3]);
+		console.log("lastField--",lastField)
+		if(lastField.length > 1){
+			var splitArr = lastField.split(' ');
+			putDelayInMethodObj.isAutoInstrument = splitArr[0] ==='1';
+			putDelayInMethodObj.fqm =splitArr[1];
+		}
+
+		obj.putDelayInMethodObj = putDelayInMethodObj ;
+	}else
+		obj.putDelayInMethodObj = "0";
 
 		newState.initializeKeywords = obj;
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
 		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
 		
 		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
-		newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
+	   	newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
+		console.log("newState.enableDebugCheckBox")
 	return newState;
 
-	
-	case 'SET_DEFAULT_BCICapturingKeywords':
-		var newState = Object.assign({}, state);	
-		//let BCICapturingInitial = {};
 
-
-
-		let BCICapturingInitial = _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			if(key === 'bciInstrSessionPct' || key === 'doNotDiscardFlowPaths' || key === 'enableBciDebug' || key === 'correlationIDHeader'
-			 || key === 'logLevelOneFpMethod' || key === 'enableCpuTime' || key === 'enableForcedFPChain' || key === 'setCavNVCookie'){
-				console.log("newState-",newState.data[key]["defaultValue"])
-				
-				newState.initializeKeywords[key] = value["defaultValue"];
-				console	.log("value---",newState.initializeKeywords[key])
-
-			}
-
-		});
-
-
-
-		console.log("BCICapturingInitial----",BCICapturingInitial)
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
-	return newState;
-
-	case 'SET_DEFAULT_HOTSPOTKEYWORDS':
-		var newState = Object.assign({}, state);	
-		
-		let hotSpotCapturingInitial = _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			if(key === 'ASSampleInterval' || key === 'ASThresholdMatchCount' || key === 'ASReportInterval' || key === 'ASDepthFilter' || key === 'ASTraceLevel'){
-				console.log("newState-",newState.data[key]["defaultValue"])
-				/*value = newState.data[key]["defaultValue"];*/
-				newState.initializeKeywords[key] = value["defaultValue"];
-				console.log("value---",newState.initializeKeywords[key])
-
-
-			}
-
-		});
-
-		console.log("hotSpotCapturingInitial----",hotSpotCapturingInitial)
-		//newState.initializeKeywords = BCICapturingInitial;
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
-		newState.hotSpotCapturingCheckBox = true;
-	return newState;
-
-	case 'SET_DEFAULT_DEBUGKEYWORDS':
-		var newState = Object.assign({}, state);	
-		
-		let debugCapturingInitial = _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			if(key === 'enableBciDebug' || key === 'enableBciError' || key === 'InstrTraceLevel'){
-				console.log("newState-",newState.data[key]["defaultValue"])
-				/*value = newState.data[key]["defaultValue"];*/
-				newState.initializeKeywords[key] = value["defaultValue"];
-				console.log("value---",newState.initializeKeywords[key])
-
-
-			}
-
-		});
-
-		console.log("hotSpotCapturingInitial----",debugCapturingInitial)
-		//newState.initializeKeywords = BCICapturingInitial;
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
-		newState.enableDebugCheckBox = true;
-	return newState;
-		
 		/*
 		* storing data of xml files in path [NSWDIR/instrprof/.whitlist]
 		*/
@@ -140,20 +104,7 @@ switch(action.type){
 		console.log("newState.listOfXmlFilesInstr---",newState.listOfXmlFilesInstr)
 	return newState ;
 
-		/*case 'INITIALIZE_INSTRPROFILE' :
-		var newState = Object.assign({}, state);
-		 _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			
-				console.log("newState-",newState.data[key]["defaultValue"])
-				newState.initializeKeywords[key] = value["value"];
-				console.log("value---",newState.initializeKeywords[key])
-
-
-		});
-		 return newState;*/
-
+		
 
 		 case 'INITIALIZE_INSTREXCEPTION':
 		 var newState =Object.assign({},state);
@@ -169,42 +120,6 @@ switch(action.type){
 
 		});
 		 return newState;
-
-
-		case 'UPDATE_BCI_KEYWORDS':
-		var newState = Object.assign({},state);
-		console.log("in update bci keywords---",action.payload.data)
-		newState.data = action.payload.data ;
-
-		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
-		console.log("newState.enableBCICheckBox---",newState.enableBCICheckBox)
-
-		let objBci = _.mapValues(action.payload.data, function(objBci)
-			{
-				console.log("obj---",objBci)
-				return objBci.value;
-			});
-
-		console.log("mapvalues-------bci initialize--",objBci); 
-		newState.initializeKeywords = objBci;
-		return newState;
-
-
-		case 'UPDATE_HOTSPOT_KEYWORDS':
-		var newState = Object.assign({},state);
-		newState.data = action.payload.data ;
-		var booleanEnableHotSpotCapturing = validate.validateHotSpotCapturingKeywords(action.payload.data)
-		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
-
-		let objHotspot = _.mapValues(action.payload.data, function(objHotspot)
-			{
-				console.log("obj---",objHotspot)
-				return objHotspot.value;
-			});
-
-		console.log("hotspot initialize values--",objHotspot); 
-		newState.initializeKeywords = objHotspot;
-		return newState;
 
 
 		case 'ENABLE_BCI_CHECKBOX':
@@ -231,31 +146,7 @@ switch(action.type){
 		newState.enableDebugCheckBox = action.payload;
 		return newState;
 
-
-		case 'UPDATE_DEBUG_KEYWORDS':
-		var newState = Object.assign({},state);
-		newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
-		let objDebug = _.mapValues(action.payload.data, function(objDebug)
-			{
-				console.log("obj---",objDebug)
-				return objDebug.value;
-			});
-
-		console.log("hotspot initialize values--",objDebug); 
-		newState.initializeKeywords = objDebug;
-		return newState;
-
-		case 'UPDATE_INSTREXCEPTION':
-		var newState = Object.assign({},state);
-
-		return newState;
-
-
-
-
-
-
-
+		
 	}
 	return state;
 }

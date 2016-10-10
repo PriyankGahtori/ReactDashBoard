@@ -39,8 +39,10 @@ const styles = {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log("nextProps--instrProfilemultiselect--",nextProps.getAllKeywordData)
+    console.log("this props--instrProfilemultiselect---",this.props.getAllKeywordData)
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData data cahnged")
+      console.log("getAllKeywordData instrProfile data cahnged")
       this.setState({getAllKeywordData:nextProps.getAllKeywordData});
       this.setState({value:nextProps.getAllKeywordData.initializeKeywords.instrProfile})
     }  

@@ -119,7 +119,7 @@ class enableBCICapturing extends React.Component {
     console.log("EnableBCICapturingDialog function callded---")
   }
 
-  handleenableBCICapturingCheckboxChange(event,isInputChecked){
+  handleEnableBCICapturingCheckboxChange(event,isInputChecked){
     console.log("isInputChecked--enableBCICAPTURING CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
@@ -128,7 +128,8 @@ class enableBCICapturing extends React.Component {
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
-       this.props.setDefValBCICapturingKeywords();
+        this.submitForm(validate.setDefaultValuesBCICapturing(this.props.getAllKeywordData.data));
+       //this.props.setDefValBCICapturingKeywords();
        this.props.enableBCICheckBoxStatus(true);
    
     }
@@ -178,7 +179,7 @@ handleRequestClose(){
 * Disable Dialog functions
 */
 cnfrmDisableBCIVal(){
-    
+    console.log("disabledbcicapturing")
    this.submitForm(validate.disabledBCICapturing);
    this.props.enableBCICheckBoxStatus(false);
    this.setState({ openCnfrmDisbleDialog:false
@@ -195,8 +196,8 @@ handleCancelDisableBCIVal(){
   submitForm(formData){
     console.log("submitForm----",formData)
    
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("data---general keywords--",formData)
+    console.log("getAllKeywordData-enableBciCapturing--",this.props.getAllKeywordData) ;
+    console.log("data---general keywords-enableBciCapturing-",formData)
     console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
@@ -221,8 +222,8 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
-    //this.props.submitKeywordData(keywordData,this.props.profileId);     
+  //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
+    this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
 
@@ -280,7 +281,7 @@ const actionsBCIDisable =[
                   value = "enableBCICapturing"
                   label = "Enable BCI Capturing"
                   checked  = {this.state.enableBCICheckBox}
-                  onCustomChange={this.handleenableBCICapturingCheckboxChange.bind(this)}
+                  onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}
               />
           </div>
           <div>

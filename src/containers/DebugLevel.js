@@ -125,7 +125,8 @@ class enableBCICapturing extends React.Component {
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
-       this.props.setDefValDebugCapturingKeywords();
+      // this.props.setDefValDebugCapturingKeywords();
+       this.submitForm(validate.setDefaultValuesDebugCapturing(this.props.getAllKeywordData.data));
        this.props.enableDebugCheckBoxStatus(true);
    
     }
@@ -218,7 +219,8 @@ handleCancelDisableDebugVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");     
+    //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
+    this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
 

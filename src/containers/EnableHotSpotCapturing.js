@@ -117,7 +117,7 @@ class EnableHotSpotCapturing extends React.Component {
 /*
 * functions for hotSpot capturing
 */
-handleenableHotSpotCapturingCheckboxChange(event,isInputChecked){
+handleEnableHotSpotCapturingCheckboxChange(event,isInputChecked){
   if(isInputChecked === true)
     {
       //console.log("action trigegerd")
@@ -127,7 +127,8 @@ handleenableHotSpotCapturingCheckboxChange(event,isInputChecked){
     */
     this.setState({openSnackBar:true
     })
-   this.props.setDefValHotSpotCapturingKeywords();
+ //  this.props.setDefValHotSpotCapturingKeywords();
+   this.submitForm(validate.setDefaultValuesHotSpotCapturing(this.props.getAllKeywordData.data));
    this.props.enableHotSpotCheckBoxStatus(true);
 
    
@@ -158,22 +159,6 @@ handleSubmitEnableHotSpotCapturing(){
   }
 
 
-/*
-* cnfirmation dialog
-*/
-
-/*
-cnfrmEnableHotSpotDefVal(){
-   this.props.setDefValHotSpotCapturingKeywords();
-   this.props.enableHotSpotCheckBoxStatus(true);
-   this.setState({openCnfrmHotSpotDialog:false})
-}
-
-handleCancelEnableHotSpotDefVal(){
-  this.setState({openCnfrmHotSpotDialog:false})
-  this.props.enableHotSpotCheckBoxStatus(false);
-
-}*/
 
 handleRequestClose(){
   this.setState({openSnackBar:false
@@ -225,8 +210,8 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-   this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing"); 
-   //this.props.submitKeywordData(keywordData,this.props.profileId);    
+//   this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing"); 
+   this.props.submitKeywordData(keywordData,this.props.profileId);    
    this.handleCancelEnableHotSpotCapturing();   
 }
 
@@ -289,7 +274,7 @@ handleCancelDisableBCIVal(){
                   label = "Enable HotSpot Capturing"
                  
                   checked  = {this.state.hotSpotCapturingCheckBox}
-                  onCustomChange={this.handleenableHotSpotCapturingCheckboxChange.bind(this)}
+                  onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)}
                               
               />
           </div>

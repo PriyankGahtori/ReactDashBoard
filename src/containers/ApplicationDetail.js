@@ -94,7 +94,7 @@ class ApplicationDetail extends React.Component {
                                       return value.id === selectedRow[0]
                                     });
           console.log("selectedRowData id----",selectedRowData[0].id)
-          this.props.createConfFile(selectedRowData[0].id);
+          this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData);
         }
     }
 
@@ -263,7 +263,8 @@ class ApplicationDetail extends React.Component {
 function mapStateToProps(state) {
   console.log("appDetail---",state.applicationdata.tableData)
   return {
-    appDetail :state.applicationdata
+    appDetail :state.applicationdata,
+    getAllKeywordData :state.Keywords
    };
 }
 

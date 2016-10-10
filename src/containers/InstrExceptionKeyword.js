@@ -25,7 +25,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     }
   }
   componentWillMount() {
-    this.props.initializeInstrException();
+   // this.props.initializeInstrException();
   }
 
   componentWillReceiveProps(nextProps)
@@ -92,7 +92,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
     *  modifying formdata in order to form key value as:
-    *   instrException = 1%200%201%96
+    *   instrException = 1%200%201%96 for instrException keyword
     */
 
      if(formData.enable === "false" && formData.enable === false){
@@ -115,27 +115,11 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
               instrVal = instrVal+"%20"+formData.stackTraceDepthValue;
       }
       console.log("instrVal--",instrVal)      
-      var instrExcepData ={instrExceptions:instrVal};
       keywordData.instrExceptions["value"] = instrVal;
 
-   /* let finalFormData = _.forEach(formData,function(value,key){
-      if(value === "true" ||  value === true){
-        value = "1" ;
-      }
-      else if(value === "false" || value === false){
-        value = "0" ;
-      }
-      console.log("key---",key)
-      console.log("value for boolean values---",value)
-      
-
-
-      // keywordData[key]["value"] = String(value); 
-      
-    }) ;*/
     console.log("finalFormData---",keywordData)
-    this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
- 
+//    this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
+    this.props.submitKeywordData(keywordData,this.props.profileId); 
   }
   handleChangeStackTraceValue(value)
   {

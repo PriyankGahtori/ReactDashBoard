@@ -1022,7 +1022,7 @@ export function toggleStateAddBTPattern(){
 
 /* Action creators for generating the nd.conf file */
 
- export function createConfFile(appId)
+ export function createConfFile(appId,Keyword)
  {
   console.log("inside index.js createConfFile");
   const URL = `${url.GENERATE_ND_CONF}/${appId}`;
@@ -1050,8 +1050,8 @@ export function getKeywordsData(profileId){
   }
 }
 
-/*export function submitKeywordData(data,profileId,keywordsGroup){
-  console.log("data----",data)
+export function submitKeywordData(data,profileId,keywordsGroup){
+  console.log("data---submitKeywordData----",data)
    var response = axios({
       method:'post',
        url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
@@ -1059,14 +1059,14 @@ export function getKeywordsData(profileId){
       headers:{'Content-Type':'application/json'}
     });
 
-   
+   console.log("submitKeywordData response--",response)
      return{
       type : 'GET_ALL_KEYWORDS',
       payload : response
      }
 }
-*/
-export function submitKeywordData(data,profileId,keywordsGroup){
+
+/*export function submitKeywordData(data,profileId,keywordsGroup){
   console.log("data----",data)
    var response = axios({
       method:'post',
@@ -1086,9 +1086,8 @@ export function submitKeywordData(data,profileId,keywordsGroup){
         type :'UPDATE_HOTSPOT_KEYWORDS',
         payload : response
       }
-    else if(keywordsGroup === 'instrProfile')   /* No need of ds case in reducer as ds keyword is
-                                                * not in seperate dialog,so no need to initialize again till
-                                                */
+
+    else if(keywordsGroup === 'instrProfile')
       return{
         type : 'UPDATE_INSTRPROFILE_KEYWORDS',
         payload :response
@@ -1098,17 +1097,9 @@ export function submitKeywordData(data,profileId,keywordsGroup){
         type:'UPDATE_DEBUG_KEYWORDS',
         payload:response
       }
-    else if(keywordsGroup === 'instrException')
-      return{
-        type :'UPDATE_INSTREXCEPTION',
-        payload:response
-      }
 }
-
+*/
 export function setDefValBCICapturingKeywords() {
-
-
-  
   return{
     type : 'SET_DEFAULT_BCICapturingKeywords'
 
@@ -1194,11 +1185,6 @@ export function initializeInstrProf(profileId) {
   }
 }
 
-export function initializeInstrException(){
-  return{
-    type:'INITIALIZE_INSTREXCEPTION'
-  }
-}
 /* Action Creators for the method monitor screen  */
 
 export function toggleStateAddMethodMonitor(){

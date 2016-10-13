@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
+
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -20,10 +21,9 @@ import { reduxForm } from 'redux-form';
 import _ from "lodash";
 import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
-import FormEnableBCICapturing from './Form_EnableBCICapturing';
-import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
+import FormEnableBackendMonitor from './Form_EnableBackendMonitor';
 import ConfirmDialog from 'material-ui/Dialog';
-import DialogEnableBCICapturing from 'material-ui/Dialog';
+import DialogEnableBackendMonitor from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords';
 
 
@@ -44,6 +44,8 @@ const styles = {
     paddingTop : 40
   }
 };
+
+
 /*
 * data --- table column name
 * key ---- acting as a primary key
@@ -67,40 +69,35 @@ const NewButtonstyle = {
 
 };
 
-class enableBCICapturing extends React.Component {
+class EnableBackendMonitor extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
+  console.log("in props--",this.props)
   console.log("------",validate) 
-  this.state ={enableBCIDebug:false}
-  this.state = {openEnableBCICapturingDialog : false}
-  console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-  this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-  this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableBCICheckBox:false}
   this.state = {openSnackBar:false}
   }
 
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-   // this.props.getKeywordsData(this.props.params.profileId);
     this.state = {openSnackBar:false}
   }
+
+
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.enableBCICheckBox)
+    console.log("nextprops---",nextProps.getAllKeywordData.enableBackendMonitorCheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
       console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
-                     enableBCICheckBox : nextProps.getAllKeywordData.enableBCICheckBox
+                     enableBackendMonitorCheckBox : nextProps.getAllKeywordData.enableBackendMonitorCheckBox
       });
     }
 
-    if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
-      this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.BCICapturingCheckBox})
+    if(this.props.getAllKeywordData.enableBackendMonitorCheckBox != nextProps.getAllKeywordData.enableBackendMonitorCheckBox)
+      this.setState({disableAdvancedSettingTab3:!nextProps.getAllKeywordData.enableBackendMonitorCheckBox})
 
   }
 
@@ -113,91 +110,72 @@ class enableBCICapturing extends React.Component {
   *  functions for enableBCICapturing Dialog
   */
 
-  enableBCICapturingDialog(){
+  handleEnableBackendMonitorDialog(){
     
-    this.setState({openEnableBCICapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
+    this.setState({openEnableBackendMonitorDialog:true});
+    console.log("handleEnableBackendMonitorDialog function callded---")
   }
 
-  handleEnableBCICapturingCheckboxChange(event,isInputChecked){
-    console.log("isInputChecked--enableBCICAPTURING CHECKBOX-",isInputChecked)
+  handleEnableBackendMonitor(event,isInputChecked){
+    console.log("isInputChecked--handleEnableBackendMonitor CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
     {
       console.log("action trigegerd opening Snackbar")
-      //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
-        this.submitForm(validate.setDefaultValuesBCICapturing(this.props.getAllKeywordData.data));
-       //this.props.setDefValBCICapturingKeywords();
-       this.props.enableBCICheckBoxStatus(true);
+       this.submitForm(validate.setDefaultValuesBackendMonitor(this.props.getAllKeywordData.data));
+       this.props.enableBackendMonitorCheckBoxStatus(true);
    
     }
     else{
-    this.props.enableBCICheckBoxStatus(isInputChecked);
+    this.props.enableBackendMonitorCheckBoxStatus(isInputChecked);
     this.setState({openCnfrmDisbleDialog:true})
    }
   }
 
-   handleCancelEnableBCICapturing(){
-    // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableBCICapturingDialog:false});
+   handleCancel(){
+     this.setState({openEnableBackendMonitorDialog:false});
   }
  
 
-handleSubmitEnableBCICapturing(){
+handleSubmit(){
   console.log("handleSubmit---", this.refs)
-  this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
+  this.refs.backendMonitorForm.submit();
+  this.handleCancel();
   console.log("after closing the dialog----")
   }
 
-
-
-
-/*
-* cnfirmation dialog
-*/
-/*cnfrmEnableBCIDefVal(){
-    console.log("ok button")
-  // this.props.setDefValBCICapturingKeywords();
-   //this.props.enableBCICheckBoxStatus(true);
-   this.setState({ openCnfrmBCIDialog:false
-   })
-   
-   
-}*/
 
 handleRequestClose(){
   console.log("handle close")
   this.setState({openSnackBar:false
   })
-//  this.props.enableBCICheckBoxStatus(false);
 }
 
 /*
 * Disable Dialog functions
 */
-cnfrmDisableBCIVal(){
-    console.log("disabledbcicapturing")
-   this.submitForm(validate.disabledBCICapturing);
-   this.props.enableBCICheckBoxStatus(false);
+handleConfirmDisableBackendMon(){
+    
+   this.submitForm(validate.disabledDebugCapturing);
+   this.props.enableDebugCheckBoxStatus(false);
    this.setState({ openCnfrmDisbleDialog:false
    })
   
 }
 
-handleCancelDisableBCIVal(){
+handleCancelDisableBackendMon(){
   this.setState({ openCnfrmDisbleDialog:false,
-                  enableBCICheckBox :true 
+                  enableBackendMonitorCheckBox :true 
    })
 }
 
   submitForm(formData){
     console.log("submitForm----",formData)
    
-    console.log("getAllKeywordData-enableBciCapturing--",this.props.getAllKeywordData) ;
-    console.log("data---general keywords-enableBciCapturing-",formData)
+    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
+    console.log("data---general keywords--",formData)
     console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
@@ -222,7 +200,6 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-  //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
     this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
@@ -232,45 +209,32 @@ handleCancelDisableBCIVal(){
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelEnableBCICapturing.bind(this)}
+        onTouchTap={this.handleCancel.bind(this)}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleSubmitEnableBCICapturing.bind(this)}
+        onClick={this.handleSubmit.bind(this)}
       />
     ];
     
     
 
-    {/*const actionsBCIDefault = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleCancelEnableBCIDefVal.bind(this)}
-      />,
-      <FlatButton
-        label="OK"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.cnfrmEnableBCIDefVal.bind(this)}
-      />
-    ];  */}
-
-const actionsBCIDisable =[
+  
+const actionsDebugDisable =[
         <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelDisableBCIVal.bind(this)}
+        onTouchTap={this.handleCancelDisableBackendMon.bind(this)}
       />,
       <FlatButton
         label="OK"
         primary={true}
         keyboardFocused={true}
-        onClick={this.cnfrmDisableBCIVal.bind(this)}
+        onClick={this.handleConfirmDisableBackendMon.bind(this)}
       />
-]
+];
   
     return (
       <div>
@@ -278,48 +242,39 @@ const actionsBCIDisable =[
       <div className = "row">
         <div className = "col-md-3">
          <Checkbox
-                  value = "enableBCICapturing"
-                  label = "Enable BCI Capturing"
-                  checked  = {this.state.enableBCICheckBox}
-                  onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}
-              />
-          </div>
-          <div>
-    <FlatButton disabled ={!this.state.enableBCICheckBox} onClick ={this.enableBCICapturingDialog.bind(this)} label="Advanced Settings" />
+                  value = "enableBackendMonitor"
+                  label = "Enable Backend Monitor"
+                  checked  = {this.state.enableBackendMonitorCheckBox}
+                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}
+         />
+        </div>
+      <div>
+    <FlatButton disabled ={!this.state.enableBackendMonitorCheckBox} onClick ={this.handleEnableBackendMonitorDialog.bind(this)} label="Advanced Settings" />
      </div>
     </div>
 
     
-    <DialogEnableBCICapturing
-          title="Enable FlowPath Capturing"
+    <DialogEnableBackendMonitor
+          title="Enable Debug Capturing"
           actions={actions}
           modal={false}
-          open={this.state.openEnableBCICapturingDialog}
+          open={this.state.openEnableBackendMonitorDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}         
     >
-      <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />
-   </DialogEnableBCICapturing>
-  {/*<ConfirmDialog
-          title="Are you sure want to enable the keywords with default Values?"
-          actions={actionsBCIDefault}
-          modal={false}
-          open={this.state.openCnfrmBCIDialog}
-          onRequestClose={this.handleClose}
-        >
-        </ConfirmDialog>*/}
-
+    <FormEnableBackendMonitor ref="backendMonitorForm" onSubmit ={this.submitForm.bind(this) } />
+    </DialogEnableBackendMonitor>
 
          <Snackbar
           open={this.state.openSnackBar}
-          message="BCI capturing keywords with default values is enabled now."
+          message="Backend monitor with default values is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />
 
         <ConfirmDialog
           title="Are you sure want to disable the keywords ?"
-          actions={actionsBCIDisable}
+          actions={actionsDebugDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
         >
@@ -341,8 +296,6 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  //return actionMap;
-return bindActionCreators(actionCreators, dispatch);
+    return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(enableBCICapturing);
+export default connect(mapStateToProps,mapDispatchToProps)(EnableBackendMonitor);

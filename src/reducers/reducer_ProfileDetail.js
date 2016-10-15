@@ -20,7 +20,7 @@ export default function(state = initialState, action) {
         val.id=id;
   //converting profileName as a string to object so as to make profileName field to act as hyperlink
         var profileName = {"href":val.profileName}
-        val.profileName = profileName;
+        val.profileHref = profileName;
         console.log("id--of profile------------------>",id)
 
     })

@@ -1168,6 +1168,23 @@ export function setDefValDebugCapturingKeywords() {
   }
 }
 
+/*
+* function for Debug Level Capturing keywords 
+*/
+export function enableBackendMonitorCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_BACKEND_MONITOR_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValBackendMonitorKeywords() {
+  return{
+    type : 'SET_DEFAULT_BACKEND_MONITOR_KEYWORDS'
+
+  }
+}
+
 
 export function getListOfXmlFiles(){
   const URL = `${url.GET_INSTR_PROFILE_LIST}`;

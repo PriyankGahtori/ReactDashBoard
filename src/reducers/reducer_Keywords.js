@@ -7,6 +7,7 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
 					enableDebugCheckBox :false,
+					enableBackendMonitorCheckBox :false,
 					listOfXmlFilesInstr :[],
 					uploadTopology :null
 					}
@@ -89,7 +90,9 @@ switch(action.type){
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
 	   	newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
-		console.log("newState.enableDebugCheckBox")
+
+	   	newState.enableBackendMonitorCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
+
 	return newState;
 
 
@@ -148,6 +151,12 @@ switch(action.type){
 		var newState = Object.assign({}, state);
 		console.log("bci checkbox---",action.payload)
 		newState.enableDebugCheckBox = action.payload;
+		return newState;
+
+		case 'ENABLE_BACKEND_MONITOR_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("enableBackendMonitorCheckBox checkbox---",action.payload)
+		newState.enableBackendMonitorCheckBox = action.payload;
 		return newState;
 
 		

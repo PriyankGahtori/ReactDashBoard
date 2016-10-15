@@ -308,7 +308,7 @@ handleCancelDisableBCIVal(){
 
     <Snackbar
           open={this.state.openSnackBar}
-          message="enabled  HotSpot capturing keywords with default values"
+          message="HotSpot capturing keywords with default values is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />

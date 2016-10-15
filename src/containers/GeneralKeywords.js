@@ -23,7 +23,7 @@ import InstrProfiles from './InstrProfileMultiSelect';
 
 import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
-import EnableDebugCapturing from './DebugLevel';
+import EnableDebugCapturing from './EnableDebugLevelCapturing';
 import PutDelayInMethod from './PutDelayInMethod'
 import InstrException from './InstrExceptionKeyword';
 

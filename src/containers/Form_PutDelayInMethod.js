@@ -117,17 +117,7 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
       />
 ]
     return (
-      <div className="row"  style={{'paddingLeft':29}}>
-     
-      	<div className = "row">
-      		 <Checkbox
-              value="putDelayInMethod"
-              label="Put Delay In Method"
-              checked  = {this.state.putDelayInMethod}
-              onCustomChange={this.handlePutDelayInMethod.bind(this)}   
-            />
-      	</div> 
-
+      <div >
     	  <form onSubmit ={handleSubmit(this.submit.bind(this))} >
     		<div className = {this.state.putDelayInMethod? 'show' :'hidden'}>
     		
@@ -213,9 +203,5 @@ export default reduxForm({
   initialData :state.Keywords.initializeKeywords.putDelayInMethodObj,
   initialValues :state.Keywords.initializeKeywords.putDelayInMethodObj
 }),
-  
-  { 
-   submitKeywordData:submitKeywordData,
-   //initializeInstrException:initializeInstrException
- } // mapDispatchToProps (will bind action creator to dispatch)
+ 
 )(PutDelayInMethod);

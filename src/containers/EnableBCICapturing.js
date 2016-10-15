@@ -67,7 +67,7 @@ const NewButtonstyle = {
 
 };
 
-class enableBCICapturing extends React.Component {
+class EnableBCICapturing extends React.Component {
 
   constructor(props) {
   super(props);
@@ -345,4 +345,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(enableBCICapturing);
+export default connect(mapStateToProps,mapDispatchToProps)(EnableBCICapturing);

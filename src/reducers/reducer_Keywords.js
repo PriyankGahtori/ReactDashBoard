@@ -40,6 +40,7 @@ switch(action.type){
 
 			//add this object to initial value obj
 		}
+		console.log("instrExceptionObj.stackTraceDepthValue--",instrExceptionObj.stackTraceDepthValue)
 
 		obj.instrExceptionObj = instrExceptionObj;	
 
@@ -60,7 +61,10 @@ switch(action.type){
 		putDelayInMethodObj.isCpuHogg = putDelayInMethodFields[2] ==='1';
 
 		/* 
-		* putDelayInMethodFields[3] can be  "1%20com.cav.pp" ,"1" ,"0";
+		* putDelayInMethodFields[3] can be  either of these 1%20com.cav.pp" ,"1" ,"0";
+		* Here decodeURI function gives output as follows :
+		* decodeURI(1%20com.cav.pp) = "1 com.cav"
+		* decodeURI(1)="1"
 		*/
 
 		var lastField = decodeURI(putDelayInMethodFields[3]);

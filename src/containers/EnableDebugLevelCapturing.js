@@ -1,6 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
+
+
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -22,8 +24,9 @@ import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
 import FormEnableBCICapturing from './Form_EnableBCICapturing';
 import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
+import FormEnableDebugCapturing from './Form_EnableDebugLevelCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
-import DialogEnableBCICapturing from 'material-ui/Dialog';
+import DialogEnableDebugCapturing from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords';
 
 
@@ -67,18 +70,12 @@ const NewButtonstyle = {
 
 };
 
-class EnableBCICapturing extends React.Component {
+class EnableDebugLevelCapturing extends React.Component {
 
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
   console.log("------",validate) 
-  this.state ={enableBCIDebug:false}
-  this.state = {openEnableBCICapturingDialog : false}
-  console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-  this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-  this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableBCICheckBox:false}
   this.state = {openSnackBar:false}
   }
 
@@ -90,17 +87,17 @@ class EnableBCICapturing extends React.Component {
   }
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.enableBCICheckBox)
+    console.log("nextprops---",nextProps.getAllKeywordData.enableDebugCheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
       console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
-                     enableBCICheckBox : nextProps.getAllKeywordData.enableBCICheckBox
+                     enableDebugCheckBox : nextProps.getAllKeywordData.enableDebugCheckBox
       });
     }
 
-    if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
-      this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.BCICapturingCheckBox})
+    if(this.props.getAllKeywordData.enableDebugCheckBox != nextProps.getAllKeywordData.enableDebugCheckBox)
+      this.setState({disableAdvancedSettingTab3:!nextProps.getAllKeywordData.enableDebugCheckBox})
 
   }
 
@@ -113,13 +110,13 @@ class EnableBCICapturing extends React.Component {
   *  functions for enableBCICapturing Dialog
   */
 
-  enableBCICapturingDialog(){
+  enableDebugCapturingDialog(){
     
-    this.setState({openEnableBCICapturingDialog:true});
+    this.setState({openEnableDebugCapturingDialog:true});
     console.log("EnableBCICapturingDialog function callded---")
   }
 
-  handleEnableBCICapturingCheckboxChange(event,isInputChecked){
+  handleEnableDebugCapturingCheckboxChange(event,isInputChecked){
     console.log("isInputChecked--enableBCICAPTURING CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
@@ -128,27 +125,27 @@ class EnableBCICapturing extends React.Component {
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
-        this.submitForm(validate.setDefaultValuesBCICapturing(this.props.getAllKeywordData.data));
-       //this.props.setDefValBCICapturingKeywords();
-       this.props.enableBCICheckBoxStatus(true);
+      // this.props.setDefValDebugCapturingKeywords();
+       this.submitForm(validate.setDefaultValuesDebugCapturing(this.props.getAllKeywordData.data));
+       this.props.enableDebugCheckBoxStatus(true);
    
     }
     else{
-    this.props.enableBCICheckBoxStatus(isInputChecked);
+    this.props.enableDebugCheckBoxStatus(isInputChecked);
     this.setState({openCnfrmDisbleDialog:true})
    }
   }
 
-   handleCancelEnableBCICapturing(){
+   handleCancelEnableDebugCapturing(){
     // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableBCICapturingDialog:false});
+     this.setState({openEnableDebugCapturingDialog:false});
   }
  
 
-handleSubmitEnableBCICapturing(){
+handleSubmitDebugCapturing(){
   console.log("handleSubmit---", this.refs)
-  this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
+  this.refs.enableDebugCapturingForm.submit();
+  this.handleCancelEnableDebugCapturing();
   console.log("after closing the dialog----")
   }
 
@@ -178,26 +175,26 @@ handleRequestClose(){
 /*
 * Disable Dialog functions
 */
-cnfrmDisableBCIVal(){
-    console.log("disabledbcicapturing")
-   this.submitForm(validate.disabledBCICapturing);
-   this.props.enableBCICheckBoxStatus(false);
+cnfrmDisableDebugVal(){
+    
+   this.submitForm(validate.disabledDebugCapturing);
+   this.props.enableDebugCheckBoxStatus(false);
    this.setState({ openCnfrmDisbleDialog:false
    })
   
 }
 
-handleCancelDisableBCIVal(){
+handleCancelDisableDebugVal(){
   this.setState({ openCnfrmDisbleDialog:false,
-                  enableBCICheckBox :true 
+                  enableDebugCheckBox :true 
    })
 }
 
   submitForm(formData){
     console.log("submitForm----",formData)
    
-    console.log("getAllKeywordData-enableBciCapturing--",this.props.getAllKeywordData) ;
-    console.log("data---general keywords-enableBciCapturing-",formData)
+    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
+    console.log("data---general keywords--",formData)
     console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
@@ -222,7 +219,7 @@ handleCancelDisableBCIVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-  //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
+    //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
     this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
@@ -232,45 +229,32 @@ handleCancelDisableBCIVal(){
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelEnableBCICapturing.bind(this)}
+        onTouchTap={this.handleCancelEnableDebugCapturing.bind(this)}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleSubmitEnableBCICapturing.bind(this)}
+        onClick={this.handleSubmitDebugCapturing.bind(this)}
       />
     ];
     
     
 
-    {/*const actionsBCIDefault = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleCancelEnableBCIDefVal.bind(this)}
-      />,
-      <FlatButton
-        label="OK"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.cnfrmEnableBCIDefVal.bind(this)}
-      />
-    ];  */}
-
-const actionsBCIDisable =[
+  
+const actionsDebugDisable =[
         <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelDisableBCIVal.bind(this)}
+        onTouchTap={this.handleCancelDisableDebugVal.bind(this)}
       />,
       <FlatButton
         label="OK"
         primary={true}
         keyboardFocused={true}
-        onClick={this.cnfrmDisableBCIVal.bind(this)}
+        onClick={this.cnfrmDisableDebugVal.bind(this)}
       />
-]
+];
   
     return (
       <div>
@@ -278,28 +262,28 @@ const actionsBCIDisable =[
       <div className = "row">
         <div className = "col-md-3">
          <Checkbox
-                  value = "enableBCICapturing"
-                  label = "Enable BCI Capturing"
-                  checked  = {this.state.enableBCICheckBox}
-                  onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}
+                  value = "enableDebugLevel"
+                  label = "Enable Debug Level Capturing"
+                  checked  = {this.state.enableDebugCheckBox}
+                  onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)}
               />
           </div>
           <div>
-    <FlatButton disabled ={!this.state.enableBCICheckBox} onClick ={this.enableBCICapturingDialog.bind(this)} label="Advanced Settings" />
+    <FlatButton disabled ={!this.state.enableDebugCheckBox} onClick ={this.enableDebugCapturingDialog.bind(this)} label="Advanced Settings" />
      </div>
     </div>
 
     
-    <DialogEnableBCICapturing
-          title="Enable FlowPath Capturing"
+    <DialogEnableDebugCapturing
+          title="Enable Debug Capturing"
           actions={actions}
           modal={false}
-          open={this.state.openEnableBCICapturingDialog}
+          open={this.state.openEnableDebugCapturingDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}         
     >
-      <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />
-   </DialogEnableBCICapturing>
+      <FormEnableDebugCapturing ref="enableDebugCapturingForm" onSubmit ={this.submitForm.bind(this) } />
+   </DialogEnableDebugCapturing>
   {/*<ConfirmDialog
           title="Are you sure want to enable the keywords with default Values?"
           actions={actionsBCIDefault}
@@ -312,14 +296,14 @@ const actionsBCIDisable =[
 
          <Snackbar
           open={this.state.openSnackBar}
-          message="BCI capturing keywords with default values is enabled now."
+          message="enabled  Debug capturing keywords with default values"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />
 
         <ConfirmDialog
           title="Are you sure want to disable the keywords ?"
-          actions={actionsBCIDisable}
+          actions={actionsDebugDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
         >
@@ -345,4 +329,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(EnableBCICapturing);
+export default connect(mapStateToProps,mapDispatchToProps)(EnableDebugLevelCapturing);

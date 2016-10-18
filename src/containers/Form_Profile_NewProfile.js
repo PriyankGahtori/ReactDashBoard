@@ -2,6 +2,9 @@ import React, { PropTypes } from 'react';
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Is from 'is_js';
+import SelectField from '../components/SelectFieldWrapper';
+import Checkbox from 'material-ui/Checkbox';
+import MenuItem from 'material-ui/MenuItem';
 export const fields = ['profileName', 'profileDesc','parentProfileId'];
 
 const initialValues={
@@ -37,6 +40,37 @@ class NewApplication extends React.Component {
   
   constructor(props) {
     super(props);
+   this.state={selectDisable:true}
+  }
+   
+handleCheck(e,isInputChecked){
+  if(isInputChecked === true){
+    this.setState({selectDisable:false})
+  }else{
+    this.setState({selectDisable:true})
+     }
+  }  
+  handleChange(event,index,value){
+      this.setState({value:value});
+    }
+  renderProfileList(parentProfileId){
+     let dropDownMenu= this.props.profileTableData.map((dropDownData) => (
+     <MenuItem value={dropDownData.id}  primaryText={dropDownData.profileName}/>
+    ));
+
+    return (
+    
+      <SelectField 
+        {...parentProfileId}
+        customOnChange={this.handleChange.bind(this)} 
+        value={this.state.value}  
+        disabled={this.state.selectDisable}
+        floatingLabelText="Select Profile to be Copied"
+      >
+       {dropDownMenu}
+      </SelectField>
+          
+    );
   }
    render() {
          const { fields: { profileName, profileDesc,parentProfileId}, resetForm, handleSubmit,onSubmit, submitting } = this.props
@@ -60,6 +94,10 @@ class NewApplication extends React.Component {
                 errorText={profileDesc.touched && profileDesc.error && <div>{profileDesc.error}</div>}/>
             </div>
            </div>
+            <div className="row">  
+           <div className ="col-md-3" ><Checkbox labelPosition="left" label="Copy Profile" style={{marginTop:35}} onCheck = {this.handleCheck.bind(this)} /> </div>
+           <div className ="col-md-9"> {this.renderProfileList(parentProfileId)} </div> 
+         </div>
       </form>
  );
   }
@@ -80,6 +118,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
 },
   state => ({ // mapStateToProps
  // initialValues:state.profileDetailData.profileInitializeForm
-  initialValues:{parentProfileId:1}
+  initialValues:{parentProfileId:1},
+   profileTableData: state.profileDetailData.tableData
+
 })
 ) (NewApplication);

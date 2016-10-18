@@ -8,6 +8,8 @@ import TextField from 'material-ui/TextField';
 import RadioButton from 'material-ui/RadioButton';
 import RadioButtonGroup from '../components/RadioButtonGroupWrapper';
 import RaisedButton  from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import ConfirmDialog from 'material-ui/Dialog';
 
 export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthValue','exceptionType'];
 
@@ -39,37 +41,39 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 
    
    
-   if(null != nextProps.initialData ){
+  /* if(null != nextProps.initialData ){
     console.log("in next props")
     if(this.props.initialData!= nextProps.initialData){
       var data = nextProps.initialData;
-       this.setState({enableCaptureExceptCheckBox:data.enable,
-                      captureExceptStackTraceCheckBox:data.enableCaptureExcepStackTrace,
-                      exceptionType:data.exceptionType,
-                      stackTraceDepthValue:data.stackTraceDepthValue
+       this.setState({enableCaptureExceptCheckBox:data.enable
                     })
 
        console.log("enableCaptureExceptCheckBox--",this.state.enableCaptureExceptCheckBox)
        console.log("captureExceptStackTraceCheckBox--",this.state.captureExceptStackTraceCheckBox)
     }
-  }
+  }*/
 }
   
-  handleChangeExceptionType(event,value){
+  handleChangeExceptionType(event,isInputChecked){
     console.log("value - ",value)
     /*this.setState({'exceptionType': value
 
           })  */
   }
-
-  handleCaptureExceptCheckboxChange(event,value){
-    console.log("value---catureexcptuon change",value)
-    let css = value === true ? 'show' :'hidden';
-    /*this.setState({exceptionConfDivCss:css,
-                    enableCaptureExceptCheckBox:value
-    })*/
-    this.setState({ enableCaptureExceptCheckBox:value
+/*
+*/
+  handleCaptureExceptCheckboxChange(event,isInputChecked){
+    console.log("value---catureexcptuon change",isInputChecked)
+    let css = isInputChecked === true ? 'show' :'hidden';
+    this.setState({exceptionConfDivCss:css
+                  
     })
+   
+    if(isInputChecked === 'false' || isInputChecked === false )
+      this.setState({openCnfrmDisbleDialog:true})
+    else
+      this.setState({enableCaptureExceptCheckBox:true})
+
     console.log("aftr setting--",this.state.exceptionConfDivCss)  
   }
 
@@ -121,6 +125,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 //    this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
     this.props.submitKeywordData(keywordData,this.props.profileId); 
   }
+
   handleChangeStackTraceValue(value)
   {
     console.log("handleChangeStackTraceValue--",value)
@@ -134,9 +139,37 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     });
   };
 
+  handleCancelDisable(){
+   this.setState({enableCaptureExceptCheckBox:true,
+                  openCnfrmDisbleDialog:false
+     })
+  }
+
+  cnfrmDisable(){
+    let keywordData = Object.assign({},this.props.getAllKeywordData.data);
+    keywordData["instrExceptions"]["value"] = 0 ;
+    this.props.submitKeywordData(keywordData,this.props.profileId); 
+    this.setState({enableCaptureExceptCheckBox:false,
+                   openCnfrmDisbleDialog:false
+    })
+  }
+
 
   render() {
     const { fields: {enable,enableCaptureExcepStackTrace,stackTraceDepthValue,exceptionType}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const actions =[
+        <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelDisable.bind(this)}
+      />,
+      <FlatButton
+        label="OK"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.cnfrmDisable.bind(this)}
+      />
+]
     return (
       <div className ="row" style={{'paddingLeft':29}}>
         <form onSubmit ={handleSubmit(this.submit.bind(this))}>
@@ -175,7 +208,6 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
                       floatingLabelText="AS Sample Interval For Stack Trace"
                       defaultValue={this.state.stackTraceDepthValue}
                       onChange={this.handleChange}
-
                       {...stackTraceDepthValue}
                     />
             </div>
@@ -214,6 +246,14 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 
         </div>
         </form>
+
+        <ConfirmDialog
+          title="Are you sure want to disable the keyword Capture Exception (instrExceptions)?"
+          actions={actions}
+          modal={false}
+          open={this.state.openCnfrmDisbleDialog}
+        >
+        </ConfirmDialog>
       </div>
 
     );
@@ -234,7 +274,7 @@ export default reduxForm({
   state => ({ // mapStateToProps
   initialData :state.Keywords.initializeKeywords.instrExceptionObj,
   getAllKeywordData :state.Keywords,
-  //initialValues :state.Keywords.initializeKeywords.instrExceptionObj
+  initialValues :state.Keywords.initializeKeywords.instrExceptionObj
 }),
   
   { 

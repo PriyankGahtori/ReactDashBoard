@@ -1,8 +1,8 @@
- const SERVICE_URL = 'http://localhost:8090';
+// const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 
 //For Production use this SERVICE_URL
-//const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -96,4 +96,14 @@ export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
+
+
+/*URL for Http Stats Condition*/
+export const FETCH_HTTP_STATS_COND_TABLEDATA = `${SERVICE_URL}/custom/httpstatscondition`;
+export const GET_HTTP_HEADERS_lIST =`${SERVICE_URL}/custom/httpstatscondition/listofheaders`;
+export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/listoftypes`;
+export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
+export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
+export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
+
 

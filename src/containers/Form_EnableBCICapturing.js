@@ -110,12 +110,8 @@ ChangeEnableForcedFPChain(event,index ,value){
             </div>
              </div>
 
-
-
              <div className = "row" style = {styles.block}>
 
-
-           
 
              <div className= "col-md-6">
               <Checkbox

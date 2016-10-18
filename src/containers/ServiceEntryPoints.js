@@ -191,8 +191,8 @@ onToggle(row){
           <div className="col-md-2"  >
             <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton onTouchTap={this.delDialog}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-            <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
-          
+          { /* <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
+          */}
         </div>
        </div>
         <SepDelDialog  title="Are you sure want to delete the ServiceEntryPoint(s)?"

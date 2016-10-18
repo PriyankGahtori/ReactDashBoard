@@ -2,7 +2,6 @@ import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 
-
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import Paper from 'material-ui/Paper';
@@ -22,11 +21,9 @@ import { reduxForm } from 'redux-form';
 import _ from "lodash";
 import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
-import FormEnableBCICapturing from './Form_EnableBCICapturing';
-import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
-import FormEnableDebugCapturing from './Form_EnableDebugLevelCapturing';
+import FormEnableBackendMonitor from './Form_EnableBackendMonitor';
 import ConfirmDialog from 'material-ui/Dialog';
-import DialogEnableDebugCapturing from 'material-ui/Dialog';
+import DialogEnableBackendMonitor from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords';
 
 
@@ -47,6 +44,8 @@ const styles = {
     paddingTop : 40
   }
 };
+
+
 /*
 * data --- table column name
 * key ---- acting as a primary key
@@ -70,11 +69,11 @@ const NewButtonstyle = {
 
 };
 
-class enableBCICapturing extends React.Component {
+class EnableBackendMonitor extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
+  console.log("in props--",this.props)
   console.log("------",validate) 
   this.state = {openSnackBar:false}
   }
@@ -82,22 +81,23 @@ class enableBCICapturing extends React.Component {
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-   // this.props.getKeywordsData(this.props.params.profileId);
     this.state = {openSnackBar:false}
   }
+
+
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.enableDebugCheckBox)
+    console.log("nextprops---",nextProps.getAllKeywordData.enableBackendMonitorCheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
       console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
-                     enableDebugCheckBox : nextProps.getAllKeywordData.enableDebugCheckBox
+                     enableBackendMonitorCheckBox : nextProps.getAllKeywordData.enableBackendMonitorCheckBox
       });
     }
 
-    if(this.props.getAllKeywordData.enableDebugCheckBox != nextProps.getAllKeywordData.enableDebugCheckBox)
-      this.setState({disableAdvancedSettingTab3:!nextProps.getAllKeywordData.enableDebugCheckBox})
+    if(this.props.getAllKeywordData.enableBackendMonitorCheckBox != nextProps.getAllKeywordData.enableBackendMonitorCheckBox)
+      this.setState({disableAdvancedSettingTab3:!nextProps.getAllKeywordData.enableBackendMonitorCheckBox})
 
   }
 
@@ -110,72 +110,53 @@ class enableBCICapturing extends React.Component {
   *  functions for enableBCICapturing Dialog
   */
 
-  enableDebugCapturingDialog(){
+  handleEnableBackendMonitorDialog(){
     
-    this.setState({openEnableDebugCapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
+    this.setState({openEnableBackendMonitorDialog:true});
+    console.log("handleEnableBackendMonitorDialog function callded---")
   }
 
-  handleEnableDebugCapturingCheckboxChange(event,isInputChecked){
-    console.log("isInputChecked--enableBCICAPTURING CHECKBOX-",isInputChecked)
+  handleEnableBackendMonitor(event,isInputChecked){
+    console.log("isInputChecked--handleEnableBackendMonitor CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
     {
       console.log("action trigegerd opening Snackbar")
-      //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
-      // this.props.setDefValDebugCapturingKeywords();
-       this.submitForm(validate.setDefaultValuesDebugCapturing(this.props.getAllKeywordData.data));
-       this.props.enableDebugCheckBoxStatus(true);
+       this.submitForm(validate.setDefaultValuesBackendMonitor(this.props.getAllKeywordData.data));
+       this.props.enableBackendMonitorCheckBoxStatus(true);
    
     }
     else{
-    this.props.enableDebugCheckBoxStatus(isInputChecked);
+    this.props.enableBackendMonitorCheckBoxStatus(isInputChecked);
     this.setState({openCnfrmDisbleDialog:true})
    }
   }
 
-   handleCancelEnableDebugCapturing(){
-    // this.props.toggleStateDialogEditTopo();
-     this.setState({openEnableDebugCapturingDialog:false});
+   handleCancel(){
+     this.setState({openEnableBackendMonitorDialog:false});
   }
  
 
-handleSubmitDebugCapturing(){
+handleSubmit(){
   console.log("handleSubmit---", this.refs)
-  this.refs.enableDebugCapturingForm.submit();
-  this.handleCancelEnableDebugCapturing();
+  this.refs.backendMonitorForm.submit();
+  this.handleCancel();
   console.log("after closing the dialog----")
   }
 
-
-
-
-/*
-* cnfirmation dialog
-*/
-/*cnfrmEnableBCIDefVal(){
-    console.log("ok button")
-  // this.props.setDefValBCICapturingKeywords();
-   //this.props.enableBCICheckBoxStatus(true);
-   this.setState({ openCnfrmBCIDialog:false
-   })
-   
-   
-}*/
 
 handleRequestClose(){
   console.log("handle close")
   this.setState({openSnackBar:false
   })
-//  this.props.enableBCICheckBoxStatus(false);
 }
 
 /*
 * Disable Dialog functions
 */
-cnfrmDisableDebugVal(){
+handleConfirmDisableBackendMon(){
     
    this.submitForm(validate.disabledDebugCapturing);
    this.props.enableDebugCheckBoxStatus(false);
@@ -184,9 +165,9 @@ cnfrmDisableDebugVal(){
   
 }
 
-handleCancelDisableDebugVal(){
+handleCancelDisableBackendMon(){
   this.setState({ openCnfrmDisbleDialog:false,
-                  enableDebugCheckBox :true 
+                  enableBackendMonitorCheckBox :true 
    })
 }
 
@@ -219,7 +200,6 @@ handleCancelDisableDebugVal(){
       
     }) ;
     console.log("finalFormData---",keywordData)
-    //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
     this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
@@ -229,13 +209,13 @@ handleCancelDisableDebugVal(){
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelEnableDebugCapturing.bind(this)}
+        onTouchTap={this.handleCancel.bind(this)}
       />,
       <FlatButton
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        onClick={this.handleSubmitDebugCapturing.bind(this)}
+        onClick={this.handleSubmit.bind(this)}
       />
     ];
     
@@ -246,13 +226,13 @@ const actionsDebugDisable =[
         <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelDisableDebugVal.bind(this)}
+        onTouchTap={this.handleCancelDisableBackendMon.bind(this)}
       />,
       <FlatButton
         label="OK"
         primary={true}
         keyboardFocused={true}
-        onClick={this.cnfrmDisableDebugVal.bind(this)}
+        onClick={this.handleConfirmDisableBackendMon.bind(this)}
       />
 ];
   
@@ -262,41 +242,32 @@ const actionsDebugDisable =[
       <div className = "row">
         <div className = "col-md-3">
          <Checkbox
-                  value = "enableDebugLevel"
-                  label = "Enable Debug Level Capturing"
-                  checked  = {this.state.enableDebugCheckBox}
-                  onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)}
-              />
-          </div>
-          <div>
-    <FlatButton disabled ={!this.state.enableDebugCheckBox} onClick ={this.enableDebugCapturingDialog.bind(this)} label="Advanced Settings" />
+                  value = "enableBackendMonitor"
+                  label = "Enable Backend Monitor"
+                  checked  = {this.state.enableBackendMonitorCheckBox}
+                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}
+         />
+        </div>
+      <div>
+    <FlatButton disabled ={!this.state.enableBackendMonitorCheckBox} onClick ={this.handleEnableBackendMonitorDialog.bind(this)} label="Advanced Settings" />
      </div>
     </div>
 
     
-    <DialogEnableDebugCapturing
+    <DialogEnableBackendMonitor
           title="Enable Debug Capturing"
           actions={actions}
           modal={false}
-          open={this.state.openEnableDebugCapturingDialog}
+          open={this.state.openEnableBackendMonitorDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}         
     >
-      <FormEnableDebugCapturing ref="enableDebugCapturingForm" onSubmit ={this.submitForm.bind(this) } />
-   </DialogEnableDebugCapturing>
-  {/*<ConfirmDialog
-          title="Are you sure want to enable the keywords with default Values?"
-          actions={actionsBCIDefault}
-          modal={false}
-          open={this.state.openCnfrmBCIDialog}
-          onRequestClose={this.handleClose}
-        >
-        </ConfirmDialog>*/}
-
+    <FormEnableBackendMonitor ref="backendMonitorForm" onSubmit ={this.submitForm.bind(this) } />
+    </DialogEnableBackendMonitor>
 
          <Snackbar
           open={this.state.openSnackBar}
-          message="enabled  Debug capturing keywords with default values"
+          message="Backend monitor with default values is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)}
         />
@@ -325,8 +296,6 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  //return actionMap;
-return bindActionCreators(actionCreators, dispatch);
+    return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(enableBCICapturing);
+export default connect(mapStateToProps,mapDispatchToProps)(EnableBackendMonitor);

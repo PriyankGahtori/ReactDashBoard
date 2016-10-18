@@ -1168,6 +1168,23 @@ export function setDefValDebugCapturingKeywords() {
   }
 }
 
+/*
+* function for Debug Level Capturing keywords 
+*/
+export function enableBackendMonitorCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_BACKEND_MONITOR_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValBackendMonitorKeywords() {
+  return{
+    type : 'SET_DEFAULT_BACKEND_MONITOR_KEYWORDS'
+
+  }
+}
+
 
 export function getListOfXmlFiles(){
   const URL = `${url.GET_INSTR_PROFILE_LIST}`;
@@ -1267,8 +1284,6 @@ export function toggleStateErrorDetection(){
   }
 }
 
-
-
 /* ********** Toggle TR state *********  */
 export function toggleTRState(){
     return {
@@ -1282,4 +1297,73 @@ export function setTRModeDetail(trModeobj){
     type:'SET_TRMode_Detail',
     payload: trModeobj
   }
+
+/*
+* Action creators for http Stats Condition
+*
+*/
+export function getHttpStatsCond(profileId){
+
+  const URL = `${url.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`
+  var response= axios.get(URL);
+  return{
+    type :'FETCH_HTTP_STATS_COND_TABLEDATA',
+    payload:response
+  }
+}
+
+export function toggleStateAddHttpStatsCond(){
+  return{
+    type:'TOGGLE_STATE_ADD_HTTP_STATS'
+  }
+}
+
+export function getListOfHeaders(headerTypeId){
+  const URL = `${url.GET_HTTP_HEADERS_lIST}/${headerTypeId}`
+  var response = axios.get(URL);
+  return{
+    type :'LIST_OF_HEADERS',
+    payload:response
+  }
+}
+
+export function getListOfTypes(){
+  const URL = `${url.GET_TYPE_HTTP_STATS}`
+  var response = axios.get(URL);
+  return{
+    type:'LIST_OF_TYPES',
+    payload:response
+  }
+}
+
+export function getListOfValueType(){
+  const URL = `${url.GET_LIST_OF_VALUETYPE}`
+  var response = axios.get(URL);
+  return{
+    type:'LIST_OF_VALUETYPE',
+    payload:response
+  }
+}
+export function getListOfOperators(valId){
+  const URL = `${url.GET_LIST_OF_OPERATORS}/${valId}`
+  var response = axios.get(URL);
+  return{
+    type :'LIST_OF_OPERATORS',
+    payload:response
+  }
+
+}
+export function addHttpStatsCond(data,profileId){
+
+   var response = axios({
+    method:'post',
+    url : `${url.ADD_NEW_HTTP_STATS_COND}/${profileId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+  });
+  return{
+    type:'ADD_HTTP_STATS_COND',
+    payload:response
+  }  
+
 }

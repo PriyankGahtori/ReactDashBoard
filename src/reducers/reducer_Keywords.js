@@ -7,6 +7,7 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableBCICheckBox : false,
 					hotSpotCapturingCheckBox :false,
 					enableDebugCheckBox :false,
+					enableBackendMonitorCheckBox :false,
 					listOfXmlFilesInstr :[],
 					uploadTopology :null
 					}
@@ -40,6 +41,7 @@ switch(action.type){
 
 			//add this object to initial value obj
 		}
+		console.log("instrExceptionObj.stackTraceDepthValue--",instrExceptionObj.stackTraceDepthValue)
 
 		obj.instrExceptionObj = instrExceptionObj;	
 
@@ -60,7 +62,10 @@ switch(action.type){
 		putDelayInMethodObj.isCpuHogg = putDelayInMethodFields[2] ==='1';
 
 		/* 
-		* putDelayInMethodFields[3] can be  "1%20com.cav.pp" ,"1" ,"0";
+		* putDelayInMethodFields[3] can be  either of these 1%20com.cav.pp" ,"1" ,"0";
+		* Here decodeURI function gives output as follows :
+		* decodeURI(1%20com.cav.pp) = "1 com.cav"
+		* decodeURI(1)="1"
 		*/
 
 		var lastField = decodeURI(putDelayInMethodFields[3]);
@@ -85,7 +90,9 @@ switch(action.type){
 		newState.hotSpotCapturingCheckBox = !booleanEnableHotSpotCapturing ;
 
 	   	newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
-		console.log("newState.enableDebugCheckBox")
+
+	   	newState.enableBackendMonitorCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
+
 	return newState;
 
 
@@ -144,6 +151,12 @@ switch(action.type){
 		var newState = Object.assign({}, state);
 		console.log("bci checkbox---",action.payload)
 		newState.enableDebugCheckBox = action.payload;
+		return newState;
+
+		case 'ENABLE_BACKEND_MONITOR_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("enableBackendMonitorCheckBox checkbox---",action.payload)
+		newState.enableBackendMonitorCheckBox = action.payload;
 		return newState;
 
 		

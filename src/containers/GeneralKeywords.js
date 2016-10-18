@@ -23,9 +23,10 @@ import InstrProfiles from './InstrProfileMultiSelect';
 
 import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
-import EnableDebugCapturing from './DebugLevel';
+import EnableDebugCapturing from './EnableDebugLevelCapturing';
 import PutDelayInMethod from './PutDelayInMethod'
 import InstrException from './InstrExceptionKeyword';
+import EnableBackendMonitor from './EnableBackendMonitor';
 
 const styles = {
   text: {
@@ -70,22 +71,17 @@ const NewButtonstyle = {
 class GeneralKeywords extends React.Component {
 
   constructor(props) {
-  super(props);
-  console.log("in DCDetail.js--",this.props)
-  
-  this.state ={enableBCIDebug:false}
-  this.state = {openEnableBCICapturingDialog : false}
-   this.state = {openEnableHotSpotCapturingDialog : false}
-   console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-  this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-  this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
-  this.state = {getAllKeywordData:this.props.getAllKeywordData}
- 
-  
-
-    //this.enableBCICapturingDialog = this.enableBCICapturingDialog.bind(this);
-  //this.handleCancelEnableBCICapturing = this.handleCancelEnableBCICapturing.bind(this);
-
+    super(props);
+    console.log("props--",this.props)
+    
+    this.state ={enableBCIDebug:false}
+    this.state = {openEnableBCICapturingDialog : false}
+    this.state = {openEnableHotSpotCapturingDialog : false}
+    this.state = {openEnableBackendMonitorDialog : false}
+    console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
+    this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
+    this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
+    this.state = {getAllKeywordData:this.props.getAllKeywordData}
   }
 
  
@@ -141,7 +137,6 @@ class GeneralKeywords extends React.Component {
     }) ;
     console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");  
-  // this.props.submitKeywordData(keywordData,this.props.params.profileId);    
 }
 
   render() {
@@ -153,7 +148,9 @@ class GeneralKeywords extends React.Component {
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         <PutDelayInMethod profileId = {this.props.params.profileId}/>
+        <EnableBackendMonitor profileId = {this.props.params.profileId}  />
         <InstrException profileId = {this.props.params.profileId}  />
+        
     </div>
     );
   }
@@ -169,8 +166,6 @@ function mapStateToProps(state) {
 
 //method to dispatch actions to the reducers
 function mapDispatchToProps(dispatch) {
-  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-  //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
 export default connect(mapStateToProps,mapDispatchToProps)(GeneralKeywords);

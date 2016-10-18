@@ -1284,6 +1284,20 @@ export function toggleStateErrorDetection(){
   }
 }
 
+/* ********** Toggle TR state *********  */
+export function toggleTRState(){
+    return {
+    type:'TOGGLE_TR_STATE'
+  }
+}
+
+/* *********** TR Mode Detail*************** */
+export function setTRModeDetail(trModeobj){
+    return {
+    type:'SET_TRMode_Detail',
+    payload: trModeobj
+  }
+}
 
 /*
 * Action creators for http Stats Condition

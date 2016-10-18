@@ -45,7 +45,7 @@ function mapStateToProps(state) {
   console.log("state.initialData------",state.initialData)
   return {
    list : state.list,
-   homeData :state.initialData
+   homeData :state.initialData.homeData
    };
 }
 

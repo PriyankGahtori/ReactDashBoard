@@ -26,7 +26,8 @@ import BTPattern from './reducer_BTPattern';
 import KeyWords from './reducer_Keywords';
 import MethodMonitor from './reducer_MethodMonitor';
 import ErrorDetection from './reducer_ErrorDetection';
-import HttpStatsData from './reducer_HttpStatsCond'
+import TRModeDetail from './reducer_TRMode_detail';
+import HttpStatsData from './reducer_HttpStatsCond';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -51,6 +52,7 @@ module.exports = combineReducers({
 	Keywords          : KeyWords,
 	methodMonitor     : MethodMonitor,
 	errorDetection    : ErrorDetection,
+	trModeDetail 	  : TRModeDetail,	
 	httpStatsData     : HttpStatsData
 });
 

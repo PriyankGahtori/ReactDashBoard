@@ -1266,3 +1266,20 @@ export function toggleStateErrorDetection(){
     type:'TOGGLE_STATE_ADD_ERROR_DETECTION'
   }
 }
+
+
+
+/* ********** Toggle TR state *********  */
+export function toggleTRState(){
+    return {
+    type:'TOGGLE_TR_STATE'
+  }
+}
+
+/* *********** TR Mode Detail*************** */
+export function setTRModeDetail(trModeobj){
+    return {
+    type:'SET_TRMode_Detail',
+    payload: trModeobj
+  }
+}

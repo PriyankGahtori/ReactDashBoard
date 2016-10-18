@@ -152,6 +152,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
 state => ({ // mapStateToProps
-  initialValues:{topoId:state.initialData[2].value[0].id},
-  data:state.initialData
+  initialValues:{topoId:state.initialData.homeData[2].value[0].id},
+  data:state.initialData.homeData
 }))(NewApplication);

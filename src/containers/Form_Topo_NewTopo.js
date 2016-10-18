@@ -99,6 +99,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-  data:state.initialData
+  data:state.initialData.homeData
 })
 ) (NewApplication);

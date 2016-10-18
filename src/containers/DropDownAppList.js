@@ -83,7 +83,7 @@ class DropDownAppList extends React.Component {
 function mapStateToProps(state){
   console.log("in DRop --",state.initialData)
     return{
-      dropDownData:state.initialData
+      dropDownData:state.initialData.homeData
 
     };
 }

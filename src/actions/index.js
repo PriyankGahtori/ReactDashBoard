@@ -1297,6 +1297,7 @@ export function setTRModeDetail(trModeobj){
     type:'SET_TRMode_Detail',
     payload: trModeobj
   }
+}
 
 /*
 * Action creators for http Stats Condition

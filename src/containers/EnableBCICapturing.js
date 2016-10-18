@@ -128,6 +128,7 @@ class EnableBCICapturing extends React.Component {
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
+        console.log("this.props.getAllKeywordData.data---",this.props.getAllKeywordData.data)
         this.submitForm(validate.setDefaultValuesBCICapturing(this.props.getAllKeywordData.data));
        //this.props.setDefValBCICapturingKeywords();
        this.props.enableBCICheckBoxStatus(true);

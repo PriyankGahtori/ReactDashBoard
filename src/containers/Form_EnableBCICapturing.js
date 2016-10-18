@@ -33,14 +33,16 @@ const initialValues = {
   
 };
 
-class NewApplication extends React.Component {
+class Form_EnableBCICapturing extends React.Component {
 
   constructor(props) {
   super(props);
   console.log("in form topo-- !!!",this.props)
   console.log("this.props.data[2]value - ")
-  this.state = { 'enableCpuTime':this.props.initialData.enableCpuTime,
-               'enableForcedFPChain':this.props.initialData.enableForcedFPChain
+  this.state = { 'enableCpuTime'        :this.props.initialData.enableCpuTime,
+                 'enableForcedFPChain'  :this.props.initialData.enableForcedFPChain,
+                 'logLevelOneFpMethod'  :this.props.initialData.logLevelOneFpMethod === '1',
+                 'doNotDiscardFlowPaths':this.props.initialData.doNotDiscardFlowPaths === '1'
 
     }
  
@@ -53,27 +55,35 @@ componentWillMount() {
    
   }
 
- componentWillReceiveProps(nextProps)
+  componentWillReceiveProps(nextProps)
   {
-    console.log("nextProps---",nextProps.initialData)
-    console.log("this,props---",this.props.initialData)
     if(this.props.initialData != nextProps.initialData){
         this.setState({enableCpuTime:nextProps.initialData.enableCpuTime,
-         enableForcedFPChain:nextProps.initialData.enableForcedFPChain 
+                       enableForcedFPChain:nextProps.initialData.enableForcedFPChain,
+                       logLevelOneFpMethod:nextProps.initialData.logLevelOneFpMethod === '1',
+                       doNotDiscardFlowPaths:nextProps.initialData.doNotDiscardFlowPaths === '1'
         })
     }
-    
   }
 
-ChangeEnableCpuTime(event, index, value){
-  console.log("ChangeEnableCpuTime method called",value)
-  this.setState({enableCpuTime:value})
-}
+//called on change of checkbox of logLevelOneFpMethod
+  ChangeLogLevel(event,isInputChecked){
+    this.setState({logLevelOneFpMethod:isInputChecked})
 
-ChangeEnableForcedFPChain(event,index ,value){
-  console.log("ChangeEnableForcedFPChain---",value)
-  this.setState({enableForcedFPChain:value})
-}
+  }
+
+//called on change of checkbox of doNotDiscardFlowPaths
+  ChangeDoNotDiscardFlowPaths(event,isInputChecked){
+    this.setState({doNotDiscardFlowPaths:isInputChecked})
+  }
+
+  ChangeEnableCpuTime(event, index, value){
+    this.setState({enableCpuTime:value})
+  }
+
+  ChangeEnableForcedFPChain(event,index ,value){
+    this.setState({enableForcedFPChain:value})
+  }
 
   render() {
      const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
@@ -104,22 +114,21 @@ ChangeEnableForcedFPChain(event,index ,value){
               {...logLevelOneFpMethod}
               value="logLevelOneFpMethod"
               label="Log Level One FP Method"
-              defaultChecked={true}              
+              checked={this.state.logLevelOneFpMethod}
+              onCustomChange ={this.ChangeLogLevel.bind(this)}       
             />
  
             </div>
              </div>
 
              <div className = "row" style = {styles.block}>
-
-
              <div className= "col-md-6">
               <Checkbox
               {...doNotDiscardFlowPaths}
               value="doNotDiscardFlowPaths"
               label="Do Not Discard Level FP"
-
-                          
+              checked = {this.state.doNotDiscardFlowPaths}
+              onCustomChange = {this.ChangeDoNotDiscardFlowPaths.bind(this)}
             />
              </div>
 
@@ -148,7 +157,7 @@ ChangeEnableForcedFPChain(event,index ,value){
                 />
               </div>
 
-</div>        
+          </div>        
 
         <div className = "row">
             <div className = "col-md-6">
@@ -207,7 +216,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-  // initialValues : state.Keywords.initializeKeywords,
    initialValues :{bciInstrSessionPct:state.Keywords.initializeKeywords.bciInstrSessionPct,
                    logLevelOneFpMethod:state.Keywords.initializeKeywords.logLevelOneFpMethod,
                    correlationIDHeader:state.Keywords.initializeKeywords.correlationIDHeader,
@@ -220,4 +228,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
    initialData : state.Keywords.initializeKeywords
 
 })
-) (NewApplication);
+) (Form_EnableBCICapturing);

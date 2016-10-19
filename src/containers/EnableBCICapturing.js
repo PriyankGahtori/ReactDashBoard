@@ -129,6 +129,7 @@ class EnableBCICapturing extends React.Component {
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
+        console.log("this.props.getAllKeywordData.data---",this.props.getAllKeywordData.data)
         this.submitForm(validate.setDefaultValuesBCICapturing(this.props.getAllKeywordData.data));
        //this.props.setDefValBCICapturingKeywords();
        this.props.enableBCICheckBoxStatus(true);
@@ -149,8 +150,6 @@ class EnableBCICapturing extends React.Component {
 handleSubmitEnableBCICapturing(){
   console.log("handleSubmit---", this.refs)
   this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
-  console.log("after closing the dialog----")
   }
 
 
@@ -224,6 +223,7 @@ handleCancelDisableBCIVal(){
     }) ;
     console.log("finalFormData---",keywordData)
   //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
+
     this.props.submitKeywordData(keywordData,this.props.profileId);
   
   //action for runtime change
@@ -233,6 +233,10 @@ handleCancelDisableBCIVal(){
        keywordDataList.push(key + "=" + formData[key]); 
   })    
   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+
+    this.props.submitKeywordData(keywordData,this.props.profileId);  
+    this.handleCancelEnableBCICapturing();
+
 
 }
 
@@ -328,7 +332,7 @@ const actionsBCIDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the BCI Capturing ?"
           actions={actionsBCIDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

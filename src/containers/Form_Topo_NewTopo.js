@@ -11,7 +11,7 @@ export const fields = [ 'topoId','profileId' ]
     }
   };
 
-class NewApplication extends React.Component {
+class Form_Topo_NewTopo extends React.Component {
 
   constructor(props) {
   super(props);
@@ -89,7 +89,7 @@ componentWillMount() {
      );
    }
 }
-NewApplication.propTypes = {
+Form_Topo_NewTopo.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -101,4 +101,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
   data:state.initialData.homeData
 })
-) (NewApplication);
+) (Form_Topo_NewTopo);

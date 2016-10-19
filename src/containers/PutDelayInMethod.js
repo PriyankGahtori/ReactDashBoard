@@ -8,17 +8,23 @@ import TextField from 'material-ui/TextField';
 import RadioButton from 'material-ui/RadioButton';
 import RadioButtonGroup from '../components/RadioButtonGroupWrapper';
 import FlatButton  from 'material-ui/FlatButton';
+import FormPutDelayInMethod from './Form_PutDelayInMethod';
 import ConfirmDialog from 'material-ui/Dialog';
+import DialogPutDelayInMethod from 'material-ui/Dialog';
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
- class PutDelayInMethod extends React.Component {
+
+class PutDelayInMethod extends React.Component {
  
   constructor(props) {
     super(props);
     this.state = {putDelayInMethod:false}
+    this.state = {openPutDelayInMethodDialog : false}
   }
-   componentWillReceiveProps(nextProps)
-  {
+
+
+componentWillReceiveProps(nextProps)
+{
     console.log("nextprops--putDeolayinmrthod-",nextProps.initialData)
     
     if(this.props.initialData != nextProps.initialData){
@@ -28,7 +34,8 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
       });
     }
 }
-  handlePutDelayInMethod(event,isInputChecked){
+
+handlePutDelayInMethod(event,isInputChecked){
   	console.log("isInputChecked----",isInputChecked)
     if(isInputChecked === "false" || isInputChecked === false)
       this.setState({openCnfrmDisbleDialog:true})
@@ -37,13 +44,14 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
        this.setState({putDelayInMethod : true})
     
   }
-  handleCancelDisable(){
+
+handleCancelDisablePutDelay(){
      this.setState({putDelayInMethod:true,
                     openCnfrmDisbleDialog:false
      })
   }
 
-  cnfrmDisable(){
+cnfrmDisable(){
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     keywordData["putDelayInMethod"]["value"] = 0 ;
     this.props.submitKeywordData(keywordData,this.props.profileId); 
@@ -52,15 +60,17 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
     })
 
   }
-  submit(formData){
+
+enablePutDelayInMethodDialog(){
+    this.setState({openPutDelayInMethodDialog:true});
+    console.log("enablePutDelayInMethodDialog function callded---")
+  }
+
+submitForm(formData){
   	let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     console.log("keywordData in putDelayInMethod--",putDelayInMethod)
     var putDelayInMethod;
-
-    console.log("keywordData-in instrException-",keywordData)
     console.log("formData---",formData)
-    
-    
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
@@ -96,18 +106,34 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
       keywordData.putDelayInMethod["value"] = putDelayInMethod;
 
     console.log("finalFormData---",keywordData)
-//  this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
     this.props.submitKeywordData(keywordData,this.props.profileId); 
-
   }
 
-  render() {
-  	const { fields: {fromRange,toRange,isCpuHogg,isAutoInstrument,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
-    const actions =[
+handleSubmitPutDelayInMethod(){
+  console.log("handleSubmit---", this.refs)
+  this.refs.putDelayInMethodForm.submit();
+  this.handleCancelPutDelayInMethod();
+  console.log("after closing the dialog----")
+  }
+
+handleCancelPutDelayInMethod(){
+    // this.props.toggleStateDialogEditTopo();
+     this.setState({openPutDelayInMethodDialog:false});
+  }
+
+handleCancelDisablePutDelay(){
+  this.setState({ openCnfrmDisbleDialog:false,
+                  enableBCICheckBox :true 
+   })
+}
+
+render() {
+
+const actionsPutDelayDisable =[
         <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleCancelDisable.bind(this)}
+        onTouchTap={this.handleCancelDisablePutDelay.bind(this)}
       />,
       <FlatButton
         label="OK"
@@ -115,80 +141,54 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
         keyboardFocused={true}
         onClick={this.cnfrmDisable.bind(this)}
       />
+];
+
+const actions =[
+        <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCancelPutDelayInMethod.bind(this)}
+      />,
+      <FlatButton
+        label="Submit"
+        primary={true}
+        keyboardFocused={true}
+        onClick={this.handleSubmitPutDelayInMethod.bind(this)}
+      />
 ]
-    return (
+
+
+return (
       <div className="row"  style={{'paddingLeft':29}}>
      
       	<div className = "row">
+         <div className = "col-md-3">
       		 <Checkbox
               value="putDelayInMethod"
               label="Put Delay In Method"
               checked  = {this.state.putDelayInMethod}
               onCustomChange={this.handlePutDelayInMethod.bind(this)}   
             />
-      	</div> 
+            </div>
+         <div>
+         <FlatButton disabled ={!this.state.putDelayInMethod} onClick ={this.enablePutDelayInMethodDialog.bind(this)} label="Advanced Settings" />
+         </div>
+        </div> 
 
-    	  <form onSubmit ={handleSubmit(this.submit.bind(this))} >
-    		<div className = {this.state.putDelayInMethod? 'show' :'hidden'}>
-    		
-
-    		<div className = "row" style={{'paddingBottom':7,'paddingTop':0}}>
-	    		<div className = "col-md-3">
-		    		<TextField
-	                  hintText="Hint Text"
-	                  floatingLabelText="From Range(in ms)"
-	                  {...fromRange}
-	                />
-	            
-	    		</div>
-
-	    		<div className = "col-md-3">
-	    			<TextField
-                  hintText="Hint Text"
-                  floatingLabelText="To Range(in ms)"
-                  {...toRange}
-                />
-	    		</div>
-
-	    		<div className = "col-md-3">
-	    		<TextField
-                  hintText="Hint Text"
-                  floatingLabelText="Enter FQM"
-                  {...fqm}
-                />
-	   	 		</div>
-	    	</div>
-    		
-    		<div className = "row">
-	    		<div className = "col-md-3">
-	    			 <Checkbox
-	             	 {...isCpuHogg}
-	              	value="isCpuHogg"
-	              	label="Is Cpu Hogg"
-	            	/>
-	    		</div>
-
-	    		<div className ="col-md-3">
-	    			 <Checkbox
-	             	 {...isAutoInstrument}
-	              	value="isAutoInstrument"
-	              	label="Is Auto Instrument"
-	            	/>
-	    		</div>
-
-	    	</div>
-
-	    	<div>
-	          <FlatButton  label="submit" type="submit" disabled={submitting}>
-	                     {submitting ? <i/> : <i/>} 
-	          </FlatButton >
-       		</div>  
-
-	   </div>
-      </form>
-       <ConfirmDialog
-          title="Are you sure want to disable the keyword 'PutDelayInMethod'?"
+        <DialogPutDelayInMethod
+          title="Put Delay In Method"
           actions={actions}
+          modal={false}
+          open={this.state.openPutDelayInMethodDialog}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}         
+        >
+        <FormPutDelayInMethod ref="putDelayInMethodForm" onSubmit ={this.submitForm.bind(this) } />
+       </DialogPutDelayInMethod>
+    	
+       <ConfirmDialog
+          title="Are you sure want to disable Put Delay In Method?"
+          actions={actionsPutDelayDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
         >
@@ -216,6 +216,5 @@ export default reduxForm({
   
   { 
    submitKeywordData:submitKeywordData,
-   //initializeInstrException:initializeInstrException
  } // mapDispatchToProps (will bind action creator to dispatch)
 )(PutDelayInMethod);

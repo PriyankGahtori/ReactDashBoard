@@ -19,12 +19,9 @@ import _ from "lodash";
 import { Link } from 'react-router';
 import {getKeywordsData,submitKeywordData}  from '../actions/index';
 import ConfirmDialog from 'material-ui/Dialog';
-import InstrProfiles from './InstrProfileMultiSelect';
 
-import EnableBCICapturing from './EnableBCICapturing';
-import EnableHotSpotCapturing from './EnableHotSpotCapturing';
-import EnableDebugCapturing from './EnableDebugLevelCapturing';
-import InstrException from './InstrExceptionKeyword';
+import PutDelayInMethod from './PutDelayInMethod'
+import EnableBackendMonitor from './EnableBackendMonitor';
 
 const styles = {
   text: {
@@ -66,19 +63,14 @@ const NewButtonstyle = {
 
 };
 
-class GeneralKeywords extends React.Component {
+class AdvanceSettings extends React.Component {
 
   constructor(props) {
     super(props);
     console.log("props--",this.props)
     
     this.state ={enableBCIDebug:false}
-    this.state = {openEnableBCICapturingDialog : false}
-    this.state = {openEnableHotSpotCapturingDialog : false}
     this.state = {openEnableBackendMonitorDialog : false}
-    console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-    this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-    this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
     this.state = {getAllKeywordData:this.props.getAllKeywordData}
   }
 
@@ -97,13 +89,13 @@ class GeneralKeywords extends React.Component {
       this.setState({getAllKeywordData:nextProps.getAllKeywordData});
     }
 
-    if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
+   /* if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
       this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.BCICapturingCheckBox})
 
 
     if(this.props.getAllKeywordData.hotSpotCapturingCheckBox != nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
       this.setState({disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox})
-
+*/
   }
 
   submitForm(formData){
@@ -141,11 +133,8 @@ class GeneralKeywords extends React.Component {
   
     return (
       <div>
-        <EnableBCICapturing profileId = {this.props.params.profileId}/>
-        <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
-        <EnableDebugCapturing profileId = {this.props.params.profileId}/>
-        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
-        <InstrException profileId = {this.props.params.profileId}  />
+        <PutDelayInMethod profileId = {this.props.params.profileId}/>
+        <EnableBackendMonitor profileId = {this.props.params.profileId}  />
     </div>
     );
   }
@@ -153,7 +142,7 @@ class GeneralKeywords extends React.Component {
 
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
+  console.log("AdvanceSettings---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords
    };
@@ -163,4 +152,4 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(GeneralKeywords);
+export default connect(mapStateToProps,mapDispatchToProps)(AdvanceSettings);

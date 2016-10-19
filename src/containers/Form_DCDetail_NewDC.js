@@ -52,7 +52,7 @@ const validate = values => {
   return errors
 }
 
-class NewApplication extends React.Component {
+class Form_DCDetail_NewDC extends React.Component {
 
   constructor(props) {
   super(props);
@@ -137,7 +137,7 @@ handleChange(){
      );
    }
 }
-NewApplication.propTypes = {
+Form_DCDetail_NewDC.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -152,4 +152,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
   initialValues:state.dcDetail.dcDetailInitializeForm
 })
-) (NewApplication);
+) (Form_DCDetail_NewDC);

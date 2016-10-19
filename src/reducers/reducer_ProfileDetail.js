@@ -45,6 +45,9 @@ export default function(state = initialState, action) {
      //var index = data._links.self.href.lastIndexOf("/");
      //var id = data._links.self.href.slice(index+1,data._links.self.href.length);
      data["id"] = data.profileId;
+     var profileName = {"href":data.profileName};
+     data["profileHref"] = profileName;
+
      console.log("aftr appending--",action.payload.data)
      newState.tableData.push(data)
      console.log("new state after push------------> ",newState.tableData)

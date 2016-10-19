@@ -25,7 +25,7 @@ const styles = {
   },
   toggle: {
       marginTop:30 ,
-      paddingLeft:80
+ 
   },
   customWidth: {
       width: 200
@@ -40,7 +40,7 @@ const styles = {
 };
 
 
-class ServiceEntryPointsForm extends React.Component {
+class Form_ServiceEntryPoints extends React.Component {
 
   constructor(props) {
   super(props);
@@ -180,15 +180,16 @@ handleChange(event,index,value){
        {this.renderDropDown(entryTypeId)}  
       </div>
 
-      <div className ="col-md-3">
+      <div className ="col-md-4"       style={{right:25}}>
         <TextField
          hintText="Hint Text"
          floatingLabelText="Name"
          {...name}
+
         />
       </div>
 
-      <div className ="col-md-5">
+      <div className ="col-md-4">
         <Toggle 
           {...enabled} 
           style={styles.toggle} 
@@ -230,7 +231,7 @@ handleChange(event,index,value){
   }
 }
 
-ServiceEntryPointsForm.propTypes = {
+Form_ServiceEntryPoints.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -252,5 +253,5 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
  { load          : ServiceEntryPointsOfSelectedEntryType,
    loadEntryType : ListOfServiceEntryPointType
  } // mapDispatchToProps (will bind action creator to dispatch)
-) (ServiceEntryPointsForm);
+) (Form_ServiceEntryPoints);
 

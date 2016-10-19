@@ -322,7 +322,7 @@ handleCancelDisableBCIVal(){
 
 
     <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the HotSpot Capturing?"
           actions={actionsHotSpotDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

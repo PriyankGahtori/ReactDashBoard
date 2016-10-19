@@ -15,7 +15,7 @@ const initialValues = {
 
               }
 
-  
+ 
   const styles = {
   input: {
     width: 150,
@@ -33,7 +33,7 @@ const initialValues = {
   
 };
 
-class NewApplication extends React.Component {
+class Form_EnableDebugLevelCapturing extends React.Component {
 
   constructor(props) {
   super(props);
@@ -92,9 +92,7 @@ ChangeEnableForcedFPChain(event,index ,value){
                  type="number" 
                  min="1" 
                  max="6" 
-                 step="1" 
-                 
-                 />
+                 step="1"   />
 
              </div>
 
@@ -110,9 +108,8 @@ ChangeEnableForcedFPChain(event,index ,value){
                  type="number" 
                  min="0" 
                  max="6" 
-                 step="1" 
-                 
-                 />
+                 step="1"   />
+
              </div>
 
 
@@ -132,9 +129,7 @@ ChangeEnableForcedFPChain(event,index ,value){
                  type="number" 
                  min="0" 
                  max="11" 
-                 step="1" 
-                 
-                 />
+                 step="1"   />
              </div>
 
          
@@ -145,14 +140,15 @@ ChangeEnableForcedFPChain(event,index ,value){
      );
    }
 }
-NewApplication.propTypes = {
+Form_EnableDebugLevelCapturing.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
+  fields,
+  
 },
   state => ({ // mapStateToProps
   // initialValues : state.Keywords.initializeKeywords,
@@ -164,4 +160,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
    initialData : state.Keywords.initializeKeywords
 
 })
-) (NewApplication);
+) (Form_EnableDebugLevelCapturing);

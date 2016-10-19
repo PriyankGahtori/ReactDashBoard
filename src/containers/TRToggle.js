@@ -52,8 +52,8 @@ class TRToggle extends Component {
 		return (
 			<div>
 				<Toggle 
-				  label={`TR No: ${this.props.trNo == null ? 'NA': this.props.trNo}`}
-				  //disabled={this.props.trNo != 'running'} 
+				  label={`TestRun No: ${this.props.trData.trNo == null ? 'NA': this.props.trData.trNo}`}
+				  disabled={this.props.trData.status != 'running'} 
 				  defaultToggled={this.props.trData.switch}
 				  onToggle={this.handleToggle.bind(this)}
 				/>

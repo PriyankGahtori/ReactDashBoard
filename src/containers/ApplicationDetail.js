@@ -207,9 +207,9 @@ class ApplicationDetail extends React.Component {
           </div>
 
           <div className="col-md-2"  >
-          <IconButton  onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
-            <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <IconButton  tooltip="Create ndSettings.txt " onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
+            <IconButton  tooltip="Edit Application" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton tooltip="Delete Application" onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
           

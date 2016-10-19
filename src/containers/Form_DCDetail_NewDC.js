@@ -52,7 +52,7 @@ const validate = values => {
   return errors
 }
 
-class NewApplication extends React.Component {
+class Form_BackendDetection_AddNew extends React.Component {
 
   constructor(props) {
   super(props);
@@ -137,7 +137,7 @@ handleChange(){
      );
    }
 }
-NewApplication.propTypes = {
+Form_BackendDetection_AddNew.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,

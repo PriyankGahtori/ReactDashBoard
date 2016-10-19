@@ -36,7 +36,7 @@ const validate = values => {
    
   return errors
 }
-class NewApplication extends React.Component {
+class Form_Profile_NewProfile extends React.Component {
   
   constructor(props) {
     super(props);
@@ -102,7 +102,7 @@ handleCheck(e,isInputChecked){
  );
   }
 }
-NewApplication.propTypes = {
+Form_Profile_NewProfile.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -122,4 +122,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
    profileTableData: state.profileDetailData.tableData
 
 })
-) (NewApplication);
+) (Form_Profile_NewProfile);

@@ -148,8 +148,6 @@ class EnableBCICapturing extends React.Component {
 handleSubmitEnableBCICapturing(){
   console.log("handleSubmit---", this.refs)
   this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
-  console.log("after closing the dialog----")
   }
 
 
@@ -223,7 +221,9 @@ handleCancelDisableBCIVal(){
     }) ;
     console.log("finalFormData---",keywordData)
   //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
-    this.props.submitKeywordData(keywordData,this.props.profileId);     
+    this.props.submitKeywordData(keywordData,this.props.profileId);  
+    this.handleCancelEnableBCICapturing();
+
 }
 
 

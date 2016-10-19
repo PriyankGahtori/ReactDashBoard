@@ -8,7 +8,7 @@ import FormGenerateFile from './Form_GenerateFile';
 
 
 
-class Dialog_ServiceEntryPts extends React.Component {
+class Dialog_GenerateFile extends React.Component {
  
   constructor(props) {
   super(props);
@@ -118,4 +118,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Dialog_ServiceEntryPts);
+export default connect(mapStateToProps, mapDispatchToProps)(Dialog_GenerateFile);

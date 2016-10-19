@@ -20,33 +20,62 @@ const validate = values =>{
     const errors = { }
  
 
-  if(!values.ASSampleInterval){
+  if(!values.ASSampleInterval)
     errors.ASSampleInterval = 'Required'
-  }else if (isNaN(values.ASSampleInterval)){
+
+  else if (isNaN(values.ASSampleInterval))
     errors.ASSampleInterval = 'Please Enter Only Numbers'
-  }
-    if(!values.ASThresholdMatchCount){
+
+  else if( values.ASSampleInterval < 0 || values.ASSampleInterval > 5000)
+    errors.ASSampleInterval = 'Please Enter Values Between 0 and 5000'
+  
+  if(!values.ASThresholdMatchCount)
     errors.ASThresholdMatchCount = 'Required'
-  }else if (isNaN(values.ASThresholdMatchCount)){
+
+   else if (isNaN(values.ASThresholdMatchCount))
     errors.ASThresholdMatchCount = 'Please Enter Only Numbers'
-  }
 
-   if(!values.ASReportInterval){
+   else if( values.ASThresholdMatchCount < 1 || values.ASThresholdMatchCount > 100)
+    errors.ASThresholdMatchCount = 'Please Enter Values Between 1 and 100'
+  
+
+   if(!values.ASReportInterval)
     errors.ASReportInterval = 'Required'
-  }else if(isNaN(values.ASReportInterval)){
-    errors.ASReportInterval = 'Please Enter Only Numbers'
-  } 
 
-   if(!values.ASDepthFilter){
+   else if(isNaN(values.ASReportInterval))
+    errors.ASReportInterval = 'Please Enter Only Numbers'
+
+   else if(values.ASReportInterval< 0 || values.ASReportInterval > 900000)
+    errors.ASReportInterval = 'Please Enter Values Between 0 and 900000'
+  
+
+   if(!values.ASDepthFilter)
     errors.ASDepthFilter = 'Required'
-  }else if (isNaN(values.ASDepthFilter)){
+
+   else if (isNaN(values.ASDepthFilter))
     errors.ASDepthFilter =  'Please Enter Only Numbers'
-  }
-  if(!values.ASTraceLevel){
+
+   else if(values.ASDepthFilter<0 || values.ASDepthFilter > 100) 
+      errors.ASDepthFilter = 'Please Enter Values Between 0 and 100'
+   
+  if(!values.ASTraceLevel)
     errors.ASTraceLevel = 'Required'
-  }else if (isNaN(values.ASTraceLevel)){
+
+   else if (isNaN(values.ASTraceLevel))
     errors.ASTraceLevel = 'Please Enter Only Numbers'
-  }
+
+   else if(values.ASTraceLevel < 0 || values.ASTraceLevel > 20)
+    errors.ASTraceLevel = 'Please Enter Values Between 0 and 20'
+  
+   if(!values.ASStackComparingDepth)
+    errors.ASStackComparingDepth = 'Required'
+
+   else if (isNaN(values.ASStackComparingDepth))
+    errors.ASStackComparingDepth = 'Please Enter Only Numbers'
+
+   else if(values.ASStackComparingDepth < 0 || values.ASStackComparingDepth > 1000)
+    errors.ASStackComparingDepth = 'Please Enter Values Between 0 and 1000'
+  
  return errors;
 }
 
@@ -179,7 +208,7 @@ componentWillMount() {
                   floatingLabelText="ASStackComparingDepth"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASStackComparingDepth}
-                  
+                   errorText={ASStackComparingDepth.touched && ASStackComparingDepth.error && <div>{ASStackComparingDepth.error}</div>}
                 />
              </div>
 
@@ -200,7 +229,8 @@ Form_EnableHotSpotCapturing.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
    //initialValues : state.Keywords.initializeKeywords,

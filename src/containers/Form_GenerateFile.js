@@ -10,7 +10,7 @@ export const fields = [ 'topoName' ]
     }
   };
 
-class GenerateFile extends React.Component {
+class Form_GenerateFile extends React.Component {
 
   constructor(props) {
   super(props);
@@ -37,7 +37,7 @@ componentWillMount() {
      );
    }
 }
-GenerateFile.propTypes = {
+Form_GenerateFile.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -49,4 +49,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
   topoData:state.initialData
 })
-) (GenerateFile);
+) (Form_GenerateFile);

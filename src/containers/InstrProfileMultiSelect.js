@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import { connect } from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
+
 
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
@@ -56,14 +58,27 @@ const styles = {
   submitInstr(){
     console.log("in sub,itting ---",this.state.value)
     var formData = [];
+
+    //for runtime changes
+    let keywordDataList = [];
+
     var data = this.state.value;
     data.map(function(value){
       console.log("value---",value)
+      keywordDataList.push("instrProfile" + "=" + value.value);
       formData.push(value.value)
     })
     var finaldata = {"instrProfile":formData}
     console.log("finaldata---",finaldata)
     this.props.handleSubmit(finaldata)
+
+
+    if(keywordDataList.length == 0)
+      keywordDataList.push("instrProfile" + "=" + "global.xml");
+
+    //action for runtime changes
+    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
+
   }
 
   
@@ -106,7 +121,9 @@ const styles = {
 function mapStateToProps(state) {
   console.log("generalKeywords---",state.Keywords)
   return {
-    getAllKeywordData :state.Keywords
+    getAllKeywordData :state.Keywords,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail
    };
 }
 

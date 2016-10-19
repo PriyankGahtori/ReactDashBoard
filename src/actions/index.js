@@ -1299,6 +1299,25 @@ export function setTRModeDetail(trModeobj){
   }
 }
 
+
+/* ************** Send Run Time Changes ******************* */
+
+export function sendRunTimeChange(URL,keywordList){
+  console.log("sendRunTimeChange",URL);
+
+    var response = axios({
+      method:'post',
+      url : URL,
+      data: keywordList,
+      headers:{'Content-Type':'application/json'}
+    });
+
+    return {
+      type : 'RUNTIME_CHANGE',
+      payload : response
+    }
+}
+
 /*
 * Action creators for http Stats Condition
 *

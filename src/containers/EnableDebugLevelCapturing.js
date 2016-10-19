@@ -28,6 +28,7 @@ import FormEnableDebugCapturing from './Form_EnableDebugLevelCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogEnableDebugCapturing from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 
 
 const styles = {
@@ -221,6 +222,14 @@ handleCancelDisableDebugVal(){
     console.log("finalFormData---",keywordData)
     //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
     this.props.submitKeywordData(keywordData,this.props.profileId);     
+
+ //action for runtime change
+  let keywordDataList = [];
+  Object.keys(formData).forEach(function(key){
+       keywordDataList.push(key + "=" + formData[key]); 
+  })    
+  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
+
 }
 
 
@@ -319,7 +328,9 @@ const actionsDebugDisable =[
 function mapStateToProps(state) {
   console.log("generalKeywords---",state.Keywords)
   return {
-    getAllKeywordData :state.Keywords
+    getAllKeywordData :state.Keywords,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail
    };
 }
 

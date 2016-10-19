@@ -6,7 +6,6 @@ import Divider from 'material-ui/Divider';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import {Card, CardHeader, CardText} from 'material-ui/Card';
-//import ConfigSettings from './GeneralSettings';
 import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import InstrSettings  from  '../containers/Instrumentation';
@@ -20,17 +19,16 @@ import { bindActionCreators } from 'redux';
      height:"14",
   }
    const cardStyle = {
-    height: "150",
+    height: "224",
    }
 
 class ConfigurationSettings extends React.Component {
   
   constructor(props) {
     super(props);
-    console.log("this.props of configurationsetting---",this.props)
-    
-    this.instrClicked = this.instrClicked.bind(this);
-    this.handleGeneralkeywordTab = this.handleGeneralkeywordTab.bind(this);
+    this.handleGeneralTab = this.handleGeneralTab.bind(this);
+    this.handleInstrumentationTab = this.handleInstrumentationTab.bind(this);
+    this.handleAdvanceSettingTab = this.handleAdvanceSettingTab.bind(this);
     }
 
   getTRModeDetail(props)
@@ -93,39 +91,41 @@ class ConfigurationSettings extends React.Component {
 
   }
 
-  handleGeneralkeywordTab(){
-    console.log(" in handleGeneralkeywordTab method--------------->")
+  handleGeneralTab(){    
     //hashHistory.push(`generalsettings/${this.props.params.profileId}`);
     hashHistory.push(`${this.props.location.pathname}/generalsettings`);
    }
 
-  instrClicked(){
-    console.log("in instrClicked ----------->",this.props.params.profileId)
-   // hashHistory.push("InstrSettings");
-    //hashHistory.push(`instrumentation/${this.props.params.profileId}`)
+  handleInstrumentationTab(){
     hashHistory.push(`${this.props.location.pathname}/instrumentation`)
+   }
+
+  handleAdvanceSettingTab(){
+    hashHistory.push(`${this.props.location.pathname}/advancesettings`)
    }
   
   render() {
    return (
       <div> 
         <Card style={cardStyle}>
-         <List style={listStyle} > 
-          <div>
-           <ListItem primaryText=" General" 
-                     secondaryText="Enable BCI Capturing, Enable HotSpot Capturing, Choose Instrumentation Profiles." 
-                    onTouchTap={this.handleGeneralkeywordTab}/>
-                    </div>
-           <Divider/>
-           <ListItem primaryText=" Instrumentation" 
-                     secondaryText=" Service Entry Point, Backend Detection, Transaction Configuration, Instrument Monitors." 
-                      onTouchTap={this.instrClicked}/>
-              <Divider/>
-        
-    
-        
-         </List> 
-      </Card>
+           <List style={listStyle} > 
+            <ListItem 
+              primaryText=" General" 
+              secondaryText="Flowpath Capturing, HotSpot Capturing, Choose Instrumentation Profiles, Debug Level Capturing, Capture Exception" 
+              onTouchTap={this.handleGeneralTab}/>
+            <Divider/>
+            <ListItem 
+              primaryText=" Instrumentation" 
+              secondaryText="Service Entry Point, Integration Point Detection, Transaction Configuration, Instrument Monitors, Error detection" 
+              onTouchTap={this.handleInstrumentationTab}/>
+            <Divider/>
+            <ListItem 
+              primaryText=" Advance Settings" 
+              secondaryText="Put Delay in Method, Backend Monitor " 
+              onTouchTap={this.handleAdvanceSettingTab}/>
+            <Divider/>
+           </List> 
+        </Card>
      </div>
     );
   }

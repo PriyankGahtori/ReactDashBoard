@@ -25,6 +25,7 @@ import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogEnableBCICapturing from 'material-ui/Dialog';
 import * as validate from '../actions/validateGeneralKeywords';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 
 
 const styles = {
@@ -149,8 +150,6 @@ class EnableBCICapturing extends React.Component {
 handleSubmitEnableBCICapturing(){
   console.log("handleSubmit---", this.refs)
   this.refs.enableBCICapturingForm.submit();
-  this.handleCancelEnableBCICapturing();
-  console.log("after closing the dialog----")
   }
 
 
@@ -224,7 +223,21 @@ handleCancelDisableBCIVal(){
     }) ;
     console.log("finalFormData---",keywordData)
   //  this.props.submitKeywordData(keywordData,this.props.profileId,"bciCapturing"); 
-    this.props.submitKeywordData(keywordData,this.props.profileId);     
+
+    this.props.submitKeywordData(keywordData,this.props.profileId);
+  
+  //action for runtime change
+  //triggerRunTimeChanges(trData,trModeDetail,formData);
+  let keywordDataList = [];
+  Object.keys(formData).forEach(function(key){
+       keywordDataList.push(key + "=" + formData[key]); 
+  })    
+  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+
+    this.props.submitKeywordData(keywordData,this.props.profileId);  
+    this.handleCancelEnableBCICapturing();
+
+
 }
 
 
@@ -319,7 +332,7 @@ const actionsBCIDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the BCI Capturing ?"
           actions={actionsBCIDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
@@ -336,7 +349,9 @@ const actionsBCIDisable =[
 function mapStateToProps(state) {
   console.log("generalKeywords---",state.Keywords)
   return {
-    getAllKeywordData :state.Keywords
+    getAllKeywordData :state.Keywords,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail
    };
 }
 

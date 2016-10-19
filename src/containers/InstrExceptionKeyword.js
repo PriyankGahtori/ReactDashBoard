@@ -248,7 +248,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
         </form>
 
         <ConfirmDialog
-          title="Are you sure want to disable the keyword Capture Exception (instrExceptions)?"
+          title="Are you sure want to disable Capture Exception?"
           actions={actions}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

@@ -24,9 +24,7 @@ import InstrProfiles from './InstrProfileMultiSelect';
 import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
 import EnableDebugCapturing from './EnableDebugLevelCapturing';
-import PutDelayInMethod from './PutDelayInMethod'
 import InstrException from './InstrExceptionKeyword';
-import EnableBackendMonitor from './EnableBackendMonitor';
 
 const styles = {
   text: {
@@ -147,10 +145,7 @@ class GeneralKeywords extends React.Component {
         <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
-        <PutDelayInMethod profileId = {this.props.params.profileId}/>
-        <EnableBackendMonitor profileId = {this.props.params.profileId}  />
         <InstrException profileId = {this.props.params.profileId}  />
-        
     </div>
     );
   }

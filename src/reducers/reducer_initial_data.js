@@ -7,7 +7,7 @@ export default function(state = initialState, action) {
   	var newState = Object.assign({}, state);
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
-    let trStatus = action.payload.data.status;
+    let trStatus = action.payload.data.trData.status;
   	newState=action.payload.data;
     newState.trData.switch = trStatus == null ? false : trStatus;
   return newState;

@@ -11,7 +11,7 @@ export const fields = [ 'tierId','profileId' ]
     }
   };
 
-class NewApplication extends React.Component {
+class Form_Tier extends React.Component {
 
   constructor(props) {
   super(props);
@@ -69,7 +69,7 @@ componentWillMount() {
      );
    }
 }
-NewApplication.propTypes = {
+Form_Tier.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -82,4 +82,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   data:state.initialData.homeData,
   initialValues :state.tierData.tierInitializeForm
 })
-) (NewApplication);
+) (Form_Tier);

@@ -174,7 +174,7 @@ class Tier extends React.Component {
               <h4>Tier Detail(s)</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton tooltip='Edit Tier' onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
           </div>
        </div>
 

@@ -15,6 +15,38 @@ const initialValues = {
 
               }
 
+  /* Code for validating form fields
+  */
+ const validate = values=> {
+  const errors = { }
+
+  if(!values.setCavNVCookie) 
+     errors.setCavNVCookie = 'Required'
+
+  else if ( values.setCavNVCookie < 0  || values.setCavNVCookie > 10240)
+     errors.setCavNVCookie = "Please Enter values between 0 and 10240"
+
+  else if (isNaN(values.setCavNVCookie))
+    errors.setCavNVCookie = 'Please Enter Only Numbers'
+
+ 
+  if(!values.bciInstrSessionPct)
+    errors.bciInstrSessionPct = 'Required'
+
+  else if(values.bciInstrSessionPct < 0  || values.bciInstrSessionPct > 100)
+    errors.bciInstrSessionPct = "Please Enter values between 0 and 100"
+  
+  if(!values.correlationIDHeader)
+    errors.correlationIDHeader = 'Required'
+
+  else if( values.correlationIDHeader < 0  || values.correlationIDHeader > 1024)
+    errors.correlationIDHeader = "Please Enter values between 0 and 1024"
+  
+  else if (isNaN(values.correlationIDHeader))
+    errors.correlationIDHeader = 'Please Enter Only Numbers'
+
+    return errors
+  }
   
   const styles = {
   input: {
@@ -102,9 +134,8 @@ componentWillMount() {
                  type="number" 
                  min="0" 
                  max="30" 
-                 step="1" 
-                 
-                 />
+                 step="1"  />
+             {bciInstrSessionPct.touched && bciInstrSessionPct.error && <div>{bciInstrSessionPct.error} </div> }
 
                 </div>
            
@@ -142,6 +173,8 @@ componentWillMount() {
                   hintText="Hint Text"
                   floatingLabelText="Correlation ID Header"
                   {...correlationIDHeader}
+             errorText = {correlationIDHeader.touched &&  correlationIDHeader.error && <div> { correlationIDHeader.error}</div> }
+
                   
                 />
               </div>
@@ -153,7 +186,8 @@ componentWillMount() {
                   hintText="Hint Text"
                   floatingLabelText="Set Cav NV Cookie"
                   {...setCavNVCookie}
-                  
+                  errorText = {setCavNVCookie.touched &&  setCavNVCookie.error && <div> { setCavNVCookie.error}</div> }
+
                 />
               </div>
 
@@ -213,7 +247,8 @@ Form_EnableBCICapturing.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
    initialValues :{bciInstrSessionPct:state.Keywords.initializeKeywords.bciInstrSessionPct,

@@ -39,7 +39,7 @@ const styles = {
 };
 
 
-class AddNewEndPointForm extends React.Component {
+class Form_BackendDetection_AddNew extends React.Component {
 
   constructor(props) {
   super(props);
@@ -219,7 +219,7 @@ handleChange(event,index,value){
   }
 }
 
-AddNewEndPointForm.propTypes = {
+Form_BackendDetection_AddNew.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -241,5 +241,5 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
    loadBackendTypes : fetchBackendTypes,
    loadBackendPoints : fetchBackendPoints
  } // mapDispatchToProps (will bind action creator to dispatch)
-) (AddNewEndPointForm);
+) (Form_BackendDetection_AddNew);
 

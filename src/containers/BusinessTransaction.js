@@ -25,7 +25,7 @@ export default class BusinessTransaction extends React.Component {
       <div><h3>Bussiness Transaction Configuration</h3>
 	    <div className='row'>
 	      <RadioButtonGroup name="btType" 
-      		className={'col-xs-4 col-md-3'} 
+      		className={'col-xs-4 col-md-4'} 
       		style={{display: 'flex'}}
       		onChange={this.handleChange.bind(this)}
       		defaultSelected="global" >

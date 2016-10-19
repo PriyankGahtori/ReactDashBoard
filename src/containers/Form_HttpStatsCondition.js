@@ -15,7 +15,7 @@ export const fields = [ 'conditionName','fpDumpMode','htId','hmdId','cookieName'
     }
   };
 
-class FormHttpStatsCond extends React.Component {
+class Form_HttpStatsCondition extends React.Component {
 
   constructor(props) {
   super(props);
@@ -250,7 +250,7 @@ handleHeaderSelected(event, index, value){
      );
    }
 }
-FormHttpStatsCond.propTypes = {
+Form_HttpStatsCondition.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -274,4 +274,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   getListOfHeaders:getListOfHeaders,
   getListOfOperators:getListOfOperators
 }
-) (FormHttpStatsCond);
+) (Form_HttpStatsCondition);

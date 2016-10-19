@@ -24,6 +24,7 @@ import GlobalBT from '../containers/GlobalBusinessTransaction';
 import PatternBT from '../containers/PatternBusinessTransaction';
 import GeneralKeywords from '../containers/GeneralKeywords';
 import InstrumentMonitors from '../containers/InstrumentMonitors';
+import AdvanceSettings from '../containers/AdvanceSettings';
 import MethodMonitors from '../containers/MethodMonitors';
 import ErrorDetection from '../containers/ErrorDetection';
 import ExceptionMonitors from '../containers/ExceptionMonitors';
@@ -73,6 +74,8 @@ export default class routes extends React.Component {
 	      	 		</Route>
 	      		</Route>
 
+	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+
 			  	</Route>  			  	
 	      </Route>
 
@@ -101,6 +104,8 @@ export default class routes extends React.Component {
 		      	 		<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
 	      	 		</Route>
 	      		</Route>
+
+	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
 
 			  	</Route>
 	      </Route>
@@ -131,6 +136,8 @@ export default class routes extends React.Component {
 	      	 		</Route>
 	      		</Route>
 
+	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+
 			  	</Route>
 	      </Route>
 			  
@@ -160,6 +167,8 @@ export default class routes extends React.Component {
 	      	 		</Route>
 	      		</Route>
 
+	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+
 			  	</Route>
 	      </Route>
 
@@ -169,23 +178,26 @@ export default class routes extends React.Component {
 
 			  	<IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />	  	 
 			  	<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 
+			  	
 			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+	      	 		<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
 	      	 
-	      	 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 	<IndexRoute name="Global" component={GlobalBT} />
-	      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 </Route>
+			      	<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+			      	 	<IndexRoute name="Global" component={GlobalBT} />
+			      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
+			      	</Route>
 			 
-			 <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />		
+			 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />		
 	      	 
-	      	 <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 	<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-	      	 </Route>
-	      	</Route>
+			      	<Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+			      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
+			      	 	<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+				      	<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+			      	</Route>
+	      		</Route>
+
+	      			<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
 			  </Route>
 
 		  {/*from tier,server, instance to profile */}			  
@@ -208,6 +220,8 @@ export default class routes extends React.Component {
 		      	<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
 	      	 </Route>
 	      </Route>
+
+	      <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
 
 	    </Route>
 

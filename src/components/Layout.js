@@ -157,8 +157,8 @@ export default class Layout extends React.Component {
         titleStyle={title}
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
-        iconElementRight={<div><IconButton onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
-        <IconButton onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
+        iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
+        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

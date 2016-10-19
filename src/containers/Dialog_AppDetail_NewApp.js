@@ -8,7 +8,7 @@ import * as actionCreators  from '../actions/index';
 
 
 
-class Dialog_DCDetail_NewDC extends React.Component {
+class Dialog_AppDetail_NewApp extends React.Component {
  
   constructor(props) {
   super(props);
@@ -100,4 +100,4 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(Dialog_DCDetail_NewDC);
+export default connect(mapStateToProps,mapDispatchToProps)(Dialog_AppDetail_NewApp);

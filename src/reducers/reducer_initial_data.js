@@ -1,4 +1,5 @@
-export default function(state = null, action) {
+const initialState = {homeData:null,trData:{trno:null,status:null,switch:false}}
+export default function(state = initialState, action) {
 
   switch(action.type) {
   case 'FETCH_INIT_DATA':
@@ -6,8 +7,16 @@ export default function(state = null, action) {
   	var newState = Object.assign({}, state);
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
+    let trStatus = action.payload.data.status;
   	newState=action.payload.data;
-    return newState;
+    newState.trData.switch = trStatus == null ? false : trStatus;
+  return newState;
+  
+  case 'TOGGLE_TR_STATE':
+    var newState = Object.assign({}, state);
+    newState.trData.switch = !newState.trData.switch;
+  return newState;
+
   }
 
   return state;

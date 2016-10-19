@@ -202,9 +202,9 @@ class DCDetail extends React.Component {
               <h4>DC Detail</h4>
           </div>
         <div className="col-md-2"  >
-          <IconButton  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-          <IconButton onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          <IconButton><Link to ="/Instrumentation"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
+          <IconButton tooltip="Edit DCDetail"  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          <IconButton tooltip="Delete DCDetail" onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <IconButton tooltip="Settings" ><Link to ="/Instrumentation"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
         </div>
        </div>
 

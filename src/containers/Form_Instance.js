@@ -11,7 +11,7 @@ export const fields = [ 'instanceId','profileId' ]
     }
   };
 
-class NewApplication extends React.Component {
+class Form_Instance extends React.Component {
 
   constructor(props) {
   super(props);
@@ -69,7 +69,7 @@ componentWillMount() {
      );
    }
 }
-NewApplication.propTypes = {
+Form_Instance.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }
@@ -79,7 +79,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields
 },
   state => ({ // mapStateToProps
-  data:state.initialData,
+  data:state.initialData.homeData,
   initialValues :state.instanceData.instanceInitializeForm
 })
-) (NewApplication);
+) (Form_Instance);

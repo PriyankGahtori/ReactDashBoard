@@ -34,7 +34,7 @@ const styles = {
 };
 
 
-class Form_BussinessTransPattern extends React.Component {
+class Form_BTPattern extends React.Component {
 
   constructor(props) {
   super(props);
@@ -201,7 +201,7 @@ handleCheck(event,value)
   }
 }
 
-Form_BussinessTransPattern.propTypes = {
+Form_BTPattern.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -220,5 +220,5 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
  { 
   loadGroupNames : ListOfGroupNames
  } // mapDispatchToProps (will bind action creator to dispatch)
-) (Form_BussinessTransPattern);
+) (Form_BTPattern);
 

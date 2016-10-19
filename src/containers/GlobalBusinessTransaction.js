@@ -171,7 +171,7 @@ class GlobalBusinessTransaction extends React.Component {
      
      <RadioButtonGroup
      	{...dynamicReqValue} 
-  		className={'col-xs-4 col-md-3'} 
+  		className={'col-xs-2 col-md-2'} 
   		style={{display: 'flex'}}  		
   		name="requestType" 
   		defaultSelected={dynamicReqValue.initialValue}
@@ -180,13 +180,11 @@ class GlobalBusinessTransaction extends React.Component {
        <RadioButton
           value="requestParam"
           label="Parameter Name"
-          disabled={!this.state.dynamicReqType}                    
-       />
+          disabled={!this.state.dynamicReqType} />
        <RadioButton
           value="httpMethod"
           label="Method"
-          disabled={!this.state.dynamicReqType}          
-       />
+          disabled={!this.state.dynamicReqType}  />
        <RadioButton
           value="requestHeader"
           label="Header"

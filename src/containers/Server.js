@@ -175,7 +175,7 @@ class Server extends React.Component {
               <h4>Server Detail(s)</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  tooltip="Edit Server" onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
           </div>
        </div>
 

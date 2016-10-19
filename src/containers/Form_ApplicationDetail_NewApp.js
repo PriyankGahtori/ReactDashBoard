@@ -57,7 +57,7 @@ const validate = values => {
  
   return errors
 }
-class NewApplication extends React.Component {
+class Form_ApplicationDetail_NewApp extends React.Component {
 
 constructor(props) {
   super(props);
@@ -139,7 +139,7 @@ handleChangeTopology(event, index, value){
      );
    }
 }
-NewApplication.propTypes = {
+Form_ApplicationDetail_NewApp.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -152,6 +152,6 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
 state => ({ // mapStateToProps
-  initialValues:{topoId:state.initialData[2].value[0].id},
-  data:state.initialData
-}))(NewApplication);
+  initialValues:{topoId:state.initialData.homeData[2].value[0].id},
+  data:state.initialData.homeData
+}))(Form_ApplicationDetail_NewApp);

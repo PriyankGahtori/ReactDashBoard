@@ -20,7 +20,7 @@ import SettingsDialog from 'material-ui/Dialog';
 import Dialog_Setting from '../containers/Dialog_Settings';
 import FlatButton from 'material-ui/FlatButton';
 import {hashHistory } from 'react-router';
-
+import TRToggle from '../containers/TRToggle';
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -157,14 +157,17 @@ export default class Layout extends React.Component {
         titleStyle={title}
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
-        iconElementRight={<div><IconButton onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
-        <IconButton onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
+        iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
+        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      
 		    <div className='container-fluid'>
-		       <h2>NetDiagnostics Configuration</h2>
-          
+          <div className="row">
+		       <div className="col-md-6"><h2>NetDiagnostics Configuration</h2></div>
+           <div className="col-md-4"/>
+           <div  className="col-md-2" style={{marginTop:'20px', marginBottom:'10px',paddingTop:'5px'}}><TRToggle /></div>
+          </div>  
           <Breadcrumbs 
              routes={this.props.routes}
              params={this.props.params}

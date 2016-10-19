@@ -318,7 +318,7 @@ const actionsBCIDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the BCI Capturing ?"
           actions={actionsBCIDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

@@ -11,7 +11,7 @@ import FlatButton  from 'material-ui/FlatButton';
 import ConfirmDialog from 'material-ui/Dialog';
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
- class PutDelayInMethod extends React.Component {
+class Form_PutDelayInMethod extends React.Component {
  
   constructor(props) {
     super(props);
@@ -52,78 +52,15 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
     })
 
   }
-  submit(formData){
-  	let keywordData = Object.assign({},this.props.getAllKeywordData.data);
-    console.log("keywordData in putDelayInMethod--",putDelayInMethod)
-    var putDelayInMethod;
-
-    console.log("keywordData-in instrException-",keywordData)
-    console.log("formData---",formData)
-    
-    
-    /*
-    * final data is data that is fetched from server and its value is updated according to user input,
-    * Final data object contains all the keywords  .
-    *  modifying formdata in order to form key value as:
-    *   putDelayInMethod = 5:20:0:1%20fqm for putDelayInMethod keyword
-    */
-
-    putDelayInMethod = formData.fromRange+":";
-
-    /*if user does not entr the value of toRange,then
-    * toRange = fromRange
-    */
-
-    if(formData.toRange == null)
-      putDelayInMethod = putDelayInMethod +formData.fromRange+":";
-    else
-      putDelayInMethod = putDelayInMethod +formData.toRange+":";
-
-    if(formData.isCpuHogg === "true" || formData.isCpuHogg === true)
-      putDelayInMethod = putDelayInMethod +1+":";
-    else
-      putDelayInMethod = putDelayInMethod +0+":";
-
-    if(formData.isAutoInstrument === "true" || formData.isAutoInstrument === true)
-      putDelayInMethod = putDelayInMethod +1;
-    else
-      putDelayInMethod = putDelayInMethod +0;
-
-    if(formData.fqm != null)
-      putDelayInMethod = putDelayInMethod +"%20"+formData.fqm;
-           
-      console.log("putDelayInMethod finaly appended--",putDelayInMethod)      
-      keywordData.putDelayInMethod["value"] = putDelayInMethod;
-
-    console.log("finalFormData---",keywordData)
-//  this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
-    this.props.submitKeywordData(keywordData,this.props.profileId); 
-
-  }
-
+ 
   render() {
   	const { fields: {fromRange,toRange,isCpuHogg,isAutoInstrument,fqm}, resetForm, handleSubmit,onSubmit, submitting } = this.props
-    const actions =[
-        <FlatButton
-        label="Cancel"
-        primary={true}
-        onTouchTap={this.handleCancelDisable.bind(this)}
-      />,
-      <FlatButton
-        label="OK"
-        primary={true}
-        keyboardFocused={true}
-        onClick={this.cnfrmDisable.bind(this)}
-      />
-]
+   
     return (
       <div >
-    	  <form onSubmit ={handleSubmit(this.submit.bind(this))} >
-    		<div className = {this.state.putDelayInMethod? 'show' :'hidden'}>
-    		
-
-    		<div className = "row" style={{'paddingBottom':7,'paddingTop':0}}>
-	    		<div className = "col-md-3">
+    	  <form>
+    		<div className = "row">
+	    		<div className = "col-md-6">
 		    		<TextField
 	                  hintText="Hint Text"
 	                  floatingLabelText="From Range(in ms)"
@@ -132,33 +69,34 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
 	            
 	    		</div>
 
-	    		<div className = "col-md-3">
+	    		<div className = "col-md-6">
 	    			<TextField
                   hintText="Hint Text"
                   floatingLabelText="To Range(in ms)"
                   {...toRange}
                 />
 	    		</div>
-
-	    		<div className = "col-md-3">
-	    		<TextField
-                  hintText="Hint Text"
-                  floatingLabelText="Enter FQM"
-                  {...fqm}
-                />
-	   	 		</div>
-	    	</div>
+          <div className = "row">
+  	    		<div className = "col-md-12">
+  	    		<TextField
+                    hintText="Hint Text"
+                    floatingLabelText="Method full name"
+                    {...fqm}
+                  />
+  	   	 		</div>
+  	    	</div>
+          </div>
     		
     		<div className = "row">
-	    		<div className = "col-md-3">
+	    		<div className = "col-md-6">
 	    			 <Checkbox
 	             	 {...isCpuHogg}
 	              	value="isCpuHogg"
-	              	label="Is Cpu Hogg"
+	              	label="Is CPU Hogg"
 	            	/>
 	    		</div>
 
-	    		<div className ="col-md-3">
+	    		<div className ="col-md-6">
 	    			 <Checkbox
 	             	 {...isAutoInstrument}
 	              	value="isAutoInstrument"
@@ -168,26 +106,14 @@ export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fq
 
 	    	</div>
 
-	    	<div>
-	          <FlatButton  label="submit" type="submit" disabled={submitting}>
-	                     {submitting ? <i/> : <i/>} 
-	          </FlatButton >
-       		</div>  
-
-	   </div>
+	 
       </form>
-       <ConfirmDialog
-          title="Are you sure want to disable the keyword 'PutDelayInMethod'?"
-          actions={actions}
-          modal={false}
-          open={this.state.openCnfrmDisbleDialog}
-        >
-        </ConfirmDialog>
+      
       </div>
     );
   }
 }
-PutDelayInMethod.propTypes = {
+Form_PutDelayInMethod.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -195,7 +121,7 @@ PutDelayInMethod.propTypes = {
 }
 
 export default reduxForm({
-  form: 'PutDelayInMethod',
+  form: 'putDelayInMethodForm',
   fields
 },
   state => ({ // mapStateToProps
@@ -204,4 +130,4 @@ export default reduxForm({
   initialValues :state.Keywords.initializeKeywords.putDelayInMethodObj
 }),
  
-)(PutDelayInMethod);
+)(Form_PutDelayInMethod);

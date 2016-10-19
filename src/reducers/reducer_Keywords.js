@@ -81,7 +81,6 @@ switch(action.type){
 		obj.putDelayInMethodObj = "0";
 
 		newState.initializeKeywords = obj;
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
 		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
@@ -93,6 +92,7 @@ switch(action.type){
 
 	   	newState.enableBackendMonitorCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 
+		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 	return newState;
 
 

@@ -76,6 +76,7 @@ class EnableBackendMonitor extends React.Component {
   console.log("in props--",this.props)
   console.log("------",validate) 
   this.state = {openSnackBar:false}
+   this.state = {enableBackendMonitorCheckBox:false}
   }
 
  
@@ -111,7 +112,6 @@ class EnableBackendMonitor extends React.Component {
   */
 
   handleEnableBackendMonitorDialog(){
-    
     this.setState({openEnableBackendMonitorDialog:true});
     console.log("handleEnableBackendMonitorDialog function callded---")
   }
@@ -122,21 +122,21 @@ class EnableBackendMonitor extends React.Component {
     if(isInputChecked === true)
     {
       console.log("action trigegerd opening Snackbar")
-        this.setState({openSnackBar:true
-        })
+       this.setState({openSnackBar:true})
        this.submitForm(validate.setDefaultValuesBackendMonitor(this.props.getAllKeywordData.data));
        this.props.enableBackendMonitorCheckBoxStatus(true);
-   
     }
-    else{
-    this.props.enableBackendMonitorCheckBoxStatus(isInputChecked);
-    this.setState({openCnfrmDisbleDialog:true})
+    else
+    {
+        this.props.enableBackendMonitorCheckBoxStatus(isInputChecked);
+        this.setState({openCnfrmDisbleDialog:true})
    }
   }
 
-   handleCancel(){
+   handleCancel()
+   {
      this.setState({openEnableBackendMonitorDialog:false});
-  }
+   }
  
 
 handleSubmit(){
@@ -159,7 +159,7 @@ handleRequestClose(){
 handleConfirmDisableBackendMon(){
     
    this.submitForm(validate.disabledDebugCapturing);
-   this.props.enableDebugCheckBoxStatus(false);
+   this.props.enableBackendMonitorCheckBoxStatus(false);
    this.setState({ openCnfrmDisbleDialog:false
    })
   
@@ -239,7 +239,7 @@ const actionsDebugDisable =[
     return (
       <div>
 
-      <div className = "row">
+      <div className = "row" style={{'paddingLeft':14}}>
         <div className = "col-md-3">
          <Checkbox
                   value = "enableBackendMonitor"
@@ -273,7 +273,7 @@ const actionsDebugDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the Backend Monitor?"
           actions={actionsDebugDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

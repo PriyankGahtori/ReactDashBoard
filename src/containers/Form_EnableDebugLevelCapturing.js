@@ -15,29 +15,7 @@ const initialValues = {
 
               }
 
-  const validate = (values) =>{
-    const errors = {}
-     console.log(" enable -bci error ---------->",values.enableBciDebug)
-     console.log("values.enableBciDebug < 0--",values.enableBciDebug < 0)
-    if(!values.enableBciDebug)
-      errors.enableBciDebug = 'Required' 
-    
-    else if(values.enableBciDebug < 0 || values.enableBciDebug >6)
-      errors.enableBciDebug = 'Please Enter Values Between 0 and 6'
-
-    if(!values.enableBciError)
-      errors.enableBciError = 'Required'
-    
-    else if(values.enableBciError < 1 || values.enableBciError > 100)
-        errors.enableBciError = 'Please Enter Values Between 0 and 100'
-
-    if(!values.InstrTraceLevel)
-      errors.InstrTraceLevel = 'Required'
-
-    else if(values.InstrTraceLevel < 0 || values.InstrTraceLevel > 11)
-      errors.InstrTraceLevel = 'Please Enter Values Between 0 and 11'
-    return errors
-    }
+ 
   const styles = {
   input: {
     width: 150,
@@ -115,7 +93,6 @@ ChangeEnableForcedFPChain(event,index ,value){
                  min="1" 
                  max="6" 
                  step="1"   />
-             {enableBciDebug.touched && enableBciDebug.error && <div>{enableBciDebug.error} </div> }
 
              </div>
 
@@ -132,7 +109,6 @@ ChangeEnableForcedFPChain(event,index ,value){
                  min="0" 
                  max="6" 
                  step="1"   />
-             {enableBciError.touched && enableBciError.error && <div>{enableBciError.error} </div> }
 
              </div>
 
@@ -154,7 +130,6 @@ ChangeEnableForcedFPChain(event,index ,value){
                  min="0" 
                  max="11" 
                  step="1"   />
-             {InstrTraceLevel.touched && InstrTraceLevel.error && <div>{InstrTraceLevel.error} </div> }
              </div>
 
          
@@ -173,7 +148,7 @@ Form_EnableDebugLevelCapturing.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
   fields,
-  validate
+  
 },
   state => ({ // mapStateToProps
   // initialValues : state.Keywords.initializeKeywords,

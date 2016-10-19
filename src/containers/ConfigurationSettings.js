@@ -19,7 +19,7 @@ import { bindActionCreators } from 'redux';
      height:"14",
   }
    const cardStyle = {
-    height: "150",
+    height: "224",
    }
 
 class ConfigurationSettings extends React.Component {
@@ -91,8 +91,7 @@ class ConfigurationSettings extends React.Component {
 
   }
 
-  handleGeneralkeywordTab(){
-    console.log(" in handleGeneralkeywordTab method--------------->")
+  handleGeneralTab(){    
     //hashHistory.push(`generalsettings/${this.props.params.profileId}`);
     hashHistory.push(`${this.props.location.pathname}/generalsettings`);
    }
@@ -109,27 +108,24 @@ class ConfigurationSettings extends React.Component {
    return (
       <div> 
         <Card style={cardStyle}>
-         <List style={listStyle} > 
-          <div>
-             <ListItem 
+           <List style={listStyle} > 
+            <ListItem 
               primaryText=" General" 
               secondaryText="Flowpath Capturing, HotSpot Capturing, Choose Instrumentation Profiles, Debug Level Capturing, Capture Exception" 
               onTouchTap={this.handleGeneralTab}/>
-          </div>
-           <Divider/>
-             <ListItem 
+            <Divider/>
+            <ListItem 
               primaryText=" Instrumentation" 
               secondaryText="Service Entry Point, Integration Point Detection, Transaction Configuration, Instrument Monitors, Error detection" 
               onTouchTap={this.handleInstrumentationTab}/>
-           <Divider/>
-           <Divider/>
-             <ListItem 
+            <Divider/>
+            <ListItem 
               primaryText=" Advance Settings" 
               secondaryText="Put Delay in Method, Backend Monitor " 
               onTouchTap={this.handleAdvanceSettingTab}/>
-           <Divider/>
-         </List> 
-      </Card>
+            <Divider/>
+           </List> 
+        </Card>
      </div>
     );
   }

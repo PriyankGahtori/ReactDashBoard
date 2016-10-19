@@ -32,7 +32,7 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
-//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+export const DELETE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
 export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
 
 /* Url for Tier */

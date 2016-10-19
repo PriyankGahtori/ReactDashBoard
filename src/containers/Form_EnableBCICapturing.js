@@ -206,7 +206,7 @@ componentWillMount() {
      );
    }
 }
-NewApplication.propTypes = {
+Form_EnableBCICapturing.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired
 }

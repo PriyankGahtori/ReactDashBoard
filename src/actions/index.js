@@ -508,7 +508,7 @@ export function addRowProfileTable(data,type)
         console.log("type is edit--------------------------->")
         var response = axios({
         method:'put',
-        url : `${url.UPDATE_PROFILE_TABLE}/${data.id}`,
+        url : `${url.DELETE_PROFILE_TABLE}/${data.id}`,
         data: data
       });
     console.log("  edit data when -submit is clicked-->",response)

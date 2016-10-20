@@ -179,7 +179,7 @@ class GlobalBusinessTransaction extends React.Component {
 	  >
        <RadioButton
           value="requestParam"
-          label="ParameterName"
+          label="Parameter"
           disabled={!this.state.dynamicReqType} />
        <RadioButton
           value="httpMethod"

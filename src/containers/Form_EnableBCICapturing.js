@@ -133,7 +133,7 @@ componentWillMount() {
                 style={styles.input} 
                  type="number" 
                  min="0" 
-                 max="30" 
+                 max="100" 
                  step="1"  />
              {bciInstrSessionPct.touched && bciInstrSessionPct.error && <div>{bciInstrSessionPct.error} </div> }
 

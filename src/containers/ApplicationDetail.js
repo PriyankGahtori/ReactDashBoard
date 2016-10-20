@@ -142,6 +142,7 @@ class ApplicationDetail extends React.Component {
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
+        
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
                                     return value.id === selectedRow[0]

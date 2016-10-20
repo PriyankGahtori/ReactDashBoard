@@ -56,8 +56,11 @@ export default function(state = initialState, action) {
     console.log("inside ADD_ROW_TABLE case-application reducer--action.payload.data",action.payload.data);
     var newState = Object.assign({}, state);
     action.payload.data.id=action.payload.data.appId;
+    console.log(" add  row in application table ---newState.tableData------->", newState.tableData)
+    console.log("Add  row in app table --->action.payload.data ----- ",action.payload.data)
     console.log("aftr adding link in application adding row reducer--",action.payload.data)
     newState.tableData.push(action.payload.data);
+
     console.log("newState---",newState)
     return newState;
 
@@ -82,7 +85,7 @@ export default function(state = initialState, action) {
       if(val.id == action.payload.data.appId){
           console.log("condition matched")
           val.appDesc=action.payload.data.appDesc;
-          val.appName=action.payload.data.appName;
+          val.appName={"href": action.payload.data.appName};
           val.userName=action.payload.data.userName;
       }
 

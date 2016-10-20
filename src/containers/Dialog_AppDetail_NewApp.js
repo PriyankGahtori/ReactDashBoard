@@ -12,17 +12,22 @@ class Dialog_AppDetail_NewApp extends React.Component {
  
   constructor(props) {
   super(props);
-  console.log("loading......", this.props)
   this.state = {applicationdata:this.props.applicationdata}
   this.handleCancel = this.handleCancel.bind(this);
-  this.handleSubmit=this.handleSubmit.bind(this);
-  }
+  this.handleSubmit =this.handleSubmit.bind(this);
+ 
 
   componentWillReceiveProps(nextProps)
   {
-    if(this.props.applicationdata != nextProps.applicationdata)
+    if(this.props.applicationdata != nextProps.applicationdata){
       this.setState({applicationdata:nextProps.applicationdata});
+      if(nextProps.applicationdata.openAppDialogType === "edit")
+        this.setState({title : "Edit Application"})
+      else
+        this.setState({title : "New Application"})
+    }
   }
+}
 
   handleCancel(){
      this.props.toggleStateDialogNewApp();
@@ -30,10 +35,9 @@ class Dialog_AppDetail_NewApp extends React.Component {
   
   handleSubmit(){
    this.refs.newAppForm.submit();
-  
   }
 
-    render() {
+  render() {
     const actions = [
       <FlatButton
         label="Cancel"
@@ -48,7 +52,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
     return (
       <div>
       <DialogNewApp
-          title="New Application Configuration"
+          title = {this.state.title}
           actions={actions}
           modal={false}
           open={this.state.applicationdata.openNewAppDialog}
@@ -64,18 +68,13 @@ class Dialog_AppDetail_NewApp extends React.Component {
         }
        
       <FormNewApp ref="newAppForm" onSubmit={data =>{
-                              console.log("data----",data)
                                if(this.state.applicationdata.openAppDialogType == "edit"){
-                                
+
                                 data["id"] = this.state.applicationdata.appDetailInitializeForm.id;
-                                console.log("data-aftr adding---",data)
-                                console.log("openAppDialogType----",this.state.applicationdata.openAppDialogType)
                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                                 this.handleCancel();
                               }
                               else{
-                                console.log("on submit---in else or add condition--",this.state.openAppDialogType)
-                                console.log("data in adding---",data)
                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                                 this.handleCancel();
                                }
@@ -88,9 +87,6 @@ class Dialog_AppDetail_NewApp extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("dialogNewDC---",state.applicationdata.dialogNewpp)
-  console.log("state.applicationdata.openAppDialogType",state.applicationdata.openAppDialogType)
-  console.log("state.applicationdata.initialValues",state.applicationdata.initialValues)
   return {
    applicationdata :state.applicationdata
    };

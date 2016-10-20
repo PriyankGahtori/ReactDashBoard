@@ -35,15 +35,10 @@ export default function(state = initialState, action) {
 
 	case 'ATTACH_PROFTO_TOPO':
 		var newState = Object.assign({},state);
-		console.log("payload data--",action.payload.data)
 		newState.tableData.map(function(value){
-			console.log("iterating topotable--",value)
 			if(value.dcTopoId == action.payload.data.dcTopoId)
-			{
-				value.profileName = action.payload.data.profileName ;
-			}
+				value.profLink = {"href":action.payload.data.profileName};
 		})
-		console.log("aftr updating--",newState.tableData)
 		return newState;
 
 	case 'UPDATE_TOPO_FORM':

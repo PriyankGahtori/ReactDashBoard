@@ -203,13 +203,13 @@ handleChange(event,index,value){
       <TextField
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
-        floatingLabelText="Entry FQM"
+        floatingLabelText="Full method name"
       //  disabled={!this.state.enable}        
       /><br/>
       <TextField
         {...desc}
         hintText="This is a for getting initial Data"
-        floatingLabelText="Entry Description"
+        floatingLabelText="Description"
         //disabled={!this.state.enable}        
       />
 

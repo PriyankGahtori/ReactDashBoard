@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
 import {initializeInstrProf} from '../actions/index';
 export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','setCavNVCookie','enableCpuTime','enableForcedFPChain'];
-//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','correlationIDHeader','doNotDiscardFlowPaths','enableBciDebug'];
+
 const initialValues = { 
                 'logLevelOneFpMethod' : true, 
                 'doNotDiscardLevel1FP' : false,
@@ -254,8 +254,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
    initialValues :{bciInstrSessionPct:state.Keywords.initializeKeywords.bciInstrSessionPct,
                    logLevelOneFpMethod:state.Keywords.initializeKeywords.logLevelOneFpMethod,
                    correlationIDHeader:state.Keywords.initializeKeywords.correlationIDHeader,
-                   doNotDiscardFlowPaths:state.Keywords.initializeKeywords.doNotDiscardFlowPaths,
-                   enableBciDebug:state.Keywords.initializeKeywords.enableBciDebug,
+                   doNotDiscardFlowPaths:state.Keywords.initializeKeywords.doNotDiscardFlowPaths,                   
                    setCavNVCookie:state.Keywords.initializeKeywords.setCavNVCookie,
                    enableCpuTime:state.Keywords.initializeKeywords.enableCpuTime,
                    enableForcedFPChain:state.Keywords.initializeKeywords.enableForcedFPChain

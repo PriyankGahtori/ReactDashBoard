@@ -43,7 +43,7 @@ export default class Instrumentation extends React.Component {
         
         </Tab>
 
-        <Tab label="Backend Detection" value="backenddetection" >
+        <Tab label="Integration Pt Detection" value="backenddetection" >
           
         </Tab>
 

@@ -22,7 +22,7 @@ export const fields = ['btName','activeToggle','matchType','URL','include','reqP
 
 var columns = {
                 "key" : "id",
-                "data":['Name', 'Match type', 'URL', 'BT Included','Slow Transaction threshold(ms)','very Slow Transaction threshold(ms)','Req Param key Value','Http Method','Req Header key Value','ID'],
+                "data":['Name', 'Match type', 'URL', 'BT Included','Slow Transaction threshold(ms)','Very Slow Transaction threshold(ms)','Req Param key Value','Http Method','Req Header key Value','ID'],
                 "field":['btName', 'matchType', 'urlName', 'include','slowTransaction','verySlowTransaction','paramKeyValue','reqMethod','headerKeyValue','id']
               };          
 

@@ -9,6 +9,26 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
+ const validate = values=> {
+  const errors = { }
+
+  if(!values.methodDisplayName) 
+     errors.methodDisplayName = 'Required'
+
+   else if (values.methodDisplayName.length > 50) 
+    errors.methodDisplayName = 'Must be 50 characters or less'
+
+   if(!values.methodName) 
+     errors.methodName = 'Required'
+
+    if(!values.methodDesc) 
+     errors.methodDesc = 'Required'
+
+    else if (values.methodDesc.length > 100) 
+    errors.methodDesc = 'Must be 100 characters or less'
+
+   return errors
+}
 const styles = {
   block: {
     maxWidth: 250,
@@ -59,7 +79,9 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Method Display Name"
                {...methodDisplayName}
-          />
+               errorText = {methodDisplayName.touched &&  methodDisplayName.error && <div> { methodDisplayName.error}</div> }
+               />
+        
     </div>
     </div>
      <div className ="row">
@@ -68,6 +90,8 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Method Name (FQM)"
                {...methodName}
+              errorText = {methodName.touched &&  methodName.error && <div> { methodName.error}</div> }
+
           />
     </div>
     </div>
@@ -77,6 +101,8 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Method Description"
                {...methodDesc}
+              errorText = {methodDesc.touched &&  methodDesc.error && <div> { methodDesc.error}</div> }
+
           />
     </div>
     </div>
@@ -95,6 +121,7 @@ Form_MethodMonitor.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Method Monitor ',        // a unique name for this form
   fields,
+  validate
   
 },
   state => ({ // mapStateToProps

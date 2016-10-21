@@ -33,7 +33,7 @@ const initialValues = {
   if(!values.bciInstrSessionPct)
     errors.bciInstrSessionPct = 'Required'
 
-  else if(values.bciInstrSessionPct < 0  || values.bciInstrSessionPct > 100)
+  else if(values.bciInstrSessionPct < 0 || values.bciInstrSessionPct > 100)
     errors.bciInstrSessionPct = "Please Enter values between 0 and 100"
   
   if(!values.correlationIDHeader)

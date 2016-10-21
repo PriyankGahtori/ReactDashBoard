@@ -189,9 +189,9 @@ onToggle(row){
               <h4>Service Entry Points Detail(s)</h4>
           </div>
           <div className="col-md-2"  >
-            <IconButton  tooltip="Edit ServiceEntryPoint" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          { /*  <IconButton  tooltip="Edit ServiceEntryPoint" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton tooltip="Delete ServiceEntryPoint"  onTouchTap={this.delDialog}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          { /* <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
+          <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
           */}
         </div>
        </div>

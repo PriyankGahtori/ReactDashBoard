@@ -32,9 +32,7 @@ class Dialog_ServiceEntryPts extends React.Component {
   
   handleSubmit(){
   this.refs.newServiceEntryPtsForm.submit();
-  this.handleCancel();
-  console.log("aftr closing the dialog----")
-  }
+    }
  
  /*
  *
@@ -93,6 +91,7 @@ class Dialog_ServiceEntryPts extends React.Component {
    this.getDescOfSelectedEntryPoint(data)
    console.log("data ------",data)
    this.props.addServiceEntryPoint(data,this.props.profileId)
+   this.handleCancel();
   }
 
 

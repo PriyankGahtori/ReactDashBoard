@@ -103,7 +103,7 @@ const NewButtonstyle = {
 
   handleSubmitNewendPoint(){
     this.refs.newBackendPoint.submit();
-    this.handleCloseNewendPoint();
+ 
   }
 
    //This handles the form submittion for adding new end point
@@ -127,8 +127,8 @@ const NewButtonstyle = {
       }
         //calling action for updating 
      this.props.addNewBackendPoint(data,this.props.params.profileId);
-      console.info("backendTypeName",backendTypeName);
-      console.info("backendTypeName arr",arr);
+        this.handleCloseNewendPoint();
+     
 }
 //function called for buttons used in Dialog for editing backend end points
   handleCloseEditEndPt(){
@@ -142,7 +142,6 @@ const NewButtonstyle = {
   }
 
   submitEditEndPointForm(data){  
-    console.info("data---submit edit end dorm---",data);
     let endPoints=[];
     Object.keys(data).map(function(key){
       let endPointObj = {};

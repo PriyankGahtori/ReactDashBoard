@@ -12,6 +12,42 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 export const fields = ['ruleName','errorFrom','errorTo','enabled','ruleDesc']
              
+ const validate = values=> {
+  const errors = { }
+
+  if(!values.ruleName) 
+     errors.ruleName = 'Required'
+
+   else if (values.ruleName.length > 50)
+    errors.ruleName = 'Must be 50 characters or less'
+
+   if(!values.errorFrom) 
+     errors.errorFrom = 'Required'
+
+   else if(values.errorFrom.length > 5)
+     errors.errorFrom = "Please Enter upto 5 Digits Only"
+
+   else if(isNaN(values.errorFrom ))
+    errors.errorFrom = " Please Enter Only Numbers"
+
+   if(!values.errorTo) 
+     errors.errorTo = 'Required'
+
+   else if(values.errorTo.length > 5)
+     errors.errorTo = "Please Enter upto 5 Digits Only "
+
+    else if(isNaN(values.errorTo))
+      errors.errorTo = 'Please Enter Numbers Only'
+
+   if(!values.ruleDesc) 
+     errors.ruleDesc = 'Required'
+
+    else if (values.ruleDesc.length > 100)
+    errors.ruleDesc = 'Must be 100 characters or less'
+
+   return errors
+ }
+
 
 const styles = {
   block: {
@@ -68,6 +104,7 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Rule Name"
                {...ruleName}
+               errorText = {ruleName.touched &&  ruleName.error && <div> { ruleName.error}</div> }
           />
         </div>
         <div className ="col-md-4">
@@ -85,6 +122,8 @@ handleCheck(event,value)
           // hintText="Hint Text"
            floatingLabelText="From"
            {...errorFrom}
+          errorText = {errorFrom.touched &&  errorFrom.error && <div> { errorFrom.error}</div> }
+
           />
         </div>
         
@@ -93,6 +132,8 @@ handleCheck(event,value)
           // hintText="Hint Text"
            floatingLabelText=" To"
            {...errorTo}
+        errorText = {errorTo.touched &&  errorTo.error && <div> { errorTo.error}</div> }
+
           />
         </div>
      
@@ -102,8 +143,10 @@ handleCheck(event,value)
         <div className ="col-md-8">
           <TextField
               // hintText="Hint Text"
-               floatingLabelText="Rule Description"
+               floatingLabelText="Description"
                {...ruleDesc}
+               errorText = {ruleDesc.touched &&  ruleDesc.error && <div> { ruleDesc.error}</div> }
+
           />
         </div>
   </div>
@@ -123,6 +166,7 @@ Form_ErrorDetection.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Error Detection ',        // a unique name for this form
   fields,
+  validate
   
 },
   state => ({ // mapStateToProps

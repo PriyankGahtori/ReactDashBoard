@@ -18,7 +18,36 @@ const initialValues = {
 * to be uded in future in Radio button group to be by default selected
 */               
 
+const validate = values => {
+  console.log(" value of entry type ------------>",values.entryType )
+  const errors = {}
+   
+  if (!values.name) 
+    errors.name = 'Required'
+
+   else if (values.name.length > 50) 
+    errors.name = 'Must be 50 characters or less'
+
+   if (!values.fqm) 
+    errors.fqm = 'Required'
+
+   if (!values.desc) 
+    errors.desc = 'Required'
+
+   else if (values.desc.length > 100) 
+    errors.desc = 'Must be 100 characters or less'
+    
+   if (!values.entryTypeId) 
+    errors.entryTypeId = 'Required' 
+
+  return errors
+ }
+
 const styles = {
+  error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   block: {
     maxWidth: 250,
     paddingBottom:5
@@ -83,6 +112,7 @@ handleChange(event,index,value){
             ));            
 
       return(
+        
          <DropDownMenu 
           {...entryType}
           value={this.state.value}                
@@ -178,15 +208,16 @@ handleChange(event,index,value){
 
       <div className ="col-md-4">
        {this.renderDropDown(entryTypeId)}  
-      </div>
+       <div style={styles.error}>{entryTypeId.touched && entryTypeId.error && <div>{entryTypeId.error}</div>}</div>
 
+      </div>
+         
       <div className ="col-md-4"       style={{right:25}}>
         <TextField
          hintText="Hint Text"
          floatingLabelText="Name"
          {...name}
-
-        />
+         errorText={name.touched && name.error && <div>{name.error}</div>}/>   
       </div>
 
       <div className ="col-md-4">
@@ -216,14 +247,18 @@ handleChange(event,index,value){
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Full method name"
-       // disabled={!this.state.enable}        
-      /><br/>
+       // disabled={!this.state.enable}    
+       errorText={fqm.touched && fqm.error && <div>{fqm.error}</div>}/>   
+    
+      <br/>
       <TextField
         {...desc}
         hintText="This is a for getting initial Data"
         floatingLabelText="Description"
-       // disabled={!this.state.enable}        
-      />
+       // disabled={!this.state.enable}  
+       errorText={desc.touched && desc.error && <div>{desc.error}</div>}/>   
+      
+    
 
     </div>
     </form>
@@ -241,6 +276,8 @@ Form_ServiceEntryPoints.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Service Entry Points ',                           // a unique name for this form
   fields,
+  validate,
+
   
 },
   state => ({ // mapStateToProps

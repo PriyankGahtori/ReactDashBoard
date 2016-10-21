@@ -44,6 +44,7 @@ class Form_Profile_NewProfile extends React.Component {
   }
    
 handleCheck(e,isInputChecked){
+  
   if(isInputChecked === true){
     this.setState({selectDisable:false})
   }else{

@@ -23,6 +23,7 @@ class Dialog_ErrorDetection extends React.Component {
  submitForm(data){
   console.log("data -  - ",data)
   this.props.insertErrorDetectionData(data,this.props.profileId)
+   this.handleCancel();
   }
 
   componentWillReceiveProps(nextProps)
@@ -38,7 +39,7 @@ class Dialog_ErrorDetection extends React.Component {
   
   handleSubmit(){
   this.refs.newErrorDetectionForm.submit();
-  this.handleCancel();
+ 
   }
  
   render() {
@@ -60,7 +61,7 @@ class Dialog_ErrorDetection extends React.Component {
     return (
       <div>
         <DialogErrorDetection
-          title="New Error Detection form"
+          title="New Error Detection Form"
           actions={actions}
           modal={false}
           open={this.props.errorDetection.openNewErrorDetectionDialog}

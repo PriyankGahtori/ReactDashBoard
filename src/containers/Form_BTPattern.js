@@ -14,8 +14,44 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 
 export const fields = ['btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
              
+ const validate = values=> {
+  const errors = {}
 
+  if(!values.btName) 
+     errors.btName = 'Required'
+
+  else if (values.btName.length > 50) 
+    errors.btName = "Must be 50 characters or less"
+  
+
+  if(!values.slowTransaction) 
+    errors.slowTransaction = 'Required'
+
+   else if (isNaN(values.slowTransaction))
+    errors.slowTransaction = 'Please Enter Only Numbers'
+
+   if(!values.verySlowTransaction) 
+    errors.verySlowTransaction = 'Required'
+
+   else if (isNaN(values.verySlowTransaction))
+    errors.verySlowTransaction = 'Please Enter Only Numbers'
+
+    if(!values.urlName) 
+    errors.urlName = 'Required'
+
+   else if (values.urlName.length > 300) 
+    errors.urlName = 'Must be 300 characters or less'
+
+    if(!values.matchType) 
+    errors.matchType = 'Required'
+
+  return errors
+ }
 const styles = {
+   error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   block: {
     maxWidth: 250,
     paddingBottom:5
@@ -45,15 +81,10 @@ class Form_BTPattern extends React.Component {
   }
 
 handleChange(event,index,value){  
-  console.log("event-----",event)
-  console.log("index------",index)                             
-  console.log("on handleChange----",value)
 
 }
 
   componentWillMount() {
-     console.log("state props--",this.props)
-     console.log("state--",this.state)
   }
 
 handleCheck(event,value)
@@ -72,7 +103,9 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Bussiness Transaction Name"
                {...btName}
-          />
+               errorText={btName.touched && btName.error && <div>{btName.error}</div>}/>   
+
+          
        </div>
          <div className ="col-md-4">
          <Checkbox
@@ -96,13 +129,15 @@ handleCheck(event,value)
             <MenuItem value={"Exact Match"} primaryText="Exact Match" />
             <MenuItem value={"Starts With"} primaryText="Starts With" />
           </DropDownMenu>
+          <div style={styles.error}>  {matchType.touched && matchType.error && <div>{matchType.error} </div> } </div>
+
       </div>
       <div className ="col-md-6">
          <TextField
         // hintText="Hint Text"
          floatingLabelText="URL"
          {...urlName}
-        />
+          errorText={urlName.touched && urlName.error && <div>{urlName.error}</div>}/>   
         </div>
     
      </div>
@@ -112,13 +147,15 @@ handleCheck(event,value)
          <TextField        
             {...slowTransaction}  
             floatingLabelText="Slow Transaction Threshold (ms)"
-          /> 
+            errorText={slowTransaction.touched && slowTransaction.error && <div>{slowTransaction.error}</div>}/>   
+
          </div>
          <div className="col-md-6">
            <TextField        
             {...verySlowTransaction}  
             floatingLabelText="Very Slow Transaction Threshold (ms)"
-          />  
+            errorText={verySlowTransaction.touched && verySlowTransaction.error && <div>{verySlowTransaction.error}</div>}/>   
+       
       </div>
 
 
@@ -141,7 +178,8 @@ handleCheck(event,value)
           // hintText="Hint Text"
            floatingLabelText="Request Parameter key"
            {...reqParamKey}
-          />
+         errorText={reqParamKey.touched && reqParamKey.error && <div>{reqParamKey.error}</div>}/>   
+
         </div>
         
         <div className ="col-md-4">
@@ -149,7 +187,9 @@ handleCheck(event,value)
           // hintText="Hint Text"
            floatingLabelText=" = Value"
            {...reqParamValue}
-          />
+           errorText={reqParamValue.touched && reqParamValue.error && <div>{reqParamValue.error}</div>}/>   
+
+          
         </div>
      
      </div>
@@ -182,7 +222,7 @@ handleCheck(event,value)
         // hintText="Hint Text"
          floatingLabelText="Request Header key"
          {...reqHeaderKey}
-        />
+         errorText={reqHeaderKey.touched && reqHeaderKey.error && <div>{reqHeaderKey.error}</div>}/>   
       </div>
 
       <div className ="col-md-6">
@@ -190,7 +230,7 @@ handleCheck(event,value)
         // hintText="Hint Text"
          floatingLabelText="=Value"
          {...reqHeaderValue}
-        />
+         errorText={reqHeaderValue.touched && reqHeaderValue.error && <div>{reqHeaderValue.error}</div>}/>   
       </div>
      
       </div>
@@ -211,6 +251,7 @@ Form_BTPattern.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Bussiness Transaction pattern ',        // a unique name for this form
   fields,
+  validate
   
 },
   state => ({ // mapStateToProps

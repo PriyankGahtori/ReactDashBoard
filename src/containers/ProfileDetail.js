@@ -133,9 +133,9 @@ class ProfileDetail extends React.Component {
           </div>
 
           <div className="col-md-2"  >
-            <IconButton  tooltip="Edit Profile" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+           {/*<IconButton  tooltip="Edit Profile" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton tooltip="Delete Profile" onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-           
+           */}
           </div>
        </div>
           

@@ -7,12 +7,32 @@ import {getListOfHeaders,getListOfOperators} from '../actions/index';
 
 export const fields = [ 'conditionName','fpDumpMode','htId','hmdId','cookieName','valId','optId','compValue','description']
 
+ const validate = values=> {
+  const errors = { }
 
+  if(!values.conditionName) 
+     errors.conditionName = 'Required'
+
+   else if (values.conditionName.length > 50)
+    errors.conditionName = 'Must be 50 characters or less'
+   
+   if(!values.fpDumpMode)
+      errors.fpDumpMode = 'Required'
+
+    if(!values.htId)
+      errors.htId = 'Required' 
+    
+   return errors
+  }
 
   const styles = {
     customWidth: {
       width: 300
-    }
+    },
+     error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   };
 
 class Form_HttpStatsCondition extends React.Component {
@@ -134,6 +154,8 @@ handleHeaderSelected(event, index, value){
                   hintText="Hint Text"
                   floatingLabelText="Name"
                   {...conditionName}
+                 errorText = {conditionName.touched &&  conditionName.error && <div> { conditionName.error}</div> }
+
             />
         </div>
 
@@ -147,11 +169,13 @@ handleHeaderSelected(event, index, value){
                   floatingLabelText="Select fp Dump Mode"
                   autoScrollBodyContent={true}
                 >
-                 
+
                 <MenuItem value={"0"}  primaryText={"0"}/>
                 <MenuItem value={"1"}  primaryText={"1"}/>
                 <MenuItem value={"2"}  primaryText={"2"}/>
                 </DropDownMenu>
+              <div style={styles.error}>{fpDumpMode.touched && fpDumpMode.error && <div>{fpDumpMode.error} </div> }</div>
+
         </div>
         </div>
 
@@ -173,7 +197,8 @@ handleHeaderSelected(event, index, value){
                  )) 
                 }      
                 </DropDownMenu>
-                  
+                <div style={styles.error}> {htId.touched && htId.error && <div>{htId.error} </div> }</div>
+
           </div>  
 
           {/* renderig dropdown or textfield acording to type selected in above field*/}
@@ -226,6 +251,7 @@ handleHeaderSelected(event, index, value){
                 }
                   
                 </DropDownMenu>
+
           </div>
         </div>
 
@@ -257,7 +283,8 @@ Form_HttpStatsCondition.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
  /* data:state.initialData,

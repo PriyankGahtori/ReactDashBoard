@@ -23,6 +23,7 @@ class Dialog_BTPattern extends React.Component {
 
  submitForm(data){
   this.props.addBTPatternData(data,this.props.profileId)
+  this.handleCancel();
   }
 
   componentWillReceiveProps(nextProps)
@@ -38,7 +39,7 @@ class Dialog_BTPattern extends React.Component {
   
   handleSubmit(){
   this.refs.newBTPatternForm.submit();
-  this.handleCancel();
+  
   }
  
   render() {

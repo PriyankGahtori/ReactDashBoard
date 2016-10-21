@@ -26,6 +26,7 @@ class Dialog_MethodMonitor extends React.Component {
 
  submitForm(data){
   this.props.insertMethodMonitorDetails(data,this.props.profileId)
+  this.handleCancel();
   }
 
   componentWillReceiveProps(nextProps)
@@ -42,7 +43,7 @@ class Dialog_MethodMonitor extends React.Component {
   
   handleSubmit(){
   this.refs.newMethodMonitorForm.submit();
-  this.handleCancel();
+  
   }
  
   render() {

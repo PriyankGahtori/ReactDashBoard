@@ -17,7 +17,32 @@ const initialValues = {
 * to be uded in future in Radio button group to be by default selected
 */               
 
+const validate = values => {
+  const errors = {}
+
+  if(!values.backendTypeId)
+    errors.backendTypeId =  'Required'
+  
+  if(!values.name)
+    errors.name = 'Required'
+  else if(values.name.length > 50)
+    errors.name = 'Must be 50 characters or less'
+
+   if(!values.fqm)
+    errors.fqm = 'Required'
+  
+   if(!values.desc)
+    errors.desc = 'Required'
+   else if(values.desc.length > 100)
+    errors.desc = 'Must be 100 characters or less'
+
+  return errors
+}
 const styles = {
+    error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   block: {
     maxWidth: 250,
     paddingBottom:5
@@ -167,6 +192,7 @@ handleChange(event,index,value){
 
       <div className ="col-md-4">
          {this.renderDropDown(backendTypeId)}  
+      <div style={styles.error}> {backendTypeId.touched && backendTypeId.error && <div>{backendTypeId.error}</div>}</div>
       </div>
 
       <div className ="col-md-3">
@@ -174,6 +200,8 @@ handleChange(event,index,value){
          hintText="Hint Text"
          floatingLabelText="Name"
          {...name}
+         errorText = {name.touched && name.error && <div>{name.error} </div> }
+
         />
       </div>
 
@@ -204,13 +232,18 @@ handleChange(event,index,value){
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Full method name"
-      //  disabled={!this.state.enable}        
+      //  disabled={!this.state.enable}   
+        errorText = {fqm.touched && fqm.error && <div>{fqm.error} </div> }
+
+
       /><br/>
       <TextField
         {...desc}
         hintText="This is a for getting initial Data"
         floatingLabelText="Description"
-        //disabled={!this.state.enable}        
+        //disabled={!this.state.enable} 
+       errorText = {desc.touched && desc.error && <div>{desc.error} </div> }
+       
       />
 
     </div>
@@ -227,8 +260,9 @@ Form_BackendDetection_AddNew.propTypes = {
 }
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
-  form: 'Backend Entry Points '                          // a unique name for this form
-  //fields
+  form: 'Backend Entry Points ',                        // a unique name for this form
+
+  validate,
   
 },
   state => ({ // mapStateToProps

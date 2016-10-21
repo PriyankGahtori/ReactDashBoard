@@ -15,7 +15,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
   this.state = {applicationdata:this.props.applicationdata}
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit =this.handleSubmit.bind(this);
- 
+ }
 
   componentWillReceiveProps(nextProps)
   {
@@ -27,7 +27,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
         this.setState({title : "New Application"})
     }
   }
-}
+
 
   handleCancel(){
      this.props.toggleStateDialogNewApp();

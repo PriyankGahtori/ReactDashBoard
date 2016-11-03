@@ -298,7 +298,6 @@ console.log("in activetopologydata--response---",response)
 
 //Topology Screen
 export function toggleStateDialogNewTopo(){
-  console.log("action triggered---for new topology")
   return {
     type:'TOGGLE_STATE_ADD_NEW_TOPO'
 
@@ -306,10 +305,8 @@ export function toggleStateDialogNewTopo(){
 }
 
 export function toggleStateDialogEditTopo(){
-  console.log("action triggered---for new topology")
   return {
     type:'TOGGLE_STATE_EDIT_TOPO'
-
   }
 }
 
@@ -321,9 +318,7 @@ export function toggleStateDialogEditTopo(){
 
 export function topoInitializeForm(data,dcId){
  
-  console.log("dcTopoId--",data)
   var payload={ "data":data,"dcId":dcId};
-
   return {
     type:'UPDATE_TOPO_FORM',
     payload:payload
@@ -333,53 +328,42 @@ export function topoInitializeForm(data,dcId){
 //called on submitting edit profile to topology form
 export function attachProfToTopology(data){
   
- var response = axios({
-        method: 'GET',
-        url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
-
-        }); 
- return{
-  type:'ATTACH_PROFTO_TOPO',
-  payload:response
- }
-}
+  var response = axios({
+                  method: 'GET',
+                  url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
+  }); 
+  return{
+    type:'ATTACH_PROFTO_TOPO',
+    payload:response
+   }
+  }
 
 export function addRowTopoTable(data,dcId){
-  console.log("addRowTopoTable function called--",data)
-   var response = axios({
-    method:'post',
-   
-     url : `${url.ADD_ROW_TOPOLOGY_URL}/${dcId}`,
-    data: data,
-    headers:{'Content-Type':'application/json'}
-  });
-
-  console.log("response",response)
+  
+  var response = axios({
+                    method:'post',
+                    url : `${url.ADD_ROW_TOPOLOGY_URL}/${dcId}`,
+                    data: data,
+                    headers:{'Content-Type':'application/json'}
+    });
   return {
-    type: 'TOPOLOGY_ADD_ROW',
-    payload: response
-  };
-
-
-}
+      type: 'TOPOLOGY_ADD_ROW',
+      payload: response
+    };
+  }
 /*
 * Action creators for TopologyDetail Screen
 *
 */
 
 export function fetchTopoDetailTable(){
-  console.log("fetch topo detail action called")
   //const URLTable =  "http://10.10.40.7:8050/configUI/topology";
   const URLTable = `${url.FETCH_ALL_TOPODATA}`; 
   const request_table = axios.get(URLTable);
-  console.log("request_table",request_table)
-
   return {
     type: 'FETCH_TOPODETAIL_TABLE_DATA',
     payload: request_table
   };
-
-
 }
 
 /*
@@ -391,9 +375,7 @@ export function updateToggleStateTopology(rowToggled){
    var response = axios({
         method: 'put',
         url : `${url.TOGGLE_STATE_TOPOLOGY}/${rowToggled.dcTopoId}/${rowToggled.topoState}`,
-
- });
-   console.log("response og toggling toggle button---",response)
+       });
 
    return {
     type : 'TOGGLE_STATE',
@@ -408,10 +390,8 @@ export function updateToggleStateTopology(rowToggled){
 */
 export function delTopoTableRow(selectedRowKeys){
 
-  console.log("selectedRowKeys REDUCER----",selectedRowKeys)
   selectedRowKeys.forEach(value => 
     {
-     console.log("value--",value)
      axios({
         method: 'delete',
         url : `${url.DEL_TOPO_ROW_URL}/${value}`,
@@ -432,13 +412,9 @@ export function delTopoTableRow(selectedRowKeys){
 
 export function updateStateofTableData(row){
   
-
-  console.log("updateStateofTableData");
   const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}/server`;
   //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
   const request_table = axios.get(URL);
-  console.log("request_table in fetching topotable",request_table)
-
   return {
     type: '',
     payload:request_table
@@ -452,11 +428,9 @@ export function updateStateofTableData(row){
 */
 
 export function fetchProfileDetailData(){
-  console.log("fetch topo detail action called")
+
   const URLTable =  `${url.FETCH_PROFILE_TABLEDATA}`;
   const request_table = axios.get(URLTable);
-  console.log("request_table",request_table)
-
   return {
     type: 'FETCH_PROFILEDETAIL_TABLEDATA',
     payload: request_table
@@ -474,11 +448,9 @@ export function delProfileTableRow(selectedRowKeys){
   console.log(" in delete row function ------------------------> ",selectedRowKeys)
    selectedRowKeys.forEach(value => 
     {
-     console.log(" value in action---------------> ",value)
-     console.log(" selectedRowKeys------------------>",selectedRowKeys)
      axios({
         method : 'delete',
-        url : `${url.UPDATE_PROFILE_TABLE}/${value}`,
+        url : `${url.DELETE_PROFILE_TABLE}/${value}`,
    });
 })
   
@@ -490,8 +462,6 @@ export function delProfileTableRow(selectedRowKeys){
 
 export function profileInitializeForm(data,type)
 {
-  console.log("in profileDetailInitializeForm-------data----->",data)
-  console.log("in profileDetailInitializeForm--type---------->",type)
   var profileData = {"data":data,"openProfileDialogType":type};
   return {
      type    : 'UPDATE_PROFILE',
@@ -501,34 +471,24 @@ export function profileInitializeForm(data,type)
 
 export function addRowProfileTable(data,type)
 {
-  console.log(" in actions profile----------------data--------->",data)
-  console.log(" in actions profile----------------type--------->",type)
    if(type =="edit")
    {
-        console.log("type is edit--------------------------->")
         var response = axios({
         method:'put',
-        url : `${url.DELETE_PROFILE_TABLE}/${data.id}`,
+        url : `${url.UPDATE_PROFILE_TABLE}/${data.id}`,
         data: data
-      });
-    console.log("  edit data when -submit is clicked-->",response)
-
-    return{
+  });
+  return{
       type: 'EDIT_PROFILE',
       payload: response
     }
-      
   }
- 
-   else{
-   console.log("adding console triggered-------------->")   
+  else{
     var response = axios({
     method:'post',
     url : `${url.UPDATE_PROFILE_TABLE}`,
     data: data,
-  
   });
-  console.log(" response------------------->",response)
   return{
     type: 'ADD_PROFILE',
     payload: response

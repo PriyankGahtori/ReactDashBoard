@@ -11,6 +11,7 @@ import FlatButton  from 'material-ui/FlatButton';
 import FormPutDelayInMethod from './Form_PutDelayInMethod';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogPutDelayInMethod from 'material-ui/Dialog';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
 
@@ -107,6 +108,13 @@ submitForm(formData){
 
     console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.profileId); 
+
+    //action for runtime change
+   //triggerRunTimeChanges(trData,trModeDetail,formData);
+   let keywordDataList = [];
+   keywordDataList.push("putDelayInMethod" + "=" + putDelayInMethod);   
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+
   }
 
 handleSubmitPutDelayInMethod(){
@@ -211,7 +219,9 @@ export default reduxForm({
   state => ({ // mapStateToProps
   getAllKeywordData :state.Keywords,
   initialData :state.Keywords.initializeKeywords.putDelayInMethodObj,
-  initialValues :state.Keywords.initializeKeywords.putDelayInMethodObj
+  initialValues :state.Keywords.initializeKeywords.putDelayInMethodObj,
+  trData : state.initialData.trData,
+  trModeDetail: state.trModeDetail
 }),
   
   { 

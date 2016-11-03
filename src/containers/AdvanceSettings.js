@@ -133,8 +133,8 @@ class AdvanceSettings extends React.Component {
   
     return (
       <div>
-        <PutDelayInMethod profileId = {this.props.params.profileId}/>
-        <EnableBackendMonitor profileId = {this.props.params.profileId}  />
+        <PutDelayInMethod profileId = {this.props.params.profileId} />
+        <EnableBackendMonitor profileId = {this.props.params.profileId} />
     </div>
     );
   }

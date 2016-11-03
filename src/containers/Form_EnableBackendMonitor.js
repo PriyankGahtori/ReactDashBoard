@@ -1,12 +1,7 @@
 import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import DropDownMenu from '../components/SelectFieldWrapper';
-import MenuItem from 'material-ui/MenuItem';
-
-import Input from '../components/InputWrapper';
-import TextField from 'material-ui/TextField';
 import Checkbox from '../components/CheckboxWrapper';
-import {initializeInstrProf} from '../actions/index';
 export const fields = [ 'enableBackendMonitor'];
 const initialValues = { 
                 'enableBackendMonitor' : true, 
@@ -35,10 +30,10 @@ class Form_EnablebackendMonitor extends React.Component {
   constructor(props) {
   super(props);
   console.log("in form topo-- !!!",this.props)
- 
+  this.state = { 
+                 'enableBackendMonitor'  :this.props.initialData.enableBackendMonitor === '1'
+    }
   }
-
-
 
 
 componentWillMount() {
@@ -47,9 +42,17 @@ componentWillMount() {
 
  componentWillReceiveProps(nextProps)
   {
+     if(this.props.initialData != nextProps.initialData){
+        this.setState({enableBackendMonitor:nextProps.initialData.enableBackendMonitor === '1'
+        })
+    }
   }
 
-
+ enableBackMon(event,isInputChecked){
+    console.log("isINputChecked - ",isInputChecked)
+    this.setState({enableBackendMonitor:isInputChecked})
+    console.log("enableBackendMonitor - ",this.state.enableBackendMonitor)
+  }
 
 
   render() {
@@ -59,12 +62,12 @@ componentWillMount() {
              <div className = "row" style = {styles.block}>
               
             <div className ="col-md-8">
-            <p>{this.props.enableBackendMonitorCheckBox}</p>
             <Checkbox
-                  value = "enableBackendMonitor"
-                  label = "Backend Monitor"
-                  checked  = {this.props.enableBackendMonitorCheckBox}
                   {...enableBackendMonitor}
+                  value = "backendMonitor"
+                  label = "Backend Monitor"
+                  checked  = {this.state.enableBackendMonitor}
+                  onCustomChange ={this.enableBackMon.bind(this)} 
              />
             </div>
          

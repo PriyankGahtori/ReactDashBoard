@@ -10,6 +10,8 @@ import RadioButtonGroup from '../components/RadioButtonGroupWrapper';
 import RaisedButton  from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ConfirmDialog from 'material-ui/Dialog';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
+
 
 export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthValue','exceptionType'];
 
@@ -55,7 +57,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 }
   
   handleChangeExceptionType(event,isInputChecked){
-    console.log("value - ",value)
+    console.log("isInputChecked - ",isInputChecked)
     /*this.setState({'exceptionType': value
 
           })  */
@@ -124,6 +126,15 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     console.log("finalFormData---",keywordData)
 //    this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
     this.props.submitKeywordData(keywordData,this.props.profileId); 
+
+   //action for runtime change
+   //triggerRunTimeChanges(trData,trModeDetail,formData);
+   let keywordDataList = [];
+   /*Object.keys(formData).forEach(function(key){
+       keywordDataList.push(key + "=" + formData[key]); 
+   }) */ 
+   keywordDataList.push("instrExceptions" + "=" + instrVal);   
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
   }
 
   handleChangeStackTraceValue(value)
@@ -274,7 +285,9 @@ export default reduxForm({
   state => ({ // mapStateToProps
   initialData :state.Keywords.initializeKeywords.instrExceptionObj,
   getAllKeywordData :state.Keywords,
-  initialValues :state.Keywords.initializeKeywords.instrExceptionObj
+  initialValues :state.Keywords.initializeKeywords.instrExceptionObj,
+  trData : state.initialData.trData,
+  trModeDetail: state.trModeDetail
 }),
   
   { 

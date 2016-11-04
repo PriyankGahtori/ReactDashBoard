@@ -64,58 +64,36 @@ class ApplicationDetail extends React.Component {
   }
 
  
- handleConfirm(){
-    console.log("-------------")
+handleConfirm(){
     let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
-
     if(selectedRow.length == 1)
-    {
       this.setState({open: true});
-    }
   };
 
- handleHref(row)
-  {
-    console.log("in function handleHref-in Application-",row);
+handleHref(row)
+{
     hashHistory.push(`/application/${row.id}`)
-  } 
+ } 
 
-   createConfFile()
-    {
-      console.log("inside createConfFile");
-      let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
-
-
-        if(selectedRow.length == 1)
-        {
-          console.log("selectedRow----",selectedRow)
-          console.log("this.props.appDetail.tableData---",this.props.appDetail.tableData)
-          let selectedRowData = this.props.appDetail.tableData
-                                    .filter(function(value){
-                                      return value.id === selectedRow[0]
+createConfFile(){
+  let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+   if(selectedRow.length == 1)
+   {
+    let selectedRowData = this.props.appDetail.tableData
+                                     .filter(function(value){
+                                     return value.id === selectedRow[0]
                                     });
-          console.log("selectedRowData id----",selectedRowData[0].id)
-          this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData);
-        }
+    this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData);
     }
+  }
 
-  handleClose(){
+handleClose(){
     this.setState({open: false});
   };
 
  delRow(){
     var selectedRowKeys=[];
-    console.log("del row function called")
-    console.log("calling del method---table ref--",this.refs.appTable.refs.table.state.selectedRowKeys)
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
-    console.log("selectedRowKeys--",selectedRowKeys)
-   // console.log("href-----------",selectedRowKeysObj)
-    /*selectedRowKeysObj.map(
-                          value =>{
-                          selectedRowKeys.push(value.self.href)
-                          }) */
-
-    //console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delAppTableRow(selectedRowKeys)
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();

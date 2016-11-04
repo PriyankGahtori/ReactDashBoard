@@ -116,6 +116,7 @@ class EnableBackendMonitor extends React.Component {
     console.log("handleEnableBackendMonitorDialog function callded---")
   }
 
+
   handleEnableBackendMonitor(event,isInputChecked){
     console.log("isInputChecked--handleEnableBackendMonitor CHECKBOX-",isInputChecked)
     
@@ -158,7 +159,7 @@ handleRequestClose(){
 */
 handleConfirmDisableBackendMon(){
     
-   this.submitForm(validate.disabledDebugCapturing);
+   this.submitForm(validate.disabledBackendMonitor);
    this.props.enableBackendMonitorCheckBoxStatus(false);
    this.setState({ openCnfrmDisbleDialog:false
    })
@@ -222,7 +223,7 @@ handleCancelDisableBackendMon(){
     
 
   
-const actionsDebugDisable =[
+const actionsBackendMonDisable =[
         <FlatButton
         label="Cancel"
         primary={true}
@@ -255,7 +256,7 @@ const actionsDebugDisable =[
 
     
     <DialogEnableBackendMonitor
-          title="Enable Debug Capturing"
+          title="Enable Backend Monitor"
           actions={actions}
           modal={false}
           open={this.state.openEnableBackendMonitorDialog}
@@ -274,7 +275,7 @@ const actionsDebugDisable =[
 
         <ConfirmDialog
           title="Are you sure want to disable the Backend Monitor?"
-          actions={actionsDebugDisable}
+          actions={actionsBackendMonDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
         >

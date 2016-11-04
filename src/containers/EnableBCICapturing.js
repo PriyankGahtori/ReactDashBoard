@@ -74,7 +74,7 @@ class EnableBCICapturing extends React.Component {
   super(props);
   console.log("in DCDetail.js--",this.props)
   console.log("------",validate) 
-  this.state ={enableBCIDebug:false}
+  //this.state ={enableBCIDebug:false}
   this.state = {openEnableBCICapturingDialog : false}
   console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
   this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
@@ -226,18 +226,14 @@ handleCancelDisableBCIVal(){
 
     this.props.submitKeywordData(keywordData,this.props.profileId);
   
-  //action for runtime change
-  //triggerRunTimeChanges(trData,trModeDetail,formData);
-  let keywordDataList = [];
-  Object.keys(formData).forEach(function(key){
+   //action for runtime change
+   //triggerRunTimeChanges(trData,trModeDetail,formData);
+   let keywordDataList = [];
+   Object.keys(formData).forEach(function(key){
        keywordDataList.push(key + "=" + formData[key]); 
-  })    
-  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-
-    this.props.submitKeywordData(keywordData,this.props.profileId);  
-    this.handleCancelEnableBCICapturing();
-
-
+   })    
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+   this.handleCancelEnableBCICapturing();
 }
 
 

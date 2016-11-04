@@ -813,7 +813,7 @@ export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
   }
 }
 
-export function addServiceEntryPoint(formData,profileId){
+export function addServiceEntryPoint(formData,profileId,runTimeChange){
 
   console.log("addServiceEntryPoint------in actions--",formData)
   console.log("profileId----",profileId)
@@ -824,7 +824,11 @@ export function addServiceEntryPoint(formData,profileId){
     headers:{'Content-Type':'application/json'}
   });
 
-console.log("response----adding sepss---",response)
+ //trigger runtime change once promise is resolved
+ response.then(function(data){
+  runTimeChange();
+ });
+
   return {
     type : 'ADD_NEW_SEP',
     payload : response
@@ -859,13 +863,17 @@ export function toggleGenerateFileDialog(){
 /*
 * Action creators for updating toggle button
 */
-export function updateToggleState(rowToggled){
+export function updateToggleState(rowToggled,runTimeChange){
   console.log("in actions---",rowToggled)
    var response = axios({
         method: 'put',
         url : `${url.UPDATE_TOGGLE_PROFSEPASSOC}/${rowToggled.id}/${rowToggled.enabled}`,
 
         });
+   //trigger callback function for runtime change, when promise resolves
+   response.then(function(data){    
+    runTimeChange();
+   });
    console.log("response og toggling toggle button---",response)
 
    return {
@@ -945,20 +953,26 @@ export function initializeBackendPtsEditForm(selectedRow){
   }
 }
 
-export function addNewBackendPoint(data,profileId){
+export function addNewBackendPoint(data,profileId,runTimeChange){
   var response = axios({
     method : 'post',
     url    : `${url.ADD_NEW_BACKEND_POINT}/${profileId}`,
     data   : data,
     headers: {'Content-Type':'application/json'}
   });
+
+  //trigger callback function 'runTimeChange', when promise resolves
+  response.then(function(data){
+    runTimeChange();
+  });
+
   return{
     type : 'ADD_NEW_BACKEND_POINT',
     payload : response
   }
 }
 
-export function updateBackendType(data,profileId){
+export function updateBackendType(data,profileId,runTimeChange){
   console.log("data---in index,js---",data)
   var response = axios({
     method : 'post',
@@ -967,6 +981,13 @@ export function updateBackendType(data,profileId){
     data   : data,
     headers: {'Content-Type':'application/json'}
   });
+
+  //trigger callback function 'runTimeChange', when promise resolves
+  response.then(function(data){
+  runTimeChange();
+ });
+
+
   return{
     type : 'UPDATE_BACKEND_POINT',
     payload : response

@@ -1,4 +1,4 @@
-const initialState = {homeData:null,trData:{trno:null,status:null,switch:false}}
+const initialState = {homeData:null,trData:{trno:null,status:null,switch:false},ns_wdir:null}
 export default function(state = initialState, action) {
 
   switch(action.type) {

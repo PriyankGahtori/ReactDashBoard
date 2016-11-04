@@ -16,6 +16,8 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import SepDelDialog from 'material-ui/Dialog';
 import DialogGenerateFile from './Dialog_GenerateFile';
+import CheckBox from '../components/CheckboxWrapper';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 
 var columns = {
                 "key"  : "id",
@@ -57,9 +59,41 @@ class ServiceEntryPoints extends React.Component {
   this.generateFile = this.generateFile.bind(this);
   this.handleCancel = this.handleCancel.bind(this);
   this.handleRequestClose = this.handleRequestClose.bind(this);
+  this.getProfileName = this.getProfileName.bind(this);
+  this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
+  }
+  
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+          return profileData[0].name;
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
 
   }
+  makeRunTimeChange()
+  {
 
+    if(this.props.entryPointFile === false)
+      return;
+
+    //action for runtime change
+    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+    console.info("filePath", filePath);           
+    let keywordDataList = [];
+      keywordDataList.push("NDEntryPointsFile=" + filePath ); 
+    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+  }
   onSelectRow(){
     console.log("onSelectRow----")
   }
@@ -158,7 +192,9 @@ onToggle(row){
       row.enabled = !row.enabled;
     }
     console.log("aftr toggling--row.topoState-----",row.enabled)
-    this.props.updateToggleState(row)
+    this.props.updateToggleState(row,this.makeRunTimeChange);
+    //triggering runtime changes
+    //this.makeRunTimeChange();
   }
 
   generateFile(){
@@ -183,8 +219,8 @@ onToggle(row){
       
     return (
     <div>
-       <Paper zDepth={2}>     
-      <div className='row row-no-margin tableheader'>
+       <Paper zDepth={2}>  
+        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Service Entry Points Detail(s)</h4>
           </div>
@@ -232,9 +268,13 @@ onToggle(row){
 }
 
 function mapStateToProps(state) {
-  console.log("serverData--",state.ServiceEntryPoints)
-  return {
+   return {
     ServiceEntryPoints :state.ServiceEntryPoints,
+    entryPointFile  : state.Keywords.enableNDEntryPointsFile,
+    trData : state.initialData.trData,
+    ns_wdir: state.initialData.ns_wdir,
+    homeData: state.initialData.homeData, 
+    trModeDetail: state.trModeDetail
    };
 }
 

@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import FormNewServiceEntry from './Form_ServiceEntryPoints';
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 
 
 
@@ -18,12 +19,44 @@ class Dialog_ServiceEntryPts extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state ={ServiceEntryPoints:this.props.ServiceEntryPoints};
   this.submitForm =this.submitForm.bind(this);
-  }
+  this.getProfileName = this.getProfileName.bind(this);
+  this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
+ }
 
   componentWillReceiveProps(nextProps)
   {
     if(this.props.ServiceEntryPoints != nextProps.ServiceEntryPoints)
       this.setState({ServiceEntryPoints:nextProps.ServiceEntryPoints});
+  }
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+          return profileData[0].name;
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+  }
+  makeRunTimeChange()
+  {
+    if(this.props.entryPointFile === false)
+      return;
+
+    //action for runtime change
+    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+    console.info("filePath", filePath);           
+    let keywordDataList = [];
+      keywordDataList.push("NDEntryPointsFile=" + filePath ); 
+    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
   }
 
   handleCancel(){
@@ -90,8 +123,13 @@ class Dialog_ServiceEntryPts extends React.Component {
 
    this.getDescOfSelectedEntryPoint(data)
    console.log("data ------",data)
-   this.props.addServiceEntryPoint(data,this.props.profileId)
+   /*
+    *for runtime change, send callback function 'makeRunTimeChange' to this action creator 
+   */
+   this.props.addServiceEntryPoint(data,this.props.profileId,this.makeRunTimeChange)
+   
    this.handleCancel();
+   //this.makeRunTimeChange();
   }
 
 
@@ -138,7 +176,12 @@ function mapStateToProps(state) {
   console.log("openNewDCDialog---",state.ServiceEntryPoints)
   return {
    ServiceEntryPoints :state.ServiceEntryPoints,
-   ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType
+   ListOfServiceEntryPointType : state.ServiceEntryPoints.listOfEntryType,
+   entryPointFile  : state.Keywords.enableNDEntryPointsFile,
+    trData : state.initialData.trData,
+    ns_wdir: state.initialData.ns_wdir,
+    homeData: state.initialData.homeData, 
+    trModeDetail: state.trModeDetail
    };
 }
 

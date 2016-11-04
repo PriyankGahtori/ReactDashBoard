@@ -15,7 +15,7 @@ import FormNewEndPoint from './Form_BackendDetection_AddNew';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
-
+import {triggerRunTimeChanges} from '../actions/runTimeChanges';
 
 
 /*
@@ -59,9 +59,43 @@ const NewButtonstyle = {
                   'openNewBackendPointDialog': false,
                   'backendType': 'Backends',
                   'selecteRow':{}}
-
+    this.getProfileName = this.getProfileName.bind(this);
+    this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
   }
   
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+          return profileData[0].name;
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+  }
+  makeRunTimeChange()
+  {
+
+    if(this.props.entryPointFile === false)
+      return;
+
+    //action for runtime change
+    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId); 
+    console.info("filePath", filePath);           
+    let keywordDataList = [];
+      keywordDataList.push("NDEntryPointsFile=" + filePath + "/NDEntryPointFile.txt");
+      keywordDataList.push("ndBackendNamingRulesFile=" + filePath + "/BackendNamingRule.txt" ); 
+    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+  }
+
   componentWillMount() {
     console.log("in compwilmount method---",this.props.params.profileId)
     this.props.fetchBackendTableData(this.props.params.profileId);
@@ -126,7 +160,7 @@ const NewButtonstyle = {
         data.desc = parsedObj.desc;
       }
         //calling action for updating 
-     this.props.addNewBackendPoint(data,this.props.params.profileId);
+     this.props.addNewBackendPoint(data,this.props.params.profileId,this.makeRunTimeChange);
         this.handleCloseNewendPoint();
      
 }
@@ -155,7 +189,7 @@ const NewButtonstyle = {
     
   data.lstEndPoints = endPoints;
   console.info("data---aftr splitting--",data)
-   this.props.updateBackendType(data,this.props.params.profileId)
+   this.props.updateBackendType(data,this.props.params.profileId,this.makeRunTimeChange)
    
     
   }
@@ -279,7 +313,12 @@ const NewButtonstyle = {
 function mapStateToProps(state) {
   console.log("backEndDetection---",state.backEndDetection.tableData)
   return {
-    backEndDetection :state.backEndDetection
+    backEndDetection :state.backEndDetection,
+    entryPointFile  : state.Keywords.enableNDEntryPointsFile,
+    trData : state.initialData.trData,
+    ns_wdir: state.initialData.ns_wdir,
+    homeData: state.initialData.homeData, 
+    trModeDetail: state.trModeDetail
    };
 }
 

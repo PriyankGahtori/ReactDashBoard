@@ -9,7 +9,8 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableDebugCheckBox :false,
 					enableBackendMonitorCheckBox :false,
 					listOfXmlFilesInstr :[],
-					uploadTopology :null
+					uploadTopology :null,
+					enableNDEntryPointsFile :false,
 					}
 
 
@@ -91,6 +92,8 @@ switch(action.type){
 	   	newState.enableDebugCheckBox = !validate.validateDebugKeywords(action.payload.data);
 
 	   	newState.enableBackendMonitorCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
+
+	   	newState.enableNDEntryPointsFile = (action.payload.data.NDEntryPointsFile.value === 'true');
 
 		console.log("newState.initializeKeywords---",newState.initializeKeywords)
 	return newState;

@@ -183,12 +183,15 @@ handleCancelDisableBCIVal(){
 }
 
   submitForm(formData){
-    console.log("submitForm----",formData)
-   
+
+    //form data contains, only keywords of this group i.e HotspotCapturing  
+
+    console.log("submitForm----",formData)   
     console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
     console.log("data---general keywords--",formData)
     console.log("profileId--",this.props.profileId)
 
+    //clone all keywords data and modify keywords of HOTSPOT Capturing
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
     console.log("keywordData--",keywordData)
@@ -198,7 +201,9 @@ handleCancelDisableBCIVal(){
     * Final data object contains all the keywords  .
     */
 
+    //iterate over keywords passed by form i.e HotspotCapturing keywords 
     let finalFormData = _.forEach(formData,function(value,key){
+      //change true --> 1 and false --> 0
       if(value === "true" ||  value === true){
         value = "1" ;
       }
@@ -206,6 +211,8 @@ handleCancelDisableBCIVal(){
         value = "0" ;
       }
       console.log("value for boolean values---",value)
+
+      //update HotspotCapturing Keyword's ('keywordData' contains all available keywords)
        keywordData[key]["value"] = String(value); 
       
     }) ;
@@ -277,18 +284,16 @@ handleCancelDisableBCIVal(){
       <div className = "row" style={{paddingBottom:15}}>
         <div className = "col-md-3">
          <Checkbox
-                  value = "enableHotSpotCapturing"
-                  label = "Enable HotSpot Capturing"
-                 
-                  checked  = {this.state.hotSpotCapturingCheckBox}
-                  onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)}
-                              
-              />
-          </div>
-          <div>
-    <FlatButton disabled ={!this.state.hotSpotCapturingCheckBox} onClick ={this.enableHotSpotCapturingDialog.bind(this)} label="Advanced Settings" />
-     </div>
-    </div>
+          value = "enableHotSpotCapturing"
+          label = "Enable HotSpot Capturing"                 
+          checked  = {this.state.hotSpotCapturingCheckBox}
+          onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)}                              
+          />
+        </div>
+        <div>
+          <FlatButton disabled ={!this.state.hotSpotCapturingCheckBox} onClick ={this.enableHotSpotCapturingDialog.bind(this)} label="Advanced Settings" />
+        </div>
+      </div>
 
    <DialogEnableHotSpotCapturing
      title="Enable HotSpot Capturing"

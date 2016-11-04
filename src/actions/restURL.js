@@ -1,5 +1,7 @@
 // const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+//const  SERVICE_URL = 'http://10.10.40.11:8090/configUI';
+//const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
 const SERVICE_URL = '/configUI';
@@ -32,7 +34,7 @@ export const TOGGLE_STATE_TOPOLOGY = `${SERVICE_URL}/custom/topology`;
 
 /* Url for Profiles */
 export const FETCH_PROFILE_TABLEDATA = `${SERVICE_URL}/profiles`
-export const DELETE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
+//export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/profiles`
 export const UPDATE_PROFILE_TABLE = ` ${SERVICE_URL}/custom/profile`
 
 /* Url for Tier */
@@ -105,5 +107,12 @@ export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/lis
 export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
 export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
+
+
+/*URL for RUNTIME changes*/
+export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;
+export const RUNTIME_CHANGE_TIER = `${SERVICE_URL}/custom/runtimechange/tier`;
+export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server`;
+export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
 
 

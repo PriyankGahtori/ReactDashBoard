@@ -25,6 +25,7 @@ import EnableBCICapturing from './EnableBCICapturing';
 import EnableHotSpotCapturing from './EnableHotSpotCapturing';
 import EnableDebugCapturing from './EnableDebugLevelCapturing';
 import InstrException from './InstrExceptionKeyword';
+import EnableServiceEntryPoints from './EnableServiceEntryPoints';
 
 const styles = {
   text: {
@@ -146,6 +147,7 @@ class GeneralKeywords extends React.Component {
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         <InstrException profileId = {this.props.params.profileId}  />
+        <EnableServiceEntryPoints />
     </div>
     );
   }

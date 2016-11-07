@@ -1,3 +1,4 @@
+//Importing React components
 //require('../styles/breadcrumb.css');
 require('../styles/custom.css');
 import React from 'react';
@@ -13,14 +14,16 @@ import FontIcon from 'material-ui/FontIcon';
 import {red500, yellow500, blue500} from 'material-ui/styles/colors';
 import { Link } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import Tree from '../containers/Tree';
 import Breadcrumbs from 'react-breadcrumbs';
-import DropDownAppList from '../containers/DropDownAppList';
 import SettingsDialog from 'material-ui/Dialog';
-import Dialog_Setting from '../containers/Dialog_Settings';
 import FlatButton from 'material-ui/FlatButton';
 import {hashHistory } from 'react-router';
-import TRToggle from '../containers/TRToggle';
+
+//Importing files
+import Tree from '../containers/tree/Tree';
+import DropDownAppList from '../containers/DropDownAppList';
+import Dialog_Setting from '../containers/settings/Dialog_Settings';
+import TRToggle from '../containers/settings/TRToggle';
 injectTapEventPlugin();
 
 const headerStyle = {

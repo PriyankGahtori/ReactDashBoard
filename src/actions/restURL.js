@@ -1,10 +1,10 @@
 // const SERVICE_URL = 'http://localhost:8090';
-//const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.11:8090/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+// const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;

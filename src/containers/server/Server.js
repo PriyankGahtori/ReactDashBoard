@@ -54,6 +54,7 @@ class Server extends React.Component {
   this.handleClick = this.handleClick.bind(this);
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
+  this.loader = this.loader.bind(this);
   }
 
   onSelectRow(){
@@ -128,20 +129,16 @@ class Server extends React.Component {
     * triggerring an action to fetch server table data
     *   here node.id is dc_id  
     */
-    console.log("this.props.tierData.tableData---",this.props.tierData.tableData)
     var tierId = this.props.params.tierId;
-    console.log("tierId----",tierId)
     var tier = this.props.tierData.tableData.filter(function(value){
-      console.log("value---",value)
-      console.log("value.tierId === tierId---",value.tierId == tierId)
                       return value.tierId == tierId ;
                   })
-    console.log("tier in server componet--",tier[0])
-     this.props.fetchServerTableData(this.props.params.tierId,tier[0]);
+    var msg = "Loading Server  data";
+    this.props.triggerLoader(true, msg)
+    this.props.fetchServerTableData(this.props.params.tierId,tier[0],this.loader);
   }
 
-  componentWillReceiveProps(nextProps)
-  {
+  componentWillReceiveProps(nextProps){
     /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
      * for new DC  selected.
      */
@@ -165,6 +162,16 @@ class Server extends React.Component {
       this.setState({serverData:nextProps.serverData});
     }
 }
+  
+
+  /* function to trigger event for loading progess bar 
+  * called when request for fetching server data is sent
+  */
+
+  loader(){
+   var message = {'title':'Server data loaded', 'msg' : ''}
+   this.props.triggerLoader(false,message);
+  }
   
 
   render() {

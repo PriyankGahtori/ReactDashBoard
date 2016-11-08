@@ -28,6 +28,9 @@ import MethodMonitor from './reducer_MethodMonitor';
 import ErrorDetection from './reducer_ErrorDetection';
 import TRModeDetail from './reducer_TRMode_detail';
 import HttpStatsData from './reducer_HttpStatsCond';
+import Loader from './reducer_Loader';
+
+
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -53,7 +56,8 @@ module.exports = combineReducers({
 	methodMonitor     : MethodMonitor,
 	errorDetection    : ErrorDetection,
 	trModeDetail 	  : TRModeDetail,	
-	httpStatsData     : HttpStatsData
+	httpStatsData     : HttpStatsData,
+	loader            : Loader
 });
 
 //const reducers = {addInitialAppData};

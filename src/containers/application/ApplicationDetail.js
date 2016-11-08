@@ -46,7 +46,9 @@ const NewButtonstyle = {
     position: 'fixed'
 
 };
-
+const toastrCss = {
+  wordWrap : 'break-word' 
+}
 
 
 class ApplicationDetail extends React.Component {
@@ -63,6 +65,7 @@ class ApplicationDetail extends React.Component {
   this.handleClose = this.handleClose.bind(this);
   this.state = {open:false, openSnack:false};
   this.createConfFile = this.createConfFile.bind(this);
+  this.loader = this.loader.bind(this);
   }
 
  
@@ -85,7 +88,10 @@ createConfFile(){
                                      .filter(function(value){
                                      return value.id === selectedRow[0]
                                     });
-    this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData);
+    //triggering action to display Loader
+    var message = {'title' :'Generating nd.conf' ,'msg':''};
+    this.props.triggerLoader(true , message)
+    this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData,this.loader);
     }
   }
 
@@ -158,10 +164,17 @@ handleClose(){
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("in componentWillReceiveProps--",nextProps.appDetail)
-     console.log("in componentWillReceiveProps--",this.props.appDetail)
     if(this.props.appDetail.tableData != nextProps.appDetail.tableData)
       this.setState({appDetail:nextProps.appDetail.tableData});
+  }
+
+  /* function to trigger event for closing loader 
+   * called when response for request of generating nd.conf is received
+   */
+
+  loader(path){
+    var message = {'title':'Nd.conf generated at:', 'msg' :<p style={{wordWrap:'break-word'}}>{path}</p>}
+    this.props.triggerLoader(false,message);
   }
 
   render() {
@@ -188,7 +201,7 @@ handleClose(){
           </div>
 
           <div className="col-md-2"  >
-          <IconButton  tooltip="Create ndSettings.txt " onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
+          <IconButton  tooltip="Create nd.conf " onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
             <IconButton  tooltip="Edit Application" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton tooltip="Delete Application" onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           </div>

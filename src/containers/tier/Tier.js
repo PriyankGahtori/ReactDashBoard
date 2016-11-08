@@ -54,6 +54,7 @@ class Tier extends React.Component {
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
   this.onSelectRow=this.onSelectRow.bind(this);
+  this.loader = this.loader.bind(this);
   }
 
   onSelectRow(){
@@ -130,14 +131,13 @@ class Tier extends React.Component {
     * triggerring an action to fetch topology table data
     *   here node.id is dc_id  
     */
-    console.log("tier component loaded---")
-    console.log("in component will mount---",this.props.topologyData)
     var topoId = this.props.params.topoId;
     var topology = this.props.topologyData.tableData.filter(function(value){
                       return value.topoId === topoId ;
                   })
-     console.log("in mount methos--",this.props.params.topoId)
-    this.props.fetchTierTableData(this.props.params.topoId,topology[0]);
+    var msg = "Loading tier  data";
+    this.props.triggerLoader(true , msg)
+    this.props.fetchTierTableData(this.props.params.topoId,topology[0],this.loader)
   
 
    
@@ -148,14 +148,12 @@ class Tier extends React.Component {
     /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
      * for new DC  selected.
      */
-     console.log("nextProps---")
      if(this.props.params.topoId!= nextProps.params.topoId){
      var topoId = nextProps.params.topoId;
       var topology = nextProps.topologyData.tableData.filter(function(value){
                       return value.topoId === topoId ;
                   })
-     console.log("in mount methos--",nextProps.params.topoId)
-    this.props.fetchTierTableData(nextProps.params.topoId,topology[0]);
+     this.props.fetchTierTableData(nextProps.params.topoId,topology[0]);
   
   }
 
@@ -164,6 +162,14 @@ class Tier extends React.Component {
     }
 
   
+  }
+
+  /* function to trigger event for closing progressBar  
+  * called when request for fetching tier data is sent
+  */
+  loader(){
+   var message = {'title':'Tier data loaded', 'msg' : ''}
+   this.props.triggerLoader(false,message);
   }
 
   render() {

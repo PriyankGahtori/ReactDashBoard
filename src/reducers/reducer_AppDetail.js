@@ -1,7 +1,8 @@
 const initialState = {tableData:[],
                      openNewAppDialog:false,  //initializing varia
                      appDetailInitializeForm:null,
-                     openAppDialogType:null
+                     openAppDialogType:null,
+                     ndConfPath:null
                    };
 
 export default function(state = initialState, action) {
@@ -36,11 +37,12 @@ export default function(state = initialState, action) {
     return newState;
 
   case 'GENERATE_ND_CONF_REDU':
-    console.log("inside nd conf reducer");
-    var newState = Object.assign({}, state);
-    newState=action.payload.data;
+    console.log("inside nd conf reducer--",action.payload);
+    var newState        = Object.assign({}, state);
+    newState.ndConfPath = action.payload.data[0];
+    console.log("newState.ndConfPath--",newState.ndConfPath)
     return newState;
-    
+      
   case 'DEL_APPTABLE_ROW':
     var newState = Object.assign({}, state);
     console.log("line no 23---",action)
@@ -55,13 +57,10 @@ export default function(state = initialState, action) {
   case 'ADD_ROW_APPTABLE':
     console.log("inside ADD_ROW_TABLE case-application reducer--action.payload.data",action.payload.data);
     var newState = Object.assign({}, state);
-    action.payload.data.id=action.payload.data.appId;
-    console.log(" add  row in application table ---newState.tableData------->", newState.tableData)
-    console.log("Add  row in app table --->action.payload.data ----- ",action.payload.data)
-    console.log("aftr adding link in application adding row reducer--",action.payload.data)
-    newState.tableData.push(action.payload.data);
-
-    console.log("newState---",newState)
+    var data =  action.payload.data ;
+    data.id=action.payload.data.appId;
+    data.appName = {"href" : action.payload.data.appName}
+    newState.tableData.push(data);
     return newState;
 
   case 'UPDATE_APP_FORM' :

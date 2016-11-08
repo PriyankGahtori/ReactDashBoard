@@ -1,3 +1,4 @@
+
 //Importing React components
 import React from 'react';
 import { connect } from 'react-redux';
@@ -7,24 +8,38 @@ import { bindActionCreators } from 'redux';
 import  {activeData} from '../../actions/index';
 import * as actionCreators  from '../../actions/index';
 import CardComponent from '../../components/CardComponent'
-import {fetchInitData} from '../../actions/index'
+
+
 
  class Home extends React.Component {
  
   constructor(props) {
 	 super(props);
-  this.state = {homeData: this.props.homeData};
+   this.state = {homeData: this.props.homeData};
+   this.loader = this.loader.bind(this);
    }
 
 componentWillMount() {
-  this.props.fetchInitData()
+  
+  this.props.triggerLoader(true, null)
+  this.props.fetchInitData(this.loader)
+
 }
 
-componentWillReceiveProps(nextProps)
-{
+componentWillReceiveProps(nextProps){
 	if(this.props.homeData != nextProps.homeData)
 		this.setState({homeData:nextProps.homeData});
 }
+ 
+ /*function to trigger event for closing loading progess bar 
+  * called when request for fetching home data is sent
+  */
+
+  loader(){
+   var message = {'title':'home data loaded', 'msg' : ''};
+   this.props.triggerLoader(false,message)
+ }
+
 
   render() {
   	//At initial loading of GUI if homeData is null displays msg of  "Loading"
@@ -44,10 +59,9 @@ componentWillReceiveProps(nextProps)
 
 //receiving data from state set by reducers
 function mapStateToProps(state) {
-  console.log("state.initialData------",state.initialData)
   return {
-   list : state.list,
-   homeData :state.initialData.homeData
+   list     : state.list,
+   homeData : state.initialData.homeData
    };
 }
 

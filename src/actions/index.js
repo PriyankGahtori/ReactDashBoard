@@ -11,15 +11,21 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 *  Action Creators for fetching home Screen Data
 */
 
-export function fetchInitData() {
+export function fetchInitData(loader) {
   
   console.log("url.HOME_URL - ",url)
-  const request = axios.get(url.HOME_SCREEN_URL);
-  console.log("Action ajax.................",request);
+  const response = axios.get(url.HOME_SCREEN_URL);
+
+//trigger action for loading progressBar change once promise is resolved
+ response.then(function(data){
+  console.log("calling log function")
+  loader();
+ });
+
 
   return {
     type: FETCH_INIT_DATA,
-    payload:request
+    payload:response
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
@@ -260,21 +266,22 @@ export function appDetailInitializeForm(data,openAppDialogType){
 /*
 *   Action Creators for Topology Screen
 *   
-*
-
 */
 
 // fetching data for the table Topology screens loads
-export function fetchTopologyTableData(dcId){
+export function fetchTopologyTableData(dcId,loader){
   console.log("fetchTopologyTableData action called");
   const URL =  `${url.FETCH_TOPO_TABLE_URL}/${dcId}`;
-  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
-  const request_table = axios.get(URL);
-  console.log("request_table in fetching topotable",request_table)
+  const response = axios.get(URL);
+
+//trigger action for loading progressBar change once promise is resolved
+ response.then(function(data){
+  loader();
+ });
 
   return {
     type: 'FETCH_TOPOlOGYTABLE_DATA',
-    payload:request_table
+    payload:response
   };
 }
 
@@ -517,7 +524,7 @@ console.log("in activetopologydata--response---",response)
 
 }
 
-export function fetchTierTableData(topoId,topology){
+export function fetchTierTableData(topoId,topology,loader){
   console.log("fetchTierTableData action called-topology-",topology);
  
   
@@ -528,8 +535,13 @@ export function fetchTierTableData(topoId,topology){
     headers:{'Content-Type':'application/json'}
   
   });
+
+//trigger action for loading progressBar change once promise is resolved
+ response.then(function(data){
+  console.log("calling log function")
+  loader();
+ });
  
-  console.log("request_table in fetching topotable",response)
   return {
     type: 'FETCH_TIER_TABLE_DATA',
     payload:response
@@ -595,12 +607,9 @@ console.log("in activetopologydata--response---",response)
 }
 
 
-export function fetchServerTableData(tierId,tier){
+export function fetchServerTableData(tierId,tier,loader){
 
-  console.log("fetchTierTableData action called---",tier);
   const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}`;
-  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
- 
   
   var response = axios({
     method:'post',
@@ -609,8 +618,12 @@ export function fetchServerTableData(tierId,tier){
     headers:{'Content-Type':'application/json'}
   
   });
- 
- console.log("fetching srver---",response)
+
+ //trigger action for loading progressBar change once promise is resolved
+  response.then(function(data){
+    loader();
+   });
+   
   return {
     type: 'FETCH_SERVER_TABLE_DATA',
     payload:response
@@ -652,17 +665,7 @@ export function attachProfToServer(data){
   Action creators for Instance screen
 */
 
-export function fetchInstanceTableData(serverId,server){
-  console.log("fetchInstanceTableData action called");
-
-  /*const URL =  `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}/instance`;
-  const response = axios.get(URL);
-  console.log("request_table in fetching topotable",response)
-*/
-
-  console.log("fetchTierTableData action called---",server);
- 
-  //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
+export function fetchInstanceTableData(serverId,server,loader){
  
   var response = axios({
     method:'post',
@@ -671,6 +674,11 @@ export function fetchInstanceTableData(serverId,server){
     headers:{'Content-Type':'application/json'}
   
   });
+
+//trigger action for loading progressBar change once promise is resolved
+  response.then(function(data){
+    loader();
+   });
 
   return {
     type: 'FETCH_INSTANCE_TABLE_DATA',
@@ -1003,17 +1011,20 @@ export function toggleStateAddBTPattern(){
 
 /* Action creators for generating the nd.conf file */
 
- export function createConfFile(appId,Keyword)
+ export function createConfFile(appId,Keyword,loader)
  {
-  console.log("inside index.js createConfFile");
   const URL = `${url.GENERATE_ND_CONF}/${appId}`;
-  console.log("URL - ",URL);
-  const request = axios.get(URL);
-  console.log("Action ajax.................",request);
+  const response = axios.get(URL);
+
+  //trigger action for loading progressBar change once promise is resolved
+  response.then(function(data){
+   console.info("data-- ",  data.data[0])
+   loader( data.data[0]);
+ });
 
   return {
     type: 'GENERATE_ND_CONF_REDU',
-    payload:request
+    payload:response
   };
  }
 
@@ -1363,8 +1374,22 @@ export function addHttpStatsCond(data,profileId){
     headers:{'Content-Type':'application/json'}
   });
   return{
-    type:'ADD_HTTP_STATS_COND',
-    payload:response
+    type    : 'ADD_HTTP_STATS_COND',
+    payload : response
   }  
 
+}
+
+
+/*
+*  Action creators for Loader
+*/
+
+export function triggerLoader(show ,message){
+
+var data = {show : show , message : message}
+return{
+  type    : 'LOAD_PROGRESSBAR',
+  payload :data
+}
 }

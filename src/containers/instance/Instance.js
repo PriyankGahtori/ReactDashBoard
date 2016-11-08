@@ -55,6 +55,7 @@ class Instance extends React.Component {
   this.handleClick = this.handleClick.bind(this);
   this.state = {instanceData:this.props.instanceData};
   this.onSelectRow=this.onSelectRow.bind(this);
+  this.loader = this.loader.bind(this);
   }
 
    handleHref(row)
@@ -112,16 +113,13 @@ class Instance extends React.Component {
   }
 
   componentWillMount() {
-    console.log("this.props.tierData.tableData---",this.props.serverData.tableData)
     var serverId = this.props.params.serverId;
-    console.log("serverId----",serverId)
     var server = this.props.serverData.tableData.filter(function(value){
-      console.log("value---",value)
-      console.log("value.serverId === serverId---",value.serverId == serverId)
                       return value.serverId == serverId ;
                   })
-    console.log("tier in server componet--",server[0])
-    this.props.fetchInstanceTableData(this.props.params.serverId,server[0]);
+    var msg = "Loading Instance  data";
+    this.props.triggerLoader(true , msg)
+    this.props.fetchInstanceTableData(this.props.params.serverId,server[0],this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -129,17 +127,11 @@ class Instance extends React.Component {
     /*called when another tree node is selected and to trigger the action "fetchInstanceTableData"  
      * for new DC  selected.
      */
-     console.log("nextProps---")
-     if(this.props.params.serverId!= nextProps.params.serverId){
-
+    if(this.props.params.serverId!= nextProps.params.serverId){
     var serverId = nextProps.params.serverId;
-    console.log("serverId--nextprops--",serverId)
     var server = nextProps.serverData.tableData.filter(function(value){
-      console.log("value---",value)
-      console.log("value.serverId === serverId---",value.serverId == serverId)
                       return value.serverId == serverId ;
                   })
-    console.log("tier in server componet--",server[0])
     this.props.fetchInstanceTableData(nextProps.params.serverId,server[0]);
     }
   
@@ -147,7 +139,14 @@ class Instance extends React.Component {
       this.setState({instanceData:nextProps.instanceData});
     }
 }
-  
+  /* function to trigger event for loading progess bar 
+  * called aftr receiving response for fetching instance data
+  */
+
+  loader(){
+    var msg = "Instance data loaded ";
+    this.props.triggerLoader(false,msg);
+  }
 
   render() {
       

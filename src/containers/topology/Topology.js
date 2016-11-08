@@ -54,11 +54,12 @@ class Topology extends React.Component {
   this.handleClick = this.handleClick.bind(this);
   this.state = {topologyData:this.props.topologyData};
   this.onSelectRow=this.onSelectRow.bind(this);
+  this.loader = this.loader.bind(this);
   }
 
   onSelectRow(){
     console.log("onSelectRow----")
-  }
+ }
   
   handleHref(row){
     hashHistory.push(`${this.props.location.pathname}/topology/${row.topoId}/configuration/${row.profileId}`)
@@ -113,8 +114,9 @@ class Topology extends React.Component {
     * triggerring an action to fetch topology table data
     *   here node.id is dc_id  
     */
-  
-     this.props.fetchTopologyTableData(this.props.params.dcId);
+     var message = {'title':'', 'msg' : 'Loading topology Screen data'}
+     this.props.triggerLoader(true, message)
+     this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
    
   }
 
@@ -131,6 +133,15 @@ class Topology extends React.Component {
       this.setState({topologyData:nextProps.topologyData});
     }
   }
+
+ /* function to trigger event for loading progess bar 
+  * called when request for fetching home data is sent
+  */
+ loader(){
+   var message = {'title':'Topology data loaded', 'msg' : ''}
+   this.props.triggerLoader(false,message);
+}
+
 
   render() {
     return (

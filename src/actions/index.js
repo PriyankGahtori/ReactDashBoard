@@ -1114,10 +1114,6 @@ export function enableHotSpotCheckBoxStatus(flag){
   }
 }
 
-
-
-
-
 export function setDefValHotSpotCapturingKeywords(){
   return{
     type : 'SET_DEFAULT_HOTSPOTKEYWORDS'
@@ -1161,7 +1157,7 @@ export function setDefValDebugCapturingKeywords() {
 }
 
 /*
-* function for Debug Level Capturing keywords 
+* function for Backend Monitor keywords 
 */
 export function enableBackendMonitorCheckBoxStatus(flag){
   return{
@@ -1173,6 +1169,23 @@ export function enableBackendMonitorCheckBoxStatus(flag){
 export function setDefValBackendMonitorKeywords() {
   return{
     type : 'SET_DEFAULT_BACKEND_MONITOR_KEYWORDS'
+
+  }
+}
+
+/*
+* function for Monitor keywords 
+*/
+export function enableMonitorsCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_MONITORS_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValMonitorsKeywords() {
+  return{
+    type : 'SET_DEFAULT_MONITORS_KEYWORDS'
 
   }
 }

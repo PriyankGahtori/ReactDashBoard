@@ -36,7 +36,7 @@ componentWillReceiveProps(nextProps){
   */
 
   loader(){
-   var message = {'title':'home data loaded', 'msg' : ''};
+   var message = {'title':'Home data loaded', 'msg' : ''};
    this.props.triggerLoader(false,message)
  }
 

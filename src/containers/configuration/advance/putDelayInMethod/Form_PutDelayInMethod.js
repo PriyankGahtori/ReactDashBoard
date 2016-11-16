@@ -80,8 +80,10 @@ class Form_PutDelayInMethod extends React.Component {
                   {...toRange}
                 />
 	    		</div>
+          </div>
+          
           <div className = "row">
-  	    		<div className = "col-md-12">
+  	    		<div className = "col-md-6">
   	    		<TextField
                     hintText="Hint Text"
                     floatingLabelText="Method full name"
@@ -89,7 +91,7 @@ class Form_PutDelayInMethod extends React.Component {
                   />
   	   	 		</div>
   	    	</div>
-          </div>
+
     		
     		<div className = "row">
 	    		<div className = "col-md-6">

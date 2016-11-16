@@ -20,6 +20,7 @@ import * as actionCreators  from '../../../actions/index';
 import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
 import PutDelayInMethod from './PutDelayInMethod/PutDelayInMethod'
 import EnableBackendMonitor from './backendMonitor/EnableBackendMonitor';
+import GenExceptionInMethod from './genExcptInMethod/GenExceptInMethod';
 
 const styles = {
   text: {
@@ -133,6 +134,7 @@ class AdvanceSettings extends React.Component {
       <div>
         <PutDelayInMethod profileId = {this.props.params.profileId} />
         <EnableBackendMonitor profileId = {this.props.params.profileId} />
+        <GenExceptionInMethod profileId = {this.props.params.profileId}/>
     </div>
     );
   }

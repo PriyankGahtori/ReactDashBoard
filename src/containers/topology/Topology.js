@@ -111,24 +111,17 @@ class Topology extends React.Component {
   componentWillMount() {
     
     /*
-    * triggerring an action to fetch topology table data
+    *   triggerring an action to fetch topology table data
     *   here node.id is dc_id  
     */
-     var message = {'title':'', 'msg' : 'Loading topology Screen data'}
+   //  var message = {'title':'', 'msg' : 'Loading topology Screen data'}
+     var message = null ;
      this.props.triggerLoader(true, message)
      this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
-   
   }
 
   componentWillReceiveProps(nextProps)
   {
-    /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
-     * for new DC  selected.
-     */
-   if(this.props.params.dcId!= nextProps.params.dcId){
-        this.props.fetchTopologyTableData(nextProps.params.dcId);
-    }
-  
     if(this.props.topologyData != nextProps.topologyData){
       this.setState({topologyData:nextProps.topologyData});
     }
@@ -138,6 +131,7 @@ class Topology extends React.Component {
   * called when request for fetching home data is sent
   */
  loader(){
+  console.log("topology loader function called")
    var message = {'title':'Topology data loaded', 'msg' : ''}
    this.props.triggerLoader(false,message);
 }

@@ -117,35 +117,25 @@ class Instance extends React.Component {
     var server = this.props.serverData.tableData.filter(function(value){
                       return value.serverId == serverId ;
                   })
-    var msg = "Loading Instance  data";
-    this.props.triggerLoader(true , msg)
+    var message = null;
+    this.props.triggerLoader(true , message)
     this.props.fetchInstanceTableData(this.props.params.serverId,server[0],this.loader);
   }
 
   componentWillReceiveProps(nextProps)
   {
-    /*called when another tree node is selected and to trigger the action "fetchInstanceTableData"  
-     * for new DC  selected.
-     */
-    if(this.props.params.serverId!= nextProps.params.serverId){
-    var serverId = nextProps.params.serverId;
-    var server = nextProps.serverData.tableData.filter(function(value){
-                      return value.serverId == serverId ;
-                  })
-    this.props.fetchInstanceTableData(nextProps.params.serverId,server[0]);
-    }
-  
     if(this.props.instanceData != nextProps.instanceData){
       this.setState({instanceData:nextProps.instanceData});
     }
-}
+  }
+  
   /* function to trigger event for loading progess bar 
   * called aftr receiving response for fetching instance data
   */
 
   loader(){
-    var msg = "Instance data loaded ";
-    this.props.triggerLoader(false,msg);
+   var message = {'title':'Instance data loaded', 'msg' : ''}
+    this.props.triggerLoader(false,message);
   }
 
   render() {

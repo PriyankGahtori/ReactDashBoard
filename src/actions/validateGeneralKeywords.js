@@ -37,6 +37,9 @@ export function validateMonitorKeywords(data){
   return  data.enableBTMonitor.value === "0"; 
       }
 
+export function validateExcptKeywords(data){
+  return data.InstrException.value === "0"
+}
 
 export function setDefaultValuesBCICapturing(data){ 
 
@@ -86,6 +89,15 @@ export function setDefaultValuesMonitor(data){
   return defaultKeywordData;
 }
 
+export function setDefaultValuesExcptCapturing(data){
+  var defaultKeywordData = { "instrExceptions" : data.instrExceptions.defaultValue
+                            }
+  return defaultKeywordData ;
+}
+
+export const disabledExcptCapturing = {
+                                    "instrExceptions" : "0"
+}
 
 export const disabledBCICapturing = {
                                       "bciInstrSessionPct" : "0", 

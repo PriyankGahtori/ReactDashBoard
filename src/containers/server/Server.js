@@ -133,8 +133,8 @@ class Server extends React.Component {
     var tier = this.props.tierData.tableData.filter(function(value){
                       return value.tierId == tierId ;
                   })
-    var msg = "Loading Server  data";
-    this.props.triggerLoader(true, msg)
+    var message = null;
+    this.props.triggerLoader(true, message)
     this.props.fetchServerTableData(this.props.params.tierId,tier[0],this.loader);
   }
 
@@ -142,18 +142,12 @@ class Server extends React.Component {
     /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
      * for new DC  selected.
      */
-     console.log("nextProps---")
       if(this.props.params.tierId!= nextProps.params.tierId){
       
       var tierId = nextProps.params.tierId;
-      console.log("nextProps.params.tierId---",nextProps.params.tierId)
-      console.log("tierId----",tierId)
       var tier = nextProps.tierData.tableData.filter(function(value){
-        console.log("value---",value)
-        console.log("value.tierId === tierId---",value.tierId == tierId)
                       return value.tierId == tierId ;
                   })
-    console.log("tier in server componet--",tier[0])
      this.props.fetchServerTableData(nextProps.params.tierId,tier[0]);
     }
   

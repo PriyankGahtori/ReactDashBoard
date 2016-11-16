@@ -276,6 +276,7 @@ export function fetchTopologyTableData(dcId,loader){
 
 //trigger action for loading progressBar change once promise is resolved
  response.then(function(data){
+  console.log("calling topology loader")
   loader();
  });
 
@@ -1018,8 +1019,7 @@ export function toggleStateAddBTPattern(){
 
   //trigger action for loading progressBar change once promise is resolved
   response.then(function(data){
-   console.info("data-- ",  data.data[0])
-   loader( data.data[0]);
+     loader(data.data[0]);
  });
 
   return {
@@ -1030,7 +1030,9 @@ export function toggleStateAddBTPattern(){
 
  /*
   * Action creators for General keywords screen
+  * 
  */
+ //function for getting keywords data when general keywords screen gets loaded
 export function getKeywordsData(profileId){
 
   const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
@@ -1113,6 +1115,15 @@ export function enableHotSpotCheckBoxStatus(flag){
 
   }
 }
+
+export function enableExcptCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_EXCPT_CHECKBOX',
+    payload:flag
+
+  }
+}
+
 
 
 
@@ -1382,7 +1393,7 @@ export function addHttpStatsCond(data,profileId){
 
 
 /*
-*  Action creators for Loader
+*  Action creatrors for Loader
 */
 
 export function triggerLoader(show ,message){
@@ -1392,4 +1403,12 @@ return{
   type    : 'LOAD_PROGRESSBAR',
   payload :data
 }
+}
+
+
+export function genExcptInMethod(flag){
+ return{
+    type :'GEN_EXCEPTION_IN_METHOD',
+    payload :flag
+  } 
 }

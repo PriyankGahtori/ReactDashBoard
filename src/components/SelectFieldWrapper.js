@@ -3,6 +3,8 @@ import SelectField from 'material-ui/SelectField';
 
 export default class SelectFieldWrapper extends React.Component{
   onChange(evt, index, value) {
+    console.log("in dropdown wrapper---",this.props)
+    console.log("in dropdown wrapper-- value---",value)
 
     if (this.props.onChange) {
       this.props.onChange(value);

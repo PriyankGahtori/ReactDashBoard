@@ -1,5 +1,6 @@
 import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
+import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyingValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -8,9 +9,11 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					hotSpotCapturingCheckBox :false,
 					enableDebugCheckBox :false,
 					enableBackendMonitorCheckBox :false,
+					enableExcptCheckBox :false,
 					listOfXmlFilesInstr :[],
 					uploadTopology :null,
 					enableNDEntryPointsFile :false,
+					genExcptInMethod :false
 					}
 
 
@@ -20,17 +23,21 @@ switch(action.type){
 	
 	case 'GET_ALL_KEYWORDS':
 	   	var newState = Object.assign({}, state);
-	   	console.log("action .payload-in keyords reducer-",action.payload.data )
 		newState.data = action.payload.data ;
-
 		var data = action.payload.data;
+
+	//below code to get object with keys as keywords and values as its value		
 		let obj = _.mapValues(data, function(obj){ return obj.value; });
-		console.log("obj--in get all keywords-",obj)
+
+		//for keyword generateExceptionInMethod
+		var  genExcptInMethodObj = modifiedValGenExcptInMethod.splitValue(obj.generateExceptionInMethod);
+		obj.genExcptInMethodObj = genExcptInMethodObj;	
+
+
 
 		var instrExceptionFields = obj.instrExceptions.split('%20');
-		console.log("instrExceptionFields--",instrExceptionFields)		
 		let instrExceptionObj = {};
-		if(instrExceptionFields.length > 0)
+		if(instrExceptionFields.length > 1)
 		{
 		    instrExceptionObj.enable = instrExceptionFields[0] ==='1';	
 		    instrExceptionObj.enableCaptureExcepStackTrace = instrExceptionFields[1] === '1'
@@ -94,8 +101,11 @@ switch(action.type){
 	   	newState.enableBackendMonitorCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 
 	   	newState.enableNDEntryPointsFile = (action.payload.data.NDEntryPointsFile.value === 'true');
+	   	console.log("obj.generateExceptionInMethod.value == 0--",obj.generateExceptionInMethod != 0)
+	   	console.log("2nd---",obj.generateExceptionInMethod)
+	   	newState.genExcptInMethod = obj.generateExceptionInMethod != 0 ;
 
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+		console.log("newState-",newState)
 	return newState;
 
 
@@ -144,6 +154,11 @@ switch(action.type){
 		newState.hotSpotCapturingCheckBox = action.payload;
 		return newState;
 
+		case 'ENABLE_EXCPT_CHECKBOX':
+		var newState = Object.assign({},state)
+		newState.enableExcptCheckBox = action.payload
+		return newState;
+
 		case 'UPDATE_TOPOLOGY':
 		var newState = Object.assign({}, state);
 		console.log("update topo reducer--",action.payload.data)
@@ -158,8 +173,12 @@ switch(action.type){
 
 		case 'ENABLE_BACKEND_MONITOR_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("enableBackendMonitorCheckBox checkbox---",action.payload)
 		newState.enableBackendMonitorCheckBox = action.payload;
+		return newState;
+
+		case 'GEN_EXCEPTION_IN_METHOD':
+		var newState = Object.assign({}, state);
+		newState.genExcptInMethod = action.payload;
 		return newState;
 
 		

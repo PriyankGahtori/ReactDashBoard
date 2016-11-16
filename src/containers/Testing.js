@@ -1,102 +1,96 @@
-import React from 'react';
-import Formsy from 'formsy-react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
+import React, { PropTypes } from 'react'
+import {reduxForm} from 'redux-form';
+import {RadioButton} from 'material-ui/RadioButton';
+import MultiSelect from '../components/MultiSelectWrapper';
+import {Card} from 'material-ui/Card';
+import Divider from 'material-ui/Divider';
 import MenuItem from 'material-ui/MenuItem';
-import MultiSelect from 'react-select';
-import 'react-select/dist/react-select.css';
+import TextField from 'material-ui/TextField';
+import RaisedButton  from 'material-ui/RaisedButton';
 
-
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
-
-var options = [
+export const fields = ['headersSelected','name'];
+  var options = [
     { value: 'one', label: 'One' },
     { value: 'two', label: 'Two' },
-    { value: 'three', label: 'Three' }
-];
-const Main = React.createClass({
+    { value: 'three', label: 'Three' },
+    { value: 'four', label: 'Four' },
+    { value: 'five', label: 'Five' }
+   ];
 
-  /**
-   * As an alternative to `MuiThemeProvider` you can add a theme directly into context.
-   * See the [Material-UI themes](http://www.material-ui.com/#/customization/themes) docs for details.
-   *
-   * childContextTypes: {
-   *   muiTheme: React.PropTypes.object,
-   * },
-   * getChildContext(){
-   *   return {
-   *     muiTheme: getMuiTheme(),
-   *   }
-   * },
-   */
+class Form_EnableReqFullFP extends React.Component {
+ 
 
-  getInitialState() {
-    return {
-      canSubmit: false,
-    };
-  },
+  constructor(props) {
+    super(props);
+    this.state = {expand:false,
+                  enableHttpReqFPCheckBox: false,
+                  UrlQueryHttp:false,
+                  allHttpHeaders:false,
+                  textFieldValue:true,
+                  captureSelectedValue:1,
+                  multiSelectValue: "1,2,3,4,4,4,4,4"
 
-  errorMessages: {
-    wordsError: "Please only use letters",
-    numericError: "Please provide a number",
-    urlError: "Please provide a valid URL",
-  },
+                 }
+    this.updateSelected = this.updateSelected.bind(this);             
+  }
 
-  styles: {
-    paperStyle: {
-      width: 300,
-      margin: 'auto',
-      padding: 20,
-    },
-    switchStyle: {
-      marginBottom: 16,
-    },
-    submitStyle: {
-      marginTop: 32,
-    },
-  },
+ updateSelected(value){
+    
+    console.log("updateSelected function called---",value)
+   // console.info("props ",this.props.values)
+    console.info("headersSelected ",this.props)
+  //  this.props.fields.headersSelected.onUpdate({value:value});
+    this.setState({multiSelectValue : value });
+  }
 
-  enableButton() {
-    this.setState({
-      canSubmit: true,
-    });
-  },
 
-  disableButton() {
-    this.setState({
-      canSubmit: false,
-    });
-  },
-
-  submitForm(data) {
-    alert(JSON.stringify(data, null, 4));
-  },
-
-  notifyFormError(data) {
-    console.error('Form error:', data);
-  },
+  submit(data){
+    console.log("data ----",data)
+  }
 
   render() {
-    let {paperStyle, switchStyle, submitStyle } = this.styles;
-    let { wordsError, numericError, urlError } = this.errorMessages;
-
-    return (
+    const { fields: {headersSelected,name}, resetForm, handleSubmit,submitting } = this.props
+    return (   
+      <form onSubmit ={handleSubmit(this.submit.bind(this))}>
       <div>
-      
-
-        <MultiSelect
-          name ="form-field-name"
-          value = "one"
-          options={options}
-          multi={true}
+        <MultiSelect multi
+            {...headersSelected}
+          name ="HttpHeaders"
+          value = {this.state.multiSelectValue}  
+          options = {options} 
+          customOnChange = {this.updateSelected.bind(this)}
         
-      />
-      </div>
-    );
-  },
-});
+        />
 
-export default Main;
+          <TextField
+                  hintText="Hint Text"
+                  floatingLabelText="Set Cav NV Cookie"
+                  {...name}
+              />
+
+       </div>
+        <RaisedButton  label="submit" type="submit" disabled={submitting}>
+                     {submitting ? <i/> : <i/>} 
+          </RaisedButton >
+ </form>
+    );
+  }
+}
+ 
+Form_EnableReqFullFP.propTypes = {
+  fields: PropTypes.object.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  resetForm: PropTypes.func.isRequired,
+  submitting: PropTypes.bool.isRequired
+}
+export default reduxForm({
+  form: 'httpReqForm',
+  fields,
+},
+  state => ({ // mapStateToProps
+}),
+  
+  { 
+   
+ } // mapDispatchToProps (will bind action creator to dispatch)
+)(Form_EnableReqFullFP);

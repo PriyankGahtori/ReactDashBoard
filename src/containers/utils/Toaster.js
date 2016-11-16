@@ -12,6 +12,8 @@ class Toaster extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
+    console.log("component wil receiveprops--",this.props.loader)
+    console.log("recve nextprops---",nextProps.loader)
     if(this.props.loader != nextProps.loader){
       if(nextProps.loader.show === false || nextProps.loader.show == 'false')
         this.notificationSystem.addNotification({

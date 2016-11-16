@@ -20,7 +20,7 @@ import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
 import EnableBCICapturing from './bciCapture/EnableBCICapturing';
 import EnableHotSpotCapturing from './hotspotCapture/EnableHotSpotCapturing';
 import EnableDebugCapturing from './debugLevelCapture/EnableDebugLevelCapturing';
-import InstrException from './InstrExceptionKeyword';
+import InstrException from './exceptionCapture/EnableExceptionCapturing';
 import EnableServiceEntryPoints from './EnableServiceEntryPoints';
 
 const styles = {

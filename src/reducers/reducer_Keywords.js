@@ -13,7 +13,7 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					listOfXmlFilesInstr :[],
 					uploadTopology :null,
 					enableNDEntryPointsFile :false,
-					enableMonitorsCheckBox : false
+					enableMonitorsCheckBox : false,
 					genExcptInMethod :false
 					}
 

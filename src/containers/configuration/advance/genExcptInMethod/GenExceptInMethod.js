@@ -227,10 +227,10 @@ render() {
 	]
 
 	return (
-		<div style={{'paddingLeft':15}}>
+		<div style={{'paddingLeft':10,'paddingTop':10}}>
 
 		<div className = "row"  >
-		<div className = "col-md-3">
+		<div className = "col-md-5">
 		<Checkbox
 		value = "genExcptInMethod"
 		label = "Generate Exception In Method"
@@ -239,7 +239,10 @@ render() {
 		/>
 		</div>
 		<div>
-		<FlatButton disabled ={!this.state.genExcptInMethod} onClick ={this.enableExcptCapturingDialog.bind(this)} label="Advanced Settings" />
+		<FlatButton className = "col-md-4" 
+					disabled ={!this.state.genExcptInMethod} 
+					onClick ={this.enableExcptCapturingDialog.bind(this)} 
+					label="Advanced Settings" />
 		</div>
 		</div>
 

@@ -29,10 +29,8 @@ class PutDelayInMethod extends React.Component {
 
 componentWillReceiveProps(nextProps)
 {
-    console.log("nextprops--putDeolayinmrthod-",nextProps.initialData)
     
     if(this.props.initialData != nextProps.initialData){
-      console.log("nextProps.initialData != 0---",nextProps.initialData != 0)
       if(nextProps.initialData != 0)
       this.setState({putDelayInMethod : true
       });
@@ -40,7 +38,6 @@ componentWillReceiveProps(nextProps)
 }
 
 handlePutDelayInMethod(event,isInputChecked){
-  	console.log("isInputChecked----",isInputChecked)
     if(isInputChecked === "false" || isInputChecked === false)
       this.setState({openCnfrmDisbleDialog:true})
   	// this.setState({putDelayInMethod:isInputChecked})
@@ -67,14 +64,11 @@ cnfrmDisable(){
 
 enablePutDelayInMethodDialog(){
     this.setState({openPutDelayInMethodDialog:true});
-    console.log("enablePutDelayInMethodDialog function callded---")
   }
 
 submitForm(formData){
   	let keywordData = Object.assign({},this.props.getAllKeywordData.data);
-    console.log("keywordData in putDelayInMethod--",putDelayInMethod)
     var putDelayInMethod;
-    console.log("formData---",formData)
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
@@ -106,10 +100,8 @@ submitForm(formData){
     if(formData.fqm != null)
       putDelayInMethod = putDelayInMethod +"%20"+formData.fqm;
            
-      console.log("putDelayInMethod finaly appended--",putDelayInMethod)      
       keywordData.putDelayInMethod["value"] = putDelayInMethod;
 
-    console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.profileId); 
 
     //action for runtime change
@@ -121,10 +113,8 @@ submitForm(formData){
   }
 
 handleSubmitPutDelayInMethod(){
-  console.log("handleSubmit---", this.refs)
   this.refs.putDelayInMethodForm.submit();
   this.handleCancelPutDelayInMethod();
-  console.log("after closing the dialog----")
   }
 
 handleCancelPutDelayInMethod(){
@@ -179,7 +169,7 @@ return (
               value="putDelayInMethod"
               checked  = {this.state.putDelayInMethod}
               onCustomChange={this.handlePutDelayInMethod.bind(this)}    />
-            <i style={{paddingLeft:40}}>(Add Delay in any specified method Using instrumentation)</i>
+            <i style={{paddingLeft:40}}>(Add delay in any specified method using instrumentation)</i>
             </div>
           
          <div>

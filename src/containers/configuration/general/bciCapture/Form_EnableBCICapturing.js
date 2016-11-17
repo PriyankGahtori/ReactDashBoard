@@ -73,8 +73,6 @@ class Form_EnableBCICapturing extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form topo-- !!!",this.props)
-  console.log("this.props.data[2]value - ")
   this.state = { 'enableCpuTime'        :this.props.initialData.enableCpuTime,
                  'enableForcedFPChain'  :this.props.initialData.enableForcedFPChain,
                  'logLevelOneFpMethod'  :this.props.initialData.logLevelOneFpMethod === '1',
@@ -83,10 +81,6 @@ class Form_EnableBCICapturing extends React.Component {
     }
  
   }
-
-
-
-
 componentWillMount() {
    
   }

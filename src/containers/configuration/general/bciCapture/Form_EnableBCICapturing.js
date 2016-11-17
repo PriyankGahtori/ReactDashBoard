@@ -57,13 +57,14 @@ const initialValues = {
 
   },
   block:{
-    paddingTop:10
+    
   },
   setCavNVCookieBlock:{
-    marginTop:-30
+    marginTop:-20
   },
   customWidth: {
-      width: 300
+      width: 300,
+      paddingTop:7
     }
   
 };
@@ -126,7 +127,7 @@ componentWillMount() {
         <form >
             <div className ="row"  style={{paddingTop:15}}>
               <div className = "col-md-3">
-                <label for="sess_perct" >Session Percentage   </label>
+                <p for="sess_perct" >BCI flowPath capturing percentage   </p>
               </div>
 
             <div className = "col-md-3">
@@ -142,41 +143,41 @@ componentWillMount() {
 
                 </div>
            
-
-            <div className = "col-md-6">
+         
+            <div className = "row" >
+             <div className= "col-md-1" >
             <Checkbox
               {...logLevelOneFpMethod}
               value="logLevelOneFpMethod"
-              label="Log Level One FP Method"
               checked={this.state.logLevelOneFpMethod}
-              onCustomChange ={this.ChangeLogLevel.bind(this)}       
-            />
- 
+              onCustomChange ={this.ChangeLogLevel.bind(this)}    />
+              </div>
+               <p >Enable level one capturing for flowPaths </p> 
+           
             </div>
              </div>
 
-             <div className = "row" style = {styles.block}>
-             <div className= "col-md-6">
+             <div className = "row" style={{paddingTop:3}}>
+             <div className= "col-md-1" >
               <Checkbox
               {...doNotDiscardFlowPaths}
               value="doNotDiscardFlowPaths"
-              label="Do Not Discard Level FP"
+             
               checked = {this.state.doNotDiscardFlowPaths}
-              onCustomChange = {this.ChangeDoNotDiscardFlowPaths.bind(this)}
-            />
+              onCustomChange = {this.ChangeDoNotDiscardFlowPaths.bind(this)} />
+             </div>
+               <p>Dump all level one flowPaths</p>
              </div>
 
-             </div>
 
-
-             <div className = "row" style={{paddingTop:10}}>
+             <div className = "row" style={{paddingTop:15}}>
            <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Correlation ID Header"
+                  floatingLabelText="Capture correlation id http header"
                   {...correlationIDHeader}
-             errorText = {correlationIDHeader.touched &&  correlationIDHeader.error && <div> { correlationIDHeader.error}</div> }
+                   errorText = {correlationIDHeader.touched &&  correlationIDHeader.error && <div> { correlationIDHeader.error}</div> }
 
                   
                 />
@@ -187,7 +188,7 @@ componentWillMount() {
                  
                 <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Set Cav NV Cookie"
+                  floatingLabelText="Set flowPath id in response cookie"
                   {...setCavNVCookie}
                   errorText = {setCavNVCookie.touched &&  setCavNVCookie.error && <div> { setCavNVCookie.error}</div> }
 
@@ -206,7 +207,7 @@ componentWillMount() {
                   value = {this.state.enableCpuTime}
                   autoWidth={false}
                   customOnChange={this.ChangeEnableCpuTime.bind(this)} 
-                  floatingLabelText="Enable CPU Time"
+                  floatingLabelText="Capture CPU time"
                   autoScrollBodyContent={true}
                 >
 
@@ -229,7 +230,7 @@ componentWillMount() {
                   autoWidth={false}
                   value={this.state.enableForcedFPChain}
                   customOnChange={this.ChangeEnableForcedFPChain.bind(this)} 
-                  floatingLabelText="Enable Forced FP Chain"
+                  floatingLabelText="Capture complete transaction flow forcefully"
                 >
 
                   <MenuItem value = {"0"}  primaryText = "Enable"/>

@@ -20,7 +20,7 @@ import DialogHttpStatsCond from './Dialog_HttpStatsCond';
 
 var columns = {
                 "key" : "id",
-                "data":['Condition Name','Condition','Description','FpDumpMode','ID'],
+                "data":['Condition Name','Condition','Description','FP Dump Mode','ID'],
                 "field":['conditionName','condition','description','fpDumpMode','id']
               };
 

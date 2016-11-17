@@ -137,13 +137,14 @@ class GeneralKeywords extends React.Component {
   render() {
   
     return (
-      <div>
+      <div >
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
-        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         <InstrException profileId = {this.props.params.profileId}  />
         <EnableServiceEntryPoints />
+
+       <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );
   }

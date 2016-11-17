@@ -240,17 +240,19 @@ const actionsBackendMonDisable =[
     return (
       <div>
 
-      <div className = "row" style={{'paddingLeft':14}}>
-        <div className = "col-md-3">
+      <div className = "row"  style={{'paddingLeft':10,'paddingTop':5}}>
+        <div className = "col-md-5" >
+          
          <Checkbox
+                  label="Enable Backend Monitor"
                   value = "enableBackendMonitor"
-                  label = "Enable Backend Monitor"
                   checked  = {this.state.enableBackendMonitorCheckBox}
-                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}
-         />
+                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}/>
+             <i style={{paddingLeft:40}}>(Enable monitoring for Integration points)</i>
+
         </div>
       <div>
-    <FlatButton disabled ={!this.state.enableBackendMonitorCheckBox} onClick ={this.handleEnableBackendMonitorDialog.bind(this)} label="Advanced Settings" />
+    <FlatButton   className = "col-md-4" disabled ={!this.state.enableBackendMonitorCheckBox} onClick ={this.handleEnableBackendMonitorDialog.bind(this)} label="Advanced Settings" />
      </div>
     </div>
 
@@ -274,7 +276,7 @@ const actionsBackendMonDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the Backend Monitor?"
+          title="Are you sure want to disable the applied settings?"
           actions={actionsBackendMonDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

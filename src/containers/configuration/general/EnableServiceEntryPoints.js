@@ -121,19 +121,22 @@ class EnableServiceEntryPoints extends Component {
 
 
 		return (
-			<div style={{"width":270,'paddingTop':10}}>
+    <div  style={{paddingTop:10}}>
+   
+	   <div className = "col-md-4" style={{right:15}}>
 				<CheckBox
-					label="Enable Service Entry Points"
+				  label="Enable Service Entry Points"
 					onCustomChange={this.handleCheck.bind(this)}
-					checked={this.state.checked}
-				/>
-				<Dialog
+					checked={this.state.checked}	/>
+          </div>
+      {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
+			
+        <Dialog  
 		          title="Are you Sure You want to disable Service Entry Points ?"
 		          actions={actions}
 		          modal={false}
 		          open={this.state.open}
-		          onRequestClose={this.handleClose.bind(this)}
-        />
+		          onRequestClose={this.handleClose.bind(this)} />
         <Snackbar
           open={this.state.openSnackBar}
           message="NDEntryPointsFile is Enabled"

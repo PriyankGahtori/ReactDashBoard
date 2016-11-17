@@ -170,24 +170,28 @@ const actions =[
 
 
 return (
-      <div className="row"  style={{'paddingLeft':29}}>
+      <div  >
      
-      	<div className = "row">
-         <div className = "col-md-3">
+      	<div className = "row" style={{'paddingLeft':10}}>
+         <div className = "col-md-5" >
       		 <Checkbox
+              label="Put Delay in Method"
               value="putDelayInMethod"
-              label="Put Delay In Method"
               checked  = {this.state.putDelayInMethod}
-              onCustomChange={this.handlePutDelayInMethod.bind(this)}   
-            />
+              onCustomChange={this.handlePutDelayInMethod.bind(this)}    />
+            <i style={{paddingLeft:40}}>(Add Delay in any specified method Using instrumentation)</i>
             </div>
+          
          <div>
-         <FlatButton disabled ={!this.state.putDelayInMethod} onClick ={this.enablePutDelayInMethodDialog.bind(this)} label="Advanced Settings" />
+         <FlatButton   className = "col-md-4" 
+                      disabled ={!this.state.putDelayInMethod} 
+                      onClick ={this.enablePutDelayInMethodDialog.bind(this)} 
+                      label="Advanced Settings" />
          </div>
         </div> 
 
         <DialogPutDelayInMethod
-          title="Put Delay In Method"
+          title="Put Delay in Method"
           actions={actions}
           modal={false}
           open={this.state.openPutDelayInMethodDialog}
@@ -198,7 +202,7 @@ return (
        </DialogPutDelayInMethod>
     	
        <ConfirmDialog
-          title="Are you sure want to disable Put Delay In Method?"
+          title="Are you sure want to disable the applied settings?"
           actions={actionsPutDelayDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

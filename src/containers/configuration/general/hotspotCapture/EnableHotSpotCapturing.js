@@ -227,9 +227,6 @@ handleCancelDisableBCIVal(){
   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
 }
 
-
- 
-
   render() {
      
     
@@ -278,23 +275,27 @@ handleCancelDisableBCIVal(){
   
 
     return (
-      <div >
-      <div className = "row" style={{paddingBottom:15}}>
-        <div className = "col-md-3">
+      <div  style={{paddingTop:15}}>
+      <div className = "row" >
+        <div className = "col-md-5">
          <Checkbox
+         label="Enable Hotspot Capturing"
           value = "enableHotSpotCapturing"
-          label = "Enable HotSpot Capturing"                 
           checked  = {this.state.hotSpotCapturingCheckBox}
-          onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)}                              
-          />
+          onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)} />
+           <i style={{paddingLeft:40}}>(Capture thread hotspots using BCI autosensor) </i> 
         </div>
-        <div>
-          <FlatButton disabled ={!this.state.hotSpotCapturingCheckBox} onClick ={this.enableHotSpotCapturingDialog.bind(this)} label="Advanced Settings" />
-        </div>
+       
+       
+          <FlatButton    
+                 className = "col-md-4"
+                  disabled ={!this.state.hotSpotCapturingCheckBox} 
+                  onClick ={this.enableHotSpotCapturingDialog.bind(this)} 
+                  label="Advanced Settings" />
       </div>
 
    <DialogEnableHotSpotCapturing
-     title="Enable HotSpot Capturing"
+     title="Hotspot Capturing"
           actions={actionsHotSpotCapturing}
           modal={false}
           open={this.state.openEnableHotSpotCapturingDialog}
@@ -320,12 +321,11 @@ handleCancelDisableBCIVal(){
           open={this.state.openSnackBar}
           message="HotSpot capturing keywords with default values is enabled now."
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose.bind(this)}
-        />
+          onRequestClose={this.handleRequestClose.bind(this)} />
 
 
     <ConfirmDialog
-          title="Are you sure want to disable the HotSpot Capturing?"
+          title="Are you sure want to disable the applied settings?"
           actions={actionsHotSpotDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

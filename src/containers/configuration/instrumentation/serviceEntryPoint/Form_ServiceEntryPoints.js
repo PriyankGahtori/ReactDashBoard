@@ -249,14 +249,14 @@ handleChange(event,index,value){
       <TextField
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
-        floatingLabelText="Full method name"
+        floatingLabelText="Fully Qualified Method Name"
        // disabled={!this.state.enable}    
        errorText={fqm.touched && fqm.error && <div>{fqm.error}</div>}/>   
     
       <br/>
       <TextField
         {...desc}
-        hintText="This is a for getting initial Data"
+        hintText="This Is For Getting Initial Data"
         floatingLabelText="Description"
        // disabled={!this.state.enable}  
        errorText={desc.touched && desc.error && <div>{desc.error}</div>}/>   

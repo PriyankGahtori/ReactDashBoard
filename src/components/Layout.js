@@ -25,7 +25,7 @@ import DropDownAppList from '../containers/DropDownAppList';
 import Dialog_Setting from '../containers/settings/Dialog_Settings';
 import TRToggle from '../containers/settings/TRToggle';
 import Loader from '../containers/utils/Loader';
-import Toaster from '../containers/utils/Toaster';
+//import Toaster from '../containers/utils/Toaster';
 injectTapEventPlugin();
 
 const headerStyle = {
@@ -179,7 +179,7 @@ export default class Layout extends React.Component {
              params={this.props.params}
           />
            <Loader/>
-           <Toaster/>
+         {/* <Toaster/>*/}
 
 		       {/*<ul className="breadcrumb">
                                  <li><FontIcon className="material-icons" style={iconStyles} color={red500}>home</FontIcon><Link to="/"><a href="#">Home</a></Link></li>

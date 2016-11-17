@@ -30,10 +30,16 @@ export function validateDebugKeywords(data){
       }
 
 export function validateBackendMonitorKeywords(data){
-
   return  data.enableBackendMonitor.value === "0"; 
       }
 
+export function validateMonitorKeywords(data){
+  return  data.enableBTMonitor.value === "0"; 
+      }
+
+export function validateExcptKeywords(data){
+  return data.InstrException.value === "0"
+}
 
 export function setDefaultValuesBCICapturing(data){ 
 
@@ -77,6 +83,21 @@ export function setDefaultValuesBackendMonitor(data){
   return defaultKeywordData;
 }
 
+export function setDefaultValuesMonitor(data){
+   var defaultKeywordData ={  "enableBTMonitor" : data.enableBTMonitor.defaultValue
+                            }
+  return defaultKeywordData;
+}
+
+export function setDefaultValuesExcptCapturing(data){
+  var defaultKeywordData = { "instrExceptions" : data.instrExceptions.defaultValue
+                            }
+  return defaultKeywordData ;
+}
+
+export const disabledExcptCapturing = {
+                                    "instrExceptions" : "0"
+}
 
 export const disabledBCICapturing = {
                                       "bciInstrSessionPct" : "0", 
@@ -109,4 +130,9 @@ export const disabledDebugCapturing = {
 
 export const disabledBackendMonitor = {
                                     "enableBackendMonitor" : "0"
+};
+
+
+export const disabledBTMonitor = {
+                                    "enableBTMonitor" : "0"
 };

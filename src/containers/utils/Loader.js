@@ -48,11 +48,23 @@ const  progressDivHide= {
     //opacity: 0.8,
     display:'none'
 }
-
+/**
+  * Here 2 components are used
+  * Loader and toaster
+  * 
+  * when process of data loading is in progress ,
+  *  loader and toaster is made to display with its corresponding title and msg.
+  * 
+  *  Similarly, when data is loaded,loader is made to hide and only toaster with its
+  *  corresondinding msg and title is dispalyed.
+  * Ex: topology data loaded
+  * 
+  */
  class Loader extends React.Component {
 
   constructor(props) {
     super(props);
+    this.state={loader:{show : false , message :{}}}
 }
 
  componentWillReceiveProps(nextProps){
@@ -66,11 +78,9 @@ const  progressDivHide= {
     });
     }
   }
-
- 
 }
 
-   componentDidMount(){
+ componentDidMount(){
     this.notificationSystem = this.refs.notificationSystem;
   }
 

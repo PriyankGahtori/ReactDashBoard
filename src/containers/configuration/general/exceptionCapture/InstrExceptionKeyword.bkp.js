@@ -187,17 +187,16 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     return (
       <div className ="row" style={{'paddingLeft':29}}>
         <form onSubmit ={handleSubmit(this.submit.bind(this))}>
-        <div className = "row" >
-         <div  className = "col-md-3" style={{right:15}}>
+        <div className = "row">
          <Checkbox
          {...enable}
                   value = "captureException"
-                  label="Capture Exception" 
+                  label = "Capture Exception"
                   checked  = {this.state.enableCaptureExceptCheckBox}
-                  onCustomChange={this.handleCaptureExceptCheckboxChange.bind(this)}  />
-         </div>
-{/*<i className = "col-md-5" style={{right:245,top:5}}> Capture Exception </i> 
-*/ }       </div>
+                  onCustomChange={this.handleCaptureExceptCheckboxChange.bind(this)}
+              />
+
+        </div>
 
         
         <div className ={this.state.enableCaptureExceptCheckBox ? 'show' :'hidden'} style ={{'paddingLeft':35,'paddingTop':-6}}>

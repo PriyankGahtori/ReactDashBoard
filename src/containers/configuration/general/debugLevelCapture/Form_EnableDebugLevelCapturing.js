@@ -11,8 +11,7 @@ import Input from '../../../../components/InputWrapper';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 
 
-export const fields = [ 'enableBciError','enableBciDebug','InstrTraceLevel'];
-//export const fields = [ 'bciInstrSessionPct','logLevelOneFpMethod','enableBciError','doNotDiscardFlowPaths','enableBciDebug'];
+export const fields = [ 'enableBciError','enableBciDebug','InstrTraceLevel','ndMethodMonTraceLevel'];
 const initialValues = { 
                 'logLevelOneFpMethod' : true, 
                 'doNotDiscardLevel1FP' : false,
@@ -80,7 +79,7 @@ ChangeEnableForcedFPChain(event,index ,value){
 }
 
   render() {
-     const { fields: {enableBciError,enableBciDebug,InstrTraceLevel}, resetForm, handleSubmit,onSubmit, submitting } = this.props
+     const { fields: {enableBciError,enableBciDebug,InstrTraceLevel,ndMethodMonTraceLevel}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
              <div className = "row" style = {styles.block}>
@@ -136,6 +135,21 @@ ChangeEnableForcedFPChain(event,index ,value){
                  step="1"   />
              </div>
 
+             <div className = "col-md-3">
+                <label for="sess_perct"> NdMethodMonTrace Level </label>
+              </div>
+
+              <div className = "col-md-3">
+                 <Input
+                {...ndMethodMonTraceLevel} 
+                 id="sess_perct"
+                style={styles.input} 
+                 type="number" 
+                 min="0" 
+                 max="10" 
+                 step="1"   />
+             </div>
+
          
       </div>        
 
@@ -157,9 +171,10 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
   // initialValues : state.Keywords.initializeKeywords,
    initialValues :{
-                   enableBciError:state.Keywords.initializeKeywords.enableBciError,
-                   enableBciDebug:state.Keywords.initializeKeywords.enableBciDebug,
-                   InstrTraceLevel:state.Keywords.initializeKeywords.InstrTraceLevel
+                   enableBciError       : state.Keywords.initializeKeywords.enableBciError,
+                   enableBciDebug       : state.Keywords.initializeKeywords.enableBciDebug,
+                   InstrTraceLevel      : state.Keywords.initializeKeywords.InstrTraceLevel,
+                   ndMethodMonTraceLevel: state.Keywords.initializeKeywords.ndMethodMonTraceLevel
                   },
    initialData : state.Keywords.initializeKeywords
 

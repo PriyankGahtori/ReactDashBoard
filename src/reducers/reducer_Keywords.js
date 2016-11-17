@@ -1,5 +1,6 @@
 import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
+import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyingValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -8,9 +9,12 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					hotSpotCapturingCheckBox :false,
 					enableDebugCheckBox :false,
 					enableBackendMonitorCheckBox :false,
+					enableExcptCheckBox :false,
 					listOfXmlFilesInstr :[],
 					uploadTopology :null,
 					enableNDEntryPointsFile :false,
+					enableMonitorsCheckBox : false,
+					genExcptInMethod :false
 					}
 
 
@@ -20,17 +24,21 @@ switch(action.type){
 	
 	case 'GET_ALL_KEYWORDS':
 	   	var newState = Object.assign({}, state);
-	   	console.log("action .payload-in keyords reducer-",action.payload.data )
 		newState.data = action.payload.data ;
-
 		var data = action.payload.data;
+
+	//below code to get object with keys as keywords and values as its value		
 		let obj = _.mapValues(data, function(obj){ return obj.value; });
-		console.log("obj--in get all keywords-",obj)
+
+		//for keyword generateExceptionInMethod
+		var  genExcptInMethodObj = modifiedValGenExcptInMethod.splitValue(obj.generateExceptionInMethod);
+		obj.genExcptInMethodObj = genExcptInMethodObj;	
+
+
 
 		var instrExceptionFields = obj.instrExceptions.split('%20');
-		console.log("instrExceptionFields--",instrExceptionFields)		
 		let instrExceptionObj = {};
-		if(instrExceptionFields.length > 0)
+		if(instrExceptionFields.length > 1)
 		{
 		    instrExceptionObj.enable = instrExceptionFields[0] ==='1';	
 		    instrExceptionObj.enableCaptureExcepStackTrace = instrExceptionFields[1] === '1'
@@ -95,7 +103,9 @@ switch(action.type){
 
 	   	newState.enableNDEntryPointsFile = (action.payload.data.NDEntryPointsFile.value === 'true');
 
-		console.log("newState.initializeKeywords---",newState.initializeKeywords)
+	   	newState.genExcptInMethod = obj.generateExceptionInMethod != 0 ;
+
+		newState.enableMonitorsCheckBox = !validate.validateDebugKeywords(action.payload.data);
 	return newState;
 
 
@@ -118,50 +128,51 @@ switch(action.type){
 
 		 case 'INITIALIZE_INSTREXCEPTION':
 		 var newState =Object.assign({},state);
-		 console.log("initialize-INITIALIZE_INSTREXCEPTION----s-",newState.initializeKeywords)
 		  _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			
-				console.log("newState-",newState.data[key]["defaultValue"])
-				newState.initializeKeywords[key] = value["value"];
-				console.log("value---",newState.initializeKeywords[key])
-
-
+			newState.initializeKeywords[key] = value["value"];
 		});
 		 return newState;
 
 
 		case 'ENABLE_BCI_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("bci checkbox---",action.payload)
 		newState.enableBCICheckBox = action.payload;
 		return newState;
 
 		case 'ENABLE_HOTSPOT_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("hotspot checkbox---",action.payload)
 		newState.hotSpotCapturingCheckBox = action.payload;
+		return newState;
+
+		case 'ENABLE_EXCPT_CHECKBOX':
+		var newState = Object.assign({},state)
+		newState.enableExcptCheckBox = action.payload
 		return newState;
 
 		case 'UPDATE_TOPOLOGY':
 		var newState = Object.assign({}, state);
-		console.log("update topo reducer--",action.payload.data)
 		newState.uploadTopology = action.payload.data;
 		return newState;
 
 		case 'ENABLE_DEBUG_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("bci checkbox---",action.payload)
 		newState.enableDebugCheckBox = action.payload;
 		return newState;
 
 		case 'ENABLE_BACKEND_MONITOR_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("enableBackendMonitorCheckBox checkbox---",action.payload)
 		newState.enableBackendMonitorCheckBox = action.payload;
 		return newState;
 
+		case 'ENABLE_MONITORS_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("enableMonitorCheckBox checkbox---",action.payload)
+		newState.enableMonitorsCheckBox = action.payload;
+
+		case 'GEN_EXCEPTION_IN_METHOD':
+		var newState = Object.assign({}, state);
+		newState.genExcptInMethod = action.payload;
+		return newState;
 		
 	}
 	return state;

@@ -276,6 +276,7 @@ export function fetchTopologyTableData(dcId,loader){
 
 //trigger action for loading progressBar change once promise is resolved
  response.then(function(data){
+  console.log("calling topology loader")
   loader();
  });
 
@@ -1018,8 +1019,7 @@ export function toggleStateAddBTPattern(){
 
   //trigger action for loading progressBar change once promise is resolved
   response.then(function(data){
-   console.info("data-- ",  data.data[0])
-   loader( data.data[0]);
+     loader(data.data[0]);
  });
 
   return {
@@ -1030,7 +1030,9 @@ export function toggleStateAddBTPattern(){
 
  /*
   * Action creators for General keywords screen
+  * 
  */
+ //function for getting keywords data when general keywords screen gets loaded
 export function getKeywordsData(profileId){
 
   const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
@@ -1114,9 +1116,13 @@ export function enableHotSpotCheckBoxStatus(flag){
   }
 }
 
+export function enableExcptCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_EXCPT_CHECKBOX',
+    payload:flag
 
-
-
+  }
+}
 
 export function setDefValHotSpotCapturingKeywords(){
   return{
@@ -1161,7 +1167,7 @@ export function setDefValDebugCapturingKeywords() {
 }
 
 /*
-* function for Debug Level Capturing keywords 
+* function for Backend Monitor keywords 
 */
 export function enableBackendMonitorCheckBoxStatus(flag){
   return{
@@ -1173,6 +1179,23 @@ export function enableBackendMonitorCheckBoxStatus(flag){
 export function setDefValBackendMonitorKeywords() {
   return{
     type : 'SET_DEFAULT_BACKEND_MONITOR_KEYWORDS'
+
+  }
+}
+
+/*
+* function for Monitor keywords 
+*/
+export function enableMonitorsCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_MONITORS_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValMonitorsKeywords() {
+  return{
+    type : 'SET_DEFAULT_MONITORS_KEYWORDS'
 
   }
 }
@@ -1382,7 +1405,7 @@ export function addHttpStatsCond(data,profileId){
 
 
 /*
-*  Action creators for Loader
+*  Action creatrors for Loader
 */
 
 export function triggerLoader(show ,message){
@@ -1392,4 +1415,12 @@ return{
   type    : 'LOAD_PROGRESSBAR',
   payload :data
 }
+}
+
+
+export function genExcptInMethod(flag){
+ return{
+    type :'GEN_EXCEPTION_IN_METHOD',
+    payload :flag
+  } 
 }

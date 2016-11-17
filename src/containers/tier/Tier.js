@@ -136,33 +136,16 @@ class Tier extends React.Component {
     var topology = this.props.topologyData.tableData.filter(function(value){
                       return value.topoId === topoId ;
                   })
-    var msg = "Loading tier  data";
-    this.props.triggerLoader(true , msg)
+    var message = null ;
+    this.props.triggerLoader(true , message)
     this.props.fetchTierTableData(this.props.params.topoId,topology[0],this.loader)
-  
-
-   
   }
 
   componentWillReceiveProps(nextProps)
   {
-    /*called when another tree node is selected and to trigger the action "fetchTopologyTableData"  
-     * for new DC  selected.
-     */
-     if(this.props.params.topoId!= nextProps.params.topoId){
-     var topoId = nextProps.params.topoId;
-      var topology = nextProps.topologyData.tableData.filter(function(value){
-                      return value.topoId === topoId ;
-                  })
-     this.props.fetchTierTableData(nextProps.params.topoId,topology[0]);
-  
-  }
-
     if(this.props.tierData != nextProps.tierData){
       this.setState({tierData:nextProps.tierData});
     }
-
-  
   }
 
   /* function to trigger event for closing progressBar  

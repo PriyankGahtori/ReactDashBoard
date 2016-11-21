@@ -1,10 +1,10 @@
-  const SERVICE_URL = 'http://localhost:8090';
+// const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//const  SERVICE_URL = 'http://10.10.40.11:8090/configUI';
+// const  SERVICE_URL = 'http://10.10.40.11:8070/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
-// const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -116,3 +116,5 @@ export const RUNTIME_CHANGE_SERVER = `${SERVICE_URL}/custom/runtimechange/server
 export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/instance`;
 
 
+/* URL for ND Agent Status */
+export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;

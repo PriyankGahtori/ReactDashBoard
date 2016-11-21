@@ -21,7 +21,7 @@ import * as actionCreators  from '../../actions/index';
 
 updateTopo(){
   this.props.updateTopology();
-   this.props.closeDialog();
+  this.props.closeDialog();
 
 }
 generateTopo(){

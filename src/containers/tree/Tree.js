@@ -1,6 +1,6 @@
 //Importing React components
 import React, { Component } from 'react';
-import {Treebeard} from 'react-treebeard';
+import {Treebeard, decorators} from 'react-treebeard';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {hashHistory } from 'react-router';
@@ -8,6 +8,25 @@ import {hashHistory } from 'react-router';
 //Importing files
 import treeStyle from '../../styles/treeStyle';
 import * as actionCreators  from '../../actions/index';
+
+
+//custom icons
+decorators.Header = (props) => {
+    console.info("icon",props.node.type)
+    const style = props.style;
+    const iconType = props.node.type;
+    const iconClass = `icon icon-nde-${iconType}`;
+    const iconStyle = { marginRight: '5px',fontSize:'20px'};
+    return (
+        <div style={style.base}>
+            <div style={style.title}>
+                <i className={iconClass} style={iconStyle}/>                
+                {props.node.name}
+            </div>
+        </div>
+    );
+};
+
 
  class Tree extends Component {
 	constructor(props){
@@ -68,6 +87,7 @@ import * as actionCreators  from '../../actions/index';
                 data={this.state.treedata}
                 onToggle={this.onToggle}
                 style={treeStyle}
+                decorators={decorators}
             />
 			
 		);

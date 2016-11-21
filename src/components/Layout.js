@@ -1,6 +1,7 @@
 //Importing React components
 //require('../styles/breadcrumb.css');
 require('../styles/custom.css');
+require('../styles/iconStyle.css');
 import React from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -29,10 +30,12 @@ import Loader from '../containers/utils/Loader';
 injectTapEventPlugin();
 
 const headerStyle = {
-	  paddingRight : "0px",
-    paddingLeft  : "0px"
+	 // paddingRight : "0px",
+    //paddingLeft  : "0px"
 }
-
+const appBarStyle = {
+  backgroundColor: '#114147',
+}
 const iconStyles = {
  // marginRight: 24,
 };
@@ -41,7 +44,8 @@ const title={
   backgroundImage:"url('../images/cavi_logo_new.png')",
   backgroundRepeat: "no-repeat",
   marginTop:"13px",
-  height:"51px"
+  height:"51px",
+  textAlign:'center'
 }
   
 export default class Layout extends React.Component {
@@ -136,7 +140,7 @@ export default class Layout extends React.Component {
         </SettingsDialog >
     	   <Drawer
 	          docked={true}
-	          width={230}
+	          width={233}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}
@@ -159,8 +163,9 @@ export default class Layout extends React.Component {
 	       
 	       <div className={this.state.headerClass} style={headerStyle}>
 	      <AppBar
-	    	
+	      style={appBarStyle}  	
         titleStyle={title}
+        title='NDE CONFIGURATION'
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
         iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>

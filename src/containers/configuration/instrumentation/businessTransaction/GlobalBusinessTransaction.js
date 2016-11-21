@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {Card} from 'material-ui/Card';
 
 //Importing React components
 import {initializeBTFields,addBTData}  from '../../../../actions/index';
@@ -108,8 +109,10 @@ class GlobalBusinessTransaction extends React.Component {
     return (
 
     <form onSubmit ={handleSubmit(this.submit.bind(this)) }>
+       <Card style={{ 'marginTop' : 5 ,'paddingLeft':5}}>
 
       <div style={{'paddingTop':20}}>
+     
       	<h4>Select part of URI used in Transaction name</h4>
       </div>
      
@@ -228,6 +231,7 @@ class GlobalBusinessTransaction extends React.Component {
 
 
         </div>  
+        </Card>
     </form>  
     );
   }

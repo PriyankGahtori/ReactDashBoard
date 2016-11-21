@@ -131,7 +131,7 @@ componentWillMount() {
               <div className = "col-md-6">
                 <Checkbox  
                 value="enableLevel1FPCapturing"
-                label="Enable HotSpots"
+                label="Enable hotspots"
                  defaultChecked = {true} 
                 onCheck={this.handleEnableHotSpot.bind(this)}            
             />
@@ -144,7 +144,7 @@ componentWillMount() {
             <p>{this.state.enableHotSpotBlock}</p>
              <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Sample Interval For Stack Trace"
+                  floatingLabelText="AS sample interval for stack trace"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASSampleInterval}
                   errorText={ASSampleInterval.touched && ASSampleInterval.error && <div>{ASSampleInterval.error}</div>}
@@ -159,7 +159,7 @@ componentWillMount() {
              <div className = "col-md-6" style = {styles.block}>
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Threshold Match Count"
+                  floatingLabelText="AS threshold match count"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASThresholdMatchCount}
                   errorText={ASThresholdMatchCount.touched && ASThresholdMatchCount.error && <div>{ASThresholdMatchCount.error}</div>}
@@ -172,7 +172,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="HotSpot Reporting Interval "
+                  floatingLabelText="Hotspot reporting interval "
                     disabled={this.state.enableHotSpotBlock}
                   {...ASReportInterval}
                   errorText={ASReportInterval.touched && ASReportInterval.error && <div>{ASReportInterval.error}</div>}
@@ -183,7 +183,7 @@ componentWillMount() {
               <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Min Stack Depth for HotSpot"
+                  floatingLabelText="Min stack depth for hotspot"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASDepthFilter}
                    errorText={ASDepthFilter.touched && ASDepthFilter.error && <div>{ASDepthFilter.error}</div>}
@@ -198,7 +198,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS Trace Level"
+                  floatingLabelText="AS trace level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
                    errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
@@ -209,7 +209,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="ASStackComparingDepth"
+                  floatingLabelText="AS stack comparing depth"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASStackComparingDepth}
                    errorText={ASStackComparingDepth.touched && ASStackComparingDepth.error && <div>{ASStackComparingDepth.error}</div>}
@@ -247,3 +247,4 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
                   }
 })
 ) (Form_EnableHotSpotCapturing);
+  

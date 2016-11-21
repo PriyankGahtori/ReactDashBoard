@@ -21,7 +21,7 @@ renderCard(data){
 
     //case 1: length = 0
   if(length === 0){
-    listItemArr.push(<ListItem primaryText="No data available" />);
+    listItemArr.push(<ListItem primaryText="No data available" style={{color: '#FFF'}}/>);
       
   }
 
@@ -33,14 +33,14 @@ renderCard(data){
   {
     for(let i=0; i< length; i++)
     {
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} /></Link>);
+      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} style={{color: '#FFF'}}/></Link>);
     }
   }  
   else
   {
     for(let i=0; i< 4; i++)
     {
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} /></Link>);
+      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} style={{color: '#FFF'}}/></Link>);
     }
   }
 
@@ -51,21 +51,23 @@ return (listItemArr) ;
 
   render() {    
   var myStyle ={
+    background: 'rgba(0,0,0,0.3)',
+    color: 'white'
     //margin:'0px 2px'
    };
 
     return (
    <div className="col-md-4" style={{padding:'10px'}}>
     <Card style={{myStyle}}>
-    <CardTitle title={this.props.data.type} style={{padding:'10px'}} />
+    <CardTitle title={this.props.data.type} titleColor='#FFF' style={{padding:'10px', background:'#113631'}} />
      <Divider />
-      <List>
+      <List style={{background: 'rgba(0,0,0,0.3)'}}>
              {this.renderCard(this.props.data)}
                  
       </List>      
     <Divider />
-    <CardActions>
-      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" /></Link>      
+    <CardActions style={{background: '#456965'}}>
+      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" style={{color: '#FFF'}}/></Link>      
     </CardActions>
     
     </Card>

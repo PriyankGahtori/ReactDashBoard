@@ -8,7 +8,7 @@ export default function(state = initialState, action) {
 
     case 'FETCH_METHOD_MON_TABLEDATA':
       var newState = Object.assign({}, state);
-      console.log("action.payload.data----",action.payload.data)
+      console.log("action.payload.data--77--",action.payload.data)
       newState.tableData=action.payload.data;
       console.log("newState---",newState.tableData)
       return newState;

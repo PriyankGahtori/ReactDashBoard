@@ -18,7 +18,7 @@ import ConfirmDialog from 'material-ui/Dialog';
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
-import PutDelayInMethod from './PutDelayInMethod/PutDelayInMethod'
+import PutDelayInMethod from './putDelayInMethod/PutDelayInMethod'
 import EnableBackendMonitor from './backendMonitor/EnableBackendMonitor';
 import GenExceptionInMethod from './genExcptInMethod/GenExceptInMethod';
 

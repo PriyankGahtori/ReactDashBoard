@@ -23,8 +23,8 @@ var options = [
 const styles = {
   text: {
     fontSize:15,
-    paddingLeft:6,
-    paddingTop:20,
+  
+    
       }};
 
  class InstrProfileMultiSelect extends React.Component {
@@ -81,40 +81,34 @@ const styles = {
     triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
 
   }
-
-  
-
   render() {
-  
-
     return (
-      <div>
-      <div className = "row">
-       <div className = "col-md-3">
-        <p style={styles.text}><b>Choose Instrumentation Profiles</b></p>
-      </div>
-        <div className ="col-md-3">
+      
+      <div className = "row"  style={{paddingTop:40,paddingLeft:40}}>
+      <div className ="col-md-6">
+        <b>Instrumentation Profiles </b> 
+      <p>  <i>Select profiles to instrument application methods</i></p>
+        </div>
+        <div   className = "col-md-3" >   
         	<MultiSelect multi
             name ="instrProfileMultiSelect"
            // value = {this.state.getAllKeywordData.initializeKeywords.instrProfile}
             value = {this.state.value}
             options = {this.props.getAllKeywordData.listOfXmlFilesInstr}
-            onChange={this.updateSelected.bind(this)}
-            style={{top:15}}
-        	/>
-          </div>
-
-        <div className = "col-md-3">
+            onChange={this.updateSelected.bind(this)}	/>
+             </div>
+          <div  className = "col-md-1"  style={{paddingLeft:50}}>
           <FlatButton
+         
           label="Submit"
           primary={true}
           keyboardFocused={true}
-          onClick={this.submitInstr.bind(this)}
-          style={{top:15}}
-        />
-      </div>
-  </div>
-      </div>
+          onClick={this.submitInstr.bind(this)}/>
+         </div>
+         </div>
+
+
+   
     );
   }
 }

@@ -73,8 +73,6 @@ class EnableBackendMonitor extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in props--",this.props)
-  console.log("------",validate) 
   this.state = {openSnackBar:false}
    this.state = {enableBackendMonitorCheckBox:false}
   }
@@ -88,10 +86,8 @@ class EnableBackendMonitor extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.enableBackendMonitorCheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
                      enableBackendMonitorCheckBox : nextProps.getAllKeywordData.enableBackendMonitorCheckBox
       });
@@ -104,8 +100,6 @@ class EnableBackendMonitor extends React.Component {
 
 
    handleDReqCheckboxChange(event,value){
-   console.log("event---",event)
-   console.log("value---",value)
   }
   /*
   *  functions for enableBCICapturing Dialog
@@ -113,16 +107,13 @@ class EnableBackendMonitor extends React.Component {
 
   handleEnableBackendMonitorDialog(){
     this.setState({openEnableBackendMonitorDialog:true});
-    console.log("handleEnableBackendMonitorDialog function callded---")
   }
 
 
   handleEnableBackendMonitor(event,isInputChecked){
-    console.log("isInputChecked--handleEnableBackendMonitor CHECKBOX-",isInputChecked)
     
     if(isInputChecked === true)
     {
-      console.log("action trigegerd opening Snackbar")
        this.setState({openSnackBar:true})
        this.submitForm(validate.setDefaultValuesBackendMonitor(this.props.getAllKeywordData.data));
        this.props.enableBackendMonitorCheckBoxStatus(true);
@@ -141,15 +132,12 @@ class EnableBackendMonitor extends React.Component {
  
 
 handleSubmit(){
-  console.log("handleSubmit---", this.refs)
   this.refs.backendMonitorForm.submit();
   this.handleCancel();
-  console.log("after closing the dialog----")
   }
 
 
 handleRequestClose(){
-  console.log("handle close")
   this.setState({openSnackBar:false
   })
 }
@@ -173,15 +161,9 @@ handleCancelDisableBackendMon(){
 }
 
   submitForm(formData){
-    console.log("submitForm----",formData)
-   
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("data---general keywords--",formData)
-    console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
-    console.log("keywordData--",keywordData)
     
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
@@ -195,12 +177,9 @@ handleCancelDisableBackendMon(){
       else if(value === "false" || value === false){
         value = "0" ;
       }
-      console.log("key---",key)
-      console.log("value for boolean values---",value)
        keywordData[key]["value"] = String(value); 
       
     }) ;
-    console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.profileId);     
 }
 
@@ -240,17 +219,22 @@ const actionsBackendMonDisable =[
     return (
       <div>
 
-      <div className = "row" style={{'paddingLeft':14}}>
-        <div className = "col-md-3">
+      <div className = "row"  style={{'paddingLeft':10,'paddingTop':10}}>
+        <div className = "col-md-5" >
+          
          <Checkbox
+                  label="Enable Backend Monitor"
                   value = "enableBackendMonitor"
-                  label = "Enable Backend Monitor"
                   checked  = {this.state.enableBackendMonitorCheckBox}
-                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}
-         />
+                  onCustomChange={this.handleEnableBackendMonitor.bind(this)}/>
+             <i style={{paddingLeft:40}}>(Enable monitoring for Integration points)</i>
+
         </div>
       <div>
-    <FlatButton disabled ={!this.state.enableBackendMonitorCheckBox} onClick ={this.handleEnableBackendMonitorDialog.bind(this)} label="Advanced Settings" />
+    <FlatButton   className = "col-md-4" 
+                  disabled ={!this.state.enableBackendMonitorCheckBox} 
+                  onClick ={this.handleEnableBackendMonitorDialog.bind(this)} 
+                 label="Advanced Settings" />
      </div>
     </div>
 
@@ -274,7 +258,7 @@ const actionsBackendMonDisable =[
         />
 
         <ConfirmDialog
-          title="Are you sure want to disable the Backend Monitor?"
+          title="Are you sure want to disable the applied settings?"
           actions={actionsBackendMonDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}
@@ -289,7 +273,6 @@ const actionsBackendMonDisable =[
 
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords
    };

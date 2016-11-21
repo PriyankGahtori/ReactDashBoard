@@ -46,9 +46,7 @@ class Form_HttpStatsCondition extends React.Component {
   this.state={headerType:0
   }
   
- 
-
-  }
+}
 
 
 componentWillMount() {
@@ -62,7 +60,6 @@ componentWillMount() {
   }
 
   handleChangeOperatorType(event, index, value){
-    console.log("handleChangeOperatorType---",value)
     this.setState({operatorType:value,
                     enableCompValueBlock:true
 
@@ -70,7 +67,6 @@ componentWillMount() {
 
   }
   handleChangeFpDumpMode(event,index,value){
-    console.log("handleChangeFpDumpMode--",value)
     this.setState({fpDumpMode:value})
   }
 /*
@@ -79,7 +75,6 @@ componentWillMount() {
 */
 handleChangeHeaderType(event, index, value){
 //  this.setState({headerType:value})
- console.log("handleChangeHeaderType value---",value)
  this.props.getListOfHeaders(value);
   if(value == 1 || value == 2)
     this.setState({headerType:value,
@@ -98,8 +93,6 @@ handleChangeHeaderType(event, index, value){
 */
 
 handleChangeValueType(event, index, value){
-  console.log("handleChangeValueType---value---",value)
-
   this.props.getListOfOperators(value);
     this.setState({valueType:value,
                     enableOperatorsList:true
@@ -110,7 +103,6 @@ handleChangeValueType(event, index, value){
 * Here on selecting header Name "select value type Dropdown gets enabled"
 */
 handleHeaderSelected(event, index, value){
-  console.log("value-in header name selected---",value)
   this.setState({headerName:value,
                  enableSelectValueType:true
     })
@@ -118,7 +110,6 @@ handleHeaderSelected(event, index, value){
 
 //method to create comboBox of headers according to header Type Selected
   renderDropDown(hmdId){
-    console.log("renderDropDown function called")
     let menuItems;
     /*if(this.state.headerType == 1){
        menuItems= this.props.listOfRequestTypeHeaders.map((data) => (

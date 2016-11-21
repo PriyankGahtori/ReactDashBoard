@@ -297,7 +297,7 @@ const NewButtonstyle = {
 
       {/*----------- Dialog For Adding New EndPoint--------------*/}
         <DialogNewBackendPoint
-          title="Add New Backend Entry Point"
+          title="Add New Integration Point Detection"
           actions={actionsNewEndPoint}
           modal={false}
           open={this.state.openNewBackendPointDialog}

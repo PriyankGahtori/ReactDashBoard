@@ -2,7 +2,7 @@
 import React from 'react';
 import {hashHistory } from 'react-router';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-
+import {Card} from 'material-ui/Card';
 export default class BusinessTransaction extends React.Component {
   
   constructor(props) {
@@ -24,6 +24,8 @@ export default class BusinessTransaction extends React.Component {
     
     return (    
       <div><h3>Bussiness Transaction Configuration</h3>
+       <Card style={{'marginTop':10,'paddingLeft':5}}>
+
 	    <div className='row'>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
@@ -40,9 +42,11 @@ export default class BusinessTransaction extends React.Component {
 	          label="Pattern Rule"              
 	        />
 	      </RadioButtonGroup>
-	    </div> 
 
+	    </div> 
+      </Card>
       {this.props.children}
+
       </div>     
     );
 

@@ -70,7 +70,6 @@ class GeneralKeywords extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("props--",this.props)
     this.state = {getAllKeywordData:this.props.getAllKeywordData}
   }
 
@@ -88,15 +87,9 @@ class GeneralKeywords extends React.Component {
   }
 
   submitForm(formData){
-    console.log("submitForm----",formData)
    
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("profileId--",this.props.params.profileId)
-
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
-    console.log("keywordData--",keywordData)
-    
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
@@ -109,24 +102,22 @@ class GeneralKeywords extends React.Component {
       else if(value === "false" || value === false){
         value = "0" ;
       }
-      console.log("value for boolean values---",value)
       keywordData[key]["value"] = String(value); 
       
     }) ;
-    console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");  
 }
 
   render() {
   
     return (
-      <div>
+      <div >
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrException profileId = {this.props.params.profileId}  />
-        <EnableServiceEntryPoints />
         <EnableMonitors profileId = {this.props.params.profileId}/>
+         <EnableServiceEntryPoints />
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );
@@ -134,7 +125,6 @@ class GeneralKeywords extends React.Component {
 }
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords
    };

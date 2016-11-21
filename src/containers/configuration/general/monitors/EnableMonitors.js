@@ -237,7 +237,7 @@ submitForm(formData){
     <div>
 
     <div className = "row" style={{'paddingLeft':0}}>
-      <div className = "col-md-3">
+      <div className = "col-md-5">
         <Checkbox
         value = "EnableMonitors"
         label = "Enable Monitors"
@@ -246,7 +246,11 @@ submitForm(formData){
         />
       </div>
     <div>
-    <FlatButton disabled ={!this.state.enableMonitorsCheckBox} onClick ={this.handleEnableMonitorsDialog.bind(this)} label="Advanced Settings" />
+    <FlatButton 
+              className = "col-md-4"
+              disabled ={!this.state.enableMonitorsCheckBox} 
+              onClick ={this.handleEnableMonitorsDialog.bind(this)} 
+              label="Advanced Settings" />
     </div>
     </div>
 

@@ -33,7 +33,7 @@ const initialValues = {
     errors.setCavNVCookie = 'Please Enter Only Numbers'
 
  
-  if(!values.bciInstrSessionPct)
+  if(!values.bciInstrSessionPct  && values.bciInstrSessionPct != 0) 
     errors.bciInstrSessionPct = 'Required'
 
   else if(values.bciInstrSessionPct < 0 || values.bciInstrSessionPct > 100)

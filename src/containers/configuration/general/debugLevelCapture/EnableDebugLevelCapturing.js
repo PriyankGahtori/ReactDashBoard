@@ -72,7 +72,7 @@ class EnableDebugLevelCapturing extends React.Component {
   constructor(props) {
   super(props);
   console.log("in DCDetail.js--",this.props)
-  console.log("------",validate) 
+  console.log("----validate --",validate) 
   this.state = {openSnackBar:false}
   }
 
@@ -125,6 +125,7 @@ class EnableDebugLevelCapturing extends React.Component {
       // this.props.setDefValDebugCapturingKeywords();
        this.submitForm(validate.setDefaultValuesDebugCapturing(this.props.getAllKeywordData.data));
        this.props.enableDebugCheckBoxStatus(true);
+        this.handleCancelEnableDebugCapturing();
    
     }
     else{
@@ -140,10 +141,10 @@ class EnableDebugLevelCapturing extends React.Component {
  
 
 handleSubmitDebugCapturing(){
-  console.log("handleSubmit---", this.refs)
+  console.log("handleSubmit---of handleSubmitDebugCapturing --->", this.refs)
   this.refs.enableDebugCapturingForm.submit();
-  this.handleCancelEnableDebugCapturing();
-  console.log("after closing the dialog----")
+ 
+ 
   }
 
 
@@ -218,13 +219,15 @@ handleCancelDisableDebugVal(){
     console.log("finalFormData---",keywordData)
     //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
     this.props.submitKeywordData(keywordData,this.props.profileId);     
-
+    console.log(" after  submitKeywordData --------> ")
  //action for runtime change
   let keywordDataList = [];
   Object.keys(formData).forEach(function(key){
        keywordDataList.push(key + "=" + formData[key]); 
   })    
-  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
+  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);  
+          this.handleCancelEnableDebugCapturing();
+  
 
 }
 

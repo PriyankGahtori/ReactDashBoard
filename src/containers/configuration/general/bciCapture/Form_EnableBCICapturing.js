@@ -63,9 +63,13 @@ const initialValues = {
     marginTop:-20
   },
   customWidth: {
-      width: 300,
+      width:320,
       paddingTop:7
-    }
+    },
+    error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   
 };
 
@@ -120,11 +124,11 @@ componentWillMount() {
      return (
         <form >
             <div className ="row"  style={{paddingTop:15}}>
-              <div className = "col-md-3">
+              <div className = "col-md-5">
                 <p for="sess_perct" >BCI flowPath capturing percentage   </p>
               </div>
 
-            <div className = "col-md-3">
+            <div className = "col-md-3" >
                <Input
                 {...bciInstrSessionPct} 
                  id="sess_perct"
@@ -133,12 +137,12 @@ componentWillMount() {
                  min="0" 
                  max="100" 
                  step="1"  />
-             {bciInstrSessionPct.touched && bciInstrSessionPct.error && <div>{bciInstrSessionPct.error} </div> }
+               <div style = {styles.error}> {bciInstrSessionPct.touched && bciInstrSessionPct.error && <div>{bciInstrSessionPct.error} </div> }</div>
 
                 </div>
-           
+               </div>
          
-            <div className = "row" >
+            <div className = "row" style={{paddingTop:10,paddingRight:8}}>
              <div className= "col-md-1" >
             <Checkbox
               {...logLevelOneFpMethod}
@@ -147,9 +151,8 @@ componentWillMount() {
               onCustomChange ={this.ChangeLogLevel.bind(this)}    />
               </div>
                <p >Enable level one capturing for flowPaths </p> 
-           
             </div>
-             </div>
+     
 
              <div className = "row" style={{paddingTop:3}}>
              <div className= "col-md-1" >

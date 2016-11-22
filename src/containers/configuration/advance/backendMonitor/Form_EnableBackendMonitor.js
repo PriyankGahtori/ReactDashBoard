@@ -72,8 +72,8 @@ componentWillMount() {
                   value = "backendMonitor"
                   label = "Backend Monitor"
                   checked  = {this.state.enableBackendMonitor}
-                  onCustomChange ={this.enableBackMon.bind(this)} 
-             />
+                  onCustomChange ={this.enableBackMon.bind(this)}  />
+            <p style={{paddingLeft:35}}> (Enable/Disable Backend Monitor)</p>
             </div>
          
       </div>        

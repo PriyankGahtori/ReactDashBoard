@@ -227,7 +227,7 @@ const actionsBackendMonDisable =[
                   value = "enableBackendMonitor"
                   checked  = {this.state.enableBackendMonitorCheckBox}
                   onCustomChange={this.handleEnableBackendMonitor.bind(this)}/>
-             <i style={{paddingLeft:40}}>(Enable monitoring for Integration points)</i>
+                 <i style={{paddingLeft:40}}>(Enable monitoring for Integration points)</i>
 
         </div>
       <div>

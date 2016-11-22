@@ -110,8 +110,9 @@ render() {
     value = "instrExceptions"
     label = "Instr Exceptions"
     checked  = {this.state.enableCaptureExceptCheckBox}
-    onCustomChange={this.handleCaptureExceptCheckboxChange.bind(this)}
-    />
+    onCustomChange={this.handleCaptureExceptCheckboxChange.bind(this)} />
+     <p style={{paddingLeft:35}}> (Enable Exceptions related configuration)</p>
+
     </div>
 
     
@@ -123,8 +124,8 @@ render() {
     value = "captureExceptionStackTrace"
     label = "Capture Exception Stack Trace"
     checked  = {this.state.captureExceptStackTraceCheckBox}
-    onCustomChange = {this.handleExceptStackTrace.bind(this)}
-    />
+    onCustomChange = {this.handleExceptStackTrace.bind(this)} />
+    <p style={{paddingLeft:35}}>(Enable BCI Trace level for exceptions capturing)</p> 
     </div>
     </div>
 
@@ -139,8 +140,9 @@ render() {
     />
     </div>
     
-
+     <b> Capture Exceptions </b> 
     <div className = "row ">
+
     <RadioButtonGroup 
     {...exceptionType}
     className={'col-xs-3 col-md-4'} 
@@ -153,11 +155,11 @@ render() {
     
     <RadioButton
     value="unhandledException"  
-    label="Capture Unhandled Exception" 
+    label=" Unhandled " 
     />
     <RadioButton
     value="handledException"
-    label="Capture handled Exceptions"          
+    label="Handled "          
     />
 
     </RadioButtonGroup>

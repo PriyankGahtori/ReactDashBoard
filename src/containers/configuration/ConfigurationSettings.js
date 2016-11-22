@@ -113,7 +113,7 @@ class ConfigurationSettings extends React.Component {
            <List style={listStyle} > 
             <ListItem 
               primaryText=" General" 
-              secondaryText="Flowpath Capturing, HotSpot Capturing, Choose Instrumentation Profiles, Debug Level Capturing, Capture Exception" 
+              secondaryText="Flowpath Capturing, HotSpot Capturing, Debug Level Capturing, Capture Exception, Monitors, Choose Instrumentation Profiles" 
               onTouchTap={this.handleGeneralTab}/>
             <Divider/>
             <ListItem 
@@ -123,7 +123,7 @@ class ConfigurationSettings extends React.Component {
             <Divider/>
             <ListItem 
               primaryText=" Advance Settings" 
-              secondaryText="Put Delay in Method, Backend Monitor " 
+              secondaryText="Put Delay in Method, Backend Monitor, Generate Exception in Method " 
               onTouchTap={this.handleAdvanceSettingTab}/>
             <Divider/>
            </List> 

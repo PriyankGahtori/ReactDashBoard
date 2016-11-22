@@ -270,8 +270,9 @@ submitForm(formData){
     return (
       <div>
 
-      <div className = "row">
+     <div className = "row"  style={{'paddingTop':10}}>
         <div className = "col-md-5" >
+          
          <Checkbox
 
                   label ="Enable BCI Capturing "

@@ -71,34 +71,34 @@ const styles = {
   constructor(props) {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
-     this.handleCancel =this.handleCancel.bind(this);
-     console.log("this.props - ", this.props)
+     this.loader = this.loader.bind(this);
+     
   }
 
   componentWillMount() {
-    console.log("inside  componentWillMount ");
-    this.props.fetchMethodMonitorTableData(this.props.params.profileId);
-    console.log("this.state - ",this.state) 
+    this.props.triggerLoader(true,null)
+    this.props.fetchMethodMonitorTableData(this.props.params.profileId,this.loader);
   }
 
   componentWillReceiveProps(nextProps)
   {
-     console.log("nextProps---",nextProps)
     if(this.props.methodMonitor.tableData != nextProps.methodMonitor.tableData){
-      console.log("inside if conddddddddddddddddd")
       this.setState({methodMonitor:nextProps.methodMonitor});
 
-       console.log("this.propssss - ", this.state)
     }
 }
 
+loader(){
+  var message = {'title': 'Method Monitors Loaded','msg':' '}
+    this.props.triggerLoader(false,message)
+
+}
+
   onToggle(row){
-    console.log("ontoggle function --event triggered---",row)
    
   }
 
   handleCancel(){
-    console.log("inside handle cancel")
     this.props.toggleStateAddMethodMonitor();
   }
 

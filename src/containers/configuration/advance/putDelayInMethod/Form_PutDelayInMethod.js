@@ -87,7 +87,7 @@ class Form_PutDelayInMethod extends React.Component {
   	    		<TextField
                     style={{right:18,bottom:20}}
                     hintText="Hint Text"
-                    floatingLabelText="Fully qualified method name"
+                    floatingLabelText="Fully Qualified Method Name"
                     {...fqm}
                   />
   	    

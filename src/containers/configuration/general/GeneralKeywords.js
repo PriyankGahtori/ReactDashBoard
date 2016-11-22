@@ -70,13 +70,16 @@ class GeneralKeywords extends React.Component {
 
   constructor(props) {
     super(props);
+  this.loader = this.loader.bind(this);
     this.state = {getAllKeywordData:this.props.getAllKeywordData}
+     
   }
 
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.getKeywordsData(this.props.params.profileId);
+       this.props.triggerLoader(true, null)
+    this.props.getKeywordsData(this.props.params.profileId,this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -85,6 +88,11 @@ class GeneralKeywords extends React.Component {
       this.setState({getAllKeywordData:nextProps.getAllKeywordData});
     }
   }
+
+ loader(){
+   var message = {'title':'Keywords loaded', 'msg' : ''};
+   this.props.triggerLoader(false,message)
+ }
 
   submitForm(formData){
    
@@ -117,7 +125,7 @@ class GeneralKeywords extends React.Component {
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrException profileId = {this.props.params.profileId}  />
         <EnableMonitors profileId = {this.props.params.profileId}/>
-         <EnableServiceEntryPoints />
+        {  /*   <EnableServiceEntryPoints />*/}
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );

@@ -24,11 +24,8 @@ import EnableHotSpotCapturing from './hotspotCapture/EnableHotSpotCapturing';
 import EnableDebugCapturing from './debugLevelCapture/EnableDebugLevelCapturing';
 import InstrException from './exceptionCapture/EnableExceptionCapturing';
 import EnableServiceEntryPoints from './EnableServiceEntryPoints';
-<<<<<<< HEAD
 import EnableFpHdrCapturing from './flowPathHeaderCapture/EnableFpHeaderCapturing';
-=======
 import EnableMonitors from './monitors/EnableMonitors';
->>>>>>> 2e1ddf77dde913e524cb47df953f48b91ef5e1c7
 
 const styles = {
   text: {

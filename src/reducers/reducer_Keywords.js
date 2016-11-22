@@ -15,8 +15,8 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					uploadTopology :null,
 					enableNDEntryPointsFile :false,
 					genExcptInMethod :false ,
-					enableFpHdrCheckBox : false
-					enableMonitorsCheckBox : false,
+					enableFpHdrCheckBox : false,
+					enableMonitorsCheckBox : false
 					}
 
 

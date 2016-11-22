@@ -27,7 +27,7 @@ import * as actionCreators  from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import {getKeywordsData,submitKeywordData}  from '../../../../actions/index';
 import FormGenExcptInMethod from './Form_GenerateExceptionInMethod';
-import * as  modifiedVal from './ModifyingValue';
+import * as  modifiedVal from './ModifyValue';
 
 
 const styles = {

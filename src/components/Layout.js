@@ -32,8 +32,9 @@ import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
 injectTapEventPlugin();
 
 const headerStyle = {
-	 // paddingRight : "0px",
-    //paddingLeft  : "0px"
+	  paddingRight : "1px",
+    paddingLeft  : "1px",
+    overflowX: 'hidden'
 }
 const appBarStyle = {
   backgroundColor: '#114147',
@@ -161,7 +162,7 @@ export default class Layout extends React.Component {
 
     	   <Drawer
 	          docked={true}
-	          width={233}
+	          width={243}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}

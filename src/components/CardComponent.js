@@ -33,14 +33,14 @@ renderCard(data){
   {
     for(let i=0; i< length; i++)
     {
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} style={{color: '#FFF'}}/></Link>);
+      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
     }
   }  
   else
   {
     for(let i=0; i< 4; i++)
     {
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} style={{color: '#FFF'}}/></Link>);
+      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
     }
   }
 
@@ -59,15 +59,15 @@ return (listItemArr) ;
     return (
    <div className="col-md-4" style={{padding:'10px'}}>
     <Card style={{myStyle}}>
-    <CardTitle title={this.props.data.type} titleColor='#FFF' style={{padding:'10px', background:'#113631'}} />
+    <CardTitle title={this.props.data.type} titleColor='#FFF' titleStyle={{padding:'5px 10px', fontSize:'18px', lineHeight:'28px'}} style={{padding:'0px', background:'#113631'}} />
      <Divider />
-      <List style={{background: 'rgba(0,0,0,0.3)'}}>
+      <List style={{background: '#74ACA0', minHeight: '160px'}}>
              {this.renderCard(this.props.data)}
                  
       </List>      
     <Divider />
-    <CardActions style={{background: '#456965'}}>
-      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" style={{color: '#FFF'}}/></Link>      
+    <CardActions style={{background: '#456965',height: '38px',padding:'0px'}}>
+      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" style={{color: '#FFF',float:'right'}}/></Link>      
     </CardActions>
     
     </Card>

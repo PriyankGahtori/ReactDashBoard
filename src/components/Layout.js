@@ -50,9 +50,10 @@ const customContentStyle = {
 const title={
   backgroundImage:"url('../images/cavi_logo_new.png')",
   backgroundRepeat: "no-repeat",
+  backgroundSize : "135px 20px",
   marginTop:"13px",
-  height:"51px",
-  textAlign:'center'
+  height:"45px",
+  fontSize:"16px"
 }
   
 export default class Layout extends React.Component {
@@ -167,11 +168,10 @@ export default class Layout extends React.Component {
 	          style={{"backgroundColor":"#21252B"}}	          
 	        >
 		       <AppBar 
+             style={appBarStyle}   
 		         iconElementLeft= {<IconButton></IconButton>}
 		         iconElementRight={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
 		         onRightIconButtonTouchTap={()=>this.handleToggle}	
-             
-              
 		       />
 
             {/*<MenuItem><Link to="/testing">PKY</Link></MenuItem>*/}
@@ -189,9 +189,9 @@ export default class Layout extends React.Component {
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
         iconElementRight={<div><IconButton tooltip="ND Agent Status" onTouchTap={this.agentScreen.bind(this)}>
-          <FontIcon className="material-icons">people</FontIcon>
-          </IconButton><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
-        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
+          <FontIcon color='#FFF' className="material-icons">people</FontIcon>
+          </IconButton><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon color='#FFF' className="material-icons">home</FontIcon></IconButton>
+        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon color='#FFF' className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

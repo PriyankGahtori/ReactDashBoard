@@ -162,7 +162,7 @@ export default class Layout extends React.Component {
 
     	   <Drawer
 	          docked={true}
-	          width={233}
+	          width={243}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}

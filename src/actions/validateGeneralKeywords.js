@@ -37,6 +37,11 @@ export function validateExcptKeywords(data){
   return data.InstrException.value === "0"
 }
 
+export function validateFpHdrChkBox(data){
+  return data.captureHTTPReqFullFp.value == "0" &&
+         data.captureHTTPRespFullFp.value == "0";
+}
+
 export function setDefaultValuesBCICapturing(data){ 
 
   var defaultKeywordData = { 
@@ -85,6 +90,13 @@ export function setDefaultValuesExcptCapturing(data){
   return defaultKeywordData ;
 }
 
+export function setDefaultValuesFpHdrCapturing(data){
+  var defaultKeywordData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
+                              "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
+                            }
+  return defaultKeywordData ;
+}
+
 export const disabledExcptCapturing = {
                                     "instrExceptions" : "0"
 }
@@ -121,3 +133,8 @@ export const disabledDebugCapturing = {
 export const disabledBackendMonitor = {
                                     "enableBackendMonitor" : "0"
 };
+
+export const disabledFpCapturing = {
+                                "captureHTTPReqFullFp":"0",
+                                "captureHTTPRespFullFp":"0"
+}

@@ -104,7 +104,6 @@ componentWillMount() {
 //called on change of checkbox of logLevelOneFpMethod
   ChangeLogLevel(event,isInputChecked){
     this.setState({logLevelOneFpMethod:isInputChecked})
-
   }
 
 //called on change of checkbox of doNotDiscardFlowPaths

@@ -22,6 +22,7 @@ import EnableHotSpotCapturing from './hotspotCapture/EnableHotSpotCapturing';
 import EnableDebugCapturing from './debugLevelCapture/EnableDebugLevelCapturing';
 import InstrException from './exceptionCapture/EnableExceptionCapturing';
 import EnableServiceEntryPoints from './EnableServiceEntryPoints';
+import EnableFpHdrCapturing from './flowPathHeaderCapture/EnableFpHeaderCapturing';
 
 const styles = {
   text: {
@@ -144,6 +145,7 @@ class GeneralKeywords extends React.Component {
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         <InstrException profileId = {this.props.params.profileId}  />
         <EnableServiceEntryPoints />
+        <EnableFpHdrCapturing profileId = {this.props.params.profileId}/>
     </div>
     );
   }

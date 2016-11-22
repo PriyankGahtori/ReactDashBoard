@@ -44,7 +44,6 @@ const NewButtonstyle = {
     bottom: 30,
     left: 'auto',
     position: 'fixed'
-
 };
 const toastrCss = {
   wordWrap : 'break-word' 

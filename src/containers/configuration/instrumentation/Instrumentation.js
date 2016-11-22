@@ -11,6 +11,9 @@ const styles = {
   },
   block:{
     paddingBottom: 25,
+  },
+  tab:{
+    backgroundColor: '#114147'
   }
 };
 
@@ -39,23 +42,23 @@ export default class Instrumentation extends React.Component {
       <Tabs      
         onChange={this.handleChange}
       >
-        <Tab label="Service Entry Point" value="" >
+        <Tab style ={styles.tab} label="Service Entry Point" value="" >
         
         </Tab>
 
-        <Tab label="Integration Pt Detection" value="backenddetection" >
+        <Tab style ={styles.tab} label="Integration Pt Detection" value="backenddetection" >
           
         </Tab>
 
-         <Tab label="Transaction Configuration" value="bt">
+         <Tab style ={styles.tab} label="Transaction Configuration" value="bt">
           
         </Tab>
 
-        <Tab label="Instrument Monitors" value="monitors">
+        <Tab style ={styles.tab} label="Instrument Monitors" value="monitors">
         
         </Tab>
 
-        <Tab label="Error Detection" value="errordetection">
+        <Tab style ={styles.tab} label="Error Detection" value="errordetection">
           
         </Tab>
 

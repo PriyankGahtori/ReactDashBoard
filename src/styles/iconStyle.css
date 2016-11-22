@@ -1,19 +1,19 @@
 @charset "UTF-8";
 
 @font-face {
-  font-family: "icon";
-  src:url("fonts/icon.eot");
-  src:url("fonts/icon.eot?#iefix") format("embedded-opentype"),
-    url("fonts/icon.woff") format("woff"),
-    url("fonts/icon.ttf") format("truetype"),
-    url("fonts/icon.svg#icon") format("svg");
+  font-family: "congfig-ui";
+  src:url("fonts/congfig-ui.eot");
+  src:url("fonts/congfig-ui.eot?#iefix") format("embedded-opentype"),
+    url("fonts/congfig-ui.woff") format("woff"),
+    url("fonts/congfig-ui.ttf") format("truetype"),
+    url("fonts/congfig-ui.svg#congfig-ui") format("svg");
   font-weight: normal;
   font-style: normal;
 
 }
 
 [data-icon]:before {
-  font-family: "icon" !important;
+  font-family: "congfig-ui" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -25,9 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="icon-nde-"]:before,
-[class*=" icon-nde-"]:before {
-  font-family: "icon" !important;
+[class^="config-icon-"]:before,
+[class*=" config-icon-"]:before {
+  font-family: "congfig-ui" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -38,15 +38,30 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-nde-topology:before {
+.config-icon-instance:before {
+  content: "\e000";
+}
+.config-icon-server:before {
   content: "\e001";
 }
-.icon-nde-tier:before {
+.config-icon-tier:before {
   content: "\e002";
 }
-.icon-nde-server:before {
+.config-icon-topology:before {
   content: "\e003";
 }
-.icon-nde-instance:before {
+.config-icon-discover:before {
+  content: "\e005";
+}
+.config-icon-setting:before {
+  content: "\e006";
+}
+.config-icon-manage-profile:before {
+  content: "\e008";
+}
+.config-icon-setting2:before {
   content: "\e004";
+}
+.config-icon-agent:before {
+  content: "\e007";
 }

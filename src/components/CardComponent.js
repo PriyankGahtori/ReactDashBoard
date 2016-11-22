@@ -57,7 +57,7 @@ return (listItemArr) ;
    };
 
     return (
-   <div className="col-md-4" style={{padding:'10px'}}>
+   <div className="col-md-4" style={{marginLeft:'1.9em', width:'30%'}}>
     <Card style={{myStyle}}>
     <CardTitle title={this.props.data.type} titleColor='#FFF' titleStyle={{padding:'5px 10px', fontSize:'18px', lineHeight:'28px'}} style={{padding:'0px', background:'#113631'}} />
      <Divider />

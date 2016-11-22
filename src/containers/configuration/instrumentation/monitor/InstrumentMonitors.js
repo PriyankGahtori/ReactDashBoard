@@ -12,6 +12,9 @@ const styles = {
   },
   block:{
     paddingBottom: 25,
+  },
+tab:{
+    backgroundColor: '#114147'
   }
 };
 
@@ -40,7 +43,7 @@ export default class InstrumentMonitors extends React.Component {
       <Tabs      
         onChange={this.handleChange}
       >
-        <Tab label="Method monitors" value="" >
+        <Tab style ={styles.tab} label="Method monitors" value="" >
         
         </Tab>
 
@@ -48,7 +51,7 @@ export default class InstrumentMonitors extends React.Component {
 
         </Tab> */ }
 
-        <Tab label="HTTP stats monitors" value="httpstatmonitors">
+        <Tab style ={styles.tab} label="HTTP stats monitors" value="httpstatmonitors">
           
         </Tab>
 

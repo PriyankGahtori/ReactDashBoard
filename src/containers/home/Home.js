@@ -3,6 +3,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {List, ListItem} from 'material-ui/List';
+import FontIcon from 'material-ui/FontIcon';
+import ActionInfo from 'material-ui/svg-icons/action/info';
 
 //Importing files
 import  {activeData} from '../../actions/index';
@@ -10,7 +13,23 @@ import * as actionCreators  from '../../actions/index';
 import CardComponent from '../../components/CardComponent'
 
 
-
+const iconStyle = {
+fontSize:'56px',
+color:'#d8d8d8'
+};
+const listStyle = {  
+  padding: '8px 4px',
+  color: '#FFF',
+  fontSize:'16px',
+  lineHeight:'22px'
+};
+const divStyle ={
+  background:'rgba(0,0,0,0.4)', 
+  borderRadius: '8px', 
+  marginLeft: '2.7em',
+  marginBottom:'2em',
+  minHeight: '111px'
+}  
  class Home extends React.Component {
  
   constructor(props) {
@@ -46,13 +65,35 @@ componentWillReceiveProps(nextProps){
   	if (!this.props.homeData) {
       return <div>Loading........</div>;
     }
-    return (   
+    return (
+          <div>
+
+            <div className="row">
+                <div className="col-md-2" style={divStyle}>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Discover Instrumentation Data" rightIcon={<i className="icon config-icon-discover" style={iconStyle} />}/>
+                </div>
+                <div className="col-md-2" style={divStyle}>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Instrumentation Profile" rightIcon={<i className="icon config-icon-manage-profile" style={iconStyle} />}/>
+                </div>
+                <div className="col-md-2" style={divStyle}>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="NDE Agent Status" rightIcon={<i className="icon config-icon-agent" style={iconStyle} />}/>
+                </div>
+                <div className="col-md-2" style={divStyle}>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Auto Discovery" rightIcon={<i className="icon config-icon-setting" style={iconStyle} />}/>
+                </div>
+                <div className="col-md-2" style={divStyle}>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Other Settings" rightIcon={<i className="icon config-icon-setting2" style={iconStyle} />}/>
+                </div>  
+            </div>
+
             <div className="row">       
         		{this.props.homeData.map((data, index) => (
                           
             	<CardComponent key={data.id} data={data}/>
-        ))}   
-      </div> 
+            ))}   
+            </div>
+
+          </div>  
     );
   }
 }

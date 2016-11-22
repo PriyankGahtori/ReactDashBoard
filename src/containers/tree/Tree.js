@@ -15,7 +15,7 @@ decorators.Header = (props) => {
     console.info("icon",props.node.type)
     const style = props.style;
     const iconType = props.node.type;
-    const iconClass = `icon icon-nde-${iconType}`;
+    const iconClass = `icon config-icon-${iconType}`;
     const iconStyle = { marginRight: '5px',fontSize:'20px'};
     return (
         <div style={style.base}>

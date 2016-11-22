@@ -32,8 +32,9 @@ import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
 injectTapEventPlugin();
 
 const headerStyle = {
-	 // paddingRight : "0px",
-    //paddingLeft  : "0px"
+	  paddingRight : "1px",
+    paddingLeft  : "1px",
+    overflowX: 'hidden'
 }
 const appBarStyle = {
   backgroundColor: '#114147',

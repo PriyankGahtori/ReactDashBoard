@@ -272,11 +272,14 @@ else{
       value = "enableFpHeaderCapturing"
       label = "Enable FlowPath Header Capturing"
       checked  = {this.state.enableFpHdrChkBox}
-      onCustomChange={this.handleEnableFpHdrCapturingCheckboxChange.bind(this)}
-      />
+      onCustomChange={this.handleEnableFpHdrCapturingCheckboxChange.bind(this)} />
+      <i style={{paddingLeft:40}}>(Http request and response headers Capture Configuration) </i> 
+      
       </div>
       <div>
-      <FlatButton disabled ={!this.state.enableFpHdrChkBox} onClick ={this.enableFpHdrCapturingDialog.bind(this)} label="Advanced Settings" />
+      <FlatButton className="col-md-4"
+
+       disabled ={!this.state.enableFpHdrChkBox} onClick ={this.enableFpHdrCapturingDialog.bind(this)} label="Advanced Settings" />
       </div>
       </div>
 

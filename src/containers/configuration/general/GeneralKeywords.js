@@ -125,10 +125,11 @@ class GeneralKeywords extends React.Component {
         <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <InstrException profileId = {this.props.params.profileId}  />
-        <EnableServiceEntryPoints />
+       
         <EnableFpHdrCapturing profileId = {this.props.params.profileId}/>
         <EnableMonitors profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
+         <EnableServiceEntryPoints />
     </div>
     );
   }

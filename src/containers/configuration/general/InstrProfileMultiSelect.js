@@ -84,10 +84,10 @@ const styles = {
   render() {
     return (
       
-      <div className = "row"  style={{paddingTop:40,paddingLeft:40}}>
-      <div className ="col-md-6">
+      <div className = "row"  style={{paddingTop:10}}>
+      <div className ="col-md-6" style={{paddingLeft:55}}>
         <b>Instrumentation Profiles </b> 
-      <p>  <i>Select profiles to instrument application methods</i></p>
+      <p>  <i>(Select profiles to instrument application methods)</i></p>
         </div>
         <div   className = "col-md-3" >   
         	<MultiSelect multi
@@ -97,7 +97,7 @@ const styles = {
             options = {this.props.getAllKeywordData.listOfXmlFilesInstr}
             onChange={this.updateSelected.bind(this)}	/>
              </div>
-          <div  className = "col-md-1"  style={{paddingLeft:50}}>
+          <div  className = "col-md-1"  style={{paddingLeft:60}} >
           <FlatButton
          
           label="Submit"

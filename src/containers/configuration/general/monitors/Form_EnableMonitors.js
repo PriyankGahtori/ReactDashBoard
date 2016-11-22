@@ -55,16 +55,17 @@ render() {
   <form >
   <div className = "row" style = {styles.block}>
 
-  <div className ="col-md-8">
+  <div className ="col-md-5">
   <Checkbox
   {...enableBTMonitor}
+  label="BT Monitor"
   value = "btMonitor"
-  label = "BT Monitor"
   checked  = {this.state.enableBTMonitor}
-  onCustomChange ={this.enableBT.bind(this)} 
-  />
-  </div>
+  onCustomChange ={this.enableBT.bind(this)}  />
+   <p style={{paddingLeft:35}}> (Enable/Disable BT Monitor)</p>
 
+  </div>
+ 
   </div>        
 
 

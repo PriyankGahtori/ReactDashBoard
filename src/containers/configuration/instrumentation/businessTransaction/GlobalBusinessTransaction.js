@@ -10,7 +10,7 @@ import { bindActionCreators } from 'redux';
 import {Card} from 'material-ui/Card';
 
 //Importing React components
-import {initializeBTFields,addBTData}  from '../../../../actions/index';
+import {initializeBTFields,addBTData,triggerLoader}  from '../../../../actions/index';
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import SelectField from '../../../../components/SelectFieldWrapper';
 import Checkbox from '../../../../components/CheckboxWrapper';
@@ -21,7 +21,6 @@ class GlobalBusinessTransaction extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("in globalbt---",this.props)
     this.state={
     	'segmentDivCSS' : 'show',
     	'dynamicReqType' : false,
@@ -30,18 +29,15 @@ class GlobalBusinessTransaction extends React.Component {
   		'headerDiv': false,
       'uriType':"segment"    	
     }
+    this.loader = this.loader.bind(this)
   }
 
  componentWillMount() {
-    console.log("componentWillMount--",this.props.params.profileId)
-    this.props.initializeBTFields(this.props.params.profileId);
+     this.props.triggerLoader(true,null);
+     this.props.initializeBTFields(this.props.params.profileId,this.loader);
   }
 
  componentWillReceiveProps(nextProps){
-  
-  
-  console.log("this.props.initialData ---",this.props.initialData)
-  console.log("nextProps.initialData---",nextProps.initialData)
   if(null != nextProps.initialData){
 
       if(this.props.initialData != nextProps.initialData){
@@ -56,29 +52,25 @@ class GlobalBusinessTransaction extends React.Component {
       }
     if(this.props.initialData.uriType != nextProps.initialData.uriType)
       {
-        console.info(this.props.initialData.uriType != nextProps.initialData.uriType)
-        console.info("initial",this.props.initialData.uriType)
-        console.info("next",nextProps.initialData.uriType)  
         this.setState({"uriType": nextProps.initialData.uriType})
       }
  }
 }
-
+loader(){
+  var message = {'title': ' BT Global Loaded' , 'msg' : '' }
+  this.props.triggerLoader(false,message)
+}
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide
-    console.info("uriType",value)
   	let css = value === 'segment' ? 'show' : 'hidden';
   	this.setState({'segmentDivCSS':css})
   }
 
   handleDReqCheckboxChange(event,value){
-    console.log("value - ",value)
   	this.setState({'dynamicReqType': value})	
   }
 
   handleDReqRadioChange(event,value){
-    console.log("value--handleDReqRadioChange---",value)
-    console.log("event-----",event)
   	let paramDiv  = value === "requestParam";
   	let methodDiv = value === "httpMethod";
   	let headerDiv = value === "requestHeader";
@@ -87,13 +79,10 @@ class GlobalBusinessTransaction extends React.Component {
   					'headerDiv':headerDiv 
   				  });	
   	
-  	console.info(value);
   }
 
   submit(data){
     data = JSON.stringify(data);
-    console.log("data---",data)
-    console.log("profileId--",this.props.params.profileId)
     this.props.addBTData(data,this.props.params.profileId);       
 }
 
@@ -254,6 +243,7 @@ export default reduxForm({
 }),
   { 
    initializeBTFields : initializeBTFields,
-   addBTData          : addBTData
+   addBTData          : addBTData,
+   triggerLoader      : triggerLoader,
  } // mapDispatchToProps (will bind action creator to dispatch)
 )(GlobalBusinessTransaction);

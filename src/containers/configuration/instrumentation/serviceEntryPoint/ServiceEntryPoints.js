@@ -64,6 +64,7 @@ class ServiceEntryPoints extends React.Component {
   this.handleRequestClose = this.handleRequestClose.bind(this);
   this.getProfileName = this.getProfileName.bind(this);
   this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
+  this.loader = this.loader.bind(this);
   }
   
   getProfileName(profileId)
@@ -175,8 +176,8 @@ handleRequestClose(){
   }
 
   componentWillMount() {
-      console.log("this.props.params.profileId--in compomnentwillmount---",this.props.params.profileId)
-      this.props.fetchServiceEntryPointsTabledata(this.props.params.profileId);    
+     this.props.triggerLoader(true,null);
+      this.props.fetchServiceEntryPointsTabledata(this.props.params.profileId,this.loader);    
   }
 
   componentWillReceiveProps(nextProps)
@@ -186,7 +187,10 @@ handleRequestClose(){
       this.setState({ServiceEntryPoints:nextProps.ServiceEntryPoints});
     }
 }
-
+loader(){
+  var message = {'title':'ServiceEntryPoints Loaded', 'msg': ''}
+  this.props.triggerLoader(false,message)
+}
 onToggle(row){
     console.log("ontoggle function --event triggered---",row)
     //

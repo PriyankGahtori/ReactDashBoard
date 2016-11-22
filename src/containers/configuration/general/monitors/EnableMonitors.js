@@ -236,14 +236,14 @@ submitForm(formData){
    return (
     <div>
 
-    <div className = "row" style={{'paddingLeft':0}}>
+    <div className = "row" style={{'paddingTop':10}}>
       <div className = "col-md-5">
         <Checkbox
         value = "EnableMonitors"
         label = "Enable Monitors"
         checked  = {this.state.enableMonitorsCheckBox}
-        onCustomChange={this.handleEnableMonitors.bind(this)}
-        />
+        onCustomChange={this.handleEnableMonitors.bind(this)} />
+        <i  style={{paddingLeft:40}}>(Enable/Disable ND graph monitors) </i>
       </div>
     <div>
     <FlatButton 

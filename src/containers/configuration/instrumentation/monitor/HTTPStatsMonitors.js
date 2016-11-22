@@ -38,10 +38,11 @@ const NewButtonstyle = {
 
   constructor(props) {
     super(props);
+    this.loader = this.loader.bind(this)
   }
 
   componentWillMount() {
-    this.props.getHttpStatsCond(this.props.params.profileId);
+    this.props.getHttpStatsCond(this.props.params.profileId,this.loader);
     this.props.getListOfTypes();
     this.props.getListOfValueType();   //this functio gets list of valur type["String","nymeric..."]
   }
@@ -52,7 +53,11 @@ const NewButtonstyle = {
       this.setState({httpStatsData:nextProps.httpStatsData});
     }
   }
+   loader(){
+    var message = {'title':'HTTPStatsMonitors Loaded' ,'msg':''}
+     this.props.triggerLoader(false,message)
 
+   }
   handleOpen(){
     this.props.toggleStateAddHttpStatsCond();
   }

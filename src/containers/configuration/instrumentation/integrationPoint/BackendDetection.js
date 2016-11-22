@@ -64,6 +64,7 @@ const NewButtonstyle = {
                   'selecteRow':{}}
     this.getProfileName = this.getProfileName.bind(this);
     this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
+    this.loader = this.loader.bind(this)
   }
   
   getProfileName(profileId)
@@ -100,8 +101,9 @@ const NewButtonstyle = {
   }
 
   componentWillMount() {
+     this.props.triggerLoader(true,null);
     console.log("in compwilmount method---",this.props.params.profileId)
-    this.props.fetchBackendTableData(this.props.params.profileId);
+    this.props.fetchBackendTableData(this.props.params.profileId,this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -113,7 +115,11 @@ const NewButtonstyle = {
     }
 
   }
-
+    
+  loader(){
+    var message = { 'title' : 'Integration Points Loaded' ,'msg': ''}
+   this.props.triggerLoader(false,message)
+  }
   handleHref(row)
   {
   	console.log("in function handleHref--",row);
@@ -242,7 +248,7 @@ const NewButtonstyle = {
         <Paper zDepth={2}>     
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
-              <h4>Backend Detection</h4>
+              <h4>Integration Point Detection(s)</h4>
           </div>
 
           <div className="col-md-2"  >
@@ -272,9 +278,7 @@ const NewButtonstyle = {
           modal={true}
           autoScrollBodyContent={true}
           open={this.state.openBackendList}
-          onRequestClose={this.handleCloseEditEndPt.bind(this)}
-
-		>
+          onRequestClose={this.handleCloseEditEndPt.bind(this)}	>
 		  {/*<BackendDetectionList 
 		    backendType={this.state.backendType}
 		    selectedRow={this.state.selecteRow}/>*/}

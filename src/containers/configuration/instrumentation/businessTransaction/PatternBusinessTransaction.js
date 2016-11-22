@@ -77,14 +77,19 @@ const styles = {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
-     console.log("this.props - ", this.props)
+     this.loader = this.loader.bind(this)
   }
 
   componentWillMount() {
-    console.log("inside  componentWillMount ");
-    console.log("profile id - ", this.props)
-    this.props.fetchBTPatternTableData(this.props.params.profileId); 
+    this.props.triggerLoader(true,null)
+    this.props.fetchBTPatternTableData(this.props.params.profileId,this.loader); 
   }
+  
+  loader(){
+    var message = {'title': 'BT Pattern Loaded' , 'msg': ''}
+    this.props.triggerLoader(false,message)
+  }
+
 
   onToggle(row){
     console.log("ontoggle function --event triggered---",row)

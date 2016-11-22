@@ -18,7 +18,7 @@ export function instrExceptionValue(formData){
 		else
 			instrVal = instrVal+"%200";
 
-		if(formData.exceptionType == 'handledException')
+		if(formData.exceptionType === 'handledException')
 			instrVal = instrVal+"%201";
 		else
 			instrVal = instrVal+"%200"

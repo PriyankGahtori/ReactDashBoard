@@ -27,7 +27,7 @@ import * as actionCreators  from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import {getKeywordsData,submitKeywordData}  from '../../../../actions/index';
 import FormGenExcptInMethod from './Form_GenerateExceptionInMethod';
-import * as  modifiedVal from './ModifyingValue';
+import * as  modifiedVal from './ModifyValue';
 
 
 const styles = {
@@ -235,8 +235,8 @@ render() {
 		value = "genExcptInMethod"
 		label = "Generate Exception In Method"
 		checked  = {this.state.genExcptInMethod}
-		onCustomChange={this.handleGenExcptInMethod.bind(this)}
-		/>
+		onCustomChange={this.handleGenExcptInMethod.bind(this)}/>
+		<i style={{paddingLeft:40}}> (Enable Exception generation in certain method)</i>
 		</div>
 		<div>
 		<FlatButton className = "col-md-4" 

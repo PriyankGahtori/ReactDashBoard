@@ -1,6 +1,7 @@
 import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
-import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyingValue';
+import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyValue';
+import * as modifiedValFpHdrCapturing from '../containers/configuration/general/flowPathHeaderCapture/ModifyValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -13,8 +14,9 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					listOfXmlFilesInstr :[],
 					uploadTopology :null,
 					enableNDEntryPointsFile :false,
-					enableMonitorsCheckBox : false,
-					genExcptInMethod :false
+					genExcptInMethod :false ,
+					enableFpHdrCheckBox : false,
+					enableMonitorsCheckBox : false
 					}
 
 
@@ -30,10 +32,15 @@ switch(action.type){
 	//below code to get object with keys as keywords and values as its value		
 		let obj = _.mapValues(data, function(obj){ return obj.value; });
 
-		//for keyword generateExceptionInMethod
+		//for initialization of  keyword generateExceptionInMethod
 		var  genExcptInMethodObj = modifiedValGenExcptInMethod.splitValue(obj.generateExceptionInMethod);
 		obj.genExcptInMethodObj = genExcptInMethodObj;	
 
+		//for initialization of FP header Capturing
+		var fpHdrInitializeObj = modifiedValFpHdrCapturing.splitValue(obj);
+		console.log("fpHdrInitializeObj---",fpHdrInitializeObj)
+		obj.fpHdrInitializeObj = fpHdrInitializeObj;
+		
 
 
 		var instrExceptionFields = obj.instrExceptions.split('%20');
@@ -104,6 +111,8 @@ switch(action.type){
 	   	newState.enableNDEntryPointsFile = (action.payload.data.NDEntryPointsFile.value === 'true');
 
 	   	newState.genExcptInMethod = obj.generateExceptionInMethod != 0 ;
+
+	   	newState.enableFpHdrChkBox = !validate.validateFpHdrChkBox(action.payload.data) ;
 
 		newState.enableMonitorsCheckBox = !validate.validateDebugKeywords(action.payload.data);
 	return newState;

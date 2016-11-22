@@ -116,7 +116,7 @@ render() {
 
     <div className = "row">
     <div className = "col-md-2" style={{'paddingTop':29}}>
-    <label for="sess_perct" >Percentage   </label>
+    <p for="sess_perct" >Percentage   </p>
     </div>
 
     <div className = "col-md-4" style={{'paddingTop':29}}>

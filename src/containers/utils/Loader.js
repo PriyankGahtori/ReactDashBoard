@@ -29,7 +29,7 @@ const progressCircularHide = {
 }
 const  progressDivShow= { 
     position:'absolute',
-    top:0,
+    bottom:200,
     left:0,
     width:'100%',
     height:'100%',
@@ -39,7 +39,7 @@ const  progressDivShow= {
 }
 const  progressDivHide= { 
     position:'absolute',
-    top:0,
+   
     left:0,
     width:'100%',
     height:'100%',

@@ -231,8 +231,9 @@ render() {
 		value = "enableExceptionCapturing"
 		label = "Enable Exception Capturing"
 		checked  = {this.state.enableExcptCheckBox}
-		onCustomChange={this.handleExcptCapture.bind(this)}
-		/>
+		onCustomChange={this.handleExcptCapture.bind(this)}/>
+	   <i style={{paddingLeft:40}}>(Capture Exception occurred in application) </i> 
+
 		</div>
 		<div>
 		<FlatButton  

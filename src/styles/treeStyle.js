@@ -8,8 +8,8 @@ export default {
             margin: 0,
             padding: 0,
             color: '#F5F5F5',
-            fontFamily: 'lucida grande ,tahoma,verdana,arial,sans-serif',
-            fontSize: '13px'
+            fontFamily: 'Open Sans, sans-serif,lucida grande ,tahoma,verdana,arial,sans-serif',
+            fontSize: '14px'
         },
         node: {
             base: {
@@ -30,8 +30,8 @@ export default {
                     display: 'inline-block',
                     verticalAlign: 'top',
                     marginLeft: '-5px',
-                    height: '24px',
-                    width: '24px'
+                    height: '20px',
+                    width: '20px'
                 },
                 wrapper: {
                     position: 'absolute',
@@ -40,8 +40,8 @@ export default {
                     margin: '-7px 0 0 -7px',
                     height: '14px'
                 },
-                height: 11,
-                width: 11,
+                height: 8,
+                width: 8,
                 arrow: {
                     fill: '#9DA5AB',
                     strokeWidth: 0
@@ -63,13 +63,14 @@ export default {
                     left: '-21px'
                 },
                 title: {
-                    lineHeight: '24px',
-                    verticalAlign: 'middle'
+                    lineHeight: '21px',
+                    verticalAlign: 'middle',
+                    wordBreak: 'break-word'
                 }
             },
             subtree: {
                 listStyle: 'none',
-                paddingLeft: '19px'
+                paddingLeft: '10px'
             },
             loading: {
                 color: '#E2C089'

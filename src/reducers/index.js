@@ -29,7 +29,7 @@ import ErrorDetection from './reducer_ErrorDetection';
 import TRModeDetail from './reducer_TRMode_detail';
 import HttpStatsData from './reducer_HttpStatsCond';
 import Loader from './reducer_Loader';
-
+import NDAgentStatus from './reducer_NDAgentStatus';
 
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
@@ -57,7 +57,8 @@ module.exports = combineReducers({
 	errorDetection    : ErrorDetection,
 	trModeDetail 	  : TRModeDetail,	
 	httpStatsData     : HttpStatsData,
-	loader            : Loader
+	loader            : Loader,
+	ndAgent 		  : NDAgentStatus
 });
 
 //const reducers = {addInitialAppData};

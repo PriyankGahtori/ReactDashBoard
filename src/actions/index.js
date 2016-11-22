@@ -1398,3 +1398,17 @@ export function genExcptInMethod(flag){
     payload :flag
   } 
 }
+
+/* Action for the ND Agent Status */
+
+export function fetchNDAgentStatusTableData(){
+
+  const URL = `${url.FETCH_ND_AGENT_TABLEDATA}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching nd agent Status---",request_table)
+  return {
+    type:'FETCH_ND_AGENT_TABLEDATA',
+    payload:request_table
+  }
+}
+

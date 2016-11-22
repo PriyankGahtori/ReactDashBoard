@@ -1,3 +1,4 @@
+//Importing react componnets
 import React from 'react';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
@@ -14,6 +15,7 @@ import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
 
+//Importing files
 import * as actionCreators  from '../../../actions/index';
 import InstrProfiles from './InstrProfileMultiSelect';
 import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
@@ -22,7 +24,11 @@ import EnableHotSpotCapturing from './hotspotCapture/EnableHotSpotCapturing';
 import EnableDebugCapturing from './debugLevelCapture/EnableDebugLevelCapturing';
 import InstrException from './exceptionCapture/EnableExceptionCapturing';
 import EnableServiceEntryPoints from './EnableServiceEntryPoints';
+<<<<<<< HEAD
 import EnableFpHdrCapturing from './flowPathHeaderCapture/EnableFpHeaderCapturing';
+=======
+import EnableMonitors from './monitors/EnableMonitors';
+>>>>>>> 2e1ddf77dde913e524cb47df953f48b91ef5e1c7
 
 const styles = {
   text: {
@@ -68,53 +74,34 @@ class GeneralKeywords extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("props--",this.props)
-    
-    this.state ={enableBCIDebug:false}
-    this.state = {openEnableBCICapturingDialog : false}
-    this.state = {openEnableHotSpotCapturingDialog : false}
-    this.state = {openEnableBackendMonitorDialog : false}
-    console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
-    this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-    this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
+  this.loader = this.loader.bind(this);
     this.state = {getAllKeywordData:this.props.getAllKeywordData}
+     
   }
 
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.getKeywordsData(this.props.params.profileId);
+       this.props.triggerLoader(true, null)
+    this.props.getKeywordsData(this.props.params.profileId,this.loader);
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.BCICapturingCheckBox)
-    console.log("nextprops---",nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData:nextProps.getAllKeywordData});
     }
-
-    if(this.props.getAllKeywordData.BCICapturingCheckBox != nextProps.getAllKeywordData.BCICapturingCheckBox)
-      this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.BCICapturingCheckBox})
-
-
-    if(this.props.getAllKeywordData.hotSpotCapturingCheckBox != nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
-      this.setState({disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox})
-
   }
 
-  submitForm(formData){
-    console.log("submitForm----",formData)
-   
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("data---general keywords--",formData)
-    console.log("profileId--",this.props.params.profileId)
+ loader(){
+   var message = {'title':'Keywords loaded', 'msg' : ''};
+   this.props.triggerLoader(false,message)
+ }
 
+  submitForm(formData){
+   
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
-    console.log("keywordData--",keywordData)
-    
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
@@ -127,33 +114,30 @@ class GeneralKeywords extends React.Component {
       else if(value === "false" || value === false){
         value = "0" ;
       }
-      console.log("value for boolean values---",value)
       keywordData[key]["value"] = String(value); 
       
     }) ;
-    console.log("finalFormData---",keywordData)
     this.props.submitKeywordData(keywordData,this.props.params.profileId,"instrProfile");  
 }
 
   render() {
   
     return (
-      <div>
+      <div >
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
-        <EnableHotSpotCapturing profileId = {this.props.params.profileId} />   
+        <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
-        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         <InstrException profileId = {this.props.params.profileId}  />
         <EnableServiceEntryPoints />
         <EnableFpHdrCapturing profileId = {this.props.params.profileId}/>
+        <EnableMonitors profileId = {this.props.params.profileId}/>
+        <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
     </div>
     );
   }
 }
 
-
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords
    };

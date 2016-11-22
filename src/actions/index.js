@@ -13,7 +13,6 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 
 export function fetchInitData(loader) {
   
-  console.log("url.HOME_URL - ",url)
   const response = axios.get(url.HOME_SCREEN_URL);
 
 //trigger action for loading progressBar change once promise is resolved
@@ -34,13 +33,9 @@ export function fetchInitData(loader) {
 *  fetching Json for tree
 */
 export function fetchTreeData(appId) {
-  console.log("inside fetchTreeData-----------------------------------",appId)
  //const URL =  `http://10.10.40.7:8050/configUI/custom/tree/application/${appId}`;
   const URL =  `${url.APP_TREE_URL}/${appId}`;
-
-  console.log("URL - - ",URL)
   const request_tree = axios.get(URL);
-  console.log("Action ajax...fetching trreeedataaa..............",request_tree);
 
   return {
     type: FETCH_TREE_DATA,
@@ -51,11 +46,9 @@ export function fetchTreeData(appId) {
 
 export function fetchDCTableData(appId){
 
-  console.log("appId-----",appId)
   //const URLTable = `http://10.10.40.7:8050/configUI/application/${appId}/dcDetails`;
   const URL = `${url.DC_TABLE_DATA_URL}/${appId}/dcDetails`;
   const request_table = axios.get(URL);
-  console.log("request_table----",request_table)
   return {
     type   :'FETCH_TABLE_DATA',
     payload: request_table
@@ -72,9 +65,6 @@ export function fetchDCTableData(appId){
 */
 
 export function addRowDCTable(formData,openDCDialogType,appId){
-  console.log("appId",appId)
- console.log("add_Row_table--action called--",formData)
- console.log("openDCDialogType----",openDCDialogType);
   //when action is called from updating form
   if(openDCDialogType == "edit"){
 
@@ -571,7 +561,6 @@ export function toggleStateDialogTier(){
 }
 
 export function attachProfToTier(data){
-  console.log("darta--",data)
    
   const response = axios.get(`${url.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
 
@@ -725,10 +714,8 @@ export function toggleStateDialogInstance(){
 }
 
 export function attachProfToInstance(data){
-  console.log("darta- i  instance",data)
    
   const response = axios.get(`${url.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
-  console.log("response---",response)
     return {
     type: 'ATTACH_PROFTO_INSTANCE',
     payload:response
@@ -739,11 +726,13 @@ export function attachProfToInstance(data){
 *
 */
 
-export function fetchServiceEntryPointsTabledata(profileId){
-  console.log("fetchServiceEntryPointsTabledata action triggere-----")
+export function fetchServiceEntryPointsTabledata(profileId,loader){
   const URL = `${url.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
-  console.log("request_table in fetching serviceentrypoints---",request_table)
+    request_table.then(function(){
+    
+     loader();
+ });
   return {
     type:'FETCH_SERVICE_POINTS_TABLEDATA',
     payload:request_table
@@ -752,7 +741,6 @@ export function fetchServiceEntryPointsTabledata(profileId){
 
 
 export function toggleStateDialogNewServiceEntryPts(){
-  console.log("action triggered--toggling----for new serviceentrypints")
   return {
     type:'TOGGLE_STATE_ADD_NEW_SERVICEENTRY_PTS'
   }
@@ -771,7 +759,6 @@ export function ListOfServiceEntryPointType(){
 
 export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
 
-  console.log("ServiceEntryPointsOfSelectedEntryType action called----",entryTypeId)
   const URL =`${url.FETCHING_SERVICE_ENTRYPOINTS_FORM}/${entryTypeId}/serviceEntryPoint`
   const response = axios.get(URL);
   console.log("respose of getting sep od entrytypeid--",response)
@@ -784,8 +771,6 @@ export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
 
 export function addServiceEntryPoint(formData,profileId,runTimeChange){
 
-  console.log("addServiceEntryPoint------in actions--",formData)
-  console.log("profileId----",profileId)
    var response = axios({
     method:'post',
      url : `${url.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,
@@ -843,7 +828,6 @@ export function updateToggleState(rowToggled,runTimeChange){
    response.then(function(data){    
     runTimeChange();
    });
-   console.log("response og toggling toggle button---",response)
 
    return {
     type : 'TOGGLE_STATE_SEP',
@@ -855,11 +839,12 @@ export function updateToggleState(rowToggled,runTimeChange){
 * Action creators for BT Global
 *
 */
-export function initializeBTFields(profileId){
-  console.log("initializebt compo action called--",profileId)
+export function initializeBTFields(profileId,loader){
   const URL = `${url.GET_BT}/${profileId}/bussinessTransGlobal`
   var response = axios.get(URL);
-  console.log("response--",response)
+  response.then(function(){
+    loader();
+  })
   return {
     type    :'INITIALIZE_FIELDS',
     payload :response 
@@ -886,10 +871,11 @@ export function addBTData(data,profileId){
 * Action creators for backend detection screen
 */
 
-export function fetchBackendTableData(profileId){
-  console.log("fetchBackendTableData function called profileId---",profileId)
+export function fetchBackendTableData(profileId,loader){
   var response = axios.get(`${url.FETCH_BACKEND_TABLEDATA}/${profileId}`);
-  console.log("agtr getting backend data")
+  response.then(function(){
+    loader()
+  })
   return{
     type :'FETCH_BACKEND_TABLEDATA',
     payload :response
@@ -914,7 +900,6 @@ export function fetchBackendPoints(backendId){
 
 
 export function initializeBackendPtsEditForm(selectedRow){
-  console.log("in initializeBackendPtsEditForm--",selectedRow)
  
   return{
     type :'INITIALIZE_BACKEND_FORM',
@@ -942,7 +927,6 @@ export function addNewBackendPoint(data,profileId,runTimeChange){
 }
 
 export function updateBackendType(data,profileId,runTimeChange){
-  console.log("data---in index,js---",data)
   var response = axios({
     method : 'post',
     //url    : `${url.UPDATE_BACKEND_POINT}/${data.backend_Type_id}/${profileId}`,
@@ -973,11 +957,13 @@ export function updateBackendType(data,profileId,runTimeChange){
 
 
 
-export function fetchBTPatternTableData(profileId){
+export function fetchBTPatternTableData(profileId,loader){
 
   const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
-  console.log("request_table in fetching bt pattern---",request_table)
+  request_table.then(function(data){
+      loader();
+  })
   return {
     type:'FETCH_BT_PATTERN_TABLEDATA',
     payload:request_table
@@ -986,9 +972,6 @@ export function fetchBTPatternTableData(profileId){
 
 export function addBTPatternData(formData,profileId){
 
-  console.log("addBTPatternData------in actions--",formData)
-  console.log("profileId----",profileId)
-
    var response = axios({
     method:'post',
     url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
@@ -996,7 +979,6 @@ export function addBTPatternData(formData,profileId){
     headers:{'Content-Type':'application/json'}
   });
 
-console.log("response----adding addBTPatternData---",response)
   return {
     type : 'ADD_NEW_BT_PATTERN',
     payload : response
@@ -1004,7 +986,6 @@ console.log("response----adding addBTPatternData---",response)
 }
 
 export function toggleStateAddBTPattern(){
-  console.log("action triggered--toggling----for new bt pattern")
   return {
     type:'TOGGLE_STATE_ADD_BT_PATTERN'
   }
@@ -1033,10 +1014,11 @@ export function toggleStateAddBTPattern(){
   * 
  */
  //function for getting keywords data when general keywords screen gets loaded
-export function getKeywordsData(profileId){
-
+export function getKeywordsData(profileId,loader){
   const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
-  console.log("response---",response)
+  response.then(function(data){
+     loader(data);
+ });
 
   return{
     type : 'GET_ALL_KEYWORDS',
@@ -1044,8 +1026,7 @@ export function getKeywordsData(profileId){
   }
 }
 
-export function submitKeywordData(data,profileId,keywordsGroup){
-  console.log("data---submitKeywordData----",data)
+export function submitKeywordData(data,profileId){
    var response = axios({
       method:'post',
        url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
@@ -1125,10 +1106,6 @@ export function enableExcptCheckBoxStatus(flag){
 }
 
 
-
-
-
-
 export function setDefValHotSpotCapturingKeywords(){
   return{
     type : 'SET_DEFAULT_HOTSPOTKEYWORDS'
@@ -1137,17 +1114,13 @@ export function setDefValHotSpotCapturingKeywords(){
 }
 export function generateNdConf(){
       const URL =  `${url.UPDATE_TOPOLOGY}`;
-      console.log(" in generate topology --------->",URL)
       const response = axios.get(URL);
-      console.log(" response from generate  -----------------> ",response)
       return ;
 }
 
 export function updateTopology(){
     const URL =  `${url.UPDATE_TOPOLOGY}`;
-    console.log(" in update topology --------->",URL)
     const response = axios.get(URL);
-    console.log(" response from update ----------->",response)
     return {
       type : 'UPDATE_TOPOLOGY',
       payload : response
@@ -1172,7 +1145,7 @@ export function setDefValDebugCapturingKeywords() {
 }
 
 /*
-* function for Debug Level Capturing keywords 
+* function for Backend Monitor keywords 
 */
 export function enableBackendMonitorCheckBoxStatus(flag){
   return{
@@ -1188,11 +1161,27 @@ export function setDefValBackendMonitorKeywords() {
   }
 }
 
+/*
+* function for Monitor keywords 
+*/
+export function enableMonitorsCheckBoxStatus(flag){
+  return{
+    type :'ENABLE_MONITORS_CHECKBOX',
+    payload :flag
+  }
+}
+
+export function setDefValMonitorsKeywords() {
+  return{
+    type : 'SET_DEFAULT_MONITORS_KEYWORDS'
+
+  }
+}
+
 
 export function getListOfXmlFiles(){
   const URL = `${url.GET_INSTR_PROFILE_LIST}`;
   const response = axios.get(URL);
-  console.log("response---",response)
   return{
     type : 'LIST_OF_XMLFILES',
     payload :response
@@ -1208,18 +1197,20 @@ export function initializeInstrProf(profileId) {
 /* Action Creators for the method monitor screen  */
 
 export function toggleStateAddMethodMonitor(){
-  console.log("action triggered--toggling----toggleStateAddMethodMonitor")
   return {
     type:'TOGGLE_STATE_ADD_METHOD_MON'
   }
 }
 
 
-export function fetchMethodMonitorTableData(profileId){
+export function fetchMethodMonitorTableData(profileId,loader){
 
   const URL = `${url.FETCH_METHOD_MON_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
-  console.log("request_table in fetching method monitor---",request_table)
+  request_table.then(function(){
+
+    loader();
+  })
   return {
     type:'FETCH_METHOD_MON_TABLEDATA',
     payload:request_table
@@ -1228,9 +1219,6 @@ export function fetchMethodMonitorTableData(profileId){
 
 export function insertMethodMonitorDetails(formData,profileId){
 
-  console.log("addMethodMonitorDetails------in actions--",formData)
-  console.log("profileId----",profileId)
-
    var response = axios({
     method:'post',
     url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
@@ -1238,7 +1226,6 @@ export function insertMethodMonitorDetails(formData,profileId){
     headers:{'Content-Type':'application/json'}
   });
 
-console.log("response----adding addMethodMonitorDetails---",response)
   return {
     type : 'ADD_METHOD_MONITOR',
     payload : response
@@ -1250,11 +1237,12 @@ console.log("response----adding addMethodMonitorDetails---",response)
 
 
 
-export function fetchErrorDetectionTableData(profileId){
-  console.log("inside error detection")
+export function fetchErrorDetectionTableData(profileId,loader){
   const URL = `${url.FETCH_ERROR_DETECTION_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
-  console.log("request_table in fetching bt pattern---",request_table)
+  request_table.then(function(){
+    loader();
+  })
   return {
     type:'FETCH_ERROR_DETECTION_TABLE',
     payload:request_table
@@ -1263,9 +1251,6 @@ export function fetchErrorDetectionTableData(profileId){
 
 export function insertErrorDetectionData(formData,profileId){
 
-  console.log("insertErrorDetectionData------in actions--",formData)
-  console.log("profileId----",profileId)
-
    var response = axios({
     method:'post',
     url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
@@ -1273,7 +1258,6 @@ export function insertErrorDetectionData(formData,profileId){
     headers:{'Content-Type':'application/json'}
   });
 
-console.log("response----adding insertErrorDetectionData---",response)
   return {
     type : 'ADD_NEW_ERROR_DETECTION',
     payload : response
@@ -1281,7 +1265,6 @@ console.log("response----adding insertErrorDetectionData---",response)
 }
 
 export function toggleStateErrorDetection(){
-  console.log("action triggered--toggling----for error detection")
   return {
     type:'TOGGLE_STATE_ADD_ERROR_DETECTION'
   }
@@ -1295,7 +1278,8 @@ export function toggleTRState(){
 }
 
 /* *********** TR Mode Detail*************** */
-export function setTRModeDetail(trModeobj){
+export function setTRModeDetail(trModeobj,loader){
+
     return {
     type:'SET_TRMode_Detail',
     payload: trModeobj
@@ -1306,7 +1290,6 @@ export function setTRModeDetail(trModeobj){
 /* ************** Send Run Time Changes ******************* */
 
 export function sendRunTimeChange(URL,keywordList){
-  console.log("sendRunTimeChange",URL);
 
     var response = axios({
       method:'post',
@@ -1325,10 +1308,13 @@ export function sendRunTimeChange(URL,keywordList){
 * Action creators for http Stats Condition
 *
 */
-export function getHttpStatsCond(profileId){
+export function getHttpStatsCond(profileId,loader){
 
   const URL = `${url.FETCH_HTTP_STATS_COND_TABLEDATA}/${profileId}`
   var response= axios.get(URL);
+  response.then(function(){
+    loader();
+  });
   return{
     type :'FETCH_HTTP_STATS_COND_TABLEDATA',
     payload:response
@@ -1412,3 +1398,17 @@ export function genExcptInMethod(flag){
     payload :flag
   } 
 }
+
+/* Action for the ND Agent Status */
+
+export function fetchNDAgentStatusTableData(){
+
+  const URL = `${url.FETCH_ND_AGENT_TABLEDATA}`
+  const request_table = axios.get(URL);
+  console.log("request_table in fetching nd agent Status---",request_table)
+  return {
+    type:'FETCH_ND_AGENT_TABLEDATA',
+    payload:request_table
+  }
+}
+

@@ -59,6 +59,7 @@ class TRToggle extends Component {
 				  disabled={this.props.trData.status != 'running'} 
 				  defaultToggled={this.props.trData.switch}
 				  onToggle={this.handleToggle.bind(this)}
+				  labelStyle={{color:'#FFF'}}
 				/>
 				
 				<Snackbar

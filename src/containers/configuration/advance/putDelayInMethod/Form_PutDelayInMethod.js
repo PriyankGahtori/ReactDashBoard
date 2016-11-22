@@ -63,56 +63,56 @@ class Form_PutDelayInMethod extends React.Component {
     return (
       <div >
     	  <form>
+       
+         <p style={{paddingTop:10}}> Delay Time Range(in ms)  </p>
+      
     		<div className = "row">
-	    		<div className = "col-md-6">
-		    		<TextField
+	    		<div className = "col-md-6" style={{bottom:20}}>
+		    		<TextField 
 	                  hintText="Hint Text"
-	                  floatingLabelText="From Range(in ms)"
+	                  floatingLabelText="From"
 	                  {...fromRange}
 	                />
-	            
 	    		</div>
 
-	    		<div className = "col-md-6">
+	    		<div className = "col-md-6" style={{bottom:20}}>
 	    			<TextField
                   hintText="Hint Text"
-                  floatingLabelText="To Range(in ms)"
+                  floatingLabelText="to"
                   {...toRange}
                 />
 	    		</div>
-          </div>
-          
-          <div className = "row">
-  	    		<div className = "col-md-6">
+            </div>
+  	    		<div className = "col-md-12"  >
   	    		<TextField
+                    style={{right:18,bottom:20}}
                     hintText="Hint Text"
-                    floatingLabelText="Method full name"
+                    floatingLabelText="Fully Qualified Method Name"
                     {...fqm}
                   />
-  	   	 		</div>
-  	    	</div>
-
-    		
+  	    
+          </div>
+    	
     		<div className = "row">
 	    		<div className = "col-md-6">
 	    			 <Checkbox
+                label="is CPU Hogg"
 	             	 {...isCpuHogg}
-	              	value="isCpuHogg"
-	              	label="Is CPU Hogg"
-	            	/>
+	              	value="isCpuHogg"	/>
+         
+             <p style={{paddingLeft:35}}> (Add delay in any specified method using instrumentation)</p>
 	    		</div>
-
-	    		<div className ="col-md-6">
-	    			 <Checkbox
+         <div className="row" > 
+	    		<div className ="col-md-6" >
+	    			 <Checkbox 
+                  label="is Auto Instrument"
 	             	 {...isAutoInstrument}
-	              	value="isAutoInstrument"
-	              	label="Is Auto Instrument"
-	            	/>
+	              	value="isAutoInstrument"	/>
+             
+                <p style={{paddingLeft:35}}>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</p>
 	    		</div>
-
+          </div>
 	    	</div>
-
-	 
       </form>
       
       </div>

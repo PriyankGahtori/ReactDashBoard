@@ -16,6 +16,7 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableNDEntryPointsFile :false,
 					genExcptInMethod :false ,
 					enableFpHdrCheckBox : false
+					enableMonitorsCheckBox : false,
 					}
 
 
@@ -113,7 +114,7 @@ switch(action.type){
 
 	   	newState.enableFpHdrChkBox = !validate.validateFpHdrChkBox(action.payload.data) ;
 
-		console.log("newState-",newState)
+		newState.enableMonitorsCheckBox = !validate.validateDebugKeywords(action.payload.data);
 	return newState;
 
 
@@ -136,29 +137,19 @@ switch(action.type){
 
 		 case 'INITIALIZE_INSTREXCEPTION':
 		 var newState =Object.assign({},state);
-		 console.log("initialize-INITIALIZE_INSTREXCEPTION----s-",newState.initializeKeywords)
 		  _.forEach(newState.data,function(value,key){
-			console.log("key---",key)
-			console.log("value----",value)
-			
-				console.log("newState-",newState.data[key]["defaultValue"])
-				newState.initializeKeywords[key] = value["value"];
-				console.log("value---",newState.initializeKeywords[key])
-
-
+			newState.initializeKeywords[key] = value["value"];
 		});
 		 return newState;
 
 
 		case 'ENABLE_BCI_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("bci checkbox---",action.payload)
 		newState.enableBCICheckBox = action.payload;
 		return newState;
 
 		case 'ENABLE_HOTSPOT_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("hotspot checkbox---",action.payload)
 		newState.hotSpotCapturingCheckBox = action.payload;
 		return newState;
 
@@ -169,13 +160,11 @@ switch(action.type){
 
 		case 'UPDATE_TOPOLOGY':
 		var newState = Object.assign({}, state);
-		console.log("update topo reducer--",action.payload.data)
 		newState.uploadTopology = action.payload.data;
 		return newState;
 
 		case 'ENABLE_DEBUG_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("bci checkbox---",action.payload)
 		newState.enableDebugCheckBox = action.payload;
 		return newState;
 
@@ -184,11 +173,15 @@ switch(action.type){
 		newState.enableBackendMonitorCheckBox = action.payload;
 		return newState;
 
+		case 'ENABLE_MONITORS_CHECKBOX':
+		var newState = Object.assign({}, state);
+		console.log("enableMonitorCheckBox checkbox---",action.payload)
+		newState.enableMonitorsCheckBox = action.payload;
+
 		case 'GEN_EXCEPTION_IN_METHOD':
 		var newState = Object.assign({}, state);
 		newState.genExcptInMethod = action.payload;
 		return newState;
-
 		
 	}
 	return state;

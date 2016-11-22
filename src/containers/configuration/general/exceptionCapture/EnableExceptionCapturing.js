@@ -225,17 +225,22 @@ render() {
 	return (
 		<div>
 
-		<div className = "row">
-		<div className = "col-md-3">
+		<div className = "row" style={{paddingTop:10}}>
+		<div className = "col-md-5">
 		<Checkbox
 		value = "enableExceptionCapturing"
 		label = "Enable Exception Capturing"
 		checked  = {this.state.enableExcptCheckBox}
-		onCustomChange={this.handleExcptCapture.bind(this)}
-		/>
+		onCustomChange={this.handleExcptCapture.bind(this)}/>
+	   <i style={{paddingLeft:40}}>(Capture Exception occurred in application) </i> 
+
 		</div>
 		<div>
-		<FlatButton disabled ={!this.state.enableExcptCheckBox} onClick ={this.enableExcptCapturingDialog.bind(this)} label="Advanced Settings" />
+		<FlatButton  
+					className="col-md-4"
+					disabled ={!this.state.enableExcptCheckBox} 
+					onClick ={this.enableExcptCapturingDialog.bind(this)} 
+					label="Advanced Settings" />
 		</div>
 		</div>
 

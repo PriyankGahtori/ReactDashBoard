@@ -84,7 +84,7 @@ ChangeEnableForcedFPChain(event,index ,value){
         <form >
              <div className = "row" style = {styles.block}>
                <div className = "col-md-3">
-                <label for="sess_perct">BCI Debug Level </label>
+                <p for="sess_perct">BCI Debug Level </p>
               </div>
 
               <div className = "col-md-3">
@@ -100,7 +100,7 @@ ChangeEnableForcedFPChain(event,index ,value){
              </div>
 
               <div className = "col-md-3">
-                <label for="sess_perct"> Error Level </label>
+                <p for="sess_perct"> Error Level </p>
               </div>
 
               <div className = "col-md-3">
@@ -121,7 +121,7 @@ ChangeEnableForcedFPChain(event,index ,value){
 
              <div className = "row" style={{paddingTop:10}}>
               <div className = "col-md-3">
-                <label for="sess_perct"> InstrTrace Level </label>
+                <p for="sess_perct"> InstrTrace Level </p>
               </div>
 
               <div className = "col-md-3">

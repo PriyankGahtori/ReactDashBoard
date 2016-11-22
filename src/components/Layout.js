@@ -1,6 +1,7 @@
 //Importing React components
 //require('../styles/breadcrumb.css');
 require('../styles/custom.css');
+require('../styles/iconStyle.css');
 import React from 'react';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -18,6 +19,7 @@ import Breadcrumbs from 'react-breadcrumbs';
 import SettingsDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import {hashHistory } from 'react-router';
+import NDAgentStatusDialog from 'material-ui/Dialog';
 
 //Importing files
 import Tree from '../containers/tree/Tree';
@@ -25,23 +27,33 @@ import DropDownAppList from '../containers/DropDownAppList';
 import Dialog_Setting from '../containers/settings/Dialog_Settings';
 import TRToggle from '../containers/settings/TRToggle';
 import Loader from '../containers/utils/Loader';
-//import Toaster from '../containers/utils/Toaster';
+import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
+
 injectTapEventPlugin();
 
 const headerStyle = {
-	  paddingRight : "0px",
-    paddingLeft  : "0px"
+	 // paddingRight : "0px",
+    //paddingLeft  : "0px"
 }
-
+const appBarStyle = {
+  backgroundColor: '#114147',
+}
 const iconStyles = {
  // marginRight: 24,
+};
+
+const customContentStyle = {
+  width: '93%',
+  maxWidth: 'none',
 };
 
 const title={
   backgroundImage:"url('../images/cavi_logo_new.png')",
   backgroundRepeat: "no-repeat",
+  backgroundSize : "135px 20px",
   marginTop:"13px",
-  height:"51px"
+  height:"45px",
+  fontSize:"16px"
 }
   
 export default class Layout extends React.Component {
@@ -106,6 +118,10 @@ export default class Layout extends React.Component {
   settingScreen(){
   this.setState({settingOpen: true})
   }
+  agentScreen(){
+  this.setState({agentStatusOpen: true})
+}
+
   homeScreen(){
     console.log(" in home screen")
     hashHistory.push(`/`)
@@ -113,7 +129,7 @@ export default class Layout extends React.Component {
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-  	this.setState({open: false,settingOpen:false}); 
+  	this.setState({open: false,settingOpen:false,agentStatusOpen:false}); 
   }
 
   render() {
@@ -134,20 +150,28 @@ export default class Layout extends React.Component {
              contentStyle={{width: '550'}}>
              <Dialog_Setting closeDialog={this.handleClose}/>
         </SettingsDialog >
+
+        <NDAgentStatusDialog  
+            title="ND BCI Agent Status Information"
+            open={this.state.agentStatusOpen}
+            actions={actions} 
+            contentStyle={customContentStyle}>
+            <NDAgentStatus closeDialog={this.handleClose}/>
+            </NDAgentStatusDialog >
+
     	   <Drawer
 	          docked={true}
-	          width={230}
+	          width={233}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}
 	          style={{"backgroundColor":"#21252B"}}	          
 	        >
 		       <AppBar 
+             style={appBarStyle}   
 		         iconElementLeft= {<IconButton></IconButton>}
 		         iconElementRight={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
 		         onRightIconButtonTouchTap={()=>this.handleToggle}	
-             
-              
 		       />
 
             {/*<MenuItem><Link to="/testing">PKY</Link></MenuItem>*/}
@@ -159,20 +183,23 @@ export default class Layout extends React.Component {
 	       
 	       <div className={this.state.headerClass} style={headerStyle}>
 	      <AppBar
-	    	
+	      style={appBarStyle}  	
         titleStyle={title}
+        title='NDE CONFIGURATION'
 	    	onLeftIconButtonTouchTap={this.handleToggle}
 	    	isInitiallyOpen={false}
-        iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon className="material-icons">home</FontIcon></IconButton>
-        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
+        iconElementRight={<div><IconButton tooltip="ND Agent Status" onTouchTap={this.agentScreen.bind(this)}>
+          <FontIcon color='#FFF' className="material-icons">people</FontIcon>
+          </IconButton><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon color='#FFF' className="material-icons">home</FontIcon></IconButton>
+        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon color='#FFF' className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      
 		    <div className='container-fluid'>
           <div className="row">
-		       <div className="col-md-6"><h2>NetDiagnostics Configuration</h2></div>
+		      {/* <div className="col-md-6"><h2>NetDiagnostics Configuration</h2></div> */}
            <div className="col-md-4"/>
-           <div  className="col-md-2" style={{marginTop:'20px', marginBottom:'10px',paddingTop:'5px'}}><TRToggle /></div>
+           <div  className="col-md-2 pull-right"  style={{marginTop:'20px', marginBottom:'10px',paddingTop:'5px'}}><TRToggle /></div>
           </div>  
           <Breadcrumbs 
              routes={this.props.routes}

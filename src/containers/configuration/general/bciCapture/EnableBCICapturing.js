@@ -270,29 +270,37 @@ submitForm(formData){
     return (
       <div>
 
-      <div className = "row">
-      <div className = "col-md-3">
-      <Checkbox
-      value = "enableBCICapturing"
-      label = "Enable BCI Capturing"
-      checked  = {this.state.enableBCICheckBox}
-      onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}
-      />
-      </div>
-      <div>
-      <FlatButton disabled ={!this.state.enableBCICheckBox} onClick ={this.enableBCICapturingDialog.bind(this)} label="Advanced Settings" />
-      </div>
-      </div>
+     <div className = "row"  style={{'paddingTop':10}}>
+        <div className = "col-md-5" >
+          
+         <Checkbox
 
+                  label ="Enable BCI Capturing "
+                  value = "enableBCICapturing"
+                  checked  = {this.state.enableBCICheckBox}
+                  onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}  />
+                 <i style={{paddingLeft:40}}>(Enable flowPath capturing by agent with default settings)</i>
+         </div>  
+         
+     <FlatButton 
+               
+                className = "col-md-4"
+                 disabled ={!this.state.enableBCICheckBox} 
+                  onClick ={this.enableBCICapturingDialog.bind(this)}
+                     label="Advanced Settings" />
+      
+    </div>
 
-      <DialogEnableBCICapturing
-      title="Enable FlowPath Capturing"
-      actions={actions}
-      modal={false}
-      open={this.state.openEnableBCICapturingDialog}
-      onRequestClose={this.handleClose}
-      autoScrollBodyContent={true}         
-      >
+    
+    <DialogEnableBCICapturing
+          title="BCI Capturing"
+          actions={actions}
+          modal={false}
+          open={this.state.openEnableBCICapturingDialog}
+          onRequestClose={this.handleClose}
+          autoScrollBodyContent={true}         
+    >
+
       <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />
       </DialogEnableBCICapturing>
   {/*<ConfirmDialog
@@ -305,21 +313,18 @@ submitForm(formData){
       </ConfirmDialog>*/}
 
 
-      <Snackbar
-      open={this.state.openSnackBar}
-      message="BCI capturing keywords with default values is enabled now."
-      autoHideDuration={4000}
-      onRequestClose={this.handleRequestClose.bind(this)}
-      />
+         <Snackbar
+          open={this.state.openSnackBar}
+          message="BCI capturing keywords with default values is enabled now."
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)} />
 
-      <ConfirmDialog
-      title="Are you sure want to disable the BCI Capturing ?"
-      actions={actionsBCIDisable}
-      modal={false}
-      open={this.state.openCnfrmDisbleDialog}
-      >
-      </ConfirmDialog>
-
+        <ConfirmDialog
+          title="Are you sure want to disable the applied settings ?"
+          actions={actionsBCIDisable}
+          modal={false}
+          open={this.state.openCnfrmDisbleDialog} >
+        </ConfirmDialog>
 
       </div>
       );

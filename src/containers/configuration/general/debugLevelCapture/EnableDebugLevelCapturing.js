@@ -262,31 +262,34 @@ const actionsDebugDisable =[
 ];
   
     return (
-      <div>
+      <div  style={{paddingTop:10}}>
 
       <div className = "row">
-        <div className = "col-md-3">
+        <div className = "col-md-5">
          <Checkbox
+                   label="Enable Debug Level Capturing"
                   value = "enableDebugLevel"
-                  label = "Enable Debug Level Capturing"
                   checked  = {this.state.enableDebugCheckBox}
-                  onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)}
-              />
+                  onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)}   />
+         
+         <i style={{paddingLeft:40}}>(Trace level configuration for various BCI features)</i> 
           </div>
-          <div>
-    <FlatButton disabled ={!this.state.enableDebugCheckBox} onClick ={this.enableDebugCapturingDialog.bind(this)} label="Advanced Settings" />
-     </div>
+        <FlatButton  
+             
+                className = "col-md-4" 
+                disabled ={!this.state.enableDebugCheckBox}
+               onClick ={this.enableDebugCapturingDialog.bind(this)}
+               label="Advanced Settings" />
     </div>
 
     
     <DialogEnableDebugCapturing
-          title="Enable Debug Capturing"
+          title="Debug Level Capturing"
           actions={actions}
           modal={false}
           open={this.state.openEnableDebugCapturingDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}         
-    >
+          autoScrollBodyContent={true}  >
       <FormEnableDebugCapturing ref="enableDebugCapturingForm" onSubmit ={this.submitForm.bind(this) } />
    </DialogEnableDebugCapturing>
   {/*<ConfirmDialog
@@ -303,11 +306,10 @@ const actionsDebugDisable =[
           open={this.state.openSnackBar}
           message="enabled  Debug capturing keywords with default values"
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose.bind(this)}
-        />
+          onRequestClose={this.handleRequestClose.bind(this)}  />
 
         <ConfirmDialog
-          title="Are you sure want to disable the keywords ?"
+          title="Are you sure want to disable the applied settings?"
           actions={actionsDebugDisable}
           modal={false}
           open={this.state.openCnfrmDisbleDialog}

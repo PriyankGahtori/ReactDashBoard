@@ -18,7 +18,7 @@ import ConfirmDialog from 'material-ui/Dialog';
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
-import PutDelayInMethod from './PutDelayInMethod/PutDelayInMethod'
+import PutDelayInMethod from './putDelayInMethod/PutDelayInMethod'
 import EnableBackendMonitor from './backendMonitor/EnableBackendMonitor';
 import GenExceptionInMethod from './genExcptInMethod/GenExceptInMethod';
 
@@ -71,12 +71,14 @@ class AdvanceSettings extends React.Component {
     this.state ={enableBCIDebug:false}
     this.state = {openEnableBackendMonitorDialog : false}
     this.state = {getAllKeywordData:this.props.getAllKeywordData}
+    this.loader = this.loader.bind(this)
   }
 
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.getKeywordsData(this.props.params.profileId);
+    this.props.triggerLoader(true,null)
+    this.props.getKeywordsData(this.props.params.profileId,this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -97,6 +99,10 @@ class AdvanceSettings extends React.Component {
 */
   }
 
+loader(){
+  var message = {'title':'Advance Settings Loaded','msg' : ''}
+  this.props.triggerLoader(false,message)
+}
   submitForm(formData){
     console.log("submitForm----",formData)
    
@@ -133,7 +139,7 @@ class AdvanceSettings extends React.Component {
     return (
       <div>
         <PutDelayInMethod profileId = {this.props.params.profileId} />
-        <EnableBackendMonitor profileId = {this.props.params.profileId} />
+        <EnableBackendMonitor profileId = {this.props.params.profileId}/>
         <GenExceptionInMethod profileId = {this.props.params.profileId}/>
     </div>
     );

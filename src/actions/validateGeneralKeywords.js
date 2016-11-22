@@ -33,6 +33,10 @@ export function validateBackendMonitorKeywords(data){
   return  data.enableBackendMonitor.value === "0"; 
       }
 
+export function validateMonitorKeywords(data){
+  return  data.enableBTMonitor.value === "0"; 
+      }
+
 export function validateExcptKeywords(data){
   return data.InstrException.value === "0"
 }
@@ -80,6 +84,12 @@ export function setDefaultValuesDebugCapturing(data){
 
 export function setDefaultValuesBackendMonitor(data){
    var defaultKeywordData ={  "enableBackendMonitor" : data.enableBackendMonitor.defaultValue
+                            }
+  return defaultKeywordData;
+}
+
+export function setDefaultValuesMonitor(data){
+   var defaultKeywordData ={  "enableBTMonitor" : data.enableBTMonitor.defaultValue
                             }
   return defaultKeywordData;
 }
@@ -134,7 +144,12 @@ export const disabledBackendMonitor = {
                                     "enableBackendMonitor" : "0"
 };
 
+
 export const disabledFpCapturing = {
                                 "captureHTTPReqFullFp":"0",
                                 "captureHTTPRespFullFp":"0"
 }
+
+export const disabledBTMonitor = {
+                                    "enableBTMonitor" : "0"
+};

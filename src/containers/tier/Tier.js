@@ -108,6 +108,7 @@ class Tier extends React.Component {
       if(selectedRow.length == 1)
       {
         console.log("selectedRow----",selectedRow)
+        this.setState({open: false});
         let selectedRowData = this.props.tierData.tableData
                                   .filter(function(value){
                                     return value.tierId === selectedRow[0];

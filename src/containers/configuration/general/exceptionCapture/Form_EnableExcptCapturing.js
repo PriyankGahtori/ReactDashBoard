@@ -167,7 +167,6 @@ class Form_EnableExcptcapturing extends React.Component {
        </div>
        </form>
       </div>
-
     );
   }
 }

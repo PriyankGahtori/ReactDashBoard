@@ -139,7 +139,7 @@ class Form_EnableExcptcapturing extends React.Component {
                     />
             </div>
            
-
+             <b>Capture Exceptions </b>
             <div className = "row ">
               <RadioButtonGroup 
               {...exceptionType}
@@ -153,11 +153,11 @@ class Form_EnableExcptcapturing extends React.Component {
                  
                  <RadioButton
                     value="unhandledException"  
-                    label="Capture Unhandled Exception" 
+                    label="Unhandled" 
                  />
                  <RadioButton
                     value="handledException"
-                    label="Capture handled Exceptions"          
+                    label="Handled"          
                  />
 
           </RadioButtonGroup>

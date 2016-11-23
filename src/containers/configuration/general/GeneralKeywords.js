@@ -14,7 +14,7 @@ import { reduxForm } from 'redux-form';
 import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
-
+import Paper from 'material-ui/Paper';
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import InstrProfiles from './InstrProfileMultiSelect';
@@ -66,7 +66,13 @@ const NewButtonstyle = {
     position: 'fixed'
 
 };
-
+const paperStyle = {
+  height: '100%',
+  width: '100%', 
+  padding:'15px 0px', 
+  textAlign: 'center',
+  display: 'inline-block',
+};
 class GeneralKeywords extends React.Component {
 
   constructor(props) {
@@ -121,6 +127,7 @@ class GeneralKeywords extends React.Component {
   
     return (
       <div >
+      <Paper style={paperStyle} zDepth={2} >
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
@@ -130,6 +137,7 @@ class GeneralKeywords extends React.Component {
         <EnableMonitors profileId = {this.props.params.profileId}/>
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
          <EnableServiceEntryPoints />
+      </Paper>
     </div>
     );
   }

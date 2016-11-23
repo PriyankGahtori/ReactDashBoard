@@ -85,7 +85,7 @@ const styles = {
     return (
       
       <div className = "row"  style={{paddingTop:10}}>
-      <div className ="col-md-6" style={{paddingLeft:55}}>
+      <div className ="col-md-5" style={{paddingLeft:55}}>
         <b>Instrumentation Profiles </b> 
       <p>  <i>(Select profiles to instrument application methods)</i></p>
         </div>

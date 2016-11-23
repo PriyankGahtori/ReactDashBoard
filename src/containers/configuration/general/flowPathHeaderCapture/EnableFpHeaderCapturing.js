@@ -266,8 +266,8 @@ else{
     return (
       <div>
 
-      <div className = "row">
-      <div className = "col-md-3">
+      <div className = "row" style={{paddingTop:10}}>
+      <div className = "col-md-5">
       <Checkbox
       value = "enableFpHeaderCapturing"
       label = "Enable FlowPath Header Capturing"

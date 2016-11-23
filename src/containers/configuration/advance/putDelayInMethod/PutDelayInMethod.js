@@ -109,12 +109,12 @@ submitForm(formData){
    let keywordDataList = [];
    keywordDataList.push("putDelayInMethod" + "=" + putDelayInMethod);   
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-
+   this.handleCancelPutDelayInMethod();
   }
 
 handleSubmitPutDelayInMethod(){
   this.refs.putDelayInMethodForm.submit();
-  this.handleCancelPutDelayInMethod();
+ 
   }
 
 handleCancelPutDelayInMethod(){

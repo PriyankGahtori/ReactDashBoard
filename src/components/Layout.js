@@ -100,16 +100,13 @@ export default class Layout extends React.Component {
   }
 
   handleToggle(){ 
-    console.log("this.props.location.pathname--",this.props.location.pathname)
      if(this.props.location.pathname === "/" || this.props.location.pathname === "/application" || this.props.location.pathname === "/topology" ){
-          console.log("home link--")
-          return       
-     }
+          return ;      
+  }
 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-    console.log("line no 74---",headercss)
-    console.log("drawercss---",drawercss)
+
   	this.setState({
   		open: !this.state.open,
   		headerClass: headercss,
@@ -124,7 +121,6 @@ export default class Layout extends React.Component {
 }
 
   homeScreen(){
-    console.log(" in home screen")
     hashHistory.push(`/`)
   }
   handleClose(){ 
@@ -162,14 +158,14 @@ export default class Layout extends React.Component {
 
     	   <Drawer
 	          docked={true}
-	          width={243}
+	          width={240}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}
 	          style={{"backgroundColor":"#21252B"}}	          
 	        >
 		       <AppBar 
-             style={appBarStyle}   
+             style={{backgroundColor: '#114147', height:58}}   
 		         iconElementLeft= {<IconButton></IconButton>}
 		         iconElementRight={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
 		         onRightIconButtonTouchTap={()=>this.handleToggle}	
@@ -188,6 +184,7 @@ export default class Layout extends React.Component {
         titleStyle={title}
         title='NDE CONFIGURATION'
 	    	onLeftIconButtonTouchTap={this.handleToggle}
+        iconStyleLeft={{paddingLeft:'18px'}}
 	    	isInitiallyOpen={false}
         iconElementRight={<div><IconButton tooltip="ND Agent Status" onTouchTap={this.agentScreen.bind(this)}>
           <FontIcon color='#FFF' className="material-icons">people</FontIcon>
@@ -196,7 +193,7 @@ export default class Layout extends React.Component {
 	  		/>
 		   
 		      
-		    <div className='container-fluid'>
+		    <div className='container-fluid' style={{paddingLeft:'32px'}}>
           <div className="row">
 		      {/* <div className="col-md-6"><h2>NetDiagnostics Configuration</h2></div> */}
            <div className="col-md-4"/>

@@ -103,6 +103,7 @@ componentWillMount() {
 //called on change of checkbox of logLevelOneFpMethod
   ChangeLogLevel(event,isInputChecked){
     this.setState({logLevelOneFpMethod:isInputChecked})
+
   }
 
 //called on change of checkbox of doNotDiscardFlowPaths
@@ -122,7 +123,7 @@ componentWillMount() {
      const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
-            <div className ="row"  style={{paddingTop:15}}>
+            <div className ="row"  style={{paddingTop:16}}>
               <div className = "col-md-5">
                 <p for="sess_perct" >BCI flowPath capturing percentage   </p>
               </div>

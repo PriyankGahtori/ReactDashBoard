@@ -33,6 +33,8 @@ class ConfigurationSettings extends React.Component {
     this.handleAdvanceSettingTab = this.handleAdvanceSettingTab.bind(this);
     }
 
+
+
   getTRModeDetail(props)
   {
     let trModeObj = {profileId:null,dcId:null,nodeType:null,topoId:null,tierId:null,serverId:null,instanceId:null};
@@ -79,6 +81,8 @@ class ConfigurationSettings extends React.Component {
   {
      //set TRMode Details 
       this.props.setTRModeDetail(this.getTRModeDetail(this.props));
+      this.props.getKeywordsData(this.props.params.profileId,this.loader);
+
   }
 
   componentWillReceiveProps(nextProps)
@@ -92,6 +96,12 @@ class ConfigurationSettings extends React.Component {
     }
 
   }
+
+
+ loader(){
+   
+ }
+
 
   handleGeneralTab(){    
     //hashHistory.push(`generalsettings/${this.props.params.profileId}`);

@@ -85,7 +85,7 @@ class GeneralKeywords extends React.Component {
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-       this.props.triggerLoader(true, null)
+    this.props.triggerLoader(true, null)
     this.props.getKeywordsData(this.props.params.profileId,this.loader);
   }
 

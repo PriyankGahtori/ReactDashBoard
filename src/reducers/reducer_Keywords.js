@@ -16,7 +16,7 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableNDEntryPointsFile :false,
 					genExcptInMethod :false ,
 					enableFpHdrCheckBox : false,
-					enableMonitorsCheckBox : false
+					enableMonitorsCheckBox : false   //for enable Monitor keywords group checkbox
 					}
 
 
@@ -116,7 +116,7 @@ switch(action.type){
 
 	   	newState.enableFpHdrChkBox = !validate.validateFpHdrChkBox(action.payload.data) ;
 
-		newState.enableMonitorsCheckBox = !validate.validateDebugKeywords(action.payload.data);
+		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 	return newState;
 
 

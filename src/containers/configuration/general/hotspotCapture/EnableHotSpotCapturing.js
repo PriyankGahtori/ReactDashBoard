@@ -82,8 +82,6 @@ class EnableHotSpotCapturing extends React.Component {
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-  {/*  this.props.getKeywordsData(this.props.profileId);
-    console.log(" in component will mount  -------->hotspot",this.props.getAllKeywordData)*/}
   }
 
   componentWillReceiveProps(nextProps)

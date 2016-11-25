@@ -67,11 +67,8 @@ class EnableHotSpotCapturing extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
-  
   this.state ={enableBCIDebug:false}
-   this.state = {openEnableHotSpotCapturingDialog : false}
-   console.log("this.props.getAllKeywordData.BCICapturingCheckBox",this.props.getAllKeywordData.BCICapturingCheckBox)
+   this.state = {openEnableHotSpotCapturingDlog : false}
  // this.state = {disableAdvancedSettingTab2 :!this.props.getAllKeywordData.hotSpotCapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
  
@@ -85,31 +82,25 @@ class EnableHotSpotCapturing extends React.Component {
  
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.getKeywordsData(this.props.profileId);
+  {/*  this.props.getKeywordsData(this.props.profileId);
+    console.log(" in component will mount  -------->hotspot",this.props.getAllKeywordData)*/}
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.BCICapturingCheckBox)
-    console.log("nextprops---",nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData:nextProps.getAllKeywordData,
                     hotSpotCapturingCheckBox :nextProps.getAllKeywordData.hotSpotCapturingCheckBox,
                     disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox
       });
-
     }
 
     /*if(this.props.getAllKeywordData.hotSpotCapturingCheckBox != nextProps.getAllKeywordData.hotSpotCapturingCheckBox)
       this.setState({disableAdvancedSettingTab2:!nextProps.getAllKeywordData.hotSpotCapturingCheckBox})*/
-
   }
 
 
    handleDReqCheckboxChange(event,value){
-   console.log("event---",event)
-   console.log("value---",value)
   }
  
 /*
@@ -126,6 +117,7 @@ handleEnableHotSpotCapturingCheckboxChange(event,isInputChecked){
     this.setState({openSnackBar:true
     })
  //  this.props.setDefValHotSpotCapturingKeywords();
+
    this.submitForm(validate.setDefaultValuesHotSpotCapturing(this.props.getAllKeywordData.data));
    this.props.enableHotSpotCheckBoxStatus(true);
 
@@ -141,7 +133,6 @@ handleEnableHotSpotCapturingCheckboxChange(event,isInputChecked){
 
 enableHotSpotCapturingDialog(){
   this.setState({openEnableHotSpotCapturingDialog:true});
-    console.log("EnableBCICapturingDialog function callded---")
 }
 
  handleCancelEnableHotSpotCapturing(){
@@ -151,9 +142,7 @@ enableHotSpotCapturingDialog(){
  
 
 handleSubmitEnableHotSpotCapturing(){
-  console.log("handleSubmit---", this.refs)
   this.refs.enableHotSpotCapturingForm.submit();
-  console.log("after closing the dialog----")
   }
 
 
@@ -184,15 +173,10 @@ handleCancelDisableBCIVal(){
 
     //form data contains, only keywords of this group i.e HotspotCapturing  
 
-    console.log("submitForm----",formData)   
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("data---general keywords--",formData)
-    console.log("profileId--",this.props.profileId)
 
     //clone all keywords data and modify keywords of HOTSPOT Capturing
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
-    console.log("keywordData--",keywordData)
     
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
@@ -208,13 +192,11 @@ handleCancelDisableBCIVal(){
       else if(value === "false" || value === false){
         value = "0" ;
       }
-      console.log("value for boolean values---",value)
 
       //update HotspotCapturing Keyword's ('keywordData' contains all available keywords)
        keywordData[key]["value"] = String(value); 
       
     }) ;
-    console.log("finalFormData---",keywordData)
 //   this.props.submitKeywordData(keywordData,this.props.profileId,"hotSpotCapturing"); 
    this.props.submitKeywordData(keywordData,this.props.profileId);    
    this.handleCancelEnableHotSpotCapturing();
@@ -283,7 +265,7 @@ handleCancelDisableBCIVal(){
           value = "enableHotSpotCapturing"
           checked  = {this.state.hotSpotCapturingCheckBox}
           onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)} />
-           <i style={{paddingLeft:40}}>(Capture thread hotspots using BCI autosensor) </i> 
+           <i style={{paddingLeft:40}}>(Capture thread hotspots using BCI autoSensor) </i> 
         </div>
        
        
@@ -341,7 +323,6 @@ handleCancelDisableBCIVal(){
 
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords,
     trData : state.initialData.trData,

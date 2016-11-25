@@ -14,6 +14,7 @@ import { reduxForm } from 'redux-form';
 import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
+import {Card} from 'material-ui/Card';
 
 //Importing files
 import * as actionCreators  from '../../../actions/index';
@@ -138,9 +139,11 @@ loader(){
   
     return (
       <div>
+        <Card style={{paddingTop:10,paddingBottom:10}}>
         <PutDelayInMethod profileId = {this.props.params.profileId} />
         <EnableBackendMonitor profileId = {this.props.params.profileId}/>
         <GenExceptionInMethod profileId = {this.props.params.profileId}/>
+      </Card>
     </div>
     );
   }

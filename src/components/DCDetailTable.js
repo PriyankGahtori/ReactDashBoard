@@ -107,6 +107,7 @@ class DataGridComponent extends React.Component {
         selectRow={selectRow}
         ref="table"
         style={{"width":"98%"}}
+      
       >
       {column.data.map((val, index) => (            
   

@@ -56,6 +56,10 @@ const initialValues = {
     width: 150,
 
   },
+   error:{
+    fontSize: 12,
+    color: 'red' 
+  },
   block:{
     
   },
@@ -152,8 +156,6 @@ componentWillMount() {
               </div>
                <p >Enable level one capturing for flowPaths </p> 
             </div>
-     
-
              <div className = "row" style={{paddingTop:3}}>
              <div className= "col-md-1" >
               <Checkbox
@@ -171,20 +173,17 @@ componentWillMount() {
            <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
-                  hintText="Hint Text"
+                   
+                  hintText="Capture correlation id http header"
                   floatingLabelText="Capture correlation id http header"
                   {...correlationIDHeader}
                    errorText = {correlationIDHeader.touched &&  correlationIDHeader.error && <div> { correlationIDHeader.error}</div> }
-
-                  
                 />
               </div>
-
-
                 <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
-                  hintText="Hint Text"
+                  hintText="Set flowPath id in response cookie"
                   floatingLabelText="Set flowPath id in response cookie"
                   {...setCavNVCookie}
                   errorText = {setCavNVCookie.touched &&  setCavNVCookie.error && <div> { setCavNVCookie.error}</div> }

@@ -98,10 +98,8 @@ loader(){
     return (
 
     <form onSubmit ={handleSubmit(this.submit.bind(this)) }>
-       <Card style={{ 'marginTop' : 5 ,'paddingLeft':5}}>
-
-      <div style={{'paddingTop':20}}>
-     
+       <Card style={{ 'marginTop': 4 ,'paddingLeft':5}}>
+       <div style={{'paddingTop':12}}>
       	<h4>Select part of URI used in Transaction name</h4>
       </div>
      
@@ -124,7 +122,7 @@ loader(){
 
 
 
-   <div className={`row ${this.state.segmentDivCSS}`} style={{'marginLeft':30}} enabled={false}>
+   <div className={`row ${this.state.segmentDivCSS}`} style={{'marginLeft':40}} enabled={false}>
 		<SelectField value={"first"} {...segmentType} >
           <MenuItem value={"first"} primaryText="First" />
           <MenuItem value={"last"} primaryText="Last" />
@@ -136,7 +134,7 @@ loader(){
         />        
       </div>
 
-      <div className="col-md-12">
+      <div className="col-md-12" style={{paddingLeft:40}} >
          <TextField        
             {...slowTransaction}  
             floatingLabelText="Slow Transaction Threshold (ms)"
@@ -162,7 +160,7 @@ loader(){
 
   {/*------------Radio Button Group---------------*/}
 
-     <div className='row'>
+     <div className='row' style={{paddingLeft:40}} >
      
      <RadioButtonGroup
      	{...dynamicReqValue} 
@@ -190,16 +188,15 @@ loader(){
 
   {/*------------Dynamic Request Type Div---------------*/}
 
-  	<div className={this.state.dynamicReqType === true ? 'show' :'hidden'}>
+  	<div style={{paddingLeft:40,paddingTop:5}}  className={this.state.dynamicReqType === true ? 'show' :'hidden'}>
 		<div className={this.state.paramDiv === true ? 'show' :'hidden'}>
 			<TextField      	  
           		floatingLabelText="Parameter Name"
           		{...requestParam}
         	/>
 		</div>
-		
-		<div className={this.state.methodDiv === true ? 'show' :'hidden'}>
-			<p>Use the request method (GET/POST/PUT) in Transaction names.</p>
+		<div  className={this.state.methodDiv === true ? 'show' :'hidden'}>
+			<p >Use the request method (GET/POST/PUT) in Transaction names.</p>
 		</div>
 		
 		<div className={this.state.headerDiv === true ? 'show' :'hidden'}>

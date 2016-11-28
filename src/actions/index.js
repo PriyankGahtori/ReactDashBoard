@@ -207,7 +207,7 @@ export function addRowApplicationTable(formData,openAppDialogType){
    var response = axios({
     method:'put',
     //url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
-    url : `${url.ADD_ROW_APP_URL}/${formData.id}`,
+    url : `${url.ADD_ROW_APP_URL}/${formData.appId}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
@@ -248,8 +248,8 @@ export function appDetailInitializeForm(data,openAppDialogType){
   var payload={ "data":data,"openAppDialogType":openAppDialogType};
 
   return {
-    type:'UPDATE_APP_FORM',
-    payload:payload
+    type    :'UPDATE_APP_FORM',
+    payload :payload
   }
 }
 
@@ -1121,6 +1121,9 @@ export function generateNdConf(){
 export function updateTopology(){
     const URL =  `${url.UPDATE_TOPOLOGY}`;
     const response = axios.get(URL);
+    
+
+
     return {
       type : 'UPDATE_TOPOLOGY',
       payload : response

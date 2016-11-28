@@ -15,16 +15,10 @@ export default function(state = initialState, action) {
    case 'FETCH_APP_TABLE_DATA':
     console.log("inside  FETCH_APP_TABLE_DATA", action.payload.data);
     var newState = Object.assign({}, state);
-    var data=action.payload.data._embedded.application;
+    var data=action.payload.data;
       data.map(function(val){
         console.log("in val---ApplicationDetail",val)
-        var index=val._links.self.href.lastIndexOf("/");
-        var id= val._links.self.href.slice(index+1,val._links.self.href.length)
-//        val._links.self.href=id;
-        val.id = id ;
-        val.appName ={"href":val.appName};
-        console.log("id----",id)
-        
+        val.appHrefName ={"href":val.appName};
     })
     newState.tableData = data;
     return newState;
@@ -59,7 +53,7 @@ export default function(state = initialState, action) {
     var newState = Object.assign({}, state);
     var data =  action.payload.data ;
     data.id=action.payload.data.appId;
-    data.appName = {"href" : action.payload.data.appName}
+    data.appHrefName = {"href" : action.payload.data.appName}
     newState.tableData.push(data);
     return newState;
 
@@ -68,11 +62,11 @@ export default function(state = initialState, action) {
     var newState = Object.assign({}, state);
     console.log("in updating form----",action.payload)
     console.log("in updating form  flag---",action.payload.openAppDialogType)
-    newState.appDetailInitializeForm=action.payload.data;
+    newState.appDetailInitializeForm = action.payload.data;
     newState.openAppDialogType=action.payload.openAppDialogType;
     console.log("newState.appDetailInitializeForm--",newState.appDetailInitializeForm)
     console.log("newState.openAppDialogType--",newState.openAppDialogType)
-    return newState
+    return newState ;
 
     case 'UPDATE_ROW_APPTABLE':
     console.log("updating row--action.payload",action.payload)
@@ -84,7 +78,7 @@ export default function(state = initialState, action) {
       if(val.id == action.payload.data.appId){
           console.log("condition matched")
           val.appDesc=action.payload.data.appDesc;
-          val.appName={"href": action.payload.data.appName};
+          val.appHrefName={"href": action.payload.data.appName};
           val.userName=action.payload.data.userName;
       }
 

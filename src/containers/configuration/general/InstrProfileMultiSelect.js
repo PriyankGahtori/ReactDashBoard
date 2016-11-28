@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import * as url from '../../../actions/restURL';
+import {triggerRunTimeChanges} from '../../../actions/runTimeChanges';
 
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';

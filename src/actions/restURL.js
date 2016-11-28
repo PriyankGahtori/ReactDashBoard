@@ -14,7 +14,7 @@ export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
 
 
 /* Url for Application Table */
-export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/application`;
+export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
 export const DEL_ROW_APP_URL = `${SERVICE_URL}/application`;

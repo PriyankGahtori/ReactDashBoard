@@ -73,7 +73,8 @@ class Dialog_AppDetail_NewApp extends React.Component {
       <FormNewApp ref="newAppForm" onSubmit={data =>{
                                if(this.state.applicationdata.openAppDialogType == "edit"){
 
-                                data["id"] = this.state.applicationdata.appDetailInitializeForm.id;
+                                data["appId"]         = this.state.applicationdata.appDetailInitializeForm.appId;
+                                data["dcTopoAssocId"] = this.state.applicationdata.appDetailInitializeForm.dcTopoAssocId;
                                 this.props.addRowApplicationTable(data,this.state.applicationdata.openAppDialogType)
                                 this.handleCancel();
                               }

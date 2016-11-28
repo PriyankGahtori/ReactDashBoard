@@ -26,9 +26,9 @@ import * as actionCreators  from '../../actions/index';
 */
 
 var columns = {
-                "key" : "id",
-                "data":['Name', 'Description','User Name','LINK'],
-                "field":['appName', 'appDesc', 'userName','id']
+                "key"  : "appId",
+                "data" : ['Name', 'Description','User Name','LINK'],
+                "field": ['appHrefName', 'appDesc', 'userName','appId']
               }; 
 
 const style = {
@@ -76,7 +76,15 @@ handleConfirm(){
 
 handleHref(row)
 {
-    hashHistory.push(`/application/${row.id}`)
+ /* console.log("row-----",row)
+  let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+  var dcId = this.props.appDetail.tableData.filter(function(value){
+                                      console.log("value----",value)
+                                      if(value.dcId === selectedRow[0] )
+                                        return value.dcId;
+                                    });*/
+  hashHistory.push(`/application/${row.appId}`)
+  
  } 
 
 createConfFile(){
@@ -90,7 +98,7 @@ createConfFile(){
     //triggering action to display Loader
     var message = {'title' :'Generating nd.conf' ,'msg':''};
     this.props.triggerLoader(true , message)
-    this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData,this.loader);
+    this.props.createConfFile(selectedRowData[0].appId,this.props.getAllKeywordData,this.loader);
     }
   }
 
@@ -130,7 +138,7 @@ handleClose(){
         
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
-                                    return value.id === selectedRow[0]
+                                    return value.appId === selectedRow[0]
                                   });
         console.log("selectedRowData----",selectedRowData[0])
 

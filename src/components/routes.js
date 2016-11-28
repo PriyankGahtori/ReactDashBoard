@@ -32,200 +32,200 @@ import HTTPStatsMonitors from '../containers/configuration/instrumentation/monit
 
 export default class routes extends React.Component {
 
-	constructor(props) {
+  constructor(props) {
     super(props);
     console.log("in routes.js-----",this.props)
 }
 
    render() {
      return (
-	  <Router history={hashHistory}>
-	    <Route name="Home" path="/" component={Layout} >
-	      <IndexRoute component={NewHome} />
-	      <Route name = "Application" path = "application" component = {ApplicationDetail} />
-	      <Route name = "DC Configuration" staticName = {true} path = "application/:appId" component = {DCDetail} />
-	      <Route name = "Testing" path = "testing" component = {Testing} />
-	      <Route name = "Topology" path = "topology" component = {TopologyDetail} />
+    <Router history={hashHistory}>
+      <Route name="Home" path="/" component={Layout} >
+        <IndexRoute component={NewHome} />
+        <Route name = "Application" path = "application" component = {ApplicationDetail} />
+        <Route name = "DC Configuration" staticName = {true} path = "application/:appId" component = {DCDetail} />
+        <Route name = "Testing" path = "testing" component = {Testing} />
+        <Route name = "Topology" path = "topology" component = {TopologyDetail} />
 
-	      <Route name = "Profile"  staticName = {true} path = "profile"  component = {ProfileDetail} />
+        <Route name = "Profile"  staticName = {true} path = "profile"  component = {ProfileDetail} />
 
-	  		{/*********************Topology and profile Navigation**********************/}		  		
-	      <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId">
-	      	<IndexRoute name = "Topology Configuration" staticName = {true} component = {Topology}/>
+        {/*********************Topology and profile Navigation**********************/}          
+        <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId">
+          <IndexRoute name = "Topology Configuration" staticName = {true} component = {Topology}/>
 
-	      		{/*************Main Configuration Screen************/}
-	      	<Route name = "Configuration" staticName = {true} path= "topology/:topoId/configuration/:profileId" >
-			  		<IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-			  		<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 	  	 
-  			  	
-			  			{/*************Instrumentation Setting & Configuration************/}
-  			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      			<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	  		<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 			<IndexRoute name="Global" component={GlobalBT} />
-	      	    		<Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 		</Route>
-	      	 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
-	      	 		<Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 			<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 			<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	 		<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />		      	 		
-	      	 		</Route>
-	      		</Route>
+            {/*************Main Configuration Screen************/}
+          <Route name = "Configuration" staticName = {true} path= "topology/:topoId/configuration/:profileId" >
+            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />            
+            
+              {/*************Instrumentation Setting & Configuration************/}
+            <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+              <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
+              <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />               
+              </Route>
+            </Route>
 
-	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
 
-			  	</Route>  			  	
-	      </Route>
-
-
-				{/*********************Tier and profile Navigation************************/}
-	      <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId"  >
-	      	<IndexRoute name = "Tier Detail" staticName = {true} component = {Tier} />
-
-	      			{/*************Main Configuration Screen************/}	
-	      	<Route name = "Configuration" staticName = {true} path= "tier/:tierId/configuration/:profileId" >
-			  		<IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-			  		<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 
-  			  	
-  			  				{/*************Instrumentation Setting & Configuration************/}
-  			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      			<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	  		<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 			<IndexRoute name="Global" component={GlobalBT} />
-	      	    		<Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 		</Route>
-	      	 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
-	      	 		<Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 			<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 			<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	 		<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-	      	 		</Route>
-	      		</Route>
-
-	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
-
-			  	</Route>
-	      </Route>
+          </Route>            
+        </Route>
 
 
-	      	{/*********************Server and profile Navigation************************/}
-	      <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" >
-	      	<IndexRoute name = "Server Detail" staticName = {true} component = {Server} />
+        {/*********************Tier and profile Navigation************************/}
+        <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId"  >
+          <IndexRoute name = "Tier Detail" staticName = {true} component = {Tier} />
 
-	      			{/*************Main Configuration Screen************/}	
-	      	<Route name = "Configuration" staticName = {true} path= "server/:serverId/configuration/:profileId" >
-			  		<IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-			  		<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 
-  			  	
-  			  				{/*************Instrumentation Setting & Configuration************/}
-  			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      			<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	  		<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 			<IndexRoute name="Global" component={GlobalBT} />
-	      	    		<Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 		</Route>
-	      	 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
-	      	 		<Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 			<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 			<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	 		<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-	      	 		</Route>
-	      		</Route>
+              {/*************Main Configuration Screen************/}  
+          <Route name = "Configuration" staticName = {true} path= "tier/:tierId/configuration/:profileId" >
+            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+            
+                  {/*************Instrumentation Setting & Configuration************/}
+            <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+              <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
+              <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+              </Route>
+            </Route>
 
-	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
 
-			  	</Route>
-	      </Route>
-			  
+          </Route>
+        </Route>
 
-			  	{/*********************Instance and profile Navigation************************/}
-	      <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" >
-	      	<IndexRoute name = "Instance Detail" staticName = {true} component = {Instance} />
 
-	      			{/*************Main Configuration Screen************/}	
-	      	<Route name = "Configuration" staticName = {true} path= "instance/:instanceId/configuration/:profileId" >
-			  		<IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-			  		<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 
-  			  	
-  			  				{/*************Instrumentation Setting & Configuration************/}
-  			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      			<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	  		<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 			<IndexRoute name="Global" component={GlobalBT} />
-	      	    		<Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 		</Route>
-	      	 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
-	      	 		<Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 			<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 			<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	 		<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-	      	 		</Route>
-	      		</Route>
+          {/*********************Server and profile Navigation************************/}
+        <Route name = "Server Detail" staticName = {true} path = "tier/:tierId" >
+          <IndexRoute name = "Server Detail" staticName = {true} component = {Server} />
 
-	      		<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+              {/*************Main Configuration Screen************/}  
+          <Route name = "Configuration" staticName = {true} path= "server/:serverId/configuration/:profileId" >
+            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+            
+                  {/*************Instrumentation Setting & Configuration************/}
+            <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+              <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
+              <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+              </Route>
+            </Route>
 
-			  	</Route>
-	      </Route>
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
 
-			  
-			  {/*from Profile main screen to general, instrumentation, service entry, ... */}
-			  <Route name = "Configuration" staticName = {true} path= "profile/:profileId" >
+          </Route>
+        </Route>
+        
 
-			  	<IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />	  	 
-			  	<Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />	  	 
-			  	
-			  	<Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
-	      	 		<IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      	 		<Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	 
-			      	<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-			      	 	<IndexRoute name="Global" component={GlobalBT} />
-			      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
-			      	</Route>
-			 
-			 		<Route name="Error Detection" path ="errordetection" component={ErrorDetection} />		
-	      	 
-			      	<Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
-			      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
-			      	 	<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-				      	<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-			      	</Route>
-	      		</Route>
+          {/*********************Instance and profile Navigation************************/}
+        <Route name = "Instance Detail" staticName = {true} path = "server/:serverId" >
+          <IndexRoute name = "Instance Detail" staticName = {true} component = {Instance} />
 
-	      			<Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
-			  </Route>
+              {/*************Main Configuration Screen************/}  
+          <Route name = "Configuration" staticName = {true} path= "instance/:instanceId/configuration/:profileId" >
+            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+            
+                  {/*************Instrumentation Setting & Configuration************/}
+            <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+              <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
+              <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+              </Route>
+            </Route>
 
-		  {/*from tier,server, instance to profile */}			  
-		  <Route name = "Configuration" staticName = {true} path = "profile/:profileId"  component = {Configuration} />
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
 
-		  <Route name = "Configuration" staticName = {true} path = "generalsettings/:profileId"  component = {GeneralKeywords} />
+          </Route>
+        </Route>
 
-	      <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
-	      	 <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-	      	 <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
-	      	 
-	      	 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-	      	 	<IndexRoute name="Global" component={GlobalBT} />
-	      	    <Route name="Pattern" path ="pattern" component={PatternBT} />
-	      	 </Route>
+        
+        {/*from Profile main screen to general, instrumentation, service entry, ... */}
+        <Route name = "Configuration" staticName = {true} path= "profile/:profileId" >
 
-	      	 <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
-	      	 	<IndexRoute name="Method Monitors" component={MethodMonitors} />
-	      	 	<Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-		      	<Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
-	      	 </Route>
-	      </Route>
+          <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />      
+          <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+          
+          <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+           
+              <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+       
+          <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />    
+           
+              <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+              </Route>
+            </Route>
 
-	      <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />	  	 	  	 
+              <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+        </Route>
 
-	    </Route>
+      {/*from tier,server, instance to profile */}        
+      <Route name = "Configuration" staticName = {true} path = "profile/:profileId"  component = {Configuration} />
 
-	  </Router>
+      <Route name = "Configuration" staticName = {true} path = "generalsettings/:profileId"  component = {GeneralKeywords} />
+
+        <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
+           <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+           <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+           
+           <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+            <IndexRoute name="Global" component={GlobalBT} />
+              <Route name="Pattern" path ="pattern" component={PatternBT} />
+           </Route>
+
+           <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+            <IndexRoute name="Method Monitors" component={MethodMonitors} />
+            <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+            <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />
+           </Route>
+        </Route>
+
+        <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+
+      </Route>
+
+    </Router>
      );
    }
  }

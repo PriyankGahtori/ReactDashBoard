@@ -78,7 +78,7 @@ class GenExcptInMethod extends React.Component {
   this.state = {openEnableExcptCapturingDialog : false}
   this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableExcptCheckBox:false}
+  this.state = {enableExcptCheckBox:false,genExcptInMethod:false}
   this.state = {openSnackBar:false}
 }
 
@@ -111,10 +111,10 @@ componentWillReceiveProps(nextProps)
 
 
   handleGenExcptInMethod(event,isInputChecked){
-  	if(isInputChecked === true){
+  	if(isInputChecked === true ){
 
       //this.props.setDefValBCICapturingKeywords();
-      this.setState({openSnackBar:true})
+      this.setState({openSnackBar:true,genExcptInMethod:true})
       var data = this.props.getAllKeywordData.data ;
       //this.submitForm(data);
        //this.props.setDefValBCICapturingKeywords();
@@ -122,6 +122,7 @@ componentWillReceiveProps(nextProps)
    }
    else{
    	this.setState({openCnfrmDisbleDialog:true})
+   	 
    }
 }
 

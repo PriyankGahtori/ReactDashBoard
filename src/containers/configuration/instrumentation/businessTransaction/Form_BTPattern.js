@@ -16,7 +16,7 @@ import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import Toggle from '../../../../components/ToggleWrapper';
 
 
-export const fields = ['btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue' ]
+export const fields = ['btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue','dynamicPartReq' ]
              
  const validate = values=> {
   const errors = {}
@@ -49,13 +49,29 @@ export const fields = ['btName','matchType','urlName','include','slowTransaction
     if(!values.matchType) 
     errors.matchType = 'Required'
 
+    if(values.dynamicPartReq)
+    {
+      console.log("value of dynamic part req -------------->",values.dynamicPartReq)
+       if(!values.reqParamKey) 
+       errors.reqParamKey = 'Required'
+
+      if(!values.reqParamValue) 
+      errors.reqParamValue = 'Required'
+
+      if(!values.reqHeaderKey) 
+       errors.reqHeaderKey = 'Required'
+
+      if(!values.reqHeaderValue) 
+      errors.reqHeaderValue = 'Required'
+
+       if(!values.reqMethod) 
+      errors.reqMethod = 'Required'
+    }
+
   return errors
  }
 const styles = {
-   error:{
-    fontSize: 12,
-    color: 'red' 
-  },
+   
   block: {
     maxWidth: 250,
     paddingBottom:5
@@ -70,7 +86,11 @@ const styles = {
   checkbox: {
     marginBottom: 16,
     paddingTop:35
-  }
+  },
+   error:{
+    fontSize: 12,
+    color: 'red' 
+  },
 };
 
 
@@ -98,7 +118,7 @@ handleCheck(event,value)
 }
 
   render() {
-     const { fields: {btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
     <div className ="row">
@@ -167,9 +187,9 @@ handleCheck(event,value)
      
      <div className="row">
       <Checkbox
+              {...dynamicPartReq}
            style={styles.checkbox}
            label="Dynamic part Request"
-          
            onCustomChange={this.handleCheck.bind(this)}
            />
      </div>
@@ -217,6 +237,8 @@ handleCheck(event,value)
             <MenuItem value={"CONNECT"} primaryText="CONNECT" />
             <MenuItem value={"OPTIONS"} primaryText="OPTIONS" />
           </DropDownMenu>
+     <div style = {styles.error}> {reqMethod.touched && reqMethod.error && <div>{reqMethod.error} </div> }</div>
+
       </div>
   </div>
 

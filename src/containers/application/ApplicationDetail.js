@@ -65,6 +65,7 @@ class ApplicationDetail extends React.Component {
   this.state = {open:false, openSnack:false};
   this.createConfFile = this.createConfFile.bind(this);
   this.loader = this.loader.bind(this);
+  this.appLoader = this.appLoader.bind(this);
   }
 
  
@@ -166,7 +167,8 @@ handleClose(){
 
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.fetchAppTableData();
+    this.props.triggerLoader(true,null);
+    this.props.fetchAppTableData(this.appLoader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -178,7 +180,10 @@ handleClose(){
   /* function to trigger event for closing loader 
    * called when response for request of generating nd.conf is received
    */
-
+   appLoader(){
+    var msg = {'title' : 'Application Data Loaded ', 'msg': ''}
+    this.props.triggerLoader(false,msg)
+   }
   loader(path){
     var message = {'title':'Nd.conf generated at:', 'msg' :<p style={{wordWrap:'break-word'}}>{path}</p>}
     this.props.triggerLoader(false,message);

@@ -65,7 +65,7 @@ switch(action.type){
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
 		* so need to split /modify it in order to initialize its fields
 		*/
-	if(obj.putDelayInMethod != 0){
+	   if(obj.putDelayInMethod != 0){
 		var putDelayInMethodFields=  obj.putDelayInMethod.split(':');
 		console.log("putDelayInMethodFields--",putDelayInMethodFields)
 		/*
@@ -93,9 +93,11 @@ switch(action.type){
 		}
 
 		obj.putDelayInMethodObj = putDelayInMethodObj ;
+
+		console.log(" pt delay in method ----> ",obj.putDelayInMethodObj)
 	}else
 		obj.putDelayInMethodObj = "0";
-
+          console.log(" in else cond --->  putDelayInMethod --------->",obj.putDelayInMethodObj)
 		newState.initializeKeywords = obj;
 		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
@@ -116,6 +118,7 @@ switch(action.type){
 
 		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 	return newState;
+
 
 
 		/*
@@ -179,6 +182,7 @@ switch(action.type){
 		newState.enableMonitorsCheckBox = action.payload;
 
 		case 'GEN_EXCEPTION_IN_METHOD':
+		console.log(" in reducer exception -in method --->>>>----")
 		var newState = Object.assign({}, state);
 		newState.genExcptInMethod = action.payload;
 		return newState;

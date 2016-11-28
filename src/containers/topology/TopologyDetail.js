@@ -57,6 +57,7 @@ class TopologyDetail extends React.Component {
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
+  this.loader = this.loader.bind(this)
   }
 
  
@@ -125,8 +126,9 @@ class TopologyDetail extends React.Component {
 
 //this function is called first when component gets first loaded
   componentWillMount() {
-    console.log("componentwillmount")
-    this.props.fetchTopoDetailTable();
+    console.log("componentwillmount topology  -----------> daaaata")
+    this.props.triggerLoader(true,null)
+    this.props.fetchTopoDetailTable(this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -136,6 +138,11 @@ class TopologyDetail extends React.Component {
     if(this.props.topoDetailData!= nextProps.topoDetailData)
       this.setState({topoDetailData:nextProps.topoDetailData});
   }
+  loader(){
+    var msg = {'title':'Topology Data Loaded','msg': ''}
+    this.props.triggerLoader(false,msg)
+  }
+   
 
   render() {
       

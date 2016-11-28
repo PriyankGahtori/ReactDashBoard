@@ -22,11 +22,11 @@ export default class BusinessTransaction extends React.Component {
 
   render() {
     
-    return (    
-      <div><h3>Bussiness Transaction Configuration</h3>
-       <Card style={{'marginTop':10,'paddingLeft':5}}>
-
-	    <div className='row'>
+    return (   
+        <div>
+       <Card style={{'paddingTop':1 ,'paddingLeft':5}}> 
+      <h3 style={{'bottom': 8, 'position': 'relative'}}>Bussiness Transaction Configuration</h3>
+	    <div className='row' style= {{'bottom':6,'position': 'relative'}}>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
       		style={{display: 'flex'}}

@@ -3,7 +3,6 @@ import React, { PropTypes } from 'react'
 import {reduxForm} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
-import Checkbox from 'material-ui/Checkbox';
 
 
 //Importing files
@@ -11,7 +10,7 @@ import Checkbox from 'material-ui/Checkbox';
 import Input from '../../../../components/InputWrapper';
 import {initializeKeywords} from '../../../../actions/index';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
-
+import Checkbox from '../../../../components/CheckboxWrapper';
 
 export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter','ASTraceLevel','ASStackComparingDepth'];
 //export const fields = [ 'ASSampleInterval','ASThresholdMatchCount','ASReportInterval','ASDepthFilter'];
@@ -30,7 +29,7 @@ const validate = values =>{
   else if (isNaN(values.ASSampleInterval))
     errors.ASSampleInterval = 'Please Enter Only Numbers'
 
-  else if( values.ASSampleInterval < 0 || values.ASSampleInterval > 5000)
+  else if( values.ASSampleInterval <  0 || values.ASSampleInterval > 5000)
     errors.ASSampleInterval = 'Please Enter Values Between 0 and 5000'
   
   if(!values.ASThresholdMatchCount)
@@ -107,7 +106,7 @@ class Form_EnableHotSpotCapturing extends React.Component {
   }
 
 handleEnableHotSpot(event,isInputChecked){
- 
+ console.log(" enable hot spot -----> ")
  this.setState({enableHotSpotBlock:!isInputChecked})
 }
 
@@ -122,6 +121,7 @@ componentWillMount() {
   {
     
   }
+ 
 
   render() {
      const { fields: {ASSampleInterval,ASThresholdMatchCount,ASReportInterval,ASDepthFilter,ASTraceLevel,ASStackComparingDepth}, resetForm, handleSubmit,onSubmit, submitting } = this.props
@@ -133,8 +133,7 @@ componentWillMount() {
                 value="enableLevel1FPCapturing"
                 label="Enable hotspots"
                  defaultChecked = {true} 
-                onCheck={this.handleEnableHotSpot.bind(this)}            
-            />
+                onCheck={this.handleEnableHotSpot.bind(this)}  />
               </div>
            </div>
 
@@ -143,23 +142,19 @@ componentWillMount() {
             <div className = "col-md-6">
             <p>{this.state.enableHotSpotBlock}</p>
              <TextField
+                  
                   hintText="Hint Text"
-                  floatingLabelText="AS sample interval for stack trace"
+                  floatingLabelText="AS Sample Interval for Stack Trace"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASSampleInterval}
                   errorText={ASSampleInterval.touched && ASSampleInterval.error && <div>{ASSampleInterval.error}</div>}
                 />
-            
-
             </div>
-          
-
-
 
              <div className = "col-md-6" style = {styles.block}>
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS threshold match count"
+                  floatingLabelText="AS Threshold Match Count"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASThresholdMatchCount}
                   errorText={ASThresholdMatchCount.touched && ASThresholdMatchCount.error && <div>{ASThresholdMatchCount.error}</div>}
@@ -172,7 +167,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Hotspot reporting interval "
+                  floatingLabelText="Hotspot Reporting Interval "
                     disabled={this.state.enableHotSpotBlock}
                   {...ASReportInterval}
                   errorText={ASReportInterval.touched && ASReportInterval.error && <div>{ASReportInterval.error}</div>}
@@ -183,7 +178,7 @@ componentWillMount() {
               <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="Min stack depth for hotspot"
+                  floatingLabelText="Min Stack Depth for Hotspot"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASDepthFilter}
                    errorText={ASDepthFilter.touched && ASDepthFilter.error && <div>{ASDepthFilter.error}</div>}
@@ -198,7 +193,7 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS trace level"
+                  floatingLabelText="AS Trace Level"
                     disabled={this.state.enableHotSpotBlock}
                   {...ASTraceLevel}
                    errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
@@ -209,19 +204,13 @@ componentWillMount() {
              <div className= "col-md-6">
                    <TextField
                   hintText="Hint Text"
-                  floatingLabelText="AS stack comparing depth"
+                  floatingLabelText="AS Stack Comparing Depth"
                   disabled={this.state.enableHotSpotBlock}
                   {...ASStackComparingDepth}
                    errorText={ASStackComparingDepth.touched && ASStackComparingDepth.error && <div>{ASStackComparingDepth.error}</div>}
                 />
              </div>
-
-
-              
-         </div>
-
-      
-           
+             </div>
        </form>
      );
    }
@@ -243,8 +232,10 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
                     ASReportInterval:state.Keywords.initializeKeywords.ASReportInterval,
                     ASDepthFilter:state.Keywords.initializeKeywords.ASDepthFilter,
                     ASTraceLevel:state.Keywords.initializeKeywords.ASTraceLevel,
-                    ASStackComparingDepth:state.Keywords.initializeKeywords.ASStackComparingDepth
+                    ASStackComparingDepth:state.Keywords.initializeKeywords.ASStackComparingDepth,
+                    
                   }
-})
+}),
+ 
 ) (Form_EnableHotSpotCapturing);
   

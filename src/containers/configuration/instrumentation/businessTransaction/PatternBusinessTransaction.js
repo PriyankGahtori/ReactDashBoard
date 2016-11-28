@@ -148,8 +148,7 @@ const styles = {
             ref        = "btPatternTable" 
             column     = {columns}
             onClick    = {this.handleClick}
-            onToggle   = {this.onToggle.bind(this)}
-         />
+            onToggle   = {this.onToggle.bind(this)}  />
 
         <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>

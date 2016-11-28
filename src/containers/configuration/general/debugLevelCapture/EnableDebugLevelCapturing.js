@@ -71,8 +71,6 @@ class EnableDebugLevelCapturing extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
-  console.log("----validate --",validate) 
   this.state = {openSnackBar:false}
   }
 
@@ -84,10 +82,8 @@ class EnableDebugLevelCapturing extends React.Component {
   }
   componentWillReceiveProps(nextProps)
   {
-    console.log("nextprops---",nextProps.getAllKeywordData.enableDebugCheckBox)
     
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData data cahnged")
       this.setState({getAllKeywordData : nextProps.getAllKeywordData,
                      enableDebugCheckBox : nextProps.getAllKeywordData.enableDebugCheckBox
       });
@@ -118,7 +114,6 @@ class EnableDebugLevelCapturing extends React.Component {
     
     if(isInputChecked === true)
     {
-      console.log("action trigegerd opening Snackbar")
       //this.props.setDefValBCICapturingKeywords();
         this.setState({openSnackBar:true
         })
@@ -189,16 +184,9 @@ handleCancelDisableDebugVal(){
 }
 
   submitForm(formData){
-    console.log("submitForm----",formData)
-   
-    console.log("getAllKeywordData---",this.props.getAllKeywordData) ;
-    console.log("data---general keywords--",formData)
-    console.log("profileId--",this.props.profileId)
 
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
 
-    console.log("keywordData--",keywordData)
-    
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
     * Final data object contains all the keywords  .
@@ -211,15 +199,11 @@ handleCancelDisableDebugVal(){
       else if(value === "false" || value === false){
         value = "0" ;
       }
-      console.log("key---",key)
-      console.log("value for boolean values---",value)
        keywordData[key]["value"] = String(value); 
       
     }) ;
-    console.log("finalFormData---",keywordData)
     //this.props.submitKeywordData(keywordData,this.props.profileId,"debugCapturing");  
     this.props.submitKeywordData(keywordData,this.props.profileId);     
-    console.log(" after  submitKeywordData --------> ")
  //action for runtime change
   let keywordDataList = [];
   Object.keys(formData).forEach(function(key){
@@ -327,7 +311,6 @@ const actionsDebugDisable =[
 
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords,
     trData : state.initialData.trData,

@@ -8,45 +8,53 @@ import { bindActionCreators } from 'redux';
 
 //Importing files
 import * as actionCreators  from '../../actions/index';
- 
 
- class Dialog_Settings extends React.Component {
- 
+
+class Dialog_Settings extends React.Component {
+
   constructor(props) {
     super(props);
     this.updateTopo = this.updateTopo.bind(this);
     this.generateTopo = this.generateTopo.bind(this);
     console.log("in setting.js---",this.props)
+    this.loader  = this.loader.bind(this);
   }
 
-updateTopo(){
-  this.props.updateTopology();
-  this.props.closeDialog();
+  updateTopo(){
+    this.props.triggerLoader(true,null);
+    this.props.updateTopology(this.loader);
+    this.props.closeDialog();
+  }
 
-}
-generateTopo(){
-  this.props.generateNdConf();
-}
+  generateTopo(){
+    this.props.generateNdConf();
+  }
+
+
+  loader(){
+    var msg = {'title':'Topology Migrated' , 'msg': ''}
+    this.props.triggerLoader(false,msg)
+  }
 
   render() {
     return (
-      <div   > 
-          <div >
+      <div > 
+      <div >
       
-         <FlatButton style={{left:'150' }} label="Migrate Topologies" onTouchTap={this.updateTopo} primary={true} /> 
-        </div>
+      <FlatButton style={{left:'150' }} label="Migrate Topologies" onTouchTap={this.updateTopo} primary={true} /> 
+      </div>
      {/*   <div >
        <p style={{paddingLeft:'100'}}>Generate ndonfig ile </p>
        <FlatButton style={{left:'270',bottom: '40'}} label="Generate" onTouchTap={this.generateTopo} primary={true} /> 
        </div>
      */} 
-      </div>
+     </div>
 
-    );
+     );
   }
 }
 
 function mapDispatchToProps(dispatch) {
-return bindActionCreators(actionCreators, dispatch);
+  return bindActionCreators(actionCreators, dispatch);
 }
 export default connect(null,mapDispatchToProps)(Dialog_Settings);

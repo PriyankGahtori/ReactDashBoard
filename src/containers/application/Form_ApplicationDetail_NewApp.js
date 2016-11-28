@@ -95,7 +95,7 @@ handleChangeTopology(event, index, value){
             <div className ="row" >
               <div className ="col-md-6">
                 <TextField
-                  hintText="Hint Text"
+                  hintText="Name"
                   floatingLabelText="Name"
                   {...appName}
                   errorText={appName.touched && appName.error && <div>{appName.error}</div>}
@@ -105,7 +105,7 @@ handleChangeTopology(event, index, value){
 
              <div className="col-md-6">
                <TextField
-                  hintText="Hint Text"
+                  hintText="Description"
                   floatingLabelText="Description"
                   {...appDesc}
                   errorText={appDesc.touched && appDesc.error && <div>{appDesc.error}</div>}
@@ -116,7 +116,7 @@ handleChangeTopology(event, index, value){
              <div className ="row">
               <div className ="col-md-6">
               <TextField
-                  hintText="Hint Text"
+                  hintText="userName"
                   floatingLabelText="User"
                   {...userName}
                   errorText={userName.touched && userName.error && <div>{userName.error}</div>}

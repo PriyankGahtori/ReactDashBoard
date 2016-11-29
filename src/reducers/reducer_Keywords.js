@@ -2,6 +2,7 @@ import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
 import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyValue';
 import * as modifiedValFpHdrCapturing from '../containers/configuration/general/flowPathHeaderCapture/ModifyValue';
+import * as modifiedValInstrExcptCapt from '../containers/configuration/general/exceptionCapture/ModifyValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -38,11 +39,15 @@ switch(action.type){
 
 		//for initialization of FP header Capturing
 		var fpHdrInitializeObj = modifiedValFpHdrCapturing.splitValue(obj);
-		console.log("fpHdrInitializeObj---",fpHdrInitializeObj)
 		obj.fpHdrInitializeObj = fpHdrInitializeObj;
-		
+
+		//for initialization of instrException keyword
+		var instrExceptionObj = modifiedValInstrExcptCapt.splitValue(obj.instrExceptions)
+		console.log("instrExceptionObj---",instrExceptionObj)
+		obj.instrExceptionObj = instrExceptionObj;
 
 
+		/*
 		var instrExceptionFields = obj.instrExceptions.split('%20');
 		let instrExceptionObj = {};
 		if(instrExceptionFields.length > 1)
@@ -59,7 +64,7 @@ switch(action.type){
 		}
 		console.log("instrExceptionObj.stackTraceDepthValue--",instrExceptionObj.stackTraceDepthValue)
 
-		obj.instrExceptionObj = instrExceptionObj;	
+		obj.instrExceptionObj = instrExceptionObj;	*/
 
 		/*for initializing fields of putDelayInMethod Keywords
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
@@ -97,7 +102,8 @@ switch(action.type){
 		console.log(" pt delay in method ----> ",obj.putDelayInMethodObj)
 	}else
 		obj.putDelayInMethodObj = "0";
-          console.log(" in else cond --->  putDelayInMethod --------->",obj.putDelayInMethodObj)
+
+
 		newState.initializeKeywords = obj;
 		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
@@ -117,6 +123,10 @@ switch(action.type){
 	   	newState.enableFpHdrChkBox = !validate.validateFpHdrChkBox(action.payload.data) ;
 
 		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
+
+		newState.enableExcptCheckBox = obj.instrExceptions != 0;
+		
+		console.log("newState in reducer kewords",newState)
 	return newState;
 
 

@@ -40,13 +40,14 @@ class Form_EnableExcptcapturing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state ={
-                'exceptionConfDivCss'    : 'hidden',
-                'stackTraceDepthValueCss':'hidden',
-                'enableCaptureExceptCheckBox':false,
-                'exceptionType':"unhandledException",
-                'enableGenExcptInMethodCheckbox' : false
-    }
+    console.log("this.props.initialData --",this.props.initialData )
+    this.state ={ enableCaptureExceptCheckBox: this.props.initialData != null ? this.props.initialData.enable : 'false',
+                  captureExceptStackTraceCheckBox: this.props.initialData != null ? this.props.initialData.enableCaptureExcepStackTrace :'false',
+                  exceptionType :this.props.initialData != null ? this.props.initialData.exceptionType : "unhandledException" 
+                }
+
+    console.log("this.state  --",this.state.enableCaptureExceptCheckBox1)
+      
   }
   componentWillMount() {
    // this.props.initializeInstrException();
@@ -55,10 +56,10 @@ class Form_EnableExcptcapturing extends React.Component {
   componentWillReceiveProps(nextProps)
   {
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      this.setState({getAllKeywordData : nextProps.getAllKeywordData,
+      this.setState({getAllKeywordData : nextProps.getAllKeywordData
       });
     }
-
+    
 }
   
   handleChangeExceptionType(event,isInputChecked){
@@ -97,7 +98,7 @@ class Form_EnableExcptcapturing extends React.Component {
     const { fields: {enable,
                     enableCaptureExcepStackTrace,
                     stackTraceDepthValue,
-                    exceptionType,
+                    exceptionType
      }, resetForm, handleSubmit,onSubmit, submitting } = this.props
   
     return (
@@ -116,37 +117,34 @@ class Form_EnableExcptcapturing extends React.Component {
 
         
         <div className ={this.state.enableCaptureExceptCheckBox ? 'show' :'hidden'} style ={{'paddingLeft':35}}>
-            <div className = "row ">
-              <div className = "col-md-8">
+            <div >
                  <Checkbox
                  {...enableCaptureExcepStackTrace}
                           value = "captureExceptionStackTrace"
                           label = "Capture Exception Stack Trace"
                           checked  = {this.state.captureExceptStackTraceCheckBox}
                           onCustomChange = {this.handleExceptStackTrace.bind(this)}
-                      />
-            </div>
+               />
             </div>
 
 
-            <div className ={`row ${this.state.captureExceptStackTraceCheckBox? 'show' :'hidden'}`} style ={{'paddingTop':-15,'paddingLeft':17}}>
+            <div className = {this.state.captureExceptStackTraceCheckBox? 'show' :'hidden'} style ={{'paddingTop':-15,'paddingLeft':17}}>
               <TextField
-                      hintText="Hint Text"
-                      floatingLabelText="AS Sample Interval For Stack Trace"
-                      defaultValue={this.state.stackTraceDepthValue}
-                      onChange={this.handleChange}
                       {...stackTraceDepthValue}
+                      hintText = "0-9999"
+                      floatingLabelText = "Stack Trace Depth"
+                      onChange = {this.handleChange}
                     />
             </div>
            
-             <b>Capture Exceptions </b>
-            <div className = "row ">
+            <b>Capture Exceptions </b>
+            <div >
               <RadioButtonGroup 
               {...exceptionType}
-              className={'col-xs-3 col-md-4'} 
-              style={{display: 'flex'}}  
+              className ={'col-xs-3 col-md-4'} 
+              style ={{display: 'flex'}}  
               name = "exceptionType" 
-              defaultSelected={this.props.initialData.exceptionType}
+              defaultSelected = {this.state.exceptionType}
              // defaultSelected="handledException"
               onCustomChange={this.handleChangeExceptionType.bind(this)}
               >
@@ -157,9 +155,8 @@ class Form_EnableExcptcapturing extends React.Component {
                  />
                  <RadioButton
                     value="handledException"
-                    label="Handled"          
+                    label="All"          
                  />
-
           </RadioButtonGroup>
         </div>
 

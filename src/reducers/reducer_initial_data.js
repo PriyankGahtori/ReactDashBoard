@@ -8,6 +8,7 @@ export default function(state = initialState, action) {
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
   	console.log("action.payload.data in reducerinitdata---",action.payload.data)
     let trStatus = action.payload.data.trData.status;
+
   	newState=action.payload.data;
     newState.trData.switch = trStatus == null ? false : trStatus;
   return newState;

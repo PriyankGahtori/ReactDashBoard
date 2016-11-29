@@ -178,7 +178,7 @@ submitForm(formData){
   console.log("Fprmdata of enableFpHdrCapturing---",formData)
   console.log("deflyValu---",formData.enableCaptureHTTPReqFullFp)
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
- 
+  let keywordDataList = [];
   /*handle the case of enabling keyword wd default value
   * formData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
                  "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
@@ -188,18 +188,25 @@ submitForm(formData){
   var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
   console.log("captureHttpFullReqFpVal---",captureHttpFullReqFpVal)
   keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
+  keywordDataList.push("captureHTTPReqFullFp" + "=" +captureHttpFullReqFpVal)
+
 }
 else{
-  keywordData["captureHTTPReqFullFp"]["value"] = formData.captureHTTPReqFullFp;
+  keywordData["captureHTTPReqFullFp"]["value"] = formData.captureHTTPReqFullFp
+  keywordDataList.push("captureHTTPReqFullFp" + "=" +formData.captureHTTPReqFullFp)
+
 }
+
 
   if(formData.hasOwnProperty('enableCaptureHTTPResFullFp')){
     var captureHttpFullRespFpVal = modifiedVal.constValCaptureHTTPResFullFp(formData)
     console.log("captureHttpFullRespFpVal---",captureHttpFullRespFpVal)
     keywordData["captureHTTPRespFullFp"]["value"] = String(captureHttpFullRespFpVal); 
+    keywordDataList.push("captureHTTPRespFullFp" + "=" +captureHttpFullRespFpVal)
 }
 else{
   keywordData["captureHTTPRespFullFp"]["value"] = formData.captureHTTPRespFullFp;
+  keywordDataList.push("captureHTTPRespFullFp" + "=" +formData.captureHTTPRespFullFp)
 }
 
 
@@ -209,10 +216,11 @@ else{
 
   //action for runtime change
   // triggerRunTimeChanges(trData,trModeDetail,formData);
-   let keywordDataList = [];
-   Object.keys(formData).forEach(function(key){
+  
+ /*  Object.keys(formData).forEach(function(key){
      keywordDataList.push(key + "=" + formData[key]); 
-   })    
+   })    */
+  console.log("keywordDataList---",keywordDataList)
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
    this.handleCancelEnableFpHdrCapturing();
  }
@@ -266,8 +274,8 @@ else{
     return (
       <div>
 
-      <div className = "row">
-      <div className = "col-md-3">
+      <div className = "row" style={{paddingTop:10}}>
+      <div className = "col-md-5">
       <Checkbox
       value = "enableFpHeaderCapturing"
       label = "Enable FlowPath Header Capturing"

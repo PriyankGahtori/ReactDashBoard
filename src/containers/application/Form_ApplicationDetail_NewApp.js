@@ -63,12 +63,20 @@ class Form_ApplicationDetail_NewApp extends React.Component {
 
 constructor(props) {
   super(props);
-  console.log("in form topo-- !!!",this.props.data)
-  console.log("this.props.data[2]value - ",this.props.data[2])
-  this.state = {value:this.props.data[2].value[0].id};
-  console.log("this.props.data[2]value - ")
-  this.state = {value: null};
+  this.state = {value:this.props.initialData != null ? this.props.initialData.topoId :null}
+  console.log("state---",this.state.value)
+ }
 
+  componentWillMount() {
+   
+  }
+
+
+  componentWillReceiveProps(nextProps)
+  {
+    if(this.props.initialData != nextProps.initialData){
+      this.setState({value:nextProps.initialData.topoId});
+    }
   }
 
 handleChangeTopology(event, index, value){
@@ -78,7 +86,6 @@ handleChangeTopology(event, index, value){
 
 
   render() {
-      console.log("props",this.props);
 
      const { fields: { appName, appDesc, userName,topoId}, resetForm, handleSubmit, submitting } = this.props
      return (
@@ -86,7 +93,7 @@ handleChangeTopology(event, index, value){
             <div className ="row" >
               <div className ="col-md-6">
                 <TextField
-                  hintText="Hint Text"
+                  hintText="Name"
                   floatingLabelText="Name"
                   {...appName}
                   errorText={appName.touched && appName.error && <div>{appName.error}</div>}
@@ -96,7 +103,7 @@ handleChangeTopology(event, index, value){
 
              <div className="col-md-6">
                <TextField
-                  hintText="Hint Text"
+                  hintText="Description"
                   floatingLabelText="Description"
                   {...appDesc}
                   errorText={appDesc.touched && appDesc.error && <div>{appDesc.error}</div>}
@@ -107,7 +114,7 @@ handleChangeTopology(event, index, value){
              <div className ="row">
               <div className ="col-md-6">
               <TextField
-                  hintText="Hint Text"
+                  hintText="userName"
                   floatingLabelText="User"
                   {...userName}
                   errorText={userName.touched && userName.error && <div>{userName.error}</div>}
@@ -115,10 +122,11 @@ handleChangeTopology(event, index, value){
              </div>
 
              <div className = "col-md-6">
-
+               
                 <DropDownMenu 
                 {...topoId}
-                  value={this.state.value}                
+
+                  value={""+this.state.value}              
                   style={styles.customWidth}
                   autoWidth={false}
                   errorText={topoId.touched && topoId.error && <div>{topoId.error}</div>}
@@ -154,6 +162,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
 state => ({ // mapStateToProps
-  initialValues:{topoId:state.initialData.homeData[2].value[0].id},
+  initialValues:state.applicationdata.appDetailInitializeForm,
+  initialData  : state.applicationdata.appDetailInitializeForm ,
   data:state.initialData.homeData
 }))(Form_ApplicationDetail_NewApp);

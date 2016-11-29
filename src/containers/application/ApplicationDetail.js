@@ -26,9 +26,9 @@ import * as actionCreators  from '../../actions/index';
 */
 
 var columns = {
-                "key" : "id",
-                "data":['Name', 'Description','User Name','LINK'],
-                "field":['appName', 'appDesc', 'userName','id']
+                "key"  : "appId",
+                "data" : ['Name', 'Description','User Name','LINK'],
+                "field": ['appHrefName', 'appDesc', 'userName','appId']
               }; 
 
 const style = {
@@ -65,6 +65,7 @@ class ApplicationDetail extends React.Component {
   this.state = {open:false, openSnack:false};
   this.createConfFile = this.createConfFile.bind(this);
   this.loader = this.loader.bind(this);
+  this.appLoader = this.appLoader.bind(this);
   }
 
  
@@ -76,7 +77,15 @@ handleConfirm(){
 
 handleHref(row)
 {
-    hashHistory.push(`/application/${row.id}`)
+ /* console.log("row-----",row)
+  let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+  var dcId = this.props.appDetail.tableData.filter(function(value){
+                                      console.log("value----",value)
+                                      if(value.dcId === selectedRow[0] )
+                                        return value.dcId;
+                                    });*/
+  hashHistory.push(`/application/${row.appId}`)
+  
  } 
 
 createConfFile(){
@@ -85,12 +94,12 @@ createConfFile(){
    {
     let selectedRowData = this.props.appDetail.tableData
                                      .filter(function(value){
-                                     return value.id === selectedRow[0]
+                                     return value.appId === selectedRow[0]
                                     });
     //triggering action to display Loader
     var message = {'title' :'Generating nd.conf' ,'msg':''};
     this.props.triggerLoader(true , message)
-    this.props.createConfFile(selectedRowData[0].id,this.props.getAllKeywordData,this.loader);
+    this.props.createConfFile(selectedRowData[0].appId,this.props.getAllKeywordData,this.loader);
     }
   }
 
@@ -107,7 +116,6 @@ handleClose(){
   }
 
   handleClick(){
-    console.log("selecting row")
   }
 
 /*
@@ -116,23 +124,18 @@ handleClose(){
 */
   handleOpen(openAppDialogType){
 
-    console.log("in handleopen---",openAppDialogType)
     //for editing form
     if(openAppDialogType == "edit"){
-      console.log("editing the App form")
 
       // gets the selected key of table
       let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
       
       if(selectedRow.length == 1)
       {
-        console.log("selectedRow----",selectedRow)
-        
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
-                                    return value.id === selectedRow[0]
+                                    return value.appId === selectedRow[0]
                                   });
-        console.log("selectedRowData----",selectedRowData[0])
 
         //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
         this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
@@ -149,16 +152,15 @@ handleClose(){
 
     }
     else if(openAppDialogType == "add"){ //for adding new row
-      console.log("adding form")
        this.props.appDetailInitializeForm(null,openAppDialogType); //clears previous/initial values
        this.props.toggleStateDialogNewApp(); //opens dialog box
     }
-       
   }
 
 //this function is called first when component gets first loaded
   componentWillMount() {
-    this.props.fetchAppTableData();
+    this.props.triggerLoader(true,null);
+    this.props.fetchAppTableData(this.appLoader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -170,7 +172,11 @@ handleClose(){
   /* function to trigger event for closing loader 
    * called when response for request of generating nd.conf is received
    */
-
+   appLoader(){
+    var msg = {'title' : 'Application Data Loaded ', 'msg': ''}
+    this.props.triggerLoader(false,msg)
+   }
+   
   loader(path){
     var message = {'title':'Nd.conf generated at:', 'msg' :<p style={{wordWrap:'break-word'}}>{path}</p>}
     this.props.triggerLoader(false,message);

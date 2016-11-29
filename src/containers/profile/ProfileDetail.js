@@ -54,7 +54,7 @@ class ProfileDetail extends React.Component {
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
- 
+  this.loader = this.loader.bind(this)
   }
 
  delRow(){
@@ -110,9 +110,10 @@ class ProfileDetail extends React.Component {
     }
        
   }
-//this function is called first when component gets first loaded
+//this function is called fPirst when component gets first loaded
   componentWillMount() {
-    this.props.fetchProfileDetailData();
+     this.props.triggerLoader(true,null);
+    this.props.fetchProfileDetailData(this.loader);
   }
 
   componentWillReceiveProps(nextProps)
@@ -122,7 +123,10 @@ class ProfileDetail extends React.Component {
     if(this.props.profileDetail != nextProps.profileDetail)
       this.setState({profileDetail:nextProps.profileDetail});
   }
-
+  loader(){
+    var msg = {'title' : 'Profile Data Loaded ', 'msg': ''}
+    this.props.triggerLoader(false,msg)
+  }
   render() {
       
     return (

@@ -38,11 +38,88 @@ export const fields = ['enableCaptureHTTPReqFullFp',
 
 ];
 
-var options = [
-    { value: 'one', label: 'One' },
-    { value: 'two', label: 'Two' },
-    { value: 'three', label: 'Three' }
-   ];
+var reqHdrList = [
+    { value: 'Accept-Charset', label: 'Accept-Charset' },
+    { value: 'Accept-Datetime', label: 'Accept-Datetime' },
+    { value: 'Accept-Encoding', label: 'Accept-Encoding' },
+    { value: 'Accept-Language', label: 'Accept-Language' },
+    { value: 'Accept', label: 'Accept' },
+    { value: 'Authorization', label: 'Authorization' },
+    { value: 'Cache-Control', label: 'Cache-Control' },
+    { value: 'Connection', label: 'Connection' },
+    { value: 'Content-Length', label: 'Content-Length' },
+    { value: 'Content-MD5', label: 'Content-MD5' },
+    { value: 'Content-Type', label: 'Content-Type' },
+    { value: 'Cookie', label: 'Cookie' },
+    { value: 'DNT', label: 'DNT' },
+    { value: 'Date', label: 'Date' },
+    { value: 'Expect', label: 'Expect' },
+    { value: 'Front-End-Https', label: 'Front-End-Https' },
+    { value: 'Host', label: 'Host' },
+    { value: 'If-Match', label: 'If-Match' },
+   { value: 'If-Modified-Since', label: 'If-Modified-Since' },
+   { value: 'If-None-Match', label: 'If-None-Match' },
+   { value: 'If-Range', label: 'If-Range' },
+   { value: 'Proxy-Connection', label: 'Proxy-Connection' },
+   { value: 'Range', label: 'Range' },
+   { value: 'Referer', label: 'Referer' },
+   { value: 'TE', label: 'TE' },
+   { value: 'Upgrade', label: 'Upgrade' },
+   { value: 'User-Agent', label: 'User-Agent' }, 
+   { value: 'Via', label: 'Via' },
+   { value: 'X-ATT-DeviceId', label: 'X-ATT-DeviceId' },
+   { value: 'X-Forwarded-For', label: 'X-Forwarded-For' },
+   { value: 'X-Forwarded-Proto', label: 'X-Forwarded-Proto' },
+   { value: 'X-Requested-With', label: 'X-Requested-With' },
+   { value: 'X-Wap-Profile', label: 'X-Wap-Profile' },
+ ];
+
+var resHdrList = [
+   { value: 'Accept-Ranges', label: 'Accept-Ranges' },
+   { value: 'Access-Control-Allow-Origin', label: 'Access-Control-Allow-Origin' },
+   { value: 'Age', label: 'Age' },
+   { value: 'Allow', label: 'Allow' },
+   { value: 'Cache-Control', label: 'Cache-Control' },
+   { value: 'Connection', label: 'Connection' },
+   { value: 'Content-Disposition', label: 'Content-Disposition' },
+   { value: 'Content-Encoding', label: 'Content-Encoding' },
+   { value: 'Content-Language', label: 'Content-Language' },
+   { value: 'Content-Length', label: 'Content-Length' },
+   { value: 'Content-Location', label: 'Content-Location' },
+   { value: 'Content-MD5', label: 'Content-MD5' },
+   { value: 'Content-Range', label: 'Content-Range' },
+   { value: 'Content-Security-Policy', label: 'Content-Security-Policy' },
+   { value: 'Content-Type', label: 'Content-Type' },
+   { value: 'Date', label: 'Date' },
+   { value: 'ETag', label: 'ETag' },
+   { value: 'Expires', label: 'Expires' },
+   { value: 'Last-Modified', label: 'Last-Modified' },
+   { value: 'Link', label: 'Link' },
+   { value: 'Location', label: 'Location' },
+   { value: 'P3P', label: 'P3P' },
+   { value: 'Pragma', label: 'Pragma' },
+   { value: 'Proxy-Authenticate', label: 'Proxy-Authenticate' },
+   { value: 'Refresh', label: 'Refresh' },
+   { value: 'Retry-After', label: 'Retry-After' },
+   { value: 'Server', label: 'Server' },
+   { value: 'Set-Cookie', label: 'Set-Cookie' },
+   { value: 'Status', label: 'Status' },
+   { value: 'Strict-Transport-Security', label: 'Strict-Transport-Security' },
+   { value: 'Trailer', label: 'Trailer' },
+   { value: 'Transfer-Encoding', label: 'Transfer-Encoding' },
+   { value: 'Vary', label: 'Vary' },
+   { value: 'Via', label: 'Via' },
+   { value: 'WWW-Authenticate', label: 'WWW-Authenticate' },
+   { value: 'Warning', label: 'Warning' },
+   { value: 'X-Content-Security-Policy', label: 'X-Content-Security-Policy' },
+   { value: 'X-Content-Type-Options', label: 'X-Content-Type-Options' },
+   { value: 'X-Frame-Options', label: 'X-Frame-Options' },
+   { value: 'X-Powered-By', label: 'X-Powered-By' },
+   { value: 'X-UA-Compatible', label: 'X-UA-Compatible' },
+   { value: 'X-WebKit-CSP', label: 'X-WebKit-CSP' },
+   { value: 'X-XSS-Protection', label: 'X-XSS-Protection' },
+  
+]
 
 const styles = {
   input: {
@@ -59,7 +136,7 @@ const styles = {
 
 var dataForhdrTypeDropDown = [{'id':0 ,'option':'ALL Headers'},
                               {'id':1 ,'option':'Specified headers'},
-                              {'id':2 ,'option':'Configured'}
+                             // {'id':2 ,'option':'Configured'}
                               
 ]
 
@@ -149,10 +226,18 @@ handleHdrModeReqChange(event, index, value){
       })
   }
 
-/* this function called on changing value of multi select components i.e list of headers
+/* This function called on changing value of multi select components i.e list of headers
+* for keyowrd captureHTTPReqFullFp
 */
 updateSelected(value){
-  this.setState({multiSelectValue:value });
+  this.setState({multiSelectValue:value});
+}
+
+/* This function called on changing value of multi select components i.e list of headers
+*   for keyowrd captureHTTPResFullFp
+*/
+updateSelectedResp(value){
+  this.setState({multiSelectValueResp:value})
 }
 
 /*
@@ -291,12 +376,12 @@ render() {
 
         {/*******div block  when "Specified headers" is selected**********/}
 
-          <div className ={`col-md-4 ${this.state.multiSelectCss}`}  style = {{'width':200,'paddingTop':24}}>
+          <div className ={`col-md-4 ${this.state.multiSelectCss}`}  style = {{'width':230,'paddingTop':24}}>
           <MultiSelect multi
               {...selectedHdrsValReq}
             name ="SelectdHttpHdrs"
             value = {this.state.multiSelectValue} 
-            options = {options} 
+            options = {reqHdrList} 
             onCustomChange = {this.updateSelected.bind(this)}
             />
         </div>
@@ -397,9 +482,9 @@ render() {
           <MultiSelect multi
               {...selectedHdrsValRes}
             name ="SelectdHttpHdrs"
-            value = {this.state.multiSelectValue} 
-            options = {options} 
-            onCustomChange = {this.updateSelected.bind(this)}
+            value = {this.state.multiSelectValueResp} 
+            options = {resHdrList} 
+            onCustomChange = {this.updateSelectedResp.bind(this)}
             />
         </div>
 
@@ -414,9 +499,9 @@ render() {
                   floatingLabelText="Select Configured file list "
                   autoScrollBodyContent={true}
                 >
-                  <MenuItem value = {"0"}  primaryText = "ALL headers"/>
+                {/*  <MenuItem value = {"0"}  primaryText = "ALL headers"/>
                   <MenuItem value = {"1"}  primaryText = "Specified headers"/>
-                  <MenuItem value = {"2"}  primaryText = "Configured" />
+                  <MenuItem value = {"2"}  primaryText = "Configured" />*/}
                 </DropDownMenu>
         </div>
       </div>

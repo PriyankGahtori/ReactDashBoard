@@ -1,13 +1,15 @@
 import React from 'react';
-import DropDownMenu from 'material-ui/DropDownMenu';
+import DropDownMenu from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../actions/index';
 import {hashHistory } from 'react-router';
 
-var menuStyle = {
-   width: '220px',
+var menuStyles = {
+   width: '225px',
+   paddingRight:'10px',
+   textAlign: 'center',
    marginBottom:'10px' 
   }
 
@@ -57,7 +59,8 @@ class DropDownAppList extends React.Component {
      <div>
       <DropDownMenu 
         onChange={this.menuChange} 
-        style={menuStyle} 
+        style={menuStyles}
+        hintText="Select Application" 
         value={this.state.value}
         underlineStyle={{borderTopWidth:0}}
       >

@@ -127,11 +127,11 @@ handleDReqCheckboxChange(event,value){
       console.log("action trigegerd opening Snackbar")
       this.setState({openSnackBar:true})
       this.submitForm(validate.setDefaultValuesBackendMonitor(this.props.getAllKeywordData.data));
-      this.props.enableMonitorsCheckBoxStatus(true);
+//      this.props.enableMonitorsCheckBoxStatus(true);
     }
     else
     {
-      this.props.enableMonitorsCheckBoxStatus(isInputChecked);
+     // this.props.enableMonitorsCheckBoxStatus(isInputChecked);
       this.setState({openCnfrmDisbleDialog:true})
     }
   }

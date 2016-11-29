@@ -33,7 +33,7 @@ const initialValues = {
     errors.setCavNVCookie = 'Please Enter Only Numbers'
 
  
-  if(!values.bciInstrSessionPct)
+  if(!values.bciInstrSessionPct  && values.bciInstrSessionPct != 0) 
     errors.bciInstrSessionPct = 'Required'
 
   else if(values.bciInstrSessionPct < 0 || values.bciInstrSessionPct > 100)
@@ -55,6 +55,10 @@ const initialValues = {
   input: {
     width: 150,
 
+  },
+   error:{
+    fontSize: 12,
+    color: 'red' 
   },
   block:{
     
@@ -103,6 +107,7 @@ componentWillMount() {
 //called on change of checkbox of logLevelOneFpMethod
   ChangeLogLevel(event,isInputChecked){
     this.setState({logLevelOneFpMethod:isInputChecked})
+
   }
 
 //called on change of checkbox of doNotDiscardFlowPaths
@@ -122,7 +127,7 @@ componentWillMount() {
      const { fields: {bciInstrSessionPct,logLevelOneFpMethod,correlationIDHeader,doNotDiscardFlowPaths,setCavNVCookie,enableCpuTime,enableForcedFPChain}, resetForm, handleSubmit,onSubmit, submitting } = this.props
      return (
         <form >
-            <div className ="row"  style={{paddingTop:15}}>
+            <div className ="row"  style={{paddingTop:16}}>
               <div className = "col-md-5">
                 <p for="sess_perct" >BCI flowPath capturing percentage   </p>
               </div>
@@ -151,8 +156,6 @@ componentWillMount() {
               </div>
                <p >Enable level one capturing for flowPaths </p> 
             </div>
-     
-
              <div className = "row" style={{paddingTop:3}}>
              <div className= "col-md-1" >
               <Checkbox
@@ -170,20 +173,17 @@ componentWillMount() {
            <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
-                  hintText="Hint Text"
+                   
+                  hintText="Capture correlation id http header"
                   floatingLabelText="Capture correlation id http header"
                   {...correlationIDHeader}
                    errorText = {correlationIDHeader.touched &&  correlationIDHeader.error && <div> { correlationIDHeader.error}</div> }
-
-                  
                 />
               </div>
-
-
                 <div className = "col-md-6" style ={styles.setCavNVCookieBlock}>
                  
                 <TextField
-                  hintText="Hint Text"
+                  hintText="Set flowPath id in response cookie"
                   floatingLabelText="Set flowPath id in response cookie"
                   {...setCavNVCookie}
                   errorText = {setCavNVCookie.touched &&  setCavNVCookie.error && <div> { setCavNVCookie.error}</div> }

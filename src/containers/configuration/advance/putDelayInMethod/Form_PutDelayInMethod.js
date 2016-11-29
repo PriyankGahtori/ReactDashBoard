@@ -13,6 +13,27 @@ import Checkbox from '../../../../components/CheckboxWrapper';
 import {submitKeywordData,initializeInstrException}  from '../../../../actions/index';
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 
+ const validate = values=> {
+  const errors = { }
+
+  if(!values.fromRange) 
+     errors.fromRange = 'Required' 
+
+  else if (isNaN(values.fromRange))
+    errors.fromRange = 'Please Enter Only Numbers'
+
+   if(!values.toRange) 
+     errors.toRange = 'Required' 
+
+   else if (isNaN(values.toRange))
+    errors.toRange = 'Please Enter Only Numbers'
+
+   if(!values.fqm) 
+     errors.fqm = 'Required' 
+
+
+    return errors;
+ }
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
 class Form_PutDelayInMethod extends React.Component {
@@ -72,6 +93,8 @@ class Form_PutDelayInMethod extends React.Component {
 	                  hintText="Hint Text"
 	                  floatingLabelText="From"
 	                  {...fromRange}
+                    errorText = {fromRange.touched && fromRange.error && <div>{fromRange.error} </div> }
+
 	                />
 	    		</div>
 
@@ -79,6 +102,8 @@ class Form_PutDelayInMethod extends React.Component {
 	    			<TextField
                   hintText="Hint Text"
                   floatingLabelText="to"
+                  errorText = {toRange.touched && toRange.error && <div>{toRange.error} </div> }
+
                   {...toRange}
                 />
 	    		</div>
@@ -88,6 +113,8 @@ class Form_PutDelayInMethod extends React.Component {
                     style={{right:18,bottom:20}}
                     hintText="Hint Text"
                     floatingLabelText="Fully Qualified Method Name"
+                   errorText = {fqm.touched && fqm.error && <div>{fqm.error} </div> }
+
                     {...fqm}
                   />
   	    
@@ -128,7 +155,8 @@ Form_PutDelayInMethod.propTypes = {
 
 export default reduxForm({
   form: 'putDelayInMethodForm',
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
   getAllKeywordData :state.Keywords,

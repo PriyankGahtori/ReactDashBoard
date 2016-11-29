@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import * as url from '../../../actions/restURL';
+import {triggerRunTimeChanges} from '../../../actions/runTimeChanges';
 
 // Be sure to include styles at some point, probably during your bootstrapping
 import 'react-select/dist/react-select.css';
@@ -85,7 +86,7 @@ const styles = {
     return (
       
       <div className = "row"  style={{paddingTop:10}}>
-      <div className ="col-md-6" style={{paddingLeft:55}}>
+      <div className ="col-md-5" style={{paddingLeft:55}}>
         <b>Instrumentation Profiles </b> 
       <p>  <i>(Select profiles to instrument application methods)</i></p>
         </div>

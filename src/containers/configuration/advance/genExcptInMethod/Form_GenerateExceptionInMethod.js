@@ -30,7 +30,7 @@ export const fields = [
 
 const validate = values=> {
   const errors = { }
-  if(!values.excptPerct)
+  if(!values.excptPerct && values.excptPerct != 0 )
    errors.excptPerct ="Required"
 
  else if(values.excptPerct < 0 || values.excptPerct >100)

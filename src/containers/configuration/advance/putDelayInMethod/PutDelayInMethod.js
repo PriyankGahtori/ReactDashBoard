@@ -38,9 +38,12 @@ componentWillReceiveProps(nextProps)
 }
 
 handlePutDelayInMethod(event,isInputChecked){
-    if(isInputChecked === "false" || isInputChecked === false)
-      this.setState({openCnfrmDisbleDialog:true})
-  	// this.setState({putDelayInMethod:isInputChecked})
+    if(isInputChecked === "false" || isInputChecked === false){
+            this.setState({openCnfrmDisbleDialog:true})
+    // this.setState({putDelayInMethod:isInputChecked})
+              
+    }
+
     else
        this.setState({putDelayInMethod : true})
     
@@ -53,8 +56,10 @@ handleCancelDisablePutDelay(){
   }
 
 cnfrmDisable(){
+
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     keywordData["putDelayInMethod"]["value"] = 0 ;
+
     this.props.submitKeywordData(keywordData,this.props.profileId); 
     this.setState({putDelayInMethod:false,
                     openCnfrmDisbleDialog:false
@@ -109,12 +114,12 @@ submitForm(formData){
    let keywordDataList = [];
    keywordDataList.push("putDelayInMethod" + "=" + putDelayInMethod);   
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-
+   this.handleCancelPutDelayInMethod();
   }
 
 handleSubmitPutDelayInMethod(){
   this.refs.putDelayInMethodForm.submit();
-  this.handleCancelPutDelayInMethod();
+ 
   }
 
 handleCancelPutDelayInMethod(){

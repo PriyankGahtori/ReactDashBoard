@@ -78,7 +78,7 @@ class GenExcptInMethod extends React.Component {
   this.state = {openEnableExcptCapturingDialog : false}
   this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableExcptCheckBox:false}
+  this.state = {enableExcptCheckBox:false,genExcptInMethod:false}
   this.state = {openSnackBar:false}
 }
 
@@ -111,10 +111,10 @@ componentWillReceiveProps(nextProps)
 
 
   handleGenExcptInMethod(event,isInputChecked){
-  	if(isInputChecked === true){
+  	if(isInputChecked === true ){
 
       //this.props.setDefValBCICapturingKeywords();
-      this.setState({openSnackBar:true})
+      this.setState({openSnackBar:true,genExcptInMethod:true})
       var data = this.props.getAllKeywordData.data ;
       //this.submitForm(data);
        //this.props.setDefValBCICapturingKeywords();
@@ -122,6 +122,7 @@ componentWillReceiveProps(nextProps)
    }
    else{
    	this.setState({openCnfrmDisbleDialog:true})
+   	 
    }
 }
 
@@ -166,7 +167,7 @@ submitForm(formData){
     *  genExcptInMethod = Perc %20 fqm %20 ExceptionType %20 ExceptionName
     *  In fqm ,if string contains ';'.it has to be replaced with %3B
     */
-    var genExcptInMethod;
+    var genExcptInMethod=0
     var length = Object.keys(formData).length
     
     /* below check handles the case of disabling the keyword i.e
@@ -179,16 +180,17 @@ submitForm(formData){
    		keywordData.generateExceptionInMethod["value"] = genExcptInMethod ;
    	}
    	else
-   		keywordData.generateExceptionInMethod["value"] = '0' ;
+   		keywordData.generateExceptionInMethod["value"] =  0 ;
 
    	this.props.submitKeywordData(keywordData,this.props.profileId);
    	
    //action for runtime change
    //triggerRunTimeChanges(trData,trModeDetail,formData);
    let keywordDataList = [];
-   Object.keys(formData).forEach(function(key){
+   keywordDataList.push("generateExceptionInMethod"+ "=" + genExcptInMethod)
+   /*Object.keys(formData).forEach(function(key){
    	keywordDataList.push(key + "=" + formData[key]); 
-   })    
+   })  */  
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
    this.handleCancelGenExcptInMethod();
 }

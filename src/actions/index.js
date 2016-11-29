@@ -12,20 +12,17 @@ export const FETCH_TREE_DATA = 'FETCH_TREE_DATA';
 */
 
 export function fetchInitData(loader) {
-  
-  const response = axios.get(url.HOME_SCREEN_URL);
 
+  const response = axios.get(url.HOME_SCREEN_URL);
 //trigger action for loading progressBar change once promise is resolved
  response.then(function(data){
-  console.log("calling log function")
   loader();
- });
+});
 
 
-  return {
-    type: FETCH_INIT_DATA,
-    payload:response
-    //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
+return {
+  type: FETCH_INIT_DATA,
+  payload:response
   };
 }
 
@@ -34,12 +31,12 @@ export function fetchInitData(loader) {
 */
 export function fetchTreeData(appId) {
  //const URL =  `http://10.10.40.7:8050/configUI/custom/tree/application/${appId}`;
-  const URL =  `${url.APP_TREE_URL}/${appId}`;
-  const request_tree = axios.get(URL);
+ const URL =  `${url.APP_TREE_URL}/${appId}`;
+ const request_tree = axios.get(URL);
 
-  return {
-    type: FETCH_TREE_DATA,
-    payload:request_tree
+ return {
+  type: FETCH_TREE_DATA,
+  payload:request_tree
     //payload: [{"type":"Application","id":1,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Profile","id":2,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Topology","id":3,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]},{"type":"Setting","id":4,"value":["Nsecom","Kohls_Mobile","ATG","Stress_Pref1"]}]
   };
 }
@@ -62,42 +59,42 @@ export function fetchDCTableData(appId){
       and for get 
       url :
                   http://10.10.40.7:8050/configUI/dcdetail
-*/
+                  */
 
-export function addRowDCTable(formData,openDCDialogType,appId){
+                  export function addRowDCTable(formData,openDCDialogType,appId){
   //when action is called from updating form
   if(openDCDialogType == "edit"){
 
    console.log("edit flag")
    var response = axios({
     method:'put',
-     url : `${url.ADD_ROW_DC_URL}/${appId}/${formData.id}`,
+    url : `${url.ADD_ROW_DC_URL}/${appId}/${formData.id}`,
   //  url:  `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}/${formData._links.self.href}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
+  data: formData,
+  headers:{'Content-Type':'application/json'}
+});
 
    console.log("response",response)
-      return {
-        type: 'DCTABLE_UPDATE_ROW_UPDATE_TREE',
-        payload: response
-      };
-  }
- else{
-//action called for adding new DC
-  var response = axios({
-    method:'post',
-   // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
-     url : `${url.ADD_ROW_DC_URL}/${appId}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
-
-  console.log("response",response)
-  return {
-    type: 'DCTABLE_ADD_ROW_UPDATE_TREE',
+   return {
+    type: 'DCTABLE_UPDATE_ROW_UPDATE_TREE',
     payload: response
   };
+}
+else{
+//action called for adding new DC
+var response = axios({
+  method:'post',
+   // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
+   url : `${url.ADD_ROW_DC_URL}/${appId}`,
+   data: formData,
+   headers:{'Content-Type':'application/json'}
+ });
+
+console.log("response",response)
+return {
+  type: 'DCTABLE_ADD_ROW_UPDATE_TREE',
+  payload: response
+};
 }
 }
 
@@ -105,14 +102,14 @@ export function delDCTableRow(selectedRowKeys){
 
   console.log("selectedRowKeys----",selectedRowKeys)
   selectedRowKeys.forEach(value => 
-    {
-     console.log("value--",value)
-     axios({
-        method: 'delete',
-        url : `${url.DEL_ROW_DC_URL}/${value}`
+  {
+   console.log("value--",value)
+   axios({
+    method: 'delete',
+    url : `${url.DEL_ROW_DC_URL}/${value}`
      //   url   : `http://10.10.40.7:8050/configUI/dcdetail/${value}`  //url-{value=dcId acting as a primary key}
-        });
-})
+   });
+ })
   
   return{
     type:'DCTABLE_DEL_ROW_UPDATE_TREE',
@@ -139,9 +136,9 @@ export function toggleStateDialogNewDC(){
  * Initializes value of Dialog box's form field
  *    type :  add ( state is set to null) 
  *            edit( state assigned to selected row )          
-*/
+ */
 
-export function dcDetailInitializeForm(data,openDCDialogType,appId){
+ export function dcDetailInitializeForm(data,openDCDialogType,appId){
   console.log("updateformInitialValue",data )
   console.log("flag---",openDCDialogType)
   console.log("appId",appId)
@@ -159,38 +156,38 @@ export function dcDetailInitializeForm(data,openDCDialogType,appId){
 */
 
 export function toggleStateDialogNewApp(){
-  console.log("action triggered---for new add app")
   return {
     type:'TOGGLE_STATE_NEW_APP'
 
   }
 }
 
-export function fetchAppTableData(){
+export function fetchAppTableData(appLoader){
 //  const URLTable =  "http://10.10.40.7:8050/configUI/application";
-  const URLTable =  `${url.FETCH_APP_TABLE_DATA}`;
-  const request_table = axios.get(URLTable);
-  console.log("request_table",request_table)
-
-  return {
-    type: 'FETCH_APP_TABLE_DATA',
-    payload: request_table
-  };
+const URLTable =  `${url.FETCH_APP_TABLE_DATA}`;
+const request_table = axios.get(URLTable);
+request_table.then(function(data){
+  appLoader();
+})
+return {
+  type: 'FETCH_APP_TABLE_DATA',
+  payload: request_table
+};
 }
 
 export function delAppTableRow(selectedRowKeys){
 
   console.log("selectedRowKeys----",selectedRowKeys)
   selectedRowKeys.forEach(value => 
-    {
-     console.log("value--",value)
-     axios({
-        method : 'delete',
-         url : `${url.DEL_ROW_APP_URL}/${value}`
+  {
+   console.log("value--",value)
+   axios({
+    method : 'delete',
+    url : `${url.DEL_ROW_APP_URL}/${value}`
        // url : `http://10.10.40.7:8050/configUI/application/${value}`
-        });
-})
-console.log()  
+     });
+ })
+  console.log()  
   return{
     type:'DEL_APPTABLE_ROW',
     payload:selectedRowKeys
@@ -207,33 +204,33 @@ export function addRowApplicationTable(formData,openAppDialogType){
    var response = axios({
     method:'put',
     //url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
-    url : `${url.ADD_ROW_APP_URL}/${formData.id}`,
+    url : `${url.ADD_ROW_APP_URL}/${formData.appId}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
 
    console.log("response",response)
-      return {
-        type: 'UPDATE_ROW_APPTABLE',
-        payload: response
-      };
-  }
- else{
+   return {
+    type: 'UPDATE_ROW_APPTABLE',
+    payload: response
+  };
+}
+else{
 //action called for adding new DC
-  var response = axios({
-    method:'post',
+var response = axios({
+  method:'post',
     //url: 'http://10.10.40.7:8050/configUI/custom/application',
-     url : `${url.ADD_ROW_APP_URL}`,
+    url : `${url.ADD_ROW_APP_URL}`,
     data: formData,
     headers:{'Content-Type':'application/json'}
   });
-  
 
-  console.log("response",response)
-  return {
-    type: 'ADD_ROW_APPTABLE',
-    payload: response
-  };
+
+console.log("response",response)
+return {
+  type: 'ADD_ROW_APPTABLE',
+  payload: response
+};
 }
 
 }
@@ -241,15 +238,15 @@ export function addRowApplicationTable(formData,openAppDialogType){
 *Initializes value of ApplicationDetail Screen Dialog box's form field
  *    type :  add ( state is set to null) 
  *            edit( state assigned to selected row )   
-*/
-export function appDetailInitializeForm(data,openAppDialogType){
+ */
+ export function appDetailInitializeForm(data,openAppDialogType){
   console.log("openAppDialogType",data )
   console.log("flag---",openAppDialogType)
   var payload={ "data":data,"openAppDialogType":openAppDialogType};
 
   return {
-    type:'UPDATE_APP_FORM',
-    payload:payload
+    type    :'UPDATE_APP_FORM',
+    payload :payload
   }
 }
 
@@ -265,21 +262,21 @@ export function fetchTopologyTableData(dcId,loader){
   const response = axios.get(URL);
 
 //trigger action for loading progressBar change once promise is resolved
- response.then(function(data){
+response.then(function(data){
   console.log("calling topology loader")
   loader();
- });
+});
 
-  return {
-    type: 'FETCH_TOPOlOGYTABLE_DATA',
-    payload:response
-  };
+return {
+  type: 'FETCH_TOPOlOGYTABLE_DATA',
+  payload:response
+};
 }
 
 export function fetchTopologyTreeData(parentDCNode){
 
   console.log("in post request for fetchtreetopodata")
-   var response = axios({
+  var response = axios({
     method:'post',
     url : `${url.FETCH_TOPO_TREE_URL}/${parentDCNode.id}`,
     //url:   `http://10.10.40.7:8050/configUI/custom/tree/topology/${parentDCNode.id}`,
@@ -287,7 +284,7 @@ export function fetchTopologyTreeData(parentDCNode){
     headers:{'Content-Type':'application/json'}
   });
 
-console.log("in activetopologydata--response---",response)
+  console.log("in activetopologydata--response---",response)
   return {
     type:'FETCH_ACTIVE_TOPOLOGY',
     payload:response
@@ -312,10 +309,10 @@ export function toggleStateDialogEditTopo(){
  * Initializes value of Dialog box's form field
  *    type :  add ( state is set to null) 
  *            edit( state assigned to selected row )          
-*/
+ */
 
-export function topoInitializeForm(data,dcId){
- 
+ export function topoInitializeForm(data,dcId){
+
   var payload={ "data":data,"dcId":dcId};
   return {
     type:'UPDATE_TOPO_FORM',
@@ -325,39 +322,42 @@ export function topoInitializeForm(data,dcId){
 
 //called on submitting edit profile to topology form
 export function attachProfToTopology(data){
-  
+
   var response = axios({
-                  method: 'GET',
-                  url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
+    method: 'GET',
+    url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
   }); 
   return{
     type:'ATTACH_PROFTO_TOPO',
     payload:response
-   }
   }
+}
 
 export function addRowTopoTable(data,dcId){
-  
+
   var response = axios({
-                    method:'post',
-                    url : `${url.ADD_ROW_TOPOLOGY_URL}/${dcId}`,
-                    data: data,
-                    headers:{'Content-Type':'application/json'}
-    });
+    method:'post',
+    url : `${url.ADD_ROW_TOPOLOGY_URL}/${dcId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+  });
   return {
-      type: 'TOPOLOGY_ADD_ROW',
-      payload: response
-    };
-  }
+    type: 'TOPOLOGY_ADD_ROW',
+    payload: response
+  };
+}
 /*
 * Action creators for TopologyDetail Screen
 *
 */
 
-export function fetchTopoDetailTable(){
-  //const URLTable =  "http://10.10.40.7:8050/configUI/topology";
+export function fetchTopoDetailTable(loader){
+  //const URLTable =  "http://10.1p0.40.7:8050/configUI/topology";
   const URLTable = `${url.FETCH_ALL_TOPODATA}`; 
   const request_table = axios.get(URLTable);
+  request_table.then(function(data){
+    loader();
+  })
   return {
     type: 'FETCH_TOPODETAIL_TABLE_DATA',
     payload: request_table
@@ -370,12 +370,12 @@ export function fetchTopoDetailTable(){
 
 export function updateToggleStateTopology(rowToggled){
   console.log("in actions---",rowToggled)
-   var response = axios({
-        method: 'put',
-        url : `${url.TOGGLE_STATE_TOPOLOGY}/${rowToggled.dcTopoId}/${rowToggled.topoState}`,
-       });
+  var response = axios({
+    method: 'put',
+    url : `${url.TOGGLE_STATE_TOPOLOGY}/${rowToggled.dcTopoId}/${rowToggled.topoState}`,
+  });
 
-   return {
+  return {
     type : 'TOGGLE_STATE',
     payload : response
   }
@@ -385,23 +385,23 @@ export function updateToggleStateTopology(rowToggled){
 
 /**
   * function used for the deletion of row for the topology table
-*/
-export function delTopoTableRow(selectedRowKeys){
+  */
+  export function delTopoTableRow(selectedRowKeys){
 
-  selectedRowKeys.forEach(value => 
+    selectedRowKeys.forEach(value => 
     {
      axios({
-        method: 'delete',
-        url : `${url.DEL_TOPO_ROW_URL}/${value}`,
+      method: 'delete',
+      url : `${url.DEL_TOPO_ROW_URL}/${value}`,
         //url   : `http://10.10.40.7:8050/configUI/dctopoassociation/${value}`  //url-{value=dcId acting as a primary key}
-        });
-})
-  
-  return{
-    type:'TOPOTABLE_DEL_ROW_UPDATE_TREE',
-    payload:selectedRowKeys
+      });
+   })
+
+    return{
+      type:'TOPOTABLE_DEL_ROW_UPDATE_TREE',
+      payload:selectedRowKeys
+    }
   }
-}
 
 
 /*
@@ -409,7 +409,7 @@ export function delTopoTableRow(selectedRowKeys){
 */
 
 export function updateStateofTableData(row){
-  
+
   const URL =  `${url.FETCH_SERVER_TABLE_URL}/${tierId}/server`;
   //const URLTable =  `http://10.10.40.7:8050/configUI/custom/topology/${dcId}`;
   const request_table = axios.get(URL);
@@ -425,10 +425,13 @@ export function updateStateofTableData(row){
 *
 */
 
-export function fetchProfileDetailData(){
+export function fetchProfileDetailData(loader){
 
   const URLTable =  `${url.FETCH_PROFILE_TABLEDATA}`;
   const request_table = axios.get(URLTable);
+  request_table.then(function(data){
+    loader();
+  })
   return {
     type: 'FETCH_PROFILEDETAIL_TABLEDATA',
     payload: request_table
@@ -444,13 +447,13 @@ export function toggleStateDialogNewProfile(){
 
 export function delProfileTableRow(selectedRowKeys){
   console.log(" in delete row function ------------------------> ",selectedRowKeys)
-   selectedRowKeys.forEach(value => 
-    {
-     axios({
-        method : 'delete',
-        url : `${url.DELETE_PROFILE_TABLE}/${value}`,
-   });
-})
+  selectedRowKeys.forEach(value => 
+  {
+   axios({
+    method : 'delete',
+    url : `${url.DELETE_PROFILE_TABLE}/${value}`,
+  });
+ })
   
   return {
     type: 'DELETE_PROFILE_ROW',
@@ -462,27 +465,27 @@ export function profileInitializeForm(data,type)
 {
   var profileData = {"data":data,"openProfileDialogType":type};
   return {
-     type    : 'UPDATE_PROFILE',
-     payload :profileData
-  }
+   type    : 'UPDATE_PROFILE',
+   payload :profileData
+ }
 }
 
 export function addRowProfileTable(data,type)
 {
-   if(type =="edit")
-   {
-        var response = axios({
-        method:'put',
-        url : `${url.UPDATE_PROFILE_TABLE}/${data.id}`,
-        data: data
+ if(type =="edit")
+ {
+  var response = axios({
+    method:'put',
+    url : `${url.UPDATE_PROFILE_TABLE}/${data.id}`,
+    data: data
   });
   return{
-      type: 'EDIT_PROFILE',
-      payload: response
-    }
+    type: 'EDIT_PROFILE',
+    payload: response
   }
-  else{
-    var response = axios({
+}
+else{
+  var response = axios({
     method:'post',
     url : `${url.UPDATE_PROFILE_TABLE}`,
     data: data,
@@ -491,7 +494,7 @@ export function addRowProfileTable(data,type)
     type: 'ADD_PROFILE',
     payload: response
   }
- }
+}
 }
 
 /*
@@ -499,15 +502,15 @@ export function addRowProfileTable(data,type)
 */
 export function fetchTierTreeData(parentTopologyNode){
   console.log("in post request for fetchtreetopodata---",parentTopologyNode)
-   var response = axios({
+  var response = axios({
     method:'post',
    // url: `http://10.10.40.74:8090/configUI/custom/tree/tier/${parentTopologyNode.id}`,
-    url :  `${url.FETCH_TIER_TREE_URL}/${parentTopologyNode.id}`,
-    data: parentTopologyNode,
-    headers:{'Content-Type':'application/json'}
-  });
+   url :  `${url.FETCH_TIER_TREE_URL}/${parentTopologyNode.id}`,
+   data: parentTopologyNode,
+   headers:{'Content-Type':'application/json'}
+ });
 
-console.log("in activetopologydata--response---",response)
+  console.log("in activetopologydata--response---",response)
   return {
     type:'FETCH_TIER_NODE',
     payload:response
@@ -517,32 +520,32 @@ console.log("in activetopologydata--response---",response)
 
 export function fetchTierTableData(topoId,topology,loader){
   console.log("fetchTierTableData action called-topology-",topology);
- 
+
   
   var response = axios({
     method:'post',
     url :   `${url.FETCH_TIER_TABLE_URL}/${topoId}`,
     data: topology,
     headers:{'Content-Type':'application/json'}
-  
+
   });
 
 //trigger action for loading progressBar change once promise is resolved
- response.then(function(data){
+response.then(function(data){
   console.log("calling log function")
   loader();
- });
- 
-  return {
-    type: 'FETCH_TIER_TABLE_DATA',
-    payload:response
-  };
+});
+
+return {
+  type: 'FETCH_TIER_TABLE_DATA',
+  payload:response
+};
 
 }
 
 
 export function tierInitializeForm(data,topoId){
- 
+
   console.log("tier data--",data)
   //var payload={ "data":data};
 
@@ -561,13 +564,13 @@ export function toggleStateDialogTier(){
 }
 
 export function attachProfToTier(data){
-   
+
   const response = axios.get(`${url.ATTACH_PROFTO_TIER}/${data.tierId}/${data.profileId}`);
 
-    return {
+  return {
     type: 'ATTACH_PROFTO_TIER',
     payload:response
-    }
+  }
 }
 
 
@@ -578,16 +581,16 @@ action creators for server
 
 export function fetchServerTreeData(parentTierNode){
   console.log("fetchServerTreeData")
-   console.log("in post request for fetchtreetopodata")
-   var response = axios({
+  console.log("in post request for fetchtreetopodata")
+  var response = axios({
     method:'post',
    // url: `http://10.10.40.74:8090/configUI/custom/tree/tier/${parentTopologyNode.id}`,
-    url :  `${url.FETCH_SERVER_TREE_URL}/${parentTierNode.id}`,
-    data: parentTierNode,
-    headers:{'Content-Type':'application/json'}
-  });
+   url :  `${url.FETCH_SERVER_TREE_URL}/${parentTierNode.id}`,
+   data: parentTierNode,
+   headers:{'Content-Type':'application/json'}
+ });
 
-console.log("in activetopologydata--response---",response)
+  console.log("in activetopologydata--response---",response)
   return {
     type:'FETCH_SERVER_NODE',
     payload:response
@@ -606,23 +609,23 @@ export function fetchServerTableData(tierId,tier,loader){
     url : `${url.FETCH_SERVER_TABLE_URL}/${tierId}`,
     data: tier,
     headers:{'Content-Type':'application/json'}
-  
+
   });
 
  //trigger action for loading progressBar change once promise is resolved
-  response.then(function(data){
-    loader();
-   });
-   
-  return {
-    type: 'FETCH_SERVER_TABLE_DATA',
-    payload:response
-  };
+ response.then(function(data){
+  loader();
+});
+
+ return {
+  type: 'FETCH_SERVER_TABLE_DATA',
+  payload:response
+};
 
 }
 
 export function serverInitializeForm(data){
- 
+
   console.log("tier data--",data)
   //var payload={ "data":data};
 
@@ -642,60 +645,60 @@ export function toggleStateDialogServer(){
 
 export function attachProfToServer(data){
   console.log("darta- i  server-",data)
-   
+
   const response = axios.get(`${url.ATTACH_PROFTO_SERVER}/${data.serverId}/${data.profileId}`);
 
-    return {
+  return {
     type: 'ATTACH_PROFTO_SERVER',
     payload:response
-    }
+  }
 }
 
 /*
   Action creators for Instance screen
-*/
+  */
 
-export function fetchInstanceTableData(serverId,server,loader){
- 
-  var response = axios({
-    method:'post',
-    url : `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}`,
-    data: server,
-    headers:{'Content-Type':'application/json'}
-  
-  });
+  export function fetchInstanceTableData(serverId,server,loader){
+
+    var response = axios({
+      method:'post',
+      url : `${url.FETCH_INSTANCE_TABLE_URL}/${serverId}`,
+      data: server,
+      headers:{'Content-Type':'application/json'}
+
+    });
 
 //trigger action for loading progressBar change once promise is resolved
-  response.then(function(data){
-    loader();
-   });
+response.then(function(data){
+  loader();
+});
 
-  return {
-    type: 'FETCH_INSTANCE_TABLE_DATA',
-    payload:response
-  };
+return {
+  type: 'FETCH_INSTANCE_TABLE_DATA',
+  payload:response
+};
 }
 
 export function fetchInstanceTreeData(parentTierNode){
-   console.log("in post request for fetchtreetopodata")
-   var response = axios({
-    method:'post',
-    url :  `${url.FETCH_INSTANCE_TREE_URL}/${parentTierNode.id}`,
-    data: parentTierNode,
-    headers:{'Content-Type':'application/json'}
-  });
+ console.log("in post request for fetchtreetopodata")
+ var response = axios({
+  method:'post',
+  url :  `${url.FETCH_INSTANCE_TREE_URL}/${parentTierNode.id}`,
+  data: parentTierNode,
+  headers:{'Content-Type':'application/json'}
+});
 
-console.log("in activetopologydata--response---",response)
-  return {
-    type:'FETCH_INSTANCE_NODE',
-    payload:response
-  }
+ console.log("in activetopologydata--response---",response)
+ return {
+  type:'FETCH_INSTANCE_NODE',
+  payload:response
+}
 
 
 }
 
 export function instanceInitializeForm(data){
-   console.log("instance data--",data)
+ console.log("instance data--",data)
   //var payload={ "data":data};
 
   return {
@@ -714,12 +717,12 @@ export function toggleStateDialogInstance(){
 }
 
 export function attachProfToInstance(data){
-   
+
   const response = axios.get(`${url.ATTACH_PROFTO_INSTANCE}/${data.instanceId}/${data.profileId}`);
-    return {
+  return {
     type: 'ATTACH_PROFTO_INSTANCE',
     payload:response
-    }
+  }
 }
 /*
 * Action creators for service entry points
@@ -729,9 +732,9 @@ export function attachProfToInstance(data){
 export function fetchServiceEntryPointsTabledata(profileId,loader){
   const URL = `${url.FETCH_SERVICE_POINTS_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
-    request_table.then(function(){
-    
-     loader();
+  request_table.then(function(){
+
+   loader();
  });
   return {
     type:'FETCH_SERVICE_POINTS_TABLEDATA',
@@ -771,37 +774,37 @@ export function ServiceEntryPointsOfSelectedEntryType(entryTypeId){
 
 export function addServiceEntryPoint(formData,profileId,runTimeChange){
 
-   var response = axios({
-    method:'post',
-     url : `${url.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
+ var response = axios({
+  method:'post',
+  url : `${url.ADD_NEW_SERVICE_ENTRY_POINTS}/${profileId}`,
+  data: formData,
+  headers:{'Content-Type':'application/json'}
+});
 
  //trigger runtime change once promise is resolved
  response.then(function(data){
   runTimeChange();
- });
+});
 
-  return {
-    type : 'ADD_NEW_SEP',
-    payload : response
-  }
-  
+ return {
+  type : 'ADD_NEW_SEP',
+  payload : response
+}
+
 }
 export function delSepRow(selectedRowKeys){
 
-   selectedRowKeys.forEach(value=>{
-    axios({
-       method: 'delete',
-       url : `${url.DEL_SERVICE_ENTRY_POINTS}/${value}`,
-    })
+ selectedRowKeys.forEach(value=>{
+  axios({
+   method: 'delete',
+   url : `${url.DEL_SERVICE_ENTRY_POINTS}/${value}`,
+ })
 
-   })
-  return {
-    type: "DELETE_SEP_ROW",
-    payload: selectedRowKeys
-  }
+})
+ return {
+  type: "DELETE_SEP_ROW",
+  payload: selectedRowKeys
+}
 
 
 }
@@ -819,15 +822,15 @@ export function toggleGenerateFileDialog(){
 */
 export function updateToggleState(rowToggled,runTimeChange){
   console.log("in actions---",rowToggled)
-   var response = axios({
-        method: 'put',
-        url : `${url.UPDATE_TOGGLE_PROFSEPASSOC}/${rowToggled.id}/${rowToggled.enabled}`,
+  var response = axios({
+    method: 'put',
+    url : `${url.UPDATE_TOGGLE_PROFSEPASSOC}/${rowToggled.id}/${rowToggled.enabled}`,
 
-        });
+  });
    //trigger callback function for runtime change, when promise resolves
    response.then(function(data){    
     runTimeChange();
-   });
+  });
 
    return {
     type : 'TOGGLE_STATE_SEP',
@@ -900,7 +903,7 @@ export function fetchBackendPoints(backendId){
 
 
 export function initializeBackendPtsEditForm(selectedRow){
- 
+
   return{
     type :'INITIALIZE_BACKEND_FORM',
     payload :selectedRow
@@ -937,8 +940,8 @@ export function updateBackendType(data,profileId,runTimeChange){
 
   //trigger callback function 'runTimeChange', when promise resolves
   response.then(function(data){
-  runTimeChange();
- });
+    runTimeChange();
+  });
 
 
   return{
@@ -962,7 +965,7 @@ export function fetchBTPatternTableData(profileId,loader){
   const URL = `${url.FETCH_BT_PATTERN_TABLEDATA}/${profileId}`
   const request_table = axios.get(URL);
   request_table.then(function(data){
-      loader();
+    loader();
   })
   return {
     type:'FETCH_BT_PATTERN_TABLEDATA',
@@ -972,17 +975,17 @@ export function fetchBTPatternTableData(profileId,loader){
 
 export function addBTPatternData(formData,profileId){
 
-   var response = axios({
-    method:'post',
-    url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
+ var response = axios({
+  method:'post',
+  url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
+  data: formData,
+  headers:{'Content-Type':'application/json'}
+});
 
-  return {
-    type : 'ADD_NEW_BT_PATTERN',
-    payload : response
-  }
+ return {
+  type : 'ADD_NEW_BT_PATTERN',
+  payload : response
+}
 }
 
 export function toggleStateAddBTPattern(){
@@ -993,31 +996,31 @@ export function toggleStateAddBTPattern(){
 
 /* Action creators for generating the nd.conf file */
 
- export function createConfFile(appId,Keyword,loader)
- {
+export function createConfFile(appId,Keyword,loader)
+{
   const URL = `${url.GENERATE_ND_CONF}/${appId}`;
   const response = axios.get(URL);
 
   //trigger action for loading progressBar change once promise is resolved
   response.then(function(data){
-     loader(data.data[0]);
+   loader(data.data[0]);
  });
 
   return {
     type: 'GENERATE_ND_CONF_REDU',
     payload:response
   };
- }
+}
 
  /*
   * Action creators for General keywords screen
   * 
- */
+  */
  //function for getting keywords data when general keywords screen gets loaded
-export function getKeywordsData(profileId,loader){
+ export function getKeywordsData(profileId,loader){
   const response = axios.get(`${url.GET_KEYWORDS_DATA}/${profileId}`)
   response.then(function(data){
-     loader(data);
+   loader(data);
  });
 
   return{
@@ -1027,18 +1030,19 @@ export function getKeywordsData(profileId,loader){
 }
 
 export function submitKeywordData(data,profileId){
-   var response = axios({
-      method:'post',
-       url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
-      data: data,
-      headers:{'Content-Type':'application/json'}
-    });
+  console.log("in submitKeywordData  ---put delay method---------->" )
+  var response = axios({
+    method:'post',
+    url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+  });
 
-   console.log("submitKeywordData response--",response)
-     return{
-      type : 'GET_ALL_KEYWORDS',
-      payload : response
-     }
+  console.log("submitKeywordData response--",response)
+  return{
+    type : 'GET_ALL_KEYWORDS',
+    payload : response
+  }
 }
 
 /*export function submitKeywordData(data,profileId,keywordsGroup){
@@ -1113,18 +1117,21 @@ export function setDefValHotSpotCapturingKeywords(){
   }
 }
 export function generateNdConf(){
-      const URL =  `${url.UPDATE_TOPOLOGY}`;
-      const response = axios.get(URL);
-      return ;
+  const URL =  `${url.UPDATE_TOPOLOGY}`;
+  const response = axios.get(URL);
+  return ;
 }
 
-export function updateTopology(){
-    const URL =  `${url.UPDATE_TOPOLOGY}`;
-    const response = axios.get(URL);
-    return {
-      type : 'UPDATE_TOPOLOGY',
-      payload : response
-    }
+export function updateTopology(loader){
+  const URL =  `${url.UPDATE_TOPOLOGY}`;
+  const response = axios.get(URL);
+  response.then(function(data){
+    loader(data);
+  })
+  return {
+    type : 'UPDATE_TOPOLOGY',
+    payload : response
+  }
 }
 
 /*
@@ -1219,18 +1226,18 @@ export function fetchMethodMonitorTableData(profileId,loader){
 
 export function insertMethodMonitorDetails(formData,profileId){
 
-   var response = axios({
-    method:'post',
-    url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
+ var response = axios({
+  method:'post',
+  url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
+  data: formData,
+  headers:{'Content-Type':'application/json'}
+});
 
-  return {
-    type : 'ADD_METHOD_MONITOR',
-    payload : response
+ return {
+  type : 'ADD_METHOD_MONITOR',
+  payload : response
 
-  }
+}
 }
 
 /*********** Error Detection *************/
@@ -1251,17 +1258,17 @@ export function fetchErrorDetectionTableData(profileId,loader){
 
 export function insertErrorDetectionData(formData,profileId){
 
-   var response = axios({
-    method:'post',
-    url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
-    data: formData,
-    headers:{'Content-Type':'application/json'}
-  });
+ var response = axios({
+  method:'post',
+  url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
+  data: formData,
+  headers:{'Content-Type':'application/json'}
+});
 
-  return {
-    type : 'ADD_NEW_ERROR_DETECTION',
-    payload : response
-  }
+ return {
+  type : 'ADD_NEW_ERROR_DETECTION',
+  payload : response
+}
 }
 
 export function toggleStateErrorDetection(){
@@ -1272,7 +1279,7 @@ export function toggleStateErrorDetection(){
 
 /* ********** Toggle TR state *********  */
 export function toggleTRState(){
-    return {
+  return {
     type:'TOGGLE_TR_STATE'
   }
 }
@@ -1280,7 +1287,7 @@ export function toggleTRState(){
 /* *********** TR Mode Detail*************** */
 export function setTRModeDetail(trModeobj,loader){
 
-    return {
+  return {
     type:'SET_TRMode_Detail',
     payload: trModeobj
   }
@@ -1291,17 +1298,17 @@ export function setTRModeDetail(trModeobj,loader){
 
 export function sendRunTimeChange(URL,keywordList){
 
-    var response = axios({
-      method:'post',
-      url : URL,
-      data: keywordList,
-      headers:{'Content-Type':'application/json'}
-    });
+  var response = axios({
+    method:'post',
+    url : URL,
+    data: keywordList,
+    headers:{'Content-Type':'application/json'}
+  });
 
-    return {
-      type : 'RUNTIME_CHANGE',
-      payload : response
-    }
+  return {
+    type : 'RUNTIME_CHANGE',
+    payload : response
+  }
 }
 
 /*
@@ -1364,16 +1371,16 @@ export function getListOfOperators(valId){
 }
 export function addHttpStatsCond(data,profileId){
 
-   var response = axios({
-    method:'post',
-    url : `${url.ADD_NEW_HTTP_STATS_COND}/${profileId}`,
-    data: data,
-    headers:{'Content-Type':'application/json'}
-  });
-  return{
-    type    : 'ADD_HTTP_STATS_COND',
-    payload : response
-  }  
+ var response = axios({
+  method:'post',
+  url : `${url.ADD_NEW_HTTP_STATS_COND}/${profileId}`,
+  data: data,
+  headers:{'Content-Type':'application/json'}
+});
+ return{
+  type    : 'ADD_HTTP_STATS_COND',
+  payload : response
+}  
 
 }
 
@@ -1384,31 +1391,17 @@ export function addHttpStatsCond(data,profileId){
 
 export function triggerLoader(show ,message){
 
-var data = {show : show , message : message}
-return{
-  type    : 'LOAD_PROGRESSBAR',
-  payload :data
-}
+  var data = {show : show , message : message}
+  return{
+    type    : 'LOAD_PROGRESSBAR',
+    payload :data
+  }
 }
 
 
 export function genExcptInMethod(flag){
  return{
-    type :'GEN_EXCEPTION_IN_METHOD',
-    payload :flag
-  } 
+  type :'GEN_EXCEPTION_IN_METHOD',
+  payload :flag
+} 
 }
-
-/* Action for the ND Agent Status */
-
-export function fetchNDAgentStatusTableData(){
-
-  const URL = `${url.FETCH_ND_AGENT_TABLEDATA}`
-  const request_table = axios.get(URL);
-  console.log("request_table in fetching nd agent Status---",request_table)
-  return {
-    type:'FETCH_ND_AGENT_TABLEDATA',
-    payload:request_table
-  }
-}
-

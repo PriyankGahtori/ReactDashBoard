@@ -88,14 +88,14 @@ handleCheck(e,isInputChecked){
           <div className ="row" >
               <div className ="col-md-6">
                <TextField
-                hintText="Hint Text"
+                hintText="Name"
                 floatingLabelText="Name"  
                  {...profileName}
                 errorText={profileName.touched && profileName.error && <div>{profileName.error}</div>}/>   
                </div>
                 <div className ="col-md-6">
                <TextField
-                hintText="Hint Text"
+                hintText="Description"
                 floatingLabelText=" Description" 
                  {...profileDesc}
                 errorText={profileDesc.touched && profileDesc.error && <div>{profileDesc.error}</div>}/>

@@ -123,7 +123,7 @@ class EnableServiceEntryPoints extends Component {
 		return (
     <div  style={{paddingTop:10}}>
    
-	   <div className = "col-md-4" style={{right:15}}>
+	   <div className = "col-md-5" style={{right:15}}>
 				<CheckBox
 				  label="Enable Service Entry Points"
 					onCustomChange={this.handleCheck.bind(this)}

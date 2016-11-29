@@ -106,7 +106,8 @@ class DataGridComponent extends React.Component {
         pagination={pagination}
         selectRow={selectRow}
         ref="table"
-        style={{"width":"98%"}}
+        style={{"width":"98%",color:'#FFF'}}
+        tableStyle={{background:'rgba(0,0,0,0.25)'}}
       >
       {column.data.map((val, index) => (            
   

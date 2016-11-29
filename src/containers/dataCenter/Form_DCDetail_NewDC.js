@@ -84,6 +84,7 @@ class Form_DCDetail_NewDC extends React.Component {
               floatingLabelText="DCName"
               {...dcName}
               errorText={dcName.touched && dcName.error && <div>{dcName.error}</div>}
+               style={{fontSize:'14px'}}
             />
           </div>
 
@@ -94,6 +95,7 @@ class Form_DCDetail_NewDC extends React.Component {
               floatingLabelText="DCIP"
               {...dcIp}
               errorText={dcIp.touched && dcIp.error && <div>{dcIp.error}</div>}
+              style={{fontSize:'14px'}}
             />
           </div>
         </div>
@@ -105,6 +107,7 @@ class Form_DCDetail_NewDC extends React.Component {
               floatingLabelText="DCPort"
               {...dcPort}
               errorText={dcPort.touched && dcPort.error && <div>{dcPort.error}</div>}
+              style={{fontSize:'14px'}}
             />
           </div>
 
@@ -118,6 +121,7 @@ class Form_DCDetail_NewDC extends React.Component {
               floatingLabelText="NDEIP"
               {...ndeIp}
               errorText={ndeIp.touched && ndeIp.error && <div>{ndeIp.error}</div>}
+              style={{fontSize:'14px'}}
             />
           </div>
 
@@ -128,6 +132,7 @@ class Form_DCDetail_NewDC extends React.Component {
               floatingLabelText="NDEPort"
               {...ndePort}
               errorText={ndePort.touched && ndePort.error && <div>{ndePort.error}</div>}
+              style={{fontSize:'14px'}}
             />
           </div>
 

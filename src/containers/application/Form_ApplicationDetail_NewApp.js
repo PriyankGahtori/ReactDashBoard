@@ -63,19 +63,17 @@ class Form_ApplicationDetail_NewApp extends React.Component {
 
 constructor(props) {
   super(props);
- /* this.state = {value:this.props.initialData.topoId}
+  this.state = {value:this.props.initialData != null ? this.props.initialData.topoId :null}
   console.log("state---",this.state.value)
- */ }
+ }
 
   componentWillMount() {
-    this.state = {value:this.props.initialData.topoId}
+   
   }
 
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("this.props.initialData formApp--",this.props.initialData)
-    console.log("nextProps---",nextProps.initialData)
     if(this.props.initialData != nextProps.initialData){
       this.setState({value:nextProps.initialData.topoId});
     }
@@ -128,7 +126,7 @@ handleChangeTopology(event, index, value){
                 <DropDownMenu 
                 {...topoId}
 
-                  value={this.state.value}              
+                  value={""+this.state.value}              
                   style={styles.customWidth}
                   autoWidth={false}
                   errorText={topoId.touched && topoId.error && <div>{topoId.error}</div>}

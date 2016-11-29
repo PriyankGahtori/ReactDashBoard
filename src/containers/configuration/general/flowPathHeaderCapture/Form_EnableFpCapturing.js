@@ -226,10 +226,18 @@ handleHdrModeReqChange(event, index, value){
       })
   }
 
-/* this function called on changing value of multi select components i.e list of headers
+/* This function called on changing value of multi select components i.e list of headers
+* for keyowrd captureHTTPReqFullFp
 */
 updateSelected(value){
-  this.setState({multiSelectValue:value });
+  this.setState({multiSelectValue:value});
+}
+
+/* This function called on changing value of multi select components i.e list of headers
+*   for keyowrd captureHTTPResFullFp
+*/
+updateSelectedResp(value){
+  this.setState({multiSelectValueResp:value})
 }
 
 /*
@@ -474,9 +482,9 @@ render() {
           <MultiSelect multi
               {...selectedHdrsValRes}
             name ="SelectdHttpHdrs"
-            value = {this.state.multiSelectValue} 
+            value = {this.state.multiSelectValueResp} 
             options = {resHdrList} 
-            onCustomChange = {this.updateSelected.bind(this)}
+            onCustomChange = {this.updateSelectedResp.bind(this)}
             />
         </div>
 

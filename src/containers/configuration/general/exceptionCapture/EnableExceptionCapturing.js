@@ -21,7 +21,7 @@ import ConfirmDialog from 'material-ui/Dialog';
 import DialogEnableExcptCapturing from 'material-ui/Dialog';
 
 import * as validate from '../../../../actions/validateGeneralKeywords';
-import * as constructValue from '../../../utils/keywordsValue.js' ;
+import * as constructValue from './ModifyValue.js' ;
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import * as actionCreators  from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
@@ -97,7 +97,7 @@ componentWillReceiveProps(nextProps)
 	console.log("nextProps capture exception---",nextProps.getAllKeywordData.enableExcptCheckBox)
 	if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
 		this.setState({getAllKeywordData : nextProps.getAllKeywordData,
-			           enableExcptCheckBox : nextProps.getAllKeywordData.enableExcptCheckBox
+			enableExcptCheckBox : nextProps.getAllKeywordData.enableExcptCheckBox
 		});
 	}
 
@@ -125,7 +125,7 @@ handleDReqCheckboxChange(event,value){
       console.log("validate--",validate.setDefaultValuesExcptCapturing(this.props.getAllKeywordData.data))
       this.submitForm(validate.setDefaultValuesExcptCapturing(this.props.getAllKeywordData.data));
        //this.props.setDefValBCICapturingKeywords();
-      this.props.enableExcptCheckBoxStatus(true);
+       this.props.enableExcptCheckBoxStatus(true);
    }
    else{
    	this.props.enableExcptCheckBoxStatus(isInputChecked);
@@ -168,8 +168,8 @@ handleCancelDisableExcptVal(){
 }
 
 submitForm(formData){
-	console.log("formData---",formData)
 	let keywordData = Object.assign({},this.props.getAllKeywordData.data);
+	let keywordDataList = [];
 
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
@@ -178,18 +178,16 @@ submitForm(formData){
     * 
     */
 
-  	var instrVal = constructValue.instrExceptionValue(formData) ;
-  	keywordData.instrExceptions["value"] = instrVal;
+    var instrVal = constructValue.instrExceptionValue(formData) ;
+    keywordData.instrExceptions["value"] = instrVal;
 
-  	console.log("keywordData---",keywordData)
-  this.props.submitKeywordData(keywordData,this.props.profileId);
-  
+    console.log("keywordData---",keywordData)
+    this.props.submitKeywordData(keywordData,this.props.profileId);
+    
    //action for runtime change
    //triggerRunTimeChanges(trData,trModeDetail,formData);
-   let keywordDataList = [];
-   Object.keys(formData).forEach(function(key){
-   	keywordDataList.push(key + "=" + formData[key]); 
-   })    
+   
+   keywordDataList.push("instrExceptions" + "=" + instrVal); 
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
    this.handleCancelEnableExcptCapturing();
 }
@@ -239,13 +237,14 @@ render() {
 		onCustomChange={this.handleExcptCapture.bind(this)}/>
 	   <i style={{paddingLeft:40}}>Capture Exception occurred in application </i> 
 
+
 		</div>
 		<div>
 		<FlatButton  
-					className="col-md-4"
-					disabled ={!this.state.enableExcptCheckBox} 
-					onClick ={this.enableExcptCapturingDialog.bind(this)} 
-					label="Advanced Settings" />
+		className="col-md-4"
+		disabled ={!this.state.enableExcptCheckBox} 
+		onClick ={this.enableExcptCapturingDialog.bind(this)} 
+		label="Advanced Settings" />
 		</div>
 		</div>
 

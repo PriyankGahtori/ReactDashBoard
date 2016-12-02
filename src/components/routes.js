@@ -79,6 +79,38 @@ export default class routes extends React.Component {
           </Route>            
         </Route>
 
+         {/*****************when application is made to navigate to topology screen directly*********/}
+         {/*********************Topology and profile Navigation**********************/}          
+        <Route name = "Topology Configuration" staticName = {true} path = "app/:dcId">
+          <IndexRoute name = "Topology Configuration" staticName = {true} component = {Topology}/>
+
+            {/*************Main Configuration Screen************/}
+          <Route name = "Configuration" staticName = {true} path= "topology/:topoId/configuration/:profileId" >
+            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />            
+            
+              {/*************Instrumentation Setting & Configuration************/}
+            <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
+              <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
+              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              </Route>
+              <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
+              <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
+                <IndexRoute name="Method Monitors" component={MethodMonitors} />
+                <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />               
+              </Route>
+            </Route>
+
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+
+          </Route>            
+        </Route>
+
+
 
         {/*********************Tier and profile Navigation************************/}
         <Route name = "Tier Detail" staticName = {true} path = "topology/:topoId"  >

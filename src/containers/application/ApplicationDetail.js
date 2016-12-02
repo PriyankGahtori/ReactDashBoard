@@ -75,21 +75,24 @@ handleConfirm(){
       this.setState({open: true});
   };
 
-handleHref(row)
-{
- /* console.log("row-----",row)
-  let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
-  var dcId = this.props.appDetail.tableData.filter(function(value){
+handleHref(row){
+  var selectedRowData = this.props.appDetail.tableData.filter(function(value){
                                       console.log("value----",value)
-                                      if(value.dcId === selectedRow[0] )
-                                        return value.dcId;
-                                    });*/
-  hashHistory.push(`/application/${row.appId}`)
-  
+                                      console.log("value.appId === row.appId--",value.appId === row.appId)
+                                      if(value.appId === row.appId)
+                                        return value;
+                                    });
+  console.log("dcId----",selectedRowData)
+  /* commenting below line in order to implement design of temporary removing dcScreen from the gui
+  */
+
+  //hashHistory.push(`/application/${row.appId}`)
+  hashHistory.push(`/app/${selectedRowData[0].dcId}`)
+    
  } 
 
 createConfFile(){
-  let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
+   let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
    if(selectedRow.length == 1)
    {
     let selectedRowData = this.props.appDetail.tableData
@@ -177,7 +180,7 @@ handleClose(){
     var msg = {'title' : 'Application Data Loaded ', 'msg': ''}
     this.props.triggerLoader(false,msg)
    }
-   
+
   loader(path){
     var message = {'title':'Nd.conf generated at:', 'msg' :<p style={{wordWrap:'break-word'}}>{path}</p>}
     this.props.triggerLoader(false,message);

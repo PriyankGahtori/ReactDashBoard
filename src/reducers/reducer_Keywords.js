@@ -2,6 +2,7 @@ import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
 import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyValue';
 import * as modifiedValFpHdrCapturing from '../containers/configuration/general/flowPathHeaderCapture/ModifyValue';
+import * as modifiedValInstrExcptCapt from '../containers/configuration/general/exceptionCapture/ModifyValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -38,28 +39,12 @@ switch(action.type){
 
 		//for initialization of FP header Capturing
 		var fpHdrInitializeObj = modifiedValFpHdrCapturing.splitValue(obj);
-		console.log("fpHdrInitializeObj---",fpHdrInitializeObj)
 		obj.fpHdrInitializeObj = fpHdrInitializeObj;
-		
 
+		//for initialization of instrException keyword
+		var instrExceptionObj = modifiedValInstrExcptCapt.splitValue(obj.instrExceptions)
+		obj.instrExceptionObj = instrExceptionObj;
 
-		var instrExceptionFields = obj.instrExceptions.split('%20');
-		let instrExceptionObj = {};
-		if(instrExceptionFields.length > 1)
-		{
-		    instrExceptionObj.enable = instrExceptionFields[0] ==='1';	
-		    instrExceptionObj.enableCaptureExcepStackTrace = instrExceptionFields[1] === '1'
-		    instrExceptionObj.exceptionType = instrExceptionFields[2] === '1' ? "handledException" : "unhandledException";
-		    
-		    // if stackTraceDepthValue is not selected
-		    if(instrExceptionFields.length < 4)
-		      instrExceptionObj.stackTraceDepthValue = instrExceptionFields[3] = '0' ; 
-
-			//add this object to initial value obj
-		}
-		console.log("instrExceptionObj.stackTraceDepthValue--",instrExceptionObj.stackTraceDepthValue)
-
-		obj.instrExceptionObj = instrExceptionObj;	
 
 		/*for initializing fields of putDelayInMethod Keywords
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
@@ -67,7 +52,6 @@ switch(action.type){
 		*/
 	   if(obj.putDelayInMethod != 0){
 		var putDelayInMethodFields=  obj.putDelayInMethod.split(':');
-		console.log("putDelayInMethodFields--",putDelayInMethodFields)
 		/*
 		*  
 		*/
@@ -85,19 +69,17 @@ switch(action.type){
 		*/
 
 		var lastField = decodeURI(putDelayInMethodFields[3]);
-		console.log("lastField--",lastField)
 		if(lastField.length > 1){
 			var splitArr = lastField.split(' ');
 			putDelayInMethodObj.isAutoInstrument = splitArr[0] ==='1';
 			putDelayInMethodObj.fqm =splitArr[1];
 		}
-
 		obj.putDelayInMethodObj = putDelayInMethodObj ;
 
-		console.log(" pt delay in method ----> ",obj.putDelayInMethodObj)
 	}else
 		obj.putDelayInMethodObj = "0";
-          console.log(" in else cond --->  putDelayInMethod --------->",obj.putDelayInMethodObj)
+
+
 		newState.initializeKeywords = obj;
 		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
@@ -117,6 +99,10 @@ switch(action.type){
 	   	newState.enableFpHdrChkBox = !validate.validateFpHdrChkBox(action.payload.data) ;
 
 		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
+
+		newState.enableExcptCheckBox = obj.instrExceptions != 0;
+
+		console.log("newState in reducer kewords",newState)
 	return newState;
 
 

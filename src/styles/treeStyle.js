@@ -9,7 +9,7 @@ export default {
             padding: 0,
             color: '#F5F5F5',
             fontFamily: 'Open Sans, sans-serif,lucida grande ,tahoma,verdana,arial,sans-serif',
-            fontSize: '9px'
+            fontSize: '11px'
         },
         node: {
             base: {

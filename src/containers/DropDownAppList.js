@@ -18,36 +18,29 @@ class DropDownAppList extends React.Component {
     constructor(props) {
     super(props);
     this.state = {dropDownData: this.props.dropDownData}
-    this.state={value :this.props.value}
+    //this.state = {value :this.props.appId}
     this.menuChange = this.menuChange.bind(this);
-    console.log("this.props--",this.props)
-    console.log("DropDownAppList component constructor called",this.props.value)
   }
 
-   menuChange(event,index,value){
-    console.log("in DropDownMenu function-----event--------->",event)
-    console.log("in DropDownMenu function-----index--------->",index)
-    console.log("in DropDownMenu function-----value--------->",value)
-    hashHistory.push(`/application/${value}`)
-    this.state={value :value}
+
+  menuChange(event,index,value){
+   var data = this.props.dropDownData[0].value.filter(function(val){
+               return val.id == value
+  });
+  console.log("data---",data)
+  // hashHistory.push(`/application/${value}`)
+  var dcId = parseInt(data[0].dcId);
+  hashHistory.push(`/app/${dcId}`)
+  this.setState({value:value})
   }
 
   componentWillReceiveProps(nextProps){
-      console.log("next prop---->", nextProps.location );
-      console.log(" prop--->", this.props.location );
-      console.log("in ComponentWillReceiveProps -of DropDownData----nextProps.dropDownData-------->",nextProps.dropDownData)
-      console.log("in componentWillReceiveProps  --- props -this-----",this.props.dropDownData);
       if(this.props.dropDownData != nextProps.dropDownData){
-        console.log("setting values in if block-------------->")
         this.setState({dropDownData:nextProps.dropDownData});
     }
-    console.log("this.props.value---",this.props.value)
-    console.log("DropDownAppList component constructor called willreceiveprops--",nextProps.value)
-    if(nextProps.value != null){
-      
-        if(this.props.value != nextProps.value){
-            console.log("setting values in componentwillreceive props-------------->")
-            this.setState({value:nextProps.value});
+    if(nextProps.appId != null){
+        if(this.props.appId != nextProps.appId){
+            this.setState({value:nextProps.appId});
         }
   }
 }
@@ -61,7 +54,7 @@ class DropDownAppList extends React.Component {
         onChange={this.menuChange} 
         style={menuStyles}
         hintText="Select Application" 
-        value={this.state.value}
+        value={this.state.value+""}
         underlineStyle={{borderTopWidth:0}}
       >
        {
@@ -86,7 +79,9 @@ class DropDownAppList extends React.Component {
 function mapStateToProps(state){
   console.log("in DRop --",state.initialData)
     return{
-      dropDownData:state.initialData.homeData
+      dropDownData:state.initialData.homeData,
+      appId :state.initialData.appId,
+
 
     };
 }

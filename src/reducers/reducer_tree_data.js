@@ -80,7 +80,6 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
       var parent ;
       function getNode(obj,id){
         let index = _.findIndex(obj,(o)=> o.id == id)
-        console.log("index---",index);
         if(index >= 0){
              parent = obj[index];
             return obj[index].children;
@@ -88,13 +87,12 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
           else {
             return obj;
           }
-        
     }
 
   var childArr= action.payload.data.childNode;
    var stateObj = newState.children;
     for(var i=0;i<childArr.length;i++){
-      var node = action.payload.data.childNode[i].parentId;
+      //var node = action.payload.data.childNode[i].parentId;
       var nodeArr = node.split(".");
       for(var j = 1;j < nodeArr.length;j++){
         stateObj= getNode(stateObj ,nodeArr[j])
@@ -104,6 +102,7 @@ case 'DCTABLE_UPDATE_ROW_UPDATE_TREE':
      //stateObj.push({"id":action.payload.data.childNode.id,"children":[],"name":action.payload.data.childNode.name,"loading":action.payload.data.childNode.loading,"parentId":action.payload.data.childNode.parentId,"toggled":action.payload.data.toggled,"type":action.payload.data.childNode.type})
       stateObj.push(action.payload.data.childNode[i]);
       }
+      newState.loading = false ;
      return newState;
 
        //Reducer for adding server chilld node to parent tier Node
@@ -181,8 +180,23 @@ case 'FETCH_INSTANCE_NODE':
       }
      return newState;
 
+     
+
+     case 'TOPO_ROOT_NODE':
+     var newState = Object.assign({}, state);
+     newState = action.payload.data.childNode;
+     return newState ;
 
 
+     case 'TIER_NODE_TO_TOPO_ROOT' :
+     console.log("In reducer TIER_NODE_TO_TOPO_ROOT---",newState)
+     var newState = Object.assign({}, state);
+     var childArr = action.payload.data.childNode;
+     for(var i = 0 ; i < childArr.length;i++){
+       newState.children.push(childArr[i])
+     }
+     newState.loading = false;
+     return newState ;
 
 
   default :
@@ -190,6 +204,4 @@ case 'FETCH_INSTANCE_NODE':
     //return [{"name":"rooting","toggled":true,"children":[{"name":"parent","children":[{"name":"child1"},{"name":"child2"}]},{"name":"loading parent","loading":true,"children":[]},{"name":"parent","children":[{"name":"nested parent","children":[{"name":"nested child 1"},{"name":"nested child 2"}]}]}]}];
 
   }
-
-  
 }

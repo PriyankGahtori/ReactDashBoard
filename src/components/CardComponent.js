@@ -31,8 +31,18 @@ renderCard(data){
 
   else if(length <4)
   {
+    /*
+    * from server ,data.type = "application"
+    * here currently supporting design of no dc screen i.e directly topo screen aftr home screen
+    * and thus acting topo as root node
+    * we have to push url as 'dcdetail/dcId' on clicking any of the application 
+    */
     for(let i=0; i< length; i++)
     {
+     // listItemArr.push(<Link to ={`/${data.type === 'Application'? 'dcdetail':data.type.toLowerCase()}/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+     if(data.type === 'Application')
+        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+     else
       listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
     }
   }  
@@ -40,7 +50,10 @@ renderCard(data){
   {
     for(let i=0; i< 4; i++)
     {
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+      if(data.type === 'Application')
+        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+     else
+        listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
     }
   }
 

@@ -158,7 +158,7 @@ export default class Layout extends React.Component {
 
     	   <Drawer
 	          docked={true}
-	          width={240}
+	          width={250}
 	          open={this.state.open}
 	          onRequestChange={(open) => this.setState({open})}
 	          className={this.state.drawerClass}
@@ -172,7 +172,7 @@ export default class Layout extends React.Component {
 		       />
 
             {/*<MenuItem><Link to="/testing">PKY</Link></MenuItem>*/}
-            <DropDownAppList value = {this.props.params.appId}/>
+            <DropDownAppList />
 	          <span className={this.state.treeClass}>
                 <Tree /> 
               </span>

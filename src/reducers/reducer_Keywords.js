@@ -43,28 +43,8 @@ switch(action.type){
 
 		//for initialization of instrException keyword
 		var instrExceptionObj = modifiedValInstrExcptCapt.splitValue(obj.instrExceptions)
-		console.log("instrExceptionObj---",instrExceptionObj)
 		obj.instrExceptionObj = instrExceptionObj;
 
-
-		/*
-		var instrExceptionFields = obj.instrExceptions.split('%20');
-		let instrExceptionObj = {};
-		if(instrExceptionFields.length > 1)
-		{
-		    instrExceptionObj.enable = instrExceptionFields[0] ==='1';	
-		    instrExceptionObj.enableCaptureExcepStackTrace = instrExceptionFields[1] === '1'
-		    instrExceptionObj.exceptionType = instrExceptionFields[2] === '1' ? "handledException" : "unhandledException";
-		    
-		    // if stackTraceDepthValue is not selected
-		    if(instrExceptionFields.length < 4)
-		      instrExceptionObj.stackTraceDepthValue = instrExceptionFields[3] = '0' ; 
-
-			//add this object to initial value obj
-		}
-		console.log("instrExceptionObj.stackTraceDepthValue--",instrExceptionObj.stackTraceDepthValue)
-
-		obj.instrExceptionObj = instrExceptionObj;	*/
 
 		/*for initializing fields of putDelayInMethod Keywords
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
@@ -72,7 +52,6 @@ switch(action.type){
 		*/
 	   if(obj.putDelayInMethod != 0){
 		var putDelayInMethodFields=  obj.putDelayInMethod.split(':');
-		console.log("putDelayInMethodFields--",putDelayInMethodFields)
 		/*
 		*  
 		*/
@@ -90,16 +69,13 @@ switch(action.type){
 		*/
 
 		var lastField = decodeURI(putDelayInMethodFields[3]);
-		console.log("lastField--",lastField)
 		if(lastField.length > 1){
 			var splitArr = lastField.split(' ');
 			putDelayInMethodObj.isAutoInstrument = splitArr[0] ==='1';
 			putDelayInMethodObj.fqm =splitArr[1];
 		}
-
 		obj.putDelayInMethodObj = putDelayInMethodObj ;
 
-		console.log(" pt delay in method ----> ",obj.putDelayInMethodObj)
 	}else
 		obj.putDelayInMethodObj = "0";
 
@@ -125,7 +101,7 @@ switch(action.type){
 		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 
 		newState.enableExcptCheckBox = obj.instrExceptions != 0;
-		
+
 		console.log("newState in reducer kewords",newState)
 	return newState;
 

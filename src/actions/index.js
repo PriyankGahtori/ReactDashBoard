@@ -195,12 +195,10 @@ export function delAppTableRow(selectedRowKeys){
 }
 
 export function addRowApplicationTable(formData,openAppDialogType){
- console.log("add_Row_table--action called--",formData)
- console.log("openAppDialogType----",openAppDialogType);
+
   //when action is called from updating form
   if(openAppDialogType == "edit"){
 
-   console.log("edit flag")
    var response = axios({
     method:'put',
     //url: `http://10.10.40.7:8050/configUI/custom/application/${formData._links.self.href}`,
@@ -209,7 +207,6 @@ export function addRowApplicationTable(formData,openAppDialogType){
     headers:{'Content-Type':'application/json'}
   });
 
-   console.log("response",response)
    return {
     type: 'UPDATE_ROW_APPTABLE',
     payload: response
@@ -225,12 +222,10 @@ var response = axios({
     headers:{'Content-Type':'application/json'}
   });
 
-
-console.log("response",response)
-return {
-  type: 'ADD_ROW_APPTABLE',
-  payload: response
-};
+    return {
+      type: 'ADD_ROW_APPTABLE',
+      payload: response
+    };
 }
 
 }
@@ -240,10 +235,8 @@ return {
  *            edit( state assigned to selected row )   
  */
  export function appDetailInitializeForm(data,openAppDialogType){
-  console.log("openAppDialogType",data )
-  console.log("flag---",openAppDialogType)
-  var payload={ "data":data,"openAppDialogType":openAppDialogType};
 
+  var payload={ "data":data,"openAppDialogType":openAppDialogType};
   return {
     type    :'UPDATE_APP_FORM',
     payload :payload
@@ -257,13 +250,12 @@ return {
 
 // fetching data for the table Topology screens loads
 export function fetchTopologyTableData(dcId,loader){
-  console.log("fetchTopologyTableData action called");
+
   const URL =  `${url.FETCH_TOPO_TABLE_URL}/${dcId}`;
   const response = axios.get(URL);
 
 //trigger action for loading progressBar change once promise is resolved
 response.then(function(data){
-  console.log("calling topology loader")
   loader();
 });
 
@@ -275,7 +267,6 @@ return {
 
 export function fetchTopologyTreeData(parentDCNode){
 
-  console.log("in post request for fetchtreetopodata")
   var response = axios({
     method:'post',
     url : `${url.FETCH_TOPO_TREE_URL}/${parentDCNode.id}`,
@@ -284,7 +275,6 @@ export function fetchTopologyTreeData(parentDCNode){
     headers:{'Content-Type':'application/json'}
   });
 
-  console.log("in activetopologydata--response---",response)
   return {
     type:'FETCH_ACTIVE_TOPOLOGY',
     payload:response
@@ -1404,4 +1394,44 @@ export function genExcptInMethod(flag){
   type :'GEN_EXCEPTION_IN_METHOD',
   payload :flag
 } 
+}
+
+/**************** Action creators for tree when Topo acts as Root node **********************/
+
+export function fetchTreeTopoRootNode(dcId){
+   var parentDCNode = {};
+   var response = axios({
+    method:'post',
+    url : `${url.FETCH_TOPO_TREE_URL}/${dcId}`,
+     data: parentDCNode,
+    headers:{'Content-Type':'application/json'}
+  });
+
+  return {
+    type:'TOPO_ROOT_NODE',
+    payload:response
+  }
+}
+
+export function fetchTierNodeTopoRootNode(parentTopologyNode){
+  console.log("in fetchTierNodeTopoRootNode method called ",parentTopologyNode)
+  var response = axios({
+    method:'post',
+    url :  `${url.FETCH_TIER_TREE_URL}/${parentTopologyNode.id}`,
+    data: parentTopologyNode,
+    headers:{'Content-Type':'application/json'}
+ });
+
+  return {
+    type:'TIER_NODE_TO_TOPO_ROOT',
+    payload:response
+  }
+}
+
+export function storeAppId(appId){
+  console.log("appId---",appId)
+  return {
+    type :'APP_ID',
+    payload:appId
+  }
 }

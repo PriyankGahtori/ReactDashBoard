@@ -44,7 +44,12 @@ const styles = {
 	},
 	row2:{
 		paddingTop : 40
-	}
+	},
+  
+   title:{
+    fontSize: '16px',
+    padding: '8px'
+  }
 };
 /*
 * data --- table column name
@@ -232,7 +237,7 @@ render() {
 		label = "Enable Exception Capturing"
 		checked  = {this.state.enableExcptCheckBox}
 		onCustomChange={this.handleExcptCapture.bind(this)}/>
-	   <i style={{paddingLeft:40}}>(Capture Exception occurred in application) </i> 
+	   <i style={{paddingLeft:40}}>Capture Exception occurred in application </i> 
 
 		</div>
 		<div>
@@ -251,8 +256,12 @@ render() {
 		modal = {false}
 		open = {this.state.openEnableExcptCapturingDialog}
 		onRequestClose = {this.handleClose}
-		autoScrollBodyContent = {true}         
+		autoScrollBodyContent = {true}  
+		 titleStyle={styles.title}    
+		 
+		
 		>
+
 		<FormEnableExcptCapturing ref="enableExcptCapturingForm" onSubmit ={this.submitForm.bind(this) } />
 		</DialogEnableExcptCapturing>
 

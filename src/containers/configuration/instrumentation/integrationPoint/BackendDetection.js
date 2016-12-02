@@ -53,6 +53,12 @@ const NewButtonstyle = {
     position: 'fixed'
 
 };
+const styles = {
+    title:{
+      fontSize:16,
+      padding:8
+    }
+}
  class BackendDetection extends React.Component {  
 
   constructor(props) {
@@ -117,8 +123,8 @@ const NewButtonstyle = {
   }
     
   loader(){
-    var message = { 'title' : 'Integration Points Loaded' ,'msg': ''}
-   this.props.triggerLoader(false,message)
+    //var message = { 'title' : 'Integration Points Loaded' ,'msg': ''}
+   this.props.triggerLoader(false,null)
   }
   handleHref(row)
   {
@@ -245,7 +251,7 @@ const NewButtonstyle = {
 
     return (
       <div>
-        <Paper zDepth={2}>     
+        <Paper zDepth={2}  style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Integration Point Detection(s)</h4>
@@ -295,7 +301,7 @@ const NewButtonstyle = {
   {/*------------------------------------------------------------------------------*/}
 
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
             <AddIcon />
          </AddNewButton>
 
@@ -307,6 +313,7 @@ const NewButtonstyle = {
           open={this.state.openNewBackendPointDialog}
           onRequestClose={this.handleCloseNewendPoint.bind(this)}
           autoScrollBodyContent={true}
+          titleStyle={styles.title}
         >
           <FormNewEndPoint ref="newBackendPoint" onSubmit={this.submitNewEndPointForm.bind(this)}/>
         </DialogNewBackendPoint>

@@ -18,6 +18,13 @@ import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
+const styles = {
+  title: {
+    fontSize: '16px',
+    padding: '8px'
+  }
+}
+
 class PutDelayInMethod extends React.Component {
  
   constructor(props) {
@@ -191,7 +198,8 @@ return (
           modal={false}
           open={this.state.openPutDelayInMethodDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}         
+          autoScrollBodyContent={true}     
+          titleStyle={styles.title}    
         >
         <FormPutDelayInMethod ref="putDelayInMethodForm" onSubmit ={this.submitForm.bind(this) } />
        </DialogPutDelayInMethod>

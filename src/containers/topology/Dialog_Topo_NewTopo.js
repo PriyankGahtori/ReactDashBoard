@@ -9,7 +9,12 @@ import { bindActionCreators } from 'redux';
 import FormNewTopo from './Form_Topo_NewTopo';
 import * as actionCreators  from '../../actions/index';
 
-
+const styles = {
+ title: {
+ fontSize:'16px',
+ padding:'8px'
+  }
+}
 
 class Dialog_Topo_NewTopo extends React.Component {
   constructor(props) {
@@ -62,6 +67,7 @@ class Dialog_Topo_NewTopo extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={false}
           refs="insidedialog"
+          titlestyle={styles.title}
         >
          { /* As new updated form when passed to server or store must contain its primary key field 
            * i.e ._links to update the same row .So inserting property _links to data .

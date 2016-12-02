@@ -65,8 +65,11 @@ const initialValues = {
     fontSize: 12,
     color: 'red' 
   },
-
   
+
+
+
+
 };
 
 class Form_EnableDebugLevelCapturing extends React.Component {

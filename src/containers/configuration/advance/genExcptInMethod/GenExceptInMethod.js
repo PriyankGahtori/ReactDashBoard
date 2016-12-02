@@ -45,6 +45,10 @@ const styles = {
 	},
 	row2:{
 		paddingTop : 40
+	},
+	title:{
+		fontSize: 16,
+		padding: 8
 	}
 };
 /*
@@ -255,7 +259,8 @@ render() {
 		modal = {false}
 		open = {this.state.openEnableExcptCapturingDialog}
 		onRequestClose = {this.handleClose}
-		autoScrollBodyContent = {true}         
+		autoScrollBodyContent = {true}     
+		titleStyle={styles.title}    
 		>
 		<FormGenExcptInMethod ref="enableGenExcptInMethod" onSubmit ={this.submitForm.bind(this) } />
 		</DialogGenExceptInMethod>

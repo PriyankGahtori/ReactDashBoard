@@ -44,7 +44,12 @@ const styles = {
 
  row2:{
   paddingTop : 40
-}
+},
+  
+ title:{
+    fontSize: '16px',
+    padding: '8px'
+  }
 
 };
 
@@ -243,7 +248,7 @@ submitForm(formData){
         label = "Enable Monitors"
         checked  = {this.state.enableMonitorsCheckBox}
         onCustomChange={this.handleEnableMonitors.bind(this)} />
-        <i  style={{paddingLeft:40}}>(Enable/Disable ND graph monitors) </i>
+        <i  style={{paddingLeft:40}}>Enable/Disable ND graph monitors </i>
       </div>
     <div>
     <FlatButton 
@@ -261,7 +266,8 @@ submitForm(formData){
     modal={false}
     open={this.state.openEnableMonitorsDialog}
     onRequestClose={this.handleClose}
-    autoScrollBodyContent={true}         
+    autoScrollBodyContent={true}  
+    titleStyle={styles.title}       
     >
     <FormEnableMonitors ref="monitorForm" onSubmit ={this.submitForm.bind(this) } />
     </DialogEnableMonitor>

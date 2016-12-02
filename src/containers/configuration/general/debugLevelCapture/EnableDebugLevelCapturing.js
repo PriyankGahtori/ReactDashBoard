@@ -42,7 +42,12 @@ const styles = {
   },
   row2:{
     paddingTop : 40
+  },
+  title:{
+    fontSize: '16px',
+    padding: '8px'
   }
+
 };
 /*
 * data --- table column name
@@ -259,7 +264,7 @@ const actionsDebugDisable =[
                   checked  = {this.state.enableDebugCheckBox}
                   onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)}   />
          
-         <i style={{paddingLeft:40}}>(Trace level configuration for various BCI features)</i> 
+         <i style={{paddingLeft:40}}>Trace level configuration for various BCI features</i> 
           </div>
         <FlatButton  
              
@@ -276,7 +281,8 @@ const actionsDebugDisable =[
           modal={false}
           open={this.state.openEnableDebugCapturingDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}  >
+          autoScrollBodyContent={true} 
+           titleStyle={styles.title} >
       <FormEnableDebugCapturing ref="enableDebugCapturingForm" onSubmit ={this.submitForm.bind(this) } />
    </DialogEnableDebugCapturing>
   {/*<ConfirmDialog

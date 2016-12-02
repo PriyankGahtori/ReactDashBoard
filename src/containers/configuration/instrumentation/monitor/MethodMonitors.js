@@ -89,8 +89,8 @@ const styles = {
 }
 
 loader(){
-  var message = {'title': 'Method Monitors Loaded','msg':' '}
-    this.props.triggerLoader(false,message)
+ // var message = {'title': 'Method Monitors Loaded','msg':' '}
+    this.props.triggerLoader(false,null)
 
 }
 
@@ -116,8 +116,8 @@ loader(){
 
     return (
     <div>
-   
-      <div className='row row-no-margin tableheader'>
+      <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>   
+        <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Method Monitor(s)</h4>
         </div>
@@ -131,13 +131,14 @@ loader(){
          />
 
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
             <AddIcon />
          </AddNewButton>
          <DialogMethodMon profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
+       </Paper>
     </div>
     );
   }

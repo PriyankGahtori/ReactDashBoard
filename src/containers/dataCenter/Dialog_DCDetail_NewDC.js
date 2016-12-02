@@ -59,7 +59,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
     return (
       <div>
       <DialogNewDC
-          title="New Data Center Configuration"
+          title={<div><p>New Data Center Configuration</p><span onTouchTap={this.handleCancel} className="arrow"></span></div>}
           actions={actions}
           modal={false}
           open={this.state.dcDetail.openNewDCDialog}

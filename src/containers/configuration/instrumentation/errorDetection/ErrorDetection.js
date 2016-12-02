@@ -85,8 +85,8 @@ const styles = {
   }
   
   loader(){
-    var message = {'title': 'Error Detection Loaded','msg' : ''}
-    this.props.triggerLoader(false,message);
+   // var message = {'title': 'Error Detection Loaded','msg' : ''}
+    this.props.triggerLoader(false,null);
 
   }
 
@@ -151,7 +151,7 @@ const styles = {
 
     return (
     <div>
-   
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Error Detection(s)</h4>
@@ -166,13 +166,14 @@ const styles = {
          />
 
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
             <AddIcon />
          </AddNewButton>
          <DialogErrorDetection profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
+       </Paper>
     </div>
     );
   }

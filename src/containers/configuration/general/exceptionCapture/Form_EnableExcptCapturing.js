@@ -34,6 +34,11 @@ export const fields = ['enable',
   },
    customWidth: {
       width: 300
+    },
+    radioStyle:{
+      fontSize:'14px',
+      fontWeight:'normal'
+
     }
 }
 class Form_EnableExcptcapturing extends React.Component {

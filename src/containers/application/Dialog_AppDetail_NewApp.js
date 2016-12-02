@@ -9,7 +9,13 @@ import { bindActionCreators } from 'redux';
 import FormNewApp from './Form_ApplicationDetail_NewApp.js';
 import * as actionCreators  from '../../actions/index';
 
+const styles = {
+ title: { 
+     fontSize: '16px',
+     padding:'8px',
 
+  }
+}
 
 class Dialog_AppDetail_NewApp extends React.Component {
  
@@ -62,6 +68,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
+         titleStyle={styles.title}
         >
 
          { /* As new updated form when passed to server or store must contain its primary key field 

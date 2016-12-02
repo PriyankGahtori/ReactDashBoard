@@ -135,20 +135,20 @@ class Instance extends React.Component {
 
   loader(){
    var message = {'title':'Instance data loaded', 'msg' : ''}
-    this.props.triggerLoader(false,message);
+    this.props.triggerLoader(false,null);
   }
 
   render() {
       
     return (
     <div>
-       <Paper zDepth={2}>     
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
       <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Instance Detail(s)</h4>
           </div>
-          <div className="col-md-2"  >
-            <IconButton tooltip="Edit Instance"  onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          <div className="pull-right"  >
+            <IconButton tooltip="Edit Instance"  onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
           </div>
        </div>
 

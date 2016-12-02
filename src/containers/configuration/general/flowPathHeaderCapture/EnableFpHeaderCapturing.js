@@ -42,7 +42,12 @@ const styles = {
  },
  row2:{
   paddingTop : 40
-}
+},
+  
+ title:{
+    fontSize: '16px',
+    padding: '8px'
+  }
 };
 /*
 * data --- table column name
@@ -281,7 +286,7 @@ else{
       label = "Enable FlowPath Header Capturing"
       checked  = {this.state.enableFpHdrChkBox}
       onCustomChange={this.handleEnableFpHdrCapturingCheckboxChange.bind(this)} />
-      <i style={{paddingLeft:40}}>(Http request and response headers Capture Configuration) </i> 
+      <i style={{paddingLeft:40}}>Http request and response headers Capture Configuration </i> 
       
       </div>
       <div>
@@ -299,6 +304,7 @@ else{
       modal = {true}
       open = {this.state.openEnableFpHdrCapturingDialog}
       onRequestClose = {this.handleClose}
+       titleStyle={styles.title}
       >
       <FormEnableFpCapturing ref="enableFpCapturingForm" onSubmit ={this.submitForm.bind(this) } />
       </DialogEnableFpHeaderCapturing>

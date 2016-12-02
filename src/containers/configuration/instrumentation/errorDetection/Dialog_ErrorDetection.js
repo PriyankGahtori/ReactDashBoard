@@ -12,7 +12,12 @@ import { reset } from 'redux-form';
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import FormErrorDetection from './Form_ErrorDetection';
-
+const styles = {
+    title:{
+      fontSize:16,
+      padding: 8
+    }
+}
 
 class Dialog_ErrorDetection extends React.Component {
  
@@ -71,6 +76,7 @@ class Dialog_ErrorDetection extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
+          titleStyle={styles.title}
         >
        
         <FormErrorDetection ref="newErrorDetectionForm" onSubmit={this.submitForm.bind(this)}/>

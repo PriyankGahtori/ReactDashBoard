@@ -132,6 +132,7 @@ handleClose(){
       
       if(selectedRow.length == 1)
       {
+        this.setState({openSnack:false})
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
                                     return value.appId === selectedRow[0]
@@ -198,17 +199,17 @@ handleClose(){
     ];
       
     return (
-    <div>
-        <Paper zDepth={2}>     
+    <div>                
+        <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Application Detail</h4>
           </div>
 
-          <div className="col-md-2"  >
-          <IconButton  tooltip="Create nd.conf " onTouchTap={this.createConfFile}><FontIcon className="material-icons">library_books</FontIcon></IconButton>
-            <IconButton  tooltip="Edit Application" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton tooltip="Delete Application" onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
+          <div className="pull-right"  >
+          <IconButton  tooltip="Generate nd.conf " onTouchTap={this.createConfFile}><FontIcon color="#FFF" className="material-icons">library_books</FontIcon></IconButton>
+            <IconButton  tooltip="Edit Application" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton tooltip="Delete Application" onTouchTap={this.handleConfirm}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
           

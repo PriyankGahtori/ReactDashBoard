@@ -13,7 +13,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-
+import {white} from 'material-ui/styles/colors';
 //Importing files
 import DataGrid from '../../components/DCDetailTable';
 import DialogNewDC from './Dialog_DCDetail_NewDC';
@@ -197,16 +197,15 @@ class DCDetail extends React.Component {
    return (
     <div>
       
-      <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)'}}>     
+      <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)' , color: '#FFF'}}>     
        
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>DC Detail</h4>
           </div>
-        <div className="col-md-2"  >
-          <IconButton tooltip="Edit DCDetail"  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
-          <IconButton tooltip="Delete DCDetail" onTouchTap={this.handleConfirm}><FontIcon className="material-icons">delete</FontIcon></IconButton>
-          <IconButton tooltip="Settings" ><Link to ="/Instrumentation"><FontIcon className="material-icons">power_settings_new</FontIcon></Link></IconButton>
+        <div className="pull-right"  >
+          <IconButton  tooltip="Edit DCDetail"  onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+          <IconButton tooltip="Delete DCDetail" onTouchTap={this.handleConfirm}><FontIcon color= "#FFF" className="material-icons">delete</FontIcon></IconButton>
         </div>
        </div>
 

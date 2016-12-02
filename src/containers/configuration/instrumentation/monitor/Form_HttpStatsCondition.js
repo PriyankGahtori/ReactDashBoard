@@ -11,23 +11,7 @@ import DropDownMenu from '../../../../components/SelectFieldWrapper';
 
 export const fields = [ 'conditionName','fpDumpMode','htId','hmdId','cookieName','valId','optId','compValue','description']
 
- const validate = values=> {
-  const errors = { }
 
-  if(!values.conditionName) 
-     errors.conditionName = 'Required'
-
-   else if (values.conditionName.length > 50)
-    errors.conditionName = 'Must be 50 characters or less'
-   
-   if(!values.fpDumpMode)
-      errors.fpDumpMode = 'Required'
-
-    if(!values.htId)
-      errors.htId = 'Required' 
-    
-   return errors
-  }
 
   const styles = {
     customWidth: {
@@ -149,7 +133,6 @@ handleHeaderSelected(event, index, value){
                   hintText="Hint Text"
                   floatingLabelText="Name"
                   {...conditionName}
-                 errorText = {conditionName.touched &&  conditionName.error && <div> { conditionName.error}</div> }
 
             />
         </div>
@@ -169,7 +152,6 @@ handleHeaderSelected(event, index, value){
                 <MenuItem value={"1"}  primaryText={"1"}/>
                 <MenuItem value={"2"}  primaryText={"2"}/>
                 </DropDownMenu>
-              <div style={styles.error}>{fpDumpMode.touched && fpDumpMode.error && <div>{fpDumpMode.error} </div> }</div>
 
         </div>
         </div>
@@ -192,7 +174,6 @@ handleHeaderSelected(event, index, value){
                  )) 
                 }      
                 </DropDownMenu>
-                <div style={styles.error}> {htId.touched && htId.error && <div>{htId.error} </div> }</div>
 
           </div>  
 
@@ -279,7 +260,7 @@ Form_HttpStatsCondition.propTypes = {
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
   fields,
-  validate
+
 },
   state => ({ // mapStateToProps
  /* data:state.initialData,

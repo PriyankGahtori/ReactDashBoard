@@ -57,8 +57,8 @@ class GlobalBusinessTransaction extends React.Component {
  }
 }
 loader(){
-  var message = {'title': ' BT Global Loaded' , 'msg' : '' }
-  this.props.triggerLoader(false,message)
+// var message = {'title': ' BT Global Loaded' , 'msg' : '' }
+  this.props.triggerLoader(false,null)
 }
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide
@@ -108,14 +108,17 @@ loader(){
 	  		name = "uriType" 
 	  		defaultSelected={this.state.uriType}
 	  		onCustomChange={this.handleURITypeChange.bind(this) }
+          
 	  		>
        <RadioButton
           value="complete"
-          label="Complete"          
+          label="Complete"  
+                      
        />
        <RadioButton
           value="segment"
-          label="Segment of URI"          
+          label="Segment of URI"  
+                
        />
 
       </RadioButtonGroup>

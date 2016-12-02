@@ -34,6 +34,7 @@ const NewButtonstyle = {
 
 };   
 
+
  class HTTPStatsMonitors extends React.Component {
 
   constructor(props) {
@@ -54,8 +55,8 @@ const NewButtonstyle = {
     }
   }
    loader(){
-    var message = {'title':'HTTPStatsMonitors Loaded' ,'msg':''}
-     this.props.triggerLoader(false,message)
+  //  var message = {'title':'HTTPStatsMonitors Loaded' ,'msg':''}
+     this.props.triggerLoader(false,null)
 
    }
   handleOpen(){
@@ -65,7 +66,8 @@ const NewButtonstyle = {
   render() {
     return (
      <div>
-   
+
+    <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}> 
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Http Stats Condition Monitor(s)</h4>
@@ -80,13 +82,14 @@ const NewButtonstyle = {
          />
 
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this)}>
             <AddIcon />
          </AddNewButton>
          <DialogHttpStatsCond profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
+       </Paper>
     </div>
     );
   }

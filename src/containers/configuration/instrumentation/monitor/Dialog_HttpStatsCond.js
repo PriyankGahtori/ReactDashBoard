@@ -13,6 +13,12 @@ import { reset } from 'redux-form';
 import * as actionCreators  from '../../../../actions/index';
 import FormHttpStatsCond from './Form_HttpStatsCondition';
 
+const styles ={
+  title:{
+    fontSize:16,
+    padding:8
+  }
+} 
 class Dialog_HttpStatsCond extends React.Component {
  
   constructor(props) {
@@ -76,6 +82,7 @@ class Dialog_HttpStatsCond extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
+          titleStyle={styles.title}
         >
          { /* As new updated form when passed to server or store must contain its primary key field 
            * i.e ._links to update the same row .So inserting property _links to data .

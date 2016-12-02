@@ -131,7 +131,12 @@ const styles = {
   multiSelect:{
   width:40
  
-  }
+  },
+    radioStyle:{
+      fontSize:'14px',
+      fontWeight:'normal'
+
+    }
 }
 
 var dataForhdrTypeDropDown = [{'id':0 ,'option':'ALL Headers'},
@@ -322,24 +327,26 @@ render() {
   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
   
   return (
-    <div className ="row" style = {{'paddingLeft':29,'paddingTop':13}}>
+    <div  style = {{'paddingLeft':29,'paddingTop':13}}>
  
     <form>
 
    {/********************** START OF captureHTTPReqFullFp******************************/}
-    <div className = "row col-md-8">
+    <div className = "row" >
+    <div className = "col-md-1">
     <Checkbox
     {...enableCaptureHTTPReqFullFp}
     value = "CaptureHTTPReqFullFp"
-    label = "Capture HTTPReqFullFp"
     checked  = {this.state.enableCaptureHTTPReqFullFp}
     onCustomChange={this.handleCaptureHTTPReqFullFp.bind(this)}
     />
     </div>
+    <p style={{'position':'relative', 'right':10}}>Capture HTTPReqFullFp</p>
+    </div>
 
     {/************* subGroup***************/}
     <div className ={this.state.enableCaptureHTTPReqFullFp ? 'show' :'hidden'} style ={{'paddingLeft':35}}>
-      <div className = "row col-md-10">
+      <div className = "row col-md-12">
         <RadioButtonGroup 
         {...urlMode}
         name = "urlMode" 
@@ -348,15 +355,18 @@ render() {
         >
        <RadioButton
           value="1"
-          label="URL Only"          
+          label="URL Only"  
+          labelStyle={styles.radioStyle}        
        />
        <RadioButton
           value="2"
-          label="URL with Query Parameters"          
+          label="URL with Query Parameters"  
+          labelStyle={styles.radioStyle}        
        />
         <RadioButton
           value="3"
-          label="URL with Query Params,Http Method ,Http Headers"          
+          label="URL with Query Params,Http Method ,Http Headers"  
+          labelStyle={styles.radioStyle}        
        />
 
       </RadioButtonGroup>
@@ -414,7 +424,7 @@ render() {
                 floatingLabelText = "Select Capture Mode"
                 />
       </div>
-      <div className = {`col-md-4 ${this.state.briefCaptureModeConfigReq}`}>
+      <div className = {`col-md-6 ${this.state.briefCaptureModeConfigReq}`}>
         <TextField
                   hintText="Hint Text"
                   floatingLabelText="Enter range of characters "
@@ -432,33 +442,40 @@ render() {
 
 
   {/***********************START OF captureHTTPRespFullFp************************/}
-     <div className = "row col-md-8">
+     <div className = "row">
+     <div className="col-md-1">
     <Checkbox
     {...enableCaptureHTTPResFullFp}
     value = "CaptureHTTPResFullFp"
-    label = "Capture HTTPResFullFp"
     checked  = {this.state.enableCaptureHTTPResFullFp}
     onCustomChange={this.handleCaptureHTTPResFullFp.bind(this)}
     />
+  
     </div>
+       <p> Capture HTTPResFullFp</p>
+     </div>
 
     {/************* subGroup***************/}
-    <div className ={this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} style ={{'paddingLeft':35}}>
+    <div className ={this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} 
+         style ={{'paddingLeft':35,bottom:20}}>
       
-      <div className = "row col-md-10">
+      <div className = "row col-md-10" >
         <RadioButtonGroup 
         {...responseData}
         name = "urlMode" 
         defaultSelected={this.state.responseData}
         onCustomChange={this.handleURLRespModeChange.bind(this) }
+        style={{'position':'relative','bottom':2}}
         >
        <RadioButton
           value = "1"
-          label = "Capture Response Code only"          
+          label = "Capture Response Code only"   
+          labelStyle={styles.radioStyle}       
        />
        <RadioButton
           value = "2"
-          label = "Capture Response Code and http headers only"          
+          label = "Capture Response Code and http headers only"      
+          labelStyle={styles.radioStyle}    
        />
        
       </RadioButtonGroup>

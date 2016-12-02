@@ -38,6 +38,11 @@ const styles = {
   },
   row2:{
     paddingTop : 40
+  },
+  
+ title:{
+    fontSize: '16px',
+    padding: '8px'
   }
 };
 /*
@@ -263,7 +268,7 @@ handleCancelDisableBCIVal(){
           value = "enableHotSpotCapturing"
           checked  = {this.state.hotSpotCapturingCheckBox}
           onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)} />
-           <i style={{paddingLeft:40}}>(Capture thread hotspots using BCI autoSensor) </i> 
+           <i style={{paddingLeft:40}}>Capture thread hotspots using BCI autoSensor </i> 
         </div>
        
        
@@ -281,6 +286,7 @@ handleCancelDisableBCIVal(){
           open={this.state.openEnableHotSpotCapturingDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true} 
+          titleStyle={styles.title}
       >
          <FormEnableHotSpotCapturing ref="enableHotSpotCapturingForm" onSubmit ={this.submitForm.bind(this) } />
     </DialogEnableHotSpotCapturing> 

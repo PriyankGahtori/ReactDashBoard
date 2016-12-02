@@ -86,8 +86,8 @@ const styles = {
   }
   
   loader(){
-    var message = {'title': 'BT Pattern Loaded' , 'msg': ''}
-    this.props.triggerLoader(false,message)
+    //var message = {'title': 'BT Pattern Loaded' , 'msg': ''}
+    this.props.triggerLoader(false,null)
   }
 
 
@@ -135,9 +135,9 @@ const styles = {
 
   render() {
 
-    return (
+    return ( 
     <div>
-   
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Bussiness Transaction Pattern(s)</h4>
@@ -158,6 +158,7 @@ const styles = {
           
         </div>
        </div>
+       </Paper>
     </div>
     );
   }

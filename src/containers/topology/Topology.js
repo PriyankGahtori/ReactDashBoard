@@ -133,21 +133,21 @@ class Topology extends React.Component {
  loader(){
   console.log("topology loader function called")
    var message = {'title':'Topology data loaded', 'msg' : ''}
-   this.props.triggerLoader(false,message);
+   this.props.triggerLoader(false,null);
 }
 
 
   render() {
     return (
     <div>
-       <Paper zDepth={2}>     
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Topology Detail</h4>
           </div>
 
-          <div className="col-md-2"  >
-            <IconButton  onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          <div className="col-md-2">
+            <IconButton  className="pull-right" onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color= "#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
             { /*  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
           </div>
        </div>

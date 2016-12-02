@@ -110,13 +110,13 @@ render() {
   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
   
   return (
-    <div className ="row" style={{'paddingLeft':29}}>
+    <div  style={{'paddingLeft':29}}>
 
     <form>
 
     <div className = "row">
     <div className = "col-md-2" style={{'paddingTop':29}}>
-    <p for="sess_perct" >Percentage   </p>
+    <p for="sess_perct" >Percentage  </p>
     </div>
 
     <div className = "col-md-4" style={{'paddingTop':29}}>

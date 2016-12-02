@@ -24,23 +24,27 @@ export default class BusinessTransaction extends React.Component {
     
     return (   
         <div>
-       <Card style={{'paddingTop':1 ,'paddingLeft':5}}> 
+       <Card style={{'paddingTop':1 ,'paddingLeft':5,'background':'rgba(0,0,0,0.45)', 'color':'#FFF'}}> 
       <h3 style={{'bottom': 8, 'position': 'relative'}}>Bussiness Transaction Configuration</h3>
-	    <div className='row' style= {{'bottom':6,'position': 'relative'}}>
+	    <div className='row' style= {{'bottom':6,'position': 'relative', color: '#FFF'}}>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
-      		style={{display: 'flex'}}
+      		style={{display: 'flex',color:'#FFF'}}
       		onChange={this.handleChange.bind(this)}
       		defaultSelected="global" >
 
 	        <RadioButton
 	          value="global"
-	          label="Global Rule"              
-	        /> 
+            label="Global" 
+            labelStyle={{'color':'#FFF'}}
+             /> 
+        
 	        <RadioButton
-	          value="pattern"
-	          label="Pattern Rule"              
-	        />
+	          value="pattern" 
+            label="Pattern"
+            labelStyle={{'color':'#FFF'}}
+           />
+        
 	      </RadioButtonGroup>
 
 	    </div> 

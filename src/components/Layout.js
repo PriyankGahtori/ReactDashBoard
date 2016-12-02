@@ -12,7 +12,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import IconButton from 'material-ui/IconButton';
 import NavigationClose from 'material-ui/svg-icons/navigation/close';
 import FontIcon from 'material-ui/FontIcon';
-import {red500, yellow500, blue500} from 'material-ui/styles/colors';
 import { Link } from 'react-router'
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Breadcrumbs from 'react-breadcrumbs';

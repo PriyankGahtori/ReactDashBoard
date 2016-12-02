@@ -131,7 +131,7 @@ class ProfileDetail extends React.Component {
       
     return (
     <div>
-        <Paper zDepth={2}>     
+        <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
        <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Profile Detail</h4>

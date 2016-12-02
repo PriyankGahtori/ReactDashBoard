@@ -44,6 +44,13 @@ const NewButtonstyle = {
 
 };
 
+const styles = {
+    title: {
+      fontSize: 16,
+      padding:8
+    }
+}
+
 
 
 class ServiceEntryPoints extends React.Component {
@@ -188,8 +195,8 @@ handleRequestClose(){
     }
 }
 loader(){
-  var message = {'title':'ServiceEntryPoints Loaded', 'msg': ''}
-  this.props.triggerLoader(false,message)
+  //var message = {'title':'ServiceEntryPoints Loaded', 'msg': ''}
+  this.props.triggerLoader(false,null)
 }
 onToggle(row){
     console.log("ontoggle function --event triggered---",row)
@@ -226,7 +233,7 @@ onToggle(row){
       
     return (
     <div>
-       <Paper zDepth={2}>  
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>  
         <div className='row row-no-margin tableheader'>
           <div className="col-md-10">
               <h4>Service Entry Points Detail(s)</h4>
@@ -240,7 +247,8 @@ onToggle(row){
        </div>
         <SepDelDialog  title="Are you sure want to delete the ServiceEntryPoint(s)?"
                       open= {this.state.sepDialog}
-                      actions={actions} />
+                      actions={actions} 
+                      />
 
         
 
@@ -255,10 +263,10 @@ onToggle(row){
 
 
       <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >
             <AddIcon />
          </AddNewButton>
-         <DialogNewServiceEntryPts profileId ={this.props.params.profileId}/>
+         <DialogNewServiceEntryPts profileId ={this.props.params.profileId} />
       </div>
 
       <Snackbar

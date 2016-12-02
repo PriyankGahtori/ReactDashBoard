@@ -153,7 +153,7 @@ class Tier extends React.Component {
   */
   loader(){
    var message = {'title':'Tier data loaded', 'msg' : ''}
-   this.props.triggerLoader(false,message);
+   this.props.triggerLoader(false,null);
   }
 
   render() {
@@ -165,8 +165,9 @@ class Tier extends React.Component {
           <div className="col-md-10">
               <h4>Tier Detail(s)</h4>
           </div>
-          <div className="col-md-2"  >
-            <IconButton tooltip='Edit Tier' onTouchTap={this.handleOpen.bind(this)}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+          <div className="pull-right" >
+           <IconButton tooltip='Edit Tier' onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF" className="material-icons" style={{"color":"#FFF"}}>edit_mode</FontIcon></IconButton>
+     
           </div>
        </div>
 

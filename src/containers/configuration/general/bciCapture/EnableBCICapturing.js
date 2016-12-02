@@ -42,7 +42,11 @@ const styles = {
  },
  row2:{
   paddingTop : 40
-}
+},
+ title:{
+    fontSize: '16px',
+    padding: '8px'
+  }
 };
 /*
 * data --- table column name
@@ -275,11 +279,11 @@ submitForm(formData){
           
          <Checkbox
 
-                  label ="Enable BCI Capturing "
+                  label ="Enable FlowPath Capturing "
                   value = "enableBCICapturing"
                   checked  = {this.state.enableBCICheckBox}
                   onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}  />
-                 <i style={{paddingLeft:40}}>(Enable flowPath capturing by agent with default settings)</i>
+                 <i style={{paddingLeft:40}}>Enable flowPath capturing by agent with default settings</i>
          </div>  
          
      <FlatButton 
@@ -293,12 +297,15 @@ submitForm(formData){
 
     
     <DialogEnableBCICapturing
-          title="BCI Capturing"
+          style={{paddingTop:10}}
+          title="FlowPath Capturing"
           actions={actions}
           modal={false}
           open={this.state.openEnableBCICapturingDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}         
+          autoScrollBodyContent={true}
+          titleStyle={styles.title}
+
     >
 
       <FormEnableBCICapturing ref="enableBCICapturingForm" onSubmit ={this.submitForm.bind(this) } />

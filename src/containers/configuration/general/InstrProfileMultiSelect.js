@@ -88,7 +88,7 @@ const styles = {
       <div className = "row"  style={{paddingTop:10}}>
       <div className ="col-md-5" style={{paddingLeft:55}}>
         <b>Instrumentation Profiles </b> 
-      <p>  <i>(Select profiles to instrument application methods)</i></p>
+      <p>  <i>Select profiles to instrument application methods</i></p>
         </div>
         <div   className = "col-md-3" >   
         	<MultiSelect multi

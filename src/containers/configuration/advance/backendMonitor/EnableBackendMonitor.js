@@ -42,6 +42,10 @@ const styles = {
   },
   row2:{
     paddingTop : 40
+  },
+  title:{
+    fontSize: 16,
+    padding:8
   }
 };
 
@@ -245,7 +249,8 @@ const actionsBackendMonDisable =[
           modal={false}
           open={this.state.openEnableBackendMonitorDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}         
+          autoScrollBodyContent={true}  
+          titleStyle={styles.title}       
     >
     <FormEnableBackendMonitor ref="backendMonitorForm" onSubmit ={this.submitForm.bind(this) } />
     </DialogEnableBackendMonitor>

@@ -28,19 +28,22 @@ class Dialog_BTPattern extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state={BTPattern : this.props.BTPattern};
   this.submitForm =this.submitForm.bind(this);
-  console.log("")
   }
 
  submitForm(data){
+  console.log(" data in submit of btpattern ------")
   this.props.addBTPatternData(data,this.props.profileId)
   this.handleCancel();
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps");
+    console.log("inside componentWillReceiveProps",this.props.BTPattern);
+
     if(this.props.BTPattern != nextProps.BTPattern)
       this.setState({BTPattern:nextProps.BTPattern});
+     console.log("this.state.title --------> ",nextProps.BTPattern) 
+
   }
 
   handleCancel(){
@@ -71,7 +74,7 @@ class Dialog_BTPattern extends React.Component {
     return (
       <div>
         <DialogBTPattern
-          title="New Bussiness Transaction pattern"
+          title={this.state.title}
           actions={actions}
           modal={false}
           open={this.state.BTPattern.openNewBTPatternDialog}

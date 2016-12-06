@@ -100,7 +100,7 @@ class Form_BTPattern extends React.Component {
   super(props);
   this.handleChange=this.handleChange.bind(this);
   this.state ={enable:false}
-  this.state ={'dynamicReqDiv' : false}
+  this.state ={'dynamicReqDiv': false}
   this.state ={BTPattern:null}
   }
 
@@ -111,13 +111,17 @@ handleChange(event,index,value){
   componentWillMount() {
   }
 
+  componentWillReceiveProps(nextProps)
+  {
+  }
+
 handleCheck(event,value)
 {
   console.log("inside check value - ",value)
   this.setState({'dynamicReqDiv': value})  
 }
 
-  render() {
+  render() {  
      const { fields: {btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
@@ -149,6 +153,7 @@ handleCheck(event,value)
             autoWidth={false}
             floatingLabelText="Select type"
             {...matchType}
+           
           >
             <MenuItem value={"Exact Match"} primaryText="Exact Match" />
             <MenuItem value={"Starts With"} primaryText="Starts With" />
@@ -169,14 +174,16 @@ handleCheck(event,value)
      <div className ="row">
         <div className="col-md-6">
          <TextField        
-            {...slowTransaction}  
+            {...slowTransaction} 
+             style={{'width':'300'}} 
             floatingLabelText="Slow Transaction Threshold (ms)"
             errorText={slowTransaction.touched && slowTransaction.error && <div>{slowTransaction.error}</div>}/>   
 
          </div>
          <div className="col-md-6">
            <TextField        
-            {...verySlowTransaction}  
+            {...verySlowTransaction} 
+             style={{'width':'310'}}
             floatingLabelText="Very Slow Transaction Threshold (ms)"
             errorText={verySlowTransaction.touched && verySlowTransaction.error && <div>{verySlowTransaction.error}</div>}/>   
        
@@ -281,8 +288,9 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-    BTPattern : state.BTPattern
-  
+    BTPattern : state.BTPattern,
+    initialValues:state.BTPattern.patternFormInitialData,
+    initialData  : state.BTPattern.patternFormInitialData,
 }),
  { 
   loadGroupNames : ListOfGroupNames

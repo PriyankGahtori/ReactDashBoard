@@ -18,9 +18,10 @@ class NewApplication extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form topo-- !!!",this.props.data)
+  console.log("in form topo-- !!!",this.props.initialData)
   console.log("this.props.data[2]value - ")
-  this.state={valueProf:1}
+  this.state={valueProf:this.props.initialData != null ? this.props.initialData.profileId : null}
+  console.log("valueProf--",this.state.valueProf)
  
 
   }
@@ -83,6 +84,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
 },
   state => ({ // mapStateToProps
   data:state.initialData.homeData,
-  initialValues :state.topologyData.topoInitializeForm
+  initialValues: state.topologyData.topoInitializeForm,
+  initialData : state.topologyData.topoInitializeForm
 })
 ) (NewApplication);

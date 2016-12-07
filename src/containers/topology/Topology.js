@@ -126,13 +126,11 @@ class Topology extends React.Component {
      let selectedRowData =  this.props.homeData[0].value.filter(function(value){
       return value.dcId == dcId
     })
-     console.log("selectedRowData--in topo screen-",selectedRowData)
      this.props.storeAppId(selectedRowData[0].id)
    }
 
    componentWillReceiveProps(nextProps)
    {
-    console.log("componentWillReceiveProps topo called")
     /* 
     *  following if cond  gets executed only when app is changed from 
     *  dropdownlist component in layout screen,at that time component willReceive props function will

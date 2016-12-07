@@ -67,7 +67,7 @@ class Dialog_Topo_NewTopo extends React.Component {
     return (
       <div>
       <DialogEditTopo
-          title="Select Topology"
+          title="Change Profile"
           actions={actions}
           modal={false}
           open={this.state.topologyData.openEditTopoDialog}

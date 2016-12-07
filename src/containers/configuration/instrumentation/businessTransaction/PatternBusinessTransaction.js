@@ -28,7 +28,7 @@ export const fields = ['btName','activeToggle','matchType','URL','include','reqP
 
 var columns = {
                 "key" : "id",
-                "data":['Name', 'Match type', 'URL', 'BT Included','Slow Transaction threshold(ms)','Very Slow Transaction threshold(ms)','Req Param key Value','Http Method','Req Header key Value','ID'],
+                "data":['Name', 'Match Type', 'URL', 'BT Included','Slow Transaction Threshold(ms)','Very Slow Transaction Threshold(ms)','Req Param key Value','HTTP Method','Req Header key Value','ID'],
                 "field":['btName', 'matchType', 'urlName', 'include','slowTransaction','verySlowTransaction','paramKeyValue','reqMethod','headerKeyValue','id']
               };          
 
@@ -78,11 +78,16 @@ const styles = {
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
      this.loader = this.loader.bind(this)
+      this.state = { openSnack:false};
+
   }
 
   componentWillMount() {
     this.props.triggerLoader(true,null)
     this.props.fetchBTPatternTableData(this.props.params.profileId,this.loader); 
+  }
+  componentWillReceiveProps(){
+    console.log(" state of BTPattern  ----------- >",this.props.BTPattern)
   }
   
   loader(){
@@ -110,28 +115,44 @@ const styles = {
  handleOpen(openBTPatternDialog){
 
     console.log("in handleopen---",openBTPatternDialog)
+    console.log(" this.props.BTPattern.tableData 0-----> ",this.props.BTPattern.tableData)
     //for editing form
+     this.setState({openSnack:false})
     if(openBTPatternDialog == "edit"){
       console.log("editing the App form")
 
       // gets the selected key of table
-      let selectedRow= this.refs.sepTable.refs.table.state.selectedRowKeys;
-      
+      let selectedRow= this.refs.btPatternTable.refs.table.state.selectedRowKeys;
+      console.log(" selected row -----",this.props.BTPattern.tableData)
       if(selectedRow.length == 1)
       {
-        
+        console.log(" selected one  row -----------> ",selectedRow)
+           let selectedRowData = this.props.BTPattern.tableData
+                                  .filter(function(value){
+                                    console.log(" value -->",value.id)
+                                    return value.id === selectedRow[0]
+                                  });
+         console.log(" selected row data -------->",selectedRowData[0])
+        this.props.toggleStateAddBTPattern();
+        this.props.patternInitializeForm(selectedRowData[0],openBTPatternDialog);
+
       }
       else{
         //toster notification: Only one row can be edited
+         this.setState({openSnack:true})
+
       }
 
     }
     else if(openBTPatternDialog == "add"){ //for adding new row
       console.log("adding service entry pts form")
+
        this.props.toggleStateAddBTPattern(); //opens dialog box
+        this.props.patternInitializeForm(null,openBTPatternDialog);
     }
        
   }
+
 
   render() {
 
@@ -143,13 +164,19 @@ const styles = {
               <h4>Bussiness Transaction Pattern(s)</h4>
         </div>
 
-         <DataGrid data = {this.props.BTPattern.tableData} 
+       <IconButton className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+
+         <DataGrid 
+            data = {this.props.BTPattern.tableData} 
             pagination = {false} 
             ref        = "btPatternTable" 
             column     = {columns}
             onClick    = {this.handleClick}
-            onToggle   = {this.onToggle.bind(this)}  />
-
+            onToggle   = {this.onToggle.bind(this)}  
+         
+        />
+   
+         
         <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />
@@ -157,7 +184,14 @@ const styles = {
          <DialogBTPattern profileId ={this.props.params.profileId}/>
           
         </div>
+        
        </div>
+         <Snackbar
+          open={this.state.openSnack}
+          message="No row selected or multiple rows selected"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose}
+        />
        </Paper>
     </div>
     );
@@ -170,6 +204,7 @@ function mapStateToProps(state) {
     BTPattern : state.BTPattern
    
    };
+
 }
 
 //method to dispatch actions to the reducers

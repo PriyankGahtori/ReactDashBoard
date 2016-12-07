@@ -29,20 +29,23 @@ export default class BusinessTransaction extends React.Component {
 	    <div className='row' style= {{'bottom':6,'position': 'relative', color: '#FFF'}}>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
-      		style={{display: 'flex',color:'#FFF'}}
+      		style={{display: 'flex'}}
       		onChange={this.handleChange.bind(this)}
-      		defaultSelected="global" >
+      		defaultSelected="global" 
+          >
 
 	        <RadioButton
 	          value="global"
             label="Global" 
             labelStyle={{'color':'#FFF'}}
-             /> 
+              
+          /> 
         
 	        <RadioButton
 	          value="pattern" 
             label="Pattern"
             labelStyle={{'color':'#FFF'}}
+           
            />
         
 	      </RadioButtonGroup>

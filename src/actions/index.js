@@ -1002,6 +1002,17 @@ export function createConfFile(appId,Keyword,loader)
   };
 }
 
+
+export function patternInitializeForm(data,type){
+console.log(" in pattern initialize form ---data--->",data)
+console.log(" in pattern initialize form ---type--->",type)
+   var patternData = {"data":data, "openBTPatternDialog" : type } 
+   console.log(" patternData ----------->",patternData)
+ return {
+    type: 'PATTERN_INITIALIZE_FORM',
+    payload:patternData
+  };
+}
  /*
   * Action creators for General keywords screen
   * 

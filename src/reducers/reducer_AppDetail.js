@@ -72,15 +72,16 @@ export default function(state = initialState, action) {
       newState.tableData = newState.tableData.filter(function(val){
       console.log("line no 61-------val._links.self.href")
       console.log("val-------",val)
-      if(val.id == action.payload.data.appId){
+      if(val.appId == action.payload.data.appId){
           console.log("condition matched")
-          val.appDesc=action.payload.data.appDesc;
-          val.appHrefName={"href": action.payload.data.appName};
-          val.userName=action.payload.data.userName;
+          val.appDesc = action.payload.data.appDesc;
+          val.appHrefName = {"href": action.payload.data.appName};
+          val.userName = action.payload.data.userName;
+          val.topoName = action.payload.data.topoName ;
       }
       return val;
      })
-     console.log(" newState.tableData ", newState.tableData )
+     console.log(" newState.tableData --", newState.tableData )
     return newState;
 
   default :

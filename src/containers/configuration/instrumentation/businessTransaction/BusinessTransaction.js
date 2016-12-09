@@ -17,16 +17,15 @@ export default class BusinessTransaction extends React.Component {
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
     let routeURL = `${currPath}/${value}`;
     hashHistory.push(routeURL);
-    
   }
 
   render() {
     
     return (   
         <div>
-       <Card style={{'paddingTop':1 ,'paddingLeft':5,'background':'rgba(0,0,0,0.45)', 'color':'#FFF'}}> 
-      <h3 style={{'bottom': 8, 'position': 'relative'}}>Bussiness Transaction Configuration</h3>
-	    <div className='row' style= {{'bottom':6,'position': 'relative', color: '#FFF'}}>
+        <Card style={{'paddingTop':1 ,'paddingLeft':5,'background':'rgba(0,0,0,0.45)', 'color':'#FFF'}}> 
+        <h3 style={{'bottom': 8, 'position': 'relative'}}>Bussiness Transaction Configuration</h3>
+	      <div className='row' style= {{'bottom':6,'position': 'relative', color: '#FFF'}}>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
       		style={{display: 'flex'}}

@@ -15,6 +15,7 @@ import Checkbox from '../../../../components/CheckboxWrapper';
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import {submitKeywordData,initializeInstrException}  from '../../../../actions/index';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+import Snackbar from 'material-ui/Snackbar';
 
 export const fields = [ 'fromRange','toRange','isCpuHogg','isAutoInstrument','fqm'];
 
@@ -41,6 +42,7 @@ componentWillReceiveProps(nextProps)
       if(nextProps.initialData != 0)
       this.setState({putDelayInMethod : true
       });
+    this.state = {openSnackBar:false}
     }
 }
 
@@ -52,7 +54,8 @@ handlePutDelayInMethod(event,isInputChecked){
     }
 
     else
-       this.setState({putDelayInMethod : true})
+       this.setState({putDelayInMethod : true,
+                      openSnackBar:true})
     
   }
 
@@ -140,6 +143,10 @@ handleCancelDisablePutDelay(){
    })
 }
 
+handleRequestClose(){
+  this.setState({openSnackBar:false
+  })
+}
 render() {
 
 const actionsPutDelayDisable =[
@@ -203,6 +210,13 @@ return (
         >
         <FormPutDelayInMethod ref="putDelayInMethodForm" onSubmit ={this.submitForm.bind(this) } />
        </DialogPutDelayInMethod>
+
+        <Snackbar
+          open={this.state.openSnackBar}
+          message="PutDelayInMethod keyword with its default value is enabled now."
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)}
+        />
     	
        <ConfirmDialog
           title="Are you sure want to disable the applied settings?"

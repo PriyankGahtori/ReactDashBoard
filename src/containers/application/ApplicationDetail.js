@@ -27,8 +27,8 @@ import * as actionCreators  from '../../actions/index';
 
 var columns = {
                 "key"  : "appId",
-                "data" : ['Name', 'Description','User Name','LINK'],
-                "field": ['appHrefName', 'appDesc', 'userName','appId']
+                "data" : ['Name', 'Topology','User Name','Description','LINK'],
+                "field": ['appHrefName', 'topoName','userName','appDesc', 'appId']
               }; 
 
 const style = {
@@ -145,7 +145,10 @@ handleClose(){
        
        //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
         this.props.toggleStateDialogNewApp();
+        try{
         this.refs.appTable.refs.table.state.cleanSelected();
+        }catch(ex){
+          console.error("Exception in ApplicationDetail file-",ex)        }
       }
       else{
        

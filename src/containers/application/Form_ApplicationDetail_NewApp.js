@@ -63,7 +63,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {value:this.props.initialData != null ? this.props.initialData.topoId :null}
+    this.state = {value:this.props.initialData != null ? this.props.initialData.topoId :'-1'}
   }
 
   componentWillMount() {
@@ -91,7 +91,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
      <div className ="row" >
      <div className ="col-md-6">
      <TextField
-     hintText="Name"
+     hintText="Na-me"
      floatingLabelText="Name"
      {...appName}
      errorText={appName.touched && appName.error && <div>{appName.error}</div>}
@@ -120,7 +120,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
      </div>
 
      <div className = "col-md-6">
-     
+    
      <DropDownMenu 
      {...topoId}
 
@@ -129,9 +129,9 @@ class Form_ApplicationDetail_NewApp extends React.Component {
      autoWidth={false}
      errorText={topoId.touched && topoId.error && <div>{topoId.error}</div>}
      customOnChange={this.handleChangeTopology.bind(this)} 
-     floatingLabelText="Select Topology"
+     floatingLabelText="Attach Topology"
      >
-
+      <MenuItem value={"-1"} key={"-1"} primaryText={"Select Topology"}/>
      {
       /* Iterate over topology data */
       this.props.data[2].value.map((val, index) => (   

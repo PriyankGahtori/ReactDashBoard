@@ -76,7 +76,7 @@ componentWillReceiveProps(nextProps){
                   <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Instrumentation Profile" rightIcon={<i className="icon config-icon-manage-profile" style={iconStyle} />}/>
                 </div>
                 <div className="col-md-2" style={divStyle}>
-                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="NDE Agent Status" rightIcon={<i className="icon config-icon-agent" style={iconStyle} />}/>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="ND Agent Status" rightIcon={<i className="icon config-icon-agent" style={iconStyle} />}/>
                 </div>
                 <div className="col-md-2" style={divStyle}>
                   <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Auto Discovery" rightIcon={<i className="icon config-icon-setting" style={iconStyle} />}/>

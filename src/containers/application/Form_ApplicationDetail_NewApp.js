@@ -91,7 +91,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
      <div className ="row" >
      <div className ="col-md-6">
      <TextField
-     hintText="Na-me"
+     hintText="Name"
      floatingLabelText="Name"
      {...appName}
      errorText={appName.touched && appName.error && <div>{appName.error}</div>}
@@ -131,7 +131,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
      customOnChange={this.handleChangeTopology.bind(this)} 
      floatingLabelText="Attach Topology"
      >
-      <MenuItem value={"-1"} key={"-1"} primaryText={"Select Topology"}/>
+
      {
       /* Iterate over topology data */
       this.props.data[2].value.map((val, index) => (   

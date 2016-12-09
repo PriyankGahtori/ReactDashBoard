@@ -144,7 +144,7 @@ handleHeaderSelected(event, index, value){
                   value = {this.state.fpDumpMode}
                   autoWidth={false}
                   customOnChange={this.handleChangeFpDumpMode.bind(this)} 
-                  floatingLabelText="Select fp Dump Mode"
+                  floatingLabelText="Select Flowpath Dump Mode"
                   autoScrollBodyContent={true}
                 >
 
@@ -165,7 +165,7 @@ handleHeaderSelected(event, index, value){
                   value = {this.state.headerType}
                   autoWidth={false}
                   customOnChange={this.handleChangeHeaderType.bind(this)} 
-                  floatingLabelText="Select header Type"
+                  floatingLabelText="Select Header Type"
                   autoScrollBodyContent={true}
                 >
                  {               

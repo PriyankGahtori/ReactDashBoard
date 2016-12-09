@@ -22,8 +22,8 @@ import DialogNewInstance from '../profile/attachProfile/DialogAttachProfile_Inst
 
 var columns = {
                 "key"  : "instanceId",
-                "data" : [' Name', ' Description','Profile Name','Id'],
-                "field": ['instanceName', 'instanceDesc','profLink','instanceId']
+                "data" : [' Name', ' Description','Profile Name','enabled','Id'],
+                "field": ['instanceName', 'instanceDesc','profLink','enabled','instanceId']
               }; 
 
 const style = {
@@ -127,6 +127,16 @@ class Instance extends React.Component {
     if(this.props.instanceData != nextProps.instanceData){
       this.setState({instanceData:nextProps.instanceData});
     }
+    if(this.props.params.serverId != nextProps.params.serverId){
+    var serverId = nextProps.params.serverId;
+    var server = this.props.serverData.tableData.filter(function(value){
+                      return value.serverId == serverId ;
+                  })
+    var message = null;
+    this.props.triggerLoader(true , message)
+    this.props.fetchInstanceTableData(serverId,server[0],this.loader);
+  }
+
   }
   
   /* function to trigger event for loading progess bar 

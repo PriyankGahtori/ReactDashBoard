@@ -123,7 +123,7 @@ class Topology extends React.Component {
      var dcId = this.props.params.dcId;
      this.props.fetchTreeTopoRootNode(this.props.params.dcId);
      this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
-     let selectedRowData =  this.props.homeData[0].value.filter(function(value){
+     let selectedRowData =  this.props.appDetail.tableData.filter(function(value){
       return value.dcId == dcId
     })
      this.props.storeAppId(selectedRowData[0].id)
@@ -146,12 +146,10 @@ class Topology extends React.Component {
      var dcId = this.props.params.dcId;
      this.props.fetchTreeTopoRootNode(this.props.params.dcId);
      this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
-     let selectedRowData =  this.props.homeData[0].value.filter(function(value){
+     let selectedRowData =  this.props.appDetail.tableData.filter(function(value){
       return value.dcId == dcId
     })
-     console.log("selectedRowData--in topo screen-",selectedRowData)
      this.props.storeAppId(selectedRowData[0].id)
-
    }
 
 
@@ -164,28 +162,28 @@ class Topology extends React.Component {
  /* function to trigger event for loading progess bar 
   * called when request for fetching home data is sent
   */
- loader(){
-  console.log("topology loader function called")
-   var message = {'title':'Topology data loaded', 'msg' : ''}
-   this.props.triggerLoader(false,null);
-}
+  loader(){
+    console.log("topology loader function called")
+    var message = {'title':'Topology data loaded', 'msg' : ''}
+    this.props.triggerLoader(false,null);
+  }
 
 
 
   render() {
     return (
-    <div>
-       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
-       <div className='row row-no-margin tableheader'>
-          <div className="col-md-10">
-              <h4>Topology Detail</h4>
-          </div>
+      <div>
+      <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
+      <div className='row row-no-margin tableheader'>
+      <div className="col-md-10">
+      <h4>Topology Detail</h4>
+      </div>
 
-          <div className="col-md-2">
-            <IconButton  className="pull-right" onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color= "#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
-            { /*  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
-          </div>
-       </div>
+      <div className="col-md-2">
+      <IconButton  className="pull-right" onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color= "#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+    { /*  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
+    </div>
+    </div>
 
 
     <DataGrid data = {this.props.topologyData.tableData} 
@@ -225,7 +223,8 @@ class Topology extends React.Component {
         return {
           topologyData :state.topologyData,
           treedata : state.treeData,
-          homeData : state.initialData.homeData
+          homeData : state.initialData.homeData,
+          appDetail :state.applicationdata
         };
       }
 

@@ -10,13 +10,13 @@ import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
 //Importing files
-import {ListOfGroupNames} from '../../../../actions/index';
+import {ListOfGroupNames,BTPatternCheck} from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import Toggle from '../../../../components/ToggleWrapper';
 
 
-export const fields = ['btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue','dynamicPartReq' ]
+export const fields = ['enabled','btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue','dynamicPartReq' ]
              
  const validate = values=> {
   const errors = {}
@@ -113,16 +113,19 @@ handleChange(event,index,value){
 
   componentWillReceiveProps(nextProps)
   {
+     
   }
 
 handleCheck(event,value)
 {
   console.log("inside check value - ",value)
-  this.setState({'dynamicReqDiv': value})  
+
+  this.setState({'dynamicReqDiv': value})
+
 }
 
   render() {  
-     const { fields: {btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {enabled,btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
     <div className ="row">
@@ -139,7 +142,7 @@ handleCheck(event,value)
          <Checkbox
          style={styles.checkbox}
          label="Include"
-         {...include}
+           {...enabled}
         />
       </div>
   </div>
@@ -293,7 +296,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     initialData  : state.BTPattern.patternFormInitialData,
 }),
  { 
-  loadGroupNames : ListOfGroupNames
+  loadGroupNames : ListOfGroupNames,
+  BTPatternCheck  : BTPatternCheck
  } // mapDispatchToProps (will bind action creator to dispatch)
 ) (Form_BTPattern);
 

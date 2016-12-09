@@ -238,19 +238,21 @@ onToggle(row){
           <div className="col-md-10">
               <h4>Service Entry Points Detail(s)</h4>
           </div>
-          <div className="col-md-2"  >
-          { /*  <IconButton  tooltip="Edit ServiceEntryPoint" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon className="material-icons">edit_mode</FontIcon></IconButton>
+       
+
+          { /*  <IconButton  tooltip="Edit ServiceEntryPoint" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+          
             <IconButton tooltip="Delete ServiceEntryPoint"  onTouchTap={this.delDialog}><FontIcon className="material-icons">delete</FontIcon></IconButton>
           <IconButton onTouchTap={this.generateFile}><FontIcon className="material-icons">insert_drive_file</FontIcon></IconButton>
           */}
-        </div>
+      
        </div>
         <SepDelDialog  title="Are you sure want to delete the ServiceEntryPoint(s)?"
-                      open= {this.state.sepDialog}
+                      open=  {this.state.sepDialog}
                       actions={actions} 
                       />
 
-        
+
 
         <DataGrid data = {this.props.ServiceEntryPoints.tableData} 
             pagination = {false} 
@@ -260,7 +262,6 @@ onToggle(row){
             onToggle   = {this.onToggle.bind(this)}
          />
         </Paper>
-
 
       <div>
          <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")} >

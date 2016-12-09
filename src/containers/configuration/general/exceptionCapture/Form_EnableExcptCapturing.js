@@ -117,6 +117,7 @@ class Form_EnableExcptcapturing extends React.Component {
                   label = "Instr Exceptions"
                   checked  = {this.state.enableCaptureExceptCheckBox}
                   onCustomChange={this.handleCaptureExceptCheckboxChange.bind(this)}
+                  labelStyle = {{ fontWeight:'normal'}}
               />
         </div>
 
@@ -129,6 +130,7 @@ class Form_EnableExcptcapturing extends React.Component {
                           label = "Capture Exception Stack Trace"
                           checked  = {this.state.captureExceptStackTraceCheckBox}
                           onCustomChange = {this.handleExceptStackTrace.bind(this)}
+                           labelStyle = {{ fontWeight:'normal'}}
                />
             </div>
 
@@ -152,15 +154,18 @@ class Form_EnableExcptcapturing extends React.Component {
               defaultSelected = {this.state.exceptionType}
              // defaultSelected="handledException"
               onCustomChange={this.handleChangeExceptionType.bind(this)}
+
               >
                  
                  <RadioButton
                     value="unhandledException"  
                     label="Unhandled" 
+                     labelStyle = {{ fontWeight:'normal'}}
                  />
                  <RadioButton
                     value="handledException"
-                    label="All"          
+                    label="All"
+                     labelStyle = {{ fontWeight:'normal'}}          
                  />
           </RadioButtonGroup>
         </div>

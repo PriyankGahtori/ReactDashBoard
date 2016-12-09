@@ -963,18 +963,37 @@ export function fetchBTPatternTableData(profileId,loader){
   }
 }
 
-export function addBTPatternData(formData,profileId){
+export function addBTPatternData(formData,profileId,type){
 
- var response = axios({
-  method:'post',
-  url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
-  data: formData,
-  headers:{'Content-Type':'application/json'}
-});
+if(type == 'edit'){
+  var response = axios({
+    method:'put',
+    url: `${url.ADD_NEW_BT_PATTERN_DETAILS}/updateBTPattern/${profileId}/${formData.id}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
 
- return {
-  type : 'ADD_NEW_BT_PATTERN',
-  payload : response
+
+  });
+  return{
+    type: 'UPDATE_BT_PATTERN',
+    payload: response,
+ 
+  }
+
+}
+else{
+   var response = axios({
+    method:'post',
+    url : `${url.ADD_NEW_BT_PATTERN_DETAILS}/${profileId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
+  });
+
+   return {
+    type : 'ADD_NEW_BT_PATTERN',
+    payload : response
+    
+ }
 }
 }
 
@@ -983,6 +1002,7 @@ export function toggleStateAddBTPattern(){
     type:'TOGGLE_STATE_ADD_BT_PATTERN'
   }
 }
+
 
 /* Action creators for generating the nd.conf file */
 
@@ -1004,10 +1024,7 @@ export function createConfFile(appId,Keyword,loader)
 
 
 export function patternInitializeForm(data,type){
-console.log(" in pattern initialize form ---data--->",data)
-console.log(" in pattern initialize form ---type--->",type)
    var patternData = {"data":data, "openBTPatternDialog" : type } 
-   console.log(" patternData ----------->",patternData)
  return {
     type: 'PATTERN_INITIALIZE_FORM',
     payload:patternData
@@ -1031,7 +1048,6 @@ console.log(" in pattern initialize form ---type--->",type)
 }
 
 export function submitKeywordData(data,profileId){
-  console.log("in submitKeywordData  ---put delay method---------->" )
   var response = axios({
     method:'post',
     url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
@@ -1039,7 +1055,6 @@ export function submitKeywordData(data,profileId){
     headers:{'Content-Type':'application/json'}
   });
 
-  console.log("submitKeywordData response--",response)
   return{
     type : 'GET_ALL_KEYWORDS',
     payload : response
@@ -1086,7 +1101,7 @@ export function setDefValBCICapturingKeywords() {
   }
 }
 
-export function enableBCICheckBoxStatus(flag){
+export function ENABLE_BCI_CHECKBOX(flag){
   return{
     type : 'ENABLE_BCI_CHECKBOX',
     payload:flag

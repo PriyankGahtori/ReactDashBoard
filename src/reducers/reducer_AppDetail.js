@@ -39,28 +39,25 @@ export default function(state = initialState, action) {
       
   case 'DEL_APPTABLE_ROW':
     var newState = Object.assign({}, state);
-    console.log("line no 23---",action)
-    console.log("line no 24--newState---",newState)
-    console.log("line no 25--action.payload--",action.payload)
     newState.tableData = newState.tableData.filter(function(val){
-       return action.payload.indexOf(val.id) == -1; //value sto be deleteed should return false
-     })
+       return action.payload.indexOf(val.id) == -1; //value to be deleteed should return false
+     });
     console.log("newState.tableData---",newState.tableData)
     return newState; 
 
   case 'ADD_ROW_APPTABLE':
-    console.log("inside ADD_ROW_TABLE case-application reducer--action.payload.data",action.payload.data);
     var newState = Object.assign({}, state);
     var data =  action.payload.data ;
     data.id=action.payload.data.appId;
     data.appHrefName = {"href" : action.payload.data.appName}
     newState.tableData.push(data);
+    console.log(" newState.tableData -------> ",newState.tableData)
     return newState;
 
   case 'UPDATE_APP_FORM' :
      console.log("update app form");
     var newState = Object.assign({}, state);
-    console.log("in updating form----",action.payload)
+    console.log("in updating form----",action.payload.data)
     console.log("in updating form  flag---",action.payload.openAppDialogType)
     newState.appDetailInitializeForm = action.payload.data;
     newState.openAppDialogType=action.payload.openAppDialogType;
@@ -81,8 +78,6 @@ export default function(state = initialState, action) {
           val.appHrefName={"href": action.payload.data.appName};
           val.userName=action.payload.data.userName;
       }
-
-
       return val;
      })
      console.log(" newState.tableData ", newState.tableData )

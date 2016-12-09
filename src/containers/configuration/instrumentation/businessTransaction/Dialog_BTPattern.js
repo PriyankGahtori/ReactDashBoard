@@ -31,18 +31,39 @@ class Dialog_BTPattern extends React.Component {
   }
 
  submitForm(data){
-  console.log(" data in submit of btpattern ------")
-  this.props.addBTPatternData(data,this.props.profileId)
-  this.handleCancel();
+    console.log("data of BTPaTTERn b4 appending--->",data);
+   
+   console.log("data after apending --->",data)
+    if(this.props.BTPattern.openBTPatternDialog == "edit"){
+        console.log(" data.enabled ----> ",data.enabled)
+       data["id"] = this.props.BTPattern.patternFormInitialData.id
+       data["paramKeyValue"] = `${data.reqParamKey}=${data.reqParamValue}` 
+       data["headerKeyValue"] = `${data.reqHeaderKey}=${data.reqHeaderValue}` 
+        data['include'] = data.enabled ? 'include' : 'exclude';
+        console.info("new data----------->",data)
+      this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
+      this.handleCancel();
+  }
+  else{
+      data['include'] = data.enabled  ? 'include' : 'exclude';
+      console.log(" data  ------ > ",data)
+      this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
+      this.handleCancel();
+  }
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps",this.props.BTPattern);
+    console.log("inside componentWillReceiveProps",nextProps.BTPattern.openBTPatternDialog);
 
     if(this.props.BTPattern != nextProps.BTPattern)
       this.setState({BTPattern:nextProps.BTPattern});
-     console.log("this.state.title --------> ",nextProps.BTPattern) 
+    if(nextProps.BTPattern.openBTPatternDialog == "edit")
+
+      this.setState({title:"Edit BT Pattern"})
+    else
+      this.setState({title:"ADD BT Pattern"})
+    
 
   }
 
@@ -98,7 +119,7 @@ class Dialog_BTPattern extends React.Component {
 } 
 
 function mapStateToProps(state) {
-  console.log("BTPattern---",state.BTPattern.openNewBTPatternDialog)
+  console.log("BTPattern--data -----------",state.BTPattern)
   return {
     BTPattern : state.BTPattern
    };

@@ -17,6 +17,23 @@ import Checkbox from '../../../../components/CheckboxWrapper';
 
 export const fields = ["uriType","segmentType","segmentValue","slowTransaction","verySlowTransaction","dynamicReqType","dynamicReqValue","requestParam","httpMethod","requestHeader"];
 
+const validate = values=>{
+      const errors = {}
+     
+      if(!values.slowTransaction)
+        errors.slowTransaction = 'Required'
+
+     else if (isNaN(values.slowTransaction))
+        errors.slowTransaction = 'Please Enter Only Numbers'
+
+      if(!values.verySlowTransaction)
+        errors.verySlowTransaction = 'Required'
+
+     else if (isNaN(values.verySlowTransaction))
+       errors.verySlowTransaction = 'Please Enter Only Numbers'
+
+       return errors;
+}
 class GlobalBusinessTransaction extends React.Component {
 
   constructor(props) {
@@ -134,6 +151,7 @@ loader(){
         <TextField      	 
           {...segmentValue}	 
           floatingLabelText="Segments of URI in Transaction"
+
         />        
       </div>
 
@@ -141,12 +159,15 @@ loader(){
          <TextField        
             {...slowTransaction}  
             floatingLabelText="Slow Transaction Threshold (ms)"
-          /> 
+          errorText = {slowTransaction.touched && slowTransaction.error }/> 
 
            <TextField        
             {...verySlowTransaction}  
             floatingLabelText="Very Slow Transaction Threshold (ms)"
-          />  
+            style= {{width:280}}
+           errorText = {verySlowTransaction.touched &&  verySlowTransaction.error }
+
+              />  
       </div>
 
 {/*---------------------Dynamic Request Type--------------------------*/}
@@ -235,7 +256,8 @@ GlobalBusinessTransaction.propTypes = {
 
 export default reduxForm({
   form: 'globalBT',
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
   initialValues:state.BTGlobal.btGlobalInitialize, //used by redux-form
@@ -245,5 +267,6 @@ export default reduxForm({
    initializeBTFields : initializeBTFields,
    addBTData          : addBTData,
    triggerLoader      : triggerLoader,
+
  } // mapDispatchToProps (will bind action creator to dispatch)
 )(GlobalBusinessTransaction);

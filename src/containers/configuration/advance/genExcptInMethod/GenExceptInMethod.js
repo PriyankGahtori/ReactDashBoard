@@ -242,7 +242,7 @@ render() {
 		label = "Generate Exception In Method"
 		checked  = {this.state.genExcptInMethod}
 		onCustomChange={this.handleGenExcptInMethod.bind(this)}/>
-		<i style={{paddingLeft:40}}> (Enable Exception generation in certain method)</i>
+		<i style={{paddingLeft:40}}> Enable Exception generation in certain method</i>
 		</div>
 		<div>
 		<FlatButton className = "col-md-4" 

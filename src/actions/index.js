@@ -180,7 +180,7 @@ export function delAppTableRow(selectedRowKeys){
   console.log("selectedRowKeys----",selectedRowKeys)
   selectedRowKeys.forEach(value => 
   {
-   console.log("value--",value)
+   console.log("value-of deleting application-",value)
    axios({
     method : 'delete',
     url : `${url.DEL_ROW_APP_URL}/${value}`

@@ -77,8 +77,6 @@ handleConfirm(){
 
 handleHref(row){
   var selectedRowData = this.props.appDetail.tableData.filter(function(value){
-                                      console.log("value----",value)
-                                      console.log("value.appId === row.appId--",value.appId === row.appId)
                                       if(value.appId === row.appId)
                                         return value;
                                     });

@@ -16,52 +16,33 @@ export default function(state = initialState, action) {
 
     case 'FETCH_BT_PATTERN_TABLEDATA':
       var newState = Object.assign({}, state);
-      console.log("action.payload.data----",action.payload.data)
       newState.tableData=action.payload.data;
-      console.log("newState---",newState.tableData)
       newState.tableData.map(function(value){
-        console.log("in FETCH_BT_PATTERN_TABLEDATA--",value)
         value.enabled  = value.include == 'include' ?  true : false;
        })
-      console.log("newState ------------> " ,newState)
       return newState;
 
     case 'TOGGLE_STATE_ADD_BT_PATTERN':
       var newState = Object.assign({}, state);
-      console.log("newState.openNewBTPatternDialog--",newState.openNewBTPatternDialog)
       newState.openNewBTPatternDialog= !newState.openNewBTPatternDialog;
-      console.log("newState.openNewBTPatternDialog---",newState.openNewBTPatternDialog)
       return newState;
 
     case 'ADD_NEW_BT_PATTERN' :
-         console.log("in reducer of adding new bt pattern---payloaf--",action.payload.data)
-         var newState = Object.assign({},state);
-         //console.log("newState----",newState)
+        var newState = Object.assign({},state);
         let resData = action.payload.data;
-        console.log("chkinh include--",resData.include == 'include')
         resData.enabled  = resData.include == 'include' ?  true : false;
-        console.log("resData--",resData)
         newState.tableData.push(resData)
-
-         console.log("newState.tableData--adding new bt pattern-",newState.tableData)
-         return newState;
+        return newState;
 
      case 'PATTERN_INITIALIZE_FORM':
        var newState = Object.assign({},state);
-         console.log(" in pattern iitialize form ----------->reducer",newState.tableData)
-         console.log(" action.payload ------> ",action.payload)
-         newState.patternFormInitialData = action.payload.data
-         console.log(" pattern initial data -----> ", newState.patternFormInitialData)
-         newState.openBTPatternDialog = action.payload.openBTPatternDialog
-
-     return newState;
+       newState.patternFormInitialData = action.payload.data
+       newState.openBTPatternDialog = action.payload.openBTPatternDialog
+       return newState;
 
      case 'UPDATE_BT_PATTERN':
-        console.log(" in reducer BT Pattern ------------>")
        var newState = Object.assign({},state);
-         newState.tableData = newState.tableData.filter(function(value){
-            console.log(" value id ------->",value.id)
-            console.log(" action.payload.data.id  --->  ",action.payload.data.id)
+       newState.tableData = newState.tableData.filter(function(value){
           if(value.id == action.payload.data.id){
             value.btName        = action.payload.data.btName
             value.urlName       = action.payload.data.urlName
@@ -73,14 +54,10 @@ export default function(state = initialState, action) {
             value.reqMethod      = action.payload.data.reqMethod
             value.include        = action.payload.data.include
             value.enabled        = action.payload.data.include == 'include' ? true : false
+            value.dynamicPartReq =  action.payload.data.dynamicPartReq ;
            }
-            console.log("action.payload.data.include----------> in reducer", action.payload.data.include)
-          /* if(value.include == 'include'){
-            value.include = true;
-*/           return value;
+           return value;
        });
-      console.log(" action.payload.data.include ---> ",action.payload.data.include)
-      console.log(" new table data --------------> ",newState.tableData)
      return newState;
   }
   return state;

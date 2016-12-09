@@ -17,77 +17,77 @@ import Toggle from '../../../../components/ToggleWrapper';
 
 
 export const fields = ['enabled','btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue','dynamicPartReq' ]
-             
- const validate = values=> {
+
+const validate = values=> {
   const errors = {}
 
   if(!values.btName) 
-     errors.btName = 'Required'
+   errors.btName = 'Required'
 
-  else if (values.btName.length > 50) 
-    errors.btName = "Must be 50 characters or less"
-  
+ else if (values.btName.length > 50) 
+  errors.btName = "Must be 50 characters or less"
 
-  if(!values.slowTransaction) 
-    errors.slowTransaction = 'Required'
 
-   else if (isNaN(values.slowTransaction))
-    errors.slowTransaction = 'Please Enter Only Numbers'
+if(!values.slowTransaction) 
+  errors.slowTransaction = 'Required'
 
-   if(!values.verySlowTransaction) 
-    errors.verySlowTransaction = 'Required'
+else if (isNaN(values.slowTransaction))
+  errors.slowTransaction = 'Please Enter Only Numbers'
 
-   else if (isNaN(values.verySlowTransaction))
-    errors.verySlowTransaction = 'Please Enter Only Numbers'
+if(!values.verySlowTransaction) 
+  errors.verySlowTransaction = 'Required'
 
-    if(!values.urlName) 
-    errors.urlName = 'Required'
+else if (isNaN(values.verySlowTransaction))
+  errors.verySlowTransaction = 'Please Enter Only Numbers'
 
-   else if (values.urlName.length > 300) 
-    errors.urlName = 'Must be 300 characters or less'
+if(!values.urlName) 
+  errors.urlName = 'Required'
 
-    if(!values.matchType) 
-    errors.matchType = 'Required'
+else if (values.urlName.length > 300) 
+  errors.urlName = 'Must be 300 characters or less'
 
-    if(values.dynamicPartReq)
-    {
-      console.log("value of dynamic part req -------------->",values.dynamicPartReq)
-       if(!values.reqParamKey) 
-       errors.reqParamKey = 'Required'
+if(!values.matchType) 
+  errors.matchType = 'Required'
 
-      if(!values.reqParamValue) 
-      errors.reqParamValue = 'Required'
+if(values.dynamicPartReq)
+{
+  console.log("value of dynamic part req -------------->",values.dynamicPartReq)
+  if(!values.reqParamKey) 
+   errors.reqParamKey = 'Required'
 
-      if(!values.reqHeaderKey) 
-       errors.reqHeaderKey = 'Required'
+ if(!values.reqParamValue) 
+  errors.reqParamValue = 'Required'
 
-      if(!values.reqHeaderValue) 
-      errors.reqHeaderValue = 'Required'
+if(!values.reqHeaderKey) 
+ errors.reqHeaderKey = 'Required'
 
-       if(!values.reqMethod) 
-      errors.reqMethod = 'Required'
-    }
+if(!values.reqHeaderValue) 
+  errors.reqHeaderValue = 'Required'
 
-  return errors
- }
+if(!values.reqMethod) 
+  errors.reqMethod = 'Required'
+}
+
+return errors
+}
 const styles = {
-   
+
   block: {
     maxWidth: 250,
     paddingBottom:5
   },
-   toggle: {
-      marginTop:30 ,
-      paddingLeft:80
+  toggle: {
+    marginTop:30 ,
+    paddingLeft:80
   },
   customWidth: {
-      width: 200
-    },
+    width: 200
+  },
   checkbox: {
     marginBottom: 16,
     paddingTop:35
   },
-   error:{
+  error:{
     fontSize: 12,
     color: 'red' 
   },
@@ -97,184 +97,186 @@ const styles = {
 class Form_BTPattern extends React.Component {
 
   constructor(props) {
-  super(props);
-  this.handleChange=this.handleChange.bind(this);
-  this.state ={enable:false}
-  this.state ={'dynamicReqDiv': false}
-  this.state ={BTPattern:null}
-  }
+    super(props);
+    this.handleChange=this.handleChange.bind(this);
+    this.state ={enable:false}
+    this.state ={'dynamicReqDiv': false}
+    this.state ={BTPattern:null,
+                 dynamicPartReq :this.props.initialData != null ? this.props.initialData.dynamicPartReq : false 
+   }
+   console.log("dynamicPartReq---",this.state.dynamicPartReq)
 
-handleChange(event,index,value){  
+ }
 
+ handleChange(event,index,value){  
+
+ }
+
+ componentWillMount() {
+ }
+
+ componentWillReceiveProps(nextProps){
+
+/*  if(this.props.initialData != nextProps.initialData)
+    this.setState({dynamicPartReq : nextProps.initialData.dynamicPartReq})*/
 }
 
-  componentWillMount() {
-  }
-
-  componentWillReceiveProps(nextProps)
-  {
-     
-  }
-
-handleCheck(event,value)
-{
-  console.log("inside check value - ",value)
-
-  this.setState({'dynamicReqDiv': value})
-
+handleCheck(event,value){
+  this.setState({'dynamicPartReq': value})
 }
 
-  render() {  
-     const { fields: {enabled,btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
-  return (
-    <form>
-    <div className ="row">
-        <div className ="col-md-8">
-          <TextField
+render() {  
+ const { fields: {enabled,btName,include,matchType,urlName,slowTransaction,verySlowTransaction,reqParamKey,reqParamValue,reqMethod,reqHeaderKey,reqHeaderValue,dynamicPartReq}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+ return (
+  <form>
+  <div className ="row">
+  <div className ="col-md-8">
+  <TextField
               // hintText="Hint Text"
-               floatingLabelText="Bussiness Transaction Name"
-               {...btName}
-               errorText={btName.touched && btName.error && <div>{btName.error}</div>}/>   
+              floatingLabelText="Bussiness Transaction Name"
+              {...btName}
+              errorText={btName.touched && btName.error && <div>{btName.error}</div>}/>   
 
-          
-       </div>
-         <div className ="col-md-4">
-         <Checkbox
-         style={styles.checkbox}
-         label="Include"
-           {...enabled}
-        />
-      </div>
-  </div>
 
-    <div className ="row">
-      <div className ="col-md-4">
-          <DropDownMenu
-            value={this.state.value}
-            onChange={this.handleChange}
-            style={styles.customWidth}
-            autoWidth={false}
-            floatingLabelText="Select type"
-            {...matchType}
-           
-          >
-            <MenuItem value={"Exact Match"} primaryText="Exact Match" />
-            <MenuItem value={"Starts With"} primaryText="Starts With" />
-          </DropDownMenu>
-          <div style={styles.error}>  {matchType.touched && matchType.error && <div>{matchType.error} </div> } </div>
+              </div>
+              <div className ="col-md-4">
+              <Checkbox
+              style={styles.checkbox}
+              label="Include"
+              {...enabled}
+              />
+              </div>
+              </div>
 
-      </div>
-      <div className ="col-md-6">
-         <TextField
+              <div className ="row">
+              <div className ="col-md-4">
+              <DropDownMenu
+              value={this.state.value}
+              onChange={this.handleChange}
+              style={styles.customWidth}
+              autoWidth={false}
+              floatingLabelText="Select type"
+              {...matchType}
+
+              >
+              <MenuItem value={"Exact Match"} primaryText="Exact Match" />
+              <MenuItem value={"Starts With"} primaryText="Starts With" />
+              </DropDownMenu>
+              <div style={styles.error}>  {matchType.touched && matchType.error && <div>{matchType.error} </div> } </div>
+
+              </div>
+              <div className ="col-md-6">
+              <TextField
         // hintText="Hint Text"
-         floatingLabelText="URL"
-         {...urlName}
-          errorText={urlName.touched && urlName.error && <div>{urlName.error}</div>}/>   
+        floatingLabelText="URL"
+        {...urlName}
+        errorText={urlName.touched && urlName.error && <div>{urlName.error}</div>}/>   
         </div>
-    
-     </div>
 
-     <div className ="row">
+        </div>
+
+        <div className ="row">
         <div className="col-md-6">
-         <TextField        
-            {...slowTransaction} 
-             style={{'width':'300'}} 
-            floatingLabelText="Slow Transaction Threshold (ms)"
-            errorText={slowTransaction.touched && slowTransaction.error && <div>{slowTransaction.error}</div>}/>   
+        <TextField        
+        {...slowTransaction} 
+        style={{'width':'300'}} 
+        floatingLabelText="Slow Transaction Threshold (ms)"
+        errorText={slowTransaction.touched && slowTransaction.error && <div>{slowTransaction.error}</div>}/>   
 
-         </div>
-         <div className="col-md-6">
-           <TextField        
-            {...verySlowTransaction} 
-             style={{'width':'310'}}
-            floatingLabelText="Very Slow Transaction Threshold (ms)"
-            errorText={verySlowTransaction.touched && verySlowTransaction.error && <div>{verySlowTransaction.error}</div>}/>   
-       
-      </div>
+        </div>
+        <div className="col-md-6">
+        <TextField        
+        {...verySlowTransaction} 
+        style={{'width':'310'}}
+        floatingLabelText="Very Slow Transaction Threshold (ms)"
+        errorText={verySlowTransaction.touched && verySlowTransaction.error && <div>{verySlowTransaction.error}</div>}/>   
+
+        </div>
 
 
-     </div>
-     
-     <div className="row">
-      <Checkbox
-              {...dynamicPartReq}
-           style={styles.checkbox}
-           label="Dynamic part Request"
-           onCustomChange={this.handleCheck.bind(this)}
-           />
-     </div>
+        </div>
 
-     <div className={this.state.dynamicReqDiv === true ? 'show' :'hidden'}>
+        <div className="row">
+        <Checkbox
+        {...dynamicPartReq}
+        style={styles.checkbox}
+        checked  = {this.state.dynamicPartReq}
+        label="Dynamic part Request"
+        onCustomChange={this.handleCheck.bind(this)}
+        />
+        </div>
 
-     <div className="row">
-       <div className ="col-md-6">
-       <TextField
-          // hintText="Hint Text"
-           floatingLabelText="Request Parameter key"
-           {...reqParamKey}
-         errorText={reqParamKey.touched && reqParamKey.error && <div>{reqParamKey.error}</div>}/>   
+        <div className={this.state.dynamicPartReq === true ? 'show' :'hidden'}>
+
+        <div className="row">
+        <div className ="col-md-6">
+        <TextField
+        // hintText="Hint Text"
+        floatingLabelText="Request Parameter key"
+        {...reqParamKey}
+        errorText={reqParamKey.touched && reqParamKey.error && <div>{reqParamKey.error}</div>}/>   
 
         </div>
         
         <div className ="col-md-4">
-       <TextField
+        <TextField
           // hintText="Hint Text"
-           floatingLabelText=" = Value"
-           {...reqParamValue}
-           errorText={reqParamValue.touched && reqParamValue.error && <div>{reqParamValue.error}</div>}/>   
+          floatingLabelText=" = Value"
+          {...reqParamValue}
+          errorText={reqParamValue.touched && reqParamValue.error && <div>{reqParamValue.error}</div>}/>   
 
           
-        </div>
-     
-     </div>
+          </div>
 
-  <div className="row">
-       <div className ="col-md-4">
+          </div>
+
+          <div className="row">
+          <div className ="col-md-4">
           <DropDownMenu
-            value={this.state.value}
-            onChange={this.handleChange}
-            style={styles.customWidth}
-            autoWidth={false}
-            floatingLabelText="Select Method type"
-            {...reqMethod}
+          value={this.state.value}
+          onChange={this.handleChange}
+          style={styles.customWidth}
+          autoWidth={false}
+          floatingLabelText="Select Method type"
+          {...reqMethod}
           >
-            <MenuItem value={"GET"} primaryText="GET" />
-            <MenuItem value={"PUT"} primaryText="PUT" />
-            <MenuItem value={"POST"} primaryText="POST" />
-            <MenuItem value={"DELETE"} primaryText="DELETE" />
-            <MenuItem value={"HEAD"} primaryText="HEAD" />
-            <MenuItem value={"TRACE"} primaryText="TRACE" />
-            <MenuItem value={"CONNECT"} primaryText="CONNECT" />
-            <MenuItem value={"OPTIONS"} primaryText="OPTIONS" />
+          <MenuItem value={"GET"} primaryText="GET" />
+          <MenuItem value={"PUT"} primaryText="PUT" />
+          <MenuItem value={"POST"} primaryText="POST" />
+          <MenuItem value={"DELETE"} primaryText="DELETE" />
+          <MenuItem value={"HEAD"} primaryText="HEAD" />
+          <MenuItem value={"TRACE"} primaryText="TRACE" />
+          <MenuItem value={"CONNECT"} primaryText="CONNECT" />
+          <MenuItem value={"OPTIONS"} primaryText="OPTIONS" />
           </DropDownMenu>
-     <div style = {styles.error}> {reqMethod.touched && reqMethod.error && <div>{reqMethod.error} </div> }</div>
+          <div style = {styles.error}> {reqMethod.touched && reqMethod.error && <div>{reqMethod.error} </div> }</div>
 
-      </div>
-  </div>
+          </div>
+          </div>
 
-    <div className="row">
-     <div className ="col-md-6">
-     <TextField
+          <div className="row">
+          <div className ="col-md-6">
+          <TextField
+          // hintText="Hint Text"
+          floatingLabelText="Request Header key"
+          {...reqHeaderKey}
+          errorText={reqHeaderKey.touched && reqHeaderKey.error && <div>{reqHeaderKey.error}</div>}/>   
+          </div>
+
+          <div className ="col-md-6">
+          <TextField
         // hintText="Hint Text"
-         floatingLabelText="Request Header key"
-         {...reqHeaderKey}
-         errorText={reqHeaderKey.touched && reqHeaderKey.error && <div>{reqHeaderKey.error}</div>}/>   
-      </div>
+        floatingLabelText="=Value"
+        {...reqHeaderValue}
+        errorText={reqHeaderValue.touched && reqHeaderValue.error && <div>{reqHeaderValue.error}</div>}/>   
+        </div>
 
-      <div className ="col-md-6">
-     <TextField
-        // hintText="Hint Text"
-         floatingLabelText="=Value"
-         {...reqHeaderValue}
-         errorText={reqHeaderValue.touched && reqHeaderValue.error && <div>{reqHeaderValue.error}</div>}/>   
-      </div>
-     
-      </div>
-     
-     </div>
-    </form>
-    );
-  }
+        </div>
+
+        </div>
+        </form>
+        );
+}
 }
 
 Form_BTPattern.propTypes = {
@@ -293,11 +295,11 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
     BTPattern : state.BTPattern,
     initialValues:state.BTPattern.patternFormInitialData,
-    initialData  : state.BTPattern.patternFormInitialData,
-}),
- { 
-  loadGroupNames : ListOfGroupNames,
-  BTPatternCheck  : BTPatternCheck
+    initialData  : state.BTPattern.patternFormInitialData
+  }),
+  { 
+    loadGroupNames : ListOfGroupNames,
+    BTPatternCheck  : BTPatternCheck
  } // mapDispatchToProps (will bind action creator to dispatch)
-) (Form_BTPattern);
+ ) (Form_BTPattern);
 

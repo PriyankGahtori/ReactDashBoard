@@ -78,7 +78,7 @@ const styles = {
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
      this.loader = this.loader.bind(this)
-      this.state = { openSnack:false};
+     this.state = { openSnack:false};
 
   }
 
@@ -86,8 +86,8 @@ const styles = {
     this.props.triggerLoader(true,null)
     this.props.fetchBTPatternTableData(this.props.params.profileId,this.loader); 
   }
+
   componentWillReceiveProps(){
-    console.log(" state of BTPattern  ----------- >",this.props.BTPattern)
   }
   
   loader(){
@@ -102,39 +102,29 @@ const styles = {
   }
 
   handleCancel(){
-    console.log("inside handle cancel")
     // this.props.toggleStateAddBTPattern();
   }
 
  handleCheck(event,value){
-    console.log("inside handle check")
    
   };
  
 
  handleOpen(openBTPatternDialog){
 
-    console.log("in handleopen---",openBTPatternDialog)
-    console.log(" this.props.BTPattern.tableData 0-----> ",this.props.BTPattern.tableData)
     //for editing form
      this.setState({openSnack:false})
     if(openBTPatternDialog == "edit"){
-      console.log("editing the App form")
 
       // gets the selected key of table
       let selectedRow= this.refs.btPatternTable.refs.table.state.selectedRowKeys;
-      console.log(" selected row -----",this.props.BTPattern.tableData)
       if(selectedRow.length == 1)
       {
-        console.log(" selected one  row -----------> ",selectedRow)
-           let selectedRowData = this.props.BTPattern.tableData
+       let selectedRowData = this.props.BTPattern.tableData
                                   .filter(function(value){
-                                    console.log(" value -->",value.id)
                                     return value.id === selectedRow[0]
                                   });
-         console.log(" selected row data -------->",selectedRowData[0])
         this.props.toggleStateAddBTPattern();
-
         this.props.patternInitializeForm(selectedRowData[0],openBTPatternDialog);
       }
       else{
@@ -143,9 +133,8 @@ const styles = {
       }
     }
     else if(openBTPatternDialog == "add"){ //for adding new row
-      console.log("adding service entry pts form")
        this.props.toggleStateAddBTPattern(); //opens dialog box
-        this.props.patternInitializeForm(null,openBTPatternDialog);
+       this.props.patternInitializeForm(null,openBTPatternDialog);
     }
        
   }

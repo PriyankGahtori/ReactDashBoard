@@ -31,22 +31,19 @@ class Dialog_BTPattern extends React.Component {
   }
 
  submitForm(data){
-    console.log("data of BTPaTTERn b4 appending--->",data);
    
    console.log("data after apending --->",data)
     if(this.props.BTPattern.openBTPatternDialog == "edit"){
-        console.log(" data.enabled ----> ",data.enabled)
+
        data["id"] = this.props.BTPattern.patternFormInitialData.id
        data["paramKeyValue"] = `${data.reqParamKey}=${data.reqParamValue}` 
        data["headerKeyValue"] = `${data.reqHeaderKey}=${data.reqHeaderValue}` 
-        data['include'] = data.enabled ? 'include' : 'exclude';
-        console.info("new data----------->",data)
-      this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
-      this.handleCancel();
+       data['include'] = data.enabled ? 'include' : 'exclude';
+       this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
+       this.handleCancel();
   }
   else{
       data['include'] = data.enabled  ? 'include' : 'exclude';
-      console.log(" data  ------ > ",data)
       this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
       this.handleCancel();
   }
@@ -54,17 +51,14 @@ class Dialog_BTPattern extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps",nextProps.BTPattern.openBTPatternDialog);
 
     if(this.props.BTPattern != nextProps.BTPattern)
       this.setState({BTPattern:nextProps.BTPattern});
-    if(nextProps.BTPattern.openBTPatternDialog == "edit")
 
+    if(nextProps.BTPattern.openBTPatternDialog == "edit")
       this.setState({title:"Edit BT Pattern"})
     else
       this.setState({title:"ADD BT Pattern"})
-    
-
   }
 
   handleCancel(){

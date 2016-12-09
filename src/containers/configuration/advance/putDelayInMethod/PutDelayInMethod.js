@@ -188,7 +188,7 @@ return (
               value="putDelayInMethod"
               checked  = {this.state.putDelayInMethod}
               onCustomChange={this.handlePutDelayInMethod.bind(this)}    />
-            <i style={{paddingLeft:40}}>(Add delay in any specified method using instrumentation)</i>
+            <i style={{paddingLeft:40}}>Add delay in any specified method using instrumentation</i>
             </div>
           
          <div>

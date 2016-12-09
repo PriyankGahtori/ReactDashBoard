@@ -54,7 +54,6 @@ class ApplicationDetail extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in DCDetail.js--",this.props)
   
   this.delRow = this.delRow.bind(this);
   this.state ={openNewAppDialog:false} //
@@ -80,7 +79,6 @@ handleHref(row){
                                       if(value.appId === row.appId)
                                         return value;
                                     });
-  console.log("dcId----",selectedRowData)
   /* commenting below line in order to implement design of temporary removing dcScreen from the gui
   */
 
@@ -97,6 +95,8 @@ createConfFile(){
                                      .filter(function(value){
                                      return value.appId === selectedRow[0]
                                     });
+
+ 
     //triggering action to display Loader
     var message = {'title' :'Generating nd.conf' ,'msg':''};
     this.props.triggerLoader(true , message)
@@ -112,6 +112,7 @@ handleClose(){
     var selectedRowKeys=[];
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
     this.props.delAppTableRow(selectedRowKeys)
+    
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();
   }
@@ -133,12 +134,12 @@ handleClose(){
       
       if(selectedRow.length == 1)
       {
+
         this.setState({openSnack:false})
         let selectedRowData = this.props.appDetail.tableData
                                   .filter(function(value){
                                     return value.appId === selectedRow[0]
                                   });
-
         //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
         this.props.appDetailInitializeForm(selectedRowData[0],openAppDialogType);
        
@@ -266,7 +267,6 @@ handleClose(){
 }
 
 function mapStateToProps(state) {
-  console.log("appDetail---",state.applicationdata.tableData)
   return {
     appDetail :state.applicationdata,
     getAllKeywordData :state.Keywords

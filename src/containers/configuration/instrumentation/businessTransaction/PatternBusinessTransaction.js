@@ -134,19 +134,16 @@ const styles = {
                                   });
          console.log(" selected row data -------->",selectedRowData[0])
         this.props.toggleStateAddBTPattern();
-        this.props.patternInitializeForm(selectedRowData[0],openBTPatternDialog);
 
+        this.props.patternInitializeForm(selectedRowData[0],openBTPatternDialog);
       }
       else{
         //toster notification: Only one row can be edited
          this.setState({openSnack:true})
-
       }
-
     }
     else if(openBTPatternDialog == "add"){ //for adding new row
       console.log("adding service entry pts form")
-
        this.props.toggleStateAddBTPattern(); //opens dialog box
         this.props.patternInitializeForm(null,openBTPatternDialog);
     }
@@ -164,10 +161,10 @@ const styles = {
               <h4>Bussiness Transaction Pattern(s)</h4>
         </div>
 
-       <IconButton className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-
+       <IconButton tooltip = "Edit BT Pattern" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+      
          <DataGrid 
-            data = {this.props.BTPattern.tableData} 
+            data       = {this.props.BTPattern.tableData} 
             pagination = {false} 
             ref        = "btPatternTable" 
             column     = {columns}
@@ -176,7 +173,6 @@ const styles = {
          
         />
    
-         
         <div>
          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />

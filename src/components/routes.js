@@ -61,7 +61,7 @@ export default class routes extends React.Component {
               {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -92,7 +92,7 @@ export default class routes extends React.Component {
               {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -124,7 +124,7 @@ export default class routes extends React.Component {
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -155,7 +155,7 @@ export default class routes extends React.Component {
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -186,7 +186,7 @@ export default class routes extends React.Component {
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
@@ -213,7 +213,7 @@ export default class routes extends React.Component {
           
           <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
            
               <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
@@ -239,7 +239,7 @@ export default class routes extends React.Component {
 
         <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
            <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-           <Route name = "Backend Detection" path ="backenddetection" component = {BackendDetection}/>
+           <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
            
            <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
             <IndexRoute name="Global" component={GlobalBT} />

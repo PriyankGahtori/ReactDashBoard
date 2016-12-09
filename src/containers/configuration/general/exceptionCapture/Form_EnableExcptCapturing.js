@@ -140,7 +140,7 @@ class Form_EnableExcptcapturing extends React.Component {
                       {...stackTraceDepthValue}
                       hintText = "0-9999"
                       floatingLabelText = "Stack Trace Depth"
-                      onChange = {this.handleChange}
+                     
                     />
             </div>
            

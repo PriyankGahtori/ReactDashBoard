@@ -714,6 +714,25 @@ export function attachProfToInstance(data){
     payload:response
   }
 }
+
+export function updateInstanceEnabled(row,runTimeChange){
+   var response = axios({
+    method: 'put',
+    url : `${url.TOGGLED_INSTANCE_STATE}/${row.instanceId}/${row.enabled}`,
+
+  });
+   //trigger callback function for runtime change, when promise resolves
+   response.then(function(data){    
+    runTimeChange();
+  });
+
+   return {
+    type : 'TOGGLE_STATE_INSTANCE',
+    payload : response
+  }
+
+}
+
 /*
 * Action creators for service entry points
 *

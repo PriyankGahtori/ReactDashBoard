@@ -63,7 +63,7 @@ export default class routes extends React.Component {
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-                <IndexRoute name="Global" component={GlobalBT} />
+                  <Route name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />

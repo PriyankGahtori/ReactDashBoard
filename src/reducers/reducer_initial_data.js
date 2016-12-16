@@ -7,12 +7,8 @@ export default function(state = initialState, action) {
 
   switch(action.type) {
     case 'FETCH_INIT_DATA':
-    console.log("inside FETCH_INIT_DATA case");
     var newState = Object.assign({}, state);
-    console.log("action.payload.data in reducerinitdata---",action.payload.data)
-    console.log("action.payload.data in reducerinitdata---",action.payload.data)
     let trStatus = action.payload.data.trData.status;
-
     newState=action.payload.data;
     newState.trData.switch = trStatus == null ? false : trStatus;
     return newState;
@@ -24,9 +20,21 @@ export default function(state = initialState, action) {
 
     case 'APP_ID':
     var newState = Object.assign({},state)
-    console.log("action.apyload---",action.payload)
     newState.appId = action.payload;
     return newState ;
+
+    case 'ADD_ROW_APPTABLE':
+    var newState = Object.assign({},state)
+    console.log("newState--in home initial data--",newState)
+    console.log("in home initial data---",action.payload.data)
+    var respData = action.payload.data ;
+    var newApp = {'dcId' : respData.dcId,
+                   'id'  : respData.id,
+                   'name' : respData.appName
+    }
+    newState.homeData[0].value.push(newApp)
+    return newState;
+
 
   }
 

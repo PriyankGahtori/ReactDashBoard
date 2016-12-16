@@ -123,7 +123,7 @@ class Topology extends React.Component {
      var dcId = this.props.params.dcId;
      this.props.fetchTreeTopoRootNode(this.props.params.dcId);
      this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
-     let selectedRowData =  this.props.appDetail.tableData.filter(function(value){
+     let selectedRowData =  this.props.homeData[0].value.filter(function(value){
       return value.dcId == dcId
     })
      this.props.storeAppId(selectedRowData[0].id)
@@ -146,9 +146,10 @@ class Topology extends React.Component {
      var dcId = this.props.params.dcId;
      this.props.fetchTreeTopoRootNode(this.props.params.dcId);
      this.props.fetchTopologyTableData(this.props.params.dcId,this.loader);
-     let selectedRowData =  this.props.appDetail.tableData.filter(function(value){
+     let selectedRowData =  this.props.homeData[0].value.filter(function(value){
       return value.dcId == dcId
     })
+     console.log("selectedRowData---",selectedRowData)
      this.props.storeAppId(selectedRowData[0].id)
    }
 

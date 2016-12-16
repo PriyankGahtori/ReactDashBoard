@@ -22,7 +22,6 @@ class Dialog_Profile_NewProfile extends React.Component {
   {
     if(this.props.profileDetailData != nextProps.profileDetailData)
       this.setState({profileDetailData:nextProps.profileDetailData});
-      console.log(" in componentWillReceiveProps------in DialogProfile---------->",nextProps.profileDetailData)
   }
 
   handleCancel(){
@@ -58,20 +57,15 @@ class Dialog_Profile_NewProfile extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true} >
           <FormProfile ref="newProfileForm"  onSubmit={data =>{ 
-                console.log(" in submit function------------------>",data)
                 if(this.state.profileDetailData.openProfileDialogType == "edit"){
-                  
-                data['id'] = this.state.profileDetailData.profileInitializeForm.id;
-                console.log("data----",data)
-                this.props.addRowProfileTable(data,this.state.profileDetailData.openProfileDialogType);
-                 this.handleCancel();
-              }
-                else
-                  {
-                    console.log(" add button clicked------------------------->")
+                    data['id'] = this.state.profileDetailData.profileInitializeForm.id;
                     this.props.addRowProfileTable(data,this.state.profileDetailData.openProfileDialogType);
                     this.handleCancel();
-
+              }
+                else
+                {
+                    this.props.addRowProfileTable(data,this.state.profileDetailData.openProfileDialogType);
+                    this.handleCancel();
                   } 
 
                   }}

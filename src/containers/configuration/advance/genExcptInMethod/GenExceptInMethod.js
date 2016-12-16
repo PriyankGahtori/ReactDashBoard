@@ -91,6 +91,7 @@ class GenExcptInMethod extends React.Component {
 componentWillMount() {
 	this.state = {openSnackBar:false}
 }
+
 componentWillReceiveProps(nextProps)
 {
 	if(this.props.getAllKeywordData != nextProps.getAllKeywordData){

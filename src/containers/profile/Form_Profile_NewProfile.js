@@ -20,7 +20,7 @@ const initialValues={
 
   
 //validating the fields of form
-const validate = values => {
+const validate = (values,props) =>{
   const errors = {}
  
   if (!values.profileName) {
@@ -29,6 +29,14 @@ const validate = values => {
     errors.profileName = 'Must be 15 characters or less'
   }  else if (Number(values.profileName)){
     errors.profileName = 'Must enter only characters'
+  }  else {
+      var profileNameList = [];
+      props.profileTableData.forEach(function(val){
+        console.log("profile--",val)
+        profileNameList.push(val.profileName)
+      })
+      if(profileNameList.indexOf(values.profileName) != -1)
+        errors.profileName = "Profile Name Exists!!"
   }
  
  
@@ -126,7 +134,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
  // initialValues:state.profileDetailData.profileInitializeForm
   initialValues:{parentProfileId:1},
-   profileTableData: state.profileDetailData.tableData
+  profileTableData: state.profileDetailData.tableData
 
 })
 ) (Form_Profile_NewProfile);

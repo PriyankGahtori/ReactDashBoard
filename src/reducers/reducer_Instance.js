@@ -54,6 +54,20 @@ export default function(state = initialState, action) {
     })
     console.log("aftr updating-instance-",newState.tableData)
     return newState;
+  
+
+
+  case 'TOGGLE_STATE_INSTANCE' :
+  var newState = Object.assign({},state);
+  newState.tableData.map(function(value){
+  if(value.instanceId == action.payload.data.instanceId){
+      value.enabled = action.payload.data.enabled ;
+    }
+  })
+  return newState ;
   }
+
+
   return state;
+
 }

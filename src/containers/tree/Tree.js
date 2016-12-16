@@ -13,7 +13,8 @@ import * as actionCreators  from '../../actions/index';
 //custom icons
 decorators.Header = (props) => {
   console.info("icon",props.node.type)
-  const style = props.style;
+  let style = props.style;
+  style.base.color = props.node.color;
   const iconType = props.node.type;
   const iconClass = `icon config-icon-${iconType}`;
   const iconStyle = { marginRight: '5px',fontSize:'20px'};

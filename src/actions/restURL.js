@@ -1,6 +1,6 @@
 //const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//const  SERVICE_URL = 'http://10.10.40.11:8070/configUI';
+//const  SERVICE_URL = 'http://10.10.40.83:8090';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
@@ -53,6 +53,7 @@ export const ATTACH_PROFTO_SERVER = `${SERVICE_URL}/custom/server`;
 export const FETCH_INSTANCE_TREE_URL = `${SERVICE_URL}/custom/tree/instance`;
 export const FETCH_INSTANCE_TABLE_URL = `${SERVICE_URL}/custom/instance`;
 export const ATTACH_PROFTO_INSTANCE = `${SERVICE_URL}/custom/instance`;
+export const TOGGLED_INSTANCE_STATE = `${SERVICE_URL}/custom/instance`
 
 /* Url for ServiceEntryPoint */
 export const FETCH_SERVICE_POINTS_TABLEDATA = `${SERVICE_URL}/custom/profileserviceentryasso`;

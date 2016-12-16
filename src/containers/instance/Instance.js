@@ -56,11 +56,10 @@ class Instance extends React.Component {
   this.state = {instanceData:this.props.instanceData};
   this.onSelectRow=this.onSelectRow.bind(this);
   this.loader = this.loader.bind(this);
+  this.makeRunTimeChange = this.makeRunTimeChange.bind(this);
   }
 
-   handleHref(row)
-  {
-    console.log("in function handleHref-in Application-",row);
+   handleHref(row){
     hashHistory.push(`${this.props.location.pathname}/instance/${row.instanceId}/configuration/${row.profileId}`)
   } 
 
@@ -148,6 +147,22 @@ class Instance extends React.Component {
     this.props.triggerLoader(false,null);
   }
 
+  makeRunTimeChange(){
+
+  }
+
+  onToggle(row){
+    console.log("ontoggle function Instance table--event triggered---",row)
+    //
+//    if(row.tableType === "serviceEntryPoint")
+    row.enabled = !row.enabled;
+    console.log("aftr toggling--row.topoState-----",row.enabled)
+    this.props.updateInstanceEnabled(row,this.makeRunTimeChange);
+    //triggering runtime changes
+    //this.makeRunTimeChange();
+  }
+
+
   render() {
       
     return (
@@ -168,6 +183,7 @@ class Instance extends React.Component {
                   column = {columns}
                   onClick={this.handleClick}
                   onhref={this.handleHref.bind(this)}
+                  onToggle   = {this.onToggle.bind(this)}
          />
         </Paper>
 

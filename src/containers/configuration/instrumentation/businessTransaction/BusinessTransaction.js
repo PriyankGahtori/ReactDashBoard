@@ -3,19 +3,55 @@ import React from 'react';
 import {hashHistory } from 'react-router';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import {Card} from 'material-ui/Card';
-export default class BusinessTransaction extends React.Component {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actionCreators  from '../../../../actions/index';
+
+
+class BusinessTransaction extends React.Component {
   
   constructor(props) {
-    super(props);    
+    super(props)    
+    console.log("BTRuleConfig---",this.props.initialValKeywords)
+    this.state = {btRuleType : this.props.initialValKeywords.BTRuleConfig}
   }
+
+  componentWillMount(){
+    console.log("in comp--bt--",this.state.btRuleType)
+    let currPath = `${this.props.location.pathname}`;
+    console.log("currPath---in com--",currPath)
+        currPath = currPath.substring(0, currPath.indexOf("bt")+2)
+
+    let routeURL = `${currPath}/${this.state.btRuleType}`;
+    console.log("routeURL---",routeURL)
+    hashHistory.push(routeURL);
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("nextProps--",nextProps.initialValKeywords)
+    if(this.props.initialValKeywords!=nextProps.initialValKeywords){
+
+    }
+
+  }
+
+
 
   handleChange(event,value){
   	value = value === "global" ? "" : value
-  	let profileId = this.props.params.profileId;
     //let routeURL = `instrumentation/${profileId}/bt/${value}`;
+
+    //updating keyword 'BTRuleConfig' value a/c to type selected
+    let keywordData = Object.assign({},this.props.getAllKeywordData.data);
+    keywordData.BTRuleConfig["value"] = value
+    this.props.submitKeywordData(keywordData,this.props.params.profileId);
+
     let currPath = `${this.props.location.pathname}`;
+    console.log("currPath---",currPath)
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
+
     let routeURL = `${currPath}/${value}`;
+    console.log("routeURL---",routeURL)
     hashHistory.push(routeURL);
   }
 
@@ -30,7 +66,7 @@ export default class BusinessTransaction extends React.Component {
       		className={'col-xs-4 col-md-4'} 
       		style={{display: 'flex'}}
       		onChange={this.handleChange.bind(this)}
-      		defaultSelected="global" 
+      		defaultSelected={this.state.btRuleType}
           >
 
 	        <RadioButton
@@ -58,3 +94,16 @@ export default class BusinessTransaction extends React.Component {
 
   }
 }
+function mapStateToProps(state) {
+  return {
+    initialValKeywords :state.Keywords.initializeKeywords,
+    getAllKeywordData :state.Keywords
+   };
+}
+
+//method to dispatch actions to the reducers
+function mapDispatchToProps(dispatch) {
+
+return bindActionCreators(actionCreators, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(BusinessTransaction);

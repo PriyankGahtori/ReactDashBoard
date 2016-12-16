@@ -105,6 +105,7 @@ class ServiceEntryPoints extends React.Component {
       keywordDataList.push("NDEntryPointsFile=" + filePath ); 
     triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
   }
+  
   onSelectRow(){
     console.log("onSelectRow----")
   }

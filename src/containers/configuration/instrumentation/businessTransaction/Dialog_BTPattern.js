@@ -113,7 +113,6 @@ class Dialog_BTPattern extends React.Component {
 } 
 
 function mapStateToProps(state) {
-  console.log("BTPattern--data -----------",state.BTPattern)
   return {
     BTPattern : state.BTPattern
    };

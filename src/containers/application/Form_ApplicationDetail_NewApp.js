@@ -22,8 +22,10 @@ const styles = {
     width: 300
   }
 };
+
+
 //validating the fields of form
-const validate = values => {
+const validate = (values, props) => {
   const errors = {}
   
   if (!values.appName) {
@@ -32,7 +34,17 @@ const validate = values => {
     errors.appName = 'Must be 15 characters or less'
   } else if(Number(values.appName)){
     errors.appName = "Must enter only characters."
+  } else {
+     let appNameList = props.appDetail.tableData.map(val => val.appName);
+      /*props.appDetail.tableData.forEach(function(val){
+        appNameList.push(val.appName)
+      })*/
+      if(appNameList.indexOf(values.appName) != -1)
+        errors.appName = "Application Name Exists!!"
+
   }
+
+
 
   if (!values.appDesc) {
     errors.appDesc = 'Required'
@@ -41,6 +53,8 @@ const validate = values => {
   }else if (Number(values.appDesc)){
     errors.appDesc = 'Must enter only characters'
   }
+
+
   if (!values.userName) {
     errors.userName = 'Required'
   } else if (values.userName.length > 15) {
@@ -59,11 +73,17 @@ const validate = values => {
   
   return errors
 }
+
+
+
+
+
 class Form_ApplicationDetail_NewApp extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {value:this.props.initialData != null ? this.props.initialData.topoId :'-1'}
+
   }
 
   componentWillMount() {
@@ -76,7 +96,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
     if(this.props.initialData != nextProps.initialData){
       this.setState({value:nextProps.initialData.topoId});
     }
-  }
+}
 
   handleChangeTopology(event, index, value){
     this.setState({value:value})
@@ -158,9 +178,11 @@ class Form_ApplicationDetail_NewApp extends React.Component {
     form: 'contact',                           // a unique name for this form
     fields,
     validate
+    
   },
   state => ({ // mapStateToProps
     initialValues:state.applicationdata.appDetailInitializeForm,
     initialData  : state.applicationdata.appDetailInitializeForm ,
-    data:state.initialData.homeData
+    appDetail    :state.applicationdata,
+    data         :state.initialData.homeData
   }))(Form_ApplicationDetail_NewApp);

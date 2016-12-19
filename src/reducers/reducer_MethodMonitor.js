@@ -1,5 +1,8 @@
 
-const initialState = {tableData:[],openNewMethodMonDialog:false}
+const initialState = {tableData:[],
+                      openNewMethodMonDialog:false,
+                     methodMonitorFormInitialData:null,
+                      openMethodMonitorDialogType:false,}
 
 export default function(state = initialState, action) {
 
@@ -27,6 +30,25 @@ export default function(state = initialState, action) {
       newState.openNewMethodMonDialog= !newState.openNewMethodMonDialog;
       console.log("newState.openNewMethodMonDialog---",newState.openNewMethodMonDialog)
       return newState;
+
+    case 'INITIALIZE_METHOD_MONITOR': 
+        var newState = Object.assign({},state);
+        newState.methodMonitorFormInitialData = action.payload.data;
+        newState.openMethodMonitorDialogType  = action.payload.openMethodMonitorDialogType;
+     return newState;
+     
+      case 'UPDATE_METHOD_MONITOR':
+       var newState = Object.assign({} , state)
+       newState.tableData = newState.tableData.filter(function(value){
+          if(value.methodId == action.payload.data.methodId){
+            value.methodDisplayName = action.payload.data.methodDisplayName;
+            value.methodName = action.payload.data.methodName;
+            value.methodDesc = action.payload.data.methodDesc
+
+          }
+       return value
+     });
+   return newState;
 
   }
   return state;

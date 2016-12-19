@@ -35,15 +35,26 @@ class Dialog_MethodMonitor extends React.Component {
   }
 
  submitForm(data){
-  this.props.insertMethodMonitorDetails(data,this.props.profileId)
-  this.handleCancel();
+   data["openMethodMonitorDialogType"] = this.props.methodMonitor.openMethodMonitorDialogType;
+   if(this.props.methodMonitor.openMethodMonitorDialogType == 'edit'){
+     data["methodId"] = this.props.methodMonitor.methodMonitorFormInitialData.methodId;
+     this.props.insertMethodMonitorDetails(data,this.props.profileId)
+     this.handleCancel();
+    }
+   else if(this.props.methodMonitor.openMethodMonitorDialogType == 'add'){
+      this.props.insertMethodMonitorDetails(data,this.props.profileId)
+      this.handleCancel();
+    }
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps");
       if(this.props.methodMonitor != nextProps.methodMonitor)
       this.setState({methodMonitor:nextProps.methodMonitor});
+     if(nextProps.methodMonitor.openMethodMonitorDialogType == 'edit')
+        this.setState({title:"Edit Method Monitor"})
+      else
+        this.setState({title:"New Method Monitor"})
 
   }
 
@@ -75,7 +86,7 @@ class Dialog_MethodMonitor extends React.Component {
     return (
       <div>
         <DialogMethodMon
-          title="New Method Monitor"
+          title={this.state.title}
           actions={actions}
           modal={false}
           open={this.state.methodMonitor.openNewMethodMonDialog}

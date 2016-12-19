@@ -29,7 +29,9 @@ const validate = (values,props) =>{
     errors.profileName = 'Must be 15 characters or less'
   }  else if (Number(values.profileName)){
     errors.profileName = 'Must enter only characters'
-  }  else {
+  } else if(!Is.alphaNumeric(values.profileName)){
+      errors.profileName = 'Special character is not allowed.'
+    } else {
       var profileNameList = [];
       props.profileTableData.forEach(function(val){
         console.log("profile--",val)
@@ -37,7 +39,7 @@ const validate = (values,props) =>{
       })
       if(profileNameList.indexOf(values.profileName) != -1)
         errors.profileName = "Profile Name Exists!!"
-  }
+  } 
  
  
   if (!values.profileDesc) {
@@ -46,7 +48,9 @@ const validate = (values,props) =>{
     errors.profileDesc = 'Must be 50 characters or less'
   } else if (Number(values.profileDesc)){
     errors.profileDesc = 'Must enter only characters'
-  }
+  } else if(!Is.alphaNumeric(values.profileDesc)){
+      errors.profileDesc = 'Special character is not allowed.'
+    }
    
   return errors
 }

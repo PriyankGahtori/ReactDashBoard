@@ -170,6 +170,7 @@ class TopologyDetail extends React.Component {
                   ref="topoDetailTable" 
                   column = {columns}
                   onClick={this.handleClick}
+                  selectRow = {{}}
          />
         </Paper>
        

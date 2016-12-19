@@ -1260,19 +1260,43 @@ export function fetchMethodMonitorTableData(profileId,loader){
 }
 
 export function insertMethodMonitorDetails(formData,profileId){
+  if(formData.openMethodMonitorDialogType == 'edit'){
+  var response = axios({
+    method:'put',
+    url: `${url.ADD_METHOD_MONITOR}/updateMethodMonitor/${profileId}/${formData.methodId}`,
+    data: formData,
+    headers:{'Content-Type':'application/json'}
 
- var response = axios({
-  method:'post',
-  url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
-  data: formData,
-  headers:{'Content-Type':'application/json'}
-});
 
- return {
-  type : 'ADD_METHOD_MONITOR',
-  payload : response
+  });
+      return{
 
+        type:'UPDATE_METHOD_MONITOR',
+        payload: response,
+
+      }
+    }
+  else  if(formData.openMethodMonitorDialogType == 'add'){
+     var response = axios({
+      method:'post',
+      url : `${url.ADD_METHOD_MONITOR}/${profileId}`,
+      data: formData,
+      headers:{'Content-Type':'application/json'}
+    });
+   
+   return {
+    type : 'ADD_METHOD_MONITOR',
+    payload : response
+    }
+ }
 }
+export function methodMonitorInitializeForm(data,type){
+     var payload = { "data": data ,"openMethodMonitorDialogType": type} 
+  return {
+       type: 'INITIALIZE_METHOD_MONITOR',
+       payload: payload
+    }
+
 }
 
 /*********** Error Detection *************/

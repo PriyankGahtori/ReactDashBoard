@@ -18,7 +18,7 @@ import FlatButton from 'material-ui/FlatButton';
 import DialogMethodMon from './Dialog_MethodMonitor';
 import * as actionCreators  from '../../../../actions/index';
 import DataGrid from '../../../../components/DCDetailTable';
-
+import EnableMethodMonitor from './EnableMethodMonitor';
 export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
@@ -116,6 +116,7 @@ loader(){
 
     return (
     <div>
+      <EnableMethodMonitor />
       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>   
         <div className='row row-no-margin tableheader'>
         <div className="col-md-10">

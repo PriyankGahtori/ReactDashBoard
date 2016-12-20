@@ -32,10 +32,9 @@ const validate = (values,props) =>{
   }  else {
       var profileNameList = [];
       props.profileTableData.forEach(function(val){
-        console.log("profile--",val)
         profileNameList.push(val.profileName)
       })
-      if(profileNameList.indexOf(values.profileName) != -1)
+      if(profileNameList.indexOf(values.profileName.trim()) != -1)
         errors.profileName = "Profile Name Exists!!"
   }
  

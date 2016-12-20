@@ -87,9 +87,7 @@ handleChange(event,index,value){
 
 }
 
-  componentWillMount() {
-     console.log("state props--",this.props)
-     console.log("state--",this.state)
+componentWillMount() {
   }
 
 handleCheck(event,value)

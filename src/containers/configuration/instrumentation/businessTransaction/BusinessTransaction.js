@@ -6,6 +6,7 @@ import {Card} from 'material-ui/Card';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../../../../actions/index';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
 class BusinessTransaction extends React.Component {
@@ -17,13 +18,10 @@ class BusinessTransaction extends React.Component {
   }
 
   componentWillMount(){
-    console.log("in comp--bt--",this.state.btRuleType)
     let currPath = `${this.props.location.pathname}`;
-    console.log("currPath---in com--",currPath)
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
 
     let routeURL = `${currPath}/${this.state.btRuleType}`;
-    console.log("routeURL---",routeURL)
     hashHistory.push(routeURL);
   }
 
@@ -38,7 +36,7 @@ class BusinessTransaction extends React.Component {
 
 
   handleChange(event,value){
-  	value = value === "global" ? "" : value
+  	val = value === "global" ? "" : value
     //let routeURL = `instrumentation/${profileId}/bt/${value}`;
 
     //updating keyword 'BTRuleConfig' value a/c to type selected
@@ -46,12 +44,18 @@ class BusinessTransaction extends React.Component {
     keywordData.BTRuleConfig["value"] = value
     this.props.submitKeywordData(keywordData,this.props.params.profileId);
 
+    //action for runtime change
+   //triggerRunTimeChanges(trData,trModeDetail,formData);
+   let keywordDataList = [];
+     keywordDataList.push("BTRuleConfig" + "=" + value); 
+     
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+
+
     let currPath = `${this.props.location.pathname}`;
-    console.log("currPath---",currPath)
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
 
-    let routeURL = `${currPath}/${value}`;
-    console.log("routeURL---",routeURL)
+    let routeURL = `${currPath}/${val}`;
     hashHistory.push(routeURL);
   }
 

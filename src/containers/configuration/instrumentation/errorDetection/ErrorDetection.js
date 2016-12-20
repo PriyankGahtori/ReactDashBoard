@@ -18,15 +18,16 @@ import DialogErrorDetection from './Dialog_ErrorDetection';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import DataGrid from '../../../../components/DCDetailTable';
 import * as actionCreators  from '../../../../actions/index';
+import EnableErrorDetection from './EnableErrorDetection';
 
 
 export const fields = ['ruleName','from','to','enabled','ruleDesc']
 
 
 var columns = {
-                "key" : "id",
+                "key" : "errDetectionId",
                 "data":['Name', 'From', 'To','Enabled','Description','ID'],
-                "field":['ruleName', 'errorFrom','errorTo','enabled','ruleDesc','id']
+                "field":['ruleName', 'errorFrom','errorTo','enabled','ruleDesc','errDetectionId']
               };          
 
 const style = {
@@ -74,9 +75,13 @@ const styles = {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
-     console.log("in constructor--",this.props.errorDetection);
+     this.handleClick = this.handleClick.bind(this);
      this.state ={errorDetection:this.props.errorDetection}
      this.loader = this.loader.bind(this)
+  }
+  
+  handleClick(){
+
   }
 
   componentWillMount() {
@@ -120,7 +125,9 @@ const styles = {
  {
   this.props.toggleStateErrorDetection(); //opens dialog box
  }
-
+handleEdit(){
+  console.log()
+}
  /*handleOpen(openErrorDetectionDialog){
 
     console.log("in handleopen---",openErrorDetectionDialog)
@@ -151,12 +158,15 @@ const styles = {
 
     return (
     <div>
-       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
+        <EnableErrorDetection />
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>  
+        <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleEdit.bind(this)}>
+        <AddIcon />
+       </AddNewButton>   
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Error Detection(s)</h4>
         </div>
-        {console.log("proops - ",this.props)}
          <DataGrid data = {this.props.errorDetection.tableData} 
             pagination = {false} 
             ref        = "errorDetectionTable" 

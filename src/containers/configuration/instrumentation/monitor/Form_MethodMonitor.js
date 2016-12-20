@@ -129,7 +129,9 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-    methodMonitor : state.methodMonitor
+    methodMonitor : state.methodMonitor,
+    initialValues:state.methodMonitor.methodMonitorFormInitialData,
+
   
 }),
  { 

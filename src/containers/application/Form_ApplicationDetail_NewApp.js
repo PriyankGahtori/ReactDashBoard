@@ -34,7 +34,9 @@ const validate = (values, props) => {
     errors.appName = 'Must be 15 characters or less'
   } else if(Number(values.appName)){
     errors.appName = "Must enter only characters."
-  } else {
+  } else if(!Is.alphaNumeric(values.appName)){
+      errors.appName = 'Special character is not allowed.'
+    }else {
      let appNameList = props.appDetail.tableData.map(val => val.appName);
       /*props.appDetail.tableData.forEach(function(val){
         appNameList.push(val.appName)
@@ -52,7 +54,9 @@ const validate = (values, props) => {
     errors.appDesc = 'Must be 50 characters or less'
   }else if (Number(values.appDesc)){
     errors.appDesc = 'Must enter only characters'
-  }
+  }else if(!Is.alphaNumeric(values.appDesc)){
+      errors.appDesc = 'Special character is not allowed.'
+    }
 
 
   if (!values.userName) {
@@ -61,7 +65,9 @@ const validate = (values, props) => {
     errors.userName = 'Must be 15 characters or less'
   } else if (Number(values.userName)){
     errors.userName = 'Must enter only characters'
-  }
+  }else if(!Is.alphaNumeric(values.userName)){
+      errors.userName = 'Special character is not allowed.'
+    }
   
   if(values.topoId == undefined){
     errors.topoId = 'Required'

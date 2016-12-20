@@ -13,6 +13,7 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 //Importing files
 import DialogMethodMon from './Dialog_MethodMonitor';
@@ -72,6 +73,8 @@ const styles = {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
      this.loader = this.loader.bind(this);
+     this.state = {openSnack: false}
+
      
   }
 
@@ -107,8 +110,27 @@ loader(){
    
   };
  
-  handleOpen(){
-       this.props.toggleStateAddMethodMonitor(); //opens dialog box
+  handleOpen(openMethodMonitorDialogType){
+    if(openMethodMonitorDialogType == 'edit'){
+       let selectedRow= this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+       if(selectedRow.length == 1)
+       {
+            this.setState({openSnack:false})
+           var selectedRowData = this.props.methodMonitor.tableData.filter(function(value){
+           return value.methodId == selectedRow
+           })
+          this.props.methodMonitorInitializeForm(selectedRowData[0],openMethodMonitorDialogType);
+          this.props.toggleStateAddMethodMonitor(); //opens dialog box
+       }
+       else{
+           this.setState({openSnack: true})
+           
+       }
+    }
+    else if(openMethodMonitorDialogType == 'add'){
+           this.props.toggleStateAddMethodMonitor(); //opens dialog box
+          this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
+    }
   }
 
   render() {
@@ -122,6 +144,7 @@ loader(){
         <div className="col-md-10">
               <h4>Method Monitor(s)</h4>
         </div>
+   <IconButton tooltip = "Edit Method Monitor" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
 
         <DataGrid data = {this.props.methodMonitor.tableData} 
             pagination = {false} 
@@ -132,13 +155,19 @@ loader(){
          />
 
         <div>
-         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,'add')}>
             <AddIcon />
          </AddNewButton>
          <DialogMethodMon profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
+         <Snackbar
+          open={this.state.openSnack}
+          message="No row selected or multiple rows selected"
+          autoHideDuration={4000}
+        />
+      
        </Paper>
     </div>
     );

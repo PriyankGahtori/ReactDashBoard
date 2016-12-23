@@ -2,6 +2,7 @@ const initialState = {homeData:null,
                       trData:{trno:null,status:null,switch:false},
                       ns_wdir:null,
                       appId:null
+                    
                     }
 export default function(state = initialState, action) {
 

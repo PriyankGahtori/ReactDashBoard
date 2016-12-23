@@ -154,7 +154,7 @@ class Instance extends React.Component {
   onToggle(row){
     console.log("ontoggle function Instance table--event triggered---",row)
     //
-//    if(row.tableType === "serviceEntryPoint")
+    //Runtime left TO DO
     row.enabled = !row.enabled;
     console.log("aftr toggling--row.topoState-----",row.enabled)
     this.props.updateInstanceEnabled(row,this.makeRunTimeChange);

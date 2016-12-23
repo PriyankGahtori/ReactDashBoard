@@ -10,7 +10,7 @@ export default class ExceptionMonitors extends React.Component {
   render() {
     return (
       <div>
-     	<center><h3>Exception monitors feature is coming soon ...</h3></center>
+      <center><h3>Exception monitors feature is coming soon ...</h3></center>
       </div>
 
     );

@@ -19,6 +19,7 @@ import DialogErrorDetection from './Dialog_ErrorDetection';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import DataGrid from '../../../../components/DCDetailTable';
 import * as actionCreators  from '../../../../actions/index';
+import EnableErrorDetection from './EnableErrorDetection';
 
 
 export const fields = ['ruleName','from','to','enabled','ruleDesc']
@@ -76,10 +77,14 @@ const styles = {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
-     console.log("in constructor--",this.props.errorDetection);
+     this.handleClick = this.handleClick.bind(this);
      this.state ={errorDetection:this.props.errorDetection}
      this.loader = this.loader.bind(this)
      this.state = {openSnack: false}
+  }
+  
+  handleClick(){
+
   }
 
   componentWillMount() {
@@ -114,7 +119,7 @@ const styles = {
    
   };
  
- 
+
  handleOpen(openErrorDetectionDialog){
 
     //for editing form
@@ -147,15 +152,14 @@ const styles = {
 
     return (
     <div>
-       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>     
+        <EnableErrorDetection />
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>  
+  
       <div className='row row-no-margin tableheader'>
         <div className="col-md-10">
               <h4>Error Detection(s)</h4>
         </div>
-
-        {console.log("proops - ",this.props)}
-       <IconButton tooltip = "Edit Method Monitor" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-
+       <IconButton tooltip = "Edit Error Detection" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
          <DataGrid data = {this.props.errorDetection.tableData} 
             pagination = {false} 
             ref        = "errorDetectionTable" 

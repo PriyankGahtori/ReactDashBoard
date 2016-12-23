@@ -194,6 +194,7 @@ class Topology extends React.Component {
     onClick={this.handleClick}
     onhref={this.handleHref.bind(this)}
     onToggle   = {this.onToggle.bind(this)}
+
     />
     </Paper>
 

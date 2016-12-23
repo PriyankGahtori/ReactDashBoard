@@ -59,7 +59,7 @@ class ApplicationDetail extends React.Component {
   this.state ={openNewAppDialog:false} //
   this.handleOpen = this.handleOpen.bind(this);
   this.handleClick = this.handleClick.bind(this);
-  this.handleConfirm = this.handleConfirm.bind(this);
+  this.handleDelConfirm = this.handleDelConfirm.bind(this);
   this.handleClose = this.handleClose.bind(this);
   this.state = {open:false, openSnack:false};
   this.createConfFile = this.createConfFile.bind(this);
@@ -68,11 +68,9 @@ class ApplicationDetail extends React.Component {
   }
 
  
-handleConfirm(){
-    let selectedRow= this.refs.appTable.refs.table.state.selectedRowKeys;
-    if(selectedRow.length == 1)
+handleDelConfirm(){
       this.setState({open: true});
-  };
+  }
 
 handleHref(row){
   var selectedRowData = this.props.appDetail.tableData.filter(function(value){
@@ -107,10 +105,12 @@ createConfFile(){
 handleClose(){
     this.setState({open: false});
   };
+  
 
  delRow(){
     var selectedRowKeys=[];
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRowKeys---",selectedRowKeys)
     this.props.delAppTableRow(selectedRowKeys)
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();
@@ -213,7 +213,7 @@ handleClose(){
           <div className="pull-right"  >
           <IconButton  tooltip="Generate nd.conf " onTouchTap={this.createConfFile}><FontIcon color="#FFF" className="material-icons">library_books</FontIcon></IconButton>
             <IconButton  tooltip="Edit Application" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton tooltip="Delete Application" onTouchTap={this.handleConfirm}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+            <IconButton tooltip="Delete Application" onTouchTap={this.handleDelConfirm}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
           </div>
        </div>
           

@@ -40,9 +40,8 @@ export default function(state = initialState, action) {
   case 'DEL_APPTABLE_ROW':
     var newState = Object.assign({}, state);
     newState.tableData = newState.tableData.filter(function(val){
-       return action.payload.indexOf(val.id) == -1; //value to be deleteed should return false
+       return action.payload.indexOf(val.appId) == -1; //value to be deleteed should return false
      });
-    console.log("newState.tableData---",newState.tableData)
     return newState; 
 
   case 'ADD_ROW_APPTABLE':
@@ -51,29 +50,19 @@ export default function(state = initialState, action) {
     data.id=action.payload.data.appId;
     data.appHrefName = {"href" : action.payload.data.appName}
     newState.tableData.push(data);
-    console.log(" newState.tableData -------> ",newState.tableData)
     return newState;
 
   case 'UPDATE_APP_FORM' :
      console.log("update app form");
     var newState = Object.assign({}, state);
-    console.log("in updating form----",action.payload.data)
-    console.log("in updating form  flag---",action.payload.openAppDialogType)
     newState.appDetailInitializeForm = action.payload.data;
     newState.openAppDialogType=action.payload.openAppDialogType;
-    console.log("newState.appDetailInitializeForm--",newState.appDetailInitializeForm)
-    console.log("newState.openAppDialogType--",newState.openAppDialogType)
     return newState ;
 
     case 'UPDATE_ROW_APPTABLE':
-    console.log("updating row--action.payload",action.payload)
-    console.log("updating row--action.payload",action.payload.data)
     var newState = Object.assign({}, state);
       newState.tableData = newState.tableData.filter(function(val){
-      console.log("line no 61-------val._links.self.href")
-      console.log("val-------",val)
       if(val.appId == action.payload.data.appId){
-          console.log("condition matched")
           val.appDesc = action.payload.data.appDesc;
           val.appHrefName = {"href": action.payload.data.appName};
           val.userName = action.payload.data.userName;
@@ -81,7 +70,6 @@ export default function(state = initialState, action) {
       }
       return val;
      })
-     console.log(" newState.tableData --", newState.tableData )
     return newState;
 
   default :

@@ -12,6 +12,7 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
+import Snackbar from 'material-ui/Snackbar';
 
 //Importing files
 import DialogErrorDetection from './Dialog_ErrorDetection';
@@ -24,9 +25,9 @@ export const fields = ['ruleName','from','to','enabled','ruleDesc']
 
 
 var columns = {
-                "key" : "id",
+                "key" : "errDetectionId",
                 "data":['Name', 'From', 'To','Enabled','Description','ID'],
-                "field":['ruleName', 'errorFrom','errorTo','enabled','ruleDesc','id']
+                "field":['ruleName', 'errorFrom','errorTo','enabled','ruleDesc','errDetectionId']
               };          
 
 const style = {
@@ -64,6 +65,7 @@ const styles = {
   },
    btSetBlock:{
     paddingLeft:10,
+
     paddingTop:5
   }
 };
@@ -77,6 +79,7 @@ const styles = {
      console.log("in constructor--",this.props.errorDetection);
      this.state ={errorDetection:this.props.errorDetection}
      this.loader = this.loader.bind(this)
+     this.state = {openSnack: false}
   }
 
   componentWillMount() {
@@ -97,13 +100,8 @@ const styles = {
 
    componentWillReceiveProps(nextProps)
   {
-     console.log("nextProps---error",nextProps.ErrorDetection)
-    if(this.props.errorDetection.tableData != nextProps.errorDetection.tableData){
-      console.log("inside if conddddddddddddddddd")
+    if(this.props.errorDetection.tableData != nextProps.errorDetection.tableData)
       this.setState({errorDetection:nextProps.errorDetection});
-
-       console.log("this.propssss - ", this.state)
-    }
 }
 
   handleCancel(){
@@ -116,36 +114,34 @@ const styles = {
    
   };
  
- handleOpen()
- {
-  this.props.toggleStateErrorDetection(); //opens dialog box
- }
+ 
+ handleOpen(openErrorDetectionDialog){
 
- /*handleOpen(openErrorDetectionDialog){
-
-    console.log("in handleopen---",openErrorDetectionDialog)
     //for editing form
+      let selectedRow= this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
     if(openErrorDetectionDialog == "edit"){
-      console.log("editing the App form")
-
       // gets the selected key of table
-      let selectedRow= this.refs.sepTable.refs.table.state.selectedRowKeys;
-      
       if(selectedRow.length == 1)
       {
-        
+           this.setState({openSnack: false})
+           var selectedRowData = this.props.errorDetection.tableData.filter(function(value){
+            return value.errDetectionId == selectedRow
+        })
+         this.props.initializeErrorDetectionForm(selectedRowData[0],openErrorDetectionDialog);
+         this.props.toggleStateErrorDetection(); //opens dialog box
+
       }
       else{
         //toster notification: Only one row can be edited
+          this.setState({openSnack: true})
       }
 
     }
     else if(openErrorDetectionDialog == "add"){ //for adding new row
-      console.log("adding service entry pts form")
-       this.props.toggleStateErrorDetection(); //opens dialog box
+         this.props.initializeErrorDetectionForm(null,openErrorDetectionDialog);
+          this.props.toggleStateErrorDetection(); //opens dialog box
     }
-       
-  }*/
+  }
 
   render() {
 
@@ -156,7 +152,10 @@ const styles = {
         <div className="col-md-10">
               <h4>Error Detection(s)</h4>
         </div>
+
         {console.log("proops - ",this.props)}
+       <IconButton tooltip = "Edit Method Monitor" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+
          <DataGrid data = {this.props.errorDetection.tableData} 
             pagination = {false} 
             ref        = "errorDetectionTable" 
@@ -166,13 +165,19 @@ const styles = {
          />
 
         <div>
-         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />
          </AddNewButton>
          <DialogErrorDetection profileId ={this.props.params.profileId}/>
           
         </div>
        </div>
+         <Snackbar
+          open={this.state.openSnack}
+          message="No row selected or multiple rows selected"
+          autoHideDuration={4000}
+        />
+      
        </Paper>
     </div>
     );
@@ -181,7 +186,6 @@ const styles = {
 
 
 function mapStateToProps(state) {
-  console.log("errorDetection state -  ",state.errorDetection)
   return {
     errorDetection : state.errorDetection
    

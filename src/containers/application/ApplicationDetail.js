@@ -112,7 +112,6 @@ handleClose(){
     var selectedRowKeys=[];
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
     this.props.delAppTableRow(selectedRowKeys)
-    
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();
   }

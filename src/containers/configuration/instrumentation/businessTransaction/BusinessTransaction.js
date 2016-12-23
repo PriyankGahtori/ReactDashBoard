@@ -40,7 +40,6 @@ class BusinessTransaction extends React.Component {
   handleChange(event,value){
   	value = value === "global" ? "" : value
     //let routeURL = `instrumentation/${profileId}/bt/${value}`;
-
     //updating keyword 'BTRuleConfig' value a/c to type selected
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     keywordData.BTRuleConfig["value"] = value

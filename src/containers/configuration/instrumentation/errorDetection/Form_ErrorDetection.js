@@ -15,12 +15,14 @@ import Toggle from '../../../../components/ToggleWrapper';
 
 
 export const fields = ['ruleName','errorFrom','errorTo','enabled','ruleDesc']
-             
  const validate = values=> {
   const errors = { }
 
   if(!values.ruleName) 
      errors.ruleName = 'Required'
+
+   else if(!Is.alphaNumeric(values.ruleName))
+      errors.ruleName = 'Special character is not allowed.'
 
    else if (values.ruleName.length > 50)
     errors.ruleName = 'Must be 50 characters or less'
@@ -89,7 +91,6 @@ handleChange(event,index,value){
 
   componentWillMount() {
      console.log("state props--",this.props)
-     console.log("state--",this.state)
   }
 
 handleCheck(event,value)
@@ -99,6 +100,7 @@ handleCheck(event,value)
 }
 
   render() {
+    
      const { fields: {ruleName,errorFrom,errorTo,enabled,ruleDesc}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
@@ -174,10 +176,12 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   
 },
   state => ({ // mapStateToProps
-    // errorDetection : this.state.errorDetection
+     errorDetection : state.errorDetection,
+     initialValues: state.errorDetection.errorDetectionFormInitialData,
   
 }),
  { 
+
  } // mapDispatchToProps (will bind action creator to dispatch)
 ) (Form_ErrorDetection);
 

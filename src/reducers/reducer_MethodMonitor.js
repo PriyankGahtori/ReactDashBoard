@@ -44,7 +44,6 @@ export default function(state = initialState, action) {
             value.methodDisplayName = action.payload.data.methodDisplayName;
             value.methodName = action.payload.data.methodName;
             value.methodDesc = action.payload.data.methodDesc
-
           }
        return value
      });

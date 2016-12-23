@@ -26,19 +26,32 @@ class Dialog_ErrorDetection extends React.Component {
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
   this.submitForm =this.submitForm.bind(this);
+  this.state = {title:""}
   }
 
  submitForm(data){
-  console.log("data -  - ",data)
-  this.props.insertErrorDetectionData(data,this.props.profileId)
-   this.handleCancel();
+   data['openErrorDetectionDialog'] = this.props.errorDetection.openErrorDetectionDialog;
+   if(data.openErrorDetectionDialog == "edit"){
+    data['errDetectionId'] = this.props.errorDetection.errorDetectionFormInitialData.errDetectionId
+    this.props.editErrorDetection(data,this.props.profileId)
+    this.handleCancel();
+  }
+  else if(data.openErrorDetectionDialog == "add"){
+    this.props.addErrorDetection(data,this.props.profileId)
+    this.handleCancel();
+  }
   }
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps");
-    if(this.props.errorDetection != nextProps.errorDetection)
-      this.setState({errorDetection:nextProps.errorDetection});
+    if(this.props.errorDetection != nextProps.errorDetection){
+        this.setState({errorDetection:nextProps.errorDetection});
+       if(nextProps.errorDetection.openErrorDetectionDialog == "edit")
+          this.setState({title: "Edit Error Detection"})
+        else 
+          this.setState({title: "Add Error Detection"}) 
+
+     }
   }
 
   handleCancel(){
@@ -69,7 +82,7 @@ class Dialog_ErrorDetection extends React.Component {
     return (
       <div>
         <DialogErrorDetection
-          title="New Error Detection Form"
+          title= {this.state.title}
           actions={actions}
           modal={false}
           open={this.props.errorDetection.openNewErrorDetectionDialog}
@@ -88,6 +101,7 @@ class Dialog_ErrorDetection extends React.Component {
 } 
 
 function mapStateToProps(state) {
+
   return {
     errorDetection : state.errorDetection
    };

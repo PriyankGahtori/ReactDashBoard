@@ -47,9 +47,7 @@ const validate = (values,props) =>{
     errors.profileDesc = 'Must be 50 characters or less'
   } else if (Number(values.profileDesc)){
     errors.profileDesc = 'Must enter only characters'
-  } else if(!Is.alphaNumeric(values.profileDesc)){
-      errors.profileDesc = 'Special character is not allowed.'
-    }
+  }
    
   return errors
 }

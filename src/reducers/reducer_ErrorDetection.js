@@ -1,5 +1,9 @@
 
-const initialState = {tableData:[],openNewErrorDetectionDialog:false}
+const initialState = {tableData:[],
+                      openNewErrorDetectionDialog:false,
+                      openErrorDetectionDialog: false,
+                      errorDetectionFormInitialData: null,
+                    }
 
 export default function(state = initialState, action) {
 
@@ -21,14 +25,31 @@ export default function(state = initialState, action) {
       return newState;
 
     case 'ADD_NEW_ERROR_DETECTION' :
-         console.log("in reducer of adding new bt pattern---payloaf--",action.payload.data)
          var newState = Object.assign({},state);
-         console.log("newState----",newState)
          newState.tableData.push(action.payload.data)
-         console.log("newState.tableData--adding new error detction pattern-",newState.tableData)
          return newState;
 
-  
+     case  'INITIALIZE_ERROR_DETECTION_FORM':
+        var newState = Object.assign({},state);
+        newState.errorDetectionFormInitialData = action.payload.data;
+        newState.openErrorDetectionDialog  = action.payload.errorDetectionType;
+        return newState;
+
+     case 'EDIT_ERROR_DETECTION':
+       var newState = Object.assign({} , state)
+       newState.tableData = newState.tableData.filter(function(value){
+          if(value.errDetectionId == action.payload.errDetectionId){
+            value.ruleName = action.payload.ruleName;
+            value.errorFrom = action.payload.errorFrom;
+            value.errorTo = action.payload.errorTo;
+            value.enabled = action.payload.enabled;
+            value.ruleDesc = action.payload.ruleDesc;
+          
+          }
+       return value
+     });
+   return newState;
+
   }
   return state;
 }

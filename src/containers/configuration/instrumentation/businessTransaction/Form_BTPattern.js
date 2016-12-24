@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MenuItem from 'material-ui/MenuItem';
 import TextField from 'material-ui/TextField';
-import Is from 'is_js';
+import is from 'is_js';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
 
@@ -20,52 +20,59 @@ export const fields = ['enabled','btName','matchType','urlName','include','slowT
 
 const validate = values=> {
   const errors = {}
-
   if(!values.btName) 
    errors.btName = 'Required'
 
- else if (values.btName.length > 50) 
-  errors.btName = "Must be 50 characters or less"
+  else if (values.btName.length > 50) 
+  errors.btName = "Must be 50 characters or less" 
 
+  else if(!is.alphaNumeric(values.btName))
+   errors.btName = 'Special character is not allowed.'
 
-if(!values.slowTransaction) 
+  if(!values.slowTransaction) 
   errors.slowTransaction = 'Required'
 
-else if (isNaN(values.slowTransaction))
+  else if (isNaN(values.slowTransaction))
   errors.slowTransaction = 'Please Enter Only Numbers'
 
-if(!values.verySlowTransaction) 
+  if(!values.verySlowTransaction) 
   errors.verySlowTransaction = 'Required'
 
-else if (isNaN(values.verySlowTransaction))
+  else if(Number(values.slowTransaction) > Number(values.verySlowTransaction))
+  errors.slowTransaction = 'Please enter values less than verySlowTransaction'
+
+  else if (isNaN(values.verySlowTransaction) )
   errors.verySlowTransaction = 'Please Enter Only Numbers'
 
-if(!values.urlName) 
-  errors.urlName = 'Required'
+  else if(Number(values.verySlowTransaction) < Number(values.slowTransaction))
+  errors.verySlowTransaction = 'Please enter values greater than SlowTransaction'
 
-else if (values.urlName.length > 300) 
+  if(!values.urlName) 
+  errors.urlName = 'Required'
+ 
+  else if (values.urlName.length > 300) 
   errors.urlName = 'Must be 300 characters or less'
 
-if(!values.matchType) 
-  errors.matchType = 'Required'
+   if(!values.matchType) 
+   errors.matchType = 'Required'
 
-if(values.dynamicPartReq)
-{
-  console.log("value of dynamic part req -------------->",values.dynamicPartReq)
-  if(!values.reqParamKey) 
-   errors.reqParamKey = 'Required'
+  if(values.dynamicPartReq)
+ {
+    if(!values.reqParamKey && !values.reqHeaderKey && !values.reqMethod && !values.reqParamValue && !values.reqHeaderValue )
+     errors.dynamicPartReq = 'Please select atleast one Dynamic Part'
 
- if(!values.reqParamValue) 
-  errors.reqParamValue = 'Required'
+     if(!values.reqParamValue && values.reqParamKey )
+      errors.reqParamValue = 'Please enter Value'
 
-if(!values.reqHeaderKey) 
- errors.reqHeaderKey = 'Required'
+     if(!values.reqParamKey && values.reqParamValue)
+      errors.reqParamKey = 'Please enter reqParamKey'
 
-if(!values.reqHeaderValue) 
-  errors.reqHeaderValue = 'Required'
+     if(values.reqHeaderKey && !values.reqHeaderValue)
+     errors.reqHeaderValue = 'Please enter Value'
 
-if(!values.reqMethod) 
-  errors.reqMethod = 'Required'
+     if(!values.reqHeaderKey && values.reqHeaderValue)
+     errors.reqHeaderKey = 'Please enter reqHeaderKey'
+
 }
 
 return errors
@@ -89,7 +96,8 @@ const styles = {
   },
   error:{
     fontSize: 12,
-    color: 'red' 
+    color: 'red' ,
+    paddingLeft:40,
   },
 };
 
@@ -104,7 +112,6 @@ class Form_BTPattern extends React.Component {
     this.state ={BTPattern:null,
                  dynamicPartReq :this.props.initialData != null ? this.props.initialData.dynamicPartReq : false 
    }
-   console.log("dynamicPartReq---",this.state.dynamicPartReq)
 
  }
 
@@ -116,7 +123,6 @@ class Form_BTPattern extends React.Component {
  }
 
  componentWillReceiveProps(nextProps){
-
 /*  if(this.props.initialData != nextProps.initialData)
     this.setState({dynamicPartReq : nextProps.initialData.dynamicPartReq})*/
 }
@@ -136,8 +142,6 @@ render() {
               floatingLabelText="Bussiness Transaction Name"
               {...btName}
               errorText={btName.touched && btName.error && <div>{btName.error}</div>}/>   
-
-
               </div>
               <div className ="col-md-4">
               <Checkbox
@@ -155,7 +159,7 @@ render() {
               onChange={this.handleChange}
               style={styles.customWidth}
               autoWidth={false}
-              floatingLabelText="Select type"
+              floatingLabelText="Match Mode"
               {...matchType}
 
               >
@@ -174,13 +178,14 @@ render() {
         </div>
 
         </div>
-
+      
+          <p style={{paddingTop:40}}>Transaction Threshold (ms) </p> 
         <div className ="row">
         <div className="col-md-6">
         <TextField        
         {...slowTransaction} 
         style={{'width':'300'}} 
-        floatingLabelText="Slow Transaction Threshold (ms)"
+        floatingLabelText="Slow"
         errorText={slowTransaction.touched && slowTransaction.error && <div>{slowTransaction.error}</div>}/>   
 
         </div>
@@ -188,7 +193,7 @@ render() {
         <TextField        
         {...verySlowTransaction} 
         style={{'width':'310'}}
-        floatingLabelText="Very Slow Transaction Threshold (ms)"
+        floatingLabelText="Very Slow "
         errorText={verySlowTransaction.touched && verySlowTransaction.error && <div>{verySlowTransaction.error}</div>}/>   
 
         </div>
@@ -202,8 +207,9 @@ render() {
         style={styles.checkbox}
         checked  = {this.state.dynamicPartReq}
         label="Dynamic part Request"
-        onCustomChange={this.handleCheck.bind(this)}
-        />
+        onCustomChange={this.handleCheck.bind(this)}/>      
+          <div style={styles.error}> {dynamicPartReq.touched && dynamicPartReq.error && <div>{dynamicPartReq.error}</div>}</div>
+
         </div>
 
         <div className={this.state.dynamicPartReq === true ? 'show' :'hidden'}>
@@ -295,6 +301,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   state => ({ // mapStateToProps
     BTPattern : state.BTPattern,
     initialValues:state.BTPattern.patternFormInitialData,
+                
     initialData  : state.BTPattern.patternFormInitialData
   }),
   { 

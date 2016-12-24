@@ -1313,24 +1313,44 @@ export function fetchErrorDetectionTableData(profileId,loader){
   }
 }
 
-export function insertErrorDetectionData(formData,profileId){
+export function editErrorDetection(formData,profileId){
+   var response = axios({
+      method:'put',
+      url : `${url.ADD_NEW_ERROR_DETECTION}/updateErrorDetection/${profileId}/${formData.errDetectionId}`,
+      data: formData,
+      headers:{'Content-Type':'application/json'}
+    });
 
- var response = axios({
-  method:'post',
-  url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
-  data: formData,
-  headers:{'Content-Type':'application/json'}
-});
+    return {
+    type : 'EDIT_ERROR_DETECTION',
+    payload : formData
+    }
+  }
+export function addErrorDetection(formData,profileId){
+      var response = axios({
+      method:'post',
+      url : `${url.ADD_NEW_ERROR_DETECTION}/${profileId}`,
+      data: formData,
+      headers:{'Content-Type':'application/json'}
+      });
 
- return {
-  type : 'ADD_NEW_ERROR_DETECTION',
-  payload : response
-}
-}
+     return {
+      type : 'ADD_NEW_ERROR_DETECTION',
+      payload : response
+      }
+    }
+
 
 export function toggleStateErrorDetection(){
   return {
     type:'TOGGLE_STATE_ADD_ERROR_DETECTION'
+  }
+}
+export function initializeErrorDetectionForm(data,type){
+   var payload  = {"data": data , "errorDetectionType" : type }
+  return{
+    type: 'INITIALIZE_ERROR_DETECTION_FORM',
+    payload: payload
   }
 }
 

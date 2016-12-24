@@ -24,9 +24,9 @@ const initialValues = {
   if(!values.enableBciError) 
      errors.enableBciError = 'Required'
 
-  else if ( values.enableBciError < 1  || values.enableBciError > 100)
+  else if ( values.enableBciError < 1  || values.enableBciError > 100 )
      errors.enableBciError = "Please Enter values between 1 and 100"
-
+  
   if(!values.enableBciDebug && values.enableBciDebug != 0) 
      errors.enableBciDebug = 'Required'
 
@@ -137,8 +137,8 @@ ChangeEnableForcedFPChain(event,index ,value){
                  id="sess_perct"
                 style={styles.input} 
                  type="number" 
-                 min="0" 
-                 max="6" 
+                 min="1" 
+                 max="100" 
                  step="1"   />
            <div style = {styles.error}>  {enableBciError.touched && enableBciError.error && <div>{enableBciError.error} </div> } </div>
 
@@ -176,7 +176,7 @@ ChangeEnableForcedFPChain(event,index ,value){
                  id="sess_perct"
                 style={styles.input} 
                  type="number" 
-                 min="5" 
+                 min="0" 
                  max="10" 
                  step="1"   />
            <div style = {styles.error}>  {ndMethodMonTraceLevel.touched && ndMethodMonTraceLevel.error && <div>{ndMethodMonTraceLevel.error} </div> } </div>

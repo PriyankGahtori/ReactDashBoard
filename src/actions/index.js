@@ -176,21 +176,19 @@ return {
 }
 
 export function delAppTableRow(selectedRowKeys){
+  console.log("selectedRowKeys---",selectedRowKeys)
+  var idList = {'rowId':selectedRowKeys}
+  var response = axios({
+      method:'post',
+   // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
+      url : `${url.DEL_ROW_APP_URL}`,
+     data: selectedRowKeys,
+     headers:{'Content-Type':'application/json'}
+ });
 
-  console.log("selectedRowKeys----",selectedRowKeys)
-  selectedRowKeys.forEach(value => 
-  {
-   console.log("value-of deleting application-",value)
-   axios({
-    method : 'delete',
-    url : `${url.DEL_ROW_APP_URL}/${value}`
-       // url : `http://10.10.40.7:8050/configUI/application/${value}`
-     });
- })
-  console.log()  
-  return{
-    type:'DEL_APPTABLE_ROW',
-    payload:selectedRowKeys
+ return{
+    type    :'DEL_APPTABLE_ROW',
+    payload :selectedRowKeys
   }
 }
 

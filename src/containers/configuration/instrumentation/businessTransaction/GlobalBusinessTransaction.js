@@ -14,6 +14,7 @@ import {initializeBTFields,addBTData,triggerLoader}  from '../../../../actions/i
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import SelectField from '../../../../components/SelectFieldWrapper';
 import Checkbox from '../../../../components/CheckboxWrapper';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 export const fields = ["uriType","segmentType","segmentValue","slowTransaction","verySlowTransaction","dynamicReqType","dynamicReqValue","requestParam","httpMethod","requestHeader"];
 
@@ -77,6 +78,18 @@ loader(){
 // var message = {'title': ' BT Global Loaded' , 'msg' : '' }
   this.props.triggerLoader(false,null)
 }
+
+  getProfileName(profileId)
+  {
+    let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+    if(profileData.length != 0)
+       return profileData[0].name;
+    else
+      return null;          
+  }
+
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide
   	let css = value === 'segment' ? 'show' : 'hidden';
@@ -100,7 +113,21 @@ loader(){
 
   submit(data){
     data = JSON.stringify(data);
-    this.props.addBTData(data,this.props.params.profileId);       
+    this.props.addBTData(data,this.props.params.profileId); 
+
+    //action for runtime change
+   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
+   var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + '/btGlobal.btr' ;
+    console.info("filePath", filePath);  
+
+   let keywordDataList = [];
+     keywordDataList.push("BTRuleConfig" + "=" + filePath); 
+     
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+
+
+
+
 }
 
   render() {
@@ -261,7 +288,11 @@ export default reduxForm({
 },
   state => ({ // mapStateToProps
   initialValues:state.BTGlobal.btGlobalInitialize, //used by redux-form
-  initialData:state.BTGlobal.btGlobalInitialize // for initializing state
+  initialData:state.BTGlobal.btGlobalInitialize, // for initializing state
+  trData : state.initialData.trData,
+  trModeDetail: state.trModeDetail,
+  homeData: state.initialData.homeData,
+  ns_wdir: state.initialData.ns_wdir
 }),
   { 
    initializeBTFields : initializeBTFields,

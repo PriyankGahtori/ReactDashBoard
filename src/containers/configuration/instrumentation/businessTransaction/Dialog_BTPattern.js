@@ -12,6 +12,7 @@ import { reset } from 'redux-form';
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import FormBTPattern from './Form_BTPattern';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
 const styles = {
@@ -47,7 +48,27 @@ class Dialog_BTPattern extends React.Component {
       this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
       this.handleCancel();
   }
+  console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
+   var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + '/btPattern.btr' ;
+    console.info("filePath", filePath);  
+
+   let keywordDataList = [];
+     keywordDataList.push("BTRuleConfig" + "=" + filePath); 
+     
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
   }
+
+   getProfileName(profileId)
+  {
+    let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+    if(profileData.length != 0)
+       return profileData[0].name;
+    else
+      return null;          
+  }
+
 
   componentWillReceiveProps(nextProps)
   {
@@ -114,7 +135,11 @@ class Dialog_BTPattern extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    BTPattern : state.BTPattern
+    BTPattern : state.BTPattern,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail,
+    homeData: state.initialData.homeData,
+    ns_wdir: state.initialData.ns_wdir
    };
 }
 

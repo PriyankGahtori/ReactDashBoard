@@ -12,6 +12,7 @@ import { reset } from 'redux-form';
 //Importing React components
 import * as actionCreators  from '../../../../actions/index';
 import FormMethodMonitor from './Form_MethodMonitor';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 const styles = {
   title: {
@@ -31,7 +32,6 @@ class Dialog_MethodMonitor extends React.Component {
   }
 
   componentWillMount() {
-     console.log("inside mount")
   }
 
  submitForm(data){
@@ -45,7 +45,31 @@ class Dialog_MethodMonitor extends React.Component {
       this.props.insertMethodMonitorDetails(data,this.props.profileId)
       this.handleCancel();
     }
+     //action for runtime change
+      var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/methodmonitors.mml"
+      let keywordDataList = [];
+        keywordDataList.push("ndMethodMonFile=" + filePath ); 
+      triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);
   }
+
+  getProfileName(profileId)
+    {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+          return profileData[0].name;
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+    }
 
   componentWillReceiveProps(nextProps)
   {
@@ -111,7 +135,11 @@ class Dialog_MethodMonitor extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    methodMonitor : state.methodMonitor
+    methodMonitor : state.methodMonitor,
+    trData : state.initialData.trData,
+    ns_wdir: state.initialData.ns_wdir,
+    homeData: state.initialData.homeData, 
+    trModeDetail: state.trModeDetail,
    };
 }
 

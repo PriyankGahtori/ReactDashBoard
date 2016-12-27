@@ -15,12 +15,10 @@ class EnableErrorDetection extends Component {
   
 	constructor(props) {
   		super(props);
-      console.log("ndMethodmonFile--",this.props.initialValKeywords.BTErrorRules)
   		this.state = {
                     checked:this.props.initialValKeywords.BTErrorRules,
                     openSnackBar:false
                    };
-      console.log("state--",this.state.checked)
  	}
 
  	componentWillReceiveProps(nextProps)
@@ -64,11 +62,11 @@ class EnableErrorDetection extends Component {
  		//enable the checkbox and keyword and show snackbar
  		   //this.setState({checked: true});
  		   keywordData.BTErrorRules.value = String(value);
-      	   this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
-      	   this.setState({ openSnackBar: true });
+       this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
+       this.setState({ openSnackBar: true });
 
-      	  //action for runtime change
-      	  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+      //action for runtime change
+      var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/btErrorRule.err" ;
 		  console.info("filePath", filePath);	      	  
 		  let keywordDataList = [];
 		    keywordDataList.push("BTErrorRules=" + filePath ); 

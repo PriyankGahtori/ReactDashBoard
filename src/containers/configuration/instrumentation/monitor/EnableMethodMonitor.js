@@ -64,11 +64,11 @@ class EnableMethodMonitor extends Component {
  		//enable the checkbox and keyword and show snackbar
  		   //this.setState({checked: true});
  		   keywordData.ndMethodMonFile.value = String(value);
-      	   this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
-      	   this.setState({ openSnackBar: true });
+       this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
+       this.setState({ openSnackBar: true });
 
-      	  //action for runtime change
-      	  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+      //action for runtime change
+      var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/methodmonitors.mml"
 		  console.info("filePath", filePath);	      	  
 		  let keywordDataList = [];
 		    keywordDataList.push("ndMethodMonFile=" + filePath ); 

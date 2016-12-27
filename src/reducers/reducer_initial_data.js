@@ -7,10 +7,11 @@ const initialState = {homeData:null,
 export default function(state = initialState, action) {
 
   switch(action.type) {
+
     case 'FETCH_INIT_DATA':
     var newState = Object.assign({}, state);
     let trStatus = action.payload.data.trData.status;
-    newState=action.payload.data;
+    newState.homeData=action.payload.data.homeData;
     newState.trData.switch = trStatus == null ? false : trStatus;
     return newState;
 
@@ -26,8 +27,6 @@ export default function(state = initialState, action) {
 
     case 'ADD_ROW_APPTABLE':
     var newState = Object.assign({},state)
-    console.log("newState--in home initial data--",newState)
-    console.log("in home initial data---",action.payload.data)
     var respData = action.payload.data ;
     var newApp = {'dcId' : respData.dcId,
                    'id'  : respData.id,
@@ -36,8 +35,13 @@ export default function(state = initialState, action) {
     newState.homeData[0].value.push(newApp)
     return newState;
 
+    case 'UPDATE_TOPOLOGY':
+    var newState = Object.assign({}, state);
+    let topo = {id:2, type:"Topology", value: action.payload}
+    let newData = [{id:0, type:"Application", value: newState.homeData[0].value },{id:1, type:"Profile", value: newState.homeData[1].value},{id:2, type:"Topology", value: action.payload.data}];
+    newState.homeData = newData;
+    return newState;
 
   }
-
   return state;
 }

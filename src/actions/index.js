@@ -176,8 +176,6 @@ return {
 }
 
 export function delAppTableRow(selectedRowKeys){
-  console.log("selectedRowKeys---",selectedRowKeys)
-  var idList = {'rowId':selectedRowKeys}
   var response = axios({
       method:'post',
    // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
@@ -188,7 +186,7 @@ export function delAppTableRow(selectedRowKeys){
 
  return{
     type    :'DEL_APPTABLE_ROW',
-    payload :selectedRowKeys
+    payload :response
   }
 }
 
@@ -1156,6 +1154,7 @@ export function generateNdConf(){
 }
 
 export function updateTopology(loader){
+
   const URL =  `${url.UPDATE_TOPOLOGY}`;
   const response = axios.get(URL);
   response.then(function(data){

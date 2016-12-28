@@ -130,22 +130,22 @@ class EnableMethodMonitor extends Component {
    
 	   <div className = "col-md-5" style={{right:15}}>
 				<CheckBox
-				  label="Enable Method Monitors"
+				  label=""
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>
-          </div>
+    </div>
       {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
 			
         <Dialog  
-		          title="Are you Sure You want to disable ndMethodMonFile keyword ?"
+		          title="Are you sure you want to disable method monitor(s) ?"
 		          actions={actions}
 		          modal={false}
 		          open={this.state.open}
 		          onRequestClose={this.handleClose.bind(this)} />
         <Snackbar
           open={this.state.openSnackBar}
-          message="ndMethodMonFile is Enabled"
+          message="Method monitor(s) is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleSnackbarClose.bind(this)}
         />

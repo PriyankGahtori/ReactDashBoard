@@ -1,6 +1,13 @@
+//Importing React components
 import React from 'react';
+import { render } from 'react-dom';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {hashHistory } from 'react-router';
+
+//Importing files
+import * as actionCreators  from '../../../actions/index';
 
 const styles = {
   headline: {
@@ -17,18 +24,38 @@ const styles = {
   }
 };
 
-export default class Instrumentation extends React.Component {
+class Instrumentation extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("props of instrumentration---",this.props)
     this.handleChange = this.handleChange.bind(this);    
+    this.getProfileName = this.getProfileName.bind(this);
+    this.state = {profileName : this.getProfileName(this.props.params.profileId)}
+  }
+
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+        {
+          return profileData[0].name;
+        }
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
   }
 
   handleChange(value){
-    console.log("value in handlechamge--",value)    
     let profileId = this.props.routeParams.profileId;
-    //let routeURL = `instrumentation/${profileId}/${value}`;
     let currPath = `${this.props.location.pathname}`;
         currPath = currPath.substring(0, currPath.indexOf("instrumentation")+15)
     let routeURL = `${currPath}/${value}`;
@@ -38,6 +65,7 @@ export default class Instrumentation extends React.Component {
   render() {
     return (
       <div className ='container-fluid'>
+      <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
       <div style ={styles.block}>
       <Tabs      
         onChange={this.handleChange}
@@ -66,8 +94,6 @@ export default class Instrumentation extends React.Component {
       </Tabs>
       </div>
 
-
-
       {this.props.children}
 
       </div>
@@ -75,3 +101,16 @@ export default class Instrumentation extends React.Component {
     );
   }
 }
+
+//receiving data from state set by reducers
+function mapStateToProps(state) {  
+  return {  
+   homeData : state.initialData.homeData
+   };
+}
+
+//method to dispatch actions to the reducers
+function mapDispatchToProps(dispatch) { 
+  return  bindActionCreators(actionCreators, dispatch);
+}
+export default connect(mapStateToProps,mapDispatchToProps)(Instrumentation);

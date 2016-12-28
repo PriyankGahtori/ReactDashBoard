@@ -130,7 +130,7 @@ class EnableErrorDetection extends Component {
    
 	   <div className = "col-md-5" style={{right:15}}>
 				<CheckBox
-				  label="Enable Error Detection"
+				  label=""
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>
@@ -138,7 +138,7 @@ class EnableErrorDetection extends Component {
       {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
 			
         <Dialog  
-		          title="Are you Sure You want to disable BTErrorRules keyword ?"
+		          title="Are you Sure You want to disable BT Error Rules ?"
 		          actions={actions}
 		          modal={false}
 		          open={this.state.open}

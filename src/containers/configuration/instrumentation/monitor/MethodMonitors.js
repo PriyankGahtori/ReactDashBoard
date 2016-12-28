@@ -14,6 +14,7 @@ import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import ConfirmDelDialog  from 'material-ui/Dialog'
 
 //Importing files
 import DialogMethodMon from './Dialog_MethodMonitor';
@@ -73,7 +74,9 @@ const styles = {
     super(props);
      this.handleOpen=this.handleOpen.bind(this);
      this.loader = this.loader.bind(this);
-     this.state = {openSnack: false}
+     this.state = {openSnack: false, delDialog: false}
+     this.delRow = this.delRow.bind(this);
+     this.handleClose = this.handleClose.bind(this);
 
      
   }
@@ -101,6 +104,31 @@ loader(){
    
   }
 
+  // Below Method is called when the user tries to delete the method monitor.
+  delRow(){
+    var selectedRow=[];
+    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+    this.props.delMethodMonitorRow(this.props.params.profileId,selectedRow);
+    try{
+         this.refs.methodMonitorTable.refs.table.cleanSelected();
+     }
+     catch(e){
+        console.error(" Exception Occured: FileName: Method Monitors,MethodName: delRow()",e)
+     }
+    this.handleClose();
+   
+ }
+  
+  handleDelConfirm(){
+     var selectedRow=[];
+     selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+     if(selectedRow.length== 0)
+      this.setState({openSnack: true,delDialog: false})
+     else
+       this.setState({openSnack:false,delDialog : true})
+      
+  }
+
   handleCancel(){
     this.props.toggleStateAddMethodMonitor();
   }
@@ -109,6 +137,9 @@ loader(){
     console.log("inside handle check")
    
   };
+  handleClose(){
+        this.setState({delDialog:false})
+  }
  
   handleOpen(openMethodMonitorDialogType){
     if(openMethodMonitorDialogType == 'edit'){
@@ -134,7 +165,20 @@ loader(){
   }
 
   render() {
-
+   const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+       onTouchTap={this.handleClose}
+      />,
+      <FlatButton
+        label="Delete"
+        primary={true}
+        keyboardFocused={true}
+        onTouchTap={this.delRow}
+    
+      />,
+    ];
 
     return (
     <div>
@@ -144,15 +188,18 @@ loader(){
         <div className="col-md-10">
               <h4>Method Monitor(s)</h4>
         </div>
-   <IconButton tooltip = "Edit Method Monitor" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+     <IconButton tooltip ="Edit Method Monitor" style={{left:67,paddingTop:40}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
 
+     <IconButton tooltip = "Delete Method Monitor" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+   
+
+     
         <DataGrid data = {this.props.methodMonitor.tableData} 
             pagination = {false} 
             ref        = "methodMonitorTable" 
             column     = {columns}
             onClick    = {this.handleClick}
-            onToggle   = {this.onToggle.bind(this)}
-         />
+            onToggle   = {this.onToggle.bind(this)} />
 
         <div>
          <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,'add')}>
@@ -167,7 +214,13 @@ loader(){
           message="No row selected or multiple rows selected"
           autoHideDuration={4000}
         />
+       <ConfirmDelDialog
+          title="Are you sure want to delete the Method Monitor(s)?"
+          actions={actions}
+          modal={false}
+          open={this.state.delDialog}
       
+        />
        </Paper>
     </div>
     );

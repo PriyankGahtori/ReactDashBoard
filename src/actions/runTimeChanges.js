@@ -10,7 +10,6 @@ import * as url from './restURL';
 
 export function triggerRunTimeChanges(trData,trModeDetail,keywordDatalst)
 {
-  console.log("triggerRunTimeChanges method")
   //if test is offline mode, return (no run time changes)
   if(trData.switch == false || trData.status == null || trModeDetail.nodeType == null)
   {

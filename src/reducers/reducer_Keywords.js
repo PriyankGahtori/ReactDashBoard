@@ -147,10 +147,6 @@ switch(action.type){
 		newState.enableExcptCheckBox = action.payload
 		return newState;
 
-		case 'UPDATE_TOPOLOGY':
-		var newState = Object.assign({}, state);
-		newState.uploadTopology = action.payload.data;
-		return newState;
 
 		case 'ENABLE_DEBUG_CHECKBOX':
 		var newState = Object.assign({}, state);

@@ -12,6 +12,9 @@ import { reset } from 'redux-form';
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import FormErrorDetection from './Form_ErrorDetection';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+
+
 const styles = {
     title:{
       fontSize:16,
@@ -40,7 +43,31 @@ class Dialog_ErrorDetection extends React.Component {
     this.props.addErrorDetection(data,this.props.profileId)
     this.handleCancel();
   }
+   //action for runtime change
+    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/btErrorRule.err" ;
+    let keywordDataList = [];
+        keywordDataList.push("BTErrorRules=" + filePath ); 
+    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
   }
+
+  getProfileName(profileId)
+    {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+          return profileData[0].name;
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+    }
 
   componentWillReceiveProps(nextProps)
   {
@@ -103,7 +130,11 @@ class Dialog_ErrorDetection extends React.Component {
 function mapStateToProps(state) {
 
   return {
-    errorDetection : state.errorDetection
+    errorDetection : state.errorDetection ,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail,
+    homeData: state.initialData.homeData,
+    ns_wdir: state.initialData.ns_wdir
    };
 }
 

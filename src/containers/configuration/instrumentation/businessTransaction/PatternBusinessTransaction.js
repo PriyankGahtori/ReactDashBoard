@@ -22,6 +22,7 @@ import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import * as actionCreators  from '../../../../actions/index';
 import DataGrid from '../../../../components/DCDetailTable';
 import DialogBTPattern from './Dialog_BTPattern';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
 export const fields = ['btName','activeToggle','matchType','URL','include','reqParam','reqMethod','reqHeader']
@@ -109,6 +110,17 @@ const styles = {
    
   };
  
+   getProfileName(profileId)
+  {
+    let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+    if(profileData.length != 0)
+       return profileData[0].name;
+    else
+      return null;          
+  }
+
 
  handleOpen(openBTPatternDialog){
 

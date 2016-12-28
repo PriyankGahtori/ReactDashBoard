@@ -82,7 +82,7 @@ class EnableExceptionCapturing extends React.Component {
   this.state = {openEnableExcptCapturingDialog : false}
   this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
   this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableExcptCheckBox:false}
+  this.state = {enableExcptCheckBox:this.props.getAllKeywordData.enableExcptCheckBox}
   this.state = {openSnackBar:false}
 }
 
@@ -128,7 +128,7 @@ handleDReqCheckboxChange(event,value){
        this.props.enableExcptCheckBoxStatus(true);
    }
    else{
-   	this.props.enableExcptCheckBoxStatus(isInputChecked);
+   //	this.props.enableExcptCheckBoxStatus(isInputChecked);
    	this.setState({openCnfrmDisbleDialog:true})
    }
 }
@@ -155,7 +155,7 @@ handleRequestClose(){
 */
 cnfrmDisableExcptVal(){
 	this.submitForm(validate.disabledExcptCapturing);
-	this.props.enableExcptCheckBoxStatus(false);
+	//this.props.enableExcptCheckBoxStatus(false);
 	this.setState({ openCnfrmDisbleDialog:false
 	})
 
@@ -172,16 +172,29 @@ submitForm(formData){
 	let keywordDataList = [];
 
     /*
-    * final data is data that is fetched from server and its value is updated according to user input,
+    * final data is data that is fetched from server and 
+    * its value is updated according to user input,
     * Final data object contains all the keywords  .
-    *  instrExceptions  = 1%201%200%2029
+    * instrExceptions  = 1%201%200%2029
     * 
     */
 
-    var instrVal = constructValue.instrExceptionValue(formData) ;
-    keywordData.instrExceptions["value"] = instrVal;
+    var instrVal = 0
+    var length = Object.keys(formData).length
+    
+    /* below check handles the case of disabling the keyword/enabling the kwyword i.e
+   	*  when formData = {"instrExceptions":'0'}
+   	*  there is no need to call constructVal function
+   	*/
 
-    console.log("keywordData---",keywordData)
+   	if(length > 1){
+   		instrVal = constructValue.instrExceptionValue(formData) ;
+	   	}
+	  else
+	  	instrVal = formData.instrExceptions;
+
+   		keywordData.instrExceptions["value"] = instrVal ;
+   
     this.props.submitKeywordData(keywordData,this.props.profileId);
     
    //action for runtime change

@@ -21,7 +21,8 @@ class BusinessTransaction extends React.Component {
     let currPath = `${this.props.location.pathname}`;
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
 
-    let routeURL = `${currPath}/${this.state.btRuleType}`;
+    let btRuleType = this.props.initialValKeywords.BTRuleConfig  === "global" ? "" : this.props.initialValKeywords.BTRuleConfig 
+    let routeURL = `${currPath}/${btRuleType}`;
     hashHistory.push(routeURL);
   }
 
@@ -33,10 +34,20 @@ class BusinessTransaction extends React.Component {
 
   }
 
-
+  getProfileName(profileId)
+  {
+    let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+    if(profileData.length != 0)
+       return profileData[0].name;
+    else
+      return null;          
+  }
 
   handleChange(event,value){
-  	val = value === "global" ? "" : value
+    console.log("this.props---",this.props.trData)
+  	let val = value === "global" ? "" : value
     //let routeURL = `instrumentation/${profileId}/bt/${value}`;
     //updating keyword 'BTRuleConfig' value a/c to type selected
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
@@ -45,8 +56,17 @@ class BusinessTransaction extends React.Component {
 
     //action for runtime change
    //triggerRunTimeChanges(trData,trModeDetail,formData);
+   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
+    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) ;
+    if(value == "global")
+       filePath = filePath  + '/btGlobal.btr'
+    else
+       filePath = filePath  + '/btPattern.btr' 
+
+    console.info("filePath", filePath);  
+
    let keywordDataList = [];
-     keywordDataList.push("BTRuleConfig" + "=" + value); 
+     keywordDataList.push("BTRuleConfig" + "=" + filePath); 
      
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
 
@@ -100,7 +120,11 @@ class BusinessTransaction extends React.Component {
 function mapStateToProps(state) {
   return {
     initialValKeywords :state.Keywords.initializeKeywords,
-    getAllKeywordData :state.Keywords
+    getAllKeywordData :state.Keywords,
+    trData : state.initialData.trData,
+    trModeDetail: state.trModeDetail,
+    homeData: state.initialData.homeData,
+    ns_wdir: state.initialData.ns_wdir
    };
 }
 

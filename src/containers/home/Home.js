@@ -17,6 +17,7 @@ const iconStyle = {
 fontSize:'56px',
 color:'#d8d8d8'
 };
+
 const listStyle = {  
   padding: '8px 4px',
   color: '#FFF',
@@ -39,13 +40,13 @@ const divStyle ={
    }
 
 componentWillMount() {
-  
   this.props.triggerLoader(true, null)
   this.props.fetchInitData(this.loader)
 
 }
 
 componentWillReceiveProps(nextProps){
+ // this.props.fetchInitData(this.loader);
 	if(this.props.homeData != nextProps.homeData)
 		this.setState({homeData:nextProps.homeData});
 }
@@ -102,7 +103,8 @@ componentWillReceiveProps(nextProps){
 function mapStateToProps(state) {
   return {
    list     : state.list,
-   homeData : state.initialData.homeData
+   homeData : state.initialData.homeData,
+  
    };
 }
 

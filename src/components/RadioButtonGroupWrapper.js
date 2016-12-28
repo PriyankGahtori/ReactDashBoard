@@ -2,6 +2,8 @@ import React from 'react';
 import {RadioButtonGroup} from 'material-ui/RadioButton';
 
 export default class RadioButtonGroupWrapper extends React.Component {
+
+	 
 	onChange(event,value){
 		if(this.props.onChange){
 			this.props.onChange(value)
@@ -11,6 +13,8 @@ export default class RadioButtonGroupWrapper extends React.Component {
 		if(this.props.onCustomChange){
 			this.props.onCustomChange(event,value)
 		}
+
+
 	}
 
   render() {

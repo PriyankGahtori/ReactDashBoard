@@ -861,6 +861,7 @@ export function initializeBTFields(profileId,loader){
 
 export function addBTData(data,profileId){
   console.log("addBTData func called profileId",profileId)
+  console.log("data---",data)
   var response = axios({
     method : 'post',
     url    : `${url.ADD_BT}/${profileId}`,
@@ -1533,4 +1534,11 @@ export function storeAppId(appId){
     type:'FETCH_ND_AGENT_TABLEDATA',
     payload:request_table
   }
+}
+
+export function emptyTreeState(){
+
+	return{
+		type    :'CLEAR_TREE_STATE',
+	}
 }

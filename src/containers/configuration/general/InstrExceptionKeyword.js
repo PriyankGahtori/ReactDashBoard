@@ -120,8 +120,12 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
             else
               instrVal = instrVal+"%200"
 
-            if(formData.enableCaptureExcepStackTrace === "true" || formData.enableCaptureExcepStackTrace === true)
-              instrVal = instrVal+"%20"+formData.stackTraceDepthValue;
+            if(formData.enableCaptureExcepStackTrace === "true" || formData.enableCaptureExcepStackTrace === true){
+              if(formData.stackTraceDepthValue != null)
+                 instrVal = instrVal+"%20"+formData.stackTraceDepthValue;
+          }
+            
+
       }
       console.log("instrVal--",instrVal)      
       keywordData.instrExceptions["value"] = instrVal;

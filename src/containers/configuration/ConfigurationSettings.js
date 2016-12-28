@@ -82,7 +82,12 @@ class ConfigurationSettings extends React.Component {
      //set TRMode Details 
       this.props.setTRModeDetail(this.getTRModeDetail(this.props));
       this.props.getKeywordsData(this.props.params.profileId,this.loader);
-
+      
+      //nullifying tree state's
+      let path = this.props.location.pathname ;
+      if(path.startsWith("/profile")){
+         this.props.emptyTreeState();
+      }
   }
 
   componentWillReceiveProps(nextProps)

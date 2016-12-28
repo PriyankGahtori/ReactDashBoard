@@ -42,6 +42,11 @@ export default function(state = initialState, action) {
     newState.homeData = newData;
     return newState;
 
+    case 'CLEAR_TREE_STATE':
+    var newState =  Object.assign({}, state);
+    newState.appId = -1 ;
+    return newState;
+
   }
   return state;
 }

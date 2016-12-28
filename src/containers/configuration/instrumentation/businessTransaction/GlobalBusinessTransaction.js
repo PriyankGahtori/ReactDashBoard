@@ -45,8 +45,9 @@ class GlobalBusinessTransaction extends React.Component {
     	'paramDiv' : true, 
   		'methodDiv': false,
   		'headerDiv': false,
-      'uriType':"segment"    	
+   
     }
+    console.log("this.props.initialData.uriType --",this.props.initialData.uriType )
     this.loader = this.loader.bind(this)
   }
 
@@ -65,15 +66,17 @@ class GlobalBusinessTransaction extends React.Component {
            "dynamicReqType" : data.dynamicReqType,
            "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
            "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
-           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
+           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false,
+            "uriType": data.uriType
          })
       }
-    if(this.props.initialData.uriType != nextProps.initialData.uriType)
-      {
+   /* if(this.props.initialData.uriType != nextProps.initialData.uriType){
+        console.log("this.state--", nextProps.initialData.uriType)
         this.setState({"uriType": nextProps.initialData.uriType})
-      }
+      }*/
  }
 }
+
 loader(){
 // var message = {'title': ' BT Global Loaded' , 'msg' : '' }
   this.props.triggerLoader(false,null)
@@ -113,12 +116,11 @@ loader(){
 
   submit(data){
     data = JSON.stringify(data);
+    console.log("btGlobal---",data)
     this.props.addBTData(data,this.props.params.profileId); 
 
     //action for runtime change
-   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + '/btGlobal.btr' ;
-    console.info("filePath", filePath);  
 
    let keywordDataList = [];
      keywordDataList.push("BTRuleConfig" + "=" + filePath); 
@@ -146,7 +148,7 @@ loader(){
        <div style={{'paddingTop':12}}>
       	<h4>Select part of URI used in Transaction name</h4>
       </div>
-     
+         
 	  <RadioButtonGroup 
 	  		{...uriType}
 	  		name = "uriType" 

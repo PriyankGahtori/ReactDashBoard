@@ -41,6 +41,17 @@ export const fields = ['enable',
 
     }
 }
+
+const validate = (values) =>{
+    const errors = { }
+      if(isNaN(values.stackTraceDepthValue))
+      errors.stackTraceDepthValue = 'Please Enter Only Numbers'
+
+      if(values.stackTraceDepthValue < 0 || values.stackTraceDepthValue > 9999)
+        errors.stackTraceDepthValue = 'Please enter values between 0 and 9999'
+
+    return errors;
+}
 class Form_EnableExcptcapturing extends React.Component {
 
   constructor(props) {
@@ -140,7 +151,7 @@ class Form_EnableExcptcapturing extends React.Component {
                       {...stackTraceDepthValue}
                       hintText = "0-9999"
                       floatingLabelText = "Stack Trace Depth"
-                     
+                       errorText = {stackTraceDepthValue.touched && stackTraceDepthValue.error && <div>{stackTraceDepthValue.error} </div> }                     
                     />
             </div>
            
@@ -187,6 +198,7 @@ Form_EnableExcptcapturing.propTypes = {
 export default reduxForm({
   form: 'Form_EnableExcptcapturing',
   fields,
+  validate
 
 },
   state => ({ // mapStateToProps

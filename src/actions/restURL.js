@@ -1,10 +1,10 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
-//const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -95,6 +95,7 @@ export const GET_INSTR_PROFILE_LIST = `${SERVICE_URL}/custom/profilekeywords/xml
 /* URL for monitors  */
 export const FETCH_METHOD_MON_TABLEDATA = `${SERVICE_URL}/custom/methodmonitor`;
 export const ADD_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor`;
+export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
 
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;

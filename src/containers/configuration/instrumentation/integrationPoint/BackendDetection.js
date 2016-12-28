@@ -273,6 +273,7 @@ const styles = {
           column = {columns}
           data = {this.props.backEndDetection.tableData}
           onhref={this.handleHref.bind(this)}
+          selectRow ={{}}
         />
         </Paper>
 

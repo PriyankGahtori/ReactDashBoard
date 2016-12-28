@@ -61,7 +61,7 @@ export function fetchDCTableData(appId){
                   http://10.10.40.7:8050/configUI/dcdetail
                   */
 
-                  export function addRowDCTable(formData,openDCDialogType,appId){
+   export function addRowDCTable(formData,openDCDialogType,appId){
   //when action is called from updating form
   if(openDCDialogType == "edit"){
 
@@ -1242,6 +1242,18 @@ export function toggleStateAddMethodMonitor(){
   }
 }
 
+export function delMethodMonitorRow(profileId,selectedRowKeys){
+   var response = axios({
+      method:'post',
+      url : `${url.DEL_METHOD_MONITOR}/${profileId}`,
+     data: selectedRowKeys,
+     headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_METHOD_MONITOR_ROW',
+    payload: response
+  }
+}
 
 export function fetchMethodMonitorTableData(profileId,loader){
 

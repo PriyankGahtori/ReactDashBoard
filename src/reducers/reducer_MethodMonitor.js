@@ -49,6 +49,12 @@ export default function(state = initialState, action) {
      });
    return newState;
 
+    case 'DEL_METHOD_MONITOR_ROW': 
+        var newState =  Object.assign({},state)
+        newState.tableData  = newState.tableData.filter(function(value) {
+          return action.payload.data.indexOf(Number(value.methodId)) == -1;
+        })
+      return newState;
   }
   return state;
 }

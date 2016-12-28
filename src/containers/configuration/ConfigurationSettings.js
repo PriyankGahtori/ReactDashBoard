@@ -31,6 +31,8 @@ class ConfigurationSettings extends React.Component {
     this.handleGeneralTab = this.handleGeneralTab.bind(this);
     this.handleInstrumentationTab = this.handleInstrumentationTab.bind(this);
     this.handleAdvanceSettingTab = this.handleAdvanceSettingTab.bind(this);
+    this.getProfileName = this.getProfileName.bind(this);
+    this.state = {profileName : this.getProfileName(this.props.params.profileId)}
     }
 
 
@@ -81,16 +83,37 @@ class ConfigurationSettings extends React.Component {
   {
      //set TRMode Details 
       this.props.setTRModeDetail(this.getTRModeDetail(this.props));
-      this.props.getKeywordsData(this.props.params.profileId,this.loader);
+      this.props.getKeywordsData(this.props.params.profileId,this.loader)
       
       //nullifying tree state's
       let path = this.props.location.pathname ;
       if(path.startsWith("/profile")){
          this.props.emptyTreeState();
-      }
+    }
   }
 
-  componentWillReceiveProps(nextProps)
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+        {
+          return profileData[0].name;
+        }
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+  }
+
+   componentWillReceiveProps(nextProps)
   {
     //update TRMode detail, if the path has changed or TR Mode is toggled   
     if(this.props.props.location.pathname != nextProps.props.location.pathname){
@@ -124,6 +147,7 @@ class ConfigurationSettings extends React.Component {
   render() {
    return (
       <div> 
+      <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
         <Card style={cardStyle}>
            <List style={listStyle} > 
             <ListItem 
@@ -151,7 +175,8 @@ class ConfigurationSettings extends React.Component {
 //receiving data from state set by reducers
 function mapStateToProps(state) {  
   return {  
-   trData :state.initialData.trData
+   trData :state.initialData.trData,
+   homeData : state.initialData.homeData
    };
 }
 

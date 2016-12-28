@@ -15,12 +15,10 @@ class EnableErrorDetection extends Component {
   
 	constructor(props) {
   		super(props);
-      console.log("ndMethodmonFile--",this.props.initialValKeywords.BTErrorRules)
   		this.state = {
                     checked:this.props.initialValKeywords.BTErrorRules,
                     openSnackBar:false
                    };
-      console.log("state--",this.state.checked)
  	}
 
  	componentWillReceiveProps(nextProps)
@@ -64,11 +62,11 @@ class EnableErrorDetection extends Component {
  		//enable the checkbox and keyword and show snackbar
  		   //this.setState({checked: true});
  		   keywordData.BTErrorRules.value = String(value);
-      	   this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
-      	   this.setState({ openSnackBar: true });
+       this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
+       this.setState({ openSnackBar: true });
 
-      	  //action for runtime change
-      	  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+      //action for runtime change
+      var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/btErrorRule.err" ;
 		  console.info("filePath", filePath);	      	  
 		  let keywordDataList = [];
 		    keywordDataList.push("BTErrorRules=" + filePath ); 
@@ -130,7 +128,7 @@ class EnableErrorDetection extends Component {
    
 	   <div className = "col-md-5" style={{right:15}}>
 				<CheckBox
-				  label="Enable Error Detection"
+				  label=""
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>
@@ -138,7 +136,7 @@ class EnableErrorDetection extends Component {
       {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
 			
         <Dialog  
-		          title="Are you Sure You want to disable BTErrorRules keyword ?"
+		          title="Are you Sure You want to disable BT Error Rules ?"
 		          actions={actions}
 		          modal={false}
 		          open={this.state.open}

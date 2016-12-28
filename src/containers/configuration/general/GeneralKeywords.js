@@ -15,6 +15,7 @@ import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
+
 //Importing files
 import * as actionCreators  from '../../../actions/index';
 import InstrProfiles from './InstrProfileMultiSelect';
@@ -78,10 +79,32 @@ class GeneralKeywords extends React.Component {
   constructor(props) {
     super(props);
   this.loader = this.loader.bind(this);
-    this.state = {getAllKeywordData:this.props.getAllKeywordData}
-     
+  this.state = {getAllKeywordData:this.props.getAllKeywordData}
+  this.getProfileName = this.getProfileName.bind(this);
+  this.state = {profileName : this.getProfileName(this.props.params.profileId)}
+    
   }
 
+  getProfileName(profileId)
+  {
+      try{
+        let profileData = this.props.homeData[1]
+                              .value
+                              .filter(function(obj){return obj.id == profileId });  
+        if(profileData.length != 0)
+        {
+          return profileData[0].name;
+        }
+        else
+          return null;          
+      }
+      catch(ex)
+      {
+        console.error("error in getting profileId " + ex);
+        return null;
+      }
+
+  }
  
 //this function is called first when component gets first loaded
   componentWillMount() {
@@ -127,6 +150,7 @@ class GeneralKeywords extends React.Component {
   
     return (
       <div >
+      <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
       <Paper style={paperStyle} zDepth={2} >
         <EnableBCICapturing profileId = {this.props.params.profileId}/>
         <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
@@ -145,7 +169,8 @@ class GeneralKeywords extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    getAllKeywordData :state.Keywords
+    getAllKeywordData :state.Keywords,
+    homeData : state.initialData.homeData
    };
 }
 

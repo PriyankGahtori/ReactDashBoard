@@ -5,12 +5,14 @@ import FlatButton from 'material-ui/FlatButton';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {hashHistory } from 'react-router';
 
 //Importing files
 import * as actionCreators  from '../../actions/index';
+import Dialog from 'material-ui/Dialog';
 
 
-class Dialog_Settings extends React.Component {
+class MigrateTopo extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,9 +23,9 @@ class Dialog_Settings extends React.Component {
   }
 
   updateTopo(){
-    this.props.triggerLoader(true,null);
-    this.props.updateTopology(this.loader);
-    this.props.closeDialog();
+   this.props.triggerLoader(true,null);
+   this.props.updateTopology(this.loader);
+   this.props.closeDialog();
   }
 
   generateTopo(){
@@ -39,15 +41,7 @@ class Dialog_Settings extends React.Component {
   render() {
     return (
       <div > 
-      <div >
-      
       <FlatButton style={{left:'150' }} label="Migrate Topologies" onTouchTap={this.updateTopo} primary={true} /> 
-      </div>
-     {/*   <div >
-       <p style={{paddingLeft:'100'}}>Generate ndonfig ile </p>
-       <FlatButton style={{left:'270',bottom: '40'}} label="Generate" onTouchTap={this.generateTopo} primary={true} /> 
-       </div>
-     */} 
      </div>
 
      );
@@ -57,4 +51,4 @@ class Dialog_Settings extends React.Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(null,mapDispatchToProps)(Dialog_Settings);
+export default connect(null,mapDispatchToProps)(MigrateTopo);

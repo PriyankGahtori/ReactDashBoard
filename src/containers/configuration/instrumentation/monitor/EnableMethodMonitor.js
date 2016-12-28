@@ -64,11 +64,11 @@ class EnableMethodMonitor extends Component {
  		//enable the checkbox and keyword and show snackbar
  		   //this.setState({checked: true});
  		   keywordData.ndMethodMonFile.value = String(value);
-      	   this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
-      	   this.setState({ openSnackBar: true });
+       this.props.submitKeywordData(keywordData,this.props.trModeDetail.profileId);
+       this.setState({ openSnackBar: true });
 
-      	  //action for runtime change
-      	  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/NDEntryPointFile.txt"
+      //action for runtime change
+      var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/methodmonitors.mml"
 		  console.info("filePath", filePath);	      	  
 		  let keywordDataList = [];
 		    keywordDataList.push("ndMethodMonFile=" + filePath ); 
@@ -130,22 +130,22 @@ class EnableMethodMonitor extends Component {
    
 	   <div className = "col-md-5" style={{right:15}}>
 				<CheckBox
-				  label="Enable Method Monitors"
+				  label=""
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>
-          </div>
+    </div>
       {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
 			
         <Dialog  
-		          title="Are you Sure You want to disable ndMethodMonFile keyword ?"
+		          title="Are you sure you want to disable method monitor(s) ?"
 		          actions={actions}
 		          modal={false}
 		          open={this.state.open}
 		          onRequestClose={this.handleClose.bind(this)} />
         <Snackbar
           open={this.state.openSnackBar}
-          message="ndMethodMonFile is Enabled"
+          message="Method monitor(s) is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleSnackbarClose.bind(this)}
         />

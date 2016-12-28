@@ -95,7 +95,16 @@ export function setDefaultValuesMonitor(data){
 }
 
 export function setDefaultValuesExcptCapturing(data){
-  var defaultKeywordData = { "instrExceptions" : data.instrExceptions.defaultValue
+  /* Here we are setting  "data.instrExceptions.defaultValue" = 1 manually
+  *  as its default value = 0 ,and as this group contains only 1 keyword
+  *  whose default value = 0,thus it keeps on disabling Enable Exception Capturing group
+  *  So currently to fix this issue,till {till other keyword is not added in this group }
+  * we are doing these changes
+  *  EARLIER : var defaultKeywordData = { "instrExceptions" : data.instrExceptions.defaultValue
+                            }
+  *   
+  */
+  var defaultKeywordData = { "instrExceptions" : "1"
                             }
   return defaultKeywordData ;
 }

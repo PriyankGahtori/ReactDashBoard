@@ -39,8 +39,10 @@ export default function(state = initialState, action) {
       
   case 'DEL_APPTABLE_ROW':
     var newState = Object.assign({}, state);
+    let rowIdList = action.payload.data ;
+    console.log("rowIdList--",rowIdList)
     newState.tableData = newState.tableData.filter(function(val){
-       return action.payload.indexOf(val.appId) == -1; //value to be deleteed should return false
+       return rowIdList.indexOf(Number(val.appId)) == -1; //value to be deleteed should return false
      });
     return newState; 
 

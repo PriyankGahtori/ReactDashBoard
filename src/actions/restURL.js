@@ -1,10 +1,10 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
-//const  SERVICE_URL = 'http://10.10.40.83:8090';
+//const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
-const SERVICE_URL = '/configUI';
+//const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -17,7 +17,7 @@ export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
 export const APP_TREE_URL = `${SERVICE_URL}/custom/tree/application`;
 export const ADD_ROW_APP_URL = `${SERVICE_URL}/custom/application`;
-export const DEL_ROW_APP_URL = `${SERVICE_URL}/application`;
+export const DEL_ROW_APP_URL = `${SERVICE_URL}/custom/application/delete`;
 
 /* Url for DCDetail */
 export const DC_TABLE_DATA_URL = `${SERVICE_URL}/application`;

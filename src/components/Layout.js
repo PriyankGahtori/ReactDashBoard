@@ -23,7 +23,7 @@ import NDAgentStatusDialog from 'material-ui/Dialog';
 //Importing files
 import Tree from '../containers/tree/Tree';
 import DropDownAppList from '../containers/DropDownAppList';
-import Dialog_Setting from '../containers/settings/Dialog_Settings';
+import MigrateTopo from '../containers/settings/Dialog_Settings';
 import TRToggle from '../containers/settings/TRToggle';
 import Loader from '../containers/utils/Loader';
 import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
@@ -69,6 +69,7 @@ export default class Layout extends React.Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleClose = this.handleClose.bind(this); 
     this.settingScreen = this.settingScreen.bind(this);
+    this.handleCloseTopoDialog = this.handleCloseTopoDialog.bind(this) ;
 
   }
 
@@ -125,7 +126,11 @@ export default class Layout extends React.Component {
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-  	this.setState({open: false,settingOpen:false,agentStatusOpen:false}); 
+  	this.setState({open: false,agentStatusOpen:false}); 
+  }
+
+  handleCloseTopoDialog(){
+    this.setState({settingOpen:false})
   }
 
   render() {
@@ -133,19 +138,22 @@ export default class Layout extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose} 
+        onTouchTap={this.handleCloseTopoDialog} 
         style={{bottom:'15',right:'5'}}/>
     ];
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
     	<div>
+ 
        <SettingsDialog  
-               title="Topology Migration"
+             title="Topology Migration"
              open={this.state.settingOpen}
              actions={actions} 
              contentStyle={{width: '550'}}>
-             <Dialog_Setting closeDialog={this.handleClose}/>
+             <MigrateTopo closeDialog={this.handleCloseTopoDialog}/>
         </SettingsDialog >
+
+       
 
         <NDAgentStatusDialog  
             title="ND BCI Agent Status Information"

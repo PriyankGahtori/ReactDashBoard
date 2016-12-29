@@ -110,17 +110,6 @@ const styles = {
    
   };
  
-   getProfileName(profileId)
-  {
-    let profileData = this.props.homeData[1]
-                              .value
-                              .filter(function(obj){return obj.id == profileId });  
-    if(profileData.length != 0)
-       return profileData[0].name;
-    else
-      return null;          
-  }
-
 
  handleOpen(openBTPatternDialog){
 

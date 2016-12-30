@@ -46,22 +46,19 @@ class BusinessTransaction extends React.Component {
 
   handleChange(event,value){
   	let val = value === "global" ? "" : value
-    //let routeURL = `instrumentation/${profileId}/bt/${value}`;
+
     //updating keyword 'BTRuleConfig' value a/c to type selected
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     keywordData.BTRuleConfig["value"] = value
     this.props.submitKeywordData(keywordData,this.props.params.profileId);
 
     //action for runtime change
-   //triggerRunTimeChanges(trData,trModeDetail,formData);
-   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
     var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) ;
     if(value == "global")
        filePath = filePath  + '/btGlobal.btr'
     else
        filePath = filePath  + '/btPattern.btr' 
 
-    console.info("filePath", filePath);  
 
    let keywordDataList = [];
      keywordDataList.push("BTRuleConfig" + "=" + filePath); 

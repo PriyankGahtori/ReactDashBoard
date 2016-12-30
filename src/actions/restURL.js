@@ -4,6 +4,7 @@
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
+
 const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */

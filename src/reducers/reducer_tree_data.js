@@ -1,7 +1,6 @@
 var _ = require('lodash');
 export default function(state = [], action) {
 
-	console.log("inside init reducer for tree--", action.type);
   switch(action.type) {
   case 'FETCH_TREE_DATA':
   	var newState = Object.assign({}, state);
@@ -189,7 +188,6 @@ case 'FETCH_INSTANCE_NODE':
 
 
      case 'TIER_NODE_TO_TOPO_ROOT' :
-     console.log("In reducer TIER_NODE_TO_TOPO_ROOT---",newState)
      var newState = Object.assign({}, state);
      var childArr = action.payload.data.childNode;
      for(var i = 0 ; i < childArr.length;i++){
@@ -197,6 +195,11 @@ case 'FETCH_INSTANCE_NODE':
      }
      newState.loading = false;
      return newState ;
+  
+     case 'CLEAR_TREE_STATE':
+     var newState = Object.assign({},state)
+     newState = {}
+     return newState;  
 
 
   default :

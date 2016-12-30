@@ -132,6 +132,7 @@ var message = {title: " Bussiness Transaction Global settings are successfully s
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
 }
 
+
   render() {
 
   	const {

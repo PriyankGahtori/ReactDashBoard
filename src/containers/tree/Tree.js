@@ -45,8 +45,6 @@ decorators.Header = (props) => {
 
   onToggle(node, toggled){
    
-    console.log("on toggled---",node.type) 
-    console.log(`/${node.type}/${node.id}`)    
     hashHistory.push(`/${node.type}/${node.id}`)
 
     if(node.type == "dcdetail" ){
@@ -55,7 +53,6 @@ decorators.Header = (props) => {
     }
 
     if(node.type == "topology"){
-      console.log("node for fetching-tier--",node)
 
       this.props.fetchTierNodeTopoRootNode(node) //actions to be triggered when Topology acts as root node
 

@@ -859,16 +859,16 @@ export function initializeBTFields(profileId,loader){
   }
 }
 
-export function addBTData(data,profileId){
-  console.log("addBTData func called profileId",profileId)
+export function addBTData(data,profileId,submitLoader){
   var response = axios({
     method : 'post',
     url    : `${url.ADD_BT}/${profileId}`,
     data   : data,
     headers: {'Content-Type':'application/json'}
   })
-
-  console.log("response----",response)
+   response.then(function(){
+    submitLoader();
+   })
   return{
     type:'ADD_BT_DATA',
     payload:response
@@ -1116,7 +1116,7 @@ export function setDefValBCICapturingKeywords() {
   }
 }
 
-export function ENABLE_BCI_CHECKBOX(flag){
+export function enableBCICheckBoxStatus(flag){
   return{
     type : 'ENABLE_BCI_CHECKBOX',
     payload:flag
@@ -1154,7 +1154,6 @@ export function generateNdConf(){
 }
 
 export function updateTopology(loader){
-
   const URL =  `${url.UPDATE_TOPOLOGY}`;
   const response = axios.get(URL);
   response.then(function(data){
@@ -1241,6 +1240,7 @@ export function toggleStateAddMethodMonitor(){
   }
 }
 
+// Action creator for delete
 export function delMethodMonitorRow(profileId,selectedRowKeys){
    var response = axios({
       method:'post',
@@ -1362,6 +1362,20 @@ export function initializeErrorDetectionForm(data,type){
   return{
     type: 'INITIALIZE_ERROR_DETECTION_FORM',
     payload: payload
+  }
+}
+
+export function delErrorDetectionRow(profileId,selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_ERROR_DETECTION}/${profileId}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_ERROR_DETECTION_ROW',
+    payload: response
   }
 }
 

@@ -50,6 +50,12 @@ const validate = (values) =>{
       if(values.stackTraceDepthValue < 0 || values.stackTraceDepthValue > 9999)
         errors.stackTraceDepthValue = 'Please enter values between 0 and 9999'
 
+      if(values.enableCaptureExcepStackTrace){
+          if(!values.stackTraceDepthValue)
+           errors.stackTraceDepthValue = 'Required'
+      }
+
+
     return errors;
 }
 class Form_EnableExcptcapturing extends React.Component {

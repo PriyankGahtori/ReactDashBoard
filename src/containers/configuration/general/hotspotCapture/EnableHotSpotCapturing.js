@@ -271,12 +271,18 @@ handleCancelDisableBCIVal(){
            <i style={{paddingLeft:40}}>Capture thread hotspots using BCI autoSensor </i> 
         </div>
        
-       
-          <FlatButton    
-                 className = "col-md-4"
-                  disabled ={!this.state.hotSpotCapturingCheckBox} 
-                  onClick ={this.enableHotSpotCapturingDialog.bind(this)} 
-                  label="Advanced Settings" />
+         <div  className = "col-md-2" >   
+          <RaisedButton    
+            disabled ={!this.state.hotSpotCapturingCheckBox} 
+            onClick ={this.enableHotSpotCapturingDialog.bind(this)}
+            style={{width:150}}
+            backgroundColor="#18494F"
+            disabledLabelColor="#000"
+            labelColor = "#FFF"
+            label="Advance Settings" 
+            labelStyle={{fontSize:12}}/>
+            
+            </div>
       </div>
 
    <DialogEnableHotSpotCapturing

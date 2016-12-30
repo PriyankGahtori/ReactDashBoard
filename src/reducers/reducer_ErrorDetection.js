@@ -50,6 +50,13 @@ export default function(state = initialState, action) {
      });
    return newState;
 
+   case 'DEL_ERROR_DETECTION_ROW': 
+       var newState =  Object.assign({},state)
+       newState.tableData  = newState.tableData.filter(function(value) {
+        return action.payload.data.indexOf(Number(value.errDetectionId)) == -1;
+      });
+    return newState;
+
   }
   return state;
 }

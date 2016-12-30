@@ -100,6 +100,7 @@ export const DEL_METHOD_MONITOR = `${SERVICE_URL}/custom/methodmonitor/delete`;
 /* URL for Error Detection  */
 export const FETCH_ERROR_DETECTION_TABLEDATA = `${SERVICE_URL}/custom/errordetection`;
 export const ADD_NEW_ERROR_DETECTION = `${SERVICE_URL}/custom/errordetection`;
+export const DEL_ERROR_DETECTION =  `${SERVICE_URL}/custom/errordetection/delete`;
 
 
 /*URL for Http Stats Condition*/

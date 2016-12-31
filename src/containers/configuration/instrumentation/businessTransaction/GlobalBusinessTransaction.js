@@ -47,7 +47,7 @@ class GlobalBusinessTransaction extends React.Component {
   		'headerDiv': false,
    
     }
-    console.log("this.props.initialData.uriType --",this.props.initialData.uriType )
+    // console.log("this.props.initialData.uriType --",this.props.initialData.uriType )
     this.loader = this.loader.bind(this)
   }
 

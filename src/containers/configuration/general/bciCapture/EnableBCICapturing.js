@@ -278,21 +278,23 @@ submitForm(formData){
         <div className = "col-md-5" >
           
          <Checkbox
-
                   label ="Enable FlowPath Capturing "
                   value = "enableBCICapturing"
                   checked  = {this.state.enableBCICheckBox}
                   onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)}  />
                  <i style={{paddingLeft:40}}>Enable flowPath capturing by agent with default settings</i>
          </div>  
-         
-     <FlatButton 
-               
-                className = "col-md-4"
-                 disabled ={!this.state.enableBCICheckBox} 
-                  onClick ={this.enableBCICapturingDialog.bind(this)}
-                     label="Advanced Settings" />
-      
+      <div  className = "col-md-2" >   
+         <RaisedButton 
+            disabled ={!this.state.enableBCICheckBox} 
+            onClick ={this.enableBCICapturingDialog.bind(this)}
+            style={{width:150}}
+            backgroundColor="#18494F"
+            disabledLabelColor="#000"
+            labelColor="#FFF"
+            label="Advance Settings" 
+            labelStyle={{fontSize:12}}/> 
+      </div>     
     </div>
 
     

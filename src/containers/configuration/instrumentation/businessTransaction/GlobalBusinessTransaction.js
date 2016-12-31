@@ -45,10 +45,10 @@ class GlobalBusinessTransaction extends React.Component {
     	'paramDiv' : true, 
   		'methodDiv': false,
   		'headerDiv': false,
-   
+      'uriType':"segment"    	
     }
-    // console.log("this.props.initialData.uriType --",this.props.initialData.uriType )
     this.loader = this.loader.bind(this)
+    this.submitLoader = this.submitLoader.bind(this);
   }
 
  componentWillMount() {
@@ -66,20 +66,23 @@ class GlobalBusinessTransaction extends React.Component {
            "dynamicReqType" : data.dynamicReqType,
            "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
            "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
-           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false,
-            "uriType": data.uriType
+           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
          })
       }
-   /* if(this.props.initialData.uriType != nextProps.initialData.uriType){
-        console.log("this.state--", nextProps.initialData.uriType)
+    if(this.props.initialData.uriType != nextProps.initialData.uriType)
+      {
         this.setState({"uriType": nextProps.initialData.uriType})
-      }*/
+      }
  }
 }
-
 loader(){
-// var message = {'title': ' BT Global Loaded' , 'msg' : '' }
+ //var message = {'title': ' BT Global Loaded' , 'msg' : '' }
   this.props.triggerLoader(false,null)
+
+}
+submitLoader(){
+var message = {title: " Bussiness Transaction Global settings are successfully submitted"}
+  this.props.triggerLoader(false,message)
 }
 
   getProfileName(profileId)
@@ -116,21 +119,19 @@ loader(){
 
   submit(data){
     data = JSON.stringify(data);
-    console.log("btGlobal---",data)
-    this.props.addBTData(data,this.props.params.profileId); 
-
+    this.props.addBTData(data,this.props.params.profileId,this.submitLoader); 
+    this.props.triggerLoader(true,null)
     //action for runtime change
+   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + '/btGlobal.btr' ;
+    console.info("filePath", filePath);  
 
    let keywordDataList = [];
      keywordDataList.push("BTRuleConfig" + "=" + filePath); 
      
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-
-
-
-
 }
+
 
   render() {
 
@@ -144,11 +145,11 @@ loader(){
     return (
 
     <form onSubmit ={handleSubmit(this.submit.bind(this)) }>
-       <Card style={{ 'marginTop': 4 ,'paddingLeft':5}}>
+       <Card style={{'height': 460,'marginTop': 4 ,'paddingLeft':5}}>
        <div style={{'paddingTop':12}}>
       	<h4>Select part of URI used in Transaction name</h4>
       </div>
-         
+     
 	  <RadioButtonGroup 
 	  		{...uriType}
 	  		name = "uriType" 
@@ -261,15 +262,17 @@ loader(){
   	</div>   
 
 	</div> 	
-      
-		
-		<div>
-         <RaisedButton type="submit" disabled={submitting}>
-                     {submitting ? <i/> : <i/>} Submit
+         <RaisedButton  className = "pull-right"
+                      backgroundColor = "#18494F" 
+                       label=" Submit"
+                      labelColor="#FFF"
+                      type="submit" disabled={submitting}
+                     labelStyle={{fontSize:12}}
+                    style={{position:'absolute',bottom:10,right: 40}}>
+
+                     {submitting ? <i/> : <i/>} 
+                   
           </RaisedButton>
-
-
-        </div>  
         </Card>
     </form>  
     );

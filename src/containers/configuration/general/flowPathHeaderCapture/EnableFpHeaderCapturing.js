@@ -290,9 +290,17 @@ else{
       
       </div>
       <div>
-      <FlatButton className="col-md-4"
-
-       disabled ={!this.state.enableFpHdrChkBox} onClick ={this.enableFpHdrCapturingDialog.bind(this)} label="Advanced Settings" />
+       <div  className = "col-md-2" >    
+      <RaisedButton
+                     disabled ={!this.state.enableFpHdrChkBox} 
+                     onClick ={this.enableFpHdrCapturingDialog.bind(this)} 
+                        style={{width:150}}
+                backgroundColor="#18494F"
+             disabledLabelColor="#000"
+                     labelColor="#FFF"
+                          label="Advance Settings" 
+                     labelStyle={{fontSize:12}}/>
+         </div>
       </div>
       </div>
 

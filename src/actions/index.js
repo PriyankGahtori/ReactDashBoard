@@ -175,13 +175,13 @@ return {
 };
 }
 
-export function delAppTableRow(selectedRowKeys){
+export function delAppTableRow(selectedRowData){
   var response = axios({
       method:'post',
    // url: `http://10.10.40.7:8050/configUI/custom/dcdetail/${appId}`,
       url : `${url.DEL_ROW_APP_URL}`,
-     data: selectedRowKeys,
-     headers:{'Content-Type':'application/json'}
+      data: selectedRowData,
+      headers:{'Content-Type':'application/json'}
  });
 
  return{

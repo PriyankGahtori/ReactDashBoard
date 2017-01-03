@@ -12,6 +12,8 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
+import ConfirmDialog from 'material-ui/Dialog'
+import SnackBar from 'material-ui/Snackbar';
 
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
@@ -19,9 +21,9 @@ import DataGrid from '../../../../components/DCDetailTable';
 import DialogHttpStatsCond from './Dialog_HttpStatsCond';
 
 var columns = {
-                "key" : "id",
+                "key" : "hscid",
                 "data":['Condition Name','Condition','Description','FP Dump Mode','ID'],
-                "field":['conditionName','condition','description','fpDumpMode','id']
+                "field":['conditionName','condition','description','fpDumpMode','hscid']
               };
 
 const NewButtonstyle = {
@@ -40,6 +42,9 @@ const NewButtonstyle = {
   constructor(props) {
     super(props);
     this.loader = this.loader.bind(this)
+    this.state = {cnfrmDialog: false,openSnack:false}
+    this.handleCancel = this.handleCancel.bind(this);
+    this.delHttpRow = this.delHttpRow.bind(this);
   }
 
   componentWillMount() {
@@ -62,8 +67,42 @@ const NewButtonstyle = {
   handleOpen(){
     this.props.toggleStateAddHttpStatsCond();
   }
+   delCnfrmRow(){
+    var selectedRow = this.refs.httpStatsConditionTable.refs.table.state.selectedRowKeys;
+    if(selectedRow.length >= 1){
+    this.setState({cnfrmDialog: true,openSnack: false})
+    }
+    else{
+      this.setState({cnfrmDialog:false,openSnack:true})
+    }
+   }
 
-  render() {
+   handleCancel(){
+     this.setState({cnfrmDialog: false})
+   }
+
+   delHttpRow(){
+    var  selectedRow = [];
+    selectedRow = this.refs.httpStatsConditionTable.refs.table.state.selectedRowKeys
+    this.props.delHTTPselectedRow(this.props.params.profileId,selectedRow)
+    try{
+     this.refs.httpStatsConditionTable.refs.table.cleanSelected();
+     }
+     catch(e)
+     {
+       console.error(" Exception Occured: FileName: ErrorDetection,MethodName: delErrorDetection() ",e)
+     }
+      this.setState({cnfrmDialog:false})
+   }
+    render() {
+
+      var  actions = [ <FlatButton label="Cancel"
+                                     primary={true}
+                                     onTouchTap={this.handleCancel}/>,
+                      <FlatButton label="Delete"
+                                      primary={true}
+                                      onTouchTap={this.delHttpRow}/>
+    ]
     return (
      <div>
 
@@ -72,21 +111,23 @@ const NewButtonstyle = {
         <div className="col-md-10">
               <h4>Http Stats Condition Monitor(s)</h4>
         </div>
-
+      <IconButton className="pull-right"><FontIcon className="material-icons"   onTouchTap={this.delCnfrmRow.bind(this)} color="#FFF">delete</FontIcon> </IconButton>
         <DataGrid data = {this.props.httpStatsData.tableData} 
             pagination = {false} 
             ref        = "httpStatsConditionTable" 
             column     = {columns}
-            onClick    = {this.handleClick}
-           
-         />
-
+            onClick    = {this.handleClick}   />
+         <ConfirmDialog title="Are you sure want to delete the HTTP Stats Condition Monitor Row(s)?"
+                        open={this.state.cnfrmDialog}
+                        actions={actions} /> 
         <div>
          <AddNewButton style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this)}>
             <AddIcon />
          </AddNewButton>
          <DialogHttpStatsCond profileId ={this.props.params.profileId}/>
-          
+          <SnackBar message="No row selected or multiple rows selected"
+                     autoHideDuration={4000}
+                      open={this.state.openSnack} />
         </div>
        </div>
        </Paper>

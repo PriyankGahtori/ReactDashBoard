@@ -1488,6 +1488,18 @@ export function addHttpStatsCond(data,profileId){
 
 }
 
+export function delHTTPselectedRow(profileId,selectedRowKeys){
+  var response = axios({
+     method: 'post',
+     url   : `${url.DEL_HTTP_STATS_COND}/${profileId}`,
+     data: selectedRowKeys,
+     headers:{'Content-Type':'application/json'}
+  })
+  return{
+    type: 'DEL_HTTP_STATS',
+    payload: response
+  }
+}
 
 /*
 *  Action creatrors for Loader

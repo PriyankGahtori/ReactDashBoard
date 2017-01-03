@@ -111,7 +111,7 @@ export const GET_TYPE_HTTP_STATS = `${SERVICE_URL}/custom/httpstatscondition/lis
 export const GET_LIST_OF_VALUETYPE = `${SERVICE_URL}/custom/httpstatscondition/listofvaluetypes`;
 export const GET_LIST_OF_OPERATORS = `${SERVICE_URL}/custom/httpstatscondition/listofoperators`; 
 export const ADD_NEW_HTTP_STATS_COND = `${SERVICE_URL}/custom/httpstatscondition`;
-
+export const DEL_HTTP_STATS_COND   = `${SERVICE_URL}/custom/httpstatscondition/delete`;
 
 /*URL for RUNTIME changes*/
 export const RUNTIME_CHANGE_TOPOLOGY = `${SERVICE_URL}/custom/runtimechange/topology`;

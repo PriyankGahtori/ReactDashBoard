@@ -50,6 +50,12 @@ export default function(state = initialState,action){
       newState.tableData.push(action.payload.data)
       return newState;
 
+      case 'DEL_HTTP_STATS':
+       var newState = Object.assign({},state)
+       newState.tableData = newState.tableData.filter(function(value){
+            return action.payload.data.indexOf(value.hscid) == -1;
+       })
+      return newState;
 	}
 
     return state;

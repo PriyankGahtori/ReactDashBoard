@@ -108,10 +108,14 @@ handleClose(){
   
 
  delRow(){
-    var selectedRowKeys=[];
+    var selectedRowKeys=[] ;
+    var selectedRowData = [] ;
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
-    console.log("selectedRowKeys---",selectedRowKeys)
-    this.props.delAppTableRow(selectedRowKeys)
+    this.props.appDetail.tableData.forEach(function(value){
+                        if(!(selectedRowKeys.indexOf(value.appId) == -1))
+                            selectedRowData.push(value) 
+                        });   
+    this.props.delAppTableRow(selectedRowData)
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();
   }

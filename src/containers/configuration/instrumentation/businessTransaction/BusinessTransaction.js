@@ -13,7 +13,6 @@ class BusinessTransaction extends React.Component {
   
   constructor(props) {
     super(props)    
-    console.log("BTRuleConfig---",this.props.initialValKeywords)
     this.state = {btRuleType : this.props.initialValKeywords.BTRuleConfig}
   }
 
@@ -65,7 +64,6 @@ class BusinessTransaction extends React.Component {
      keywordDataList.push("BTRuleConfig" + "=" + filePath); 
      
    triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-
 
     let currPath = `${this.props.location.pathname}`;
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)

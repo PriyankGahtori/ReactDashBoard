@@ -4,7 +4,7 @@ import MultiSelect from 'react-select';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //Importing files
 import * as actionCreators  from '../../../actions/index';
@@ -90,21 +90,24 @@ const styles = {
         <b>Instrumentation Profiles </b> 
       <p>  <i>Select profiles to instrument application methods</i></p>
         </div>
-        <div   className = "col-md-3" >   
+        <div   className = "col-md-2" >   
         	<MultiSelect multi
             name ="instrProfileMultiSelect"
            // value = {this.state.getAllKeywordData.initializeKeywords.instrProfile}
             value = {this.state.value}
             options = {this.props.getAllKeywordData.listOfXmlFilesInstr}
-            onChange={this.updateSelected.bind(this)}	/>
+            onChange={this.updateSelected.bind(this)}	 />
              </div>
           <div  className = "col-md-1"  style={{paddingLeft:60}} >
-          <FlatButton
-         
+          <RaisedButton
           label="Submit"
-          primary={true}
-          keyboardFocused={true}
-          onClick={this.submitInstr.bind(this)}/>
+          onClick={this.submitInstr.bind(this)}
+          backgroundColor="#18494F"
+              labelColor="#FFF"
+              labelStyle={{fontSize:12}}>
+          
+          </RaisedButton>
+         
          </div>
          </div>
 

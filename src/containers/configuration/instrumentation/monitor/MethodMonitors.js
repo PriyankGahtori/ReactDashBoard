@@ -182,18 +182,17 @@ loader(){
 
     return (
     <div>
-      <EnableMethodMonitor />
+      
       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>   
         <div className='row row-no-margin tableheader'>
-        <div className="col-md-10">
-              <h4>Method Monitor(s)</h4>
+        <div className="col-md-4">
+             <EnableMethodMonitor />
+              <h4 style={{position: 'relative',bottom:7}}>Method Monitor(s)</h4>
         </div>
-     <IconButton tooltip ="Edit Method Monitor" style={{left:67,paddingTop:40}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-
+        <div>
+     <IconButton tooltip ="Edit Method Monitor"  style={{position: 'absolute',right:82}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
      <IconButton tooltip = "Delete Method Monitor" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
-   
-
-     
+     </div>
         <DataGrid data = {this.props.methodMonitor.tableData} 
             pagination = {false} 
             ref        = "methodMonitorTable" 

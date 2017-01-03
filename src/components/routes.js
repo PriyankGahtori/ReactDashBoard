@@ -39,6 +39,7 @@ export default class routes extends React.Component {
 
    render() {
      return (
+      <div style={{color: '#FFF'}}>
     <Router history={hashHistory}>
       <Route name="Home" path="/" component={Layout} >
         <IndexRoute component={NewHome} />
@@ -258,6 +259,7 @@ export default class routes extends React.Component {
       </Route>
 
     </Router>
+    </div>
      );
    }
  }

@@ -128,9 +128,8 @@ class EnableMethodMonitor extends Component {
 		return (
     <div  style={{paddingTop:10}}>
    
-	   <div className = "col-md-5" style={{right:15}}>
+	   <div className = "col-md-1" style={{right:15}}>
 				<CheckBox
-				  label=""
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>

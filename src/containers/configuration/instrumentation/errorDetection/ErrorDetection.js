@@ -13,6 +13,7 @@ import IconButton from 'material-ui/IconButton';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
+import ConfirmDelDialog from 'material-ui/Dialog'
 
 //Importing files
 import DialogErrorDetection from './Dialog_ErrorDetection';
@@ -80,7 +81,9 @@ const styles = {
      this.handleClick = this.handleClick.bind(this);
      this.state ={errorDetection:this.props.errorDetection}
      this.loader = this.loader.bind(this)
-     this.state = {openSnack: false}
+     this.state = {openSnack: false,cnfmDelDialog: false}
+     this.handleClose = this.handleClose.bind(this);
+     this.delErrorDetection = this.delErrorDetection.bind(this);
   }
   
   handleClick(){
@@ -109,6 +112,16 @@ const styles = {
       this.setState({errorDetection:nextProps.errorDetection});
 }
 
+ handleDelErrorDetection(){
+    var selectedRow = [];
+    selectedRow = this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
+    if(selectedRow.length >= 1){
+      this.setState({openSnack: false,cnfmDelDialog: true})
+    }
+    else{
+      this.setState({openSnack: true, cnfmDelDialog: false})
+    }
+  }
   handleCancel(){
     console.log("inside handle cancel")
     this.props.toggleStateErrorDetection();
@@ -118,7 +131,26 @@ const styles = {
     console.log("inside handle check")
    
   };
+  handleClose(){
+    this.setState({ cnfmDelDialog:  false})
+  }
  
+   // Below Method is called when the user tries to delete the Error Detection.
+  delErrorDetection(){
+     var selectedRow = [] ;
+     selectedRow = this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
+     this.props.delErrorDetectionRow(this.props.params.profileId,selectedRow);
+     try{
+        this.refs.errorDetectionTable.refs.table.cleanSelected();
+     }
+     catch(e)
+     {
+       console.error(" Exception Occured: FileName: ErrorDetection,MethodName: delErrorDetection() ",e)
+     }
+
+     this.setState({cnfmDelDialog: false})
+
+  }
 
  handleOpen(openErrorDetectionDialog){
 
@@ -148,18 +180,30 @@ const styles = {
     }
   }
 
+
   render() {
+      const actions = [
+                         <FlatButton
+                            label="Cancel"
+                            primary={true}
+                            onTouchTap={this.handleClose} />,
+                         
+                          <FlatButton
+                            label="Delete" 
+                             primary={true}
+                             onTouchTap={this.delErrorDetection}/>
+                      ];
 
     return (
     <div>
-        <EnableErrorDetection />
        <Paper zDepth={2} style={{background:'rgba(0,0,0,0.45)', color:'#FFF'}}>  
-  
       <div className='row row-no-margin tableheader'>
-        <div className="col-md-10">
-              <h4>Error Detection(s)</h4>
+        <div className="col-md-4">
+        <EnableErrorDetection />
+              <h4 style={{position: 'relative',bottom:7}}>Error Detection(s)</h4>
         </div>
-       <IconButton tooltip = "Edit Error Detection" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+       <IconButton tooltip = "Edit Error Detection"   style={{position: 'absolute',right:68}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+       <IconButton tooltip = "Delete Error Detection" className = "pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
          <DataGrid data = {this.props.errorDetection.tableData} 
             pagination = {false} 
             ref        = "errorDetectionTable" 
@@ -173,7 +217,12 @@ const styles = {
             <AddIcon />
          </AddNewButton>
          <DialogErrorDetection profileId ={this.props.params.profileId}/>
-          
+          <ConfirmDelDialog    
+            open ={this.state.cnfmDelDialog}
+            title="Are you sure want to delete the Error Detection(s)?"
+            actions={actions}
+            modal={false}  /> 
+         
         </div>
        </div>
          <Snackbar

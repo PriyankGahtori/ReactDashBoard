@@ -58,15 +58,14 @@ const NewButtonstyle = {
     if(this.props.httpStatsData != nextProps.httpStatsData){
       this.setState({httpStatsData:nextProps.httpStatsData});
     }
+    
   }
    loader(){
   //  var message = {'title':'HTTPStatsMonitors Loaded' ,'msg':''}
      this.props.triggerLoader(false,null)
 
    }
-  handleOpen(){
-    this.props.toggleStateAddHttpStatsCond();
-  }
+
    delCnfrmRow(){
     var selectedRow = this.refs.httpStatsConditionTable.refs.table.state.selectedRowKeys;
     if(selectedRow.length >= 1){
@@ -94,6 +93,30 @@ const NewButtonstyle = {
      }
       this.setState({cnfrmDialog:false})
    }
+
+   handleOpen(openHttpStatsDialog){
+    if(openHttpStatsDialog == "edit"){
+     var selectedRow = [];
+     selectedRow  = this.refs.httpStatsConditionTable.refs.table.state.selectedRowKeys;
+     if(selectedRow.length == 1){
+      this.setState({openSnack: false})
+      var selectedRowData  =  this.props.httpStatsData.tableData.filter(function(value){
+        return selectedRow == value.hscid;
+      })
+      this.props.initializeHTTPForm(selectedRowData[0],openHttpStatsDialog);
+      this.props.toggleStateAddHttpStatsCond();
+    }
+    else{
+      this.setState({openSnack: true})
+    }
+  }
+  else if(openHttpStatsDialog == "add"){
+    this.props.initializeHTTPForm(null,openHttpStatsDialog);
+    this.props.toggleStateAddHttpStatsCond();
+
+  }
+   
+   }
     render() {
 
       var  actions = [ <FlatButton label="Cancel"
@@ -111,7 +134,10 @@ const NewButtonstyle = {
         <div className="col-md-10">
               <h4>Http Stats Condition Monitor(s)</h4>
         </div>
-      <IconButton className="pull-right"><FontIcon className="material-icons"   onTouchTap={this.delCnfrmRow.bind(this)} color="#FFF">delete</FontIcon> </IconButton>
+        <div>
+      <IconButton toolTip="Edit HTP Stats" style={{position: 'absolute',right:77}}><FontIcon className="material-icons"   onTouchTap={this.handleOpen.bind(this,'edit')} color="#FFF">edit_mode</FontIcon> </IconButton>
+      <IconButton toolTip="Delete HTTP Stats" className="pull-right"><FontIcon className="material-icons"   onTouchTap={this.delCnfrmRow.bind(this)} color="#FFF">delete</FontIcon> </IconButton>
+      </div>
         <DataGrid data = {this.props.httpStatsData.tableData} 
             pagination = {false} 
             ref        = "httpStatsConditionTable" 
@@ -119,9 +145,10 @@ const NewButtonstyle = {
             onClick    = {this.handleClick}   />
          <ConfirmDialog title="Are you sure want to delete the HTTP Stats Condition Monitor Row(s)?"
                         open={this.state.cnfrmDialog}
+
                         actions={actions} /> 
         <div>
-         <AddNewButton style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this)}>
+         <AddNewButton style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this,'add')}>
             <AddIcon />
          </AddNewButton>
          <DialogHttpStatsCond profileId ={this.props.params.profileId}/>

@@ -4,6 +4,8 @@ const initialState = { tableData :[],
 					   listOfTypes:[],
 					   listOfValueType:[],
 					   listOfOperators:[],
+             openHttpStatsDialog: false,
+             httpStatsFormInitialData:null,
 
 }
 export default function(state = initialState,action){
@@ -13,6 +15,7 @@ export default function(state = initialState,action){
 	console.log(" action.payload.data---", action.payload.data)
 	newState.tableData = action.payload.data
 	return newState;
+
 
 	 case 'TOGGLE_STATE_ADD_HTTP_STATS':
       var newState = Object.assign({}, state);
@@ -56,7 +59,21 @@ export default function(state = initialState,action){
             return action.payload.data.indexOf(value.hscid) == -1;
        })
       return newState;
-	}
 
+      case 'INITIALIZE_HTTP_STATS':
+       var newState = Object.assign({},state)
+       newState.httpStatsFormInitialData = action.payload.data;
+       newState.openHttpStatsDialog = action.payload.type;
+      return newState;
+
+       case 'EDIT_HTTP_STATS_COND':
+        var newState = Object.assign({},state)
+        newState.tableData = newState.tableData.map(function(value){
+          if(value.hscid == action.payload.data.hscid)
+           value = action.payload.data
+         return value
+        })
+       return newState;
+      }
     return state;
 }

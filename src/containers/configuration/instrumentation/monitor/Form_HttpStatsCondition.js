@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 
 //Importing files
 import {getListOfHeaders,getListOfOperators} from '../../../../actions/index';
+
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 
 
@@ -27,21 +28,36 @@ class Form_HttpStatsCondition extends React.Component {
 
   constructor(props) {
   super(props);
-  this.state={headerType:0
-  }
-  
+  this.state = { 
+                fpDumpMode:this.props.initialData != null ? this.props.initialData.fpDumpMode:'-1',
+                headerType:this.props.initialData != null ? this.props.initialData.htId:'-1',
+                valueType:this.props.initialData !=null? this.props.initialData.valId:'-1',
+                operatorType:this.props.initialData !=null? this.props.initialData.optId:'-1',
+                enableHeaderList:this.props.initialData != null && (this.props.initialData.htId == 1||this.props.initialData.htId == 2) ,
+                headerName:this.props.initialData !=null? this.props.initialData.hmdId: '-1',
+                cookieName: this.props.initialData!=null? this.props.initialData.cookie: "",
+                enableSelectValueType: this.props.initialData != null && this.props.initialData.htId != null,
+                enableOperatorsList :this.props.initialData != null && (this.props.initialData.valId == 1 ||
+                                     this.props.initialData.valId == 2 ||this.props.initialData.valId == 3),
+                enableCompValueBlock: this.props.initialData != null &&  this.props.initialData.optId != null,
+                enableCookieTextField:this.props.initialData != null && this.props.initialData.htId == 3
+
+    }
+    if(this.state.headerType == 1 || this.state.headerType == 2){
+      this.props.getListOfHeaders(this.state.headerType);      
+    }
+    if(this.state.valueType != null || this.state.valueType != -1) 
+      this.props.getListOfOperators(this.state.valueType);
 }
 
+  componentWillMount() {
+   // this.props.getListOfHeaders();
 
-componentWillMount() {
- // this.props.getListOfHeaders();
-  
-  }
+    }
 
- componentWillReceiveProps(nextProps)
-  {
-    
-  }
+   componentWillReceiveProps(nextProps)
+    {
+    }
 
   handleChangeOperatorType(event, index, value){
     this.setState({operatorType:value,
@@ -138,10 +154,9 @@ handleHeaderSelected(event, index, value){
         </div>
 
         <div className = "col-md-6">
-
               <DropDownMenu 
                 {...fpDumpMode}
-                  value = {this.state.fpDumpMode}
+                  value = {this.state.fpDumpMode+""}
                   autoWidth={false}
                   customOnChange={this.handleChangeFpDumpMode.bind(this)} 
                   floatingLabelText="Select Flowpath Dump Mode"
@@ -152,7 +167,6 @@ handleHeaderSelected(event, index, value){
                 <MenuItem value={"1"}  primaryText={"1"}/>
                 <MenuItem value={"2"}  primaryText={"2"}/>
                 </DropDownMenu>
-
         </div>
         </div>
 
@@ -172,16 +186,15 @@ handleHeaderSelected(event, index, value){
                     this.props.listOfTypes.map((val,index) => (
                     <MenuItem value={val.htId}  primaryText={val.headerTypeName}/>
                  )) 
-                }      
+                }    
                 </DropDownMenu>
-
           </div>  
 
           {/* renderig dropdown or textfield acording to type selected in above field*/}
           <div className ={`col-md-6 ${this.state.enableHeaderList ?'show':'hidden'}`}>
              {this.renderDropDown(hmdId)}  
           </div>
-
+         
           <div className ={`col-md-6 ${this.state.enableCookieTextField ?'show':'hidden'}`}>
              <TextField
                   hintText="Hint Text"
@@ -227,7 +240,6 @@ handleHeaderSelected(event, index, value){
                 }
                   
                 </DropDownMenu>
-
           </div>
         </div>
 
@@ -262,16 +274,17 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   fields,
 
 },
+
   state => ({ // mapStateToProps
- /* data:state.initialData,
-  initialValues :state.instanceData.instanceInitializeForm*/
+ /* data:state.initialData,*/
+  initialValues :state.httpStatsData.httpStatsFormInitialData,
+  initialData  : state.httpStatsData.httpStatsFormInitialData,
   listOfHeaders:state.httpStatsData.listOfHeaders,
   //listOfResponseTypeHeaders:state.httpStatsData.listOfResponseTypeHeaders,
   listOfTypes:state.httpStatsData.listOfTypes,
   listOfValueType:state.httpStatsData.listOfValueType,
-  listOfOperators:state.httpStatsData.listOfOperators
-
-
+  listOfOperators:state.httpStatsData.listOfOperators, 
+  openHttpStatsDialog: state.httpStatsData.openHttpStatsDialog
 }),
 {
   getListOfHeaders:getListOfHeaders,

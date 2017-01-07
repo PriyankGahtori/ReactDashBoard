@@ -1473,6 +1473,20 @@ export function getListOfOperators(valId){
   }
 
 }
+
+export function editHttpStatsCond(data,profileId){
+
+  var response = axios({
+      method:'put',
+      url : `${url.ADD_NEW_HTTP_STATS_COND}/updateHTTPCond/${profileId}/${data.hscid}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+    });
+  return{
+    type: 'EDIT_HTTP_STATS_COND',
+    payload: response
+  }
+}
 export function addHttpStatsCond(data,profileId){
 
  var response = axios({
@@ -1487,7 +1501,14 @@ export function addHttpStatsCond(data,profileId){
 }  
 
 }
+export function initializeHTTPForm(data,openHttpStatsDialog){
+  var payload = {'data' :data , 'type':openHttpStatsDialog}
+  return{
+    type:'INITIALIZE_HTTP_STATS',
+    payload:payload
+  }
 
+}
 export function delHTTPselectedRow(profileId,selectedRowKeys){
   var response = axios({
      method: 'post',

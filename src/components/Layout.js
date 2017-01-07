@@ -70,7 +70,7 @@ export default class Layout extends React.Component {
     this.handleClose = this.handleClose.bind(this); 
     this.settingScreen = this.settingScreen.bind(this);
     this.handleCloseTopoDialog = this.handleCloseTopoDialog.bind(this) ;
-
+    this.handleCloseNDAgent = this.handleCloseNDAgent.bind(this); 
   }
 
   componentWillMount() {
@@ -126,7 +126,11 @@ export default class Layout extends React.Component {
   handleClose(){ 
   	var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10" ;
   	var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2" ;
-  	this.setState({open: false,agentStatusOpen:false}); 
+  	this.setState({open: false}); 
+  }
+
+  handleCloseNDAgent(){
+    this.setState({agentStatusOpen:false})
   }
 
   handleCloseTopoDialog(){
@@ -141,6 +145,15 @@ export default class Layout extends React.Component {
         onTouchTap={this.handleCloseTopoDialog} 
         style={{bottom:'15',right:'5'}}/>
     ];
+
+    const actionsNDAgent = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCloseNDAgent} 
+        style={{bottom:'15',right:'5'}}/>
+    ];
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
     	<div>
@@ -158,7 +171,7 @@ export default class Layout extends React.Component {
         <NDAgentStatusDialog  
             title="ND BCI Agent Status Information"
             open={this.state.agentStatusOpen}
-            actions={actions} 
+            actions={actionsNDAgent} 
             contentStyle={customContentStyle}>
             <NDAgentStatus closeDialog={this.handleClose}/>
             </NDAgentStatusDialog >

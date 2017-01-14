@@ -1,4 +1,4 @@
-#! /bin/sh
+`#! /bin/sh
 
 psql test postgres <<+
 
@@ -79,7 +79,8 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (28,'enableBTMonitor','0','1','2','1'),
 (29,'BTRuleConfig','NA','NA','5','global'),
 (30,'ndMethodMonFile','','','5','false'),
-(31,'BTErrorRules','','','5','false');
+(31,'BTErrorRules','','','5','false'),
+(32,'captureHttpSessionAttr','','','5','false');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

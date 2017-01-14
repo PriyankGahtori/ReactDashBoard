@@ -55,7 +55,9 @@ class DataGridComponent extends React.Component {
       *   string === string
       */
       return (
-        <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.handleToggle.bind(this,row)}/>
+        <Toggle style={styles.toggle} defaultToggled={cell === 'true'|| cell === true} onToggle={this.handleToggle.bind(this,row)}
+        disabled = {this.props.disableToggle}
+        />
         );
     }
 
@@ -126,7 +128,8 @@ DataGridComponent.propTypes = {
     hover: React.PropTypes.boolean,
     condensed: React.PropTypes.boolean,
     pagination: React.PropTypes.boolean,
-    selectRow: React.PropTypes.object
+    selectRow: React.PropTypes.object,
+    disableToggle :React.PropTypes.boolean
 };
 
 DataGridComponent.defaultProps = {
@@ -134,6 +137,7 @@ DataGridComponent.defaultProps = {
   hover: true,
   condensed: true,
   pagination: true,
+  disableToggle:false,
   selectRow: {
         mode: "checkbox",  //checkbox for multi select, radio for single select.
         clickToSelect: true,   //click row will trigger a selection on that row.

@@ -122,3 +122,8 @@ export const RUNTIME_CHANGE_INSTANCE = `${SERVICE_URL}/custom/runtimechange/inst
 
 /* URL for ND Agent Status */
 export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;
+
+/* URL for SessionAtrributeMonitor */
+export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata` ;
+export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addspecificattr`;
+export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;

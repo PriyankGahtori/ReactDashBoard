@@ -27,6 +27,7 @@ class Dialog_HttpStatsCond extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state={httpStatsData : this.props.httpStatsData};
   this.submitForm =this.submitForm.bind(this);
+ 
   }
 
   componentWillMount() {
@@ -34,16 +35,26 @@ class Dialog_HttpStatsCond extends React.Component {
   }
 
  submitForm(data){
-  console.log("submit from of httpStats Cond Dialog--",data)
-  this.props.addHttpStatsCond(data,this.props.profileId)
-  this.handleCancel();
+  if(this.props.httpStatsData.openHttpStatsDialog == "edit"){
+    data["hscid"] = this.props.httpStatsData.httpStatsFormInitialData.hscid
+    this.props.editHttpStatsCond(data,this.props.profileId)
+    this.handleCancel();
   }
+  else if(this.props.httpStatsData.openHttpStatsDialog == "add"){
+    this.props.addHttpStatsCond(data,this.props.profileId)
+    this.handleCancel();
+  }
+}
 
   componentWillReceiveProps(nextProps)
   {
-    console.log("inside componentWillReceiveProps");
       if(this.props.httpStatsData != nextProps.httpStatsData)
-      this.setState({httpStatsData:nextProps.httpStatsData});
+        this.setState({httpStatsData:nextProps.httpStatsData});
+
+        if(nextProps.httpStatsData.openHttpStatsDialog == "edit")
+          this.setState({title: "Edit HTTP Stats Condition"})
+        else 
+          this.setState({title: "Add HTTP Stats Condition"}) 
 
   }
 
@@ -75,7 +86,7 @@ class Dialog_HttpStatsCond extends React.Component {
     return (
       <div>
         <DialogHttpStatsCond
-          title="New Http Stats Condition"
+          title={this.state.title}
           actions={actions}
           modal={false}
           open={this.state.httpStatsData.openNewHttpStatsCondDialog}

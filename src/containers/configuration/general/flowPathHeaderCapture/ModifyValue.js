@@ -75,7 +75,7 @@ export function constValCaptureHTTPResFullFp(formData){
 
 export function splitValue(keywords){
 	var fpHdrInitializeObj = {};
-	if(keywords.captureHTTPReqFullFp != 0){
+	if(keywords.captureHTTPReqFullFp != 0 && keywords.captureHTTPReqFullFp != null){
 		var value = keywords.captureHTTPReqFullFp .split('%20');
 		fpHdrInitializeObj.enableCaptureHTTPReqFullFp = true;
 		fpHdrInitializeObj.urlMode = value[0] ;
@@ -86,8 +86,8 @@ export function splitValue(keywords){
 		fpHdrInitializeObj.captureModeReq = value[2]
 		if(fpHdrInitializeObj.captureModeReq === 1)
 		 fpHdrInitializeObj.hdrValChrReq = value[3];
-
-		if(keywords.captureHTTPRespFullFp != 0){
+	}
+		if(keywords.captureHTTPRespFullFp != 0 && keywords.captureHTTPRespFullFp != null){
 		var valueResp = keywords.captureHTTPRespFullFp .split('%20');
 		fpHdrInitializeObj.enableCaptureHTTPRespFullFp = true;
 		fpHdrInitializeObj.responseData = valueResp[0] ;
@@ -98,6 +98,6 @@ export function splitValue(keywords){
 		fpHdrInitializeObj.captureModeRes = value[2]
 
 		}
-	}
+	
 	return fpHdrInitializeObj;
 }

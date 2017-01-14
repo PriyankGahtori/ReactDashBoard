@@ -76,7 +76,7 @@ class EnableFpHeaderCapturing extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("in DCDetail.js--",this.props)
+    console.log("in enableFp.js--",this.props)
     console.log("------",validate) 
   //this.state ={enableBCIDebug:false}
   this.state = {openEnableFpHdrCapturingDialog : false}
@@ -111,7 +111,11 @@ componentWillMount() {
   */
 
   enableFpHdrCapturingDialog(){
-    this.setState({openEnableFpHdrCapturingDialog:true});
+    
+   // this.setState({openEnableFpHdrCapturingDialog:true});
+    let routeURL = `${this.props.pathName}/sessionattrmonitors`;
+    hashHistory.push(routeURL);
+
   }
 
   handleEnableFpHdrCapturingCheckboxChange(event,isInputChecked){
@@ -190,10 +194,10 @@ submitForm(formData){
              }
   */
   if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
-  var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
-  console.log("captureHttpFullReqFpVal---",captureHttpFullReqFpVal)
-  keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
-  keywordDataList.push("captureHTTPReqFullFp" + "=" +captureHttpFullReqFpVal)
+    var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
+    console.log("captureHttpFullReqFpVal---",captureHttpFullReqFpVal)
+    keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
+    keywordDataList.push("captureHTTPReqFullFp" + "=" +captureHttpFullReqFpVal)
 
 }
 else{
@@ -226,7 +230,7 @@ else{
      keywordDataList.push(key + "=" + formData[key]); 
    })    */
   console.log("keywordDataList---",keywordDataList)
-   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+   //triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
    this.handleCancelEnableFpHdrCapturing();
  }
 
@@ -242,6 +246,7 @@ else{
    label = "Submit"
    primary = {true}
    keyboardFocused = {true}
+   disabled = {this.props.profileDisabled}
    onClick = {this.handleSubmitEnableBCICapturing.bind(this)}
    />
    ];
@@ -278,13 +283,14 @@ else{
 
     return (
       <div>
-
+      
       <div className = "row" style={{paddingTop:10}}>
       <div className = "col-md-5">
       <Checkbox
       value = "enableFpHeaderCapturing"
       label = "Enable FlowPath Header Capturing"
       checked  = {this.state.enableFpHdrChkBox}
+      disabled = {this.props.profileDisabled}
       onCustomChange={this.handleEnableFpHdrCapturingCheckboxChange.bind(this)} />
       <i style={{paddingLeft:40}}>Http request and response headers Capture Configuration </i> 
       
@@ -300,6 +306,7 @@ else{
                      labelColor="#FFF"
                           label="Advance Settings" 
                      labelStyle={{fontSize:12}}/>
+                  
          </div>
       </div>
       </div>
@@ -344,7 +351,8 @@ else{
     return {
       getAllKeywordData :state.Keywords,
       trData : state.initialData.trData,
-      trModeDetail: state.trModeDetail
+      trModeDetail: state.trModeDetail,
+      profileDisabled: state.profileDisabled.disabled
     };
   }
 

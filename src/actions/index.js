@@ -1581,3 +1581,88 @@ export function emptyTreeState(){
 		type    :'CLEAR_TREE_STATE',
 	}
 }
+
+
+/* Action for Disabling Profile*/
+export function disableProfile(disabled = false){
+  console.log("disabled--",disabled)
+  return {
+    type:'DISABLE_PROFILE',
+    payload: disabled
+  }
+}
+
+/** Action for SessionAttributeMonitor  */
+export function fetchSessionAttrMonitorData(profileId){
+  const URL = `${url.FETCH_SESSION_ATTR_TABLEDATA}/${profileId}`
+  const response = axios.get(URL);
+  return{
+    type :'FETCH_SESSION_ATTR_MONITOR',
+    payload:response
+  }
+}
+
+export function addingValData(valData){
+  console.log("valData--",valData)
+  return{
+    type:'VAL_DATA',
+    payload:valData
+  }
+}
+
+export function clearValData(){
+  return{
+    type:'CLEAR_VAL_DATA',
+    payload:[]
+  }
+}
+
+export function addSpecificAttrMon(data,profileId){
+  console.log("data--",data)
+  var response = axios({
+    method:'post',
+    url :  `${url.ADD_SPECIFIC_ATTR}/${profileId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'ADD_ATTRIBUTE',
+    payload:response
+  }
+}
+
+export function toggleStateAttrValDialog(rowId){
+  return{
+    type:'TOGGLE_ATTR_VAL_DIALOG_STATE',
+    payload:rowId
+}
+}
+
+export function toggleStateAddSessionAttrMonitor(){
+  return {
+    type:'TOGGLE_STATE_ADD_SESSION_MON'
+  }
+}
+
+export function disableSubmitButtonState(){
+  console.log("action--disableSubmitButtonStatemethod called")
+  return{
+    type:'TOGGLE_STATE_SUBMIT_BUTTON'
+  }
+}
+
+export function updateSessionType(profileId,data){
+  var response = axios({
+    method:'post',
+    url :  `${url.UPDATE_SESSION_TYPE}/${profileId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'UPDATE_SESSION_TYPE',
+    payload:response
+  }
+  
+}

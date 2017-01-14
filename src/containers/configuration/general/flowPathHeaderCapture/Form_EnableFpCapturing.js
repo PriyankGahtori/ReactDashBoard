@@ -14,27 +14,28 @@ import MenuItem from 'material-ui/MenuItem';
 //Importing React components
 import Checkbox from '../../../../components/CheckboxWrapper';
 import Input from '../../../../components/InputWrapper';
-import {submitKeywordData,initializeInstrException}  from '../../../../actions/index';
+import {submitKeywordData,initializeInstrException,updateSessionType}  from '../../../../actions/index';
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import MultiSelect from '../../../../components/MultiSelectWrapper';
 import DropDownComponent from './DropDownComponent';
+import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
+import * as  modifiedVal from './ModifyValue';
 
 
 
 export const fields = ['enableCaptureHTTPReqFullFp',
-                        'urlMode',
                         'hdrModeForReqcapture',
                         'selectedHdrsValReq',
-                        'configuredFile',
                         'captureModeReq',
                         'hdrValChrReq',
                         'enableCaptureHTTPResFullFp',
-                        'responseData',
                         'hdrModeForResCapture',
                         'selectedHdrsValRes',
-                        'hdrValChrRes'
+                        'hdrValChrRes',
+                        'enableCaptureSessionAttr',
+                        'sessionType'
 
 ];
 
@@ -157,9 +158,9 @@ class Form_EnableFpCapturing extends React.Component {
     this.state = 
   
     this.state = {
-      enableCaptureHTTPReqFullFp : this.props.initialData.enableCaptureHTTPReqFullFp,
-      enableCaptureHTTPResFullFp : this.props.initialData.enableCaptureHTTPRespFullFp,
-      'hdrTypeCss'    : this.props.initialData.urlMode === '3' ?'show' : 'hidden',
+      enableCaptureHTTPReqFullFp : false,
+      enableCaptureHTTPResFullFp : false,
+      'hdrTypeCss'    :  'hidden',
       'multiSelectCss': 'hidden',
       'configDropDownCss': 'hidden',
       'briefCaptureModeConfigReq' : 'hidden',
@@ -168,8 +169,8 @@ class Form_EnableFpCapturing extends React.Component {
       'hdrTypeRespCss':'hidden',
       'multiSelectRespCss':'hidden',
       'configDropDownRespCss':'hidden',
-      'urlMode':this.props.initialData.urlMode,
-      'responseData':this.props.initialData.responseData
+      'specificDivCSS':'hidden',
+      'captureSessionAttrCss':'hidden'
       
   }
 }
@@ -196,6 +197,7 @@ class Form_EnableFpCapturing extends React.Component {
 handleCaptureHTTPReqFullFp(event,isInputChecked){
  
   this.setState({enableCaptureHTTPReqFullFp:isInputChecked})
+  
    console.log("isInputChecked-handleCaptureHTTPReqFullFp called--",isInputChecked)
 }
 
@@ -308,79 +310,132 @@ handleCaptureModeResChange(event, index, value){
                   'briefCaptureModeConfigRespCss':'hidden'})
 }
 
+handleCaptureSessionAttr(event,isInputChecked){
+  let captureSessionAttrCss =  isInputChecked ? 'show' : 'hidden';
+  this.setState({'enableCaptureSessionAttr':isInputChecked,
+                  captureSessionAttrCss:captureSessionAttrCss
+    })
+
+}
+
+handleSessionTypeChange(event, value){
+  console.log("value--",value)
+  	let css = value === 'specific' ? 'show' : 'hidden';
+    console.log("css---",css)
+  	this.setState({'specificDivCSS':css})
+
+}
+
+submitForm(formData){
+
+  let keywordData = Object.assign({},this.props.getAllKeywordData.data);
+  let keywordDataList = [];
+  /*handle the case of enabling keyword wd default value
+  * formData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
+                 "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
+             }
+             */
+  if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
+    var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
+    keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
+    keywordDataList.push("captureHTTPReqFullFp" + "=" +captureHttpFullReqFpVal)
+}
+  else{
+    keywordData["captureHTTPReqFullFp"]["value"] = formData.captureHTTPReqFullFp
+    keywordDataList.push("captureHTTPReqFullFp" + "=" +formData.captureHTTPReqFullFp)
+}
+
+
+  if(formData.hasOwnProperty('enableCaptureHTTPResFullFp')){
+    var captureHttpFullRespFpVal = modifiedVal.constValCaptureHTTPResFullFp(formData)
+    keywordData["captureHTTPRespFullFp"]["value"] = String(captureHttpFullRespFpVal); 
+    keywordDataList.push("captureHTTPRespFullFp" + "=" +captureHttpFullRespFpVal)
+}
+else{
+    keywordData["captureHTTPRespFullFp"]["value"] = formData.captureHTTPRespFullFp;
+     keywordDataList.push("captureHTTPRespFullFp" + "=" +formData.captureHTTPRespFullFp)
+}
+
+  keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
+  this.props.submitKeywordData(keywordData,this.props.profileId);
+
+  var data = {'sessionType':formData.sessionType}
+  this.props.updateSessionType(this.props.profileId,data)
+
+  //action for runtime change
+  // triggerRunTimeChanges(trData,trModeDetail,formData);
+  
+ /*  Object.keys(formData).forEach(function(key){
+     keywordDataList.push(key + "=" + formData[key]); 
+   })    */
+ // console.log("keywordDataList---",keywordDataList)
+//   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+ }
+
 render() {
   const { fields: { enableCaptureHTTPReqFullFp,
-                    urlMode,
                     hdrModeForReqcapture,
                     selectedHdrsValReq,
-                    configuredFile ,
                     captureModeReq,
                     hdrValChrReq,
                     enableCaptureHTTPResFullFp,
-                    responseData,
                     hdrModeForResCapture,
                     selectedHdrsValRes,
                     captureModeRes,
-                    hdrValChrRes
+                    hdrValChrRes,
+                    enableCaptureSessionAttr,
+                    sessionType
 
 
   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
   
   return (
-    <div  style = {{'paddingLeft':29,'paddingTop':13}}>
+    <div  >
  
-    <form>
+    <form onSubmit={handleSubmit(this.submitForm.bind(this))} >
 
    {/********************** START OF captureHTTPReqFullFp******************************/}
     <div className = "row" >
-    <div className = "col-md-1">
+    <div className = "col-md-3">
     <Checkbox
     {...enableCaptureHTTPReqFullFp}
     value = "CaptureHTTPReqFullFp"
     checked  = {this.state.enableCaptureHTTPReqFullFp}
+    label = "Capture HTTP Request "
     onCustomChange={this.handleCaptureHTTPReqFullFp.bind(this)}
     />
-    </div>
-    <p style={{'position':'relative', 'right':10}}>Capture HTTPReqFullFp</p>
+    </div> 
+
+    <div className=" col-md-5"  style={{left:'300'}}>
+
+    <RaisedButton  className = "pull-right"
+                      backgroundColor = "#18494F" 
+                       label=" SAVE"
+                      labelColor="#FFF"
+                      type="submit" disabled={submitting}
+                     labelStyle={{fontSize:12}} >
+
+                     {submitting ? <i/> : <i/>} 
+                   
+          </RaisedButton>
+  </div>
+    
     </div>
 
     {/************* subGroup***************/}
-    <div className ={this.state.enableCaptureHTTPReqFullFp ? 'show' :'hidden'} style ={{'paddingLeft':35}}>
-      <div className = "row col-md-12">
-        <RadioButtonGroup 
-        {...urlMode}
-        name = "urlMode" 
-        defaultSelected={this.state.urlMode}
-        onCustomChange={this.handleURLModeChange.bind(this) }
-        >
-       <RadioButton
-          value="1"
-          label="URL Only"  
-          labelStyle={styles.radioStyle}        
-       />
-       <RadioButton
-          value="2"
-          label="URL with Query Parameters"  
-          labelStyle={styles.radioStyle}        
-       />
-        <RadioButton
-          value="3"
-          label="URL with Query Params,Http Method ,Http Headers"  
-          labelStyle={styles.radioStyle}        
-       />
-
-      </RadioButtonGroup>
+<div className = "row col-md-12" style ={{left:'25px'}}>
+        
        
        {/******div block for 3rd option "URL with Query Params,Http Method ,Http Headers"*******/}
-        <div className = {this.state.hdrTypeCss} style = {{'paddingLeft':27}}>
+        <div className = {this.state.enableCaptureHTTPReqFullFp ?'show':'hidden'} style = {{}}>
           
           <div className = "row">
-            <div className='col-md-6' >
+            <div className='col-md-3' style = {{position:'relative',left:'2px'}}>
                 <DropDownComponent 
                 {...hdrModeForReqcapture}
                 data = {dataForhdrTypeDropDown}
                 onChangeOption = {this.handleHdrModeReqChange.bind(this)}
-                floatingLabelText = "select Header Type"
+                floatingLabelText = " Header Type"
                 />
             </div>
 
@@ -397,25 +452,11 @@ render() {
         </div>
 
 
-          <div className ={`col-md-4 ${this.state.configDropDownCss}`}  style = {{'width':150}}>
-             <DropDownMenu 
-                {...configuredFile}
-                  style={styles.customWidth}
-                  value = {this.state.configuredFile}
-                  autoWidth={false}
-                  customOnChange={this.handleConfiguredFileChange.bind(this)} 
-                  floatingLabelText="Select Configured file list "
-                  autoScrollBodyContent={true}
-                >
-                 {/* <MenuItem value = {"0"}  primaryText = "ALL headers"/>
-                  <MenuItem value = {"1"}  primaryText = "Specified headers"/>
-                  <MenuItem value = {"2"}  primaryText = "Configured" />*/}
-                </DropDownMenu>
-        </div>
+          
       </div>
    
 
-      <div className = {`row ${this.state.captureModeCss}`} style = {{'paddingLeft':5}}>
+      <div className = {`row ${this.state.captureModeCss}`} style = {{'paddingLeft':-3}}>
         <div className = "col-md-6">
                 <DropDownComponent 
                 {...captureModeReq}
@@ -424,64 +465,45 @@ render() {
                 floatingLabelText = "Select Capture Mode"
                 />
       </div>
-      <div className = {`col-md-6 ${this.state.briefCaptureModeConfigReq}`}>
+    
+        <div className = {`col-md-6 ${this.state.briefCaptureModeConfigReq}`}>
         <TextField
                   hintText="Hint Text"
                   floatingLabelText="Enter range of characters "
                   {...hdrValChrReq}
                 />
+        </div>
       </div>
-      </div>
+
 
   </div>
         {/*************END *************/}
     
     </div>
-    </div>
 
 
 
   {/***********************START OF captureHTTPRespFullFp************************/}
-     <div className = "row">
-     <div className="col-md-1">
-    <Checkbox
-    {...enableCaptureHTTPResFullFp}
-    value = "CaptureHTTPResFullFp"
-    checked  = {this.state.enableCaptureHTTPResFullFp}
-    onCustomChange={this.handleCaptureHTTPResFullFp.bind(this)}
-    />
+     <div className = "row" >
+     <div className="col-md-3">
+      <Checkbox
+        {...enableCaptureHTTPResFullFp}
+        value = "CaptureHTTPResFullFp"
+        checked  = {this.state.enableCaptureHTTPResFullFp}
+        label = "Capture HTTP Response "
+        onCustomChange={this.handleCaptureHTTPResFullFp.bind(this)}
+      />
   
     </div>
-       <p> Capture HTTPResFullFp</p>
+      
      </div>
 
     {/************* subGroup***************/}
-    <div className ={this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} 
-         style ={{'paddingLeft':35,bottom:20}}>
       
-      <div className = "row col-md-10" >
-        <RadioButtonGroup 
-        {...responseData}
-        name = "urlMode" 
-        defaultSelected={this.state.responseData}
-        onCustomChange={this.handleURLRespModeChange.bind(this) }
-        style={{'position':'relative','bottom':2}}
-        >
-       <RadioButton
-          value = "1"
-          label = "Capture Response Code only"   
-          labelStyle={styles.radioStyle}       
-       />
-       <RadioButton
-          value = "2"
-          label = "Capture Response Code and http headers only"      
-          labelStyle={styles.radioStyle}    
-       />
-       
-      </RadioButtonGroup>
+      <div className = "row col-md-10" style ={{left:'25px'}}>
        
        {/******START of div block when 2nd radio button is selected*******/}
-        <div className = {this.state.hdrTypeRespCss} style = {{'paddingLeft':27}}>
+        <div className = {this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} style = {{'paddingLeft':0}}>
           
           <div className = "row">
             <div className='col-md-6' >
@@ -503,23 +525,6 @@ render() {
             options = {resHdrList} 
             onCustomChange = {this.updateSelectedResp.bind(this)}
             />
-        </div>
-
-
-          <div className ={`col-md-4 ${this.state.configDropDownRespCss}`}  style = {{'width':150}}>
-             <DropDownMenu 
-                {...configuredFile}
-                  style={styles.customWidth}
-                  value = {this.state.configuredFile}
-                  autoWidth={false}
-                  customOnChange={this.handleConfiguredFileChange.bind(this)} 
-                  floatingLabelText="Select Configured file list "
-                  autoScrollBodyContent={true}
-                >
-                {/*  <MenuItem value = {"0"}  primaryText = "ALL headers"/>
-                  <MenuItem value = {"1"}  primaryText = "Specified headers"/>
-                  <MenuItem value = {"2"}  primaryText = "Configured" />*/}
-                </DropDownMenu>
         </div>
       </div>
    
@@ -546,9 +551,50 @@ render() {
         {/*************END *************/}
     
     </div>
-    </div>
 {/*********************END OF captureHTTPRespFullFp*****************/}
-    </form>
+
+{/***********CAPTURESESSIONATTRIBUTE**********/}
+  <div className = "row  col-md-3">
+    <Checkbox
+    {...enableCaptureSessionAttr}
+    value = "CaptureSessionAttr"
+    checked  = {this.state.enableCaptureSessionAttr}
+    label = "Capture Session Attribute"
+    onCustomChange={this.handleCaptureSessionAttr.bind(this)}
+    />
+
+  </div>
+
+  <div className = {`row ${this.state.captureSessionAttrCss}`}>
+    <div className = " col-md-3" >
+        <RadioButtonGroup 
+          {...sessionType}
+          name = "sessionType" 
+          defaultSelected={this.state.sessionType}
+          onCustomChange={this.handleSessionTypeChange.bind(this) }
+          >
+        <RadioButton
+            value="all"
+            label="All"  
+        />
+        <RadioButton
+            value="specific"
+            label="Specific"  
+        />
+        </RadioButtonGroup>
+      </div>
+      </div>
+
+    <div className ={this.state.specificDivCSS}>
+      <div className="row col-md-8">
+      <SessionAttr profileId={this.props.profileId} /> 
+      </div>
+    </div>
+
+    
+
+
+      </form>
     </div>
 
     );
@@ -576,6 +622,7 @@ export default reduxForm({
   
   { 
    submitKeywordData:submitKeywordData,
-   initializeInstrException:initializeInstrException
+   initializeInstrException:initializeInstrException,
+   updateSessionType :updateSessionType 
  } // mapDispatchToProps (will bind action creator to dispatch)
  )(Form_EnableFpCapturing);

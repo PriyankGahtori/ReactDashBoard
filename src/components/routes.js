@@ -29,6 +29,8 @@ import MethodMonitors from '../containers/configuration/instrumentation/monitor/
 import ErrorDetection from '../containers/configuration/instrumentation/errorDetection/ErrorDetection';
 import ExceptionMonitors from '../containers/configuration/instrumentation/monitor/ExceptionMonitors';
 import HTTPStatsMonitors from '../containers/configuration/instrumentation/monitor/HTTPStatsMonitors';
+import SessionAttrMonitor from '../containers/configuration/instrumentation/monitor/SessionAttributeMonitors';
+import FlowPathHdr from '../containers/configuration/general/flowPathHeaderCapture/flowpathHdrkeywords';
 
 export default class routes extends React.Component {
 
@@ -50,14 +52,18 @@ export default class routes extends React.Component {
 
         <Route name = "Profile"  staticName = {true} path = "profile"  component = {ProfileDetail} />
 
-        {/*********************Topology and profile Navigation**********************/}          
+        {/*********************from Topology to profile Navigation**********************/}          
         <Route name = "Topology Configuration" staticName = {true} path = "dcdetail/:dcId">
           <IndexRoute name = "Topology Configuration" staticName = {true} component = {Topology}/>
 
             {/*************Main Configuration Screen************/}
           <Route name = "Configuration" staticName = {true} path= "topology/:topoId/configuration/:profileId" >
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />            
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
+              <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>
+              <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={GeneralKeywords} />  
+            </Route>
+                      
             
               {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
@@ -71,7 +77,7 @@ export default class routes extends React.Component {
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
                 <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />               
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} /> 
               </Route>
             </Route>
 
@@ -88,8 +94,10 @@ export default class routes extends React.Component {
             {/*************Main Configuration Screen************/}
           <Route name = "Configuration" staticName = {true} path= "topology/:topoId/configuration/:profileId" >
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />            
-            
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} >            
+             <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+            </Route>
+
               {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
@@ -102,11 +110,12 @@ export default class routes extends React.Component {
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
                 <Route name="Exception Monitors" path ="exceptionmonitors" component={ExceptionMonitors} />
-                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />               
+                <Route name="HTTP Stats Monitors" path ="httpstatmonitors" component={HTTPStatsMonitors} />  
               </Route>
             </Route>
 
             <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+
 
           </Route>            
         </Route>
@@ -120,7 +129,9 @@ export default class routes extends React.Component {
               {/*************Main Configuration Screen************/}  
           <Route name = "Configuration" staticName = {true} path= "tier/:tierId/configuration/:profileId" >
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} >  
+             <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />   
+            </Route>   
             
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
@@ -151,7 +162,9 @@ export default class routes extends React.Component {
               {/*************Main Configuration Screen************/}  
           <Route name = "Configuration" staticName = {true} path= "server/:serverId/configuration/:profileId" >
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+             <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} > 
+              <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />   
+            </Route>    
             
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
@@ -182,7 +195,9 @@ export default class routes extends React.Component {
               {/*************Main Configuration Screen************/}  
           <Route name = "Configuration" staticName = {true} path= "instance/:instanceId/configuration/:profileId" >
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
-            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+            <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} > 
+             <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+            </Route>    
             
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
@@ -209,8 +224,11 @@ export default class routes extends React.Component {
         {/*from Profile main screen to general, instrumentation, service entry, ... */}
         <Route name = "Configuration" staticName = {true} path= "profile/:profileId" >
 
-          <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />      
-          <Route name = "General Settings" staticName = {true} path = "generalsettings" component ={GeneralKeywords} />      
+          <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />   
+           <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
+            <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
+           <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+          </Route>     
           
           <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
@@ -236,7 +254,9 @@ export default class routes extends React.Component {
       {/*from tier,server, instance to profile */}        
       <Route name = "Configuration" staticName = {true} path = "profile/:profileId"  component = {Configuration} />
 
-      <Route name = "Configuration" staticName = {true} path = "generalsettings/:profileId"  component = {GeneralKeywords} />
+      <Route name = "Configuration" staticName = {true} path = "generalsettings/:profileId"  component = {GeneralKeywords} >
+        <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+      </Route>
 
         <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
            <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />

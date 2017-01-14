@@ -292,7 +292,7 @@ submitForm(formData){
             backgroundColor="#18494F"
             disabledLabelColor="#000"
             labelColor="#FFF"
-            label="Advance Settings" 
+            label="More Settings ..." 
             labelStyle={{fontSize:12}}/> 
       </div>     
     </div>
@@ -342,7 +342,6 @@ submitForm(formData){
 
 
   function mapStateToProps(state) {
-    console.log("generalKeywords---",state.Keywords)
     return {
       getAllKeywordData :state.Keywords,
       trData : state.initialData.trData,
@@ -353,7 +352,6 @@ submitForm(formData){
   //method to dispatch actions to the reducers
   function mapDispatchToProps(dispatch) {
     //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
-    //return actionMap;
     return bindActionCreators(actionCreators, dispatch);
   }
   export default connect(mapStateToProps,mapDispatchToProps)(EnableBCICapturing);

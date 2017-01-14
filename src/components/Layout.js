@@ -159,17 +159,15 @@ export default class Layout extends React.Component {
     	<div>
  
        <SettingsDialog  
-             title="Topology Migration"
+             title="Import Topology"
              open={this.state.settingOpen}
              actions={actions} 
              contentStyle={{width: '550'}}>
              <MigrateTopo closeDialog={this.handleCloseTopoDialog}/>
         </SettingsDialog >
 
-       
-
         <NDAgentStatusDialog  
-            title="ND BCI Agent Status Information"
+            title="ND Agent Status Information"
             open={this.state.agentStatusOpen}
             actions={actionsNDAgent} 
             contentStyle={customContentStyle}>
@@ -202,14 +200,14 @@ export default class Layout extends React.Component {
 	      <AppBar
 	      style={appBarStyle}  	
         titleStyle={title}
-        title='NDE CONFIGURATION'
+        title='ND CONFIGURATION'
 	    	onLeftIconButtonTouchTap={this.handleToggle}
         iconStyleLeft={{paddingLeft:'18px'}}
 	    	isInitiallyOpen={false}
         iconElementRight={<div><IconButton tooltip="ND Agent Status" onTouchTap={this.agentScreen.bind(this)}>
           <FontIcon color='#FFF' className="material-icons">people</FontIcon>
           </IconButton><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon color='#FFF' className="material-icons">home</FontIcon></IconButton>
-        <IconButton tooltip="Migrate Topology" onTouchTap={this.settingScreen}><FontIcon color='#FFF' className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
+        <IconButton tooltip="Import Topology" onTouchTap={this.settingScreen}><FontIcon color='#FFF' className="material-icons" >assignment_returned</FontIcon></IconButton></div>}
 	  		/>
 		   
 		      

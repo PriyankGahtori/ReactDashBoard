@@ -34,14 +34,14 @@ class MigrateTopo extends React.Component {
 
 
   loader(){
-    var msg = {'title':'Topology Migrated' , 'msg': ''}
+    var msg = {'title':'Topology imported' , 'msg': ''}
     this.props.triggerLoader(false,msg)
   }
 
   render() {
     return (
       <div > 
-      <FlatButton style={{left:'150' }} label="Migrate Topologies" onTouchTap={this.updateTopo} primary={true} /> 
+      <FlatButton style={{left:'150' }} label="Import Topologies" onTouchTap={this.updateTopo} primary={true} /> 
      </div>
 
      );

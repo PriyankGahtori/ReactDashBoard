@@ -242,7 +242,7 @@ class GenExcptInMethod extends React.Component {
 							backgroundColor="#18494F"
 							disabledLabelColor="#000"
 							labelColor="#FFF"
-							label="Advance Settings"
+							label="More Settings ..."
 							labelStyle={{ fontSize: 12 }} />
 
 					</div>

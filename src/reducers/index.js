@@ -30,7 +30,8 @@ import TRModeDetail from './reducer_TRMode_detail';
 import HttpStatsData from './reducer_HttpStatsCond';
 import Loader from './reducer_Loader';
 import NDAgentStatus from './reducer_NDAgentStatus';
-
+import ProfileDisabled from './reducer_ProfileDisabled';
+import SessionAttrMonitor from './reducer_SessionAttrMonitor';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -58,7 +59,10 @@ module.exports = combineReducers({
 	trModeDetail 	  : TRModeDetail,	
 	httpStatsData     : HttpStatsData,
 	loader            : Loader,
-	ndAgent 		  : NDAgentStatus
+	ndAgent 		  : NDAgentStatus,
+	profileDisabled   : ProfileDisabled,
+	sessionAttrMonitor: SessionAttrMonitor
+
 });
 
 //const reducers = {addInitialAppData};

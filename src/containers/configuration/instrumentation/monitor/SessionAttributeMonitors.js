@@ -183,7 +183,7 @@ loader(){
 
     return (
  
-    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F',color}}>
+    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
      
           <div className="col-md-10">
               <h4>Session Attribute Monitor</h4>

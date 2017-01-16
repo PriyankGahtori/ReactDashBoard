@@ -127,6 +127,7 @@ class EnableServiceEntryPoints extends Component {
 				<CheckBox
 				  label="Enable Service Entry Points"
 					onCustomChange={this.handleCheck.bind(this)}
+					disabled = {this.props.profileDisabled}
 					checked={this.state.checked}	/>
           </div>
       {/*  <i className = "col-md-5" style={{right:240,top:5}}>Enable Service Entry Points</i> */}
@@ -154,7 +155,8 @@ function mapStateToProps(state) {
     trData : state.initialData.trData,
     ns_wdir: state.initialData.ns_wdir,
     homeData: state.initialData.homeData,	
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+		profileDisabled: state.profileDisabled.disabled
    };
 }
 

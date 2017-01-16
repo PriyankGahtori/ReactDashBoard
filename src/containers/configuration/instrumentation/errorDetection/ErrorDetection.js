@@ -191,6 +191,7 @@ const styles = {
                           <FlatButton
                             label="Delete" 
                              primary={true}
+                             disabled = {this.props.profileDisabled}
                              onTouchTap={this.delErrorDetection}/>
                       ];
 
@@ -210,6 +211,8 @@ const styles = {
             column     = {columns}
             onClick    = {this.handleClick}
             onToggle   = {this.onToggle.bind(this)}
+            disableToggle = {this.props.profileDisabled}
+            
          />
 
         <div>
@@ -240,7 +243,8 @@ const styles = {
 
 function mapStateToProps(state) {
   return {
-    errorDetection : state.errorDetection
+    errorDetection : state.errorDetection,
+    profileDisabled: state.profileDisabled.disabled  
    
    };
 }

@@ -175,6 +175,7 @@ loader(){
         label="Delete"
         primary={true}
         keyboardFocused={true}
+        disabled = {this.props.profileDisabled}
         onTouchTap={this.delRow}
     
       />,
@@ -228,9 +229,10 @@ loader(){
 
 
 function mapStateToProps(state) {
-  console.log("methodMonitor state -  " + state.methodMonitor)
+  console.log("methodMonitor state -  ",state.methodMonitor)
   return {
-     methodMonitor : state.methodMonitor
+      methodMonitor : state.methodMonitor,
+      profileDisabled: state.profileDisabled.disabled
    };
 }
 

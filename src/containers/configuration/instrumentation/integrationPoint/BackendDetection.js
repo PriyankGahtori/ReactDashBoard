@@ -230,6 +230,7 @@ const styles = {
       <FlatButton
         label="Submit"
         primary={true}
+        disabled = {this.props.profileDisabled}
         onTouchTap={this.handleSubmitEditEndPt.bind(this)}
       />,
     ];
@@ -244,6 +245,7 @@ const styles = {
       <FlatButton
         label="Submit"
         primary={true}
+        disabled = {this.props.profileDisabled}
         onTouchTap={this.handleSubmitNewendPoint.bind(this)}
       />,
     ];
@@ -326,14 +328,14 @@ const styles = {
   }
 }
 function mapStateToProps(state) {
-  console.log("backEndDetection---",state.backEndDetection.tableData)
   return {
     backEndDetection :state.backEndDetection,
     entryPointFile  : state.Keywords.enableNDEntryPointsFile,
     trData : state.initialData.trData,
     ns_wdir: state.initialData.ns_wdir,
     homeData: state.initialData.homeData, 
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

@@ -124,15 +124,14 @@ class FlowPathHdrkeywords extends React.Component {
     return (
       <div >
       <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
+  
          <div className='row row-no-margin tableheader' style={{top: '-7px',position:'relative'}}>
           <div className="col-md-10">
               <h4> FlowPath header Capturing</h4>
           </div>
           </div>
-           <Paper style={paperStyle} zDepth={2} >
-          <Form_fphdr profileId={this.props.params.profileId}/>
+        <Form_fphdr profileId={this.props.params.profileId}/>
   {/*<SessionAttr profileId={this.props.params.profileId} /> */}
-      </Paper> 
 
     </div>
     );

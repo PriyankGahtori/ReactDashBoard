@@ -104,6 +104,7 @@ class Dialog_MethodMonitor extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled = {this.props.profileDisabled}
         onClick={this.handleSubmit}
       />
     ];
@@ -140,6 +141,8 @@ function mapStateToProps(state) {
     ns_wdir: state.initialData.ns_wdir,
     homeData: state.initialData.homeData, 
     trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled    
+
    };
 }
 

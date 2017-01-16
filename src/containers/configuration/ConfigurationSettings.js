@@ -145,6 +145,13 @@ class ConfigurationSettings extends React.Component {
    }
   
   render() {
+  // console.log("this.props.params.profileId --",this.props.params.profileId )
+    //disable the profile if its default i.e id = 1
+    if(this.props.params.profileId == 1)    
+      this.props.disableProfile(true);
+    else
+      this.props.disableProfile(false);
+
    return (
       <div> 
       <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>

@@ -261,6 +261,7 @@ onToggle(row){
             column     = {columns}
             onClick    = {this.handleClick}
             onToggle   = {this.onToggle.bind(this)}
+            disableToggle = {this.props.profileDisabled}
          />
         </Paper>
 
@@ -291,7 +292,8 @@ function mapStateToProps(state) {
     trData : state.initialData.trData,
     ns_wdir: state.initialData.ns_wdir,
     homeData: state.initialData.homeData, 
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

@@ -100,11 +100,12 @@ const styles = {
              </div>
           <div  className = "col-md-1"  style={{paddingLeft:60}} >
           <RaisedButton
-          label="Submit"
-          onClick={this.submitInstr.bind(this)}
-          backgroundColor="#18494F"
-              labelColor="#FFF"
-              labelStyle={{fontSize:12}}>
+            label="Submit"
+            onClick={this.submitInstr.bind(this)}
+            disabled = {this.props.profileDisabled}
+            backgroundColor="#18494F"
+            labelColor="#FFF"
+            labelStyle={{fontSize:12}}>
           
           </RaisedButton>
          
@@ -122,7 +123,8 @@ function mapStateToProps(state) {
   return {
     getAllKeywordData :state.Keywords,
     trData : state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

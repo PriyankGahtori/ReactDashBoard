@@ -14,24 +14,48 @@ class BusinessTransaction extends React.Component {
   constructor(props) {
     super(props)    
     this.state = {btRuleType : this.props.initialValKeywords.BTRuleConfig}
+    this.loader = this.loader.bind(this)
+    this.loadScreen = this.loadScreen.bind(this)
+    if(this.props.initialValKeywords.BTRuleConfig == "global")
+       console.log("calling initializeBTFields method")
+       this.props.initializeBTFields(this.props.params.profileId,this.loader,this.loadScreen);
+  }
+
+  loadScreen(){
+   console.log("loadscreen method called")
   }
 
   componentWillMount(){
+  
+  /*   if(this.props.initialValKeywords.BTRuleConfig == "global")
+       console.log("calling initializeBTFields method")
+       this.props.initializeBTFields(this.props.params.profileId,this.loader,this.loadScreen);
+       */
+
+    console.log("loadScreen method called")
     let currPath = `${this.props.location.pathname}`;
         currPath = currPath.substring(0, currPath.indexOf("bt")+2)
-
+    
     let btRuleType = this.props.initialValKeywords.BTRuleConfig  === "global" ? "" : this.props.initialValKeywords.BTRuleConfig 
     let routeURL = `${currPath}/${btRuleType}`;
     hashHistory.push(routeURL);
+    console.log("this.props.initialValKeywords.BTRuleConfig--",this.props.initialValKeywords.BTRuleConfig)
+    
   }
 
   componentWillReceiveProps(nextProps){
     console.log("nextProps--",nextProps.initialValKeywords)
     if(this.props.initialValKeywords!=nextProps.initialValKeywords){
-
+      
     }
 
   }
+
+  loader(){
+ //var message = {'title': ' BT Global Loaded' , 'msg' : '' }
+  this.props.triggerLoader(false,null)
+
+}
 
   getProfileName(profileId)
   {
@@ -70,6 +94,8 @@ class BusinessTransaction extends React.Component {
 
     let routeURL = `${currPath}/${val}`;
     hashHistory.push(routeURL);
+    if(value === "global")
+       this.props.initializeBTFields(this.props.params.profileId,this.loader);
   }
 
   render() {
@@ -90,14 +116,14 @@ class BusinessTransaction extends React.Component {
 	          value="global"
             label="Global" 
             labelStyle={{'color':'#FFF'}}
-              
+            disabled = {this.props.profileDisabled}            
           /> 
         
 	        <RadioButton
 	          value="pattern" 
             label="Pattern"
             labelStyle={{'color':'#FFF'}}
-           
+            disabled = {this.props.profileDisabled}
            />
         
 	      </RadioButtonGroup>
@@ -118,7 +144,8 @@ function mapStateToProps(state) {
     trData : state.initialData.trData,
     trModeDetail: state.trModeDetail,
     homeData: state.initialData.homeData,
-    ns_wdir: state.initialData.ns_wdir
+    ns_wdir: state.initialData.ns_wdir,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

@@ -154,6 +154,7 @@ class Dialog_ServiceEntryPts extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
+        disabled = {this.props.profileDisabled}
         keyboardFocused={true}
         onClick={this.handleSubmit}
       />
@@ -191,7 +192,8 @@ function mapStateToProps(state) {
     trData : state.initialData.trData,
     ns_wdir: state.initialData.ns_wdir,
     homeData: state.initialData.homeData, 
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

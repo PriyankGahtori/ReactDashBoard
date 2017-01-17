@@ -10,6 +10,33 @@ const initialState = {tableData:[],
                      attrValues:[]
                    };
 
+function modifyingData(data){
+  console.log("data--",data)
+    data.map(function(val){
+        var value='';
+        if(val.attrValues != null && val.attrValues.length != 0){
+          val.attrValues.map(function(attrVal,index){
+          console.log("attrVal--",attrVal)
+          console.log("index--",index)
+          console.log("val.attrValues.length--",val.attrValues.length)
+          if(index != (val.attrValues.length - 1)){
+            value = value+attrVal.valName+",";
+          }
+          else{
+            value = value+attrVal.valName ;
+          }
+        console.log("value--",value)
+      })
+      val["values"]= {"href":value};
+    }
+      else{
+        val["values"] = "NA"
+      }
+    })
+    return data;
+
+}
+
 export default function(state = initialState, action) {
 
 	/*console.log("inside reducerappdetail", action.type);*/
@@ -19,32 +46,13 @@ export default function(state = initialState, action) {
 
     case 'FETCH_SESSION_ATTR_MONITOR':
     var newState = Object.assign({},state)
-    var data = action.payload.data.attrList;
-    console.log("action.payload in reducer session--",data)
-    
-    data.map(function(val){
-      var value='';
-  if(val.attrValues != null && val.attrValues.length != 0){
-      val.attrValues.map(function(attrVal,index){
-        console.log("attrVal--",attrVal)
-        console.log("index--",index)
-        console.log("val.attrValues.length--",val.attrValues.length)
-       if(index != (val.attrValues.length - 1)){
-          value = value+attrVal.valName+",";
-        }
-        else{
-          value = value+attrVal.valName ;
-        }
-        console.log("value--",value)
-      })
-     val["values"]= {"href":value};
+    if(action.payload.data.attrList != null){
+      var data = action.payload.data.attrList;
+      console.log("action.payload in reducer session--",data)
+       var data = modifyingData(data);
+      console.log("data---",data)
+      newState.tableData = data;
     }
-      else{
-        val["values"] = "NA"
-      }
-    })
-    console.log("data---",data)
-    newState.tableData = data;
     return newState;
 
     case 'VAL_DATA':
@@ -110,8 +118,43 @@ export default function(state = initialState, action) {
         }
       })
       console.log("attrValues--",attrValues)
+      newState.attrRowId =  action.payload ;
       newState.attrValues = attrValues ;
       return newState;
+
+      case 'UPDATE_ATTR_VALUES':
+      var newState = Object.assign({},state)
+      console.log("action.payload---",action.payload)
+      newState.tableData.map(function(val){
+        if(val.sessAttrId == newState.attrRowId){
+          val.attrValues.map(function(attrVal){
+              action.payload.data.map(function(respData){
+                if(respData.specAttrValId == attrVal.specAttrValId ){
+                  attrVal = respData ;
+                }
+              })
+          }) 
+        }
+      })
+      var data = modifyingData(newState.tableData);
+      newState.tableData = data;
+      return newState; 
+
+
+      case 'ADD_ATTR_VALUES':
+      var newState = Object.assign({},state)
+      console.log("action-",action.payload)
+      newState.tableData.map(function(val){
+        if(val.sessAttrId == newState.attrRowId){
+          console.log("val---",val)
+          val.attrValues.push(action.payload.data)
+        }
+      })
+      var data = modifyingData(newState.tableData);
+      newState.tableData = data;
+      return newState;
+
+
 
   default :
     return state;

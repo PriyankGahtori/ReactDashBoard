@@ -157,8 +157,8 @@ class Form_EnableFpCapturing extends React.Component {
     this.state = 
   
     this.state = {
-      enableCaptureHTTPReqFullFp : false,
-      enableCaptureHTTPResFullFp : false,
+      enableCaptureHTTPReqFullFp : this.props.initialData.enableCaptureHTTPReqFullFp,
+      enableCaptureHTTPResFullFp : this.props.initialData.enableCaptureHTTPResFullFp,
       'hdrTypeCss'    :  'hidden',
       'multiSelectCss': 'hidden',
       'configDropDownCss': 'hidden',
@@ -169,7 +169,8 @@ class Form_EnableFpCapturing extends React.Component {
       'multiSelectRespCss':'hidden',
       'configDropDownRespCss':'hidden',
       'specificDivCSS':'hidden',
-      'captureSessionAttrCss':'hidden'
+      'captureSessionAttrCss':'hidden',
+      'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr
       
   }
 }

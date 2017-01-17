@@ -15,13 +15,14 @@ import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
 import Paper from 'material-ui/Paper';
+import RaisedButton from 'material-ui/RaisedButton';
 
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import {getKeywordsData,submitKeywordData}  from '../../../../actions/index';
 import Form_fphdr from './Form_EnableFpCapturing';
 import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
-import RaisedButton from 'material-ui/RaisedButton';
+
 
 const styles = {
   text: {
@@ -124,15 +125,12 @@ class FlowPathHdrkeywords extends React.Component {
     return (
       <div >
       <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
-  
-         <div className='row row-no-margin tableheader' style={{top: '-7px',position:'relative'}}>
-          <div className="col-md-10">
-              <h4> FlowPath header Capturing</h4>
-          </div>
-          </div>
-        <Form_fphdr profileId={this.props.params.profileId}/>
-  {/*<SessionAttr profileId={this.props.params.profileId} /> */}
-
+      <div className='row row-no-margin tableheader' style={{top: '-7px',position:'relative'}}>
+        <div className="col-md-10">
+          <h4> FlowPath header Capturing</h4>
+        </div>
+      </div>
+      <Form_fphdr profileId={this.props.params.profileId}/>
     </div>
     );
   }

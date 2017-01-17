@@ -98,6 +98,7 @@ export function splitValue(keywords){
 		fpHdrInitializeObj.captureModeRes = value[2]
 
 		}
+		fpHdrInitializeObj.enableCaptureSessionAttr = keywords.captureHttpSessionAttr;
 	
 	return fpHdrInitializeObj;
 }

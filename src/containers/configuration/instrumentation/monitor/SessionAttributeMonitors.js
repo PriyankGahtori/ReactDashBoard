@@ -156,6 +156,7 @@ loader(){
    // this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
     this.props.clearValData();
   }
+  
   handleHref(row){
     console.log("row---",row)
     this.props.toggleStateAttrValDialog(row.sessAttrId);

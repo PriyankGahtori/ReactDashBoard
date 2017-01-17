@@ -9,17 +9,17 @@ import RaisedButton  from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ConfirmDialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-
-
-//Importing React components
-import Checkbox from '../../../../components/CheckboxWrapper';
-import Input from '../../../../components/InputWrapper';
-import {submitKeywordData,initializeInstrException,updateSessionType}  from '../../../../actions/index';
-import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
-import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import MultiSelect from '../../../../components/MultiSelectWrapper';
 import DropDownComponent from './DropDownComponent';
+import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
+import Checkbox from '../../../../components/CheckboxWrapper';
+import Input from '../../../../components/InputWrapper';
+
+
+//Importing React components
+import {submitKeywordData,initializeInstrException,updateSessionType}  from '../../../../actions/index';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
 import * as  modifiedVal from './ModifyValue';
 
@@ -143,7 +143,6 @@ const styles = {
 var dataForhdrTypeDropDown = [{'id':0 ,'option':'ALL Headers'},
                               {'id':1 ,'option':'Specified headers'},
                              // {'id':2 ,'option':'Configured'}
-                              
 ]
 
 var dataForCaptureDropDown = [{'id':0 , 'option' :'complete'},

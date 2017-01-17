@@ -327,6 +327,26 @@ handleSessionTypeChange(event, value){
 
 }
 
+getProfileName(profileId)
+  	{
+  		try{
+  			let profileData = this.props.homeData[1]
+  			                      .value
+  			                      .filter(function(obj){return obj.id == profileId });	
+  			if(profileData.length != 0)
+  			  return profileData[0].name;
+  			else
+  			  return null;    			
+  		}
+  		catch(ex)
+  		{
+  			console.error("error in getting profileId " + ex);
+  			return null;
+  		}
+
+  	}
+
+
 submitForm(formData){
 
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
@@ -360,17 +380,18 @@ else{
   keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
   this.props.submitKeywordData(keywordData,this.props.profileId);
 
-  var data = {'sessionType':formData.sessionType}
+   var data = {'sessionType':formData.sessionType}
   this.props.updateSessionType(this.props.profileId,data)
 
+
   //action for runtime change
-  // triggerRunTimeChanges(trData,trModeDetail,formData);
-  
- /*  Object.keys(formData).forEach(function(key){
-     keywordDataList.push(key + "=" + formData[key]); 
-   })    */
- // console.log("keywordDataList---",keywordDataList)
-//   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/captureHttpSessionAttr.hscf"
+		  console.info("filePath", filePath);	
+  let value = formData.enableCaptureSessionAttr ? filePath :'NA' ;
+  keywordDataList.push("captureHttpSessionAttr"+ "=" +formData.enableCaptureSessionAttr)
+      
+  console.log("keywordDataList---",keywordDataList)
+  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
  }
 
 render() {
@@ -618,7 +639,8 @@ export default reduxForm({
     getAllKeywordData :state.Keywords,
     initialValues :state.Keywords.initializeKeywords.fpHdrInitializeObj,
     trData : state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    ns_wdir: state.initialData.ns_wdir,
   }),
   
   { 

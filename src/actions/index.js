@@ -1687,3 +1687,34 @@ export function updateSessionType(profileId,data){
   }
   
 }
+
+export function updateAttrValueTypes(data){
+
+   var response = axios({
+    method:'post',
+    url :  `${url.UPDATE_ATTR_VALUES}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'UPDATE_ATTR_VALUES',
+    payload:response
+  }
+
+}
+export function addValueType(value,attrId){
+  console.log("value--",value)
+   var response = axios({
+    method:'post',
+    url :  `${url.ADD_ATTR_VALUES}/${attrId}`,
+    data: value,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'ADD_ATTR_VALUES',
+    payload:response
+  }
+
+}

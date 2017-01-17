@@ -1,11 +1,11 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
 
-const SERVICE_URL = '/configUI';
+//const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
@@ -127,3 +127,5 @@ export const FETCH_ND_AGENT_TABLEDATA = `${SERVICE_URL}/ndagent`;
 export const FETCH_SESSION_ATTR_TABLEDATA = `${SERVICE_URL}/custom/sessionattrmonitor/getallsessionattrdata` ;
 export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addspecificattr`;
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
+export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
+export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`

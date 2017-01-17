@@ -31,6 +31,8 @@ import ExceptionMonitors from '../containers/configuration/instrumentation/monit
 import HTTPStatsMonitors from '../containers/configuration/instrumentation/monitor/HTTPStatsMonitors';
 import SessionAttrMonitor from '../containers/configuration/instrumentation/monitor/SessionAttributeMonitors';
 import FlowPathHdr from '../containers/configuration/general/flowPathHeaderCapture/flowpathHdrkeywords';
+import MethodBT from '../containers/configuration/instrumentation/businessTransaction/MethodBT';
+import ConfigureBT from '../containers/configuration/instrumentation/businessTransaction/ConfigureBT';
 
 export default class routes extends React.Component {
 
@@ -234,11 +236,18 @@ export default class routes extends React.Component {
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
            
-              <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+          {/*    <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
-       
+       */}
+
+        <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <IndexRoute name="HTTP BT Configuration" component={BusinessTransaction} />
+                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
+
           <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />    
            
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >

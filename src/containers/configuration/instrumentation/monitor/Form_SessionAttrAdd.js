@@ -8,16 +8,17 @@ import Is from 'is_js';
 import ContentSend from 'material-ui/svg-icons/content/send';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-
-//Importing files
-import Toggle from '../../../../components/ToggleWrapper';
-import AttrValComponent from './AttrValComponent';
-import {addingValData,disableSubmitButtonState} from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+
+//Importing files
+import Toggle from '../../../../components/ToggleWrapper';
+import AttrValComponent from './AttrValComponent';
+import {addingValData,disableSubmitButtonState} from '../../../../actions/index';
+
 
 
 

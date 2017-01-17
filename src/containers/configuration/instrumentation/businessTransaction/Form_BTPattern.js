@@ -8,12 +8,12 @@ import TextField from 'material-ui/TextField';
 import is from 'is_js';
 import {List, ListItem} from 'material-ui/List';
 import ContentSend from 'material-ui/svg-icons/content/send';
-
-//Importing files
-import {ListOfGroupNames,BTPatternCheck} from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import Toggle from '../../../../components/ToggleWrapper';
+
+//Importing files
+import {ListOfGroupNames,BTPatternCheck} from '../../../../actions/index';
 
 
 export const fields = ['enabled','btName','matchType','urlName','include','slowTransaction','verySlowTransaction','reqParamKey','reqParamValue','reqMethod','reqHeaderKey','reqHeaderValue','dynamicPartReq' ]

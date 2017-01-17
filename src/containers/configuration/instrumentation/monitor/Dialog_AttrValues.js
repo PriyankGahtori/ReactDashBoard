@@ -8,17 +8,19 @@ import DialogSessionAttr from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { bindActionCreators } from 'redux';
 import { reset } from 'redux-form';
-
-//Importing React components
-import * as actionCreators  from '../../../../actions/index';
-import FormSessionAttrMon from './Form_SessionAttrAdd';
-import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
+import DataGrid from '../../../../components/DCDetailTable';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import DataGrid from '../../../../components/DCDetailTable';
 import AttrValComponent from './AttrValComponent';
 import RaisedButton from 'material-ui/RaisedButton';
 
+//Importing React components
+import * as actionCreators  from '../../../../actions/index';
+import FormSessionAttrMon from './Form_SessionAttrAdd';
+import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
 var columns = {

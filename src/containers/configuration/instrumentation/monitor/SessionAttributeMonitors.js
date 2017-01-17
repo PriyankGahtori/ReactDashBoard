@@ -180,10 +180,7 @@ loader(){
       />,
     ];
 
-    	
-
     return (
- 
     <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
      
           <div className="col-md-10">

@@ -1685,6 +1685,7 @@ export function updateSessionType(profileId,data){
     type:'UPDATE_SESSION_TYPE',
     payload:response
   }
+<<<<<<< HEAD
   
 }
 
@@ -1718,3 +1719,13 @@ export function addValueType(value,attrId){
   }
 
 }
+=======
+
+}
+
+ export function toggleStateMethodBT(){
+  return {
+    type:'TOGGLE_STATE_ADD_BT_METHOD'
+  } 
+ }
+>>>>>>> ff20b2a2abafeb69f3569919d674c74a11719b2a

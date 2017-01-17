@@ -32,6 +32,7 @@ import Loader from './reducer_Loader';
 import NDAgentStatus from './reducer_NDAgentStatus';
 import ProfileDisabled from './reducer_ProfileDisabled';
 import SessionAttrMonitor from './reducer_SessionAttrMonitor';
+import MethodBT from './reducer_BTMethod';
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
 /* Populated by react-webpack-redux:reducer */
@@ -61,8 +62,8 @@ module.exports = combineReducers({
 	loader            : Loader,
 	ndAgent 		  : NDAgentStatus,
 	profileDisabled   : ProfileDisabled,
-	sessionAttrMonitor: SessionAttrMonitor
-
+	sessionAttrMonitor: SessionAttrMonitor,
+	methodBT		  : MethodBT
 });
 
 //const reducers = {addInitialAppData};

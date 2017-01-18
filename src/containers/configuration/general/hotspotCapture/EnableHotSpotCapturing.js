@@ -18,6 +18,7 @@ import _ from "lodash";
 import DialogEnableHotSpotCapturing from 'material-ui/Dialog';
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
+import Checkbox from '../../../../components/CheckboxWrapper';
 
 //Importing files
 import { getKeywordsData, submitKeywordData } from '../../../../actions/index';
@@ -25,7 +26,6 @@ import FormEnableHotSpotCapturing from './Form_EnableHotSpotCapturing';
 import * as validate from '../../../../actions/validateGeneralKeywords'
 import { triggerRunTimeChanges } from '../../../../actions/runTimeChanges';
 import * as actionCreators from '../../../../actions/index';
-import Checkbox from '../../../../components/CheckboxWrapper';
 
 const styles = {
   text: {
@@ -226,20 +226,6 @@ class EnableHotSpotCapturing extends React.Component {
     ];
 
 
-    /* const actionsHotSpotDefault = [
-       <FlatButton
-         label="Cancel"
-         primary={true}
-         onTouchTap={this.handleCancelEnableHotSpotDefVal.bind(this)}
-       />,
-       <FlatButton
-         label="OK"
-         primary={true}
-         keyboardFocused={true}
-         onClick={this.cnfrmEnableHotSpotDefVal.bind(this)}
-       />
-     ];  */
-
     const actionsHotSpotDisable = [
       <FlatButton
         label="Cancel"
@@ -282,7 +268,7 @@ class EnableHotSpotCapturing extends React.Component {
         </div>
 
         <DialogEnableHotSpotCapturing
-          title="Hotspot Capturing"
+          title="Hotspot Capturing Settings"
           actions={actionsHotSpotCapturing}
           modal={false}
           open={this.state.openEnableHotSpotCapturingDialog}

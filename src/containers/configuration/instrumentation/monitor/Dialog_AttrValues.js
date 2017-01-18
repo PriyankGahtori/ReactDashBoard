@@ -11,9 +11,6 @@ import { reset } from 'redux-form';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import DataGrid from '../../../../components/DCDetailTable';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import DataGrid from '../../../../components/DCDetailTable';
 import AttrValComponent from './AttrValComponent';
 import RaisedButton from 'material-ui/RaisedButton';
 

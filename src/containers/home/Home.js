@@ -6,11 +6,16 @@ import { bindActionCreators } from 'redux';
 import {List, ListItem} from 'material-ui/List';
 import FontIcon from 'material-ui/FontIcon';
 import ActionInfo from 'material-ui/svg-icons/action/info';
+import NDAgentStatusDialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import SettingsDialog from 'material-ui/Dialog';
 
 //Importing files
 import  {activeData} from '../../actions/index';
 import * as actionCreators  from '../../actions/index';
 import CardComponent from '../../components/CardComponent'
+import NDAgentStatus from '../actions/ndAgentStatus/NDAgentStatus';
+import MigrateTopo from '../settings/Dialog_Settings';
 
 
 const iconStyle = {
@@ -31,12 +36,26 @@ const divStyle ={
   marginBottom:'2em',
   minHeight: '111px'
 }  
+
+const customContentStyle = {
+  width: '93%',
+  maxWidth: 'none',
+};
+
+const divCenter = {
+  textAlign: 'center'
+};
+
  class Home extends React.Component {
  
   constructor(props) {
 	 super(props);
-   this.state = {homeData: this.props.homeData};
+   this.state = {homeData: this.props.homeData,
+                  agentStatusOpen:false};
    this.loader = this.loader.bind(this);
+    this.settingScreen = this.settingScreen.bind(this);
+    this.handleCloseTopoDialog = this.handleCloseTopoDialog.bind(this) ;
+    this.handleCloseNDAgent = this.handleCloseNDAgent.bind(this); 
    }
 
 componentWillMount() {
@@ -60,16 +79,48 @@ componentWillReceiveProps(nextProps){
    this.props.triggerLoader(false,message)
  }
 
+ agentScreen(){
+  this.setState({agentStatusOpen: true})
+}
+
+  handleCloseNDAgent(){
+    this.setState({agentStatusOpen:false})
+  }
+
+ settingScreen(){
+  this.setState({settingOpen: true})
+  }
+
+  handleCloseTopoDialog(){
+    this.setState({settingOpen:false})
+  }
 
   render() {
   	//At initial loading of GUI if homeData is null displays msg of  "Loading"
   	if (!this.props.homeData) {
       return <div>Loading........</div>;
     }
+
+     const actions = [
+      <FlatButton
+        label="Cancel"
+        primary={true}
+        onTouchTap={this.handleCloseTopoDialog} 
+        style={{bottom:'15',right:'5'}}/>
+    ];
+
+     const actionsNDAgent = [
+      <FlatButton
+        label="Close"
+        primary={true}
+        onClick={this.handleCloseNDAgent} 
+        style={{bottom:'15',right:'5'}}/>
+    ];
+
     return (
           <div>
 
-            <div className="row" align='center'>
+            <div className="row" >
            {/*     <div className="col-md-2" style={divStyle}>
                   <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Discover Instrumentation Data" rightIcon={<i className="icon config-icon-discover" style={iconStyle} />}/>
                 </div>
@@ -77,15 +128,32 @@ componentWillReceiveProps(nextProps){
                   <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Instrumentation Profile" rightIcon={<i className="icon config-icon-manage-profile" style={iconStyle} />}/>
                 </div> */}
                 <div className="col-md-2" style={divStyle}>
-                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="ND Agent Status" rightIcon={<i className="icon config-icon-agent" style={iconStyle} />}/>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' onClick={this.agentScreen.bind(this)} primaryText="ND Agent Status" rightIcon={<i className="icon config-icon-agent" style={iconStyle} />}/>
                 </div>
             {/*    <div className="col-md-2" style={divStyle}>
                   <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Manage Auto Discovery" rightIcon={<i className="icon config-icon-setting" style={iconStyle} />}/>
                 </div> */}
                 <div className="col-md-2" style={divStyle}>
-                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' primaryText="Import Topology" rightIcon={<i className="icon config-icon-setting2" style={iconStyle} />}/>
+                  <ListItem style={listStyle} initiallyOpen={true} hoverColor='rgba(0,0,0,0.4)' onTouchTap={this.settingScreen} primaryText="Import Topology" rightIcon={<i className="icon config-icon-setting2" style={iconStyle} />}/>
                 </div>  
             </div>
+
+            <NDAgentStatusDialog  
+            title="ND Agent Status Information"
+            open={this.state.agentStatusOpen}
+            actions={actionsNDAgent} 
+            autoScrollBodyContent={true}
+            contentStyle={customContentStyle}>
+            <NDAgentStatus closeDialog={this.handleCloseNDAgent}/>
+            </NDAgentStatusDialog >
+
+              <SettingsDialog  
+             title="Import Topology"
+             open={this.state.settingOpen}
+             actions={actions} 
+             contentStyle={{width: '550'}}>
+             <MigrateTopo closeDialog={this.handleCloseTopoDialog}/>
+        </SettingsDialog >
 
             <div className="row">       
         		{this.props.homeData.map((data, index) => (

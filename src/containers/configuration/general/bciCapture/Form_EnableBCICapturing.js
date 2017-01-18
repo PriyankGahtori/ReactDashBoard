@@ -3,12 +3,13 @@ import React, { PropTypes } from 'react'
 import { reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import MenuItem from 'material-ui/MenuItem';
-
-//Importing files
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import Input from '../../../../components/InputWrapper';
 import Checkbox from '../../../../components/CheckboxWrapper';
+
+//Importing files
 import { initializeInstrProf } from '../../../../actions/index';
+
 
 export const fields = ['bciInstrSessionPct', 'logLevelOneFpMethod', 'correlationIDHeader', 'doNotDiscardFlowPaths', 'setCavNVCookie', 'enableCpuTime', 'enableForcedFPChain'];
 
@@ -56,8 +57,6 @@ const styles = {
     fontSize: 12,
     color: 'red'
   },
-
-
 };
 
 class Form_EnableBCICapturing extends React.Component {
@@ -69,7 +68,6 @@ class Form_EnableBCICapturing extends React.Component {
       'enableForcedFPChain': this.props.initialData.enableForcedFPChain,
       'logLevelOneFpMethod': this.props.initialData.logLevelOneFpMethod === '1',
       'doNotDiscardFlowPaths': this.props.initialData.doNotDiscardFlowPaths === '1'
-
     }
 
   }
@@ -130,7 +128,7 @@ class Form_EnableBCICapturing extends React.Component {
           </div>
         </div>
 
-    {/*    <div className="row" style={{ paddingTop: 10, paddingRight: 8 }}>
+        {/*    <div className="row" style={{ paddingTop: 10, paddingRight: 8 }}>
           <div className="col-md-1" >
             <Checkbox
               {...logLevelOneFpMethod}
@@ -171,8 +169,6 @@ class Form_EnableBCICapturing extends React.Component {
           </DropDownMenu>
         </div>
 
-
-
         <div className="row">
           <div className="col-md-6">
 
@@ -197,8 +193,6 @@ class Form_EnableBCICapturing extends React.Component {
                 style={{ 'wordWrap': 'breakWord' }} />
             </DropDownMenu>
           </div>
-
-
         </div>
         <div className="row" style={{ paddingTop: 18 }}>
           <div className="col-md-6" >
@@ -220,7 +214,6 @@ class Form_EnableBCICapturing extends React.Component {
               floatingLabelText="Set flowPath id in response cookie"
               {...setCavNVCookie}
               errorText={setCavNVCookie.touched && setCavNVCookie.error && <div> {setCavNVCookie.error}</div>}
-
               />
           </div>
 

@@ -142,8 +142,9 @@ onBeforeSaveCell(row, cellName, cellValue){
   handleSubmit(){
     console.log("handleSubmit method called--",this.state.changedValArr)
     this.props.updateAttrValueTypes(this.state.changedValArr,this.props.sessionAttrMonitor.attrRowId)
-    this.handleCancel();
+   
   }
+
 
   //For adding value Types
 

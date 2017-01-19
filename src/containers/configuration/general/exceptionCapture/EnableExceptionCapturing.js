@@ -12,44 +12,45 @@ import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import Snackbar from 'material-ui/Snackbar';
 import FlatButton from 'material-ui/FlatButton';
-import {hashHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 import TextField from 'material-ui/TextField';
 import { reduxForm } from 'redux-form';
 import _ from "lodash";
 import { Link } from 'react-router';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogEnableExcptCapturing from 'material-ui/Dialog';
-
-import * as validate from '../../../../actions/validateGeneralKeywords';
-import * as constructValue from './ModifyValue.js' ;
-import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
-import * as actionCreators  from '../../../../actions/index';
 import Checkbox from '../../../../components/CheckboxWrapper';
-import {getKeywordsData,submitKeywordData}  from '../../../../actions/index';
+
+//Importing files
+import * as validate from '../../../../actions/validateGeneralKeywords';
+import * as constructValue from './ModifyValue.js';
+import { triggerRunTimeChanges } from '../../../../actions/runTimeChanges';
+import * as actionCreators from '../../../../actions/index';
+import { getKeywordsData, submitKeywordData } from '../../../../actions/index';
 import FormEnableExcptCapturing from './Form_EnableExcptCapturing';
 
 
 const styles = {
 	text: {
-		fontSize:18,
-		paddingLeft:6
+		fontSize: 18,
+		paddingLeft: 6
 	},
 
-	mainBlock:{
-		paddingLeft:10,
-		paddingBottom:20
+	mainBlock: {
+		paddingLeft: 10,
+		paddingBottom: 20
 	},
-	row1:{
-		paddingBottom:20
+	row1: {
+		paddingBottom: 20
 	},
-	row2:{
-		paddingTop : 40
+	row2: {
+		paddingTop: 40
 	},
-  
-   title:{
-    fontSize: '16px',
-    padding: '8px'
-  }
+
+	title: {
+		fontSize: '16px',
+		padding: '8px'
+	}
 };
 /*
 * data --- table column name
@@ -57,11 +58,10 @@ const styles = {
 * 
 */
 
-
 const style = {
-  //margin: 20,
-  textAlign: 'center',
-  display: 'inline-block'
+	//margin: 20,
+	textAlign: 'center',
+	display: 'inline-block'
 };
 
 const NewButtonstyle = {
@@ -78,229 +78,206 @@ class EnableExceptionCapturing extends React.Component {
 
 	constructor(props) {
 		super(props);
-  //this.state ={enableBCIDebug:false}
-  this.state = {openEnableExcptCapturingDialog : false}
-  this.state = {disableAdvancedSettingTab1 :!this.props.getAllKeywordData.BCICapturingCheckBox}
-  this.state = {getAllKeywordData:this.props.getAllKeywordData}
-  this.state = {enableExcptCheckBox:this.props.getAllKeywordData.enableExcptCheckBox}
-  this.state = {openSnackBar:false}
-}
-
-
-//this function is called first when component gets first loaded
-componentWillMount() {
-   // this.props.getKeywordsData(this.props.params.profileId);
-   this.state = {openSnackBar:false}
-}
-componentWillReceiveProps(nextProps)
-{
-	console.log("nextProps capture exception---",nextProps.getAllKeywordData.enableExcptCheckBox)
-	if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-		this.setState({getAllKeywordData : nextProps.getAllKeywordData,
-			enableExcptCheckBox : nextProps.getAllKeywordData.enableExcptCheckBox
-		});
+		this.state = { openEnableExcptCapturingDialog: false }
+		this.state = { disableAdvancedSettingTab1: !this.props.getAllKeywordData.BCICapturingCheckBox }
+		this.state = { getAllKeywordData: this.props.getAllKeywordData }
+		this.state = { enableExcptCheckBox: this.props.getAllKeywordData.enableExcptCheckBox }
+		this.state = { openSnackBar: false }
 	}
 
-	if(this.props.getAllKeywordData.ExcptCapturingCheckBox != nextProps.getAllKeywordData.ExcptCapturingCheckBox)
-		this.setState({disableAdvancedSettingTab1:!nextProps.getAllKeywordData.ExcptCapturingCheckBox})
+	//this function is called first when component gets first loaded
+	componentWillMount() {
+		this.state = { openSnackBar: false }
+	}
+	componentWillReceiveProps(nextProps) {
+		if (this.props.getAllKeywordData != nextProps.getAllKeywordData) {
+			this.setState({
+				getAllKeywordData: nextProps.getAllKeywordData,
+				enableExcptCheckBox: nextProps.getAllKeywordData.enableExcptCheckBox
+			});
+		}
 
-}
+		if (this.props.getAllKeywordData.ExcptCapturingCheckBox != nextProps.getAllKeywordData.ExcptCapturingCheckBox)
+			this.setState({ disableAdvancedSettingTab1: !nextProps.getAllKeywordData.ExcptCapturingCheckBox })
 
-handleDReqCheckboxChange(event,value){
-}
-  /*
-  *  functions for enableBCICapturing Dialog
-  */
+	}
 
-  enableExcptCapturingDialog(){
-  	this.setState({openEnableExcptCapturingDialog:true});
-  }
+	handleDReqCheckboxChange(event, value) {
+	}
+	/*
+	*  functions for enableBCICapturing Dialog
+	*/
 
-  handleExcptCapture(event,isInputChecked){
-  	if(isInputChecked === true)
-  	{
-      //this.props.setDefValBCICapturingKeywords();
-      this.setState({openSnackBar:true
-      })
-      console.log("validate--",validate.setDefaultValuesExcptCapturing(this.props.getAllKeywordData.data))
-      this.submitForm(validate.setDefaultValuesExcptCapturing(this.props.getAllKeywordData.data));
-       //this.props.setDefValBCICapturingKeywords();
-       this.props.enableExcptCheckBoxStatus(true);
-   }
-   else{
-   //	this.props.enableExcptCheckBoxStatus(isInputChecked);
-   	this.setState({openCnfrmDisbleDialog:true})
-   }
-}
+	enableExcptCapturingDialog() {
+		this.setState({ openEnableExcptCapturingDialog: true });
+	}
 
-handleCancelEnableExcptCapturing(){
-    // this.props.toggleStateDialogEditTopo();
-    this.setState({openEnableExcptCapturingDialog:false});
-}
+	handleExcptCapture(event, isInputChecked) {
+		if (isInputChecked === true) {
+			this.setState({
+				openSnackBar: true
+			})
+			this.submitForm(validate.setDefaultValuesExcptCapturing(this.props.getAllKeywordData.data));
+			this.props.enableExcptCheckBoxStatus(true);
+		}
+		else {
+			this.setState({ openCnfrmDisbleDialog: true })
+		}
+	}
 
+	handleCancelEnableExcptCapturing() {
+		this.setState({ openEnableExcptCapturingDialog: false });
+	}
 
-handleSubmitEnableExcptCapturing(){
-	this.refs.enableExcptCapturingForm.submit();
-}
+	handleSubmitEnableExcptCapturing() {
+		this.refs.enableExcptCapturingForm.submit();
+	}
 
+	handleRequestClose() {
+		this.setState({
+			openSnackBar: false
+		})
+	}
 
+	/*
+	* Disable Dialog functions
+	*/
+	cnfrmDisableExcptVal() {
+		this.submitForm(validate.disabledExcptCapturing);
+		this.setState({
+			openCnfrmDisbleDialog: false
+		})
+	}
 
-handleRequestClose(){
-	this.setState({openSnackBar:false
-	})
-}
+	handleCancelDisableExcptVal() {
+		this.setState({
+			openCnfrmDisbleDialog: false,
+			enableExcptCheckBox: true
+		})
+	}
 
-/*
-* Disable Dialog functions
-*/
-cnfrmDisableExcptVal(){
-	this.submitForm(validate.disabledExcptCapturing);
-	//this.props.enableExcptCheckBoxStatus(false);
-	this.setState({ openCnfrmDisbleDialog:false
-	})
+	submitForm(formData) {
+		let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
+		let keywordDataList = [];
 
-}
+		/*
+		* final data is data that is fetched from server and 
+		* its value is updated according to user input,
+		* Final data object contains all the keywords  .
+		* instrExceptions  = 1%201%200%2029
+		* 
+		*/
 
-handleCancelDisableExcptVal(){
-	this.setState({ openCnfrmDisbleDialog:false,
-		enableExcptCheckBox :true 
-	})
-}
+		var instrVal = 0
+		var length = Object.keys(formData).length
 
-submitForm(formData){
-	let keywordData = Object.assign({},this.props.getAllKeywordData.data);
-	let keywordDataList = [];
+		/* below check handles the case of disabling the keyword/enabling the kwyword i.e
+			  *  when formData = {"instrExceptions":'0'}
+			  *  there is no need to call constructVal function
+			  */
 
-    /*
-    * final data is data that is fetched from server and 
-    * its value is updated according to user input,
-    * Final data object contains all the keywords  .
-    * instrExceptions  = 1%201%200%2029
-    * 
-    */
+		if (length > 1) {
+			instrVal = constructValue.instrExceptionValue(formData);
+		}
+		else
+			instrVal = formData.instrExceptions;
 
-    var instrVal = 0
-    var length = Object.keys(formData).length
-    
-    /* below check handles the case of disabling the keyword/enabling the kwyword i.e
-   	*  when formData = {"instrExceptions":'0'}
-   	*  there is no need to call constructVal function
-   	*/
+		keywordData.instrExceptions["value"] = instrVal;
 
-   	if(length > 1){
-   		instrVal = constructValue.instrExceptionValue(formData) ;
-	   	}
-	  else
-	  	instrVal = formData.instrExceptions;
+		this.props.submitKeywordData(keywordData, this.props.profileId);
 
-   		keywordData.instrExceptions["value"] = instrVal ;
-   
-    this.props.submitKeywordData(keywordData,this.props.profileId);
-    
-   //action for runtime change
-   //triggerRunTimeChanges(trData,trModeDetail,formData);
-   
-   keywordDataList.push("instrExceptions" + "=" + instrVal); 
-   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
-   this.handleCancelEnableExcptCapturing();
-}
+		//action for runtime change
+		//triggerRunTimeChanges(trData,trModeDetail,formData);
 
+		keywordDataList.push("instrExceptions" + "=" + instrVal);
+		triggerRunTimeChanges(this.props.trData, this.props.trModeDetail, keywordDataList);
+		this.handleCancelEnableExcptCapturing();
+	}
 
-render() {
-	const actions = [
-	<FlatButton
-	label="Cancel"
-	primary={true}
-	onTouchTap={this.handleCancelEnableExcptCapturing.bind(this)}
-	/>,
-	<FlatButton
-	label="Submit"
-	primary={true}
-	keyboardFocused={true}
-	onClick={this.handleSubmitEnableExcptCapturing.bind(this)}
-	/>
-	];
+	render() {
+		const actions = [
+			<FlatButton
+				label="Cancel"
+				primary={true}
+				onTouchTap={this.handleCancelEnableExcptCapturing.bind(this)}
+				/>,
+			<FlatButton
+				label="Submit"
+				primary={true}
+				keyboardFocused={true}
+				onClick={this.handleSubmitEnableExcptCapturing.bind(this)}
+				/>
+		];
 
+		const actionsDisable = [
+			<FlatButton
+				label="Cancel"
+				primary={true}
+				onTouchTap={this.handleCancelDisableExcptVal.bind(this)}
+				/>,
+			<FlatButton
+				label="OK"
+				primary={true}
+				keyboardFocused={true}
+				onClick={this.cnfrmDisableExcptVal.bind(this)}
+				/>
+		]
 
+		return (
+			<div>
 
+				<div className="row" style={{ paddingTop: 10 }}>
+					<div className="col-md-5">
+						<Checkbox
+							value="enableExceptionCapturing"
+							label="Enable Exception Capturing"
+							checked={this.state.enableExcptCheckBox}
+							onCustomChange={this.handleExcptCapture.bind(this)} />
+						<i style={{ paddingLeft: 40 }}>Capture Exception occurred in application </i>
+					</div>
+					<div className="col-md-2">
+						<RaisedButton
+							disabled={!this.state.enableExcptCheckBox}
+							onClick={this.enableExcptCapturingDialog.bind(this)}
+							style={{ width: 150 }}
+							backgroundColor="#18494F"
+							disabledLabelColor="#000"
+							labelColor="#FFF"
+							label="More Settings ..."
+							labelStyle={{ fontSize: 12 }} />
+					</div>
+				</div>
 
-	const actionsDisable =[
-	<FlatButton
-	label="Cancel"
-	primary={true}
-	onTouchTap={this.handleCancelDisableExcptVal.bind(this)}
-	/>,
-	<FlatButton
-	label="OK"
-	primary={true}
-	keyboardFocused={true}
-	onClick={this.cnfrmDisableExcptVal.bind(this)}
-	/>
-	]
+				<DialogEnableExcptCapturing
+					title="Exception Capturing Settings"
+					actions={actions}
+					modal={false}
+					open={this.state.openEnableExcptCapturingDialog}
+					onRequestClose={this.handleClose}
+					autoScrollBodyContent={true}
+					titleStyle={styles.title}
+					>
 
-	return (
-		<div>
+					<FormEnableExcptCapturing ref="enableExcptCapturingForm" onSubmit={this.submitForm.bind(this)} />
+				</DialogEnableExcptCapturing>
 
-		<div className = "row" style={{paddingTop:10}}>
-		<div className = "col-md-5">
-		<Checkbox
-		value = "enableExceptionCapturing"
-		label = "Enable Exception Capturing"
-		checked  = {this.state.enableExcptCheckBox}
-		onCustomChange={this.handleExcptCapture.bind(this)}/>
-	   <i style={{paddingLeft:40}}>Capture Exception occurred in application </i> 
+				<Snackbar
+					open={this.state.openSnackBar}
+					message="Exception capturing keywords with default values is enabled now."
+					autoHideDuration={4000}
+					onRequestClose={this.handleRequestClose.bind(this)}
+					/>
 
-
-		</div>
-		<div className="col-md-2">
-		<RaisedButton  
-				   	disabled ={!this.state.enableExcptCheckBox} 
-					  onClick ={this.enableExcptCapturingDialog.bind(this)} 
-                         style={{width:150}}
-                backgroundColor="#18494F"
-             disabledLabelColor="#000"
-                     labelColor="#FFF"
-                          label="More Settings ..." 
-                     labelStyle={{fontSize:12}}/>
-	
-		</div>
-		</div>
-
-
-		<DialogEnableExcptCapturing
-		title = "Enable Exception Capturing"
-		actions = {actions}
-		modal = {false}
-		open = {this.state.openEnableExcptCapturingDialog}
-		onRequestClose = {this.handleClose}
-		autoScrollBodyContent = {true}  
-		 titleStyle={styles.title}    
-		 
-		
-		>
-
-		<FormEnableExcptCapturing ref="enableExcptCapturingForm" onSubmit ={this.submitForm.bind(this) } />
-		</DialogEnableExcptCapturing>
-
-
-
-		<Snackbar
-		open={this.state.openSnackBar}
-		message="Exception capturing keywords with default values is enabled now."
-		autoHideDuration={4000}
-		onRequestClose={this.handleRequestClose.bind(this)}
-		/>
-
-		<ConfirmDialog
-		title="Are you sure want to disable the Exception Capturing ?"
-		actions={actionsDisable}
-		modal={false}
-		open={this.state.openCnfrmDisbleDialog}
-		>
-		</ConfirmDialog>
+				<ConfirmDialog
+					title="Are you sure want to disable the Exception Capturing Settings ?"
+					actions={actionsDisable}
+					modal={false}
+					open={this.state.openCnfrmDisbleDialog}
+					>
+				</ConfirmDialog>
 
 
-		</div>
+			</div>
 		);
 	}
 }
@@ -308,8 +285,8 @@ render() {
 
 function mapStateToProps(state) {
 	return {
-		getAllKeywordData :state.Keywords,
-		trData : state.initialData.trData,
+		getAllKeywordData: state.Keywords,
+		trData: state.initialData.trData,
 		trModeDetail: state.trModeDetail
 	};
 }
@@ -320,4 +297,4 @@ function mapDispatchToProps(dispatch) {
 	//return actionMap;
 	return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps,mapDispatchToProps)(EnableExceptionCapturing);
+export default connect(mapStateToProps, mapDispatchToProps)(EnableExceptionCapturing);

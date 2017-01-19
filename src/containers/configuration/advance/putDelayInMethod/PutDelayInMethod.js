@@ -9,14 +9,14 @@ import FlatButton from 'material-ui/FlatButton';
 import ConfirmDialog from 'material-ui/Dialog';
 import DialogPutDelayInMethod from 'material-ui/Dialog';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
+import Checkbox from '../../../../components/CheckboxWrapper';
+import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 
 //Importing files
 import FormPutDelayInMethod from './Form_PutDelayInMethod';
-import Checkbox from '../../../../components/CheckboxWrapper';
-import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import { submitKeywordData, initializeInstrException } from '../../../../actions/index';
 import { triggerRunTimeChanges } from '../../../../actions/runTimeChanges';
-import Snackbar from 'material-ui/Snackbar';
 
 export const fields = ['fromRange', 'toRange', 'isCpuHogg', 'isAutoInstrument', 'fqm'];
 
@@ -132,7 +132,6 @@ class PutDelayInMethod extends React.Component {
   }
 
   handleCancelPutDelayInMethod() {
-    // this.props.toggleStateDialogEditTopo();
     this.setState({ openPutDelayInMethodDialog: false });
   }
 

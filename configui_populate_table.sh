@@ -58,6 +58,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (6,'ASSampleInterval','0','5000','4','500'),
 (7,'ASThresholdMatchCount','1','100','4','5'),
 (8,'ASReportInterval','0','900000','4','0'),
+<<<<<<< HEAD
 (9,'instrProfile','','','5',''),
 (10,'ASDepthFilter','0','100','2','20'),
 (11,'ASTraceLevel','0','20','2','1'),
@@ -71,6 +72,20 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (19,'putDelayInMethod','0','10240','5','0'),
 (20,'enableBackendMonitor','0','1','2','1'),
 (21,'NDEntryPointsFile','','','5','true'),
+=======
+(10,'instrProfile','','','5',''),
+(11,'ASDepthFilter','0','100','2','20'),
+(12,'ASTraceLevel','0','20','2','1'),
+(13,'setCavNVCookie','0','10240','5','0'),
+(14,'enableCpuTime','0','1024','1','0'),
+(15,'enableForcedFPChain','0','3','2','1'),
+(16,'InstrTraceLevel','0','11','2','0'),
+(17,'instrExceptions','0','512','5','0'),
+(18,'correlationIDHeader','0','1024','5','0'),
+(19,'ASStackComparingDepth','0','1000','4','10'),
+(20,'putDelayInMethod','0','10240','5','0'),
+(21,'enableBackendMonitor','0','1','2','1'),
+>>>>>>> 0c0ea2afd3f7c43c9898867bcc9768c991463bf8
 (22,'ndMethodMonTraceLevel','0','10','2','0'),
 (23,'generateExceptionInMethod','0','10240','5','0'),
 (24,'captureHTTPReqFullFp','1','10485760','5','2'),
@@ -80,6 +95,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (28,'BTRuleConfig','NA','NA','5','global'),
 (29,'ndMethodMonFile','','','5','false'),
 (30,'BTErrorRules','','','5','false'),
+<<<<<<< HEAD
 (31,'captureHttpSessionAttr','','','5','false'),
 
 
@@ -87,6 +103,13 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
 (2,'WS backend','Web Service','HttpCallout','WS'),
+=======
+(31,'captureHttpSessionAttr','','','5','false');
+
+INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
+(1,'http backend','HTTP','HttpCallout','HTTP'),
+(2,'WS backend','WEB SERVICE','HttpCallout','WS'),
+>>>>>>> 0c0ea2afd3f7c43c9898867bcc9768c991463bf8
 (3,'JDBC backend','JDBC','oracleDB','JDBC'),
 (4,'Coherence backend','COHERENCE','HttpCallout','None'),
 (5,'RMI backend','RMI','HttpCallout','RMI'),

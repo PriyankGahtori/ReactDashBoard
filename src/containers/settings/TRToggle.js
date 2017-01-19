@@ -18,6 +18,14 @@ class TRToggle extends Component {
 		};
 	}
 
+	componentWillMount() {
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.trData != nextProps.trData)
+			this.setState({ trData: nextProps.trData });
+	}
+
 	handleRequestClose() {
 		this.setState({
 			open: false,
@@ -26,7 +34,6 @@ class TRToggle extends Component {
 
 	handleToggle(evt, value) {
 		//TR is running and want to make offline changes
-
 		//action to change toggle button's state
 		this.props.toggleTRState();
 

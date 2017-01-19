@@ -22,6 +22,8 @@ import {getKeywordsData,submitKeywordData}  from '../../../actions/index';
 import PutDelayInMethod from './putDelayInMethod/PutDelayInMethod'
 import EnableBackendMonitor from './backendMonitor/EnableBackendMonitor';
 import GenExceptionInMethod from './genExcptInMethod/GenExceptInMethod';
+import EnableDebugCapturing from '../general/debugLevelCapture/EnableDebugLevelCapturing';
+import EnableMonitors from '../general/monitors/EnableMonitors';
 
 const styles = {
   text: {
@@ -149,8 +151,10 @@ loader(){
       <div>
         <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
         <Card style={{paddingTop:10,paddingBottom:10}}>
+        <EnableDebugCapturing profileId = {this.props.params.profileId}/>
         <PutDelayInMethod profileId = {this.props.params.profileId} />
         <EnableBackendMonitor profileId = {this.props.params.profileId}/>
+        <EnableMonitors profileId = {this.props.params.profileId}/>
         <GenExceptionInMethod profileId = {this.props.params.profileId}/>
       </Card>
     </div>

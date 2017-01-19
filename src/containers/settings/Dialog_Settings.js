@@ -1,7 +1,7 @@
 //Importing React components
 import React from 'react';
 import {Card,CardText,CardActions,CardHeader} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import { render } from 'react-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -10,7 +10,6 @@ import {hashHistory } from 'react-router';
 //Importing files
 import * as actionCreators  from '../../actions/index';
 import Dialog from 'material-ui/Dialog';
-
 
 class MigrateTopo extends React.Component {
 
@@ -41,9 +40,14 @@ class MigrateTopo extends React.Component {
   render() {
     return (
       <div > 
-      <FlatButton style={{left:'150' }} label="Import Topologies" onTouchTap={this.updateTopo} primary={true} /> 
+      <RaisedButton
+       label="Sync Topologies" 
+       backgroundColor="#18494F"
+       onTouchTap={this.updateTopo} 
+       labelStyle={{fontSize:12}}
+       labelColor="#FFF" /> 
+      <p><center><i>This feature is used to sync topology settings of GUI with the file system.</i></center></p>
      </div>
-
      );
   }
 }

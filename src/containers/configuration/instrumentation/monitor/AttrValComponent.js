@@ -9,7 +9,7 @@ import * as actionCreators  from '../../../../actions/index';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import TextField from 'material-ui/TextField';
 
-
+const obj = {}
 class AttrValComponent extends React.Component {
   
   constructor(props) {
@@ -73,20 +73,24 @@ rbChange(evt,value){
   render() {
     
     return ( 
-         <div className ="row col-md-10">
-        <div className ="col-md-3">
+         <div className ="row col-md-10" >
+        <div className ="col-md-3" style= {{width:'50px'}}>
           <TextField
                floatingLabelText="value Name "
                defaultValue={this.state.valName}
                onChange ={this.valNameChange.bind(this)}
+                style = {{width:'160px'}}
           />
        </div>
+       <div className ="col-md-1">
+       </div>
 
-       <div className ="col-md-2">
+       <div className ="col-md-2" style={{}}>
           <TextField
                floatingLabelText="left bound"
                 defaultValue={this.state.lb}
                onChange ={this.lbChange.bind(this)}
+               style = {{width:'160px',position:'relative',left:'18px'}}
           />
      </div>
 
@@ -95,6 +99,7 @@ rbChange(evt,value){
             floatingLabelText="right bound"
             defaultValue={this.state.rb}
             onChange ={this.rbChange.bind(this)}
+             style = {{width:'100px',position:'relative',left:'5px'}}
           />
      </div>
 

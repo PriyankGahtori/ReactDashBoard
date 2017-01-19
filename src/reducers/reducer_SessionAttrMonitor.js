@@ -46,6 +46,7 @@ export default function(state = initialState, action) {
 
     case 'FETCH_SESSION_ATTR_MONITOR':
     var newState = Object.assign({},state)
+    newState.sessionType = action.payload.data.sessionType ;
     if(action.payload.data.attrList != null){
       var data = action.payload.data.attrList;
       console.log("action.payload in reducer session--",data)

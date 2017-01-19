@@ -8,12 +8,9 @@ import DialogSessionAttr from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { bindActionCreators } from 'redux';
 import { reset } from 'redux-form';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
 import DataGrid from '../../../../components/DCDetailTable';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
-import DataGrid from '../../../../components/DCDetailTable';
 import AttrValComponent from './AttrValComponent';
 import RaisedButton from 'material-ui/RaisedButton';
 
@@ -222,34 +219,34 @@ addValType(){
           titleStyle={styles.title}
         >
 
-           <div className="pull-right"  >
-            <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-          </div>
-         
-         
-        <DataGrid data = {this.props.sessionAttrMonitor.attrValues} 
-            cellEdit ={ cellEditProp }
-            pagination = {false} 
-            ref        = "sessionAttrMonitorData" 
-            column     = {columns}
-            onClick    = {this.handleClick}
-            style={{color:'#000000'}}
-        tableStyle={{background:'#ffffff'}}
-             /> 
+          <div className="pull-right"  >
+          <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+        </div>
+        
+        
+      <DataGrid data = {this.props.sessionAttrMonitor.attrValues} 
+          cellEdit ={ cellEditProp }
+          pagination = {false} 
+          ref        = "sessionAttrMonitorData" 
+          column     = {columns}
+          onClick    = {this.handleClick}
+          style={{color:'#000000'}}
+      tableStyle={{background:'#ffffff'}}
+            /> 
 
-          <div className = {`row ${this.state.addCompCSS}`}>
-            <AttrValComponent value = {{}}  
-                          valNameChange={this.valNameChange.bind(this)} 
-                          lbChange = {this.lbChange.bind(this)} 
-                          rbChange={this.rbChange.bind(this)} />
-            <RaisedButton className ="pull-right"
-            label="Submit"
-            backgroundColor = "#D3D3D3" 
-            onClick={this.addValType.bind(this)}
-            style={{color:'#000',position:'relative',top:'18px'}}>
-      
-           </RaisedButton>
-            </div>
+        <div className = {`row ${this.state.addCompCSS}`}>
+          <AttrValComponent value = {{}}  
+                        valNameChange={this.valNameChange.bind(this)} 
+                        lbChange = {this.lbChange.bind(this)} 
+                        rbChange={this.rbChange.bind(this)} />
+          <RaisedButton className ="pull-right"
+          label="Submit"
+          backgroundColor = "#D3D3D3" 
+          onClick={this.addValType.bind(this)}
+          style={{color:'#000',position:'relative',top:'18px'}}>
+    
+          </RaisedButton>
+          </div>
 
       </DialogSessionAttr>
       

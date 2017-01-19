@@ -154,7 +154,7 @@ class Form_EnableFpCapturing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = 
+    console.log("this.state--",this.props.sessionType)
   
     this.state = {
       enableCaptureHTTPReqFullFp : this.props.initialData.enableCaptureHTTPReqFullFp,
@@ -168,9 +168,11 @@ class Form_EnableFpCapturing extends React.Component {
       'hdrTypeRespCss':'hidden',
       'multiSelectRespCss':'hidden',
       'configDropDownRespCss':'hidden',
-      'specificDivCSS':'hidden',
+      'specificDivCSS':this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
-      'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr
+      'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
+      'captureSessionAttrCss':this.props.initialData.enableCaptureSessionAttr ?'show':'hidden',
+      'sessionType':this.props.sessionType
       
   }
 }
@@ -190,6 +192,11 @@ class Form_EnableFpCapturing extends React.Component {
   if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
     this.setState({getAllKeywordData : nextProps.getAllKeywordData,
     });
+
+  }
+  console.log("nextProps.sessionType--",nextProps.sessionType)
+  if(this.props.sessionType != nextProps.sessionType){
+    this.setState({'sessionType':nextProps.sessionType})
   }
 }
 
@@ -640,6 +647,7 @@ export default reduxForm({
     trData : state.initialData.trData,
     trModeDetail: state.trModeDetail,
     ns_wdir: state.initialData.ns_wdir,
+    sessionType : state.sessionAttrMonitor.sessionType
   }),
   
   { 

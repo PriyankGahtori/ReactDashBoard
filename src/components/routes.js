@@ -243,8 +243,10 @@ export default class routes extends React.Component {
        */}
 
         <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
-                  <IndexRoute name="HTTP BT Configuration" component={BusinessTransaction} />
-                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
                   <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
               </Route>
 

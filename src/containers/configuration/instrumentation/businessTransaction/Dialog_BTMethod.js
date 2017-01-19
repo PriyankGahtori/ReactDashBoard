@@ -33,23 +33,9 @@ class Dialog_BTMethod extends React.Component {
  submitForm(data){
    
    console.log("data after apending --->",data)
-//     if(this.props.BTPattern.openBTPatternDialog == "edit"){
-
-//        data["id"] = this.props.BTPattern.patternFormInitialData.id
-//        data["paramKeyValue"] = `${data.reqParamKey}=${data.reqParamValue}` 
-//        data["headerKeyValue"] = `${data.reqHeaderKey}=${data.reqHeaderValue}` 
-//        data['include'] = data.enabled ? 'include' : 'exclude';
-//        this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
-//        this.handleCancel();
-//   }
-//   else{
-//       data['include'] = data.enabled  ? 'include' : 'exclude';
-//       this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
-//       this.handleCancel();
-//   }
-//   console.log("this.props.trModeDetail.profileId--",this.props.trModeDetail.profileId)
-//    var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + '/btPattern.btr' ;
-//     console.info("filePath", filePath);  
+   this.props.addBTMethod(data,this.props.profileId);
+   this.handleCancel();
+  
 
 //    let keywordDataList = [];
 //      keywordDataList.push("BTRuleConfig" + "=" + filePath); 

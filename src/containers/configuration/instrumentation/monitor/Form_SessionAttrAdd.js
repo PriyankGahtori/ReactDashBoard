@@ -50,7 +50,7 @@ class Form_SessionAttrAdd extends React.Component {
                lb:'',
                rb:'',
               'valDataCss':'hidden',
-              valDataArr :[],
+              valDataArr :[{'paramName':'','lb':'','rb':''}],
               'errMsgCss':'hidden'
 
         }
@@ -180,7 +180,10 @@ handleSubmitValType(attrValues){
 renderSessionAttrValues(arr)
 {
  let that = this;
+ console.log("arr--",arr)
+// arr.push({'paramName':'','lb':'','rb':''});
  let component = arr.map(function(val){
+                  console.log("val---",val)
                  return <div >
                     <AttrValComponent value={val} valNameChange={that.valNameChange.bind(this)} lbChange = {that.lbChange.bind(this)} rbChange={that.rbChange.bind(this)} />
                     <div className="row col-md-1">
@@ -189,6 +192,7 @@ renderSessionAttrValues(arr)
                     </div>
                    </div>
   })
+ 
 
   return(
     <div>
@@ -197,8 +201,12 @@ renderSessionAttrValues(arr)
   ); 
 }
 
+
+
+
   render() {
 
+    
      const { fields: {attrName,complete,specific,attrValues}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form >
@@ -233,12 +241,10 @@ renderSessionAttrValues(arr)
     </div>
 
      <div className = {`row ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}} >
-     
         <h4>Add Value Types </h4>
-      
         <div className = "row col-md-8 ">
           <div className = "col-md-2">
-        <AddNewButton  style={NewButtonstyle} onTouchTap={this.submitValType.bind(this,'add')} mini={true}>
+          <AddNewButton  style={NewButtonstyle} onTouchTap={this.submitValType.bind(this,'add')} mini={true}>
             <AddIcon />
          </AddNewButton>
         </div>
@@ -250,7 +256,6 @@ renderSessionAttrValues(arr)
 
        
         {this.renderSessionAttrValues(this.state.valDataArr)}
-        <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)}/>
        
        </div>
 

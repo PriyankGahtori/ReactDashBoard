@@ -11,6 +11,7 @@ const styles = {
   toggle: {
    
   }
+  
 };
 
 
@@ -94,13 +95,16 @@ class DataGridComponent extends React.Component {
         onSelect:this.onRowSelect
 
     };*/
+
+  
    
 
-  const {data, column, striped, hover, condensed, pagination, selectRow } = this.props;
+  const {data, column, striped, hover, condensed, pagination, selectRow,cellEdit } = this.props;
 
     return (
     <div >
       <BootstrapTable
+        cellEdit ={cellEdit}
         data = {data}
         striped={striped}
         hover={hover}

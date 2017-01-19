@@ -85,7 +85,7 @@ const styles = {
 
   componentWillMount() {
    // this.props.triggerLoader(true,null)
-   this.props.fetchSessionAttrMonitorData(this.props.profileId);
+  // this.props.fetchSessionAttrMonitorData(this.props.profileId);
   }
 
   componentWillReceiveProps(nextProps)
@@ -184,7 +184,7 @@ loader(){
     <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
      
           <div className="col-md-10">
-              <h4>Session Attribute Monitor</h4>
+              <h4>Session Attribute(s)</h4>
           </div>
 
           <div className="pull-right"  >

@@ -122,6 +122,12 @@ class ConfigurationSettings extends React.Component {
     if(this.props.props.trData != nextProps.props.trData){
       this.props.setTRModeDetail(this.getTRModeDetail(nextProps));
     }
+  
+    if(this.props.params.profileId != nextProps.props.params.profileId)
+    {
+      console.log("profile changed")
+      this.setState({});
+    }
 
   }
 

@@ -6,19 +6,22 @@ import { Card } from 'material-ui/Card';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import TextField from 'material-ui/TextField';
-import DropDown from 'material-ui/DropDownMenu';
+import DropDownMenu from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+
 
 //Importing files
 import * as actionCreators from '../../../../actions/index';
 import { triggerRunTimeChanges } from '../../../../actions/runTimeChanges';
 
 
-var arrStringOperation = [{  'option': 'EQUALS' },
-                          { 'option': 'NOT EQUALS' },
-                          {  'option': 'CONTAINS' },
-                          {  'option': 'STARTS WITH' },
-                          { 'option': 'ENDS WITH' }
+
+var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
+                          { 'id':2 ,'option': 'NOT EQUALS' },
+                          { 'id':3,'option': 'CONTAINS' },
+                          { 'id':4, 'option': 'STARTS WITH' },
+                          { 'id':5, 'option': 'ENDS WITH' }
                           ];
 
 var arrNumericOperation = [{'option': 'EQ' },
@@ -40,8 +43,10 @@ class MethodBTComponent extends React.Component {
       paramName:'',
       operation:'',
       btName:'',
-      opData :[]
+      opData :[],
+      value:1
     }
+    this.handleChange = this.handleChange.bind(this);
   }
 
 
@@ -54,45 +59,27 @@ componentWillReceiveProps(nextProps){
   console.log("nextProps.value--",nextProps.value)
   if (this.props.value != nextProps.value) {
     //   console.log("diff---",nextProps.value)
-      console.log("Object.keys(nextProps.value).length--",Object.keys(nextProps.value).length)
-    if ((Object.keys(nextProps.value).length === 0)) {
-      console.log("length zeo case")
-     
-        
-
-      this.setState({
-        paramName: '',
-        operation: '',
-        btName: ''
-      })
-    }
-    else {
-
-       if(nextProps.value == 'STRING')
-      {
+       if(nextProps.value == "String"){
+         console.log("string")
         this.setState({opData:arrStringOperation})
         // this.state.opData.push(arrStringOperation);
         console.log("opData string - ", this.state.opData)
       }
-      else if(nextProps.value == 'NUMERIC')
+      else if(nextProps.value == "Numeric")
       {
         this.setState({opData:arrNumericOperation})
         console.log("opData numeric - ", this.state.opData)
       }
-
-     
-
-      // this.setState({
-      //   paramName: nextProps.value.paramName,
-      //   operation: this.state.opData[0],
-      //   btName: nextProps.value.btName
-      // })
-    }
-    //   console.log("this.state--",this.state.valName)
-  }
+}
 }
 
 del(){
+
+}
+
+handleChange(event, index, value){
+  this.setState({value:value})
+  this.props.operationChange(value, this.props.value.id)
 
 }
 
@@ -103,7 +90,7 @@ paramNameChange(evt, value){
 }
 
 operationChange(evt, value){
-  this.props.operationChange(value, this.props.value.id)
+  
 }
 
 btNameChange(evt, value){
@@ -117,36 +104,46 @@ handleOperation(event, index, value){
 render() {
     console.log("this.state--",this.state.opData)
   return (
-    <div className="row col-md-10">
+    <div className="row col-md-12">
       <div className="col-md-3">
         <TextField
           floatingLabelText="Parameter Name "
           defaultValue={this.state.paramName}
           onChange={this.paramNameChange.bind(this)}
+          style = {{width:'220px'}}
           />
       </div>
 
-      <div className="col-md-5">
-        <DropDown
-        maxHeight={300} 
-        value={this.state.value} 
-        onChange={this.operationChange.bind(this)}>
-        { this.state.opData.map(function(val){
-            <MenuItem value= {val.option} primaryText={val.option} />
-          })
-        }
-        
-      </DropDown>
+      <div className="col-md-4"  style={{position:'relative',left:'70px',width:'50px'}}>
+        <DropDownMenu 
+        onChange={this.handleChange} 
+        value={this.state.value}
+        hintText="Select Operation" 
+       style={{position:'relative',left:'70px',top:'22px',width:'200px'}}
+      >
+       {
+         this.state.opData.map((data, index) => (
+         <MenuItem value={data.id}  primaryText={data.option}/> 
+         ))
+       }
+
+      </DropDownMenu>
        
       </div>
 
-      <div className="col-md-2">
-        <TextField
-          floatingLabelText="BT Name"
+        <div className = "col-md-3" style={{position:'relative',left:'170px',width:'70px'}}>
+          <TextField
+          floatingLabelText="BT Name "
           defaultValue={this.state.btName}
           onChange={this.btNameChange.bind(this)}
+          style = {{position:'relative',left:'140px',width:'220px'}}
           />
-      </div>
+    
+
+        </div>
+
+       
+     
     </div>
   )
 }

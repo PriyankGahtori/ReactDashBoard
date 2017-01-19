@@ -35,17 +35,18 @@ const validate = values=>{
 
        return errors;
 }
+
 class GlobalBusinessTransaction extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state={
-    	'segmentDivCSS' : 'show',
-    	'dynamicReqType' : false,
+    this.state = {
+      'segmentDivCSS' : (this.props.initialData && this.props.initialData.uriType) === 'segment' ? 'show':'hidden',
+    	'dynamicReqType' : this.props.initialData != null ? this.props.initialData.dynamicReqType :false,
     	'paramDiv' : true, 
   		'methodDiv': false,
   		'headerDiv': false,
-      'uriType':"segment"    	
+      'uriType':this.props.initialData != null ? this.props.initialData.uriType : "segment"
     }
     this.loader = this.loader.bind(this)
     this.submitLoader = this.submitLoader.bind(this);
@@ -53,7 +54,7 @@ class GlobalBusinessTransaction extends React.Component {
 
  componentWillMount() {
      this.props.triggerLoader(true,null);
-     this.props.initializeBTFields(this.props.params.profileId,this.loader);
+     console.log("uriType--", this.props.initialData.uriType)
   }
 
  componentWillReceiveProps(nextProps){
@@ -66,7 +67,8 @@ class GlobalBusinessTransaction extends React.Component {
            "dynamicReqType" : data.dynamicReqType,
            "paramDiv" : data.dynamicReqValue === "requestParam" ? true :false,
            "methodDiv" : data.dynamicReqValue === "httpMethod" ? true :false,
-           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false
+           "headerDiv" : data.dynamicReqValue === "requestHeader" ? true :false,
+          
          })
       }
     if(this.props.initialData.uriType != nextProps.initialData.uriType)
@@ -99,6 +101,7 @@ var message = {title: " Bussiness Transaction Global settings are successfully s
   handleURITypeChange(event, value){
   	//show and hidden are bootstrap CSS to show and hide
   	let css = value === 'segment' ? 'show' : 'hidden';
+    console.log("css---",css)
   	this.setState({'segmentDivCSS':css})
   }
 
@@ -134,7 +137,6 @@ var message = {title: " Bussiness Transaction Global settings are successfully s
 
 
   render() {
-
   	const {
       fields: {uriType, segmentType, segmentValue,slowTransaction,verySlowTransaction, dynamicReqType,dynamicReqValue,requestParam, httpMethod, requestHeader},
       handleSubmit,
@@ -155,7 +157,6 @@ var message = {title: " Bussiness Transaction Global settings are successfully s
 	  		name = "uriType" 
 	  		defaultSelected={this.state.uriType}
 	  		onCustomChange={this.handleURITypeChange.bind(this) }
-          
 	  		>
        <RadioButton
           value="complete"

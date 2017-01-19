@@ -1685,7 +1685,6 @@ export function updateSessionType(profileId,data){
     type:'UPDATE_SESSION_TYPE',
     payload:response
   }
-<<<<<<< HEAD
   
 }
 
@@ -1717,10 +1716,6 @@ export function addValueType(value,attrId){
     type:'ADD_ATTR_VALUES',
     payload:response
   }
-
-}
-=======
-
 }
 
  export function toggleStateMethodBT(){
@@ -1728,4 +1723,35 @@ export function addValueType(value,attrId){
     type:'TOGGLE_STATE_ADD_BT_METHOD'
   } 
  }
->>>>>>> ff20b2a2abafeb69f3569919d674c74a11719b2a
+
+
+export function addBTMethod(data,profileId){
+
+  console.log("profileId--",profileId)
+  console.log("data---",data)
+   var response = axios({
+    method:'post',
+    url :  `${url.ADD_BT_METHOD}/${profileId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'ADD_BT_METHOD',
+    payload:response
+  }
+
+}
+
+export function fetchBTMethodTableData(profileId){
+  console.log("fetchBTMethodTableData method called")
+  const URL =  `${url.FETCH_BTMETHOD_URL}/${profileId}`;
+  const response = axios.get(URL);
+
+  return{
+    type:'FETCH_BTMETHOD_TABLEDATA',
+    payload:response
+  }
+  
+
+}

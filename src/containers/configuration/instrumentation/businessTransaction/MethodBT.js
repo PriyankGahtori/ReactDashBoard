@@ -26,9 +26,9 @@ export const fields = ['fqm', 'parameterName', 'operation', 'btName']
 
 
 var columns = {
-  "key": "fqmId",
-  "data": ['Fully Qualified Method', 'Parameter name', 'Operation', 'BT Name', 'ID'],
-  "field": ['fqm', 'parameterName', 'operation', 'btName', 'fqmId']
+  "key": "btMethodId",
+  "data": ['Fully Qualified Method', 'Return Type', 'ID'],
+  "field": ['fqm', 'hrefReturnType', 'btMethodId']
 };
 
 const style = {
@@ -91,7 +91,7 @@ class MethodBT extends React.Component {
 
   componentWillMount() {
     this.props.triggerLoader(true, null)
-    // this.props.fetchErrorDetectionTableData(this.props.params.profileId,this.loader); 
+    this.props.fetchBTMethodTableData(this.props.params.profileId); 
   }
 
   loader() {

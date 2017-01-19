@@ -109,7 +109,7 @@ class Dialog_SessionAttrAdd extends React.Component {
     return (
       <div>
         <DialogSessionAttr
-          title="Session Attribute Monitor"
+          title="Add Session Attribute"
           actions={actions}
           modal={false}
           open={this.state.sessionAttrMonitor.openNewSessAttrMonDialog}

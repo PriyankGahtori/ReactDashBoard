@@ -22,6 +22,8 @@ import Toggle from '../../../../components/ToggleWrapper';
 import AddMethodValues from './AddMethodValues';
 import MethodBTComponent from './MethodBTComponent';
 import DataGrid from '../../../../components/DCDetailTable';
+import {addBTMethodRule} from '../../../../actions/index';
+
 
 export const fields = ['fqm', 'returnType', 'rules']
 
@@ -72,7 +74,7 @@ var columns = {
 
 
 
-class Form_BTMethod extends React.Component {
+class Form_BTMethodEdit extends React.Component {
 
     constructor(props) {
         super(props);
@@ -88,17 +90,18 @@ class Form_BTMethod extends React.Component {
                     valDataArr : [],
                     count :0,
                     data:{'paramName':'',
-                            'operation':[],
-                            'btName':''
+                          'operation':[],
+                          'btName':''
                         },
-                    operator :'',
-                    ruleTypeDivCss:'hidden',
+                    operator :this.props.initialData.returnType,
+                    ruleTypeDivCss:'show',
                     errMsgCss:'hidden',
                     tableCss:'hidden',
                     addCompCSS:'hidden',
-                    ruleTypes:[],
-                    ruleTypesChanged:[]
+                    ruleTypes:this.props.initialData == null ? []:this.props.initialData.rules,
+                    operationName:''
                  }
+        console.log("this.props---ij btformedit--",this.props.initialData)
     }
 
     handleChange(event, index, value) {
@@ -113,21 +116,16 @@ class Form_BTMethod extends React.Component {
 
 
     componentWillMount() {
-        console.log("this.satte---",this.state.ruleTypes)
     }
 
     componentWillReceiveProps(nextProps) {
-        /*  if(this.props.initialData != nextProps.initialData)
-            this.setState({dynamicPartReq : nextProps.initialData.dynamicPartReq})*/
-            console.log("nextProps-ruleTypes called--",this.state.ruleTypes)
-            console.log("nextProps--",nextProps)
     }
 
     handleCheck(event, value) {
         this.setState({ 'dynamicPartReq': value })
     }
 
-    submitValType() {
+ /*   submitValType() {
        console.log("handlde submitvalue type called")
          console.log("this.state.paramName--",this.state.paramName)
          console.log("this.state.operation--",this.state.opCode)
@@ -146,32 +144,31 @@ class Form_BTMethod extends React.Component {
         })
        var ruleType = {'paramName':this.state.paramName,
                      'opCode':this.state.opCode,
-                     'btName':this.state.btName,
-                     'operationName':this.state.operationName
+                     'btName':this.state.btName
     }
     //this.state.valDataArr.push(ruleType);
     }
 
      this.setState({addComp:'show'})
     }
+*/
 
     paramNameChange(value, id) {
         console.log("parameterName called--",value);
         this.setState({value:value})
-        // this.editValArr(id,'lb',value)
     }
 
     operationChange(value, id,operationName) {
         console.log("operationChange called--",value);
+          console.log("operationChange called--",operationName);
         this.setState({opCode:value,
-                        operationName:operationName
+                       operationName:operationName 
         })
     }
 
     btNameChange(value, id) {
         console.log("btNameChange called--",value);
         this.setState({btName:value})
-        // this.editValArr(id,'lb',value)
     }
 
     
@@ -196,31 +193,20 @@ del(val){
 handleSubmitValType(rules){
   
   console.log("handleSubmitValType method called--",rules)
-  console.log("this.state.value--",this.state.value)
-  console.log("this.state.opCode--",this.state.opCode)
-  console.log("this.state.btName--",this.state.btName)
-
     if(this.state.value == '' || this.state.opCode == '' || this.state.btName == '' ){
        this.setState({errMsgCss:'show'})
     }
     else{
-       this.setState({count:this.state.count+1,
-                    addCompCSS:'hidden'
-            })
-       var valData = {'value':this.state.value,
-                     'opCode':this.state.opCode,
-                     'btName':this.state.btName,
-                     'operationName':this.state.operationName,
-                     'id':this.state.count
+   
+    var valData = {'value':this.state.value,
+                   'opCode':this.state.opCode,
+                   'btName':this.state.btName,
+                    'operationName':this.state.operationName
     }
-    console.log("this.props--",this.state.opCode)
-    console.log("this.state--",this.state.btName)
-    console.log("handleSubmitValType--",valData)
-    this.state.ruleTypes.push(valData)
-    this.setState({tableCss:'show'})
-    rules.onChange(this.state.ruleTypes) ;
-    
-    //  this.props.disableSubmitButtonState();
+    console.log("this.props.initialData--",this.props.initialData)
+    console.log("valData---",valData)
+    this.props.addBTMethodRule(valData,this.props.initialData.btMethodId)
+    this.setState({addCompCSS:'hidden'})
     }
  }
 
@@ -229,21 +215,14 @@ onAfterSaveCell(row, cellName, cellValue){
   console.log("in Dialog_Attr vcalues--",row)
   console.log("cellName--",cellName)
   console.log("cellVAlue--",cellValue)
-  console.log("this.state.rilrtYpe--",this.state.ruleTypesChanged)
-var arrData = Object.assign([],this.state.ruleTypesChanged)
+  console.log("this.state.rilrtYpe--",this.state.ruleTypes)
+var arrData = Object.assign([],this.state.ruleTypes)
    //var arrData = this.state.changedValArr;
   
   if(arrData != null && arrData.length != 0){
     arrData.map(function(value){
-        console.log("value---",value)
-      if(value.btMethodRuleId == row.btMethodRuleId){ //handling the case when 1 row is edited multiple times or same row but diff column
-        console.log("in if condition")
-        value[cellName] = cellValue;
-      }
-    else{
-      console.log("in ekse con")
-      arrData.push(row);
-      }
+        console.log("value--",value)
+        value.btMethodRuleId == row.btMethodRuleId  ?  value[cellName] = cellValue:  arrData.push(row)
     })
   }
   else{
@@ -257,6 +236,8 @@ var arrData = Object.assign([],this.state.ruleTypesChanged)
 onBeforeSaveCell(row, cellName, cellValue){
     console.log("onBeforeSaveCell method called in dialog_AttrValues")
   }
+
+  //To open adding component
 
   handleOpen(){
       this.setState({addCompCSS:'show'})
@@ -298,7 +279,7 @@ onBeforeSaveCell(row, cellName, cellValue){
                             <MenuItem value={"Numeric"} primaryText="NUMERIC" />
                             <MenuItem value={"String"} primaryText="STRING" />
                             <MenuItem value={"Boolean"} primaryText="BOOLEAN" />
-                            <MenuItem value={"Char or Byte"} primaryText="CHAR OR BYTE" />
+                            <MenuItem value={"Char/Byte"} primaryText="CHAR OR BYTE" />
                         </DropDownMenu>
                     </div>
 
@@ -362,7 +343,7 @@ onBeforeSaveCell(row, cellName, cellValue){
 }
 
 
-Form_BTMethod.propTypes = {
+Form_BTMethodEdit.propTypes = {
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetForm: PropTypes.func.isRequired,
@@ -373,11 +354,15 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     form: 'Bussiness Transaction Method ',        // a unique name for this form
     fields,
     validate
-
 },
-    state => ({ // mapStateToProps
+ state => ({ // mapStateToProps
         methodBT: state.methodBT,
+        initialValues:state.methodBT.btMethodInitializeForm,
+        initialData :state.methodBT.btMethodInitializeForm
     }),
+    {
+     addBTMethodRule :addBTMethodRule 
+    }
 
-)(Form_BTMethod);
+)(Form_BTMethodEdit);
 

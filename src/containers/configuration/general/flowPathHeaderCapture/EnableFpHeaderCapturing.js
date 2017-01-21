@@ -306,6 +306,7 @@ class EnableFpHeaderCapturing extends React.Component {
                 onClick={this.enableFpHdrCapturingDialog.bind(this)}
                 style={{ width: 150 }}
                 backgroundColor="#18494F"
+                disabled={this.props.profileDisabled}
                 disabledLabelColor="#000"
                 labelColor="#FFF"
                 label="More Settings ..."
@@ -325,7 +326,7 @@ class EnableFpHeaderCapturing extends React.Component {
           onRequestClose={this.handleClose}
           titleStyle={styles.title}
           >
-          <FormEnableFpCapturing ref="enableFpCapturingForm" onSubmit={this.submitForm.bind(this)} />
+          <FormEnableFpCapturing ref="enableFpCapturingForm"  />
         </DialogEnableFpHeaderCapturing>
 
         <Snackbar

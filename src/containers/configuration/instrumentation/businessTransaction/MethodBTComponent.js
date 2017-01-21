@@ -24,13 +24,20 @@ var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
                           { 'id':5, 'option': 'ENDS WITH' }
                           ];
 
-var arrNumericOperation = [{'option': 'EQ' },
-                          { 'option': 'NE' },
-                          { 'option': 'LT' },
-                          { 'option': 'GT' },
-                          { 'option': 'LE' },
-                          { 'option': 'GE' }
+var arrNumericOperation = [{'id':6 ,'option': 'EQ' },
+                          {'id':7, 'option': 'NE' },
+                          { 'id':8,'option': 'LT' },
+                          { 'id':9,'option': 'GT' },
+                          { 'id':10 ,'option': 'LE' },
+                          { 'id':11 ,'option': 'GE' }
                           ];
+
+  var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
+                          {'id':13, 'option': 'FALSE' }
+                          
+  ];
+  
+  var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
 
 const items = [];
 
@@ -43,8 +50,13 @@ class MethodBTComponent extends React.Component {
       paramName:'',
       operation:'',
       btName:'',
-      opData :[],
-      value:1
+      value:1,
+      opData:[]
+    }
+
+    if(this.props.value != '' || this.props.value != null){
+      if(this.props.value == "String")
+        this.state={opData:arrStringOperation}
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -58,28 +70,38 @@ componentWillMount(){
 componentWillReceiveProps(nextProps){
   console.log("nextProps.value--",nextProps.value)
   if (this.props.value != nextProps.value) {
-    //   console.log("diff---",nextProps.value)
        if(nextProps.value == "String"){
          console.log("string")
         this.setState({opData:arrStringOperation})
-        // this.state.opData.push(arrStringOperation);
-        console.log("opData string - ", this.state.opData)
       }
       else if(nextProps.value == "Numeric")
-      {
         this.setState({opData:arrNumericOperation})
-        console.log("opData numeric - ", this.state.opData)
-      }
+
+      else if(nextProps.value == "Boolean")
+        this.setState({opData:arrBooleanOperation})
+
+      else if(nextProps.value == "Char/Byte")
+       this.setState({opData:arrCharOperation})
 }
 }
+
 
 del(){
 
 }
 
 handleChange(event, index, value){
-  this.setState({value:value})
-  this.props.operationChange(value, this.props.value.id)
+  console.log("this.state.opData--",this.state.opData)
+  var operationName ;
+  this.state.opData.map(function(val){
+    console.log("val--",val)
+    if(val.id == value)
+      operationName = val.option;
+  })
+  console.log("operationName--",operationName)
+  this.setState({value:value
+  })
+  this.props.operationChange(value,this.props.value.id,operationName)
 
 }
 

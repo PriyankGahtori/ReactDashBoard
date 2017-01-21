@@ -1752,6 +1752,53 @@ export function fetchBTMethodTableData(profileId){
     type:'FETCH_BTMETHOD_TABLEDATA',
     payload:response
   }
+}
+
+
+
+export function btMethodInitializeForm(data){
+  console.log("btMethodInitializeForm---",data)
+  return {
+       type: 'INITIALIZE_BT_METHOD',
+       payload: data
+    }
+}
+
+export function toggleStateMethodBTEdit(){
+  return{
+    type:'TOGGLE_BTMETHOD_EDIT'
+  }
+}
+
+export function addBTMethodRule(data,parentRowId){
+
+   var response = axios({
+    method:'post',
+    url :  `${url.ADD_BTMETHOD_RULE}/${parentRowId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
   
+  return{
+    type:'ADD_BTMETHOD_RULE',
+    payload:response
+  }
+}
+
+export function updateBTMethod(data,btMethodId){
+  console.log("data---",data)
+
+   var response = axios({
+    method:'post',
+    url :  `${url.UPDATE_BTMETHOD}/${btMethodId}`,
+    data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type:'UPDATE_BTMETHOD',
+    payload:response
+  }
+
 
 }

@@ -231,6 +231,7 @@ class EnableBCICapturing extends React.Component {
             <Checkbox
               label="Enable FlowPath Capturing "
               value="enableBCICapturing"
+               disabled={this.props.profileDisabled}
               checked={this.state.enableBCICheckBox}
               onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)} />
             <i style={{ paddingLeft: 40 }}>Enable flowPath capturing by agent with default settings</i>
@@ -293,7 +294,8 @@ function mapStateToProps(state) {
   return {
     getAllKeywordData: state.Keywords,
     trData: state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
   };
 }
 

@@ -17,6 +17,7 @@ import ConfirmDelDialog from 'material-ui/Dialog'
 
 //Importing files
 import DialogMethodBT from './Dialog_BTMethod';
+import DialogMethodBTEdit from './Dialog_BTMethodEdit';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import DataGrid from '../../../../components/DCDetailTable';
 import * as actionCreators from '../../../../actions/index';
@@ -28,7 +29,7 @@ export const fields = ['fqm', 'parameterName', 'operation', 'btName']
 var columns = {
   "key": "btMethodId",
   "data": ['Fully Qualified Method', 'Return Type', 'ID'],
-  "field": ['fqm', 'hrefReturnType', 'btMethodId']
+  "field": ['hrefFqm', 'returnType', 'btMethodId']
 };
 
 const style = {
@@ -90,7 +91,7 @@ class MethodBT extends React.Component {
   }
 
   componentWillMount() {
-    this.props.triggerLoader(true, null)
+//    this.props.triggerLoader(true, null)
     this.props.fetchBTMethodTableData(this.props.params.profileId); 
   }
 
@@ -151,33 +152,28 @@ class MethodBT extends React.Component {
  
    } */
 
-  handleOpen(openErrorDetectionDialog) {
+  handleOpen() {
 
-    //for editing form
-    let selectedRow = this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
-    if (openErrorDetectionDialog == "edit") {
-      // gets the selected key of table
-      // if (selectedRow.length == 1) {
-      //   this.setState({ openSnack: false })
-      //   var selectedRowData = this.props.errorDetection.tableData.filter(function (value) {
-      //     return value.errDetectionId == selectedRow
-      //   })
-      //   this.props.initializeErrorDetectionForm(selectedRowData[0], openErrorDetectionDialog);
-      //   this.props.toggleStateErrorDetection(); //opens dialog box
-
-      // }
-      // else {
-      //   //toster notification: Only one row can be edited
-      //   this.setState({ openSnack: true })
-      // }
-
-    }
-    else if (openErrorDetectionDialog == "add") { //for adding new row
-      // this.props.initializeErrorDetectionForm(null, openErrorDetectionDialog);
-      this.props.toggleStateMethodBT(); //opens dialog box
-    }
+    //for adding  form
+    this.props.toggleStateMethodBT(); //opens dialog box
   }
 
+//for edit form
+handleHref(row){
+  console.log("handleOpenEditForm method called")
+    // gets the selected key of table
+        this.setState({openSnack:false})
+        let selectedRowData = this.props.methodBT.tableData
+                                  .filter(function(value){
+                                    return value.btMethodId === row.btMethodId
+                                  });
+        //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
+        console.log("line no 175--",selectedRowData[0])
+        this.props.btMethodInitializeForm(row);
+       
+       //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
+        this.props.toggleStateMethodBTEdit();
+}
 
   render() {
     const actions = [
@@ -199,18 +195,18 @@ class MethodBT extends React.Component {
             <div className="col-md-4">
               <h4 style={{ position: 'relative', bottom: 7 }}>Method Bussiness Transaction(s)</h4>
             </div>
-            <IconButton tooltip="Edit Method BT" style={{ position: 'absolute', right: 68 }} onTouchTap={this.handleOpen.bind(this, "edit")}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton tooltip="Delete Method BT" className="pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
             <DataGrid data={this.props.methodBT.tableData}
               pagination={false}
-              ref="errorDetectionTable"
+              ref="btMethodTable"
               column={columns}
               onClick={this.handleClick}
               onToggle={this.onToggle.bind(this)}
+              onhref={this.handleHref.bind(this)}
               />
 
             <div>
-              <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this, "add")}>
+              <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
                 <AddIcon />
               </AddNewButton>
               <DialogMethodBT profileId={this.props.params.profileId} />
@@ -219,6 +215,7 @@ class MethodBT extends React.Component {
                 title="Are you sure want to delete the Error Detection(s)?"
                 actions={actions}
                 modal={false} />
+              <DialogMethodBTEdit profileId={this.props.params.profileId} />
 
             </div>
           </div>

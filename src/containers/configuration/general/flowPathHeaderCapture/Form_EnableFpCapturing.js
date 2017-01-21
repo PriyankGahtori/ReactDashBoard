@@ -30,7 +30,7 @@ export const fields = ['enableCaptureHTTPReqFullFp',
                         'selectedHdrsValReq',
                         'captureModeReq',
                         'hdrValChrReq',
-                        'enableCaptureHTTPResFullFp',
+                        'enableCaptureHTTPRespFullFp',
                         'hdrModeForResCapture',
                         'selectedHdrsValRes',
                         'hdrValChrRes',
@@ -157,8 +157,8 @@ class Form_EnableFpCapturing extends React.Component {
     console.log("this.state--",this.props.sessionType)
   
     this.state = {
-      enableCaptureHTTPReqFullFp : this.props.initialData.enableCaptureHTTPReqFullFp,
-      enableCaptureHTTPResFullFp : this.props.initialData.enableCaptureHTTPResFullFp,
+      enableCaptureHTTPReqFullFp : this.props.initialData != null ?this.props.initialData.enableCaptureHTTPReqFullFp:false,
+      enableCaptureHTTPResFullFp :this.props.initialData != null ? this.props.initialData.enableCaptureHTTPRespFullFp:false,
       'hdrTypeCss'    :  'hidden',
       'multiSelectCss': 'hidden',
       'configDropDownCss': 'hidden',
@@ -187,7 +187,7 @@ class Form_EnableFpCapturing extends React.Component {
   console.log("compo receice props called",nextProps.initialData.enableCaptureHTTPReqFullFp)
   if(this.props.initialData != nextProps.initialData)
    this.setState({enableCaptureHTTPReqFullFp:nextProps.initialData.enableCaptureHTTPReqFullFp,
-                  enableCaptureHTTPResFullFp:nextProps.initialData.enableCaptureHTTPResFullFp
+                  enableCaptureHTTPResFullFp:nextProps.initialData.enableCaptureHTTPRespFullFp
         })
   if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
     this.setState({getAllKeywordData : nextProps.getAllKeywordData,
@@ -355,6 +355,7 @@ getProfileName(profileId)
 
 submitForm(formData){
 
+  console.log("formData--",formData)
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
   let keywordDataList = [];
   /*handle the case of enabling keyword wd default value
@@ -364,6 +365,7 @@ submitForm(formData){
              */
   if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
     var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
+    console.log("captureHttpFullReqFpVal--",captureHttpFullReqFpVal)
     keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
     keywordDataList.push("captureHTTPReqFullFp" + "=" +captureHttpFullReqFpVal)
 }
@@ -373,8 +375,9 @@ submitForm(formData){
 }
 
 
-  if(formData.hasOwnProperty('enableCaptureHTTPResFullFp')){
+  if(formData.hasOwnProperty('enableCaptureHTTPRespFullFp')){
     var captureHttpFullRespFpVal = modifiedVal.constValCaptureHTTPResFullFp(formData)
+    console.log("captureHttpFullRespFpVal--",captureHttpFullRespFpVal)
     keywordData["captureHTTPRespFullFp"]["value"] = String(captureHttpFullRespFpVal); 
     keywordDataList.push("captureHTTPRespFullFp" + "=" +captureHttpFullRespFpVal)
 }
@@ -406,7 +409,7 @@ render() {
                     selectedHdrsValReq,
                     captureModeReq,
                     hdrValChrReq,
-                    enableCaptureHTTPResFullFp,
+                    enableCaptureHTTPRespFullFp,
                     hdrModeForResCapture,
                     selectedHdrsValRes,
                     captureModeRes,
@@ -515,7 +518,7 @@ render() {
      <div className = "row" >
      <div className="col-md-3">
       <Checkbox
-        {...enableCaptureHTTPResFullFp}
+        {...enableCaptureHTTPRespFullFp}
         value = "CaptureHTTPResFullFp"
         checked  = {this.state.enableCaptureHTTPResFullFp}
         label = "Capture HTTP Response "

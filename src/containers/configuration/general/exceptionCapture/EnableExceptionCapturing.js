@@ -232,6 +232,7 @@ class EnableExceptionCapturing extends React.Component {
 							value="enableExceptionCapturing"
 							label="Enable Exception Capturing"
 							checked={this.state.enableExcptCheckBox}
+							 disabled={this.props.profileDisabled}
 							onCustomChange={this.handleExcptCapture.bind(this)} />
 						<i style={{ paddingLeft: 40 }}>Capture Exception occurred in application </i>
 					</div>
@@ -287,7 +288,8 @@ function mapStateToProps(state) {
 	return {
 		getAllKeywordData: state.Keywords,
 		trData: state.initialData.trData,
-		trModeDetail: state.trModeDetail
+		trModeDetail: state.trModeDetail,
+		 profileDisabled: state.profileDisabled.disabled
 	};
 }
 

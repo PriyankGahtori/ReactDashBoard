@@ -249,6 +249,7 @@ class EnableHotSpotCapturing extends React.Component {
               label="Enable Hotspot Capturing"
               value="enableHotSpotCapturing"
               checked={this.state.hotSpotCapturingCheckBox}
+               disabled={this.props.profileDisabled}
               onCustomChange={this.handleEnableHotSpotCapturingCheckboxChange.bind(this)} />
             <i style={{ paddingLeft: 40 }}>Capture thread hotspots using BCI autoSensor </i>
           </div>
@@ -317,7 +318,8 @@ function mapStateToProps(state) {
   return {
     getAllKeywordData: state.Keywords,
     trData: state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
   };
 }
 

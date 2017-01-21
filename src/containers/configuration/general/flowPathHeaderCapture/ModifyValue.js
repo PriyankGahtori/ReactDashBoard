@@ -1,15 +1,17 @@
-/*
- *
+/*TO DO
+ * code needs to changed as per changed in keyords
  */
 export function constValCaptureHTTPReqFullFp(formData) {
 
 
 	var value = 0;
 	if (formData.enableCaptureHTTPReqFullFp === 'true' || formData.enableCaptureHTTPReqFullFp == true) {
-		value = formData.urlMode;
+		//value = formData.urlMode;
 		console.log("constValCaptureHTTPReqFullFp---", constValCaptureHTTPReqFullFp)
 		//here value is coming in string
-		if (value === '3') {
+		//if (value === '3') {
+		if(formData.hdrModeForReqcapture != null && formData.captureModeReq  != null ){
+			value = 3;
 			if (formData.hdrModeForReqcapture === 2) //to be confirmed wht to write in case of configured  ????????
 				value = value + "%203";
 
@@ -22,8 +24,11 @@ export function constValCaptureHTTPReqFullFp(formData) {
 						value = value + formData.selectedHdrsValReq[i].value + ','
 				}
 			}
-			else { //case when All headers option is selected
+			else if(formData.hdrModeForReqcapture === 0){
 				value = value + "%20ALL";
+			}
+			else { //case when All headers option is selected
+				value = 2;
 			}
 
 			if (formData.captureModeReq === 1)//  here  1 means "brief" capture Mode 
@@ -32,6 +37,11 @@ export function constValCaptureHTTPReqFullFp(formData) {
 				value = value + "%200";
 
 		}
+		else{
+			//default value
+			value = 2;
+		}
+		console.log("value--",value)
 	}
 	return value;
 }
@@ -40,9 +50,11 @@ export function constValCaptureHTTPResFullFp(formData) {
 	console.log("formData---", formData)
 	var value = 0;
 	if (formData.enableCaptureHTTPResFullFp === 'true' || formData.enableCaptureHTTPResFullFp == true) {
-		value = formData.responseData;
+	//	value = formData.responseData;
 
-		if (value === '2') {  // value = 2 means Capture Response Code and http headers only
+	//	if (value === '2') {  // value = 2 means Capture Response Code and http headers only
+		if(formData.hdrModeForResCapture != null && formData.captureModeRes != null){
+			value = 2;
 			if (formData.hdrModeForResCapture === 2) //to be confirmed wht to write in case of configured  ????????
 				value = value + "%20CONFIGURED";
 
@@ -56,7 +68,7 @@ export function constValCaptureHTTPResFullFp(formData) {
 						value = value + formData.selectedHdrsValRes[i].value + ','
 				}
 			}
-			else { //case when All headers option is selected
+			else if(formData.hdrModeForResCapture === 0){ //case when All headers option is selected
 				value = value + "%20ALL";
 			}
 
@@ -66,8 +78,13 @@ export function constValCaptureHTTPResFullFp(formData) {
 				value = value + "%200";
 
 		}
-
+		else{
+		value = 1;
+	 }
 	}
+	
+
+	//}
 	console.log("excaped-------", value)
 	return value;
 }
@@ -75,7 +92,7 @@ export function constValCaptureHTTPResFullFp(formData) {
 
 export function splitValue(keywords) {
 	var fpHdrInitializeObj = {};
-	if (keywords.captureHTTPReqFullFp != 0 && keywords.captureHTTPReqFullFp != null) {
+	if (keywords.captureHTTPReqFullFp != 0 ||keywords.captureHTTPReqFullFp != 2|| keywords.captureHTTPReqFullFp != null) {
 		var value = keywords.captureHTTPReqFullFp.split('%20');
 		fpHdrInitializeObj.enableCaptureHTTPReqFullFp = true;
 		fpHdrInitializeObj.urlMode = value[0];

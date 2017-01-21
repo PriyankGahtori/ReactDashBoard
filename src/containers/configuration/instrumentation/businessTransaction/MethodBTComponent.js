@@ -24,12 +24,12 @@ var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
                           { 'id':5, 'option': 'ENDS WITH' }
                           ];
 
-var arrNumericOperation = [{'id':6 ,'option': 'EQ' },
-                          {'id':7, 'option': 'NE' },
-                          { 'id':8,'option': 'LT' },
-                          { 'id':9,'option': 'GT' },
-                          { 'id':10 ,'option': 'LE' },
-                          { 'id':11 ,'option': 'GE' }
+var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
+                          {'id':7, 'option': 'NOT EQUAL' },
+                          { 'id':8,'option': 'LESS THAN' },
+                          { 'id':9,'option': 'GREATER THAN' },
+                          { 'id':10 ,'option': 'LESS THAN EQUAL TO' },
+                          { 'id':11 ,'option': 'GREATER THAN EQUAL TO' }
                           ];
 
   var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },

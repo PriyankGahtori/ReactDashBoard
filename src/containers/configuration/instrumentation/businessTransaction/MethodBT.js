@@ -28,7 +28,7 @@ export const fields = ['fqm', 'parameterName', 'operation', 'btName']
 
 var columns = {
   "key": "btMethodId",
-  "data": ['Fully Qualified Method', 'Return Type', 'ID'],
+  "data": ['Fully Qualified Method Name', 'Return Type', 'ID'],
   "field": ['hrefFqm', 'returnType', 'btMethodId']
 };
 

@@ -79,6 +79,7 @@ class Dialog_HttpStatsCond extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
+        disabled={this.props.profileDisabled}
         keyboardFocused={true}
         onClick={this.handleSubmit}
       />
@@ -111,7 +112,8 @@ class Dialog_HttpStatsCond extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    httpStatsData :state.httpStatsData
+    httpStatsData :state.httpStatsData,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

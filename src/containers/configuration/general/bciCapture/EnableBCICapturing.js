@@ -205,6 +205,7 @@ class EnableBCICapturing extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmitEnableBCICapturing.bind(this)}
         />
     ];

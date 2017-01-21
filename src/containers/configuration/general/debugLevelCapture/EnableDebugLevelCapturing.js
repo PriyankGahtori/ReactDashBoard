@@ -201,6 +201,7 @@ class EnableDebugLevelCapturing extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmitDebugCapturing.bind(this)}
         />
     ];
@@ -227,6 +228,7 @@ class EnableDebugLevelCapturing extends React.Component {
             <Checkbox
               label="Enable Debug Level Capturing"
               value="enableDebugLevel"
+              disabled={this.props.profileDisabled}
               checked={this.state.enableDebugCheckBox}
               onCustomChange={this.handleEnableDebugCapturingCheckboxChange.bind(this)} />
 
@@ -288,7 +290,8 @@ function mapStateToProps(state) {
   return {
     getAllKeywordData: state.Keywords,
     trData: state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
   };
 }
 

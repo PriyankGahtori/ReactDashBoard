@@ -443,11 +443,10 @@ render() {
                       backgroundColor = "#18494F" 
                        label=" SAVE"
                       labelColor="#FFF"
-                      type="submit" disabled={submitting}
-                     labelStyle={{fontSize:12}} >
-
-                     {submitting ? <i/> : <i/>} 
-                   
+                      type="submit" 
+                     labelStyle={{fontSize:12}} 
+                    disabled={this.props.profileDisabled}
+                     disabledLabelColor="#000" >
           </RaisedButton>
   </div>
     
@@ -650,7 +649,8 @@ export default reduxForm({
     trData : state.initialData.trData,
     trModeDetail: state.trModeDetail,
     ns_wdir: state.initialData.ns_wdir,
-    sessionType : state.sessionAttrMonitor.sessionType
+    sessionType : state.sessionAttrMonitor.sessionType,
+    profileDisabled: state.profileDisabled.disabled
   }),
   
   { 

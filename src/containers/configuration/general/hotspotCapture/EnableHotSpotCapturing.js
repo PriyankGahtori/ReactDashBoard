@@ -221,6 +221,7 @@ class EnableHotSpotCapturing extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmitEnableHotSpotCapturing.bind(this)}
         />
     ];

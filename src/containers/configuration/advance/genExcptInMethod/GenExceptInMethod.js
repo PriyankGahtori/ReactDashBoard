@@ -203,6 +203,7 @@ class GenExcptInMethod extends React.Component {
 				label="Submit"
 				primary={true}
 				keyboardFocused={true}
+				disabled={this.props.profileDisabled}
 				onClick={this.handleSubmitGenExcptInMethod.bind(this)}
 				/>
 		];
@@ -229,6 +230,7 @@ class GenExcptInMethod extends React.Component {
 						<Checkbox
 							value="genExcptInMethod"
 							label="Generate Exception In Method"
+							 disabled={this.props.profileDisabled}
 							checked={this.state.genExcptInMethod}
 							onCustomChange={this.handleGenExcptInMethod.bind(this)} />
 						<i style={{ paddingLeft: 40 }}> Enable Exception generation in certain method</i>
@@ -284,7 +286,8 @@ function mapStateToProps(state) {
 	return {
 		getAllKeywordData: state.Keywords,
 		trData: state.initialData.trData,
-		trModeDetail: state.trModeDetail
+		trModeDetail: state.trModeDetail,
+		profileDisabled: state.profileDisabled.disabled
 	};
 }
 

@@ -88,6 +88,7 @@ class Dialog_BTMethod extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmit}
       />
     ];
@@ -123,7 +124,8 @@ function mapStateToProps(state) {
     trData : state.initialData.trData,
     trModeDetail: state.trModeDetail,
     homeData: state.initialData.homeData,
-    ns_wdir: state.initialData.ns_wdir
+    ns_wdir: state.initialData.ns_wdir,
+    profileDisabled: state.profileDisabled.disabled
    };
 }
 

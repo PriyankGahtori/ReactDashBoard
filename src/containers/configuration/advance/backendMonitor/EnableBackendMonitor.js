@@ -192,6 +192,7 @@ class EnableBackendMonitor extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmit.bind(this)}
         />
     ];
@@ -217,6 +218,7 @@ class EnableBackendMonitor extends React.Component {
             <Checkbox
               label="Enable Backend Monitor"
               value="enableBackendMonitor"
+              disabled={this.props.profileDisabled}
               checked={this.state.enableBackendMonitorCheckBox}
               onCustomChange={this.handleEnableBackendMonitor.bind(this)} />
             <i style={{ paddingLeft: 40 }}>Enable monitoring for Integration points</i>
@@ -268,7 +270,8 @@ class EnableBackendMonitor extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    getAllKeywordData: state.Keywords
+    getAllKeywordData: state.Keywords,
+    profileDisabled: state.profileDisabled.disabled
   };
 }
 

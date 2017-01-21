@@ -306,7 +306,6 @@ class EnableFpHeaderCapturing extends React.Component {
                 onClick={this.enableFpHdrCapturingDialog.bind(this)}
                 style={{ width: 150 }}
                 backgroundColor="#18494F"
-                disabled={this.props.profileDisabled}
                 disabledLabelColor="#000"
                 labelColor="#FFF"
                 label="More Settings ..."

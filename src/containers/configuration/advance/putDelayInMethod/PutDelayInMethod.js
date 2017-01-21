@@ -173,6 +173,7 @@ class PutDelayInMethod extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
+        disabled={this.props.profileDisabled}
         onClick={this.handleSubmitPutDelayInMethod.bind(this)}
         />
     ];
@@ -184,6 +185,7 @@ class PutDelayInMethod extends React.Component {
             <Checkbox
               label="Put Delay in Method"
               value="putDelayInMethod"
+              disabled={this.props.profileDisabled}
               checked={this.state.putDelayInMethod}
               onCustomChange={this.handlePutDelayInMethod.bind(this)} />
             <i style={{ paddingLeft: 40 }}>Add delay in any specified method using instrumentation</i>
@@ -248,7 +250,8 @@ export default reduxForm({
     initialData: state.Keywords.initializeKeywords.putDelayInMethodObj,
     initialValues: state.Keywords.initializeKeywords.putDelayInMethodObj,
     trData: state.initialData.trData,
-    trModeDetail: state.trModeDetail
+    trModeDetail: state.trModeDetail,
+    profileDisabled: state.profileDisabled.disabled
   }),
 
   {

@@ -12,17 +12,17 @@ INSERT INTO config.entry_type(entry_type_id, entry_type_name, entry_type_detail)
 (1,'HttpServletService','description'),
 (2,'EntryForWebLogicJSP','description'),
 (3,'ApacheJsperService','description'),
-(4, 'jerseyCall', 'description'),
-(5,'glassFishJersey', 'description'),
-(6,'Generic', 'description'),
-(7,'JMSCall', 'description');
+(4,'jerseyCall','description'),
+(5,'glassFishJersey','description'),
+(6,'Generic','description'),
+(7,'JMSCall','description');
 
 INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name,entry_type_id) VALUES
-(1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)', 'HttpServlet.service', 1),
-(2,'fully qualified name for the doFilter method for weblogic','weblogic.servlet.internal.FilterChainImpl.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)','FilterChainImpl.doFilter', 2),
-(3,' ','org.apache.jasper.runtime.HttpJspBase.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)','ApacheJsperService', 3),
+(1,'Fully qualified name for the service method for HttpServlet Class','javax.servlet.http.HttpServlet.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V', 'HttpServlet.service', 1),
+(2,'fully qualified name for the doFilter method for weblogic','weblogic.servlet.internal.FilterChainImpl.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','FilterChainImpl.doFilter', 2),
+(3,' ','org.apache.jasper.runtime.HttpJspBase.service(Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V','ApacheJsperService', 3),
 (4,' ','weblogic.servlet.jsp.JspBase.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2),
-(5,' ','com.ibm.ws.webcontainer.servlet.ServletWrapper.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)','ServletWrapper.service', 2),
+(5,' ','com.ibm.ws.webcontainer.servlet.ServletWrapper.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletWrapper.service', 2),
 (6,' ','com.ibm.ws.webcontainer.servlet.ServletWrapper.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Lcom/ibm/ws/webcontainer/webapp/WebAppServletInvocationEvent;)V','ServletWrapper.service-WebAppServletInvocationEvent', 2),
 (7,' ','com.sun.jersey.spi.container.servlet.WebComponent.service(Ljava/net/URI;Ljava/net/URI;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)I','WebComponent.service', 4),
 (8,' ','org.glassfish.jersey.servlet.ServletContainer.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletContainer.service', 5),
@@ -31,7 +31,7 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
-(2,true,2,1),
+(2, true, 2, 1),
 (3, true, 3, 1),
 (4, true, 4, 1),
 (5, true, 5, 1),
@@ -39,7 +39,7 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (7, true, 7, 1),
 (8, true, 8, 1),
 (9, true, 9, 1),
-(10, true, 10, 1);
+(10,true, 10, 1);
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (1,'char','0'),
@@ -58,7 +58,6 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (6,'ASSampleInterval','0','5000','4','500'),
 (7,'ASThresholdMatchCount','1','100','4','5'),
 (8,'ASReportInterval','0','900000','4','0'),
-<<<<<<< HEAD
 (9,'instrProfile','','','5',''),
 (10,'ASDepthFilter','0','100','2','20'),
 (11,'ASTraceLevel','0','20','2','1'),
@@ -72,20 +71,6 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (19,'putDelayInMethod','0','10240','5','0'),
 (20,'enableBackendMonitor','0','1','2','1'),
 (21,'NDEntryPointsFile','','','5','true'),
-=======
-(10,'instrProfile','','','5',''),
-(11,'ASDepthFilter','0','100','2','20'),
-(12,'ASTraceLevel','0','20','2','1'),
-(13,'setCavNVCookie','0','10240','5','0'),
-(14,'enableCpuTime','0','1024','1','0'),
-(15,'enableForcedFPChain','0','3','2','1'),
-(16,'InstrTraceLevel','0','11','2','0'),
-(17,'instrExceptions','0','512','5','0'),
-(18,'correlationIDHeader','0','1024','5','0'),
-(19,'ASStackComparingDepth','0','1000','4','10'),
-(20,'putDelayInMethod','0','10240','5','0'),
-(21,'enableBackendMonitor','0','1','2','1'),
->>>>>>> 0c0ea2afd3f7c43c9898867bcc9768c991463bf8
 (22,'ndMethodMonTraceLevel','0','10','2','0'),
 (23,'generateExceptionInMethod','0','10240','5','0'),
 (24,'captureHTTPReqFullFp','1','10485760','5','2'),
@@ -95,21 +80,12 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (28,'BTRuleConfig','NA','NA','5','global'),
 (29,'ndMethodMonFile','','','5','false'),
 (30,'BTErrorRules','','','5','false'),
-<<<<<<< HEAD
 (31,'captureHttpSessionAttr','','','5','false'),
 
-
-
-INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
-(1,'http backend','HTTP','HttpCallout','HTTP'),
-(2,'WS backend','Web Service','HttpCallout','WS'),
-=======
-(31,'captureHttpSessionAttr','','','5','false');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
 (2,'WS backend','WEB SERVICE','HttpCallout','WS'),
->>>>>>> 0c0ea2afd3f7c43c9898867bcc9768c991463bf8
 (3,'JDBC backend','JDBC','oracleDB','JDBC'),
 (4,'Coherence backend','COHERENCE','HttpCallout','None'),
 (5,'RMI backend','RMI','HttpCallout','RMI'),
@@ -119,11 +95,11 @@ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type
 (9,'CUSTOM  backend','CUSTOM','CustomCallout:','None');
 
 INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_point_name,backend_type_id ) VALUES
-(1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)','Apace HTTP Client',1),
+(1,'HTTP end point','org.apache.commons.httpclient.HttpMethodDirector.executeMethod(Lorg/apache/commons/httpclient/HttpMethod;)V','Apace HTTP Client',1),
 (2,'HTTP end point','com.endeca.navigation.HttpENEConnection.query(Lcom/endeca/navigation/ENEQuery;)Lcom/endeca/navigation/ENEQueryResults','Endeca',1),
 (3,'HTTP end point','org.apache.http.impl.client.AbstractHttpClient.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','Apache AbstractHttpClient',1),
 (4,'HTTP end point','org.apache.http.impl.client.DefaultRequestDirector.execute(Lorg/apache/http/HttpHost;Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','Apache Default HTTP Client',1),
-(5,'HTTP end point','.org.apache.wink.client.internal.handlers.HttpURLConnectionHandler.processRequest(Lorg/apache/wink/client/ClientRequest;Lorg/apache/wink/client/handlers/HandlerContext;)Ljava/net/HttpURLConnection;','Apache Wink Client',1),
+(5,'HTTP end point','org.apache.wink.client.internal.handlers.HttpURLConnectionHandler.processRequest(Lorg/apache/wink/client/ClientRequest;Lorg/apache/wink/client/handlers/HandlerContext;)Ljava/net/HttpURLConnection;','Apache Wink Client',1),
 (6,'HTTP end point','com.worklight.adapters.http.HTTPConnectionManager.execute(Lorg/apache/http/HttpRequest;Lorg/apache/http/protocol/HttpContext;)Lorg/apache/http/HttpResponse;','MFP Worklight HTTP Client',1),
 (7,'HTTP end point','org.springframework.web.client.RestTemplate.doExecute(Ljava/net/URI;Lorg/springframework/http/HttpMethod;Lorg/springframework/web/client/RequestCallback;Lorg/springframework/web/client/ResponseExtractor;)Ljava/lang/Object;','Spring REST Template Client',1),
 (8,'HTTP end point','org.springframework.web.client.RestTemplate$HttpEntityRequestCallback.doWithRequest(Lorg/springframework/http/client/ClientHttpRequest;)V','Spring add Header in REST Callback Template Client',1),
@@ -134,22 +110,22 @@ INSERT INTO config.backend_points(end_point_id,end_point_desc,end_point_fqm,end_
 (13,'WS end point','com.sun.xml.ws.transport.http.client.HttpClientTransport.<init>(Lcom/sun/xml/ws/api/message/Packet;Ljava/util/Map;)V','HTTP Client Transport',2),
 (14,'WS end point','com.sun.xml.ws.transport.http.client.HttpTransportPipe.processRequest(Lcom/sun/xml/ws/api/message/Packet;)Lcom/sun/xml/ws/api/pipe/NextAction;','HTTP Transport Pipe',2),
 (15,'WS end point','org.apache.cxf.jaxws.JaxWsClientProxy.invoke(Ljava/lang/Object;Ljava/lang/reflect/Method;[Ljava/lang/Object;)Ljava/lang/Object;','Apache cxf Webservice',2),
-(16,'RMI end point','java.rmi.Naming.lookup(Ljava/lang/String','RMI Lookup Calls',5),
-(17,'RMI end point','sun.rmi.server.UnicastRef.invoke(Ljava/rmi/Remote;Ljava/lang/reflect/Method;[Ljava/lang/Object;J)','RMI Request',5),
+(16,'RMI end point','java.rmi.Naming.lookup(Ljava/lang/String;)Ljava/rmi/Remote;','RMI Lookup Calls',5),
+(17,'RMI end point','java.rmi.Naming$ParsedNamingURL.<init>(Ljava/lang/String;ILjava/lang/String;)V','RMI Request',5),
 (19,'JDBC end point','oracle.jdbc.driver.OraclePreparedStatementWrapper','oracleDB',3),
 (20,'HADOOP end point','org.springframework.data.hadoop.hbase.HbaseTemplate.execute(Ljava/lang/String;Lorg/springframework/data/hadoop/hbase/TableCallback;)Ljava/lang/Object','Spring HBASE',8),
 (21,'COHERENCE end point','com.tangosol.net.cache.CachingMap.get(Ljava/lang/Object;)Ljava/lang/Object;','Coherence get',4),
 (22,'COHERENCE end point','com.tangosol.net.cache.CachingMap.getAll(Ljava/util/Collection;)Ljava/util/Map;','Coherence getAll',4),
 (23,'COHERENCE end point','com.tangosol.net.cache.CachingMap.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;','Coherence put',4),
 (24,'COHERENCE end point','com.tangosol.net.cache.CachingMap.put(Ljava/lang/Object;Ljava/lang/Object;ZJ)Ljava/lang/Object;','Coherence put',4),
-(25,'COHERENCE end point','com.tangosol.net.cache.CachingMap.putAll(Ljava/util/Map;)','Coherence putAll',4),
+(25,'COHERENCE end point','com.tangosol.net.cache.CachingMap.putAll(Ljava/util/Map;)V','Coherence putAll',4),
 (26,'COHERENCE end point','com.tangosol.net.cache.CachingMap.remove(Ljava/lang/Object;)Ljava/lang/Object;','Coherence remove',4),
-(27,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.add0(Ljava/lang/String;ILjava/lang/Object;Lnet/rubyeye/xmemcached/transcoders/Transcoder;J)','Mem Cache add',6),
-(28,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.getMulti0(Ljava/util/Collection;JLnet/rubyeye/xmemcached/command/CommandType;Lnet/rubyeye/xmemcached/transcoders/Transcoder;','MEM CACHE getMulti',6),
+(27,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.add0(Ljava/lang/String;ILjava/lang/Object;Lnet/rubyeye/xmemcached/transcoders/Transcoder;J)Z','Mem Cache add',6),
+(28,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.getMulti0(Ljava/util/Collection;JLnet/rubyeye/xmemcached/command/CommandType;Lnet/rubyeye/xmemcached/transcoders/Transcoder;)Ljava/util/Map;','MEM CACHE getMulti',6),
 (29,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.get0(Ljava/lang/String;JLnet/rubyeye/xmemcached/command/CommandType;Lnet/rubyeye/xmemcached/transcoders/Transcoder;)Ljava/lang/Object;','Mem Cache get',6),
 (30,'MEM CACHE end point','	net.rubyeye.xmemcached.XMemcachedClient.delete0(Ljava/lang/String;IJZJ);','Mem Cache delete',6),
-(31,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.replace(Ljava/lang/String;ILjava/lang/Object;Lnet/rubyeye/xmemcached/transcoders/Transcoder;J);','Mem Cache replace',6),
-(32,'CLOUDANT end point','	org.lightcouch.CouchDbClientBase.executeRequest(Lorg/apache/http/client/methods/HttpRequestBase;)Lorg/apache/http/HttpResponse;','Cloudant executeRequest',7);
+(31,'MEM CACHE end point','net.rubyeye.xmemcached.XMemcachedClient.replace(Ljava/lang/String;ILjava/lang/Object;Lnet/rubyeye/xmemcached/transcoders/Transcoder;J)Z','Mem Cache replace',6),
+(32,'CLOUDANT end point','org.lightcouch.CouchDbClientBase.executeRequest(Lorg/apache/http/client/methods/HttpRequestBase;)Lorg/apache/http/HttpResponse;','Cloudant executeRequest',7);
 
 INSERT INTO config.naming_rule_profile_backendtype_asso(assoc_id,host ,port,prefix ,service_name,table_name,topic_name,url,databaseproduct_name,databaseproduct_version,driver_name,driver_Version,query,user_name,backend_type_id,profile_id) VALUES
 (1,true,false,false,false,false,false,false,false,false,false,false,false,false,1,1),

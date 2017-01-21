@@ -195,6 +195,7 @@ class EnableMonitors extends React.Component {
       <FlatButton
         label="Submit"
         primary={true}
+        disabled={this.props.profileDisabled}
         keyboardFocused={true}
         onClick={this.handleSubmit.bind(this)}
         />
@@ -221,6 +222,7 @@ class EnableMonitors extends React.Component {
             <Checkbox
               value="EnableMonitors"
               label="Enable Monitors"
+              disabled={this.props.profileDisabled}
               checked={this.state.enableMonitorsCheckBox}
               onCustomChange={this.handleEnableMonitors.bind(this)} />
             <i style={{ paddingLeft: 40 }}>Enable/Disable ND graph monitors </i>
@@ -276,7 +278,8 @@ class EnableMonitors extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    getAllKeywordData: state.Keywords
+    getAllKeywordData: state.Keywords,
+    profileDisabled: state.profileDisabled.disabled
   };
 }
 

@@ -207,7 +207,9 @@ export default class Layout extends React.Component {
               onLeftIconButtonTouchTap={this.handleToggle}
               iconStyleLeft={{ paddingLeft: '18px' }}
               isInitiallyOpen={false}
-              iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon color='#FFF' className="material-icons">home</FontIcon></IconButton></div>}
+              iconElementRight={<div><IconButton tooltip="Home" onTouchTap={this.homeScreen.bind(this)}><FontIcon color='#FFF' className="material-icons">home</FontIcon></IconButton>
+              <IconButton><FontIcon color='#FFF' className="material-icons">account_circle</FontIcon></IconButton>
+              </div>}
               />
 
 

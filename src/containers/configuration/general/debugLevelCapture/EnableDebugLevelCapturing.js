@@ -248,7 +248,7 @@ class EnableDebugLevelCapturing extends React.Component {
         </div>
 
         <DialogEnableDebugCapturing
-          title="Debug Level Capturing"
+          title="Debug Level Capturing Settings"
           actions={actions}
           modal={false}
           open={this.state.openEnableDebugCapturingDialog}

@@ -221,7 +221,7 @@ class EnableMonitors extends React.Component {
           <div className="col-md-5">
             <Checkbox
               value="EnableMonitors"
-              label="Enable Monitors"
+              label="Enable Monitors Settings"
               disabled={this.props.profileDisabled}
               checked={this.state.enableMonitorsCheckBox}
               onCustomChange={this.handleEnableMonitors.bind(this)} />

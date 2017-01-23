@@ -216,7 +216,7 @@ class EnableBackendMonitor extends React.Component {
         <div className="row" style={{ 'paddingLeft': 10, 'paddingTop': 10 }}>
           <div className="col-md-5" >
             <Checkbox
-              label="Enable Backend Monitor"
+              label="Enable Backend Monitor Settings"
               value="enableBackendMonitor"
               disabled={this.props.profileDisabled}
               checked={this.state.enableBackendMonitorCheckBox}

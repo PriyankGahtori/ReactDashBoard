@@ -205,7 +205,7 @@ class PutDelayInMethod extends React.Component {
         </div>
 
         <DialogPutDelayInMethod
-          title="Put Delay in Method"
+          title="Put Delay in Method Settings"
           actions={actions}
           modal={false}
           open={this.state.openPutDelayInMethodDialog}

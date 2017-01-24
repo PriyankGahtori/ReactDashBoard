@@ -110,10 +110,8 @@ class ConfigurationSettings extends React.Component {
     if (this.props.props.trData != nextProps.props.trData) {
       this.props.setTRModeDetail(this.getTRModeDetail(nextProps));
     }
-  
-    if(this.props.params.profileId != nextProps.props.params.profileId)
-    {
-      console.log("profile changed")
+
+    if (this.props.params.profileId != nextProps.props.params.profileId) {
       this.setState({});
     }
 
@@ -124,7 +122,6 @@ class ConfigurationSettings extends React.Component {
 
 
   handleGeneralTab() {
-    //hashHistory.push(`generalsettings/${this.props.params.profileId}`);
     hashHistory.push(`${this.props.location.pathname}/generalsettings`);
   }
 
@@ -155,7 +152,7 @@ class ConfigurationSettings extends React.Component {
           <List style={listStyle} >
             <ListItem
               primaryText=" General"
-              secondaryText="Flowpath Capturing, HotSpot Capturing,  Capture Exception, Choose Instrumentation Profiles"
+              secondaryText="Flowpath Capturing, HotSpot Capturing,  Capture Exception, Flow Path Header Capturing, Choose Instrumentation Profiles"
               onTouchTap={this.handleGeneralTab} />
             <Divider />
             <ListItem
@@ -173,6 +170,7 @@ class ConfigurationSettings extends React.Component {
               secondaryText="NV Cookie" 
               onTouchTap={this.handleProductIntegrationTab}
               />
+
             <Divider />
           </List>
         </Card>

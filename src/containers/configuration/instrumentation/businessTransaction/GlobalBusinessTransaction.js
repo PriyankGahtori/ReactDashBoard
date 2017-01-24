@@ -5,7 +5,7 @@ import RadioButton from 'material-ui/RadioButton';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { connect } from 'react-redux';
+  import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Card } from 'material-ui/Card';
 import SelectField from '../../../../components/SelectFieldWrapper';
@@ -32,6 +32,21 @@ const validate = values => {
 
   else if (isNaN(values.verySlowTransaction))
     errors.verySlowTransaction = 'Please Enter Only Numbers'
+
+   if( (values.slowTransaction)/1000 > 100000)
+    errors.slowTransaction  = 'Please enter values greater than 100000000 ms'
+
+  if( (values.verySlowTransaction)/1000 > 1000000)
+    errors.verySlowTransaction  = 'Please enter values  less than 1000000000 ms'
+
+  if(values.slowTransaction == values.verySlowTransaction)
+    errors.verySlowTransaction = 'Please enter values greater than very slow transaction'
+
+  if((values.slowTransaction)/1000 > (values.verySlowTransaction)/1000)
+    errors.slowTransaction = 'Please enter values less than very slow transaction'
+
+  if((values.verySlowTransaction)/1000 < (values.slowTransaction)/1000)
+    errors.verySlowTransaction = 'Please enter values greater than slow transaction'
 
   return errors;
 }

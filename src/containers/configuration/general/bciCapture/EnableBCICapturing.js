@@ -232,10 +232,10 @@ class EnableBCICapturing extends React.Component {
             <Checkbox
               label="Enable FlowPath Capturing "
               value="enableBCICapturing"
-               disabled={this.props.profileDisabled}
+              disabled={this.props.profileDisabled}
               checked={this.state.enableBCICheckBox}
               onCustomChange={this.handleEnableBCICapturingCheckboxChange.bind(this)} />
-            <i style={{ paddingLeft: 40 }}>Enable flowPath capturing by agent with default settings</i>
+            <i style={{ paddingLeft: 40 }}>Enable Flow Path capturing by agent with default settings</i>
           </div>
           <div className="col-md-2" >
             <RaisedButton

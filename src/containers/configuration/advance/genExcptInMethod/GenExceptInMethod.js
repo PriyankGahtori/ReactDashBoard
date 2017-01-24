@@ -251,7 +251,7 @@ class GenExcptInMethod extends React.Component {
 				</div>
 
 				<DialogGenExceptInMethod
-					title="Generate Exception In Method"
+					title="Generate Exception In Method Settings"
 					actions={actions}
 					modal={false}
 					open={this.state.openEnableExcptCapturingDialog}

@@ -111,7 +111,7 @@ class Form_EnableBCICapturing extends React.Component {
       <form >
         <div className="row" style={{ paddingTop: 16 }}>
           <div className="col-md-5">
-            <p for="sess_perct" >Full flowPath capturing percentage   </p>
+            <p for="sess_perct" >Full Flow Path capturing percentage   </p>
           </div>
 
           <div className="col-md-3" >

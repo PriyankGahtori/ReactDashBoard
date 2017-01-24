@@ -27,7 +27,8 @@ INSERT INTO config.service_entry_points(entry_id,entry_desc,entry_fqm,entry_name
 (7,' ','com.sun.jersey.spi.container.servlet.WebComponent.service(Ljava/net/URI;Ljava/net/URI;Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)I','WebComponent.service', 4),
 (8,' ','org.glassfish.jersey.servlet.ServletContainer.service(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','ServletContainer.service', 5),
 (9,' ','com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;)V','WebAppFilterChain.doFilter', 2),
-(10,' ','org.springframework.jms.listener.AbstractMessageListenerContainer.invokeListener(Ljavax/jms/Session;Ljavax/jms/Message;)V','AbstractMessageListenerContainer.invokeListener',7);
+(10,' ','org.apache.activemq.ActiveMQMessageConsumer.dispatch(Lorg/apache/activemq/command/MessageDispatch;)V','ActiveMQMessageConsumer.dispatch',7);
+(11,' ','com.ibm.mq.jms.MQMessageConsumer$FacadeMessageListener.onMessage(Ljavax/jms/Message;)V','MQMessageConsumer$FacadeMessageListener.onMessage',7);
 
 INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, entry_id, profile_id) VALUES
 (1, true, 1, 1),
@@ -39,7 +40,8 @@ INSERT INTO config.profile_service_entry_asso(prof_entry_id, profile_enable, ent
 (7, true, 7, 1),
 (8, true, 8, 1),
 (9, true, 9, 1),
-(10,true, 10, 1);
+(10,false, 10, 1),
+(11,false, 11, 1);
 
 INSERT INTO config.keywords_meta_data(kmd_id,key_type,key_type_id) VALUES
 (1,'char','0'),
@@ -81,7 +83,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (29,'ndMethodMonFile','','','5','false'),
 (30,'BTErrorRules','','','5','false'),
 (31,'captureHttpSessionAttr','','','5','false'),
-
+(32,'setCavNVCookie','0','10240','5','0');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
@@ -143,33 +145,33 @@ INSERT INTO config.profile_backend_point_asso(assoc_id,enabled,end_point_id,prof
 (2,true,2,1),
 (3,true,3,1),
 (4,false,4,1),
-(5,false,5,1),
-(6,false,6,1),
-(7,false,7,1),
+(5,true,5,1),
+(6,true,6,1),
+(7,true,7,1),
 (8,false,8,1),
 (9,false,9,1),
-(10,false,10,1),
-(11,false,11,1),
-(12,false,12,1),
-(13,false,13,1),
-(14,false,14,1),
-(15,false,15,1),
+(10,true,10,1),
+(11,true,11,1),
+(12,true,12,1),
+(13,true,13,1),
+(14,true,14,1),
+(15,true,15,1),
 (16,false,16,1),
 (17,false,17,1),
-(19,false,19,1),
+(19,true,19,1),
 (20,false,20,1),
-(21,false,21,1),
-(22,false,22,1),
-(23,false,23,1),
-(24,false,24,1),
-(25,false,25,1),
-(26,false,26,1),
-(27,false,27,1),
-(28,false,28,1),
-(29,false,29,1),
-(30,false,30,1),
-(31,false,31,1),
-(32,false,32,1);
+(21,true,21,1),
+(22,true,22,1),
+(23,true,23,1),
+(24,true,24,1),
+(25,true,25,1),
+(26,true,26,1),
+(27,true,27,1),
+(28,true,28,1),
+(29,true,29,1),
+(30,true,30,1),
+(31,true,31,1),
+(32,true,32,1);
 
 INSERT INTO config.headers_type(ht_id,header_type_name) VALUES 
 (1,'request'),

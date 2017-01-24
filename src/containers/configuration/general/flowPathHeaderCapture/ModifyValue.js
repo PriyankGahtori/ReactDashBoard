@@ -49,16 +49,17 @@ export function constValCaptureHTTPReqFullFp(formData) {
 export function constValCaptureHTTPResFullFp(formData) {
 	console.log("formData---", formData)
 	var value = 0;
-	if (formData.enableCaptureHTTPResFullFp === 'true' || formData.enableCaptureHTTPResFullFp == true) {
+	if (formData.enableCaptureHTTPRespFullFp === 'true' || formData.enableCaptureHTTPRespFullFp == true) {
 	//	value = formData.responseData;
 
 	//	if (value === '2') {  // value = 2 means Capture Response Code and http headers only
 		if(formData.hdrModeForResCapture != null && formData.captureModeRes != null){
 			value = 2;
-			if (formData.hdrModeForResCapture === 2) //to be confirmed wht to write in case of configured  ????????
+		/*	if (formData.hdrModeForResCapture === 2) //to be confirmed wht to write in case of configured  ????????
 				value = value + "%20CONFIGURED";
+		*/
 
-			else if (formData.hdrModeForResCapture === 1) {  // casr of Specified Hedaers
+		 if (formData.hdrModeForResCapture === 1) {  // casr of Specified Hedaers
 				value = value + "%20";
 
 				for (var i = 0; i < formData.selectedHdrsValRes.length; i++) {
@@ -115,7 +116,7 @@ export function splitValue(keywords) {
 		fpHdrInitializeObj.captureModeRes = value[2]
 
 		}
-		fpHdrInitializeObj.enableCaptureSessionAttr = keywords.captureHttpSessionAttr;
+		fpHdrInitializeObj.enableCaptureSessionAttr = keywords.captureHttpSessionAttr == "true";
 	
 	return fpHdrInitializeObj;
 }

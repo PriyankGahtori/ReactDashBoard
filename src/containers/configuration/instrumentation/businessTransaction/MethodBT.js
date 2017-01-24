@@ -160,7 +160,7 @@ class MethodBT extends React.Component {
 
 //for edit form
 handleHref(row){
-  console.log("handleOpenEditForm method called")
+  console.log("handleOpenEditForm method called--",row)
     // gets the selected key of table
         this.setState({openSnack:false})
         let selectedRowData = this.props.methodBT.tableData

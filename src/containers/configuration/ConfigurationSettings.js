@@ -31,6 +31,7 @@ class ConfigurationSettings extends React.Component {
     this.handleGeneralTab = this.handleGeneralTab.bind(this);
     this.handleInstrumentationTab = this.handleInstrumentationTab.bind(this);
     this.handleAdvanceSettingTab = this.handleAdvanceSettingTab.bind(this);
+    this.handleProductIntegrationTab = this.handleProductIntegrationTab.bind(this);
     this.getProfileName = this.getProfileName.bind(this);
     this.state = { profileName: this.getProfileName(this.props.params.profileId) }
   }
@@ -135,6 +136,11 @@ class ConfigurationSettings extends React.Component {
     hashHistory.push(`${this.props.location.pathname}/advancesettings`)
   }
 
+  handleProductIntegrationTab(){
+    console.log("this.props.location.pathname--",this.props)
+    hashHistory.push(`${this.props.location.pathname}/productintegration`)
+  }
+
   render() {
     //disable the profile if its default i.e id = 1
     if (this.props.params.profileId == 1)
@@ -164,7 +170,9 @@ class ConfigurationSettings extends React.Component {
             <Divider />
             <ListItem
               primaryText=" Product Integration"
-              secondaryText="NV Cookie" />
+              secondaryText="NV Cookie" 
+              onTouchTap={this.handleProductIntegrationTab}
+              />
             <Divider />
           </List>
         </Card>

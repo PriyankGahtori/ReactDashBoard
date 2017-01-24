@@ -33,6 +33,7 @@ import SessionAttrMonitor from '../containers/configuration/instrumentation/moni
 import FlowPathHdr from '../containers/configuration/general/flowPathHeaderCapture/flowpathHdrkeywords';
 import MethodBT from '../containers/configuration/instrumentation/businessTransaction/MethodBT';
 import ConfigureBT from '../containers/configuration/instrumentation/businessTransaction/ConfigureBT';
+import ProductIntegration from '../containers/configuration/productIntegration/ProductIntegration';
 
 export default class routes extends React.Component {
 
@@ -63,7 +64,7 @@ export default class routes extends React.Component {
             <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
             <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
               <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>
-              <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+              <Route name="FlowPath header capturing " path ="sessionattrmonitors" component={FlowPathHdr} />  
             </Route>
                       
             
@@ -71,10 +72,20 @@ export default class routes extends React.Component {
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
-                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+              {/*  <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                   <Route name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
+              */}
+
+              <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
+              
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -83,7 +94,9 @@ export default class routes extends React.Component {
               </Route>
             </Route>
 
-            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />   
+
+            <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} />                     
 
           </Route>            
         </Route>
@@ -98,17 +111,26 @@ export default class routes extends React.Component {
            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
               <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-              <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+              <Route name="FlowPath header capturing" path ="sessionattrmonitors" component={FlowPathHdr} />  
             </Route>
 
               {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
-                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+               {/* <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
+              */}
+              <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
+
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -134,17 +156,22 @@ export default class routes extends React.Component {
            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration}/>
            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
               <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-              <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+              <Route name="FlowPath header capturing" path ="sessionattrmonitors" component={FlowPathHdr} />  
             </Route>
  
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
-                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
-                <IndexRoute name="Global" component={GlobalBT} />
-                  <Route name="Pattern" path ="pattern" component={PatternBT} />
+              
+               <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
               </Route>
+
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
               <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -153,7 +180,8 @@ export default class routes extends React.Component {
               </Route>
             </Route>
 
-            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} /> 
+            <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} /> 
 
           </Route>
         </Route>
@@ -170,7 +198,7 @@ export default class routes extends React.Component {
            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />   
            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
             <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-           <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+           <Route name="FlowPath header capturing" path ="sessionattrmonitors" component={FlowPathHdr} />  
           </Route>     
         
     
@@ -179,10 +207,19 @@ export default class routes extends React.Component {
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
               <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
-                <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+             {/*   <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
+              */}
+              <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
+
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
               <Route name="Instrument monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -191,7 +228,8 @@ export default class routes extends React.Component {
               </Route>
             </Route>
 
-            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />  
+           <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} /> 
 
           </Route>
         </Route>
@@ -206,7 +244,7 @@ export default class routes extends React.Component {
            <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />   
            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
             <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-            <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+            <Route name="FlowPath header capturing" path ="sessionattrmonitors" component={FlowPathHdr} />  
           </Route>     
         
  
@@ -214,11 +252,22 @@ export default class routes extends React.Component {
                   {/*************Instrumentation Setting & Configuration************/}
             <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
               <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
-              <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
+             { /*<Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
                 <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
                 <IndexRoute name="Global" component={GlobalBT} />
                   <Route name="Pattern" path ="pattern" component={PatternBT} />
               </Route>
+            */}
+
+            <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
+
+
               <Route name="Error Detection" path ="errordetection" component={ErrorDetection} />
               <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
                 <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -227,7 +276,9 @@ export default class routes extends React.Component {
               </Route>
             </Route>
 
-            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+            <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />  
+           <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} /> 
+            
 
           </Route>
         </Route>
@@ -239,7 +290,7 @@ export default class routes extends React.Component {
           <IndexRoute name = "Configuration" staticName = {true} component = {Configuration} />   
            <Route name = "General Settings" staticName = {true} path = "generalsettings" >  
             <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-           <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+           <Route name="FlowPath header capturing" path ="sessionattrmonitors" component={FlowPathHdr} />  
           </Route>     
           
           <Route name = "Instrumentation" staticName = {true} path = "instrumentation" component ={Instrumentation} >
@@ -269,7 +320,8 @@ export default class routes extends React.Component {
               </Route>
             </Route>
 
-              <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+              <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} /> 
+              <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} />            
         </Route>
 
       {/*from tier,server, instance to profile */}        
@@ -281,17 +333,26 @@ export default class routes extends React.Component {
       
       <Route name = "General Settings" staticName = {true} path = "generalsettings/:profileId" >  
             <IndexRoute name = "General Settings" staticName = {true} component ={GeneralKeywords}/>   
-            <Route name="Session Attribute  Monitors" path ="sessionattrmonitors" component={FlowPathHdr} />  
+            <Route name="FlowPath header capturing keywords" path ="sessionattrmonitors" component={FlowPathHdr} />  
           </Route>
 
         <Route name = "Instrumentation" staticName = {true} path = "instrumentation/:profileId" component ={Instrumentation} >
            <IndexRoute name = "Service Entry Points" component={ServiceEntryPoints} />
            <Route name = "Integration Pt Detection" path ="backenddetection" component = {BackendDetection}/>
            
-           <Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
+           {/*<Route name = "Transaction Configuration" path ="bt" component = {BusinessTransaction}>
             <IndexRoute name="Global" component={GlobalBT} />
               <Route name="Pattern" path ="pattern" component={PatternBT} />
            </Route>
+           */}
+
+           <Route name = "Transaction Configuration" path ="bt" component = {ConfigureBT}>
+                  <Route name="HTTP BT Configuration" component={BusinessTransaction} >
+                     <IndexRoute name="Global" component={GlobalBT} />
+                     <Route name="Pattern" path ="pattern" component={PatternBT} />
+                  </Route>
+                  <Route name="Method BT Configuration" path ="methodBT" component={MethodBT} />
+              </Route>
 
            <Route name="Instrument Monitors" path ="monitors" component={InstrumentMonitors} >
             <IndexRoute name="Method Monitors" component={MethodMonitors} />
@@ -300,7 +361,9 @@ export default class routes extends React.Component {
            </Route>
         </Route>
 
-        <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />            
+        <Route name = "Advance Settings" staticName = {true} path = "advancesettings" component ={AdvanceSettings} />  
+       <Route name = "Product Integration" staticName = {true} path = "productintegration" component ={ProductIntegration} /> 
+        
 
       </Route>
 

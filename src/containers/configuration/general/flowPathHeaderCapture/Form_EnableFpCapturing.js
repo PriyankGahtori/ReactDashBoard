@@ -172,7 +172,8 @@ class Form_EnableFpCapturing extends React.Component {
       'captureSessionAttrCss':'hidden',
       'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
       'captureSessionAttrCss':this.props.initialData.enableCaptureSessionAttr ?'show':'hidden',
-      'sessionType':this.props.sessionType
+      'sessionType':this.props.sessionType,
+      'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture
       
   }
 }
@@ -320,7 +321,9 @@ handleCaptureModeResChange(event, index, value){
 handleCaptureSessionAttr(event,isInputChecked){
   let captureSessionAttrCss =  isInputChecked ? 'show' : 'hidden';
   this.setState({'enableCaptureSessionAttr':isInputChecked,
-                  captureSessionAttrCss:captureSessionAttrCss
+                  captureSessionAttrCss:captureSessionAttrCss,
+                  specificDivCSS: !isInputChecked ? 'hidden':''
+
     })
 
 }
@@ -386,6 +389,7 @@ else{
      keywordDataList.push("captureHTTPRespFullFp" + "=" +formData.captureHTTPRespFullFp)
 }
 
+    
   keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
   this.props.submitKeywordData(keywordData,this.props.profileId);
 
@@ -397,7 +401,7 @@ else{
   var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/captureHttpSessionAttr.hscf"
 		  console.info("filePath", filePath);	
   let value = formData.enableCaptureSessionAttr ? filePath :'NA' ;
-  keywordDataList.push("captureHttpSessionAttr"+ "=" +formData.enableCaptureSessionAttr)
+  keywordDataList.push("captureHttpSessionAttr"+ "=" +value)
       
   console.log("keywordDataList---",keywordDataList)
   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
@@ -461,10 +465,12 @@ render() {
           
           <div className = "row">
             <div className='col-md-3' style = {{position:'relative',left:'2px'}}>
+           
                 <DropDownComponent 
                 {...hdrModeForReqcapture}
                 data = {dataForhdrTypeDropDown}
                 onChangeOption = {this.handleHdrModeReqChange.bind(this)}
+                defaultValue={this.state.hdrModeForReqcapture+""}
                 floatingLabelText = " Header Type"
                 />
             </div>
@@ -650,7 +656,8 @@ export default reduxForm({
     trModeDetail: state.trModeDetail,
     ns_wdir: state.initialData.ns_wdir,
     sessionType : state.sessionAttrMonitor.sessionType,
-    profileDisabled: state.profileDisabled.disabled
+    profileDisabled: state.profileDisabled.disabled,
+    homeData: state.initialData.homeData
   }),
   
   { 

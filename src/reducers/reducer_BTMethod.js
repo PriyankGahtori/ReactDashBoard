@@ -62,12 +62,11 @@ export default function (state = initialState, action) {
            var newState =  Object.assign({},state)
            console.log("action.payload---",action.payload)
            var data = action.payload.data;
-           newState.tableData.map(function(val){
-               console.log("val---",val)
-               if(val.btMethodId = data.btMethodId){
-                    val.hrefFqm = {"href":data.fqm}
-               }
-
+           newState.tableData= newState.tableData.map(function(val){
+                                 console.log("val---",val)
+                            if(val.btMethodId = data.btMethodId){
+                                    val.hrefFqm = {"href":data.fqm}
+                            }
            })
            console.log("newState--",newState)
            return newState;

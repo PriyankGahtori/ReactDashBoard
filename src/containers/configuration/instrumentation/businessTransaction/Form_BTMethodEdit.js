@@ -119,6 +119,11 @@ class Form_BTMethodEdit extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log("nextProps--",nextProps.initialData)
+        if(this.props.initialData != nextProps.initialData){
+            console.log("again setState methid called")
+            this.setState({ ruleTypes:nextProps.initialData.rules})
+        }
     }
 
     handleCheck(event, value) {

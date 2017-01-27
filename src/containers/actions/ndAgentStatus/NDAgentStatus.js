@@ -53,7 +53,7 @@ class NDAgentStatus extends React.Component {
     return (
       <div>
         <div className='row row-no-margin tableheader'>
-
+       <Paper zDepth={2} style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
           <DataGrid data={this.props.ndAgent.tableData}
             pagination={false}
             ref="ndAgentTable"
@@ -61,8 +61,10 @@ class NDAgentStatus extends React.Component {
             contentStyle={customContentStyle}
             onClick={this.handleClick}
             onToggle={this.onToggle.bind(this)}
+            style= {{width: 120}}
+            
             />
-
+         </Paper>
         </div>
       </div>
     );

@@ -188,7 +188,7 @@ loader(){
         <div className='row row-no-margin tableheader'>
         <div className="col-md-4">
              <EnableMethodMonitor />
-              <h4 style={{position: 'relative',bottom:7}}>Method Monitor(s)</h4>
+              <h4 style={{position: 'relative',bottom:11}}>Method Monitor(s)</h4>
         </div>
         <div>
      <IconButton tooltip ="Edit Method Monitor"  style={{position: 'absolute',right:82}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>

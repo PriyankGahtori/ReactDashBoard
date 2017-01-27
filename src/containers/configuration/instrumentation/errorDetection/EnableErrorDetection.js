@@ -128,7 +128,8 @@ class EnableErrorDetection extends Component {
    
 	   <div className = "col-md-1" style={{right:15}}>
 				<CheckBox
-				  label=""
+	        iconStyle={{width:'medium',height:'15px'}}
+          style={{border:'0.5px solid white'}}
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>

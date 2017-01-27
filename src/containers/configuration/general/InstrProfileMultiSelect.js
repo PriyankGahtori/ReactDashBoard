@@ -90,7 +90,7 @@ const styles = {
         <b>Instrumentation Profiles </b> 
       <p>  <i>Select profiles to instrument application methods</i></p>
         </div>
-        <div   className = "col-md-2" >   
+        <div   className = "col-md-3" >   
         	<MultiSelect multi
             name ="instrProfileMultiSelect"
            // value = {this.state.getAllKeywordData.initializeKeywords.instrProfile}
@@ -106,7 +106,6 @@ const styles = {
             backgroundColor="#18494F"
             labelColor="#FFF"
             labelStyle={{fontSize:12}}>
-          
           </RaisedButton>
          
          </div>

@@ -13,6 +13,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 // import DropDownComponent from './DropDownComponent';
 
 //Importing files
@@ -59,9 +60,11 @@ const NewButtonstyle = {
 };
 
 const errMsgCss = {
-    top: -12,
+    
     left: '10px',
-    color: '#ff0000'
+    color: '#FFF',
+    paddingTop: 13,
+
 }
 
 var columns = {
@@ -307,7 +310,7 @@ onBeforeSaveCell(row, cellName, cellValue){
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>
                         <div className="row col-md-8 ">
-                            <div className={`col-md-5 ${this.state.errMsgCss}`}>
+                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
                                 <p style={errMsgCss}>Fields are empty</p>
                             </div>
 
@@ -323,24 +326,24 @@ onBeforeSaveCell(row, cellName, cellValue){
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
             </div>
             
-         
+           <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
             <DataGrid data = {this.state.ruleTypes} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
-                        style={{color:'#000000'}}
-                        tableStyle={{background:'#ffffff'}}
+                      
             />
-
+            </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"
             label="Add"
-            backgroundColor = "#D3D3D3" 
+            backgroundColor = "#333" 
+            labelColor="#FFF"
             onClick={this.handleSubmitValType.bind(this,rules)}
-            style={{color:'#000',position:'relative',top:'18px'}}>
+            style={{position:'relative',top:'18px'}}>
       
            </RaisedButton>
             </div>

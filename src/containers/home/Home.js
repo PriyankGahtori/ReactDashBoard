@@ -34,7 +34,8 @@ const divStyle ={
   borderRadius: '8px', 
   marginLeft: '2.7em',
   marginBottom:'2em',
-  minHeight: '111px'
+  minHeight: '111px',
+ 
 }  
 
 const customContentStyle = {

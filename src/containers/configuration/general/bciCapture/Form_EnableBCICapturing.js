@@ -162,8 +162,8 @@ class Form_EnableBCICapturing extends React.Component {
             floatingLabelText="Capture complete transaction flow forcefully"
             >
 
-            <MenuItem value={"0"} primaryText="Enable" />
-            <MenuItem value={"1"} primaryText="Disable" />
+            <MenuItem value={"0"} primaryText="Disable" />
+            <MenuItem value={"1"} primaryText="Enable" />
             <MenuItem value={"2"} primaryText="Enable all with complete FP" />
 
           </DropDownMenu>

@@ -30,7 +30,7 @@ import ErrorDetection from '../containers/configuration/instrumentation/errorDet
 import ExceptionMonitors from '../containers/configuration/instrumentation/monitor/ExceptionMonitors';
 import HTTPStatsMonitors from '../containers/configuration/instrumentation/monitor/HTTPStatsMonitors';
 import SessionAttrMonitor from '../containers/configuration/instrumentation/monitor/SessionAttributeMonitors';
-import FlowPathHdr from '../containers/configuration/general/flowPathHeaderCapture/flowpathHdrkeywords';
+import FlowPathHdr from '../containers/configuration/general/flowPathHeaderCapture/FlowPathHdrkeywords';
 import MethodBT from '../containers/configuration/instrumentation/businessTransaction/MethodBT';
 import ConfigureBT from '../containers/configuration/instrumentation/businessTransaction/ConfigureBT';
 import ProductIntegration from '../containers/configuration/productIntegration/ProductIntegration';

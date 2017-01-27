@@ -111,6 +111,7 @@ export function setDefaultValuesExcptCapturing(data){
 }
 
 export function setDefaultValuesFpHdrCapturing(data){
+  console.log("data--",data)
   var defaultKeywordData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
                               "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
                             }

@@ -165,6 +165,7 @@ handleHref(row){
         this.setState({openSnack:false})
         let selectedRowData = this.props.methodBT.tableData
                                   .filter(function(value){
+                                    console.log("value---",value)
                                     return value.btMethodId === row.btMethodId
                                   });
         //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row

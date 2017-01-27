@@ -38,7 +38,11 @@ export default function (state = initialState, action) {
         case 'INITIALIZE_BT_METHOD':
              var newState = Object.assign({},state)
              console.log("action.apyload--",action.payload)
-             newState.btMethodInitializeForm = action.payload;
+             var data = action.payload;
+             if(data.rules == null){
+                 data.rules= []
+             }
+             newState.btMethodInitializeForm = data;
              console.log("newState---",newState)
              return newState;
 
@@ -50,24 +54,34 @@ export default function (state = initialState, action) {
         case 'ADD_BTMETHOD_RULE':
             var newState = Object.assign({},state)
             console.log("action.payload--",action.payload.data)
+            console.log("newState.btMethodInitializeForm.btMethodId--",newState.btMethodInitializeForm.btMethodId)
+            var respData = action.payload.data ;
             newState.tableData.map(function(val){
-             if(val.btMethodId == newState.btMethodInitializeForm.btMethodId){
-                 val.rules.push(action.payload.data)
+             if(val.btMethodId == respData.parentBTMethodId){
+                 val.rules.push(respData)
              }
              
             })
+            console.log("newState-=---",newState)
             return newState;
 
         case 'UPDATE_BTMETHOD':
            var newState =  Object.assign({},state)
            console.log("action.payload---",action.payload)
            var data = action.payload.data;
-           newState.tableData= newState.tableData.map(function(val){
+           /*newState.tableData= newState.tableData.map(function(val){
                                  console.log("val---",val)
                             if(val.btMethodId = data.btMethodId){
                                     val.hrefFqm = {"href":data.fqm}
                             }
-           })
+           }) 
+           */
+           newState.tableData = newState.tableData.filter(function(val){
+                                        if(val.btMethodId == data.btMethodId){
+                                            val.hrefFqm = {"href":data.fqm}
+                                        }
+                                        return val;
+                                })
            console.log("newState--",newState)
            return newState;
                 

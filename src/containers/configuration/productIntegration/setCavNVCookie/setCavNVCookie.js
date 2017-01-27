@@ -72,7 +72,7 @@ const NewButtonstyle = {
 
 };
 
-class GenExcptInMethod extends React.Component {
+class setCavNVCookie extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -96,9 +96,6 @@ class GenExcptInMethod extends React.Component {
 			});
 		}
 
-		if (this.props.getAllKeywordData.ExcptCapturingCheckBox != nextProps.getAllKeywordData.ExcptCapturingCheckBox)
-			this.setState({ disableAdvancedSettingTab1: !nextProps.getAllKeywordData.ExcptCapturingCheckBox })
-
 	}
 
 	/*
@@ -111,8 +108,8 @@ class GenExcptInMethod extends React.Component {
 
 	handleSetCavNVCookie(event, isInputChecked) {
 		if (isInputChecked === true) {
-			this.setState({ openSnackBar: true, setCavNVCookie: true })
-			var data = this.props.getAllKeywordData.data;
+			this.setState({ openSnackBar: true })
+			this.submitForm({'setCavNVCookie':1});
 		//	this.props.genExcptInMethod(true);
 		}
 		else {
@@ -122,7 +119,9 @@ class GenExcptInMethod extends React.Component {
 	}
 
 	handleCancelSetCavNVCookie() {
-		this.setState({ openSetCavNVCookieDialog: false });
+		this.setState({ openSetCavNVCookieDialog: false,
+						 
+		 });
 	}
 
 
@@ -160,40 +159,16 @@ class GenExcptInMethod extends React.Component {
         console.log("formData--",formData)
 	    let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
         let setCavNVCookie;
-
-		/*
-		* Here formData is handled to form value for keyowrd "genExcptInMethod"
-		*  genExcptInMethod = Perc %20 fqm %20 ExceptionType %20 ExceptionName
-		*  In fqm ,if string contains ';'.it has to be replaced with %3B
-		*/
-	/*	var genExcptInMethod = 0
-		var length = Object.keys(formData).length
-
-		/* below check handles the case of disabling the keyword i.e
-			  * when formData = {"genExcptInMethod":'0'}
-			  * there is no need to call constructVal function
-			  */
-
-	/*	if (length > 1) {
-			genExcptInMethod = modifiedVal.constructVal(formData);
-			keywordData.generateExceptionInMethod["value"] = genExcptInMethod;
-		}
-		else
-			keywordData.generateExceptionInMethod["value"] = 0;
-    */
-
-        var length = Object.keys(formData).length
+        var length = Object.keys(formData).length ;
         if(length > 1){
             let maxFpBucketSize = 4;
-            console.log("formData.maxFpBucketSize != null--",formData.maxFpBucketSize != null)
             if(!formData.enableNewFormat ){
                 setCavNVCookie = "1%20"
             }
             else{
                 setCavNVCookie = "2%20"
-                maxFpBucketSize = formData.maxFpBucketSize;
+                maxFpBucketSize = formData.maxFpBucketSize != null ?formData.maxFpBucketSize :maxFpBucketSize;
             }
-            console.log("formData.maxFpBucketSize != null--",setCavNVCookie)
 
             if(formData.cookieName != null){
                 setCavNVCookie = setCavNVCookie + formData.cookieName
@@ -201,7 +176,6 @@ class GenExcptInMethod extends React.Component {
             else{
                 setCavNVCookie = setCavNVCookie + "CavNV" 
             }
-            console.log("setCavNVCookie--",setCavNVCookie)
             if(formData.serviceMethodDepth != null){
                 setCavNVCookie = setCavNVCookie +"%20"+ formData.serviceMethodDepth
             }
@@ -209,23 +183,23 @@ class GenExcptInMethod extends React.Component {
                 setCavNVCookie = setCavNVCookie +"%20"+ 2;
             }
             setCavNVCookie = setCavNVCookie+"%20"+maxFpBucketSize;
-            console.log("setCavNVCookie--",setCavNVCookie)
 
             keywordData.setCavNVCookie["value"] = setCavNVCookie;
         }
         else{
+			if(formData.setCavNVCookie != 0){
+				 keywordData.setCavNVCookie["value"] = "1%20CavNV%202"
+			}
+			else{
              keywordData.setCavNVCookie["value"] = 0;
+			}
         }
 		this.props.submitKeywordData(keywordData, this.props.profileId);
 
 		//action for runtime change
 		//triggerRunTimeChanges(trData,trModeDetail,formData);
 		let keywordDataList = [];
-	//	keywordDataList.push("generateExceptionInMethod" + "=" + genExcptInMethod)
-		/*Object.keys(formData).forEach(function(key){
-			   keywordDataList.push(key + "=" + formData[key]); 
-		})  */
-		//
+		keywordDataList.push("setCavNVCookie" + "=" + keywordData.setCavNVCookie)
         triggerRunTimeChanges(this.props.trData, this.props.trModeDetail, keywordDataList);
 		this.handleCancelSetCavNVCookie();
 	}
@@ -302,7 +276,7 @@ class GenExcptInMethod extends React.Component {
 
 				<Snackbar
 					open={this.state.openSnackBar}
-					message="Generate Exception In Method keywords with default values is enabled now."
+					message="Set Cav NV Cookie keyword with default values is enabled now."
 					autoHideDuration={4000}
 					onRequestClose={this.handleRequestClose.bind(this)}
 					/>
@@ -333,4 +307,4 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(GenExcptInMethod);
+export default connect(mapStateToProps, mapDispatchToProps)(setCavNVCookie);

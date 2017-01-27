@@ -13,6 +13,7 @@ import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
+import DataGrid from '../../../../components/DCDetailTable';
 
 //Importing files
 import Toggle from '../../../../components/ToggleWrapper';
@@ -35,6 +36,14 @@ const errMsgCss = {
   color:'#ff0000'
 }
 
+
+
+var columns = {
+                "key" : "id",
+                "data":['Value Name', 'Lower Bound','Right Bound', 'ID'],
+                "field":['valName', 'lb', 'rb','id']
+              };  
+
 class Form_SessionAttrAdd extends React.Component {
 
   constructor(props) {
@@ -50,8 +59,9 @@ class Form_SessionAttrAdd extends React.Component {
                lb:'',
                rb:'',
               'valDataCss':'hidden',
-              valDataArr :[{'paramName':'','lb':'','rb':''}],
-              'errMsgCss':'hidden'
+              valDataArr :[],
+              'errMsgCss':'hidden',
+              'addCompCSS':'hidden'
 
         }
   this.del = this.del.bind(this);
@@ -158,8 +168,9 @@ del(val){
 
 handleSubmitValType(attrValues){
   
-  console.log("handleSubmitValType method called")
-    if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
+  console.log("handleSubmitValType method called--",attrValues)
+  console.log("this.state.valName--",this.state.valName)
+  /*  if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
        this.setState({errMsgCss:'show'})
     }
     else{
@@ -174,7 +185,27 @@ handleSubmitValType(attrValues){
     attrValues.onChange(finalArr) ;
     
      this.props.disableSubmitButtonState();
+     */
+
+     if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
+       this.setState({errMsgCss:'show'})
     }
+    else{
+      console.log("in else c ondition")
+       this.setState({count:this.state.count+1,
+                      errMsgCss:'hidden',
+                      addCompCSS:'hidden'
+        })
+       var valData = {'valName':this.state.valName,
+                     'lb':this.state.lb,
+                     'rb':this.state.rb,
+                     'id':this.state.count
+    }
+    this.state.valDataArr.push(valData);
+    attrValues.onChange(this.state.valDataArr) ;
+    }
+  
+    
  }
 
 renderSessionAttrValues(arr)
@@ -201,13 +232,58 @@ renderSessionAttrValues(arr)
   ); 
 }
 
+ handleOpen(){
+      this.setState({addCompCSS:'show'})
+  }
 
+  
+
+    //for editing the values table
+    onAfterSaveCell(row, cellName, cellValue){
+      console.log("in Dialog_Attr vcalues--",row)
+      console.log("cellName--",cellName)
+      console.log("cellVAlue--",cellValue)
+      console.log("this.state.rilrtYpe--",this.state.ruleTypesChanged)
+      var arrData = Object.assign([],this.state.ruleTypesChanged)
+      //var arrData = this.state.changedValArr;
+      
+      if(arrData != null && arrData.length != 0){
+        arrData.map(function(value){
+            console.log("value---",value)
+          if(value.btMethodRuleId == row.btMethodRuleId){ //handling the case when 1 row is edited multiple times or same row but diff column
+            console.log("in if condition")
+            value[cellName] = cellValue;
+          }
+        else{
+          console.log("in ekse con")
+          arrData.push(row);
+          }
+        })
+      }
+      else{
+        arrData.push(row);
+      }
+      console.log("arrData--",arrData)
+      this.setState({ruleTypes:arrData})
+      console.log("this.state--",this.state.ruleTypes)
+    }
+
+  onBeforeSaveCell(row, cellName, cellValue){
+      console.log("onBeforeSaveCell method called in dialog_AttrValues")
+    }
 
 
   render() {
 
     
      const { fields: {attrName,complete,specific,attrValues}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const cellEditProp = {
+      mode: 'click',
+      blurToSave: true,
+      beforeSaveCell: this.onBeforeSaveCell.bind(this), // a hook for before saving cell
+      afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
+ };
+
   return (
     <form >
     <div className ="row">
@@ -243,44 +319,53 @@ renderSessionAttrValues(arr)
      <div className = {`row ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}} >
         <h4>Add Value Types </h4>
         <div className = "row col-md-8 ">
-          <div className = "col-md-2">
-          <AddNewButton  style={NewButtonstyle} onTouchTap={this.submitValType.bind(this,'add')} mini={true}>
-            <AddIcon />
-         </AddNewButton>
-        </div>
-
+          
           <div className =  {`col-md-5 ${this.state.errMsgCss}`}>
            <p style ={errMsgCss}>Fields are empty</p>
         </div>
       </div>
 
        
-        {this.renderSessionAttrValues(this.state.valDataArr)}
-       
-       </div>
+  {/*     {this.renderSessionAttrValues(this.state.valDataArr)} */}
 
-       <div  className = {`row col-md-3 ${this.state.valDataCss}`}  style={{left:'500'}}>
-      <RaisedButton className ="pull-right"
-        label="Done"
-         backgroundColor = "#D3D3D3" 
-        onClick={this.handleSubmitValType.bind(this,attrValues)}
-        style={{color:'#000'}}>
-      
-       </RaisedButton>
-       </div>
         
-    
+          <div className = {`row col-md-12 ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-    <div className="hidden">
-      <TextField
-         {...attrValues}
-        floatingLabelText=" Name"
-        value={this.state.valDataArr}
-      />
-        
-    </div>
+            <div className="pull-right"  >
+                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+            </div>
+            
+         
+            <DataGrid data = {this.state.valDataArr} 
+                         cellEdit ={ cellEditProp }
+                        pagination = {false} 
+                        ref        = "sessionAttrMonitorData" 
+                        column     = {columns}
+                        onClick    = {this.handleClick}
+                        style={{color:'#000000'}}
+                        tableStyle={{background:'#ffffff'}}
+            />
 
-    
+          <div className = {`row ${this.state.addCompCSS}`} style = {{'paddingLeft':'6px'}}>
+              <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
+              <RaisedButton className ="pull-right"
+              label="Add"
+              backgroundColor = "#D3D3D3" 
+              onClick={this.handleSubmitValType.bind(this,attrValues)}
+              style={{color:'#000',position:'relative',top:'18px'}}>
+            </RaisedButton>
+            </div>
+         </div>
+
+         </div>
+
+           <div className="hidden">
+              <TextField
+              {...attrValues}
+              floatingLabelText=" Name"
+              value={this.state.valDataArr}
+            />
+          </div>
     </form>
     );
   }

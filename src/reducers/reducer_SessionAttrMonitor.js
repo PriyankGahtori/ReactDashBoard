@@ -7,7 +7,8 @@ const initialState = {tableData:[],
                      openNewSessAttrMonDialog:false,
                      disabled:false,
                      openAttrValDialog:false,
-                     attrValues:[]
+                     attrValues:[],
+                     sessionType:'all'
                    };
 
 function modifyingData(data){
@@ -47,13 +48,13 @@ export default function(state = initialState, action) {
     case 'FETCH_SESSION_ATTR_MONITOR':
     var newState = Object.assign({},state)
     newState.sessionType = action.payload.data.sessionType ;
+     var data = [];
+    console.log("action.payload--",action.payload.data)
     if(action.payload.data.attrList != null){
-      var data = action.payload.data.attrList;
-      console.log("action.payload in reducer session--",data)
+      data = action.payload.data.attrList;
        var data = modifyingData(data);
-      console.log("data---",data)
-      newState.tableData = data;
     }
+     newState.tableData = data;
     return newState;
 
     case 'VAL_DATA':
@@ -99,6 +100,7 @@ export default function(state = initialState, action) {
       console.log("newState.openNewMethodMonDialog---",newState.openNewSessAttrMonDialog)
       return newState;
 
+        //NOT USED
       case 'TOGGLE_STATE_SUBMIT_BUTTON':
       var newState = Object.assign({},state)
       newState.disabled = !newState.disabled

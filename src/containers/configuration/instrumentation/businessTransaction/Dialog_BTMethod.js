@@ -33,6 +33,12 @@ class Dialog_BTMethod extends React.Component {
  submitForm(data){
    
    console.log("data after apending --->",data)
+   if(data.enableArgumentType == null){
+     data.enableArgumentType = false
+   }
+   if(data.argumentIndex == null){
+     data.argumentIndex = -1 ;
+   }
    this.props.addBTMethod(data,this.props.profileId);
    this.handleCancel();
   

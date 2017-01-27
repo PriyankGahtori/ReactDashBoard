@@ -3,6 +3,7 @@ import * as validate from '../actions/validateGeneralKeywords';
 import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyValue';
 import * as modifiedValFpHdrCapturing from '../containers/configuration/general/flowPathHeaderCapture/ModifyValue';
 import * as modifiedValInstrExcptCapt from '../containers/configuration/general/exceptionCapture/ModifyValue';
+import * as modifiedValSetCavNVCookie from '../containers/configuration/productIntegration/setCavNVCookie/ModifyValue';
 
 //var mapValues = require('lodash.mapvalues');
 const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"handledException"}} ,
@@ -45,11 +46,17 @@ switch(action.type){
 		var instrExceptionObj = modifiedValInstrExcptCapt.splitValue(obj.instrExceptions)
 		obj.instrExceptionObj = instrExceptionObj;
 
+		
+		var setCavCookieInitializeObj = modifiedValSetCavNVCookie.splitValue(obj.setCavNVCookie)
+		console.log("obj--",setCavCookieInitializeObj)
+		obj.setCavCookieInitializeObj = setCavCookieInitializeObj;
+
 
 		/*for initializing fields of putDelayInMethod Keywords
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
 		* so need to split /modify it in order to initialize its fields
 		*/
+
 	   if(obj.putDelayInMethod != 0){
 		var putDelayInMethodFields=  obj.putDelayInMethod.split(':');
 		/*
@@ -81,6 +88,8 @@ switch(action.type){
 
 
 		newState.initializeKeywords = obj;
+
+
 		
 		var booleanEnableBCICapturing = validate.validateBCICapturingKeywords(action.payload.data)
 		newState.enableBCICheckBox = !validate.validateBCICapturingKeywords(action.payload.data) ;
@@ -101,6 +110,8 @@ switch(action.type){
 		newState.enableMonitorsCheckBox = !validate.validateBackendMonitorKeywords(action.payload.data);
 
 		newState.enableExcptCheckBox = obj.instrExceptions != 0;
+
+		newState.setCavNVCookie = obj.setCavNVCookie != 0 ;
 
 		console.log("newState in reducer kewords",newState)
 	return newState;

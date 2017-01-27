@@ -40,12 +40,13 @@ const styles = {
   },
   
 };
-class Form_GenerateExceptInMethod extends React.Component {
+class Form_SetCavNVCookie extends React.Component {
 
   constructor(props) {
     super(props);
     this.state ={
-     'maxDepthSizeCss':'hidden'
+     'maxDepthSizeCss':this.props.initialData.enableNewFormat?'show':'hidden',
+     enableNewFormat :this.props.initialData.enableNewFormat
     }
     this.enableNewFormat = this.enableNewFormat.bind(this);
   }
@@ -55,8 +56,6 @@ class Form_GenerateExceptInMethod extends React.Component {
 
  componentWillReceiveProps(nextProps)  {
   if(this.props.initialData != nextProps.initialData){
-   this.setState({exceptionTypeForMethod:nextProps.initialData.exceptionTypeForMethod
-   })
  }
 }
 
@@ -75,10 +74,6 @@ handleGenExcptInMethodCheckboxChange(event,isInputChecked){
   this.setState({enableGenExcptInMethodCheckbox:isInputChecked})
 }
 
-//This function is called when dropdown of ExceptionType is Changed
-changeExceptionTypeMethod(event, index, value){
-  this.setState({exceptionTypeForMethod:value})
-}
 
 render() {
   const { fields: {
@@ -120,7 +115,7 @@ render() {
       <div className = "col-md-6">
         <Checkbox
         {...enableNewFormat}
-        label="capture All FlowPaths "
+        label="Capture All Flow Paths "
         value = "enableNewFormat"
         checked  = {this.state.enableNewFormat}
         onCustomChange ={this.enableNewFormat.bind(this)}  />
@@ -148,7 +143,7 @@ render() {
     );
 }
 }
-Form_GenerateExceptInMethod.propTypes = {
+Form_SetCavNVCookie.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -162,9 +157,9 @@ export default reduxForm({
 
 },
   state => ({ // mapStateToProps
-    initialData :state.Keywords.initializeKeywords.genExcptInMethodObj,
+    initialData :state.Keywords.initializeKeywords.setCavCookieInitializeObj,
     getAllKeywordData :state.Keywords,
-    initialValues :state.Keywords.initializeKeywords.genExcptInMethodObj,
+    initialValues :state.Keywords.initializeKeywords.setCavCookieInitializeObj,
     trData : state.initialData.trData,
     trModeDetail: state.trModeDetail
   }),
@@ -173,4 +168,4 @@ export default reduxForm({
    submitKeywordData:submitKeywordData,
    initializeInstrException:initializeInstrException
  } // mapDispatchToProps (will bind action creator to dispatch)
- )(Form_GenerateExceptInMethod);
+ )(Form_SetCavNVCookie);

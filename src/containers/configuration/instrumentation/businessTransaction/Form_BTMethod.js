@@ -13,6 +13,7 @@ import AddIcon from 'material-ui/svg-icons/content/add';
 import FontIcon from 'material-ui/FontIcon';
 import IconButton from 'material-ui/IconButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from '../../../../components/CheckboxWrapper';
 // import DropDownComponent from './DropDownComponent';
 
 //Importing files
@@ -23,7 +24,7 @@ import AddMethodValues from './AddMethodValues';
 import MethodBTComponent from './MethodBTComponent';
 import DataGrid from '../../../../components/DCDetailTable';
 
-export const fields = ['fqm', 'returnType', 'rules']
+export const fields = ['fqm','enableArgumentType','argumentIndex','returnType', 'rules']
 
 const validate = values => {
     const errors = {}
@@ -66,7 +67,7 @@ const errMsgCss = {
 
 var columns = {
                 "key" : "id",
-                "data":['Value', 'Operation','Bt Name', 'ID'],
+                "data":['Value', 'Operation','BT Name', 'ID'],
                 "field":['value', 'operationName', 'btName','id']
               };  
 
@@ -97,7 +98,9 @@ class Form_BTMethod extends React.Component {
                     tableCss:'hidden',
                     addCompCSS:'hidden',
                     ruleTypes:[],
-                    ruleTypesChanged:[]
+                    ruleTypesChanged:[],
+                    enableArgumentType:false,
+                    argumentIndexCss:'hidden'
                  }
     }
 
@@ -216,6 +219,7 @@ handleSubmitValType(rules){
     console.log("this.props--",this.state.opCode)
     console.log("this.state--",this.state.btName)
     console.log("handleSubmitValType--",valData)
+ 
     this.state.ruleTypes.push(valData)
     this.setState({tableCss:'show'})
     rules.onChange(this.state.ruleTypes) ;
@@ -230,7 +234,7 @@ onAfterSaveCell(row, cellName, cellValue){
   console.log("cellName--",cellName)
   console.log("cellVAlue--",cellValue)
   console.log("this.state.rilrtYpe--",this.state.ruleTypesChanged)
-var arrData = Object.assign([],this.state.ruleTypesChanged)
+  var arrData = Object.assign([],this.state.ruleTypesChanged)
    //var arrData = this.state.changedValArr;
   
   if(arrData != null && arrData.length != 0){
@@ -262,7 +266,13 @@ onBeforeSaveCell(row, cellName, cellValue){
       this.setState({addCompCSS:'show'})
   }
 
+handleEnableArgumentType(evnt,isInputChecked){
 
+    let argumentIndexCss = isInputChecked ?'show':'hidden';
+    this.setState({enableArgumentType:isInputChecked,
+                   argumentIndexCss :argumentIndexCss
+    })
+}
 
 
     render() {
@@ -273,7 +283,7 @@ onBeforeSaveCell(row, cellName, cellValue){
       afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
  };
 
-        const { fields: {fqm, returnType, rules}, resetForm, handleSubmit, onSubmit, submitting} = this.props
+        const { fields: {fqm,enableArgumentType,argumentIndex,returnType, rules}, resetForm, handleSubmit, onSubmit, submitting} = this.props
         return (
             <form >
                 <div className="row col-md-10">
@@ -284,9 +294,33 @@ onBeforeSaveCell(row, cellName, cellValue){
                             {...fqm}
                             />
                     </div>
-                
+                </div>
 
-                    <div className="col-md-5" style= {{position:'relative',left:'108px'}}>
+                <div className = "row col-md-10" style= {{top:'13px'}} >
+                    <div className = "col-md-6">
+                        <Checkbox
+                        {...enableArgumentType}
+                        value="enableArgumentType"
+                        label="Enable Argument Type"
+                        checked={this.state.enableArgumentType}
+                        onCustomChange={this.handleEnableArgumentType.bind(this)}
+                        labelStyle={{ fontWeight: 'normal' }}
+                        />
+                    </div>
+
+                    </div>
+
+                    
+                    <div className = {`row  ${this.state.argumentIndexCss}`} >
+                        <div className = 'col-md-3'  style= {{left: '60px'}}>
+                            <TextField
+                                floatingLabelText="Argument Index"
+                                {...argumentIndex}
+                            />
+                        </div>
+                    </div>
+                
+                    <div className="row col-md-7" style= {{left: '17px'}}>
                         <DropDownMenu
                               {...returnType}
                             value={this.state.operator+""}
@@ -302,7 +336,7 @@ onBeforeSaveCell(row, cellName, cellValue){
                         </DropDownMenu>
                     </div>
 
-                </div>
+                
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>

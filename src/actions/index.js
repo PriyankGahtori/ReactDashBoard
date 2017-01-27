@@ -1666,12 +1666,7 @@ export function toggleStateAddSessionAttrMonitor(){
   }
 }
 
-export function disableSubmitButtonState(){
-  console.log("action--disableSubmitButtonStatemethod called")
-  return{
-    type:'TOGGLE_STATE_SUBMIT_BUTTON'
-  }
-}
+
 
 export function updateSessionType(profileId,data){
   var response = axios({

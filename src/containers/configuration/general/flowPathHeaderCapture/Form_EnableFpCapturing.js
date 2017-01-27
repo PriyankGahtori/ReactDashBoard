@@ -154,7 +154,7 @@ class Form_EnableFpCapturing extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log("this.state--",this.props.sessionType)
+    console.log("this.state--",this.props.initialData)
   
     this.state = {
       enableCaptureHTTPReqFullFp : this.props.initialData != null ?this.props.initialData.enableCaptureHTTPReqFullFp:false,
@@ -168,19 +168,21 @@ class Form_EnableFpCapturing extends React.Component {
       'hdrTypeRespCss':'hidden',
       'multiSelectRespCss':'hidden',
       'configDropDownRespCss':'hidden',
-      'specificDivCSS':this.props.sessionType == 'specific'?'show':'hidden',
+      'specificDivCSS':this.props.initialData.enableCaptureSessionAttr && this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
       'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
       'captureSessionAttrCss':this.props.initialData.enableCaptureSessionAttr ?'show':'hidden',
       'sessionType':this.props.sessionType,
-      'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture
+      'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
+      'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
+      'sessionType':this.props.sessionType != null ?this.props.sessionType:'all'
       
   }
 }
 
   componentWillMount() {
    // this.props.initializeInstrException();
-   
+  
  }
 
  componentWillReceiveProps(nextProps)
@@ -465,12 +467,12 @@ render() {
           
           <div className = "row">
             <div className='col-md-3' style = {{position:'relative',left:'2px'}}>
-           
+          
                 <DropDownComponent 
                 {...hdrModeForReqcapture}
                 data = {dataForhdrTypeDropDown}
                 onChangeOption = {this.handleHdrModeReqChange.bind(this)}
-                defaultValue={this.state.hdrModeForReqcapture+""}
+                defaultValue={this.state.hdrModeForReqcapture}
                 floatingLabelText = " Header Type"
                 />
             </div>
@@ -540,13 +542,13 @@ render() {
        
        {/******START of div block when 2nd radio button is selected*******/}
         <div className = {this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} style = {{'paddingLeft':0}}>
-          
           <div className = "row">
             <div className='col-md-6' >
                <DropDownComponent 
                 {...hdrModeForResCapture}
                 data = {dataForhdrTypeDropDown}
                 onChangeOption = {this.handleHdrModeResChange.bind(this)}
+                defaultValue={this.state.hdrModeForResCapture}
                 floatingLabelText = 'Select Header Type'
                 />
             </div>

@@ -57,6 +57,15 @@ class MethodBTComponent extends React.Component {
     if(this.props.value != '' || this.props.value != null){
       if(this.props.value == "String")
         this.state={opData:arrStringOperation}
+
+      else if(this.props.value == "Numeric")
+        this.state={opData:arrNumericOperation}
+
+      else if(this.props.value == "Boolean")
+        this.state={opData:arrBooleanOperation}
+
+      else if(this.props.value == "Char/Byte")
+       this.state({opData:arrCharOperation})
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -129,7 +138,7 @@ render() {
     <div className="row col-md-12">
       <div className="col-md-3">
         <TextField
-          floatingLabelText="Parameter Name "
+          floatingLabelText="Value"
           defaultValue={this.state.paramName}
           onChange={this.paramNameChange.bind(this)}
           style = {{width:'220px'}}

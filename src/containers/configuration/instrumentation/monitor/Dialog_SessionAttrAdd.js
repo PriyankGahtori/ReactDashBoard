@@ -102,7 +102,7 @@ class Dialog_SessionAttrAdd extends React.Component {
         label="Submit"
         primary={true}
         keyboardFocused={true}
-        disabled = {this.props.sessionAttrMonitor.disabled}
+       // disabled = {this.props.sessionAttrMonitor.disabled}
         onClick={this.handleSubmit}
       />
     ];

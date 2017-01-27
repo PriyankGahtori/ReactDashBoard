@@ -15,11 +15,7 @@ class AttrValComponent extends React.Component {
   constructor(props) {
     super(props)    
     console.log("this.props--",this.props)
-    this.state={
-                valName:this.props.value.valName,
-                lb:this.props.value.lb,
-                rb:this.props.value.rb
-    }
+   
   }
 
 
@@ -31,22 +27,11 @@ class AttrValComponent extends React.Component {
   componentWillReceiveProps(nextProps){
     console.log("nextProps--",nextProps)
     if(this.props.value != nextProps.value){
-      console.log("diff---",nextProps.value)
-      console.log("Object.keys(nextProps.value).length--",Object.keys(nextProps.value).length)
-      if((Object.keys(nextProps.value).length === 0)){
-        console.log("length zeo case")
-        
-           this.setState({valName:'',
-                      lb:'',
-                      rb:''
-      })
-      }
-      else{
       this.setState({valName:nextProps.value.valName,
                       lb:nextProps.value.lb,
                       rb:nextProps.value.rb
       })
-      }
+      
       console.log("this.state--",this.state.valName)
     }
   }
@@ -76,8 +61,7 @@ rbChange(evt,value){
          <div className ="row col-md-10" >
         <div className ="col-md-3" style= {{width:'50px'}}>
           <TextField
-               floatingLabelText="value Name "
-               defaultValue={this.state.valName}
+               floatingLabelText="Value Name "
                onChange ={this.valNameChange.bind(this)}
                 style = {{width:'160px'}}
           />
@@ -87,19 +71,17 @@ rbChange(evt,value){
 
        <div className ="col-md-2" style={{}}>
           <TextField
-               floatingLabelText="left bound"
-                defaultValue={this.state.lb}
+               floatingLabelText="Left Bound"
                onChange ={this.lbChange.bind(this)}
                style = {{width:'160px',position:'relative',left:'18px'}}
           />
      </div>
 
-     <div className ="col-md-2">
+     <div className ="col-md-2" style ={{position:'relative',left:'10px'}}>
           <TextField
-            floatingLabelText="right bound"
-            defaultValue={this.state.rb}
+            floatingLabelText="Right Bound"
             onChange ={this.rbChange.bind(this)}
-             style = {{width:'100px',position:'relative',left:'5px'}}
+             style = {{width:'100px',position:'relative',left:'25px'}}
           />
      </div>
 

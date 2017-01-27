@@ -93,7 +93,7 @@ export function constValCaptureHTTPResFullFp(formData) {
 
 export function splitValue(keywords) {
 	var fpHdrInitializeObj = {};
-	if (keywords.captureHTTPReqFullFp != 0 ||keywords.captureHTTPReqFullFp != 2|| keywords.captureHTTPReqFullFp != null) {
+	if ( keywords.captureHTTPReqFullFp != null &&  keywords.captureHTTPReqFullFp != 0 ){
 		var value = keywords.captureHTTPReqFullFp.split('%20');
 		fpHdrInitializeObj.enableCaptureHTTPReqFullFp = true;
 		fpHdrInitializeObj.urlMode = value[0];
@@ -113,7 +113,7 @@ export function splitValue(keywords) {
 		if (fpHdrInitializeObj.hdrModeForReqcapture === 1) {
 			//left fo rfuther initilaizing of multiselect comp
 		}
-		fpHdrInitializeObj.captureModeRes = value[2]
+		fpHdrInitializeObj.captureModeRes = valueResp[2]
 
 		}
 		fpHdrInitializeObj.enableCaptureSessionAttr = keywords.captureHttpSessionAttr == "true";

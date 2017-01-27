@@ -29,7 +29,20 @@ export const fields = ['fqm','enableArgumentType','argumentIndex','returnType', 
 
 const validate = values => {
     const errors = {}
+     if(!values.fqm)
+      errors.fqm = 'Required'
 
+     if(!values.returnType)
+      errors.returnType = 'Required'
+
+
+     if(values.enableArgumentType){
+       if(!values.argumentIndex)
+        errors.argumentIndex = 'Required'
+
+     else if (isNaN(values.argumentIndex))
+    errors.argumentIndex = 'Please Enter Only Numbers'
+     }
     return errors
 }
 const styles = {
@@ -51,7 +64,7 @@ const styles = {
     error: {
         fontSize: 12,
         color: 'red',
-        paddingLeft: 40,
+        paddingLeft:3,
     },
 };
 
@@ -295,6 +308,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             // hintText="Hint Text"
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
+                            errorText = {fqm.touched && fqm.error}
                             />
                     </div>
                 </div>
@@ -319,6 +333,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <TextField
                                 floatingLabelText="Argument Index"
                                 {...argumentIndex}
+                                errorText = {argumentIndex.touched  && argumentIndex.error}
                             />
                         </div>
                     </div>
@@ -337,6 +352,8 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <MenuItem value={"Boolean"} primaryText="BOOLEAN" />
                             <MenuItem value={"Char or Byte"} primaryText="CHAR OR BYTE" />
                         </DropDownMenu>
+                 <div style={styles.error}> {returnType.touched && returnType.error && <div>{returnType.error} </div>}</div>
+
                     </div>
 
                 

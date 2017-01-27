@@ -352,7 +352,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
             </div>
             
-         
+         <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
             <DataGrid data = {this.state.ruleTypes} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
@@ -362,7 +362,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                         style={{color:'#000000'}}
                         tableStyle={{background:'#ffffff'}}
             />
-
+            </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"

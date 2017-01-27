@@ -201,7 +201,7 @@ const styles = {
       <div className='row row-no-margin tableheader'>
         <div className="col-md-4">
         <EnableErrorDetection />
-              <h4 style={{position: 'relative',bottom:7}}>Error Detection(s)</h4>
+              <h4 style={{position: 'relative',bottom:11}}>Error Detection(s)</h4>
         </div>
        <IconButton tooltip = "Edit Error Detection"   style={{position: 'absolute',right:68}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
        <IconButton tooltip = "Delete Error Detection" className = "pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>

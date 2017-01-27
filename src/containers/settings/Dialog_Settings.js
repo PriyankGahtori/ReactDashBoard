@@ -41,12 +41,13 @@ class MigrateTopo extends React.Component {
     return (
       <div > 
       <RaisedButton
+       style={{left:'195px',position:'absolute'}}
        label="Sync Topologies" 
        backgroundColor="#18494F"
        onTouchTap={this.updateTopo} 
        labelStyle={{fontSize:12}}
-       labelColor="#FFF" /> 
-      <p><center><i>This feature is used to sync topology settings of GUI with the file system.</i></center></p>
+       labelColor="#FFF"  /> 
+       <p style={{paddingTop:'40px'}}><center><i>This feature is used to sync topology settings of GUI with the file system.</i></center></p>
      </div>
      );
   }

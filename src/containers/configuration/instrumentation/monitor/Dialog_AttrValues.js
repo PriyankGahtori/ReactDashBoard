@@ -13,7 +13,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import AttrValComponent from './AttrValComponent';
 import RaisedButton from 'material-ui/RaisedButton';
-
+import Paper from 'material-ui/Paper'
 //Importing React components
 import * as actionCreators  from '../../../../actions/index';
 import FormSessionAttrMon from './Form_SessionAttrAdd';
@@ -203,10 +203,7 @@ addValType(){
     afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
 };
     return(
-      <div>
-
-       
-
+      <div >
         <DialogSessionAttr
           title="Attribute Values"
           actions={actions}
@@ -218,20 +215,19 @@ addValType(){
           titleStyle={styles.title}
         >
 
-          <div className="pull-right"  >
+        <Paper zDepth={2} style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
+          <div className="pull-right">
           <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
         </div>
-        
-        
       <DataGrid data = {this.props.sessionAttrMonitor.attrValues} 
           cellEdit ={ cellEditProp }
           pagination = {false} 
           ref        = "sessionAttrMonitorData" 
           column     = {columns}
           onClick    = {this.handleClick}
-          style={{color:'#000000'}}
-      tableStyle={{background:'#ffffff'}}
+       
             /> 
+            </Paper>
 
         <div className = {`row ${this.state.addCompCSS}`}>
           <AttrValComponent value = {{}}  
@@ -246,7 +242,7 @@ addValType(){
     
           </RaisedButton>
           </div>
-
+      
       </DialogSessionAttr>
       
       </div>

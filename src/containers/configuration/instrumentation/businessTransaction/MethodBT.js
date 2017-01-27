@@ -194,7 +194,7 @@ handleHref(row){
         <Paper zDepth={2} style={{ background: 'rgba(0,0,0,0.45)', color: '#FFF' }}>
           <div className='row row-no-margin tableheader'>
             <div className="col-md-4">
-              <h4 style={{ position: 'relative', bottom: 7 }}>Method Bussiness Transaction(s)</h4>
+              <h4 style={{ position: 'relative' }}>Method Bussiness Transaction(s)</h4>
             </div>
             <IconButton tooltip="Delete Method BT" className="pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
             <DataGrid data={this.props.methodBT.tableData}

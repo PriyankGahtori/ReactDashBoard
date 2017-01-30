@@ -68,15 +68,13 @@ const styles = {
     },
 };
 
-const NewButtonstyle = {
+const NewButtonstyle = {                                                                                                                                                                                                                      
     left: 3,
     top: -7
 };
 
 const errMsgCss = {
-    
-    left: '10px',
-    color: '#FFF',
+    color: 'red',
     paddingTop: 13,
 
 }
@@ -360,14 +358,7 @@ handleEnableArgumentType(evnt,isInputChecked){
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>
-                        <div className="row col-md-8 ">
-                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
-                                <p style={errMsgCss}>Fields are empty</p>
-                            </div>
-
-                        </div>
-
-                    { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
+                     { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
 
 
@@ -387,6 +378,12 @@ handleEnableArgumentType(evnt,isInputChecked){
                       
             />
             </div>
+              <div className="row col-md-8 ">
+                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
+                                <p style={errMsgCss}>Fields are empty</p>
+                            </div>
+
+                        </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"

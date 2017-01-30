@@ -42,7 +42,6 @@ var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
 const items = [];
 
 class MethodBTComponent extends React.Component {
-
   constructor(props) {
     super(props)
     console.log("this.props--", this.props)
@@ -65,7 +64,7 @@ class MethodBTComponent extends React.Component {
         this.state={opData:arrBooleanOperation}
 
       else if(this.props.value == "Char/Byte")
-       this.state({opData:arrCharOperation})
+       this.state =({opData:arrCharOperation})
     }
     this.handleChange = this.handleChange.bind(this);
   }

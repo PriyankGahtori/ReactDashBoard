@@ -25,6 +25,20 @@ import {addingValData,disableSubmitButtonState} from '../../../../actions/index'
 
 export const fields = ['attrName','complete','specific','attrValues']
 
+
+const validate = values=>{
+  const errors ={}   
+    if(!values.attrName)
+    errors.attrName = 'Required'
+        
+    else if (!isNaN(values.attrName))
+    errors.attrName = 'Please Enter Only Characters'
+
+     if(!values.complete && !values.specific)
+     errors.complete = 'Must select any of the  Attribute Type'
+
+      return errors;
+}
 const NewButtonstyle = {
     left:3,
     top:-7
@@ -34,7 +48,14 @@ const errMsgCss = {
   top:-12,
   left:'10px',
   color:'#ff0000'
-}
+};
+
+
+const  error={
+        fontSize: 12,
+        color: 'red',
+        paddingLeft:3,
+    };
 
 
 
@@ -76,7 +97,7 @@ class Form_SessionAttrAdd extends React.Component {
                       specificChkBox:isInputChecked
         })
     
-     this.props.disableSubmitButtonState();
+     //this.props.disableSubmitButtonState();
   }
 
   completeChkBoxChange(event,isInputChecked){
@@ -191,7 +212,7 @@ handleSubmitValType(attrValues){
        this.setState({errMsgCss:'show'})
     }
     else{
-      console.log("in else c ondition")
+      console.log("in else condition")
        this.setState({count:this.state.count+1,
                       errMsgCss:'hidden',
                       addCompCSS:'hidden'
@@ -219,6 +240,7 @@ renderSessionAttrValues(arr)
                     <AttrValComponent value={val} valNameChange={that.valNameChange.bind(this)} lbChange = {that.lbChange.bind(this)} rbChange={that.rbChange.bind(this)} />
                     <div className="row col-md-1">
                     <IconButton style = {{position:'relative',left:'-3px'}} 
+
                     tooltip="delete" onTouchTap={that.del.bind(this,val.id)}><FontIcon color='#D3D3D3' className="material-icons">delete</FontIcon></IconButton>
                     </div>
                    </div>
@@ -286,15 +308,15 @@ renderSessionAttrValues(arr)
 
   return (
     <form >
-    <div className ="row">
+  
         <div className ="col-md-12">
           <TextField
               // hintText="Hint Text"
                floatingLabelText=" Name"
                {...attrName}
+              errorText = {attrName.touched  && attrName.error && <div> {attrName.error}</div> }
                />
         
-    </div>
     </div>
 
     <div className ="row ">
@@ -304,6 +326,8 @@ renderSessionAttrValues(arr)
               value="complete"
               label="Complete"
               onCustomChange = {this.completeChkBoxChange.bind(this)} />
+          <div style={error}> {complete.touched && complete.error && <div>{complete.error}</div>}</div>
+
         
         </div>
         <div className = "col-md-3">
@@ -316,11 +340,11 @@ renderSessionAttrValues(arr)
         </div>
     </div>
 
-     <div className = {`row ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}} >
+     <div className = {`row col-md-10  ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}}>
         <h4>Add Value Types </h4>
         <div className = "row col-md-8 ">
           
-          <div className =  {`col-md-5 ${this.state.errMsgCss}`}>
+          <div className =  {`col-md-7 ${this.state.errMsgCss}`}>
            <p style ={errMsgCss}>Fields are empty</p>
         </div>
       </div>
@@ -335,17 +359,16 @@ renderSessionAttrValues(arr)
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
             </div>
             
-         
+          <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
             <DataGrid data = {this.state.valDataArr} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
-                        style={{color:'#000000'}}
-                        tableStyle={{background:'#ffffff'}}
+                      
             />
-
+          </div>
           <div className = {`row ${this.state.addCompCSS}`} style = {{'paddingLeft':'6px'}}>
               <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
               <RaisedButton className ="pull-right"
@@ -381,7 +404,8 @@ Form_SessionAttrAdd.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Session Attribute Monitor ',        // a unique name for this form
-  fields
+  fields,
+  validate,
 },
   state => ({ // mapStateToProps
     valData:state.sessionAttrMonitor.valData

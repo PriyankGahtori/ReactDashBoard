@@ -31,7 +31,19 @@ export const fields = ['fqm','enableArgumentType','argumentIndex', 'returnType']
 
 const validate = values => {
     const errors = {}
+    if(!values.fqm)
+      errors.fqm = 'Required'
+     
+     if(values.enableArgumentType){
+        if(!values.argumentIndex)
+          errors.argumentIndex = 'Required'
+     
+     else if (isNaN(values.argumentIndex))
+         errors.argumentIndex = 'Please Enter Only Numbers'
+     }
 
+     if(!values.returnType)
+      errors.returnType = 'Required'
     return errors
 }
 const styles = {
@@ -63,9 +75,8 @@ const NewButtonstyle = {
 };
 
 const errMsgCss = {
-    top: -12,
-    left: '10px',
-    color: '#ff0000'
+    color: 'red',
+    paddingTop: 13,
 }
 
 var columns = {
@@ -292,7 +303,7 @@ handleEnableArgumentType(evnt,isInputChecked){
 
     render() {
     const cellEditProp = {
-      mode: 'click',
+      mode: 'click',        
       blurToSave: true,
       beforeSaveCell: this.onBeforeSaveCell.bind(this), // a hook for before saving cell
       afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
@@ -307,6 +318,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             // hintText="Hint Text"
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
+                            errorText = {fqm.touched && fqm.error && <div>{fqm.error }</div>}
                             />
                     </div>
                 </div>
@@ -322,6 +334,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                         onCustomChange={this.handleEnableArgumentType.bind(this)}
                         labelStyle={{ fontWeight: 'normal' }}
                         />
+                       
                     </div>
 
                     </div>
@@ -332,6 +345,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <TextField
                                 floatingLabelText="Argument Index"
                                 {...argumentIndex}
+                                errorText= {argumentIndex.touched && argumentIndex.error && <div> {argumentIndex.error}</div>}
                             />
                         </div>
                     </div>
@@ -355,17 +369,13 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <MenuItem value={"Boolean"} primaryText="BOOLEAN" />
                             <MenuItem value={"Char/Byte"} primaryText="CHAR OR BYTE" />
                         </DropDownMenu>
+                 <div style={styles.error}> {returnType.touched && returnType.error && <div>{returnType.error} </div>}</div>
                     </div>
 
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>
-                        <div className="row col-md-8 ">
-                            <div className={`col-md-5 ${this.state.errMsgCss}`}>
-                                <p style={errMsgCss}>Fields are empty</p>
-                            </div>
-
-                        </div>
+                      
 
                     { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
@@ -388,15 +398,22 @@ handleEnableArgumentType(evnt,isInputChecked){
                         onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
                         tableStyle={{background:'#ffffff'}}
             />
+
             </div>
+              <div className="row col-md-8 ">
+                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
+                                <p style={errMsgCss}>Fields are empty</p>
+                            </div>
+
+               </div>
           <div className = {`row ${this.state.addCompCSS}`}>
             <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"
             label="Add"
-            backgroundColor = "#D3D3D3" 
-            onClick={this.handleSubmitValType.bind(this)}
+            labelColor="#FFF"
+            backgroundColor = "#18494F" 
+            onClick={this.handleSubmitValType.bind(this,rules)}
             style={{color:'#000',position:'relative',top:'18px'}}>
-      
            </RaisedButton>
             </div>
          </div>

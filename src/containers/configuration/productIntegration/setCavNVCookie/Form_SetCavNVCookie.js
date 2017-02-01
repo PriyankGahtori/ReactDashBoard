@@ -18,7 +18,22 @@ import {submitKeywordData,initializeInstrException}  from '../../../../actions/i
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
+const validate = values =>{
+  const errors = {}
 
+  if(!values.cookieName)
+    errors.cookieName = 'Required'
+
+  if(!values.serviceMethodDepth)
+    errors.serviceMethodDepth = 'Required'
+
+  else if(isNaN(values.serviceMethodDepth))
+    errors.serviceMethodDepth = 'Must enter only numbers'
+
+   if(isNaN(values.maxFpBucketSize))
+    errors.maxFpBucketSize = 'Must enter only numbers'
+  return errors;
+}
 export const fields = [
 'cookieName',
 'serviceMethodDepth',
@@ -96,7 +111,8 @@ render() {
           hintText = "Hint Text"
           floatingLabelText = " Cookie Name"
           {...cookieName}
-          />
+         errorText={cookieName.touched && cookieName.error && <div>{cookieName.error}</div>}/>   
+        
       </div>
     </div>
 
@@ -106,7 +122,8 @@ render() {
           hintText="Hint Text"
           floatingLabelText="Service Method Depth"
           {...serviceMethodDepth}
-          />
+        errorText={serviceMethodDepth.touched && serviceMethodDepth.error && <div>{serviceMethodDepth.error}</div>}/>   
+       
         </div>
     </div>
 
@@ -130,7 +147,7 @@ render() {
             hintText="Hint Text"
             floatingLabelText="Maximum flowPath Bucket Size"
           {...maxFpBucketSize}
-          />
+         errorText={maxFpBucketSize.touched && maxFpBucketSize.error && <div>{maxFpBucketSize.error}</div>}/>   
         </div>
     </div>
 
@@ -152,7 +169,8 @@ Form_SetCavNVCookie.propTypes = {
 
 export default reduxForm({
   form: 'Form_setCavNVCookie',
-  fields
+  fields,
+  validate
   
 
 },

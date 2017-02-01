@@ -9,7 +9,8 @@ const initialState = {tableData:[],
                      disabled:false,
                      openAttrValDialog:false,
                      attrValues:[],
-                     sessionType:'all'
+                     sessionType:'all',
+                     openSessAttrMonDialog:null
                    };
 
 function modifyingData(data){

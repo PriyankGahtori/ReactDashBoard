@@ -80,9 +80,9 @@ const errMsgCss = {
 }
 
 var columns = {
-                "key" : "id",
+                "key" : "btMethodRuleId",
                 "data":['Value', 'Operation','BT Name', 'ID'],
-                "field":['value', 'operationName', 'btName','id']
+                "field":['value', 'operationName', 'btName','btMethodRuleId']
               };  
 
 
@@ -191,7 +191,7 @@ class Form_BTMethod extends React.Component {
         // this.editValArr(id,'lb',value)
     }
 
-    
+ //NOT USED   
 del(val){
   console.log("val--",val)
   let arr = this.state.valDataArr;
@@ -228,7 +228,8 @@ handleSubmitValType(rules){
                      'opCode':this.state.opCode,
                      'btName':this.state.btName,
                      'operationName':this.state.operationName,
-                     'id':this.state.count
+                     'opCodeDropDown': {"dropDownVal":this.state.opCode}, 
+                     'btMethodRuleId':this.state.count
     }
     console.log("this.props--",this.state.opCode)
     console.log("this.state--",this.state.btName)
@@ -273,7 +274,9 @@ onAfterSaveCell(row, cellName, cellValue){
 }
 
 onBeforeSaveCell(row, cellName, cellValue){
-    console.log("onBeforeSaveCell method called in dialog_AttrValues")
+    console.log("onBeforeSaveCell method called in dialog_AttrValues",row)
+    console.log("onBeforeSaveCell method called in dialog_AttrValues--",cellName)
+    console.log("cellValue---",cellValue)
   }
 
   handleOpen(){
@@ -287,6 +290,12 @@ handleEnableArgumentType(evnt,isInputChecked){
                    argumentIndexCss :argumentIndexCss
     })
 }
+
+   onChangeOpDropDown(val,row){
+        console.log("val----",val)
+        console.log("row---",row)
+        this.onAfterSaveCell(row,"opCode", val)
+    }
 
 
     render() {
@@ -375,6 +384,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
+                        onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
                       
             />
             </div>

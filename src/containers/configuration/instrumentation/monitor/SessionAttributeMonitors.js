@@ -171,10 +171,80 @@ loader(){
    // this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
     this.props.clearValData();
   }
+
+  handleOpen(openSessAttrMonDialog){
+
+    //for editing form
+      let selectedRow= this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    if(openSessAttrMonDialog == "edit"){
+      // gets the selected key of table
+      if(selectedRow.length == 1)
+      {
+           this.setState({openSnack: false})
+           var selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function(value){
+            return value.errDetectionId == selectedRow
+        })
+         this.props.initializeSessionAttributeForm(selectedRowData[0],openSessAttrMonDialog);
+         this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
+
+      }
+      else{
+        //toster notification: Only one row can be edited
+          this.setState({openSnack: true})
+      }
+
+    }
+    else if(openSessAttrMonDialog == "add"){ //for adding new row
+         this.props.initializeSessionAttributeForm(null,openSessAttrMonDialog);
+          this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
+    }
+  }
   
   handleHref(row){
     console.log("row---",row)
     this.props.toggleStateAttrValDialog(row.sessAttrId);
+
+  }
+  handleOpenEdit(){
+    console.log("handleOpenEdit method called--")
+   /* let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+    if (selectedRow.length == 1) {
+
+        this.setState({ openSnack: false })
+        let selectedRowData = this.props.sessionAttrMonitor.tableData
+          .filter(function (value) {
+            return value.appId === selectedRow[0]
+          });
+        //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
+        this.props.appDetailInitializeForm(selectedRowData[0], openAppDialogType);
+
+        //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
+        this.props.toggleStateDialogNewApp();
+        try {
+          this.refs.appTable.refs.table.state.cleanSelected();
+        } catch (ex) {
+          console.error("Exception in ApplicationDetail file-", ex)
+        }
+      }
+      */
+    
+  }
+
+  handleDel(){
+    let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRow-",selectedRow)
+    var selectedRowKeys = [];
+    var selectedRowData = [];
+    selectedRowKeys  = this.refs.appTable.refs.table.state.selectedRowKeys;
+   /* this.props.sessionAttrMonitor.tableData.forEach(function (value) {
+    if (!(selectedRowKeys.indexOf(value.btMethodId) == -1))
+        selectedRowData.push(value)
+    });
+    this.refs.appTable.refs.table.cleanSelected();
+  
+    console.log("selectedRowKeys--",selectedRowKeys)
+    this.props.delSessAttrMon(selectedRowKeys,this.props.profileId);
+    */
 
   }
 
@@ -202,9 +272,11 @@ loader(){
               <h4>Session Attribute(s)</h4>
           </div>
 
+           <DialogSessionAttr profileId ={this.props.profileId}/>
+
           <div className="pull-right"  >
-          <IconButton tooltip="Edit Session Attribute" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
-          <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+            <IconButton tooltip="Edit Session Attribute" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
@@ -223,7 +295,7 @@ loader(){
             <AddIcon />
           </AddNewButton> */}
 
-         <DialogSessionAttr profileId ={this.props.profileId}/>
+        
          <DialogAttrVal />
           <Dialog_SessionAttrEdit  />
           

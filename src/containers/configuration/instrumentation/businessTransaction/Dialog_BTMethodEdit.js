@@ -18,6 +18,9 @@ const styles = {
   title: {
     fontSize: 16,
     padding:8
+  },
+   dialog:{
+    top:'-30px'
   }
 }
 class Dialog_BTMethod extends React.Component {
@@ -33,6 +36,9 @@ class Dialog_BTMethod extends React.Component {
  submitForm(data){
    
    console.log("data after apending --->",data)
+   console.log("methodBT-----",this.props.methodBT.editRuleTypes)
+   data.rules = this.props.methodBT.editRuleTypes
+   console.log("data----",data)
    this.props.updateBTMethod(data,this.props.initialData.btMethodId);
    this.handleCancel();
   
@@ -103,6 +109,7 @@ class Dialog_BTMethod extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
           titleStyle={styles.title}
+          style = {styles.dialog}
         >
          { /* As new updated form when passed to server or store must contain its primary key field 
            * i.e ._links to update the same row .So inserting property _links to data .

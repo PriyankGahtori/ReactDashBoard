@@ -18,6 +18,9 @@ const styles = {
   title: {
     fontSize:16,
     padding: 8 
+  },
+  dialog:{
+    top:'-30px'
   }
 
 }
@@ -111,12 +114,13 @@ class Dialog_SessionAttrAdd extends React.Component {
         <DialogSessionAttr
           title="Add Session Attribute"
           actions={actions}
+          autoScrollBodyContent={true}
           modal={false}
           open={this.state.sessionAttrMonitor.openNewSessAttrMonDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
           refs="insidedialog"
           titleStyle={styles.title}
+          style = {styles.dialog}
         >
          { /* As new updated form when passed to server or store must contain its primary key field 
            * i.e ._links to update the same row .So inserting property _links to data .

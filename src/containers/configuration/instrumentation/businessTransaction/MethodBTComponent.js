@@ -49,7 +49,7 @@ class MethodBTComponent extends React.Component {
       paramName:'',
       operation:'',
       btName:'',
-      value:1,
+      value:0,
       opData:[]
     }
 
@@ -109,14 +109,14 @@ handleChange(event, index, value){
   console.log("operationName--",operationName)
   this.setState({value:value
   })
-  this.props.operationChange(value,this.props.value.id,operationName)
+  this.props.operationChange(value,this.props.value.btMethodRuleId,operationName)
 
 }
 
 paramNameChange(evt, value){
   console.log("value---", value)
   console.log("this.props--", this.props.value)
-  this.props.paramNameChange(value, this.props.value.id);
+  this.props.paramNameChange(value, this.props.value.btMethodRuleId);
 }
 
 operationChange(evt, value){
@@ -124,7 +124,7 @@ operationChange(evt, value){
 }
 
 btNameChange(evt, value){
-  this.props.btNameChange(value, this.props.value.id)
+  this.props.btNameChange(value, this.props.value.btMethodRuleId)
 }
 
 handleOperation(event, index, value){
@@ -132,7 +132,6 @@ handleOperation(event, index, value){
 }
 
 render() {
-    console.log("this.state--",this.state.opData)
   return (
     <div className="row col-md-12">
       <div className="col-md-3">
@@ -156,7 +155,6 @@ render() {
          <MenuItem value={data.id}  primaryText={data.option}/> 
          ))
        }
-
       </DropDownMenu>
        
       </div>

@@ -105,7 +105,14 @@ class Form_SessionAttrAdd extends React.Component {
   }
 
   completeChkBoxChange(event,isInputChecked){
-      var valDataCss = isInputChecked && !this.state.specificChkBox ?'hidden':'show';
+      console.log("this.state.specificChkBox--",this.state.specificChkBox)
+      var valDataCss;
+      if(isInputChecked){
+        valDataCss = 'hidden'
+        if(this.state.specificChkBox)
+           valDataCss = 'show'
+      }
+      
       this.setState({valDataCss:valDataCss})
   }
 

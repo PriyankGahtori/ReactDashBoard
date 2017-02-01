@@ -1689,8 +1689,6 @@ export function toggleStateAddSessionAttrMonitor(){
   }
 }
 
-
-
 export function updateSessionType(profileId,data){
   var response = axios({
     method:'post',
@@ -1819,4 +1817,63 @@ export function updateBTMethod(data,btMethodId){
   }
 
 
+}
+
+export function delMethodRulesRow(selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_METHOD_RULES}/`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_METHOD_RULES_ROW',
+    payload: response
+  }
+}
+
+export function toggleStateSessionAttribute(){
+  return {
+    type:'TOGGLE_STATE_ADD_ERROR_DETECTION'
+  }
+}
+
+export function delMethodBTRow(profileId,selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_METHOD_BT}/${profileId}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_METHOD_BT_ROW',
+    payload: response
+  }
+}
+{/*
+export function delSessAttrMon(data,profileId){
+  console.log("in action--",data)
+    var response = axios({
+      method:'post',
+      url : `${url.DEL_ROW_SESSION_ATTR}/${profileId}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+ });
+
+ return{
+    type    :'DEL_APPTABLE_ROW',
+    payload :response
+  }
+}
+*/}
+
+
+export function changedRuleTypes(ruleTypes){
+  console.log("changedRuleTypes method called")
+  return{
+    type:'EDIT_RULE_TYPES',
+    payload:ruleTypes
+  }
 }

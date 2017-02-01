@@ -23,6 +23,7 @@ import DataGrid from '../../../../components/DCDetailTable';
 import EnableMethodMonitor from './EnableMethodMonitor';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import DialogAttrVal from './Dialog_AttrValues';
+import Dialog_SessionAttrEdit from './Dialog_SessionAttrEdit'
 export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
@@ -77,7 +78,8 @@ const styles = {
      this.state = {openSnack: false,
                    delDialog: false,
                   attrType :'all',
-                  specificModeCSS:'hidden'
+                  specificModeCSS:'hidden',
+                  editSessionAttr: false
                 }
 
     console.log("SessionAttributeMonitors method called",this.props)
@@ -149,8 +151,21 @@ loader(){
   handleClose(){
         this.setState({delDialog:false})
   }
- 
+
+ handleEdit(){
+  var selectedRow = [];
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+      let selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function (value) {
+          return value.sessAttrId == selectedRow
+        });
+ if(selectedRow.length == 1){
+   this.props.toggleEditSessionAttrForm();
+   this.props.initializeSessionAttr(selectedRowData[0]);
+ }
+
+ }
   handleOpen(){
+
     this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
   //  this.props.disableSubmitButtonState();
    // this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
@@ -188,7 +203,8 @@ loader(){
           </div>
 
           <div className="pull-right"  >
-            <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+          <IconButton tooltip="Edit Session Attribute" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+          <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
@@ -209,6 +225,8 @@ loader(){
 
          <DialogSessionAttr profileId ={this.props.profileId}/>
          <DialogAttrVal />
+          <Dialog_SessionAttrEdit  />
+          
           
         </div>
          <Snackbar

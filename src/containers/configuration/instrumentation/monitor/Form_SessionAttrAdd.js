@@ -31,8 +31,12 @@ const validate = values=>{
     if(!values.attrName)
     errors.attrName = 'Required'
         
-    else if (!isNaN(values.attrName))
-    errors.attrName = 'Please Enter Only Characters'
+   else if(Number(values.attrName))
+    errors.attrName = "Please enter only characters."
+
+   else if(!Is.alphaNumeric(values.attrName))
+      errors.attrName = 'Special characters are not allowed.'
+    
 
      if(!values.complete && !values.specific)
      errors.complete = 'Must select any of the  Attribute Type'
@@ -314,7 +318,7 @@ renderSessionAttrValues(arr)
               // hintText="Hint Text"
                floatingLabelText=" Name"
                {...attrName}
-              errorText = {attrName.touched  && attrName.error && <div> {attrName.error}</div> }
+                errorText={attrName.touched && attrName.error && <div>{attrName.error}</div>}
                />
         
     </div>

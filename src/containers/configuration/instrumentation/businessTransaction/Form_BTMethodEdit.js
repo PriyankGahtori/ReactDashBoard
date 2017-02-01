@@ -226,7 +226,7 @@ handleSubmitValType(rules){
     console.log("this.props.initialData--",this.props.initialData)
     console.log("valData---",valData)
     this.props.addBTMethodRule(valData,this.props.initialData.btMethodId)
-    this.setState({addCompCSS:'hidden'})
+    this.setState({addCompCSS:'hidden',errMsgCss:'hidden'})
     }
  }
 

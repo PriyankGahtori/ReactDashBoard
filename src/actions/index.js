@@ -1638,6 +1638,29 @@ export function clearValData(){
   }
 }
 
+export function toggleEditSessionAttrForm(){
+
+  return{
+    type:'TOGGLE_EDIT_SESSION_ATTR',
+    
+  }
+}
+export function initializeSessionAttr(data){
+
+  return{
+    type:'INITIALIZE_SESSION_ATTR',
+    payload:data
+    
+  }
+}
+
+export function updateSpecificAttrMon(data){
+  return{
+    type:'EDIT_SESSION_ATTR',
+    payload:data
+}
+}
+
 export function addSpecificAttrMon(data,profileId){
   console.log("data--",data)
   var response = axios({

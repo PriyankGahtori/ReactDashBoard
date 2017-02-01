@@ -1,10 +1,11 @@
 const initialState = {tableData:[],
                      openNewAppDialog:false,  //initializing varia
-                     appDetailInitializeForm:null,
+                     sessionAttrInitializeForm:null,
                      openAppDialogType:null,
                      ndConfPath:null,
                      valData:[],
                      openNewSessAttrMonDialog:false,
+                     openEditSessAttrMonDialog:false,
                      disabled:false,
                      openAttrValDialog:false,
                      attrValues:[],
@@ -69,6 +70,7 @@ export default function(state = initialState, action) {
       newState.valData = [];
       return newState;
 
+
     case 'ADD_ATTRIBUTE':
     var newState = Object.assign({},state)
     console.log("add attr--",action.payload)
@@ -99,6 +101,7 @@ export default function(state = initialState, action) {
       newState.openNewSessAttrMonDialog= !newState.openNewSessAttrMonDialog;
       console.log("newState.openNewMethodMonDialog---",newState.openNewSessAttrMonDialog)
       return newState;
+
 
         //NOT USED
       case 'TOGGLE_STATE_SUBMIT_BUTTON':
@@ -157,7 +160,36 @@ export default function(state = initialState, action) {
       newState.tableData = data;
       return newState;
 
+     case 'TOGGLE_EDIT_SESSION_ATTR':
+      var newState = Object.assign({}, state);
+      newState.openEditSessAttrMonDialog= !newState.openEditSessAttrMonDialog;
+      return newState;
 
+      case  'INITIALIZE_SESSION_ATTR':
+        var newState = Object.assign({}, state);
+        var data = action.payload;
+        if(data.attrType == "specific"){
+          data.specific = true
+          data.complete = false
+        }else {
+          data.complete = true
+          data.specific = false
+        } 
+        newState.sessionAttrInitializeForm = action.payload;
+      return newState;
+
+      case  'EDIT_SESSION_ATTR':
+        var newState = Object.assign({}, state);
+         newState.tableData.map(function(val){
+          if(val.sessAttrId == action.payload.sessAttrId)
+          {
+             val.attrName = action.payload.attrName;
+             val.attrType = action.payload.attrType;
+          }
+             return val;
+         });  
+         console.log(" newstate data ------> ",newState.tableData)
+      return newState;
 
   default :
     return state;

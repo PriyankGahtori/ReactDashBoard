@@ -5,6 +5,7 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
 
 //Importing files
 import * as actionCreators  from '../../../actions/index';
@@ -32,7 +33,7 @@ const styles = {
   
   constructor(props) {
     super(props);
-    this.state = {value:[]};
+    this.state = {value:[],openSnack: false};
     this.state = {listData :[]};
   }
 
@@ -53,28 +54,38 @@ const styles = {
   }
 
   updateSelected(value){
-    console.log("updateSelected function called---",value)
+    
     this.setState({value });
+  }
+  handleRequestClose(){
+   
+    this.setState({openSnack: false,instrSnack: false})
   }
   
   submitInstr(){
-    console.log("in sub,itting ---",this.state.value)
     var formData = [];
 
     //for runtime changes
     let keywordDataList = [];
-
+    try{
     var data = this.state.value;
     data.map(function(value){
       console.log("value---",value)
       keywordDataList.push("instrProfile" + "=" + value.value);
       formData.push(value.value)
     })
+    }
+    catch(e){
+      console.log(" exception Handled")
+    }
+    
     var finaldata = {"instrProfile":formData}
-    console.log("finaldata---",finaldata)
-    this.props.handleSubmit(finaldata)
-
-
+    if(formData.length > 0){
+    this.setState({openSnack: true,instrSnack:false})
+     }
+     else
+      this.setState({openSnack:false,instrSnack: true})
+    
     if(keywordDataList.length == 0)
       keywordDataList.push("instrProfile" + "=" + "global.xml");
 
@@ -109,6 +120,18 @@ const styles = {
           </RaisedButton>
          
          </div>
+          <Snackbar
+          open={this.state.openSnack}
+          message="Instrumentation Profiles are submitted successfully"
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)}
+          />
+          <Snackbar
+          open={this.state.instrSnack}
+          message="No Instrumentation Profiles are selected."
+          autoHideDuration={4000}
+          onRequestClose={this.handleRequestClose.bind(this)}
+          />
          </div>
 
 

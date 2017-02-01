@@ -1829,3 +1829,28 @@ export function delMethodBTRow(profileId,selectedRowKeys)
     payload: response
   }
 }
+{/*
+export function delSessAttrMon(data,profileId){
+  console.log("in action--",data)
+    var response = axios({
+      method:'post',
+      url : `${url.DEL_ROW_SESSION_ATTR}/${profileId}`,
+      data: data,
+      headers:{'Content-Type':'application/json'}
+ });
+
+ return{
+    type    :'DEL_APPTABLE_ROW',
+    payload :response
+  }
+}
+*/}
+
+
+export function changedRuleTypes(ruleTypes){
+  console.log("changedRuleTypes method called")
+  return{
+    type:'EDIT_RULE_TYPES',
+    payload:ruleTypes
+  }
+}

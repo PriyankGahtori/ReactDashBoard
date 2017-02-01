@@ -121,7 +121,7 @@ var resHdrList = [
    { value: 'X-XSS-Protection', label: 'X-XSS-Protection' },
   
 ]
-
+ 
 const styles = {
   input: {
     width: 150,
@@ -149,7 +149,12 @@ var dataForCaptureDropDown = [{'id':0 , 'option' :'complete'},
                                {'id':1, 'option':'brief'}
   ]
 
-
+const validate = values=> {
+  const errors = {}
+   if(!values.sessionType)
+       errors.sessionType = 'Must select any one of the Session Type'
+  return errors;
+}
 class Form_EnableFpCapturing extends React.Component {
 
   constructor(props) {
@@ -175,14 +180,17 @@ class Form_EnableFpCapturing extends React.Component {
       'sessionType':this.props.sessionType,
       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
-      'sessionType':this.props.sessionType != null ?this.props.sessionType:'all'
-      
+      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA'
   }
 }
 
   componentWillMount() {
    // this.props.initializeInstrException();
   
+ }
+
+ componentWillUnmount() {
+   console.log("componentWillUnmount()  method called")
  }
 
  componentWillReceiveProps(nextProps)
@@ -324,7 +332,7 @@ handleCaptureSessionAttr(event,isInputChecked){
   let captureSessionAttrCss =  isInputChecked ? 'show' : 'hidden';
   this.setState({'enableCaptureSessionAttr':isInputChecked,
                   captureSessionAttrCss:captureSessionAttrCss,
-                  specificDivCSS: !isInputChecked ? 'hidden':''
+                  specificDivCSS: isInputChecked && this.state.sessionType == 'specific' ? 'show':'hidden'
 
     })
 
@@ -604,12 +612,12 @@ render() {
   </div>
 
   <div className = {`row ${this.state.captureSessionAttrCss}`}>
-    <div className = " col-md-3" >
+    <div className = " col-md-6" >
         <RadioButtonGroup 
           {...sessionType}
           name = "sessionType" 
           defaultSelected={this.state.sessionType}
-          onCustomChange={this.handleSessionTypeChange.bind(this) }
+          onCustomChange={this.handleSessionTypeChange.bind(this)}
           >
         <RadioButton
             value="all"
@@ -620,6 +628,7 @@ render() {
             label="Specific"  
         />
         </RadioButtonGroup>
+          <div style={{color:'red',fontSize:'14'}}> {sessionType.touched && sessionType.error && <div>{sessionType.error}</div>}</div>
       </div>
       </div>
 
@@ -648,6 +657,7 @@ Form_EnableFpCapturing.propTypes = {
 export default reduxForm({
   form: 'Form_EnableFpCapturing',
   fields,
+  validate,
 
 },
   state => ({ // mapStateToProps

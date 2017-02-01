@@ -42,7 +42,7 @@ super(props);
   this.handleCancel = this.handleCancel.bind(this);
   this.state={sessionAttrMonitor : this.props.sessionAttrMonitor,
                 changedValArr:[],
-                addCompCSS:'hidden'
+                addCompCSS:'hidden',
   };
   this.submitForm =this.submitForm.bind(this);
   
@@ -55,6 +55,7 @@ super(props);
  submitForm(data){
      console.log("data--",data)
      console.log("this.props--",this.props.sessionAttrMonitor.valData)
+
      if(data.complete == 'true' && data.specific == 'true'){
         data["attrMode"]=3
         data["attrType"] ='complete,specific'
@@ -167,13 +168,11 @@ rbChange(value,id){
 }
 
 addValType(){
-  console.log("adding val type method called")
-  var value = {
+  var value = { 
                 'valName':this.state.valName,
                 'lb':this.state.lb,
                 'rb':this.state.rb
   }
-  console.log("this.props.sessionAttrMonitor.attrRowId--",this.props.sessionAttrMonitor.attrRowId)
   this.props.addValueType(value,this.props.sessionAttrMonitor.attrRowId);
   this.setState({addCompCSS:'hidden'})
 }
@@ -214,7 +213,6 @@ addValType(){
           refs="insidedialog"
           titleStyle={styles.title}
         >
-
         <Paper zDepth={2} style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
           <div className="pull-right">
           <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>

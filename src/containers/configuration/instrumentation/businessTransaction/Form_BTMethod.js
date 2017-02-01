@@ -29,7 +29,20 @@ export const fields = ['fqm','enableArgumentType','argumentIndex','returnType', 
 
 const validate = values => {
     const errors = {}
+     if(!values.fqm)
+      errors.fqm = 'Required'
 
+     if(!values.returnType)
+      errors.returnType = 'Required'
+
+
+     if(values.enableArgumentType){
+       if(!values.argumentIndex)
+        errors.argumentIndex = 'Required'
+
+     else if (isNaN(values.argumentIndex))
+    errors.argumentIndex = 'Please Enter Only Numbers'
+     }
     return errors
 }
 const styles = {
@@ -51,27 +64,25 @@ const styles = {
     error: {
         fontSize: 12,
         color: 'red',
-        paddingLeft: 40,
+        paddingLeft:3,
     },
 };
 
-const NewButtonstyle = {
+const NewButtonstyle = {                                                                                                                                                                                                                      
     left: 3,
     top: -7
 };
 
 const errMsgCss = {
-    
-    left: '10px',
-    color: '#FFF',
+    color: 'red',
     paddingTop: 13,
 
 }
 
 var columns = {
-                "key" : "id",
+                "key" : "btMethodRuleId",
                 "data":['Value', 'Operation','BT Name', 'ID'],
-                "field":['value', 'operationName', 'btName','id']
+                "field":['value', 'operationName', 'btName','btMethodRuleId']
               };  
 
 
@@ -180,7 +191,7 @@ class Form_BTMethod extends React.Component {
         // this.editValArr(id,'lb',value)
     }
 
-    
+ //NOT USED   
 del(val){
   console.log("val--",val)
   let arr = this.state.valDataArr;
@@ -217,7 +228,8 @@ handleSubmitValType(rules){
                      'opCode':this.state.opCode,
                      'btName':this.state.btName,
                      'operationName':this.state.operationName,
-                     'id':this.state.count
+                     'opCodeDropDown': {"dropDownVal":this.state.opCode}, 
+                     'btMethodRuleId':this.state.count
     }
     console.log("this.props--",this.state.opCode)
     console.log("this.state--",this.state.btName)
@@ -262,7 +274,9 @@ onAfterSaveCell(row, cellName, cellValue){
 }
 
 onBeforeSaveCell(row, cellName, cellValue){
-    console.log("onBeforeSaveCell method called in dialog_AttrValues")
+    console.log("onBeforeSaveCell method called in dialog_AttrValues",row)
+    console.log("onBeforeSaveCell method called in dialog_AttrValues--",cellName)
+    console.log("cellValue---",cellValue)
   }
 
   handleOpen(){
@@ -276,6 +290,12 @@ handleEnableArgumentType(evnt,isInputChecked){
                    argumentIndexCss :argumentIndexCss
     })
 }
+
+   onChangeOpDropDown(val,row){
+        console.log("val----",val)
+        console.log("row---",row)
+        this.onAfterSaveCell(row,"opCode", val)
+    }
 
 
     render() {
@@ -295,6 +315,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             // hintText="Hint Text"
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
+                            errorText = {fqm.touched && fqm.error}
                             />
                     </div>
                 </div>
@@ -319,6 +340,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <TextField
                                 floatingLabelText="Argument Index"
                                 {...argumentIndex}
+                                errorText = {argumentIndex.touched  && argumentIndex.error}
                             />
                         </div>
                     </div>
@@ -337,20 +359,15 @@ handleEnableArgumentType(evnt,isInputChecked){
                             <MenuItem value={"Boolean"} primaryText="BOOLEAN" />
                             <MenuItem value={"Char or Byte"} primaryText="CHAR OR BYTE" />
                         </DropDownMenu>
+                 <div style={styles.error}> {returnType.touched && returnType.error && <div>{returnType.error} </div>}</div>
+
                     </div>
 
                 
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>
-                        <div className="row col-md-8 ">
-                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
-                                <p style={errMsgCss}>Fields are empty</p>
-                            </div>
-
-                        </div>
-
-                    { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
+                     { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
 
 
@@ -367,9 +384,16 @@ handleEnableArgumentType(evnt,isInputChecked){
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
+                        onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
                       
             />
             </div>
+              <div className="row col-md-8 ">
+                            <div className={`col-md-7 ${this.state.errMsgCss}`}>
+                                <p style={errMsgCss}>Fields are empty</p>
+                            </div>
+
+                        </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"

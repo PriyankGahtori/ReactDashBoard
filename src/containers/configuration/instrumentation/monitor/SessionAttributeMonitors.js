@@ -190,6 +190,48 @@ loader(){
     this.props.toggleStateAttrValDialog(row.sessAttrId);
 
   }
+  handleOpenEdit(){
+    console.log("handleOpenEdit method called--")
+   /* let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+    if (selectedRow.length == 1) {
+
+        this.setState({ openSnack: false })
+        let selectedRowData = this.props.sessionAttrMonitor.tableData
+          .filter(function (value) {
+            return value.appId === selectedRow[0]
+          });
+        //action to dispatch selectedRowData to set initialValue to the fields in case of editing the row
+        this.props.appDetailInitializeForm(selectedRowData[0], openAppDialogType);
+
+        //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
+        this.props.toggleStateDialogNewApp();
+        try {
+          this.refs.appTable.refs.table.state.cleanSelected();
+        } catch (ex) {
+          console.error("Exception in ApplicationDetail file-", ex)
+        }
+      }
+      */
+    
+  }
+
+  handleDel(){
+    let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRow-",selectedRow)
+    var selectedRowKeys = [];
+    var selectedRowData = [];
+    selectedRowKeys  = this.refs.appTable.refs.table.state.selectedRowKeys;
+   /* this.props.sessionAttrMonitor.tableData.forEach(function (value) {
+    if (!(selectedRowKeys.indexOf(value.btMethodId) == -1))
+        selectedRowData.push(value)
+    });
+    this.refs.appTable.refs.table.cleanSelected();
+  
+    console.log("selectedRowKeys--",selectedRowKeys)
+    this.props.delSessAttrMon(selectedRowKeys,this.props.profileId);
+    */
+
+  }
 
   render() {
    const actionsDel = [
@@ -215,9 +257,13 @@ loader(){
               <h4>Session Attribute(s)</h4>
           </div>
 
+           <DialogSessionAttr profileId ={this.props.profileId}/>
+
           <div className="pull-right"  >
-            <IconButton tooltip = "Edit"   style={{position: 'absolute',right:68}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-            <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+
+ {/*  <IconButton tooltip="Edit " onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton> */}
+              <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+       {/*    <IconButton tooltip="Delete" onTouchTap={this.handleDel}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> */}
           </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
@@ -236,7 +282,7 @@ loader(){
             <AddIcon />
           </AddNewButton> */}
 
-         <DialogSessionAttr profileId ={this.props.profileId}/>
+        
          <DialogAttrVal />
           
         </div>

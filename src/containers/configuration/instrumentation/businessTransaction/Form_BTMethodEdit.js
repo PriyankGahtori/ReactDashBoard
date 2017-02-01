@@ -23,7 +23,7 @@ import Toggle from '../../../../components/ToggleWrapper';
 import AddMethodValues from './AddMethodValues';
 import MethodBTComponent from './MethodBTComponent';
 import DataGrid from '../../../../components/DCDetailTable';
-import {addBTMethodRule} from '../../../../actions/index';
+import { addBTMethodRule,delMethodRulesRow } from '../../../../actions/index';
 
 
 export const fields = ['fqm','enableArgumentType','argumentIndex', 'returnType', 'rules']
@@ -124,10 +124,13 @@ class Form_BTMethodEdit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         console.log("nextProps--",nextProps.initialData)
+        console.log("this.props.initialData--",this.props.initialData)
         if(this.props.initialData != nextProps.initialData){
             console.log("again setState methid called")
             this.setState({ ruleTypes:nextProps.initialData.rules})
         }
+
+        
     }
 
     handleCheck(event, value) {
@@ -263,7 +266,13 @@ handleEnableArgumentType(evnt,isInputChecked){
 }
 
 
+ handleDeleteRow(){
+     var selectedRow = [] ;
+     selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
 
+     console.log("selectedRow - ",selectedRow)
+     this.props.delMethodRulesRow(this.props.params.profileId,selectedRow);
+  }
 
     render() {
     const cellEditProp = {
@@ -350,11 +359,12 @@ handleEnableArgumentType(evnt,isInputChecked){
 
             <div className="pull-right"  >
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+                <IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
             </div>
             
          
-            <DataGrid data = {this.state.ruleTypes} 
-                         cellEdit ={ cellEditProp }
+            <DataGrid data = {this.props.initialData.rules} 
+                          cellEdit = { cellEditProp }
                         pagination = {false} 
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
@@ -409,7 +419,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
         initialData :state.methodBT.btMethodInitializeForm
     }),
     {
-     addBTMethodRule :addBTMethodRule 
+     addBTMethodRule :addBTMethodRule,
+     delMethodRulesRow : delMethodRulesRow
     }
 
 )(Form_BTMethodEdit);

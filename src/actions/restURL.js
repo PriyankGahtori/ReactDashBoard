@@ -134,4 +134,6 @@ export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttr
  export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;
  export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
  export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
- export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`
+ export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
+ export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/delete`;
+ export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;

@@ -111,9 +111,9 @@ class MethodBT extends React.Component {
       this.setState({ methodBT: nextProps.methodBT });
   }
 
-  handleDelErrorDetection() {
+  handleDeleteMethodBT() {
     var selectedRow = [];
-    selectedRow = this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
+    selectedRow = this.refs.btMethodTable.refs.table.state.selectedRowKeys;
     if (selectedRow.length >= 1) {
       this.setState({ openSnack: false, cnfmDelDialog: true })
     }
@@ -135,22 +135,24 @@ class MethodBT extends React.Component {
     this.setState({ cnfmDelDialog: false })
   }
 
-  // Below Method is called when the user tries to delete the Error Detection.
-  /* delErrorDetection(){
+  // Below Method is called when the user tries to delete the BT Methods
+   delMethodBT(){
       var selectedRow = [] ;
-      selectedRow = this.refs.errorDetectionTable.refs.table.state.selectedRowKeys;
-      this.props.delErrorDetectionRow(this.props.params.profileId,selectedRow);
+      console.log("this.refs - ",this.refs);
+
+      selectedRow = this.refs.btMethodTable.refs.table.state.selectedRowKeys;
+      this.props.delMethodBTRow(this.props.params.profileId,selectedRow);
       try{
-         this.refs.errorDetectionTable.refs.table.cleanSelected();
+         this.refs.btMethodTable.refs.table.cleanSelected();
       }
       catch(e)
       {
-        console.error(" Exception Occured: FileName: ErrorDetection,MethodName: delErrorDetection() ",e)
+        console.error(" Exception Occured: FileName: MethodBT,MethodName: delMethodBT() ",e)
       }
  
       this.setState({cnfmDelDialog: false})
  
-   } */
+   } 
 
   handleOpen() {
 
@@ -186,7 +188,7 @@ handleHref(row){
       <FlatButton
         label="Delete"
         primary={true}
-        onTouchTap={this.delErrorDetection} />
+        onTouchTap={this.delMethodBT.bind(this)} />
     ];
 
     return (
@@ -196,7 +198,7 @@ handleHref(row){
             <div className="col-md-4">
               <h4 style={{ position: 'relative' }}>Method Bussiness Transaction(s)</h4>
             </div>
-            <IconButton tooltip="Delete Method BT" className="pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
+            <IconButton tooltip="Delete" className="pull-right" onTouchTap={this.handleDeleteMethodBT.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
             <DataGrid data={this.props.methodBT.tableData}
               pagination={false}
               ref="btMethodTable"
@@ -213,7 +215,7 @@ handleHref(row){
               <DialogMethodBT profileId={this.props.params.profileId} />
               <ConfirmDelDialog
                 open={this.state.cnfmDelDialog}
-                title="Are you sure want to delete the Error Detection(s)?"
+                title="Are you sure want to delete the BT Method(s)?"
                 actions={actions}
                 modal={false} />
               <DialogMethodBTEdit profileId={this.props.params.profileId} />

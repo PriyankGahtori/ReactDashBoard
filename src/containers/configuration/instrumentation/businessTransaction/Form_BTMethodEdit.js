@@ -394,7 +394,7 @@ handleEnableArgumentType(evnt,isInputChecked){
 
             <div className="pull-right"  >
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-                <IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
+                {/*<IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> */}
             </div>
             
 
@@ -423,7 +423,7 @@ handleEnableArgumentType(evnt,isInputChecked){
             label="Add"
             labelColor="#FFF"
             backgroundColor = "#18494F" 
-            onClick={this.handleSubmitValType.bind(this,rules)}
+            onClick={this.handleSubmitValType.bind(this)}
             style={{color:'#000',position:'relative',top:'18px'}}>
            </RaisedButton>
             </div>

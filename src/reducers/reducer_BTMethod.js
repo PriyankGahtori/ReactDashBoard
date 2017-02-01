@@ -3,7 +3,8 @@ const initialState = {
     tableData: [],
     openBTMethodDialog: false,
     btMethodInitializeForm:{},
-    openBTMethodDialogEdit:false
+    openBTMethodDialogEdit:false,
+    editRuleTypes:[]
 }
 
 export default function (state = initialState, action) {
@@ -17,6 +18,11 @@ export default function (state = initialState, action) {
             newState.tableData = action.payload.data;
             newState.tableData.map(function(val){
                 val.hrefFqm = {"href":val.fqm}
+                if(val.rules != null){
+                    val.rules.map(function(ruleData){
+                        ruleData.opCodeDropDown = {"dropDownVal":ruleData.opCode} 
+                    })
+                }
             })
             console.log("newState---", newState.tableData)
             return newState;
@@ -32,6 +38,11 @@ export default function (state = initialState, action) {
             console.log("action.payload---",action.payload)
             var data = action.payload.data;
             data.hrefFqm ={"href":data.fqm};
+            if(data.rules != null){
+                data.rules.map(function(val){
+                    val.opCodeDropDown = {"dropDownVal":val.opCode}
+                })
+            }
             newState.tableData.push(data)
             return newState;
 
@@ -58,13 +69,14 @@ export default function (state = initialState, action) {
             var respData = action.payload.data ;
             newState.tableData.map(function(val){
              if(val.btMethodId == respData.parentBTMethodId){
+                 respData.opCodeDropDown = {"dropDownVal":respData.opCode} 
                  val.rules.push(respData)
              }
              
             })
             console.log("newState-=---",newState)
             return newState;
-
+            
         case 'UPDATE_BTMETHOD':
            var newState =  Object.assign({},state)
            console.log("action.payload---",action.payload)
@@ -79,9 +91,19 @@ export default function (state = initialState, action) {
            newState.tableData = newState.tableData.filter(function(val){
                                         if(val.btMethodId == data.btMethodId){
                                             val.hrefFqm = {"href":data.fqm}
+                                            val.argumentIndex = data.argumentIndex
+                                            val.enableArgumentType = data.enableArgumentType
+                                            val.returnType = data.returnType
                                         }
                                         return val;
                                 })
+           console.log("newState--",newState)
+           return newState;
+
+           case 'EDIT_RULE_TYPES':
+           var newState =  Object.assign({},state)
+           console.log("action.payload.data--",action.payload)
+           newState.editRuleTypes = action.payload ;
            console.log("newState--",newState)
            return newState;
                 

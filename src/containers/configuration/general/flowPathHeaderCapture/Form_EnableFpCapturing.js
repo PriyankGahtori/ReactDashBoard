@@ -175,7 +175,7 @@ class Form_EnableFpCapturing extends React.Component {
       'sessionType':this.props.sessionType,
       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
-      'sessionType':this.props.sessionType != null ?this.props.sessionType:'all'
+      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA'
       
   }
 }
@@ -183,6 +183,10 @@ class Form_EnableFpCapturing extends React.Component {
   componentWillMount() {
    // this.props.initializeInstrException();
   
+ }
+
+ componentWillUnmount() {
+   console.log("componentWillUnmount()  method called")
  }
 
  componentWillReceiveProps(nextProps)
@@ -324,7 +328,7 @@ handleCaptureSessionAttr(event,isInputChecked){
   let captureSessionAttrCss =  isInputChecked ? 'show' : 'hidden';
   this.setState({'enableCaptureSessionAttr':isInputChecked,
                   captureSessionAttrCss:captureSessionAttrCss,
-                  specificDivCSS: !isInputChecked ? 'hidden':''
+                  specificDivCSS: isInputChecked && this.state.sessionType == 'specific' ? 'show':'hidden'
 
     })
 

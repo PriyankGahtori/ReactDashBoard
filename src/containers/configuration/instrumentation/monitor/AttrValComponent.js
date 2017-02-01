@@ -32,7 +32,6 @@ class AttrValComponent extends React.Component {
                       rb:nextProps.value.rb
       })
       
-      console.log("this.state--",this.state.valName)
     }
   }
 

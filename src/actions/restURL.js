@@ -129,6 +129,7 @@ export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addsp
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
+//export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
  /*URL for btMethod */
  export const ADD_BT_METHOD = `${SERVICE_URL}/custom/btmethod/addbtmethod`;

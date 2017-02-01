@@ -23,10 +23,11 @@ import Toggle from '../../../../components/ToggleWrapper';
 import AddMethodValues from './AddMethodValues';
 import MethodBTComponent from './MethodBTComponent';
 import DataGrid from '../../../../components/DCDetailTable';
-import {addBTMethodRule} from '../../../../actions/index';
+import {addBTMethodRule,changedRuleTypes} from '../../../../actions/index';
+import * as  opData from './OperatorsData';
 
 
-export const fields = ['fqm','enableArgumentType','argumentIndex', 'returnType', 'rules']
+export const fields = ['fqm','enableArgumentType','argumentIndex', 'returnType']
 
 const validate = values => {
     const errors = {}
@@ -70,7 +71,7 @@ const errMsgCss = {
 var columns = {
                 "key" : "btMethodRuleId",
                 "data":['Value', 'Operation','BT Name', 'ID'],
-                "field":['value', 'operationName', 'btName','btMethodRuleId']
+                "field":['value', 'opCodeDropDown', 'btName','btMethodRuleId']
               };  
 
 
@@ -99,7 +100,7 @@ class Form_BTMethodEdit extends React.Component {
                     errMsgCss:'hidden',
                     tableCss:'hidden',
                     addCompCSS:'hidden',
-                    ruleTypes:this.props.initialData == null ? []:this.props.initialData.rules,
+                    ruleTypes:[],
                     operationName:'',
                     enableArgumentType:this.props.initialData.enableArgumentType,
                     argumentIndex:this.props.initialData.argumentIndex,
@@ -120,13 +121,15 @@ class Form_BTMethodEdit extends React.Component {
 
 
     componentWillMount() {
+         var arrData = [];
+         this.props.changedRuleTypes(arrData);
     }
 
     componentWillReceiveProps(nextProps) {
         console.log("nextProps--",nextProps.initialData)
         if(this.props.initialData != nextProps.initialData){
             console.log("again setState methid called")
-            this.setState({ ruleTypes:nextProps.initialData.rules})
+           // this.setState({ ruleTypes:nextProps.initialData.rules})
         }
     }
 
@@ -199,9 +202,8 @@ del(val){
 
 
 
-handleSubmitValType(rules){
+handleSubmitValType(){
   
-  console.log("handleSubmitValType method called--",rules)
     if(this.state.value == '' || this.state.opCode == '' || this.state.btName == '' ){
        this.setState({errMsgCss:'show'})
     }
@@ -225,22 +227,37 @@ onAfterSaveCell(row, cellName, cellValue){
   console.log("cellName--",cellName)
   console.log("cellVAlue--",cellValue)
   console.log("this.state.rilrtYpe--",this.state.ruleTypes)
-var arrData = Object.assign([],this.state.ruleTypes)
+ var arrData = Object.assign([],this.state.ruleTypes)
    //var arrData = this.state.changedValArr;
   
   if(arrData != null && arrData.length != 0){
     arrData.map(function(value){
         console.log("value--",value)
-        value.btMethodRuleId == row.btMethodRuleId  ?  value[cellName] = cellValue:  arrData.push(row)
+        if(value.btMethodRuleId == row.btMethodRuleId ){ 
+             value[cellName] = cellValue
+             if(cellName == "opCode")
+                console.log("opData.getOperationName(cellValue)--",opData.getOperationName(cellValue))
+                value["operationName"] = opData.getOperationName(cellValue);
+         }
+         else{
+          arrData.push(row)
+         }
     })
   }
   else{
     console.log("narrData--in elsecondition")
-    arrData.push(row);
+    //when operationName cell is made to edit ,row needs to be updated manually .
+     if(cellName == "opCode"){
+        row["opCode"] = cellValue
+        row["operationName"] = opData.getOperationName(cellValue);
+     }
+        arrData.push(row);
   }
   console.log("arrData--",arrData)
   this.setState({ruleTypes:arrData})
-  console.log("this.state--",this.state.ruleTypes)
+
+  //storing in state so that parent component can acess it i.e its dialog
+  this.props.changedRuleTypes(arrData);
 }
 
 onBeforeSaveCell(row, cellName, cellValue){
@@ -262,6 +279,14 @@ handleEnableArgumentType(evnt,isInputChecked){
     })
 }
 
+    onChangeOpDropDown(val,row){
+        console.log("val----",val)
+        console.log("row---",row)
+        this.onAfterSaveCell(row,"opCode", val)
+    }
+
+
+
 
 
 
@@ -273,9 +298,9 @@ handleEnableArgumentType(evnt,isInputChecked){
       afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
  };
 
-        const { fields: {fqm, returnType,enableArgumentType,argumentIndex, rules}, resetForm, handleSubmit, onSubmit, submitting} = this.props
+        const { fields: {fqm, returnType,enableArgumentType,argumentIndex}, resetForm, handleSubmit, onSubmit, submitting} = this.props
         return (
-            <form >
+            <form  >
                 <div className="row col-md-10">
                     <div className="col-md-5">
                         <TextField
@@ -353,22 +378,23 @@ handleEnableArgumentType(evnt,isInputChecked){
             </div>
             
          <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
-            <DataGrid data = {this.state.ruleTypes} 
+            <DataGrid data = {this.props.initialData.rules} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
                         style={{color:'#000000'}}
+                        onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
                         tableStyle={{background:'#ffffff'}}
             />
             </div>
           <div className = {`row ${this.state.addCompCSS}`}>
-             <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
+            <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
             <RaisedButton className ="pull-right"
             label="Add"
             backgroundColor = "#D3D3D3" 
-            onClick={this.handleSubmitValType.bind(this,rules)}
+            onClick={this.handleSubmitValType.bind(this)}
             style={{color:'#000',position:'relative',top:'18px'}}>
       
            </RaisedButton>
@@ -377,14 +403,15 @@ handleEnableArgumentType(evnt,isInputChecked){
 
          </div>
 
-           <div className="hidden">
-        <TextField
-         {...rules}
-        floatingLabelText=" Name"
-       
-      />
-      </div>
-  
+          {/* <div className="hidden">
+                <TextField
+                {...rules}
+                floatingLabelText=" Name"
+                defaultValue ={this.state.ruleTypes}
+            />
+            
+         </div>
+         */}
             </form>
         );
     }
@@ -409,7 +436,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
         initialData :state.methodBT.btMethodInitializeForm
     }),
     {
-     addBTMethodRule :addBTMethodRule 
+     addBTMethodRule :addBTMethodRule ,
+     changedRuleTypes : changedRuleTypes
     }
 
 )(Form_BTMethodEdit);

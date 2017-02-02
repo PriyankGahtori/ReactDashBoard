@@ -83,6 +83,7 @@ class Topology extends React.Component {
     // gets the selected key of table
     let selectedRow = this.refs.topoTable.refs.table.state.selectedRowKeys;
     if (selectedRow.length == 1) {
+        this.setState({open: false})
       let selectedRowData = this.props.topologyData.tableData
         .filter(function (value) {
           if (value.dcTopoId === selectedRow[0]) {
@@ -93,6 +94,9 @@ class Topology extends React.Component {
       //action to dispatch selectRowData
       this.props.topoInitializeForm(selectedRowData, this.props.params.dcId);
       this.props.toggleStateDialogEditTopo();
+    }
+    else{
+      this.setState({open: true})
     }
   }
 
@@ -176,7 +180,7 @@ class Topology extends React.Component {
             </div>
 
             <div className="col-md-2">
-              <IconButton className="pull-right" onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+              <IconButton tooltip="Edit Topology" className="pull-right" onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
               { /*  <IconButton onTouchTap={this.delRow}><FontIcon className="material-icons">delete</FontIcon></IconButton>*/}
             </div>
           </div>

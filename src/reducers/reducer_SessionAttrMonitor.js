@@ -182,14 +182,13 @@ export default function(state = initialState, action) {
       case  'EDIT_SESSION_ATTR':
         var newState = Object.assign({}, state);
          newState.tableData.map(function(val){
-          if(val.sessAttrId == action.payload.sessAttrId)
+          if(val.sessAttrId == action.payload.data.sessAttrId)
           {
-             val.attrName = action.payload.attrName;
-             val.attrType = action.payload.attrType;
+             val.attrName = action.payload.data.attrName;
+             val.attrType = action.payload.data.attrType;
           }
              return val;
          });  
-         console.log(" newstate data ------> ",newState.tableData)
       return newState;
 
   default :

@@ -29,6 +29,7 @@ class Dialog_SessionAttrEdit extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state={sessionAttrMonitor : this.props.sessionAttrMonitor};
   this.submitForm =this.submitForm.bind(this);
+
   }
 
 

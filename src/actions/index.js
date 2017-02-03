@@ -298,7 +298,6 @@ export function toggleStateDialogEditTopo(){
  */
 
  export function topoInitializeForm(data,dcId){
-
   var payload={ "data":data,"dcId":dcId};
   return {
     type:'UPDATE_TOPO_FORM',
@@ -1655,9 +1654,17 @@ export function initializeSessionAttr(data){
 }
 
 export function updateSpecificAttrMon(data){
+  var response = axios({
+     method: 'post',
+     url:`${url.UPDATE_SESSION_ATTR}`,
+     data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+
+
   return{
     type:'EDIT_SESSION_ATTR',
-    payload:data
+    payload:response
 }
 }
 

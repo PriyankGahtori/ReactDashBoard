@@ -79,6 +79,8 @@ class Instance extends React.Component {
     let selectedRow = this.refs.instanceTable.refs.table.state.selectedRowKeys;
 
     if (selectedRow.length == 1) {
+     this.setState({ open: false });
+
       let selectedRowData = this.props.instanceData.tableData
         .filter(function (value) {
           return value.instanceId === selectedRow[0];

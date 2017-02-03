@@ -86,6 +86,7 @@ class Server extends React.Component {
     let selectedRow = this.refs.serverTable.refs.table.state.selectedRowKeys;
 
     if (selectedRow.length == 1) {
+       this.setState({ open: false });
       let selectedRowData = this.props.serverData.tableData
         .filter(function (value) {
           return value.serverId === selectedRow[0];

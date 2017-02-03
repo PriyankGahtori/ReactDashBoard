@@ -172,34 +172,7 @@ loader(){
     this.props.clearValData();
   }
 
-  handleOpen(openSessAttrMonDialog){
-
-    //for editing form
-      let selectedRow= this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
-    if(openSessAttrMonDialog == "edit"){
-      // gets the selected key of table
-      if(selectedRow.length == 1)
-      {
-           this.setState({openSnack: false})
-           var selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function(value){
-            return value.errDetectionId == selectedRow
-        })
-         this.props.initializeSessionAttributeForm(selectedRowData[0],openSessAttrMonDialog);
-         this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
-
-      }
-      else{
-        //toster notification: Only one row can be edited
-          this.setState({openSnack: true})
-      }
-
-    }
-    else if(openSessAttrMonDialog == "add"){ //for adding new row
-         this.props.initializeSessionAttributeForm(null,openSessAttrMonDialog);
-          this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
-    }
-  }
-  
+ 
   handleHref(row){
     console.log("row---",row)
     this.props.toggleStateAttrValDialog(row.sessAttrId);

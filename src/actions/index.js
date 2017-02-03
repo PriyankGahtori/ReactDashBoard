@@ -1819,11 +1819,11 @@ export function updateBTMethod(data,btMethodId){
 
 }
 
-export function delMethodRulesRow(selectedRowKeys)
+export function delMethodRulesRow(profileId,selectedRowKeys)
 {
     var response = axios({
        method:'post',
-       url : `${url.DEL_METHOD_RULES}/`,
+       url : `${url.DEL_METHOD_RULES}/${profileId}`,
        data: selectedRowKeys,
        headers:{'Content-Type':'application/json'}
  });

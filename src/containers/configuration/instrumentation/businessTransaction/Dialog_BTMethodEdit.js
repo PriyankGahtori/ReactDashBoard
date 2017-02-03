@@ -63,7 +63,7 @@ class Dialog_BTMethod extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-
+    console.log("this.props - ", this.props)
     if(this.props.methodBT != nextProps.methodBT)
       this.setState({methodBT:nextProps.methodBT});
 
@@ -117,7 +117,7 @@ class Dialog_BTMethod extends React.Component {
            */
         }
 
-        <FormBTMethodEdit ref="newBTMethodFormEdit" onSubmit={this.submitForm.bind(this)}/>
+        <FormBTMethodEdit ref="newBTMethodFormEdit" onSubmit={this.submitForm.bind(this)} profileId={this.props.profileId} />
       </DialogBTMethod>
       
       </div>

@@ -99,11 +99,8 @@ export default function (state = initialState, action) {
         case 'DEL_METHOD_RULES_ROW':
             var newState = Object.assign({}, state)
             newState.tableData.map(function (val) {
-
                 if (val.btMethodId == newState.btMethodInitializeForm.btMethodId) {
-
                     val.rules = val.rules.filter(function (value) {
-                        console.log("value---", value)
                         return action.payload.data.indexOf(Number(value.btMethodRuleId)) == -1;
                     })
                     newState.btMethodInitializeForm = val

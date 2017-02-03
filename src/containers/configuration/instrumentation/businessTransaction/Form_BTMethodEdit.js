@@ -305,9 +305,7 @@ handleEnableArgumentType(evnt,isInputChecked){
  handleDeleteRow(){
      var selectedRow = [] ;
      selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
-
-     console.log("selectedRow - ",selectedRow)
-     this.props.delMethodRulesRow(this.props.params.profileId,selectedRow);
+     this.props.delMethodRulesRow(this.props.profileId,selectedRow);
   }
 
     render() {
@@ -359,11 +357,6 @@ handleEnableArgumentType(evnt,isInputChecked){
                         </div>
                     </div>
 
-
-
-
-
-
                     <div className="row col-md-7" style= {{left:'17px'}}>
                         <DropDownMenu
                               {...returnType}
@@ -381,22 +374,16 @@ handleEnableArgumentType(evnt,isInputChecked){
                  <div style={styles.error}> {returnType.touched && returnType.error && <div>{returnType.error} </div>}</div>
                     </div>
 
-
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
                         <h4>Add Rules </h4>
-                      
-
                     { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
-
-
 
           <div className = {`row ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
             <div className="pull-right"  >
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-                {/*<IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> */}
+                <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
             </div>
-            
 
          <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
             <DataGrid data = {this.props.initialData.rules} 

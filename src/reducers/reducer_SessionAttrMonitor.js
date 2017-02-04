@@ -33,8 +33,9 @@ function modifyingData(data){
       val["values"]= {"href":value};
     }
       else{
-        val["values"] = "NA"
+        val["values"] = {"href":"Add Values"};
       }
+      console.log("val---",val)
     })
     return data;
 
@@ -90,7 +91,7 @@ export default function(state = initialState, action) {
      data["values"]= {"href":value};
     }
     else{
-      data["values"]= "NA"
+      data["values"]= {"href":"Add values"}
     }
     newState.tableData.push(data)
     console.log("newState--",newState.tableData)
@@ -172,25 +173,42 @@ export default function(state = initialState, action) {
         if(data.attrType == "specific"){
           data.specific = true
           data.complete = false
-        }else {
+        }else if(data.attrType == "complete"){
           data.complete = true
           data.specific = false
         } 
+        else{
+          data.complete = true
+          data.specific = true
+        }
         newState.sessionAttrInitializeForm = action.payload;
       return newState;
 
       case  'EDIT_SESSION_ATTR':
         var newState = Object.assign({}, state);
          newState.tableData.map(function(val){
-          if(val.sessAttrId == action.payload.sessAttrId)
+          if(val.sessAttrId == action.payload.data.sessAttrId)
           {
-             val.attrName = action.payload.attrName;
-             val.attrType = action.payload.attrType;
+             val.attrName = action.payload.data.attrName;
+             val.attrType = action.payload.data.attrType;
+             if(action.payload.data.attrType == 'complete'){
+               console.log("action.payload.data.attrType --",action.payload.data.attrType)
+               val.values = "NA"
+             }
+             
+
           }
              return val;
          });  
-         console.log(" newstate data ------> ",newState.tableData)
       return newState;
+
+      case 'DELETE_SESSION_ROWS':
+        var newState = Object.assign({},state);
+        console.log(" payload data -----> ",action.payload.data)
+        newState.tableData  = newState.tableData.filter(function(value) {
+        return action.payload.data.indexOf(Number(value.sessAttrId)) == -1;
+      });
+      return newState
 
   default :
     return state;

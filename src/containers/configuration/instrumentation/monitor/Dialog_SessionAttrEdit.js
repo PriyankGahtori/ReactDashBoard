@@ -29,11 +29,13 @@ class Dialog_SessionAttrEdit extends React.Component {
   this.handleSubmit=this.handleSubmit.bind(this);
   this.state={sessionAttrMonitor : this.props.sessionAttrMonitor};
   this.submitForm =this.submitForm.bind(this);
+
   }
 
 
  submitForm(data){
-     if(data.complete == 'true' && data.specific == 'true'){
+   console.log("data-----",data)
+     if(data.complete && data.specific){
         data["attrMode"]=3
         data["attrType"] ='complete,specific'
      }

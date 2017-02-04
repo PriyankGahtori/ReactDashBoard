@@ -41,7 +41,7 @@ class Dialog_SessionAttrAdd extends React.Component {
  submitForm(data){
      console.log("data--",data)
      console.log("this.props--",this.props.sessionAttrMonitor.valData)
-     if(data.complete == 'true' && data.specific == 'true'){
+     if(data.complete && data.specific){
         data["attrMode"]=3
         data["attrType"] ='complete,specific'
      }

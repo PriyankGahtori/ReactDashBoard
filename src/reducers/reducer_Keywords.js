@@ -127,9 +127,11 @@ switch(action.type){
 		newState.listOfXmlFilesInstr = [];
 		console.log("at initial--",newState.listOfXmlFilesInstr)	
 		console.log("action---",action.payload.data)
-		action.payload.data.map(function(value){
-			newState.listOfXmlFilesInstr.push({value:value , label:value})
-		})
+		if(action.payload.data != null){
+			action.payload.data.map(function(value){
+				newState.listOfXmlFilesInstr.push({value:value , label:value})
+			})
+		}
 		console.log("newState.listOfXmlFilesInstr---",newState.listOfXmlFilesInstr)
 	return newState ;
 

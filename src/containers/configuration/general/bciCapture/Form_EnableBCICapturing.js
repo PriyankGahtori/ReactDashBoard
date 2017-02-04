@@ -6,6 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import Input from '../../../../components/InputWrapper';
 import Checkbox from '../../../../components/CheckboxWrapper';
+import Is from 'is_js';
 
 //Importing files
 import { initializeInstrProf } from '../../../../actions/index';
@@ -26,6 +27,12 @@ const validate = values => {
   if (!values.setCavNVCookie)
     errors.setCavNVCookie = 'Required'
 
+  else if(isNaN(values.setCavNVCookie))
+    errors.setCavNVCookie = 'Please enter only Numbers'
+
+  else if( values.setCavNVCookie.length >= 30)
+    errors.setCavNVCookie = 'Please enter 30 characters or less '
+
   if (!values.bciInstrSessionPct && values.bciInstrSessionPct != 0)
     errors.bciInstrSessionPct = 'Required'
 
@@ -34,9 +41,13 @@ const validate = values => {
 
   if (!values.correlationIDHeader)
     errors.correlationIDHeader = 'Required'
-  else if (values.correlationIDHeader.length > 1024)
-    errors.correlationIDHeader = 'Please enter only 1024 characters or less '
 
+   else if(Number(values.correlationIDHeader))
+    errors.correlationIDHeader = 'Please enter only characters'
+
+    else if(!Is.alphaNumeric(values.correlationIDHeader))
+      errors.correlationIDHeader = 'Special character is not allowed.'
+  
   return errors
 }
 

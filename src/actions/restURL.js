@@ -9,10 +9,7 @@ const SERVICE_URL = '/configUI';
 
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
-
-
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
-
 
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
@@ -130,6 +127,7 @@ export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/upd
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
 export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionAttribute`;
+export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
 
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 

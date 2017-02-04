@@ -48,13 +48,6 @@ const NewButtonstyle = {
     top:-7
 };
 
-const errMsgCss = {
-  top:-12,
-  left:'10px',
-  color:'#ff0000'
-};
-
-
 const  error={
         fontSize: 12,
         color: 'red',
@@ -353,12 +346,7 @@ renderSessionAttrValues(arr)
 
      <div className = {`row col-md-10  ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}}>
         <h4>Add Value Types </h4>
-        <div className = "row col-md-8 ">
-          
-          <div className =  {`col-md-7 ${this.state.errMsgCss}`}>
-           <p style ={errMsgCss}>Fields are empty</p>
-        </div>
-      </div>
+       
 
        
   {/*     {this.renderSessionAttrValues(this.state.valDataArr)} */}
@@ -380,13 +368,16 @@ renderSessionAttrValues(arr)
                       
             />
           </div>
-          <div className = {`row ${this.state.addCompCSS}`} style = {{'paddingLeft':'6px'}}>
+          <div className =  {`col-md-12 ${this.state.errMsgCss}`}>
+           <p style = {{color: 'red',paddingTop:20}}>Require Fields are empty</p>
+        </div>
+          <div className = {`row ${this.state.addCompCSS}`} >
               <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
               <RaisedButton className ="pull-right"
               label="Add"
               backgroundColor = "#D3D3D3" 
               onClick={this.handleSubmitValType.bind(this,attrValues)}
-              style={{color:'#000',position:'relative',top:'18px'}}>
+              style={{color:'#000',position:'relative',bottom:'45px'}}>
             </RaisedButton>
             </div>
          </div>

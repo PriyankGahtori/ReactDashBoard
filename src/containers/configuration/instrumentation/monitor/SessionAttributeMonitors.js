@@ -15,7 +15,6 @@ import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
 import ConfirmDelDialog  from 'material-ui/Dialog'
-
 //Importing files
 import DialogSessionAttr from './Dialog_SessionAttrAdd';
 import * as actionCreators  from '../../../../actions/index';
@@ -118,21 +117,20 @@ loader(){
   // Below Method is called when the user tries to delete the method monitor.
   delRow(){
     var selectedRow=[];
-    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
-    this.props.delMethodMonitorRow(this.props.params.profileId,selectedRow);
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    this.props.delSessionAttrRows(selectedRow);
     try{
-         this.refs.methodMonitorTable.refs.table.cleanSelected();
+         this.refs.sessionAttrMonitorData.refs.table.cleanSelected();
      }
      catch(e){
-        console.error(" Exception Occured: FileName: Method Monitors,MethodName: delRow()",e)
+        console.error(" Exception Occured: FileName:Session Attribute Monitors,MethodName: delRow()",e)
      }
     this.handleClose();
-   
  }
   
   handleDelConfirm(){
      var selectedRow=[];
-     selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
      if(selectedRow.length== 0)
       this.setState({openSnack: true,delDialog: false})
      else
@@ -233,13 +231,13 @@ loader(){
         // // primary={true}
         keyboardFocused={true}
         disabled = {this.props.profileDisabled}
-        onTouchTap={this.delRow}
+        onTouchTap={this.delRow.bind(this)}
     
       />,
     ];
 
     return (
-    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
+    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F',color: '#FFF'}}>
      
           <div className="col-md-10">
               <h4>Session Attribute(s)</h4>
@@ -248,9 +246,10 @@ loader(){
            <DialogSessionAttr profileId ={this.props.profileId}/>
 
           <div className="pull-right"  >
-            <IconButton tooltip="Edit Session Attribute" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
             <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-          </div>
+            <IconButton tooltip="Edit" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
+            <IconButton tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
+      </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
             pagination = {false} 
@@ -280,7 +279,7 @@ loader(){
           autoHideDuration={4000}
         />
        <ConfirmDelDialog
-          title="Are you sure want to delete the Method Monitor(s)?"
+          title="Are you sure want to delete the Session Attribute Monitor(s) ?"
           actions={actionsDel}
           modal={false}
           open={this.state.delDialog}

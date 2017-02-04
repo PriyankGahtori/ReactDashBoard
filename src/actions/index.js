@@ -307,7 +307,6 @@ export function toggleStateDialogEditTopo(){
 
 //called on submitting edit profile to topology form
 export function attachProfToTopology(data){
-
   var response = axios({
     method: 'GET',
     url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
@@ -1653,6 +1652,19 @@ export function initializeSessionAttr(data){
   }
 }
 
+export function delSessionAttrRows(selectedRowKeys){
+   var response = axios({
+    method: 'post',
+    url:`${url.DELETE_SESSION_ATTR}`,
+    data: selectedRowKeys,
+    headers:{'Content-Type':'application/json'}
+
+   });
+  return{
+    type:'DELETE_SESSION_ROWS',
+    payload: response
+  }
+}
 export function updateSpecificAttrMon(data){
   var response = axios({
      method: 'post',

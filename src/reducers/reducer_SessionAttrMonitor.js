@@ -191,6 +191,14 @@ export default function(state = initialState, action) {
          });  
       return newState;
 
+      case 'DELETE_SESSION_ROWS':
+        var newState = Object.assign({},state);
+        console.log(" payload data -----> ",action.payload.data)
+        newState.tableData  = newState.tableData.filter(function(value) {
+        return action.payload.data.indexOf(Number(value.sessAttrId)) == -1;
+      });
+      return newState
+
   default :
     return state;
 

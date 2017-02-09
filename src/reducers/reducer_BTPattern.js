@@ -59,6 +59,13 @@ export default function(state = initialState, action) {
            return value;
        });
      return newState;
+
+     case 'DEL_BT_PATTERN':
+       var newState = Object.assign({},state);
+       newState.tableData  = newState.tableData.filter(function(value){
+          return action.payload.data.indexOf(Number(value.id)) == -1;
+       })
+     return newState
   }
   return state;
 }

@@ -40,25 +40,32 @@ export default function (state = initialState, action) {
       newState.openBTPatternDialog = action.payload.openBTPatternDialog
       return newState;
 
-    case 'UPDATE_BT_PATTERN':
-      var newState = Object.assign({}, state);
-      newState.tableData = newState.tableData.filter(function (value) {
-        if (value.id == action.payload.data.id) {
-          value.btName = action.payload.data.btName
-          value.urlName = action.payload.data.urlName
-          value.matchType = action.payload.data.matchType
-          value.slowTransaction = action.payload.data.slowTransaction
-          value.verySlowTransaction = action.payload.data.verySlowTransaction
-          value.headerKeyValue = action.payload.data.headerKeyValue
-          value.paramKeyValue = action.payload.data.paramKeyValue
-          value.reqMethod = action.payload.data.reqMethod
-          value.include = action.payload.data.include
-          value.enabled = action.payload.data.include == 'include' ? true : false
-          value.dynamicPartReq = action.payload.data.dynamicPartReq;
-        }
-        return value;
-      });
-      return newState;
+     case 'UPDATE_BT_PATTERN':
+       var newState = Object.assign({},state);
+       newState.tableData = newState.tableData.filter(function(value){
+          if(value.id == action.payload.data.id){
+            value.btName        = action.payload.data.btName
+            value.urlName       = action.payload.data.urlName
+            value.matchType     = action.payload.data.matchType
+            value.slowTransaction = action.payload.data.slowTransaction
+            value.verySlowTransaction = action.payload.data.verySlowTransaction
+            value.headerKeyValue = action.payload.data.headerKeyValue
+            value.paramKeyValue  = action.payload.data.paramKeyValue
+            value.reqMethod      = action.payload.data.reqMethod
+            value.include        = action.payload.data.include
+            value.enabled        = action.payload.data.include == 'include' ? true : false
+            value.dynamicPartReq =  action.payload.data.dynamicPartReq ;
+           }
+           return value;
+       });
+     return newState;
+
+     case 'DEL_BT_PATTERN':
+       var newState = Object.assign({},state);
+       newState.tableData  = newState.tableData.filter(function(value){
+          return action.payload.data.indexOf(Number(value.id)) == -1;
+       })
+     return newState
   }
   return state;
 }

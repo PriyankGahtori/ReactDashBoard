@@ -147,8 +147,8 @@ render() {
         <DropDownMenu 
         onChange={this.handleChange} 
         value={this.state.value}
-        hintText="Select Operation" 
-       style={{position:'relative',left:'70px',top:'22px',width:'200px',color:'#FFF'}}
+       style={{position:'relative',left:'70px',top:'22px',width:'200px'}}
+       floatingLabelText = "Select Operation "
       >
        {
          this.state.opData.map((data, index) => (

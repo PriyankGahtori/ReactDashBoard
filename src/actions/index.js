@@ -1012,6 +1012,19 @@ else{
 }
 }
 
+export function delBTPatternRows(selectedRowKeys){
+   var response = axios({
+    method: 'post',
+    url:`${url.DEL_BT_PATTERN_DETAILS}`,
+    data: selectedRowKeys,
+    headers:{'Content-Type':'application/json'}
+
+   });
+  return{
+    type:'DEL_BT_PATTERN',
+    payload: response
+  }
+}
 export function toggleStateAddBTPattern(){
   return {
     type:'TOGGLE_STATE_ADD_BT_PATTERN'
@@ -1063,7 +1076,7 @@ export function patternInitializeForm(data,type){
 }
 
 export function submitKeywordData(data,profileId){
-  var response = axios({
+ var response = axios({
     method:'post',
     url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
     data: data,
@@ -1759,7 +1772,6 @@ export function addValueType(value,attrId){
   } 
  }
 
-
 export function addBTMethod(data,profileId){
 
   console.log("profileId--",profileId)
@@ -1777,6 +1789,7 @@ export function addBTMethod(data,profileId){
   }
 
 }
+
 
 export function fetchBTMethodTableData(profileId){
   console.log("fetchBTMethodTableData method called")

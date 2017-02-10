@@ -60,17 +60,14 @@ const validate = values => {
     if (!values.reqParamKey && !values.reqHeaderKey && !values.reqMethod && !values.reqParamValue && !values.reqHeaderValue)
       errors.dynamicPartReq = 'Please select atleast one Dynamic Part'
 
-    if (!values.reqParamValue && values.reqParamKey)
-      errors.reqParamValue = 'Please enter Value'
-
-    if (!values.reqParamKey && values.reqParamValue)
-      errors.reqParamKey = 'Please enter reqParamKey'
+     if(!values.reqParamKey && values.reqParamValue)
+      errors.reqParamKey = 'Please enter Request Parameter Key '
 
     if (values.reqHeaderKey && !values.reqHeaderValue)
       errors.reqHeaderValue = 'Please enter Value'
 
-    if (!values.reqHeaderKey && values.reqHeaderValue)
-      errors.reqHeaderKey = 'Please enter reqHeaderKey'
+     if(!values.reqHeaderKey && values.reqHeaderValue)
+     errors.reqHeaderKey = 'Please enter Request Header Key'
 
   }
 

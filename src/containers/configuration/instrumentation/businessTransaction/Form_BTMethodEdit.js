@@ -40,6 +40,9 @@ const validate = values => {
      
      else if (isNaN(values.argumentIndex))
          errors.argumentIndex = 'Please Enter Only Numbers'
+
+     else if(values.argumentIndex < 0 )
+      errors.argumentIndex = "Please enter only Positive Numbers"
      }
 
      if(!values.returnType)
@@ -306,6 +309,7 @@ handleEnableArgumentType(evnt,isInputChecked){
      var selectedRow = [] ;
      selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
      this.props.delMethodRulesRow(this.props.profileId,selectedRow);
+     
   }
 
     render() {
@@ -393,9 +397,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                         ref        = "sessionAttrMonitorData" 
                         column     = {columns}
                         onClick    = {this.handleClick}
-                        style={{color:'#000000'}}
                         onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
-                        tableStyle={{background:'#ffffff'}}
             />
 
             </div>

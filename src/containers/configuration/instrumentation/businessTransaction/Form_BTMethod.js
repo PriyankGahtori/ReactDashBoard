@@ -25,6 +25,8 @@ import AddMethodValues from './AddMethodValues';
 import MethodBTComponent from './MethodBTComponent';
 import DataGrid from '../../../../components/DCDetailTable';
 
+
+
 export const fields = ['fqm','enableArgumentType','argumentIndex','returnType', 'rules']
 
 const validate = values => {
@@ -42,6 +44,10 @@ const validate = values => {
 
      else if (isNaN(values.argumentIndex))
     errors.argumentIndex = 'Please Enter Only Numbers'
+
+     else if(values.argumentIndex < 0 )
+      errors.argumentIndex = "Please enter only Positive Numbers"
+
      }
     return errors
 }
@@ -234,7 +240,6 @@ handleSubmitValType(rules){
     console.log("this.props--",this.state.opCode)
     console.log("this.state--",this.state.btName)
     console.log("handleSubmitValType--",valData)
- 
     this.state.ruleTypes.push(valData)
     this.setState({tableCss:'show'})
     rules.onChange(this.state.ruleTypes) ;
@@ -251,7 +256,7 @@ onAfterSaveCell(row, cellName, cellValue){
   console.log("this.state.rilrtYpe--",this.state.ruleTypesChanged)
   var arrData = Object.assign([],this.state.ruleTypesChanged)
    //var arrData = this.state.changedValArr;
-  
+  console.log(" array data ---------->",arrData) 
   if(arrData != null && arrData.length != 0){
     arrData.map(function(value){
         console.log("value---",value)
@@ -297,7 +302,16 @@ handleEnableArgumentType(evnt,isInputChecked){
         this.onAfterSaveCell(row,"opCode", val)
     }
 
+handleDelete(){
 
+  var   selectedRow = this.refs.BTMethodRulesTable.refs.table.state.selectedRowKeys;
+    var arrData = Object.assign([],this.state.ruleTypes)
+      arrData = arrData.filter(function(value){
+        return selectedRow.indexOf(value.btMethodRuleId) == -1;
+       })
+       this.setState({ruleTypes:arrData})
+
+  }
     render() {
     const cellEditProp = {
       mode: 'click',
@@ -374,15 +388,17 @@ handleEnableArgumentType(evnt,isInputChecked){
 
           <div className = {`row ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-            <div className="pull-left"  >
-                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon> Add Rule</IconButton>
+            <div className="pull-right"  >
+                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+                <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+
             </div>
             
            <div style={{color:'#FFF'}}>  
             <DataGrid data = {this.state.ruleTypes} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
-                        ref        = "sessionAttrMonitorData" 
+                        ref        = "BTMethodRulesTable" 
                         column     = {columns}
                         onClick    = {this.handleClick}
                         onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
@@ -439,7 +455,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
 },
     state => ({ // mapStateToProps
         methodBT: state.methodBT,
-    }),
 
+    }),
+   
 )(Form_BTMethod);
 

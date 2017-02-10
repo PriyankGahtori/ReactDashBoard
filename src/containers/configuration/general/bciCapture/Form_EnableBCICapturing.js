@@ -42,12 +42,7 @@ const validate = values => {
   if (!values.correlationIDHeader)
     errors.correlationIDHeader = 'Required'
 
-   else if(Number(values.correlationIDHeader))
-    errors.correlationIDHeader = 'Please enter only characters'
 
-    else if(!Is.alphaNumeric(values.correlationIDHeader))
-      errors.correlationIDHeader = 'Special character is not allowed.'
-  
   return errors
 }
 
@@ -218,7 +213,7 @@ class Form_EnableBCICapturing extends React.Component {
               />
           </div>
 
-          <div className="col-md-6"  >
+         <div className="col-md-6"  >
 
             <TextField
               style={styles.setCavNVCookieBlock}

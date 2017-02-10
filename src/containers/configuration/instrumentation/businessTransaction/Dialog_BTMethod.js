@@ -87,7 +87,7 @@ class Dialog_BTMethod extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -103,8 +103,8 @@ class Dialog_BTMethod extends React.Component {
     ];
     return (
       <div>
-        <DialogBTMethod
-          title="Add BT Method"
+        <DialogBTMethod className="dialog-modal"
+          title="Add Business Transaction Method"
           actions={actions}
           modal={false}
           open={this.state.methodBT.openBTMethodDialog}

@@ -135,24 +135,24 @@ const NewButtonstyle = {
               <h4>Http Stats Condition Monitor(s)</h4>
         </div>
         <div>
-      <IconButton toolTip="Edit HTP Stats" style={{position: 'absolute',right:77}}><FontIcon className="material-icons"   onTouchTap={this.handleOpen.bind(this,'edit')} color="#FFF">edit_mode</FontIcon> </IconButton>
-      <IconButton toolTip="Delete HTTP Stats" className="pull-right"><FontIcon className="material-icons"   onTouchTap={this.delCnfrmRow.bind(this)} color="#FFF">delete</FontIcon> </IconButton>
+      <IconButton toolTip="Edit" style={{position: 'absolute',right:77}}><FontIcon className="material-icons"   onTouchTap={this.handleOpen.bind(this,'edit')} color="#FFF">edit_mode</FontIcon> </IconButton>
+      <IconButton toolTip="Delete" className="pull-right"><FontIcon className="material-icons"   onTouchTap={this.delCnfrmRow.bind(this)} color="#FFF">delete</FontIcon> </IconButton>
       </div>
         <DataGrid data = {this.props.httpStatsData.tableData} 
             pagination = {false} 
             ref        = "httpStatsConditionTable" 
             column     = {columns}
             onClick    = {this.handleClick}   />
-         <ConfirmDialog title="Are you sure want to delete the HTTP Stats Condition Monitor Row(s)?"
+         <ConfirmDialog title="Are you sure want to delete the selected HTTP Stats Condition Monitor(s)?"
                         open={this.state.cnfrmDialog}
 
                         actions={actions} /> 
         <div>
-         <AddNewButton style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this,'add')}>
+         <AddNewButton className="add-btn" style={NewButtonstyle}  onTouchTap={this.handleOpen.bind(this,'add')}>
             <AddIcon />
          </AddNewButton>
          <DialogHttpStatsCond profileId ={this.props.params.profileId}/>
-          <SnackBar message="No row selected or multiple rows selected"
+          <SnackBar message="No row selected or multiple rows selected."
                      autoHideDuration={4000}
                       open={this.state.openSnack} />
         </div>

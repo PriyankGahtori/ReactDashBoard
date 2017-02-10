@@ -187,7 +187,7 @@ class EnableMonitors extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel.bind(this)}
@@ -233,7 +233,7 @@ class EnableMonitors extends React.Component {
                 disabled={!this.state.enableMonitorsCheckBox}
                 onClick={this.handleEnableMonitorsDialog.bind(this)}
                 style={{ width: 150 }}
-                backgroundColor="#18494F"
+                backgroundColor="#3a9e95"
                 disabledLabelColor="#000"
                 labelColor="#FFF"
                 label="More Settings ..."
@@ -243,7 +243,7 @@ class EnableMonitors extends React.Component {
         </div>
 
 
-        <DialogEnableMonitor
+        <DialogEnableMonitor className="dialog-modal"
           title="Enable Monitor"
           actions={actions}
           modal={false}

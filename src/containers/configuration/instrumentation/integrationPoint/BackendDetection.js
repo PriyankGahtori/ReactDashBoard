@@ -222,7 +222,7 @@ const styles = {
   render() {
   // buttons for edit form 
    const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCloseEditEndPt.bind(this)}
@@ -237,7 +237,7 @@ const styles = {
 
 // buttons for add form
   const actionsNewEndPoint = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label = "Cancel"
         primary={true}
         onTouchTap={this.handleCloseNewendPoint.bind(this)}
@@ -304,12 +304,12 @@ const styles = {
   {/*------------------------------------------------------------------------------*/}
 
       <div>
-         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
+         <AddNewButton  className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpenNewendPoint.bind(this)}>
             <AddIcon />
          </AddNewButton>
 
       {/*----------- Dialog For Adding New EndPoint--------------*/}
-        <DialogNewBackendPoint
+        <DialogNewBackendPoint className="dialog-modal"
           title="Add New Integration Point Detection"
           actions={actionsNewEndPoint}
           modal={false}

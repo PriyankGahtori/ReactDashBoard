@@ -194,7 +194,7 @@ class GenExcptInMethod extends React.Component {
 
 	render() {
 		const actions = [
-			<FlatButton
+			<FlatButton className="dialog-modal cancel"
 				label="Cancel"
 				primary={true}
 				onTouchTap={this.handleCancelGenExcptInMethod.bind(this)}
@@ -241,7 +241,7 @@ class GenExcptInMethod extends React.Component {
 							disabled={!this.state.genExcptInMethod}
 							onClick={this.enableExcptCapturingDialog.bind(this)}
 							style={{ width: 150 }}
-							backgroundColor="#18494F"
+							backgroundColor="#3a9e95"
 							disabledLabelColor="#000"
 							labelColor="#FFF"
 							label="More Settings ..."
@@ -250,7 +250,7 @@ class GenExcptInMethod extends React.Component {
 					</div>
 				</div>
 
-				<DialogGenExceptInMethod
+				<DialogGenExceptInMethod className="dialog-modal"
 					title="Generate Exception In Method Settings"
 					actions={actions}
 					modal={false}

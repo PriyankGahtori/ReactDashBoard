@@ -110,39 +110,41 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Rule Name"
                {...ruleName}
+               style={{ 'width': '400' }}
                errorText = {ruleName.touched &&  ruleName.error && <div> { ruleName.error}</div> }
           />
         </div>
-        <div className ="col-md-4">
+      
+  </div>
+
+     <div className="row">
+       <div className ="col-md-3">
+       <TextField
+          // hintText="Hint Text"
+           floatingLabelText="From"
+           {...errorFrom}
+           style={{ 'width': '100' }}
+          errorText = {errorFrom.touched &&  errorFrom.error && <div> { errorFrom.error}</div> }
+
+          />
+        </div>
+        
+        <div className ="col-md-3">
+       <TextField
+          // hintText="Hint Text"
+           floatingLabelText=" To"
+           {...errorTo}
+           style={{ 'width': '100' }}
+          errorText = {errorTo.touched &&  errorTo.error && <div> { errorTo.error}</div> }
+          />
+        </div>
+          <div className ="col-md-3">
          <Toggle 
           {...enabled} 
           style={styles.toggle} 
           label="Enabled" 
         />
       </div>
-  </div>
-
-     <div className="row">
-       <div className ="col-md-6">
-       <TextField
-          // hintText="Hint Text"
-           floatingLabelText="From"
-           {...errorFrom}
-          errorText = {errorFrom.touched &&  errorFrom.error && <div> { errorFrom.error}</div> }
-
-          />
-        </div>
-        
-        <div className ="col-md-6">
-       <TextField
-          // hintText="Hint Text"
-           floatingLabelText=" To"
-           {...errorTo}
-        errorText = {errorTo.touched &&  errorTo.error && <div> { errorTo.error}</div> }
-
-          />
-        </div>
-     
      </div>
      
       <div className ="row">
@@ -151,8 +153,8 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Description"
                {...ruleDesc}
+               style={{ 'width': '450' }}
                errorText = {ruleDesc.touched &&  ruleDesc.error && <div> { ruleDesc.error}</div> }
-
           />
         </div>
   </div>

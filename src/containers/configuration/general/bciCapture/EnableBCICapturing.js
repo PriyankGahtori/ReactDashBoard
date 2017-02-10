@@ -71,6 +71,18 @@ const NewButtonstyle = {
 
 };
 
+const headerStyle =
+{
+    margin: '0px',
+    padding: '24px 24px 20px',
+    color: 'rgba(255, 255, 255, 0.870588)',
+    fontSize: '16px',
+    background: '#282828',
+    lineHeight: '8px',
+    fontWeight: '400'
+}
+
+
 class EnableBCICapturing extends React.Component {
 
   constructor(props) {
@@ -196,7 +208,7 @@ class EnableBCICapturing extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelEnableBCICapturing.bind(this)}
@@ -211,7 +223,7 @@ class EnableBCICapturing extends React.Component {
     ];
 
     const actionsBCIDisable = [
-      <FlatButton
+      <FlatButton 
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelDisableBCIVal.bind(this)}
@@ -242,7 +254,7 @@ class EnableBCICapturing extends React.Component {
               disabled={!this.state.enableBCICheckBox}
               onClick={this.enableBCICapturingDialog.bind(this)}
               style={{ width: 150 }}
-              backgroundColor="#18494F"
+              backgroundColor="#3a9e95"
               disabledLabelColor="#000"
               labelColor="#FFF"
               label="More Settings ..."
@@ -251,7 +263,7 @@ class EnableBCICapturing extends React.Component {
         </div>
 
 
-        <DialogEnableBCICapturing
+        <DialogEnableBCICapturing className="dialog-modal"
           style={{ paddingTop: 10 }}
           title="FlowPath Capturing Settings"
           actions={actions}
@@ -274,7 +286,7 @@ class EnableBCICapturing extends React.Component {
 
         <Snackbar
           open={this.state.openSnackBar}
-          message="BCI capturing keywords with default values is enabled now."
+          message="BCI capturing settings with default values is enabled now."
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)} />
 
@@ -282,7 +294,8 @@ class EnableBCICapturing extends React.Component {
           title="Are you sure want to disable the applied settings ?"
           actions={actionsBCIDisable}
           modal={false}
-          open={this.state.openCnfrmDisbleDialog} >
+          open={this.state.openCnfrmDisbleDialog}
+          style = {headerStyle}>
         </ConfirmDialog>
 
       </div>

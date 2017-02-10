@@ -19,18 +19,24 @@ import MigrateTopo from '../settings/Dialog_Settings';
 
 
 const iconStyle = {
-fontSize:'56px',
-color:'#d8d8d8'
+fontSize:'5em',
+color:'#d8d8d8',
+top:'0px',
+right:'-20px',
+margin:'0',
+height:'auto',
+width:'auto'
 };
 
 const listStyle = {  
-  padding: '8px 4px',
+  padding: '16px 30px 0px 0px',
   color: '#FFF',
-  fontSize:'16px',
-  lineHeight:'22px'
+  fontSize:'18px',
+  lineHeight:'24px',
+  float:'left'
 };
 const divStyle ={
-  background:'rgba(0,0,0,0.4)', 
+  background:'rgba(22, 47, 80, 0.64)', 
   borderRadius: '8px', 
   marginLeft: '2.7em',
   marginBottom:'2em',
@@ -39,8 +45,9 @@ const divStyle ={
 }  
 
 const customContentStyle = {
-  width: '93%',
+  width: '73%',
   maxWidth: 'none',
+  padding:'0 !Important'
 };
 
 const divCenter = {
@@ -103,7 +110,7 @@ componentWillReceiveProps(nextProps){
     }
 
      const actions = [
-      <FlatButton
+      <FlatButton  className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCloseTopoDialog} 
@@ -111,11 +118,11 @@ componentWillReceiveProps(nextProps){
     ];
 
      const actionsNDAgent = [
-      <FlatButton
+      <FlatButton  className="dialog-modal cancel"
         label="Close"
         primary={true}
         onClick={this.handleCloseNDAgent} 
-        style={{bottom:'15',right:'5'}}/>
+        style={{right:'5'}}/>
     ];
 
     return (
@@ -139,7 +146,7 @@ componentWillReceiveProps(nextProps){
                 </div>  
             </div>
 
-            <NDAgentStatusDialog  
+            <NDAgentStatusDialog  className="dialog-modal"
             title="ND Agent Status Information"
             open={this.state.agentStatusOpen}
             actions={actionsNDAgent} 
@@ -148,8 +155,8 @@ componentWillReceiveProps(nextProps){
             <NDAgentStatus closeDialog={this.handleCloseNDAgent}/>
             </NDAgentStatusDialog >
 
-              <SettingsDialog  
-             title="Import Topology"
+              <SettingsDialog 
+             title=""
              open={this.state.settingOpen}
              actions={actions} 
              contentStyle={{width: '550'}}>

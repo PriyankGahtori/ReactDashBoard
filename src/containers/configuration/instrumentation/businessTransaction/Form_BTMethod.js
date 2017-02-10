@@ -316,6 +316,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
                             errorText = {fqm.touched && fqm.error}
+                            style= {{width:'600px'}}
                             />
                     </div>
                 </div>
@@ -366,18 +367,18 @@ handleEnableArgumentType(evnt,isInputChecked){
                 
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
-                        <h4>Add Rules </h4>
+                        
                      { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
 
 
           <div className = {`row ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-            <div className="pull-right"  >
-                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+            <div className="pull-left"  >
+                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon> Add Rule</IconButton>
             </div>
             
-           <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
+           <div style={{color:'#FFF'}}>  
             <DataGrid data = {this.state.ruleTypes} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
@@ -396,12 +397,12 @@ handleEnableArgumentType(evnt,isInputChecked){
                         </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
-            <RaisedButton className ="pull-right"
+            <RaisedButton className ="pull-right2 btn2"
             label="Add"
             backgroundColor = "#333" 
             labelColor="#FFF"
             onClick={this.handleSubmitValType.bind(this,rules)}
-            style={{position:'relative',top:'18px'}}>
+            style={{position:'relative',top:'18px', height:'23px !important', lineHeight:'23px', width:'auto'}}>
       
            </RaisedButton>
             </div>

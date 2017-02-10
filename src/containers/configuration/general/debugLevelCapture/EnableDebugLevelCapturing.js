@@ -192,7 +192,7 @@ class EnableDebugLevelCapturing extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelEnableDebugCapturing.bind(this)}
@@ -239,7 +239,7 @@ class EnableDebugLevelCapturing extends React.Component {
               disabled={!this.state.enableDebugCheckBox}
               onClick={this.enableDebugCapturingDialog.bind(this)}
               style={{ width: 150 }}
-              backgroundColor="#18494F"
+              backgroundColor="#3a9e95"
               disabledLabelColor="#000"
               labelColor="#FFF"
               label="More Settings ..."
@@ -247,7 +247,7 @@ class EnableDebugLevelCapturing extends React.Component {
           </div>
         </div>
 
-        <DialogEnableDebugCapturing
+        <DialogEnableDebugCapturing className="dialog-modal"
           title="Debug Level Capturing Settings"
           actions={actions}
           modal={false}

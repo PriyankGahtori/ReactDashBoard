@@ -14,10 +14,10 @@ const styles = {
   toggle: {
 
   },
-   customWidth: {
-        width: 170,
-        height:2
-    },
+  customWidth: {
+    width: 170,
+    height: 2
+  },
 
 };
 
@@ -27,7 +27,7 @@ class DataGridComponent extends React.Component {
   constructor(props) {
     super(props);
     console.log("this.props-in dcdetailtable---", this.props)
-    this.state = { onChangeFlag:false}
+    this.state = { onChangeFlag: false }
   }
 
   handleToggle(row) {
@@ -41,16 +41,17 @@ class DataGridComponent extends React.Component {
     this.props.onhref(row);
   }
 
-  handleChange(row, evt, index,value) {
+  handleChange(row, evt, index, value) {
     console.log("row", row)
     console.log("index---", index)
     console.log("value--", value)
 
-    this.setState({changedVal:value,
-                   onChangeFlag :true,
-                   rowChanged:row
-         })
-    this.props.onChangeOpDropDown(value,row)
+    this.setState({
+      changedVal: value,
+      onChangeFlag: true,
+      rowChanged: row
+    })
+    this.props.onChangeOpDropDown(value, row)
   }
 
 
@@ -83,44 +84,45 @@ class DataGridComponent extends React.Component {
     //
     else if (cell != undefined && cell.hasOwnProperty("dropDownVal")) {
 
-     // console.log("row---", row.opCode)
+      // console.log("row---", row.opCode)
       console.log("Forcell--", cell)
-      console.log("row---",row)
+      console.log("row---", row)
       var data = opData.gettingOpData(row.opCode);
-      console.log("data---",data)
-    //this flag used for dispalying initial value in table
-      console.log("this.state.onChangeFlag---",this.state.onChangeFlag)
-      if(!this.state.onChangeFlag){
-          this.state={value:row.opCode}
+      console.log("data---", data)
+      //this flag used for dispalying initial value in table
+      console.log("this.state.onChangeFlag---", this.state.onChangeFlag)
+      if (!this.state.onChangeFlag) {
+        this.state = { value: row.opCode }
       }
-      else{
-        console.log("in flag tru ecase",this.state.rowChanged)
-        console.log("in flag tru ecase",this.state.changedVal)
-       
-       if(row.btMethodRuleId == this.state.rowChanged.btMethodRuleId){
-         console.log("cond satisfied this.state.changedVal--",this.state.changedVal)
-         this.state={value:this.state.changedVal,
+      else {
+        console.log("in flag tru ecase", this.state.rowChanged)
+        console.log("in flag tru ecase", this.state.changedVal)
+
+        if (row.btMethodRuleId == this.state.rowChanged.btMethodRuleId) {
+          console.log("cond satisfied this.state.changedVal--", this.state.changedVal)
+          this.state = {
+            value: this.state.changedVal,
           }
-       } 
+        }
       }
 
       console.log("this.state.value", this.state.value)
-      
+
 
       return (
         <div>
-        <DropDownMenu
-          onChange={this.handleChange.bind(this,row)}
-          value={this.state.value}
-          hintText="Select Operation"
-          style={styles.customWidth}
-          >
-          {
-            data.map((data, index) => (
-              <MenuItem value={data.id} primaryText={data.option} />
-            ))
-          }
-        </DropDownMenu>
+          <DropDownMenu
+            onChange={this.handleChange.bind(this, row)}
+            value={this.state.value}
+            hintText="Select Operation"
+            style={styles.customWidth}
+            >
+            {
+              data.map((data, index) => (
+                <MenuItem value={data.id} primaryText={data.option} />
+              ))
+            }
+          </DropDownMenu>
         </div>
       );
     }
@@ -175,12 +177,20 @@ class DataGridComponent extends React.Component {
           pagination={pagination}
           selectRow={selectRow}
           ref="table"
-          style={{ "width": "98%", color: '#FFF' }}
+          style={{ width: '80', color: '#FFF' }}
           tableStyle={{ background: 'rgba(0,0,0,0.25)' }}
           >
           {column.data.map((val, index) => (
 
-            <TableHeaderColumn editable={!(column.field[index] == 'opCodeDropDown')} dataSort={true} sortFunc={this.handleSort.bind(this)} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true : false} hidden={column.field[index] === column.key ? true : false} >{val}</TableHeaderColumn>
+            <TableHeaderColumn 
+            editable={!(column.field[index] == 'opCodeDropDown')} 
+            dataSort={true} sortFunc={this.handleSort.bind(this)} 
+            dataFormat={this.linkFormat.bind(this)} 
+            dataField={column.field[index]} 
+            isKey={column.field[index] === column.key ? true : false} 
+            hidden={column.field[index] === column.key ? true : false} 
+            width='80'>{val}
+            </TableHeaderColumn>
           ))}
         </BootstrapTable>
       </div>

@@ -326,6 +326,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
                             errorText = {fqm.touched && fqm.error && <div>{fqm.error }</div>}
+                            style= {{width:'600px'}}
                             />
                     </div>
                 </div>
@@ -380,9 +381,9 @@ handleEnableArgumentType(evnt,isInputChecked){
 
           <div className = {`row ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-            <div className="pull-right"  >
-                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-                <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+            <div>
+                <IconButton tooltip = "Delete" className="pull-left" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon  color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+                <IconButton  tooltip="Add" className="pull-left" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
             </div>
 
          <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  

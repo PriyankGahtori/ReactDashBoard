@@ -151,7 +151,7 @@ const styles = {
               <h4>Bussiness Transaction Pattern(s)</h4>
         </div>
 
-       <IconButton tooltip = "Edit BT Pattern" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+       <IconButton tooltip = "Edit" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
       
          <DataGrid 
             data       = {this.props.BTPattern.tableData} 
@@ -164,7 +164,7 @@ const styles = {
         />
    
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
+         <AddNewButton className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />
          </AddNewButton>
          <DialogBTPattern profileId ={this.props.params.profileId}/>

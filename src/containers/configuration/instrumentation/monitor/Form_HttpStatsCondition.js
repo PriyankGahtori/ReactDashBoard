@@ -16,7 +16,7 @@ export const fields = [ 'conditionName','fpDumpMode','htId','hmdId','cookieName'
 
   const styles = {
     customWidth: {
-      width: 300
+      width: 200
     },
      error:{
     fontSize: 12,
@@ -129,7 +129,6 @@ handleHeaderSelected(event, index, value){
          <DropDownMenu 
           {...hmdId}
           value={this.state.headerName}                
-          style={styles.customWidth}
           autoWidth={false}
           customOnChange={this.handleHeaderSelected.bind(this)} 
           floatingLabelText="Select Header"    
@@ -146,10 +145,10 @@ handleHeaderSelected(event, index, value){
         <div className = "row ">
         <div className="col-md-6">
           <TextField
-                  hintText="Hint Text"
+                  hintText="Enter Condition Name"
                   floatingLabelText="Name"
                   {...conditionName}
-
+                  style={{ 'width': '350' }}
             />
         </div>
 
@@ -197,7 +196,7 @@ handleHeaderSelected(event, index, value){
          
           <div className ={`col-md-6 ${this.state.enableCookieTextField ?'show':'hidden'}`}>
              <TextField
-                  hintText="Hint Text"
+                  hintText="Cookie Name"
                   floatingLabelText="Enter Cookie Name"
                   {...cookieName}
             />
@@ -246,7 +245,7 @@ handleHeaderSelected(event, index, value){
         <div className={`row ${this.state.enableCompValueBlock ?'show':'hidden'}`}>
         <div className = "col-md-6">
         <TextField
-                  hintText="Hint Text"
+                  hintText="Enter Comparison Value"
                   floatingLabelText="Comparison Value"
                   {...compValue}
             />
@@ -254,7 +253,7 @@ handleHeaderSelected(event, index, value){
         </div>
         <div className = "col-md-6">
         <TextField
-                  hintText="Hint Text"
+                  hintText="Enter Description"
                   floatingLabelText="Description"
                   {...description}
             />

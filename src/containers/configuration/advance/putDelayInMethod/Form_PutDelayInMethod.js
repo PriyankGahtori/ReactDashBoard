@@ -134,7 +134,7 @@ class Form_PutDelayInMethod extends React.Component {
              
                 <p style={{paddingLeft:35}}><i>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</i></p>
           </div>
-	    	</div>
+	    
       </form>
       
       </div>

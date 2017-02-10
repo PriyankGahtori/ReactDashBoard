@@ -20,6 +20,18 @@ const initialValues = {
 */
 const validate = values => {
   const errors = {}
+  
+   if(values.enableJVM){
+      if(!values.cpuFilter)
+        errors.cpuFilter = 'Required'
+
+    else if (isNaN(values.cpuFilter))
+    errors.cpuFilter = 'Please Enter Only Numbers'
+
+    else if(!values.doNotDelfactor)
+      errors.doNotDelfactor = 'Please enable Do not delete factor'
+  }
+   
 
   return errors
 }
@@ -35,7 +47,8 @@ const styles = {
   },
   error: {
     fontSize: 12,
-    color: 'red'
+    color: 'red',
+    position: 'relative'
   },
 };
 
@@ -80,6 +93,7 @@ class Form_EnableJVMMonitor extends React.Component {
                 {...cpuFilter}
                 floatingLabelText="Minimum CPU % filter"
                 style={{paddingLeft:'15'}}
+                errorText = {cpuFilter.touched && cpuFilter.error && <div>{cpuFilter.error} </div>}
                 />
 
               <Checkbox
@@ -89,6 +103,7 @@ class Form_EnableJVMMonitor extends React.Component {
                 labelStyle={{ fontWeight: 'normal' }}
                 style={{paddingLeft:'15'}}
                 />
+          <div style={styles.error}> {doNotDelfactor.touched && doNotDelfactor.error && <div>{doNotDelfactor.error}</div>}</div>
             </div>
       </form>
     );
@@ -105,9 +120,7 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
   state => ({ // mapStateToProps
-    initialValues: {
-      enableJVMThreadMonitor: state.Keywords.initializeKeywords.enableJVMThreadMonitor
-    },
+    initialValues: state.Keywords.initializeKeywords.setJVMMonInitializeObj,
     initialData: state.Keywords.initializeKeywords
 
   })

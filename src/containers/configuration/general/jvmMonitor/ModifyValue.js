@@ -28,14 +28,13 @@ export function constructJVMValue(formData){
 }
 
 export function splitValue(data){
-   
    var jvmVal = {};
    if(data != 0){
    var splittedData = data.split('%20') ;
    jvmVal.enableJVM = splittedData[0] != '0' ;
 
    if(jvmVal.enableJVM){
-   	  jvmVal.cpuFilter = splittedData[1] != '0' ;
+   	  jvmVal.cpuFilter = splittedData[1] != '0' ? splittedData[1]:'0';
 	  jvmVal.doNotDelfactor = splittedData[2] != '0' ;
    }
    }

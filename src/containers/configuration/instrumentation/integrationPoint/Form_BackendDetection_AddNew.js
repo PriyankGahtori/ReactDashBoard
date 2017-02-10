@@ -263,7 +263,7 @@ Form_BackendDetection_AddNew.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Backend Entry Points ',                        // a unique name for this form
-
+   fields,
   validate,
   
 },

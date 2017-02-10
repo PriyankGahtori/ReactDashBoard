@@ -129,7 +129,6 @@ class Form_PutDelayInMethod extends React.Component {
          
              <p style={{paddingLeft:35}}> (Add delay in any specified method using instrumentation)</p>
 	    		</div>
-         <div className="row" > 
 	    		<div className ="col-md-6" >
 	    			 <Checkbox 
                   label="is Auto Instrument"
@@ -137,7 +136,6 @@ class Form_PutDelayInMethod extends React.Component {
 	              	value="isAutoInstrument"	/>
              
                 <p style={{paddingLeft:35}}>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</p>
-	    		</div>
           </div>
 	    	</div>
       </form>

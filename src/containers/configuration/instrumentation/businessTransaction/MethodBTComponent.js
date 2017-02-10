@@ -147,7 +147,7 @@ render() {
         <DropDownMenu 
         onChange={this.handleChange} 
         value={this.state.value}
-       style={{position:'relative',left:'70px',top:'22px',width:'200px'}}
+       style={{position:'relative',left:'70px',width:'200px'}}
        floatingLabelText = "Select Operation "
 
       >

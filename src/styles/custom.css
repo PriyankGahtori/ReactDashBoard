@@ -1,12 +1,14 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 body {
   font-family: 'Open Sans', sans-serif !important;    
   width: 100%;    
   height: 100%;    
   margin: 0;    
   padding: 0;     
-  font-size:12px;    
-  background : url('default.jpg') 
-  center top repeat fixed #000000;
+  font-size: 13px !important;   
+  background : url('default.jpg') no-repeat center #000;
+ /* background-size: cover;*/
 }
 
 .table {
@@ -14,21 +16,25 @@ body {
 }
 .row-no-margin{
   margin-right: 0px;
-  margin-left: 0px;	
+  margin-left: 0px;
+  margin-top: 15px;	
 }
 .tableheader{
-	background-color: rgba(0,0,0,0.4);
+	background-color: #183d65;
 }
 .breadcrumbs {
   padding: 8px 15px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   list-style: none;
   //background-color: #74ACA0;
-  background-color: rgba(255,255,255,0.3);
+  background-color: #d1e1f1;
   border-radius: 4px;
 }
+.breadcrumbs span, a {
+  color: #000 !important;
+}
 a{
-  color:'#d8d8d8';
+  color:#000 !important;
 }
 a:hover{
 	cursor: pointer;
@@ -64,4 +70,114 @@ text-decoration: none;
 }
 .arrow:before{
  content: "×";
+}
+table, th {
+  background: #417ebf;
+  background: -moz-linear-gradient(top,  #417ebf 0%, #3b77b6 100%);
+  background: -webkit-linear-gradient(top,  #417ebf 0%,#3b77b6 100%);
+  background: linear-gradient(to bottom,  #417ebf 0%,#3b77b6 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#417ebf', endColorstr='#3b77b6',GradientType=0 );
+  font-size:12px;
+  font-weight:normal;
+  font-family: 'Open Sans', sans-serif !important;
+}
+table, td{
+  font-size: 12px;
+  font-family: 'Open Sans', sans-serif !important;
+}
+h3{
+  font-size: 18px;
+  margin:10px;
+}
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background: #fff; color: #000; font-size: 12px;
+}
+.table-striped>tbody>tr:nth-of-type(even) {
+  background: #cfe1f1; color: #000; font-size: 12px;
+}
+.table-hover>tbody>tr:hover {
+    background-color: rgb(72, 143, 197) !important;
+}
+h4 {
+  font-size: 14px;
+}
+.header {
+    margin: 0px;
+    padding: 24px 24px 20px;
+    color: rgba(255, 255, 255, 0.870588);
+    font-size: 16px;
+    background: #282828;
+    line-height: 8px;
+    font-weight: 400;
+    border-bottom: none;
+}
+h2{
+  font-size: 14px;
+  margin:0px !important;
+  padding:10px 0;
+  border-bottom: 1px #d0d0d0 solid;
+  width: 99%;
+}
+.pull-right{
+  height: auto !important;
+  padding: 8px 0 0 !important;
+}
+.pull-right-btn {
+      position: absolute;
+      right: 60px !important;
+      margin-top:-20em;
+}
+
+.add-btn button {
+   background:  #FFCA28 !important;
+}
+
+.dialog-modal h3{
+    padding: 10px !important;
+    color: rgb(255, 255, 255) !important;
+    font-size: 14px !important;
+    line-height: normal !important;
+    background: #282828;
+}
+.dialog-modal button{
+    color: rgb(255, 255, 255) !important;
+    font-size: 12px !important;
+    line-height: normal !important;
+    background: #1565c0 !important;
+    margin: 0 2px 0 2px !important;
+}
+.dialog-modal .cancel{
+  background: #f44336 !important;
+}
+button, input, select, textarea {
+  font-size:12px !important;
+  font-family: 'Open Sans', sans-serif !important;
+}
+input[type=checkbox], input[type=radio] {
+   font-family: 'Open Sans', sans-serif !important;
+}
+label {
+  font-family: 'Open Sans', sans-serif !important;
+  font-weight: 500 !important;
+  font-size:14px !important;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: 'Open Sans', sans-serif !important;
+}
+.pull-left  {
+   float: right !important;
+}
+.pull-left button{
+    padding: 4px !important;
+    width: auto !important;
+    height: auto !important;
+}
+.react-bs-table {
+  background: rgba(234, 234, 234, 0.88);
+}
+.pull-right2 {
+   float : right ;
+}
+button span {
+  /*font-size: 16px !important;*/
 }

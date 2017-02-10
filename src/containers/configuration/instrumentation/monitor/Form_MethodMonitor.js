@@ -11,7 +11,7 @@ import ContentSend from 'material-ui/svg-icons/content/send';
 import Toggle from '../../../../components/ToggleWrapper';
 
 
-export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
+export const fields = ['methodName','methodDisplayName','methodDesc']
 
  const validate = values=> {
   const errors = { }
@@ -57,46 +57,40 @@ class Form_MethodMonitor extends React.Component {
   }
 
 handleChange(event,index,value){  
-  console.log("event-----",event)
-  console.log("index------",index)                             
-  console.log("on handleChange----",value)
-
 }
 
   componentWillMount() {
-     console.log("state props--",this.props)
-     console.log("state--",this.state)
   }
 
 handleCheck(event,value)
 {
-  console.log("inside check value - ",value)
 }
 
   render() {
-     const { fields: {methodDisplayName,methodName,methodDesc}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {methodName,methodDisplayName,methodDesc}, resetForm, handleSubmit,onSubmit, submitting} = this.props
   return (
     <form>
     <div className ="row">
         <div className ="col-md-12">
-          <TextField
+       
+         <TextField
               // hintText="Hint Text"
-               floatingLabelText="Method Display Name"
-               {...methodDisplayName}
-               errorText = {methodDisplayName.touched &&  methodDisplayName.error && <div> { methodDisplayName.error}</div> }
-               />
-        
+               floatingLabelText="Fully Qualified Method Name"
+               {...methodName}
+                style={{ 'width': '550' }}
+              errorText = {methodName.touched &&  methodName.error && <div> { methodName.error}</div> }
+          />
     </div>
     </div>
      <div className ="row">
         <div className ="col-md-12">
-          <TextField
+             <TextField
               // hintText="Hint Text"
-               floatingLabelText="Method Name (FQM)"
-               {...methodName}
-              errorText = {methodName.touched &&  methodName.error && <div> { methodName.error}</div> }
-
-          />
+               floatingLabelText="Method Display Name"
+               {...methodDisplayName}
+               style={{ 'width': '350' }}
+               errorText = {methodDisplayName.touched &&  methodDisplayName.error && <div> { methodDisplayName.error}</div> }
+               />
     </div>
     </div>
      <div className ="row">
@@ -105,8 +99,8 @@ handleCheck(event,value)
               // hintText="Hint Text"
                floatingLabelText="Method Description"
                {...methodDesc}
+               style={{ 'width': '550' }}
               errorText = {methodDesc.touched &&  methodDesc.error && <div> { methodDesc.error}</div> }
-
           />
     </div>
     </div>

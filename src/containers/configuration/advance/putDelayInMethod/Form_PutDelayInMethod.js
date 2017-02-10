@@ -85,57 +85,54 @@ class Form_PutDelayInMethod extends React.Component {
       <div >
     	  <form>
        
-         <p style={{paddingTop:10}}> Delay Time Range(in ms)  </p>
-      
+      	<div className = "col-md-12"  >
+  	    		<TextField
+                    style={{right:18,bottom:20}}
+                    floatingLabelText="Fully Qualified Method Name"
+                    style={{ 'width': '550' }}
+                   errorText = {fqm.touched && fqm.error && <div>{fqm.error} </div> }
+                    {...fqm}
+                  />
+  	    
+          </div>
+
     		<div className = "row">
+         <p style={{paddingLeft:15}}> Delay Time Range(in ms)  </p>
 	    		<div className = "col-md-6" style={{bottom:20}}>
 		    		<TextField 
-	                  hintText="Hint Text"
 	                  floatingLabelText="From"
 	                  {...fromRange}
+                    style={{ 'width': '150' }}
                     errorText = {fromRange.touched && fromRange.error && <div>{fromRange.error} </div> }
-
 	                />
 	    		</div>
 
 	    		<div className = "col-md-6" style={{bottom:20}}>
 	    			<TextField
-                  hintText="Hint Text"
                   floatingLabelText="to"
+                  style={{ 'width': '150' }}
                   errorText = {toRange.touched && toRange.error && <div>{toRange.error} </div> }
-
                   {...toRange}
                 />
 	    		</div>
             </div>
-  	    		<div className = "col-md-12"  >
-  	    		<TextField
-                    style={{right:18,bottom:20}}
-                    hintText="Hint Text"
-                    floatingLabelText="Fully Qualified Method Name"
-                   errorText = {fqm.touched && fqm.error && <div>{fqm.error} </div> }
-
-                    {...fqm}
-                  />
-  	    
-          </div>
+  	    	
     	
-    		<div className = "row">
 	    		<div className = "col-md-6">
 	    			 <Checkbox
-                label="is CPU Hogg"
+                label="Is CPU Hogg"
 	             	 {...isCpuHogg}
 	              	value="isCpuHogg"	/>
          
-             <p style={{paddingLeft:35}}> (Add delay in any specified method using instrumentation)</p>
+             <p style={{paddingLeft:35}}><i> (Add delay in any specified method using instrumentation)</i></p>
 	    		</div>
 	    		<div className ="col-md-6" >
 	    			 <Checkbox 
-                  label="is Auto Instrument"
+                  label="Is Auto Instrument"
 	             	 {...isAutoInstrument}
 	              	value="isAutoInstrument"	/>
              
-                <p style={{paddingLeft:35}}>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</p>
+                <p style={{paddingLeft:35}}><i>(Forcefully putDelay by auto-instrumenting the method if not mentioned in instrProfiles)</i></p>
           </div>
 	    	</div>
       </form>

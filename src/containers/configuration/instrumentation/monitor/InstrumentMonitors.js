@@ -11,10 +11,12 @@ const styles = {
     fontWeight: 400,
   },
   block:{
-    paddingBottom: 25,
+    // paddingBottom: 25,
   },
 tab:{
-    backgroundColor: '#114147'
+     backgroundColor: 'rgb(166, 197, 228)',
+    fontSize:'12px',
+    color: '#000'
   }
 };
 

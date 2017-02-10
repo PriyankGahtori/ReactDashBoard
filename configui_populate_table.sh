@@ -83,7 +83,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (29,'ndMethodMonFile','','','5','false'),
 (30,'BTErrorRules','','','5','false'),
 (31,'captureHttpSessionAttr','','','5','false'),
-(32,'setCavNVCookie','0','10240','5','0');
+(32,'enableJVMThreadMonitor','0','2048','5','0');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

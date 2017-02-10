@@ -234,15 +234,15 @@ class GlobalBusinessTransaction extends React.Component {
                 >
                 <RadioButton
                   value="requestParam"
-                  label="Parameter"
+                  label="Query Parameter"
                   disabled={!this.state.dynamicReqType} />
                 <RadioButton
                   value="httpMethod"
-                  label="Method"
+                  label="HTTP Method"
                   disabled={!this.state.dynamicReqType} />
                 <RadioButton
                   value="requestHeader"
-                  label="Header"
+                  label="HTTP Header"
                   disabled={!this.state.dynamicReqType}
                   />
               </RadioButtonGroup>
@@ -253,7 +253,7 @@ class GlobalBusinessTransaction extends React.Component {
             <div style={{ paddingLeft: 40, paddingTop: 5 }} className={this.state.dynamicReqType === true ? 'show' : 'hidden'}>
               <div className={this.state.paramDiv === true ? 'show' : 'hidden'}>
                 <TextField
-                  floatingLabelText="Parameter Name"
+                  floatingLabelText="Query Parameter"
                   {...requestParam}
                   />
               </div>
@@ -264,21 +264,21 @@ class GlobalBusinessTransaction extends React.Component {
               <div className={this.state.headerDiv === true ? 'show' : 'hidden'}>
                 <TextField
                   {...requestHeader}
-                  floatingLabelText="Header Name"
+                  floatingLabelText="HTTP Header"
                   />
               </div>
             </div>
 
           </div>
-          <RaisedButton className="pull-right"
-            backgroundColor="#18494F"
+          <RaisedButton className="pull-right-btn"
+            backgroundColor="rgb(58, 158, 149)"
             label=" Submit"
             labelColor="#FFF"
             type="submit" 
             disabled={this.props.profileDisabled}
             disabledLabelColor="#000"
             labelStyle={{ fontSize: 12 }}
-            style={{ position: 'absolute', bottom: 10, right: 40 }}>
+            style={{ position: 'absolute', right: 40 }}>
           </RaisedButton>
         </Card>
       </form>

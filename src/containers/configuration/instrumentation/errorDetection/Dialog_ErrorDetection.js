@@ -93,7 +93,7 @@ class Dialog_ErrorDetection extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -109,7 +109,7 @@ class Dialog_ErrorDetection extends React.Component {
     ];
     return (
       <div>
-        <DialogErrorDetection
+        <DialogErrorDetection className="dialog-modal"
           title= {this.state.title}
           actions={actions}
           modal={false}

@@ -196,7 +196,7 @@ class EnableExceptionCapturing extends React.Component {
 
 	render() {
 		const actions = [
-			<FlatButton
+			<FlatButton className="dialog-modal cancel"
 				label="Cancel"
 				primary={true}
 				onTouchTap={this.handleCancelEnableExcptCapturing.bind(this)}
@@ -241,7 +241,7 @@ class EnableExceptionCapturing extends React.Component {
 							disabled={!this.state.enableExcptCheckBox}
 							onClick={this.enableExcptCapturingDialog.bind(this)}
 							style={{ width: 150 }}
-							backgroundColor="#18494F"
+							backgroundColor="#3a9e95"
 							disabledLabelColor="#000"
 							labelColor="#FFF"
 							label="More Settings ..."
@@ -249,7 +249,7 @@ class EnableExceptionCapturing extends React.Component {
 					</div>
 				</div>
 
-				<DialogEnableExcptCapturing
+				<DialogEnableExcptCapturing className="dialog-modal"
 					title="Exception Capturing Settings"
 					actions={actions}
 					modal={false}

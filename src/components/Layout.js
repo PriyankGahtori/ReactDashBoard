@@ -31,12 +31,12 @@ import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
 injectTapEventPlugin();
 
 const headerStyle = {
-  paddingRight: "1px",
-  paddingLeft: "1px",
-  overflowX: 'hidden'
+  paddingRight: "0px",
+  paddingLeft: "0px",
+  overflow: 'hidden'
 }
 const appBarStyle = {
-  backgroundColor: '#114147',
+  backgroundColor: 'rgba(0, 0, 0, 0.75)',
 }
 const iconStyles = {
   // marginRight: 24,
@@ -186,7 +186,7 @@ export default class Layout extends React.Component {
             style={{ "backgroundColor": "#21252B" }}
             >
             <AppBar
-              style={{ backgroundColor: '#114147', height: 58 }}
+              style={{ backgroundColor: 'rgb(16, 34, 49)', height: 58 }}
               iconElementLeft={<IconButton></IconButton>}
               iconElementRight={<IconButton onTouchTap={this.handleToggle}><NavigationClose /></IconButton>}
               onRightIconButtonTouchTap={() => this.handleToggle}
@@ -213,7 +213,7 @@ export default class Layout extends React.Component {
               />
 
 
-            <div className='container-fluid' style={{ paddingLeft: '32px' }}>
+            <div className='container-fluid'>
               <div className="row">
                 {/* <div className="col-md-6"><h2>NetDiagnostics Configuration</h2></div> */}
                 <div className="col-md-4" />

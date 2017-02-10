@@ -42,8 +42,8 @@ class MigrateTopo extends React.Component {
       <div > 
       <RaisedButton
        style={{left:'195px',position:'absolute'}}
-       label="Sync Topologies" 
-       backgroundColor="#18494F"
+       label="Import Topologies" 
+       backgroundColor="#3a9e95"
        onTouchTap={this.updateTopo} 
        labelStyle={{fontSize:12}}
        labelColor="#FFF"  /> 

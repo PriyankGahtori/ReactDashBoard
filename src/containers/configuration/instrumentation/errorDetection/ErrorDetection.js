@@ -203,8 +203,8 @@ const styles = {
         <EnableErrorDetection />
               <h4 style={{position: 'relative',bottom:11}}>Error Detection(s)</h4>
         </div>
-       <IconButton tooltip = "Edit Error Detection"   style={{position: 'absolute',right:68}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-       <IconButton tooltip = "Delete Error Detection" className = "pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
+       <IconButton tooltip = "Edit"   style={{position: 'absolute',right:68}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+       <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelErrorDetection.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
          <DataGrid data = {this.props.errorDetection.tableData} 
             pagination = {false} 
             ref        = "errorDetectionTable" 
@@ -216,7 +216,7 @@ const styles = {
          />
 
         <div>
-         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
+         <AddNewButton  className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />
          </AddNewButton>
          <DialogErrorDetection profileId ={this.props.params.profileId}/>

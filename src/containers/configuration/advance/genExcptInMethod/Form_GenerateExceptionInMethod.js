@@ -39,7 +39,7 @@ const validate = values=> {
  if(!values.exceptionTypeForMethod)
    errors.exceptionTypeForMethod = 'Required'
 
-  if(!values.fqm)
+ if(!values.fqm)
   errors.fqm = "Required"
 
   else if(values.fqm.length > 500)

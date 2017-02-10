@@ -24,8 +24,6 @@ class EnableErrorDetection extends Component {
  	componentWillReceiveProps(nextProps)
   	{
    	   //change the state of checkbox
-       console.log("this.props--",this.props.initialValKeywords.BTErrorRules)
-       console.log('nextprops--',nextProps.initialValKeywords.BTErrorRules)
 	    if(this.props.initialValKeywords.BTErrorRules != nextProps.initialValKeywords.BTErrorRules){
 	      this.setState({ checked: nextProps.initialValKeywords.BTErrorRules});
 	    }
@@ -67,7 +65,6 @@ class EnableErrorDetection extends Component {
 
       //action for runtime change
       var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/btErrorRule.err" ;
-		  console.info("filePath", filePath);	      	  
 		  let keywordDataList = [];
 		    keywordDataList.push("BTErrorRules=" + filePath ); 
 		  triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
@@ -129,7 +126,6 @@ class EnableErrorDetection extends Component {
 	   <div className = "col-md-1" style={{right:15}}>
 				<CheckBox
 	        iconStyle={{width:'medium',height:'15px'}}
-          style={{border:'0.5px solid white'}}
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>

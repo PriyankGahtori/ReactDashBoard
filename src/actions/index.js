@@ -1909,3 +1909,11 @@ export function changedRuleTypes(ruleTypes){
     payload:ruleTypes
   }
 }
+
+export function enableJVMMonCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_JVM_MONITOR',
+    payload:flag
+
+  }
+}

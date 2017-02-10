@@ -15,19 +15,15 @@ class EnableMethodMonitor extends Component {
   
 	constructor(props) {
   		super(props);
-      console.log("ndMethodmonFile--",this.props.initialValKeywords.ndMethodMonFile)
   		this.state = {
                     checked:this.props.initialValKeywords.ndMethodMonFile,
                     openSnackBar:false
                    };
-      console.log("state--",this.state.checked)
  	}
 
  	componentWillReceiveProps(nextProps)
   	{
    	   //change the state of checkbox
-       console.log("this.props--",this.props.initialValKeywords.ndMethodMonFile)
-       console.log('nextprops--',nextProps.initialValKeywords.ndMethodMonFile)
 	    if(this.props.initialValKeywords.ndMethodMonFile != nextProps.initialValKeywords.ndMethodMonFile){
 	      this.setState({ checked: nextProps.initialValKeywords.ndMethodMonFile});
 	    }
@@ -126,12 +122,11 @@ class EnableMethodMonitor extends Component {
 
 
 		return (
-    <div  style={{paddingTop:10}}>
+    <div  style={{marginTop:6}}>
    
 	   <div className = "col-md-1" style={{right:15}}>
 				<CheckBox
-           iconStyle={{width:'medium',height:'15px'}}
-           style={{border:'1px solid white'}}
+           iconStyle={{width:'medium',height:'21px'}}
           labelStyle={{color:'#FFF'}}
 					onCustomChange={this.handleCheck.bind(this)}
 					checked= {this.state.checked === 'true'}	/>

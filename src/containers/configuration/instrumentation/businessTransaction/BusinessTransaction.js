@@ -102,9 +102,9 @@ class BusinessTransaction extends React.Component {
     
     return (   
         <div>
-        <Card style={{'paddingTop':1 ,'paddingLeft':5,'background':'rgba(0,0,0,0.45)', 'color':'#FFF'}}> 
-        <h3 style={{'bottom': 8, 'position': 'relative'}}>Transaction Configuration</h3>
-	      <div className='row' style= {{'bottom':6,'position': 'relative', color: '#FFF'}}>
+        <Card style={{'paddingLeft':5,'background':'#fff', 'color':'#000'}}> 
+        <h2 style={{'position': 'relative'}}>HTTP Business Transaction Configuration</h2>
+	      <div className='row' style= {{'padding':'4px 0','position': 'relative', color: '#FFF'}}>
 	      <RadioButtonGroup name="btType" 
       		className={'col-xs-4 col-md-4'} 
       		style={{display: 'flex'}}
@@ -114,15 +114,15 @@ class BusinessTransaction extends React.Component {
 
 	        <RadioButton
 	          value="global"
-            label="Global" 
-            labelStyle={{'color':'#FFF'}}
+            label="URI without Query Parameters" 
+            labelStyle={{'color':'#282828'}}
             disabled = {this.props.profileDisabled}            
           /> 
         
 	        <RadioButton
 	          value="pattern" 
             label="Pattern"
-            labelStyle={{'color':'#FFF'}}
+            labelStyle={{'color':'#282828'}}
             disabled = {this.props.profileDisabled}
            />
         

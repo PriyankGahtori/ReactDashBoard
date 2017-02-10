@@ -330,6 +330,7 @@ handleDelete(){
                             floatingLabelText="Fully qualified Method Name"
                             {...fqm}
                             errorText = {fqm.touched && fqm.error}
+                            style= {{width:'600px'}}
                             />
                     </div>
                 </div>
@@ -380,7 +381,7 @@ handleDelete(){
                 
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
-                        <h4>Add Rules </h4>
+                        
                      { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
 
@@ -393,7 +394,7 @@ handleDelete(){
 
             </div>
             
-           <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
+           <div style={{color:'#FFF'}}>  
             <DataGrid data = {this.state.ruleTypes} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
@@ -412,12 +413,12 @@ handleDelete(){
                         </div>
           <div className = {`row ${this.state.addCompCSS}`}>
              <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
-            <RaisedButton className ="pull-right"
+            <RaisedButton className ="pull-right2 btn2"
             label="Add"
             backgroundColor = "#333" 
             labelColor="#FFF"
             onClick={this.handleSubmitValType.bind(this,rules)}
-            style={{position:'relative',top:'18px'}}>
+            style={{position:'relative',top:'18px', height:'23px !important', lineHeight:'23px', width:'auto'}}>
       
            </RaisedButton>
             </div>

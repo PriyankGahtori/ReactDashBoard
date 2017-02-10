@@ -183,7 +183,7 @@ class EnableBackendMonitor extends React.Component {
 
   render() {
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel.bind(this)}
@@ -198,7 +198,7 @@ class EnableBackendMonitor extends React.Component {
     ];
 
     const actionsBackendMonDisable = [
-      <FlatButton
+      <FlatButton 
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelDisableBackendMon.bind(this)}
@@ -228,7 +228,7 @@ class EnableBackendMonitor extends React.Component {
               disabled={!this.state.enableBackendMonitorCheckBox}
               onClick={this.handleEnableBackendMonitorDialog.bind(this)}
               style={{ width: 150 }}
-              backgroundColor="#18494F"
+              backgroundColor="#3a9e95"
               disabledLabelColor="#000"
               labelColor="#FFF"
               label="More Settings ..."
@@ -236,7 +236,7 @@ class EnableBackendMonitor extends React.Component {
           </div>
         </div>
 
-        <DialogEnableBackendMonitor
+        <DialogEnableBackendMonitor className="dialog-modal"
           title="Enable Backend Monitor"
           actions={actions}
           modal={false}

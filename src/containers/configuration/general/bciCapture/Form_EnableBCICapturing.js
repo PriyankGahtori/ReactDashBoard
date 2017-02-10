@@ -48,7 +48,7 @@ const validate = values => {
 
 const styles = {
   input: {
-    width: 150,
+    width: 60,
 
   },
   setCavNVCookieBlock: {
@@ -57,7 +57,8 @@ const styles = {
   },
   customWidth: {
     width: 334,
-    paddingTop: 7
+    paddingTop: 7,
+    color :'#000'
   },
   error: {
     fontSize: 12,
@@ -115,7 +116,7 @@ class Form_EnableBCICapturing extends React.Component {
     const { fields: {bciInstrSessionPct, logLevelOneFpMethod, correlationIDHeader, doNotDiscardFlowPaths, setCavNVCookie, enableCpuTime, enableForcedFPChain}, resetForm, handleSubmit, onSubmit, submitting } = this.props
     return (
       <form >
-        <div className="row" style={{ paddingTop: 16 }}>
+        <div className="row" style={{ paddingTop: 16,color :'#000' }}>
           <div className="col-md-5">
             <p for="sess_perct" >Full Flow Path capturing percentage   </p>
           </div>
@@ -205,9 +206,9 @@ class Form_EnableBCICapturing extends React.Component {
 
             <TextField
               style={styles.setCavNVCookieBlock}
-              hintText="hint text"
               floatingLabelText="Capture HTTP header for correlation id"
               {...correlationIDHeader}
+               style={{ 'width': '300' }}
               errorText={correlationIDHeader.touched && correlationIDHeader.error && <div> {correlationIDHeader.error}</div>}
               />
           </div>

@@ -149,11 +149,10 @@ render() {
         value={this.state.value}
        style={{position:'relative',left:'70px',width:'200px'}}
        floatingLabelText = "Select Operation "
-
       >
        {
          this.state.opData.map((data, index) => (
-         <MenuItem value={data.id}  primaryText={data.option}/> 
+         <MenuItem value={data.id}  primaryText={data.option} /> 
          ))
        }
       </DropDownMenu>

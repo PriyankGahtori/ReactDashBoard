@@ -77,9 +77,9 @@ class Dialog_BTPattern extends React.Component {
       this.setState({BTPattern:nextProps.BTPattern});
 
     if(nextProps.BTPattern.openBTPatternDialog == "edit")
-      this.setState({title:"Edit BT Pattern"})
+      this.setState({title:"Edit Business Transaction Pattern"})
     else
-      this.setState({title:"ADD BT Pattern"})
+      this.setState({title:"Add Business Transaction Pattern"})
   }
 
   handleCancel(){
@@ -94,7 +94,7 @@ class Dialog_BTPattern extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -110,7 +110,7 @@ class Dialog_BTPattern extends React.Component {
     ];
     return (
       <div>
-        <DialogBTPattern
+        <DialogBTPattern className="dialog-modal"
           title={this.state.title}
           actions={actions}
           modal={false}

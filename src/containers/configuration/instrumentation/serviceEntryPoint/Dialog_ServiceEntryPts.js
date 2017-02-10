@@ -145,7 +145,7 @@ class Dialog_ServiceEntryPts extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -161,7 +161,7 @@ class Dialog_ServiceEntryPts extends React.Component {
     ];
     return (
       <div>
-      <DialogNewEntryPts
+      <DialogNewEntryPts className="dialog-modal"
           title="New Service Entry Points Configuration"
           actions={actions}
           modal={false}

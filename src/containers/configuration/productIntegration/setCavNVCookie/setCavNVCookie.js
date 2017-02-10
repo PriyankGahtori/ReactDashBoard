@@ -206,7 +206,7 @@ class setCavNVCookie extends React.Component {
 
 	render() {
 		const actions = [
-			<FlatButton
+			<FlatButton className="dialog-modal cancel"
 				label="Cancel"
 				primary={true}
 				onTouchTap={this.handleCancelSetCavNVCookie.bind(this)}
@@ -253,7 +253,7 @@ class setCavNVCookie extends React.Component {
 							disabled={!this.state.setCavNVCookie}
 							onClick={this.enableSetCavNVCookieDialog.bind(this)}
 							style={{ width: 150 }}
-							backgroundColor="#18494F"
+							backgroundColor="#3a9e95"
 							disabledLabelColor="#000"
 							labelColor="#FFF"
 							label="More Settings ..."
@@ -262,8 +262,8 @@ class setCavNVCookie extends React.Component {
 					</div>
 				</div>
 
-				<DialogSetCavNVCookie
-					title="Set Cav NV Cookie"
+				<DialogSetCavNVCookie className="dialog-modal"
+					title="Set Cav NV Cookie Settings"
 					actions={actions}
 					modal={false}
 					open={this.state.openSetCavNVCookieDialog}

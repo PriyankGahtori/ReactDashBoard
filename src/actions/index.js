@@ -1847,6 +1847,8 @@ export function delMethodBTRow(profileId,selectedRowKeys)
        data: selectedRowKeys,
        headers:{'Content-Type':'application/json'}
  });
+
+
   return{
     type: 'DEL_METHOD_BT_ROW',
     payload: response
@@ -1877,3 +1879,113 @@ export function changedRuleTypes(ruleTypes){
     payload:ruleTypes
   }
 }
+
+export function toggleAddCustomCapture(){
+  return{
+    type:'TOGGLE_LISTOFCAPTUREMETHODS_DIALOG'
+  }
+}
+
+export function listOfCapturingMethodsToConfigure(data){
+  return{
+    type    :'LIST_METHODS_CONFIGURE',
+    payload :data
+  }
+}
+
+export function toggleDialogStepper(){
+  return{
+    type:'TOGGLE_DIALOG_STEPPER'
+  }
+}
+
+export function methodbasedCapturingAddData(data){
+  console.log("methodbasedCapturingAddData method called")
+  return{
+    type :'ADD_DATA_METHODBASED',
+    payload:data
+  }
+}
+
+export function clearStepperData(){
+  return {
+    type:'CLEAR_STEPPER_DATA'
+  }
+}
+
+
+
+export function addMethodBasedCapturingDataToServer(data,profileId){
+    
+    var response = axios({
+       method:'post',
+       url : `${url.ADD_METHOD_BASED_CAPTURING}/${profileId}`,
+       data: data,
+       headers:{'Content-Type':'application/json'}
+ });
+
+
+  return{
+    type: 'ADD_METHODBASED_CAPTURINGDATA',
+    payload: response
+  }
+}
+
+export function fetchMethodBasedCustomData(profileId){
+
+  const URL = `${url.FETCH_METHOD_BASED_CUSTOMDATA}/${profileId}`
+   const response = axios.get(URL);
+  return{
+    type :'FETCH_METHOD_BASED_CUSTOMDATA',
+    payload:response
+  }
+
+
+}
+
+export function toggleArgumentTypeDialog(row){
+  return{
+    type:'TOGGLE_ARGTYPE_DIALOG',
+    payload:row
+  }
+}
+
+export function toggleReturnTypeDialog(row){
+  return{
+    type:'TOGGLE_RETURNTYPE_DIALOG',
+    payload:row
+  }
+}
+
+export function addReturnType(data,parentMethodBasedId){
+
+    var response = axios({
+       method:'post',
+       url : `${url.ADD_RETURN_TYPE}/${parentMethodBasedId}`,
+       data: data,
+       headers:{'Content-Type':'application/json'}
+ });
+
+
+  return{
+    type:'ADD_RETURN_TYPE',
+    payload:response
+  }
+}
+
+export function addArgumentType(data,parentMethodBasedId){
+
+    var response = axios({
+       method:'post',
+       url : `${url.ADD_ARGUMENT_TYPE}/${parentMethodBasedId}`,
+       data: data,
+       headers:{'Content-Type':'application/json'}
+ });
+
+
+  return{
+    type:'ADD_ARGUMENT_TYPE',
+    payload:response
+  }
+}
+

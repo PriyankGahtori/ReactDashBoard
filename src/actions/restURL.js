@@ -1,12 +1,11 @@
-//const SERVICE_URL = 'http://localhost:8090';
+const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
 
-const SERVICE_URL = '/configUI';
-
+//const SERVICE_URL = '/configUI';
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 
@@ -138,3 +137,12 @@ export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttr
  export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
  export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/delete`;
  export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;
+
+
+/* URL for methodBasedCapturingData */
+export const ADD_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/addcustomdata`;
+export const FETCH_METHOD_BASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/getmethodbasedcapturedata`;
+export const ADD_RETURN_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/addreturntype`;
+export const ADD_ARGUMENT_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/argtype`;
+
+

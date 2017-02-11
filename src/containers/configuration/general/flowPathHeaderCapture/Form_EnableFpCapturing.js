@@ -15,13 +15,20 @@ import DropDownComponent from './DropDownComponent';
 import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
 import Checkbox from '../../../../components/CheckboxWrapper';
 import Input from '../../../../components/InputWrapper';
+import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 
 
 //Importing React components
-import {submitKeywordData,initializeInstrException,updateSessionType}  from '../../../../actions/index';
+import {submitKeywordData,initializeInstrException,updateSessionType,toggleAddCustomCapture,clearStepperData}  from '../../../../actions/index';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
 import * as  modifiedVal from './ModifyValue';
+import MethodBasedCaptureCustomData from './MethodBasedCapturingCustomData';
+import  DialogCaptureCustomData from './Dialog_CustomCaptureData';
+import DialogStepper from './Dialog_Stepper';
+import MultiSelectCapturingMenu from './customDataCapture/MultiSelectCapturingOptionMenu';
+
 
 
 
@@ -35,7 +42,8 @@ export const fields = ['enableCaptureHTTPReqFullFp',
                         'selectedHdrsValRes',
                         'hdrValChrRes',
                         'enableCaptureSessionAttr',
-                        'sessionType'
+                        'sessionType',
+                        'enableCaptureCustomData'
 
 ];
 
@@ -180,17 +188,21 @@ class Form_EnableFpCapturing extends React.Component {
       'sessionType':this.props.sessionType,
       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
-      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA'
+      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA',
+      'customDataCapturingMethodBlock':'hidden',
+      'addMenuDropDownBlock':'hidden'
   }
 }
 
   componentWillMount() {
    // this.props.initializeInstrException();
+   this.props.clearStepperData();
   
  }
 
  componentWillUnmount() {
    console.log("componentWillUnmount()  method called")
+
  }
 
  componentWillReceiveProps(nextProps)
@@ -369,6 +381,7 @@ getProfileName(profileId)
 submitForm(formData){
 
   console.log("formData--",formData)
+  console.log("submitForm method called------------------Form_Enablefpcpaturing")
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
   let keywordDataList = [];
   /*handle the case of enabling keyword wd default value
@@ -376,7 +389,7 @@ submitForm(formData){
                  "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
              }
              */
-  if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
+if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
     var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
     console.log("captureHttpFullReqFpVal--",captureHttpFullReqFpVal)
     keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
@@ -401,6 +414,7 @@ else{
 
     
   keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
+  keywordData["captureCustomData"]["value"] = formData.enableCaptureCustomData;
   this.props.submitKeywordData(keywordData,this.props.profileId);
 
    var data = {'sessionType':formData.sessionType}
@@ -417,6 +431,25 @@ else{
   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
  }
 
+ handleCaptureCustomData(event,isInputChecked){
+   console.log("val---",isInputChecked)
+   console.log("dialogStepper----",this.refs.dialogStepper)
+   let customDataCapturingMethodBlockCss = isInputChecked ?'show':'hidden'
+   this.setState({enableCaptureCustomData:isInputChecked,
+                  customDataCapturingMethodBlock:customDataCapturingMethodBlockCss
+    })
+ }
+
+ handleOpen(){
+   console.log("handleOpen method called")
+   this.setState({addMenuDropDownBlock:'show'})
+ //  this.props.toggleAddCustomCapture();
+
+ }
+ handleOpenAgain(){
+   this.props.toggleAddCustomCapture();
+ }
+
 render() {
   const { fields: { enableCaptureHTTPReqFullFp,
                     hdrModeForReqcapture,
@@ -429,7 +462,8 @@ render() {
                     captureModeRes,
                     hdrValChrRes,
                     enableCaptureSessionAttr,
-                    sessionType
+                    sessionType,
+                    enableCaptureCustomData
 
 
   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
@@ -600,7 +634,7 @@ render() {
 {/*********************END OF captureHTTPRespFullFp*****************/}
 
 {/***********CAPTURESESSIONATTRIBUTE**********/}
-  <div className = "row  col-md-3">
+  <div className = "row  col-md-10">
     <Checkbox
     {...enableCaptureSessionAttr}
     value = "CaptureSessionAttr"
@@ -612,7 +646,7 @@ render() {
   </div>
 
   <div className = {`row ${this.state.captureSessionAttrCss}`}>
-    <div className = " col-md-6" >
+    <div className = " col-md-8" >
         <RadioButtonGroup 
           {...sessionType}
           name = "sessionType" 
@@ -638,9 +672,39 @@ render() {
       </div>
     </div>
 
-    
+
+    {/**********START OF CAPTURE CUSTOM DATA CAPTURING **************/}
+
+      <div className = "row  ">
+        <div className = "col-md-5">
+          <Checkbox
+          {...enableCaptureCustomData}
+          value = "CaptureCustomData"
+          checked  = {this.state.enableCaptureCustomData}
+          label = "Capture Custom Data"
+          labelStyle = {{width:200}}
+          onCustomChange={this.handleCaptureCustomData.bind(this)}
+          />
+       </div>
+
+         <div className ={`col-md-2 ${this.state.customDataCapturingMethodBlock}`} style = {{top:'-5px'}}>
+{/* <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>*/}
+            <IconButton  tooltip="Add" onTouchTap={this.handleOpenAgain.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+
+        </div>
+
+    {/*    <div className = {`col-md-3 ${this.state.addMenuDropDownBlock}`} style = {{'width':1000,'left':26,'top':-40}}>
+          <MultiSelectCapturingMenu />
+        </div> 
+*/} </div>
 
 
+     <div className = {`row col-md-4 ${this.state.customDataCapturingMethodBlock}`} style = {{paddingLeft:'10px'}}>
+        <MethodBasedCaptureCustomData profileId={this.props.profileId} />
+     </div>
+
+     <DialogCaptureCustomData profileId = {this.props.profileId} />
+    {/*<DialogStepper profileId = {this.props.profileId} />*/}
       </form>
     </div>
 
@@ -675,6 +739,8 @@ export default reduxForm({
   { 
    submitKeywordData:submitKeywordData,
    initializeInstrException:initializeInstrException,
-   updateSessionType :updateSessionType 
+   updateSessionType :updateSessionType ,
+   toggleAddCustomCapture:toggleAddCustomCapture,
+   clearStepperData:clearStepperData
  } // mapDispatchToProps (will bind action creator to dispatch)
  )(Form_EnableFpCapturing);

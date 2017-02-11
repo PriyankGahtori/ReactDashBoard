@@ -195,8 +195,6 @@ export default function(state = initialState, action) {
                console.log("action.payload.data.attrType --",action.payload.data.attrType)
                val.values = "NA"
              }
-             
-
           }
              return val;
          });  

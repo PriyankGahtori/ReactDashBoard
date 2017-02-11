@@ -8,10 +8,7 @@ const SERVICE_URL = 'http://localhost:8090';
 //const SERVICE_URL = '/configUI';
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
-
-
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
-
 
 /* Url for Application Table */
 export const FETCH_APP_TABLE_DATA = `${SERVICE_URL}/custom/application/getAllApplication`;
@@ -71,6 +68,9 @@ export const FETCH_LIST_GROUP_NAMES_FORM = `${SERVICE_URL}/btgroup`;
 export const FETCH_BT_PATTERN_TABLEDATA = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern`;
 export const ADD_NEW_BT_GROUP_DETAILS = `${SERVICE_URL}/custom/btpattern/addGroup`;
+export const DEL_BT_PATTERN_DETAILS = `${SERVICE_URL}/custom/btpattern/delete`;
+
+
 
 /* Url for Backend Detection */
 export const FETCH_BACKEND_TABLEDATA = `${SERVICE_URL}/custom/backenddetection`;
@@ -128,6 +128,9 @@ export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addsp
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
+export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionAttribute`;
+export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
+
 //export const DEL_ROW_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delSessionAttr`;
 
  /*URL for btMethod */    

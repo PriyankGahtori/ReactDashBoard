@@ -298,7 +298,6 @@ export function toggleStateDialogEditTopo(){
  */
 
  export function topoInitializeForm(data,dcId){
-
   var payload={ "data":data,"dcId":dcId};
   return {
     type:'UPDATE_TOPO_FORM',
@@ -308,7 +307,6 @@ export function toggleStateDialogEditTopo(){
 
 //called on submitting edit profile to topology form
 export function attachProfToTopology(data){
-
   var response = axios({
     method: 'GET',
     url : `${url.ATTACH_PROFTO_TOPO}/${data.dcTopoId}/${data.profileId}`,
@@ -1014,6 +1012,19 @@ else{
 }
 }
 
+export function delBTPatternRows(selectedRowKeys){
+   var response = axios({
+    method: 'post',
+    url:`${url.DEL_BT_PATTERN_DETAILS}`,
+    data: selectedRowKeys,
+    headers:{'Content-Type':'application/json'}
+
+   });
+  return{
+    type:'DEL_BT_PATTERN',
+    payload: response
+  }
+}
 export function toggleStateAddBTPattern(){
   return {
     type:'TOGGLE_STATE_ADD_BT_PATTERN'
@@ -1065,7 +1076,7 @@ export function patternInitializeForm(data,type){
 }
 
 export function submitKeywordData(data,profileId){
-  var response = axios({
+ var response = axios({
     method:'post',
     url : `${url.UPDATE_KEYWORDS_DATA}/${profileId}`,
     data: data,
@@ -1654,10 +1665,31 @@ export function initializeSessionAttr(data){
   }
 }
 
+export function delSessionAttrRows(selectedRowKeys){
+   var response = axios({
+    method: 'post',
+    url:`${url.DELETE_SESSION_ATTR}`,
+    data: selectedRowKeys,
+    headers:{'Content-Type':'application/json'}
+
+   });
+  return{
+    type:'DELETE_SESSION_ROWS',
+    payload: response
+  }
+}
 export function updateSpecificAttrMon(data){
+  var response = axios({
+     method: 'post',
+     url:`${url.UPDATE_SESSION_ATTR}`,
+     data: data,
+    headers:{'Content-Type':'application/json'}
+ });
+
+
   return{
     type:'EDIT_SESSION_ATTR',
-    payload:data
+    payload:response
 }
 }
 
@@ -1740,7 +1772,6 @@ export function addValueType(value,attrId){
   } 
  }
 
-
 export function addBTMethod(data,profileId){
 
   console.log("profileId--",profileId)
@@ -1758,6 +1789,7 @@ export function addBTMethod(data,profileId){
   }
 
 }
+
 
 export function fetchBTMethodTableData(profileId){
   console.log("fetchBTMethodTableData method called")
@@ -1819,11 +1851,11 @@ export function updateBTMethod(data,btMethodId){
 
 }
 
-export function delMethodRulesRow(selectedRowKeys)
+export function delMethodRulesRow(profileId,selectedRowKeys)
 {
     var response = axios({
        method:'post',
-       url : `${url.DEL_METHOD_RULES}/`,
+       url : `${url.DEL_METHOD_RULES}/${profileId}`,
        data: selectedRowKeys,
        headers:{'Content-Type':'application/json'}
  });
@@ -1989,3 +2021,10 @@ export function addArgumentType(data,parentMethodBasedId){
   }
 }
 
+export function enableJVMMonCheckBoxStatus(flag){
+  return{
+    type : 'ENABLE_JVM_MONITOR',
+    payload:flag
+
+  }
+}

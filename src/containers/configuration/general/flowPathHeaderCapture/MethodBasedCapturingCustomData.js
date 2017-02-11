@@ -17,6 +17,7 @@ import ConfirmDelDialog  from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
 import FontIcon from 'material-ui/FontIcon';
 
+import ConfirmDelDialog  from 'material-ui/Dialog'
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import DataGrid from '../../../../components/DCDetailTable';
@@ -117,21 +118,20 @@ loader(){
   // Below Method is called when the user tries to delete the method monitor.
   delRow(){
     var selectedRow=[];
-    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
-    this.props.delMethodMonitorRow(this.props.params.profileId,selectedRow);
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    this.props.delSessionAttrRows(selectedRow);
     try{
-         this.refs.methodMonitorTable.refs.table.cleanSelected();
+         this.refs.sessionAttrMonitorData.refs.table.cleanSelected();
      }
      catch(e){
-        console.error(" Exception Occured: FileName: Method Monitors,MethodName: delRow()",e)
+        console.error(" Exception Occured: FileName:Session Attribute Monitors,MethodName: delRow()",e)
      }
     this.handleClose();
-   
  }
   
   handleDelConfirm(){
      var selectedRow=[];
-     selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
      if(selectedRow.length== 0)
       this.setState({openSnack: true,delDialog: false})
      else
@@ -187,6 +187,7 @@ loader(){
   }
   */
   
+ 
   handleHref(row){
     console.log("row---",row)
     this.props.toggleStateAttrValDialog(row.sessAttrId);
@@ -263,13 +264,13 @@ loader(){
         // // primary={true}
         keyboardFocused={true}
         disabled = {this.props.profileDisabled}
-        onTouchTap={this.delRow}
+        onTouchTap={this.delRow.bind(this)}
     
       />,
     ];
 
     return (
-    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
+    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F',color: '#FFF'}}>
      
           <div className="row col-md-4">
                <Checkbox
@@ -311,7 +312,7 @@ loader(){
           autoHideDuration={4000}
         />
        <ConfirmDelDialog
-          title="Are you sure want to delete the Method Monitor(s)?"
+          title="Are you sure want to delete the Session Attribute Monitor(s) ?"
           actions={actionsDel}
           modal={false}
           open={this.state.delDialog}

@@ -302,7 +302,7 @@ Form_BackendDetection_Edit.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Backend Entry Points ',                           // a unique name for this form
-  //fields
+  fields
  
 },
   state => ({ // mapStateToProps

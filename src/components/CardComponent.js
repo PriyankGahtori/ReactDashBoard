@@ -21,7 +21,7 @@ renderCard(data){
 
     //case 1: length = 0
   if(length === 0){
-    listItemArr.push(<ListItem primaryText="No data available" style={{color: '#FFF'}}/>);
+    listItemArr.push(<ListItem primaryText="No data available" style={{color: '#000'}}/>);
       
   }
 
@@ -41,9 +41,9 @@ renderCard(data){
     {
      // listItemArr.push(<Link to ={`/${data.type === 'Application'? 'dcdetail':data.type.toLowerCase()}/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
      if(data.type === 'Application')
-        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#000'}}/></Link>);
      else
-      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+      listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#000'}}/></Link>);
     }
   }  
   else
@@ -51,9 +51,9 @@ renderCard(data){
     for(let i=0; i< 4; i++)
     {
       if(data.type === 'Application')
-        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+        listItemArr.push(<Link to ={`/app/${data.value[i].dcId}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#000'}}/></Link>);
      else
-        listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#FFF'}}/></Link>);
+        listItemArr.push(<Link to ={`/${data.type.toLowerCase()}/${data.value[i].id}`}><ListItem primaryText={data.value[i].name} innerDivStyle={{padding:'10px 12px'}} style={{color: '#000'}}/></Link>);
     }
   }
 
@@ -65,22 +65,22 @@ return (listItemArr) ;
   render() {    
   var myStyle ={
     background: 'rgba(0,0,0,0.3)',
-    color: 'white'
+    color: 'white',
     //margin:'0px 2px'
    };
 
     return (
    <div className="col-md-4" style={{marginLeft:'1.9em', width:'30%'}}>
     <Card style={{myStyle}}>
-    <CardTitle title={this.props.data.type} titleColor='#FFF' titleStyle={{padding:'5px 10px', fontSize:'18px', lineHeight:'28px'}} style={{padding:'0px', background:'#113631'}} />
+    <CardTitle title={this.props.data.type} titleColor='#FFF' titleStyle={{padding:'5px 10px', fontSize:'16px', lineHeight:'28px'}} style={{padding:'0px', background:'#282828'}} />
      <Divider />
-      <List style={{background: '#74ACA0', minHeight: '160px'}}>
+      <List style={{background: '#cedbec', minHeight: '160px'}}> 
              {this.renderCard(this.props.data)}
                  
       </List>      
     <Divider />
-    <CardActions style={{background: '#456965',height: '38px',padding:'0px'}}>
-      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" style={{color: '#FFF',float:'right'}}/></Link>      
+    <CardActions style={{background: '#90bcdb',height: '38px',padding:'0px'}}>
+      <Link to={`/${this.props.data.type.toLowerCase()}`}><FlatButton label="Show ALL" style={{color: '#000',float:'right'}}/></Link>      
     </CardActions>
     
     </Card>

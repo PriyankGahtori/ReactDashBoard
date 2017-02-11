@@ -26,7 +26,7 @@ import EnableDebugCapturing from './debugLevelCapture/EnableDebugLevelCapturing'
 import InstrException from './exceptionCapture/EnableExceptionCapturing';
 import EnableServiceEntryPoints from './EnableServiceEntryPoints';
 import EnableFpHdrCapturing from './flowPathHeaderCapture/EnableFpHeaderCapturing';
-import EnableMonitors from './monitors/EnableMonitors';
+import EnableJVMMonitor from './jvmMonitor/EnableJVMMonitor';
 
 const styles = {
   text: {
@@ -155,10 +155,9 @@ class GeneralKeywords extends React.Component {
       <Paper style={paperStyle} zDepth={2} >
         <EnableBCICapturing profileId = {this.props.params.profileId} />
         <EnableHotSpotCapturing profileId = {this.props.params.profileId}/>   
-  {/*   <EnableDebugCapturing profileId = {this.props.params.profileId}/> */}
         <InstrException profileId = {this.props.params.profileId}  />
         <EnableFpHdrCapturing profileId = {this.props.params.profileId} pathName ={this.props.location.pathname}/>
-     {/*   <EnableMonitors profileId = {this.props.params.profileId}/> */}
+        <EnableJVMMonitor profileId = {this.props.params.profileId}/> 
         <InstrProfiles  handleSubmit = {this.submitForm.bind(this)}/>
         {/* <EnableServiceEntryPoints /> */}
       </Paper>

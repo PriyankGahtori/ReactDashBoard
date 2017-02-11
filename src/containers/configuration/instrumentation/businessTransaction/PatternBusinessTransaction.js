@@ -16,7 +16,7 @@ import Snackbar from 'material-ui/Snackbar';
 import { Link } from 'react-router';
 import FlatButton from 'material-ui/FlatButton';
 import MenuItem from 'material-ui/MenuItem';
-
+import ConfirmDelDialog  from 'material-ui/Dialog'
 //Importing files
 import DropDownMenu from '../../../../components/SelectFieldWrapper';
 import * as actionCreators  from '../../../../actions/index';
@@ -79,7 +79,7 @@ const styles = {
      this.handleOpen=this.handleOpen.bind(this);
      this.handleCancel =this.handleCancel.bind(this);
      this.loader = this.loader.bind(this)
-     this.state = { openSnack:false};
+     this.state = { openSnack:false,delDialog: false};
 
   }
 
@@ -109,6 +109,32 @@ const styles = {
  handleCheck(event,value){
    
   };
+
+  delRow(){
+    let selectedRow = this.refs.btPatternTable.refs.table.state.selectedRowKeys;
+       this.props.delBTPatternRows(selectedRow);
+    try{
+         this.refs.btPatternTable.refs.table.cleanSelected();
+     }
+     catch(e){
+        console.error(" Exception Occured: FileName: PatternBusinessTransaction ,MethodName: delRow()",e)
+     }
+    this.handleClose();
+  }
+
+  handleClose(){
+    this.setState({delDialog: false})
+  }
+
+  handleDelete(){
+    let selectedRow = this.refs.btPatternTable.refs.table.state.selectedRowKeys;
+    if(selectedRow.length == 0){
+      this.setState({openSnack: true,delDialog: false})
+    }
+    else{
+      this.setState({openSnack: false, delDialog: true})
+    }
+  }
  
 
  handleOpen(openBTPatternDialog){
@@ -142,6 +168,16 @@ const styles = {
 
 
   render() {
+    const delActions = [
+              <FlatButton label="Cancel"
+                   primary={true}
+                  onTouchTap={this.handleClose.bind(this)} /> ,
+              <FlatButton label="Delete" 
+                            primary={true}
+                            onTouchTap = {this.delRow.bind(this)}/> 
+
+
+    ];
 
     return ( 
     <div>
@@ -150,8 +186,9 @@ const styles = {
         <div className="col-md-10">
               <h4>Bussiness Transaction Pattern(s)</h4>
         </div>
-
-       <IconButton tooltip = "Edit BT Pattern" className = "pull-right" onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+    
+       <IconButton tooltip = "Edit"  style={{left:70}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+      <IconButton tooltip = "Delete"  className = "pull-right"  onTouchTap={this.handleDelete.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
       
          <DataGrid 
             data       = {this.props.BTPattern.tableData} 
@@ -164,11 +201,12 @@ const styles = {
         />
    
         <div>
-         <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
+         <AddNewButton className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,"add")}>
             <AddIcon />
          </AddNewButton>
          <DialogBTPattern profileId ={this.props.params.profileId}/>
           
+
         </div>
         
        </div>
@@ -176,7 +214,14 @@ const styles = {
           open={this.state.openSnack}
           message="No row selected or multiple rows selected"
           autoHideDuration={4000}
-          onRequestClose={this.handleRequestClose}
+          onRequestClose={this.handleRequestClose}/>
+         
+          <ConfirmDelDialog
+          title="Are you sure want to delete the Pattern Bussiness Transaction(s) ?"
+          actions={delActions}
+          modal={false}
+          open={this.state.delDialog}
+      
         />
        </Paper>
     </div>

@@ -1,102 +1,63 @@
-import React, { PropTypes } from 'react'
-import {reduxForm} from 'redux-form';
-import {RadioButton} from 'material-ui/RadioButton';
-import MultiSelect from '../components/MultiSelectWrapper';
-import {Card} from 'material-ui/Card';
-import Divider from 'material-ui/Divider';
-import MenuItem from 'material-ui/MenuItem';
-import TextField from 'material-ui/TextField';
-import RaisedButton  from 'material-ui/RaisedButton';
-import Checkbox from '../components/CheckboxWrapper';
+import React from 'react'
+import { Field, FieldArray, reduxForm } from 'redux-form'
 
-export const fields = ['headersSelected','name','logLevelOneFpMethod'];
-var options = [
-{ value: 'one', label: 'One' },
-{ value: 'two', label: 'Two' },
-{ value: 'three', label: 'Three' },
-{ value: 'four', label: 'Four' },
-{ value: 'five', label: 'Five' }
-];
-
-class Form_EnableReqFullFP extends React.Component {
-
-
-  constructor(props) {
-    super(props);
-    this.state = {expand:false,
-      enableHttpReqFPCheckBox: false,
-      UrlQueryHttp:false,
-      allHttpHeaders:false,
-      textFieldValue:true,
-      captureSelectedValue:1,
-      multiSelectValue: "1,2,3,4,4,4,4,4"
-
-    }
-    this.updateSelected = this.updateSelected.bind(this);             
-  }
-
-  updateSelected(value){
-  this.setState({multiSelectValue : value });
-}
-
-
-submit(data){
-}
-
-ChangeLogLevel(event,isInputChecked){
-  this.setState({logLevelOneFpMethod:isInputChecked})
-}
-
-render() {
-  const { fields: {headersSelected,name,logLevelOneFpMethod}, resetForm, handleSubmit,submitting } = this.props
-  return (   
-    <form onSubmit = {handleSubmit(this.submit.bind(this))}>
-    <div>
-    <MultiSelect multi
-    {...headersSelected}
-    name ="HttpHeaders"
-    value = {this.state.multiSelectValue}  
-    options = {options} 
-    customOnChange = {this.updateSelected.bind(this)}
-    />
-
-    <TextField
-    hintText="Hint Text"
-    floatingLabelText="Set Cav NV Cookie"
-    {...name}
-    />
-
-    <Checkbox
-    {...logLevelOneFpMethod}
-    value="logLevelOneFpMethod"
-    label="Log Level One FP Method"
-    checked={this.state.logLevelOneFpMethod}
-    onCustomChange ={this.ChangeLogLevel.bind(this)}       
-    />
-
-    </div>
-    <RaisedButton  label="submit" type="submit" disabled={submitting}>
-    {submitting ? <i/> : <i/>} 
-    </RaisedButton >
+const FieldArraysForm = (props) => {
+  const { array: { push }, handleSubmit, pristine, reset, submitting } = props
+  return (
+    <form onSubmit={handleSubmit}>
+      <div>
+        <label>Club Name</label>
+        <Field name="clubName" key="clubName" component={clubName =>
+          <div>
+            <input type="text" {...clubName} placeholder="Club Name"/>
+            {clubName.touched && clubName.error && <span>{clubName.error}</span>}
+          </div>
+        }/>
+      </div>
+      <FieldArray name="members" component={members =>
+        <ul>
+          <li>
+            <button type="button" onClick={() => push('members', {})}>Add Member</button>
+          </li>
+          {members.map((member, memberIndex) =>
+            <li key={memberIndex}>
+              <button
+                type="button"
+                title="Remove Member"
+                onClick={() => members.remove(memberIndex)}/>
+              <h4>Member #{memberIndex + 1}</h4>
+              <div>
+                <label>First Name</label>
+                <Field name={`${member}.firstName`} component={firstName =>
+                  <div>
+                    <input type="text" {...firstName} placeholder="First Name"/>
+                    {firstName.touched && firstName.error && <span>{firstName.error}</span>}
+                  </div>
+                }/>
+              </div>
+              <div>
+                <label>Last Name</label>
+                <Field name={`${member}.lastName`} component={lastName =>
+                  <div>
+                    <input type="text" {...lastName} placeholder="Last Name"/>
+                    {lastName.touched && lastName.error && <span>{lastName.error}</span>}
+                  </div>
+                }/>
+              </div>
+              }/>
+            </li>
+          )}
+        </ul>
+      }/>
+      <div>
+        <button type="submit" disabled={submitting}>Submit</button>
+        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values
+        </button>
+      </div>
     </form>
-    );
-}
+  )
 }
 
-Form_EnableReqFullFP.propTypes = {
-  fields: PropTypes.object.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  submitting: PropTypes.bool.isRequired
-}
 export default reduxForm({
-  form: 'httpReqForm',
-  fields,
-},
-  state => ({ // mapStateToProps
-  }),
-  
-  { 
-
- } // mapDispatchToProps (will bind action creator to dispatch)
- )(Form_EnableReqFullFP);
+  form: 'fieldArrays',     // a unique identifier for this form
+})(FieldArraysForm)

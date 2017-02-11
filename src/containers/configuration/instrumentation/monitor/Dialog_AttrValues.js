@@ -43,6 +43,11 @@ super(props);
   this.state={sessionAttrMonitor : this.props.sessionAttrMonitor,
                 changedValArr:[],
                 addCompCSS:'hidden',
+                errMsgCss: 'hidden',
+                valName:'',
+                lb:'',
+                rb:'',
+
   };
   this.submitForm =this.submitForm.bind(this);
   
@@ -100,6 +105,7 @@ super(props);
   }
 
   handleCancel(){
+   this.setState({errMsgCss: 'hidden'})
   this.props.toggleStateAttrValDialog();
 }
 
@@ -173,8 +179,14 @@ addValType(){
                 'lb':this.state.lb,
                 'rb':this.state.rb
   }
+ 
+  if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
+       this.setState({errMsgCss:'show'})
+    }
+  else{
   this.props.addValueType(value,this.props.sessionAttrMonitor.attrRowId);
-  this.setState({addCompCSS:'hidden'})
+  this.setState({addCompCSS:'hidden',errMsgCss: 'hidden'})
+  }
 }
 
 
@@ -222,11 +234,12 @@ addValType(){
           pagination = {false} 
           ref        = "sessionAttrMonitorData" 
           column     = {columns}
-          onClick    = {this.handleClick}
-       
-            /> 
+          onClick    = {this.handleClick} /> 
+          <div className =  {`col-md-7 ${this.state.errMsgCss}`}>
+           <p style = {{color: 'red',paddingTop:20}}>Require Fields are empty</p>
+          </div>
             </Paper>
-
+          
         <div className = {`row ${this.state.addCompCSS}`}>
           <AttrValComponent value = {{}}  
                         valNameChange={this.valNameChange.bind(this)} 
@@ -236,7 +249,7 @@ addValType(){
           label="Submit"
           backgroundColor = "#D3D3D3" 
           onClick={this.addValType.bind(this)}
-          style={{color:'#000',position:'relative',top:'18px'}}>
+          style={{color:'#000',position:'relative',bottom:'45px',right:'82px'}}>
     
           </RaisedButton>
           </div>

@@ -9,7 +9,7 @@ import RaisedButton  from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import ConfirmDialog from 'material-ui/Dialog';
 import MenuItem from 'material-ui/MenuItem';
-
+import Is from 'is_js';
 
 //Importing React components
 import Checkbox from '../../../../components/CheckboxWrapper';
@@ -41,15 +41,21 @@ const validate = values=> {
 
  if(!values.fqm)
   errors.fqm = "Required"
-else if(values.fqm.length > 500)
+
+  else if(values.fqm.length > 500)
   errors.fqm = "Must be 500  Characters or less "
 
-if(!values.exceptnName)
+  if(!values.exceptnName)
   errors.exceptnName = "Required"
-else if(values.exceptnName.length > 100)
+
+  else if(values.exceptnName.length > 100)
   errors.exceptnName = "Must be 100  Characters or less "
-else if (!isNaN(values.exceptnName))
+
+  else if (Number(values.exceptnName))
   errors.exceptnName = 'Please Enter Only Characters'
+
+  else if(!Is.alphaNumeric(values.exceptnName))
+    errors.exceptnName = 'Special characters are not allowed.'
 
 return errors
 }

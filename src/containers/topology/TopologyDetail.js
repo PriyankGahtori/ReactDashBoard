@@ -25,8 +25,8 @@ import DialogNewApplication from '../application/Dialog_AppDetail_NewApp';
 
 var columns = {
   "key": "id",
-  "data": ['Name', 'Description', 'LINK'],
-  "field": ['topoName', 'topoDesc', 'id']
+  "data": ['Name', 'LINK'],
+  "field": ['topoName', 'id']
 };
 
 const style = {

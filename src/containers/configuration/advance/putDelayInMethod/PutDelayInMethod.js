@@ -150,7 +150,7 @@ class PutDelayInMethod extends React.Component {
   render() {
 
     const actionsPutDelayDisable = [
-      <FlatButton
+      <FlatButton 
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelDisablePutDelay.bind(this)}
@@ -164,7 +164,7 @@ class PutDelayInMethod extends React.Component {
     ];
 
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelPutDelayInMethod.bind(this)}
@@ -196,7 +196,7 @@ class PutDelayInMethod extends React.Component {
               disabled={!this.state.putDelayInMethod}
               onClick={this.enablePutDelayInMethodDialog.bind(this)}
               style={{ width: 150 }}
-              backgroundColor="#18494F"
+              backgroundColor="#3a9e95"
               disabledLabelColor="#000"
               labelColor="#FFF"
               label="More Settings ..."
@@ -204,13 +204,13 @@ class PutDelayInMethod extends React.Component {
           </div>
         </div>
 
-        <DialogPutDelayInMethod
+        <DialogPutDelayInMethod className="dialog-modal"
           title="Put Delay in Method Settings"
           actions={actions}
           modal={false}
           open={this.state.openPutDelayInMethodDialog}
           onRequestClose={this.handleClose}
-          autoScrollBodyContent={true}
+          autoScrollBodyContent={false}
           titleStyle={styles.title}
           >
           <FormPutDelayInMethod ref="putDelayInMethodForm" onSubmit={this.submitForm.bind(this)} />

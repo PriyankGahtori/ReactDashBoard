@@ -86,6 +86,7 @@ class ApplicationDetail extends React.Component {
   }
 
   createConfFile() {
+    console.log("this.refs.appTable--",this.refs.appTable)
     let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
     if (selectedRow.length == 1) {
       let selectedRowData = this.props.appDetail.tableData

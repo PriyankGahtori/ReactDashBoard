@@ -209,7 +209,7 @@ handleHref(row){
               />
 
             <div>
-              <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
+              <AddNewButton className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this)}>
                 <AddIcon />
               </AddNewButton>
               <DialogMethodBT profileId={this.props.params.profileId} />

@@ -18,18 +18,12 @@ class NewApplication extends React.Component {
 
   constructor(props) {
   super(props);
-  console.log("in form topo-- !!!",this.props.initialData)
-  console.log("this.props.data[2]value - ")
-  this.state={valueProf:this.props.initialData != null ? this.props.initialData.profileId : null}
-  console.log("valueProf--",this.state.valueProf)
- 
-
+  this.state={valueProf:1}
   }
 
 
 
 handleChangeProfile(event, index, value){
-  console.log("inside handleChangeProfile--",value)
   this.setState({valueProf:value})
 }
 
@@ -39,7 +33,6 @@ componentWillMount() {
 
  componentWillReceiveProps(nextProps)
   {
-    
   }
 
   render() {
@@ -80,7 +73,8 @@ NewApplication.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'contact',                           // a unique name for this form
-  fields
+  fields,
+  
 },
   state => ({ // mapStateToProps
   data:state.initialData.homeData,

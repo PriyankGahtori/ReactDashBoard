@@ -17,10 +17,14 @@ const styles = {
     fontWeight: 400,
   },
   block:{
-    paddingBottom: 25,
+    paddingBottom: 4,
   },
   tab:{
-    backgroundColor: '#114147'
+    backgroundColor: '#d1e1f1',
+    fontFamily: 'Open Sans, sans-serif !important',
+    color:'#000',
+    fontSize:'12px'
+
   }
 };
 

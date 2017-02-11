@@ -44,10 +44,7 @@ const styles = {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("nextProps--instrProfilemultiselect--",nextProps.getAllKeywordData)
-    console.log("this props--instrProfilemultiselect---",this.props.getAllKeywordData)
     if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
-      console.log("getAllKeywordData instrProfile data cahnged")
       this.setState({getAllKeywordData:nextProps.getAllKeywordData});
       this.setState({value:nextProps.getAllKeywordData.initializeKeywords.instrProfile})
     }  
@@ -97,8 +94,8 @@ const styles = {
     return (
       
       <div className = "row"  style={{paddingTop:10}}>
-      <div className ="col-md-5" style={{paddingLeft:55}}>
-        <b>Instrumentation Profiles </b> 
+      <div className ="col-md-5" style={{paddingLeft:55,fontSize:'14'}}>
+        Instrumentation Profiles 
       <p>  <i>Select profiles to instrument application methods</i></p>
         </div>
         <div   className = "col-md-3" >   
@@ -114,7 +111,7 @@ const styles = {
             label="Submit"
             onClick={this.submitInstr.bind(this)}
             disabled = {this.props.profileDisabled}
-            backgroundColor="#18494F"
+            backgroundColor="#3a9e95"
             labelColor="#FFF"
             labelStyle={{fontSize:12}}>
           </RaisedButton>
@@ -141,7 +138,6 @@ const styles = {
 }
 
 function mapStateToProps(state) {
-  console.log("generalKeywords---",state.Keywords)
   return {
     getAllKeywordData :state.Keywords,
     trData : state.initialData.trData,

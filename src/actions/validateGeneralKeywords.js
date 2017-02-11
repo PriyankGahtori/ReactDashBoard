@@ -7,7 +7,6 @@ export function validateBCICapturingKeywords(data) {
          data.setCavNVCookie.value === "0" &&
          data.enableCpuTime.value === "0" &&
          data.enableForcedFPChain.value === "0";
-
 }
 
 //validate HotSpot Capturing Keywordse
@@ -20,7 +19,6 @@ export function validateHotSpotCapturingKeywords(data) {
          data.ASDepthFilter.value === "0" &&
          data.ASTraceLevel.value ===  "0" &&
          data.ASStackComparingDepth.value === "0";
-       
 }
 
 export function validateDebugKeywords(data){
@@ -56,8 +54,6 @@ export function setDefaultValuesBCICapturing(data){
                               "setCavNVCookie":data.setCavNVCookie.defaultValue,
                               "enableCpuTime":data.enableCpuTime.defaultValue,
                               "enableForcedFPChain":data.enableForcedFPChain.defaultValue
-
-
   }
     return defaultKeywordData;
 }
@@ -88,6 +84,13 @@ export function setDefaultValuesBackendMonitor(data){
   return defaultKeywordData;
 }
 
+export function setDefaultValuesJVMThreadMonitor(data){
+  console.log("setDefaultValuesJVMThreadMonitor called")
+   var defaultKeywordData ={  "enableJVMThreadMonitor" : "1"
+                            }
+  return defaultKeywordData;
+}
+
 export function setDefaultValuesMonitor(data){
    var defaultKeywordData ={  "enableBTMonitor" : data.enableBTMonitor.defaultValue
                             }
@@ -111,7 +114,7 @@ export function setDefaultValuesExcptCapturing(data){
 }
 
 export function setDefaultValuesFpHdrCapturing(data){
-  console.log("data--",data)
+  // console.log("data--",data)
   var defaultKeywordData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
                               "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
                             }
@@ -163,4 +166,8 @@ export const disabledFpCapturing = {
 
 export const disabledBTMonitor = {
                                     "enableBTMonitor" : "0"
+};
+
+export const disabledJVMThreadMonitor = {
+                                    "enableJVMThreadMonitor" : "0"
 };

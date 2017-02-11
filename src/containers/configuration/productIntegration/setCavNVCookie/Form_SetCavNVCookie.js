@@ -106,28 +106,25 @@ render() {
     <form>
 
     <div className = "row">
-      <div className = "col-md-6">
+      <div className = "col-md-8">
           <TextField
-          hintText = "Hint Text"
           floatingLabelText = " Cookie Name"
           {...cookieName}
+          style={{ 'width': '350' }}
          errorText={cookieName.touched && cookieName.error && <div>{cookieName.error}</div>}/>   
         
       </div>
-    </div>
-
-    <div className = "row">
-      <div className = "col-md-6">
+      <div className = "col-md-4">
           <TextField
-          hintText="Hint Text"
           floatingLabelText="Service Method Depth"
           {...serviceMethodDepth}
+          style={{ 'width': '150' }}
         errorText={serviceMethodDepth.touched && serviceMethodDepth.error && <div>{serviceMethodDepth.error}</div>}/>   
        
         </div>
     </div>
 
-  
+   
     <div className = "row">
       <div className = "col-md-6">
         <Checkbox
@@ -136,16 +133,13 @@ render() {
         value = "enableNewFormat"
         checked  = {this.state.enableNewFormat}
         onCustomChange ={this.enableNewFormat.bind(this)}  />
-{/* <p style={{paddingLeft:35}}> (Enable/Disable BT Monitor)</p>*/}
-
     </div>
   </div>
 
       <div className = {`row ${this.state.maxDepthSizeCss}`}>
           <div className = "col-md-6">
             <TextField
-            hintText="Hint Text"
-            floatingLabelText="Maximum flowPath Bucket Size"
+            floatingLabelText="Maximum flow path Bucket Size"
           {...maxFpBucketSize}
          errorText={maxFpBucketSize.touched && maxFpBucketSize.error && <div>{maxFpBucketSize.error}</div>}/>   
         </div>

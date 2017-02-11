@@ -30,11 +30,6 @@ import TRModeDetail from './reducer_TRMode_detail';
 import HttpStatsData from './reducer_HttpStatsCond';
 import Loader from './reducer_Loader';
 import NDAgentStatus from './reducer_NDAgentStatus';
-import ProfileDisabled from './reducer_ProfileDisabled';
-import SessionAttrMonitor from './reducer_SessionAttrMonitor';
-import MethodBT from './reducer_BTMethod';
-import CustomCapture from './reducer_CaptureCustomData';
-import MethodBasedCustomData from './reducer_MethodBasedCustomData';
 
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
@@ -63,12 +58,7 @@ module.exports = combineReducers({
 	trModeDetail 	  : TRModeDetail,	
 	httpStatsData     : HttpStatsData,
 	loader            : Loader,
-	ndAgent 		  : NDAgentStatus,
-	profileDisabled   : ProfileDisabled,
-	sessionAttrMonitor: SessionAttrMonitor,
-	methodBT		  : MethodBT,
-	methodBasedCustomData: MethodBasedCustomData,
-	customCapture   :CustomCapture
+	ndAgent 		  : NDAgentStatus
 });
 
 //const reducers = {addInitialAppData};

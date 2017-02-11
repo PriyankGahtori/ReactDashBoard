@@ -212,7 +212,7 @@ class EnableHotSpotCapturing extends React.Component {
 
 
     const actionsHotSpotCapturing = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancelEnableHotSpotCapturing.bind(this)}
@@ -260,7 +260,7 @@ class EnableHotSpotCapturing extends React.Component {
               disabled={!this.state.hotSpotCapturingCheckBox}
               onClick={this.enableHotSpotCapturingDialog.bind(this)}
               style={{ width: 150 }}
-              backgroundColor="#18494F"
+              backgroundColor="#3a9e95"
               disabledLabelColor="#000"
               labelColor="#FFF"
               label="More Settings ..."
@@ -269,7 +269,7 @@ class EnableHotSpotCapturing extends React.Component {
           </div>
         </div>
 
-        <DialogEnableHotSpotCapturing
+        <DialogEnableHotSpotCapturing className="dialog-modal"
           title="Hotspot Capturing Settings"
           actions={actionsHotSpotCapturing}
           modal={false}

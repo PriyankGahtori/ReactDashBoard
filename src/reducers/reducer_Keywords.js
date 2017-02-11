@@ -1,6 +1,7 @@
 import _ from "lodash";
 import * as validate from '../actions/validateGeneralKeywords';
 import * as modifiedValGenExcptInMethod from '../containers/configuration/advance/genExcptInMethod/ModifyValue';
+import * as modifiedValSetJVMMon from '../containers/configuration/general/jvmMonitor/ModifyValue';
 import * as modifiedValFpHdrCapturing from '../containers/configuration/general/flowPathHeaderCapture/ModifyValue';
 import * as modifiedValInstrExcptCapt from '../containers/configuration/general/exceptionCapture/ModifyValue';
 import * as modifiedValSetCavNVCookie from '../containers/configuration/productIntegration/setCavNVCookie/ModifyValue';
@@ -18,7 +19,8 @@ const initialState = {initializeKeywords:{instrExceptionObj:{exceptionType:"hand
 					enableNDEntryPointsFile :false,
 					genExcptInMethod :false ,
 					enableFpHdrCheckBox : false,
-					enableMonitorsCheckBox : false   //for enable Monitor keywords group checkbox
+					enableMonitorsCheckBox : false,   //for enable Monitor keywords group checkbox
+					enableJVMMonitorCheckBox : false
 					}
 
 
@@ -27,6 +29,7 @@ export default function (state = initialState,action){
 switch(action.type){
 	
 	case 'GET_ALL_KEYWORDS':
+	console.log("GET_ALL_KEYWORDS called")
 	   	var newState = Object.assign({}, state);
 		newState.data = action.payload.data ;
 		var data = action.payload.data;
@@ -51,6 +54,8 @@ switch(action.type){
 		console.log("obj--",setCavCookieInitializeObj)
 		obj.setCavCookieInitializeObj = setCavCookieInitializeObj;
 
+		var setJVMMonInitializeObj = modifiedValSetJVMMon.splitValue(obj.enableJVMThreadMonitor)
+		obj.setJVMMonInitializeObj = setJVMMonInitializeObj;
 
 		/*for initializing fields of putDelayInMethod Keywords
 		* here putDelayInMethod = "5:20:0:1%20com.cavisson.kk"
@@ -113,7 +118,8 @@ switch(action.type){
 
 		newState.setCavNVCookie = obj.setCavNVCookie != 0 ;
 
-		console.log("newState in reducer kewords",newState)
+		newState.enableJVMMonitorCheckBox = obj.enableJVMThreadMonitor != 0 ;
+
 	return newState;
 
 
@@ -127,10 +133,11 @@ switch(action.type){
 		newState.listOfXmlFilesInstr = [];
 		console.log("at initial--",newState.listOfXmlFilesInstr)	
 		console.log("action---",action.payload.data)
-		action.payload.data.map(function(value){
-			newState.listOfXmlFilesInstr.push({value:value , label:value})
-		})
-		console.log("newState.listOfXmlFilesInstr---",newState.listOfXmlFilesInstr)
+		if(action.payload.data != null){
+			action.payload.data.map(function(value){
+				newState.listOfXmlFilesInstr.push({value:value , label:value})
+			})
+		}
 	return newState ;
 
 		
@@ -171,15 +178,17 @@ switch(action.type){
 
 		case 'ENABLE_MONITORS_CHECKBOX':
 		var newState = Object.assign({}, state);
-		console.log("enableMonitorCheckBox checkbox---",action.payload)
 		newState.enableMonitorsCheckBox = action.payload;
 
 		case 'GEN_EXCEPTION_IN_METHOD':
-		console.log(" in reducer exception -in method --->>>>----")
 		var newState = Object.assign({}, state);
 		newState.genExcptInMethod = action.payload;
 		return newState;
-		
+
+		case 'ENABLE_JVM_MONITOR':
+		var newState = Object.assign({}, state);
+		newState.enableJVMMonitorCheckBox = action.payload;
+		return newState;
 	}
 	return state;
 }

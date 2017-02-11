@@ -1,0 +1,1855 @@
+diff --git a/configui_populate_table.sh b/configui_populate_table.sh
+index 5c3435b..08eb17d 100755
+--- a/configui_populate_table.sh
++++ b/configui_populate_table.sh
+@@ -83,10 +83,11 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
+ (29,'ndMethodMonFile','','','5','false'),
+ (30,'BTErrorRules','','','5','false'),
+ (31,'captureHttpSessionAttr','','','5','false'),
+-(32,'setCavNVCookie','0','10240','5','0');
++(32,'setCavNVCookie','0','10240','5','0'),
++(33,'captureCustomData','0','10240','5','NA');
+ 
+ INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
+-(1,'http backend','HTTP','HttpCallout','HTTP'),
++(1,'http backend','HTTP','HttpCallout','HTTP')
+ (2,'WS backend','WEB SERVICE','HttpCallout','WS'),
+ (3,'JDBC backend','JDBC','oracleDB','JDBC'),
+ (4,'Coherence backend','COHERENCE','HttpCallout','None'),
+diff --git a/src/actions/index.js b/src/actions/index.js
+index ea33835..1857b6c 100644
+--- a/src/actions/index.js
++++ b/src/actions/index.js
+@@ -1638,29 +1638,6 @@ export function clearValData(){
+   }
+ }
+ 
+-export function toggleEditSessionAttrForm(){
+-
+-  return{
+-    type:'TOGGLE_EDIT_SESSION_ATTR',
+-    
+-  }
+-}
+-export function initializeSessionAttr(data){
+-
+-  return{
+-    type:'INITIALIZE_SESSION_ATTR',
+-    payload:data
+-    
+-  }
+-}
+-
+-export function updateSpecificAttrMon(data){
+-  return{
+-    type:'EDIT_SESSION_ATTR',
+-    payload:data
+-}
+-}
+-
+ export function addSpecificAttrMon(data,profileId){
+   console.log("data--",data)
+   var response = axios({
+@@ -1847,6 +1824,8 @@ export function delMethodBTRow(profileId,selectedRowKeys)
+        data: selectedRowKeys,
+        headers:{'Content-Type':'application/json'}
+  });
++
++
+   return{
+     type: 'DEL_METHOD_BT_ROW',
+     payload: response
+@@ -1877,3 +1856,113 @@ export function changedRuleTypes(ruleTypes){
+     payload:ruleTypes
+   }
+ }
++
++export function toggleAddCustomCapture(){
++  return{
++    type:'TOGGLE_LISTOFCAPTUREMETHODS_DIALOG'
++  }
++}
++
++export function listOfCapturingMethodsToConfigure(data){
++  return{
++    type    :'LIST_METHODS_CONFIGURE',
++    payload :data
++  }
++}
++
++export function toggleDialogStepper(){
++  return{
++    type:'TOGGLE_DIALOG_STEPPER'
++  }
++}
++
++export function methodbasedCapturingAddData(data){
++  console.log("methodbasedCapturingAddData method called")
++  return{
++    type :'ADD_DATA_METHODBASED',
++    payload:data
++  }
++}
++
++export function clearStepperData(){
++  return {
++    type:'CLEAR_STEPPER_DATA'
++  }
++}
++
++
++
++export function addMethodBasedCapturingDataToServer(data,profileId){
++    
++    var response = axios({
++       method:'post',
++       url : `${url.ADD_METHOD_BASED_CAPTURING}/${profileId}`,
++       data: data,
++       headers:{'Content-Type':'application/json'}
++ });
++
++
++  return{
++    type: 'ADD_METHODBASED_CAPTURINGDATA',
++    payload: response
++  }
++}
++
++export function fetchMethodBasedCustomData(profileId){
++
++  const URL = `${url.FETCH_METHOD_BASED_CUSTOMDATA}/${profileId}`
++   const response = axios.get(URL);
++  return{
++    type :'FETCH_METHOD_BASED_CUSTOMDATA',
++    payload:response
++  }
++
++
++}
++
++export function toggleArgumentTypeDialog(row){
++  return{
++    type:'TOGGLE_ARGTYPE_DIALOG',
++    payload:row
++  }
++}
++
++export function toggleReturnTypeDialog(row){
++  return{
++    type:'TOGGLE_RETURNTYPE_DIALOG',
++    payload:row
++  }
++}
++
++export function addReturnType(data,parentMethodBasedId){
++
++    var response = axios({
++       method:'post',
++       url : `${url.ADD_RETURN_TYPE}/${parentMethodBasedId}`,
++       data: data,
++       headers:{'Content-Type':'application/json'}
++ });
++
++
++  return{
++    type:'ADD_RETURN_TYPE',
++    payload:response
++  }
++}
++
++export function addArgumentType(data,parentMethodBasedId){
++
++    var response = axios({
++       method:'post',
++       url : `${url.ADD_ARGUMENT_TYPE}/${parentMethodBasedId}`,
++       data: data,
++       headers:{'Content-Type':'application/json'}
++ });
++
++
++  return{
++    type:'ADD_ARGUMENT_TYPE',
++    payload:response
++  }
++}
++
+diff --git a/src/actions/restURL.js b/src/actions/restURL.js
+index b090d54..373e275 100644
+--- a/src/actions/restURL.js
++++ b/src/actions/restURL.js
+@@ -1,12 +1,11 @@
+-//const SERVICE_URL = 'http://localhost:8090';
++const SERVICE_URL = 'http://localhost:8090';
+ //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
+ //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
+ //const  SERVICE_URL = 'http://localhost:8001/configUI';
+ 
+ //For Production use this SERVICE_URL
+ 
+-const SERVICE_URL = '/configUI';
+-
++//const SERVICE_URL = '/configUI';
+ /* Url for Home Screen */
+ export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
+ 
+@@ -138,3 +137,12 @@ export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttr
+  export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
+  export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/delete`;
+  export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;
++
++
++/* URL for methodBasedCapturingData */
++export const ADD_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/addcustomdata`;
++export const FETCH_METHOD_BASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/getmethodbasedcapturedata`;
++export const ADD_RETURN_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/addreturntype`;
++export const ADD_ARGUMENT_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/argtype`;
++
++
+diff --git a/src/components/DCDetailTable.js b/src/components/DCDetailTable.js
+index 03663e2..157b366 100644
+--- a/src/components/DCDetailTable.js
++++ b/src/components/DCDetailTable.js
+@@ -5,6 +5,7 @@ import Toggle from 'material-ui/Toggle';
+ import DropDownMenu from 'material-ui/SelectField';
+ import MenuItem from 'material-ui/MenuItem';
+ import * as  opData from '../containers/configuration/instrumentation/businessTransaction/OperatorsData';
++import DropDownComp from './DropDownCompTable';
+ 
+ 
+ const styles = {
+@@ -41,31 +42,57 @@ class DataGridComponent extends React.Component {
+     this.props.onhref(row);
+   }
+ 
+-  handleChange(row, evt, index,value) {
++  handleChange(row,key, evt, index,val) {
++    console.log("key---",key)
+     console.log("row", row)
+     console.log("index---", index)
+-    console.log("value--", value)
+-
+-    this.setState({changedVal:value,
++    console.log("value--", val)
++    var value = {};
++    value[key] = val
++    console.log("value---",value)
++    this.setState({value,
+                    onChangeFlag :true,
+                    rowChanged:row
+          })
+-    this.props.onChangeOpDropDown(value,row)
++    this.props.onChangeDropDown(val,row)
++  }
++
++  handleHyperlinkArgType(row){
++    this.props.onHrefArgType(row)
+   }
+ 
++  handleHyperlinkReturnType(row){
++    this.props.onHrefReturnType(row);
++  }
+ 
+-  linkFormat(cell, row) {
++
++
++  linkFormat(colIndex,cell, row) {
++    console.log("cell---",cell)
++    console.log("row---",row)
++    console.log("colIndex----",colIndex)
+ 
+     if (cell != undefined && cell.hasOwnProperty("self"))
+       return cell.self.href;
+-    //console.log("hmmmmmmm",cell.self.href)
+ 
+     //providing the hyperlink on cell 
+     else if (cell != undefined && cell.hasOwnProperty("href")) {
++      if(colIndex == 'returnTypeHref'){
++            return (
++            <a onTouchTap={this.handleHyperlinkReturnType.bind(this, row)} >{cell.href}</a>
++          );
++      }
++      else if(colIndex == 'argTypeHref'){
++         return (
++            <a onTouchTap={this.handleHyperlinkArgType.bind(this, row)} >{cell.href}</a>
++         );
++      }
++      else{
+       return (
+         <a onTouchTap={this.handleHyperlink.bind(this, row)} >{cell.href}</a>
+       );
+       }
++    }
+ 
+ 
+     else if (cell === 'true' || cell === 'false' || cell === true || cell === false) {
+@@ -83,35 +110,47 @@ class DataGridComponent extends React.Component {
+     //
+     else if (cell != undefined && cell.hasOwnProperty("dropDownVal")) {
+ 
+-     // console.log("row---", row.opCode)
+       console.log("Forcell--", cell)
+       console.log("row---",row)
+-      var data = opData.gettingOpData(row.opCode);
++      return(
++          <DropDownComp row = {row} onChangeDropDown ={this.props.onChangeDropDown}/>
++      );
++
++    /*  var data = opData.gettingOpData(row);
++     
+       console.log("data---",data)
++
+     //this flag used for dispalying initial value in table
+       console.log("this.state.onChangeFlag---",this.state.onChangeFlag)
++      let  key = row.id + colIndex;
+       if(!this.state.onChangeFlag){
+-          this.state={value:row.opCode}
++            var value = {}
++            value[key] = row.value;
++            console.log("key---",key)
++            this.state={value}
+       }
+-      else{
++      /*else{
+         console.log("in flag tru ecase",this.state.rowChanged)
+-        console.log("in flag tru ecase",this.state.changedVal)
+        
+          if(row.btMethodRuleId == this.state.rowChanged.btMethodRuleId){
+          console.log("cond satisfied this.state.changedVal--",this.state.changedVal)
+            this.state={value:this.state.changedVal,
+           }
++          
+        } 
++       
+       }
+     
++
+       console.log("this.state.value", this.state.value)
++      console.log("state---",this.state.value[Object.keys(this.state.value)[0]])
+       
+ 
+       return (
+         <div>
+         <DropDownMenu
+-          onChange={this.handleChange.bind(this,row)}
+-          value={this.state.value}
++          onChange={this.handleChange.bind(this,row,key)}
++          value={this.state.value[Object.keys(this.state.value)[0]]}
+           hintText="Select Operation"
+           style={styles.customWidth}
+           >
+@@ -123,6 +162,10 @@ class DataGridComponent extends React.Component {
+         </DropDownMenu>
+         </div>
+       );
++
++     */
++
++
+     }
+ 
+     else
+@@ -180,7 +223,7 @@ class DataGridComponent extends React.Component {
+           >
+           {column.data.map((val, index) => (
+ 
+-            <TableHeaderColumn editable={!(column.field[index] == 'opCodeDropDown')} dataSort={true} sortFunc={this.handleSort.bind(this)} dataFormat={this.linkFormat.bind(this)} dataField={column.field[index]} isKey={column.field[index] === column.key ? true : false} hidden={column.field[index] === column.key ? true : false} >{val}</TableHeaderColumn>
++            <TableHeaderColumn editable={!(column.field[index] == 'dropDownValCol')} dataSort={true} sortFunc={this.handleSort.bind(this)} dataFormat={this.linkFormat.bind(this,column.field[index])} dataField={column.field[index]} isKey={column.field[index] === column.key ? true : false} hidden={column.field[index] === column.key ? true : false} >{val}</TableHeaderColumn>
+           ))}
+         </BootstrapTable>
+       </div>
+diff --git a/src/containers/Testing.js b/src/containers/Testing.js
+index 0c83bb1..5de8ef2 100644
+--- a/src/containers/Testing.js
++++ b/src/containers/Testing.js
+@@ -1,102 +1,63 @@
+-import React, { PropTypes } from 'react'
+-import {reduxForm} from 'redux-form';
+-import {RadioButton} from 'material-ui/RadioButton';
+-import MultiSelect from '../components/MultiSelectWrapper';
+-import {Card} from 'material-ui/Card';
+-import Divider from 'material-ui/Divider';
+-import MenuItem from 'material-ui/MenuItem';
+-import TextField from 'material-ui/TextField';
+-import RaisedButton  from 'material-ui/RaisedButton';
+-import Checkbox from '../components/CheckboxWrapper';
++import React from 'react'
++import { Field, FieldArray, reduxForm } from 'redux-form'
+ 
+-export const fields = ['headersSelected','name','logLevelOneFpMethod'];
+-var options = [
+-{ value: 'one', label: 'One' },
+-{ value: 'two', label: 'Two' },
+-{ value: 'three', label: 'Three' },
+-{ value: 'four', label: 'Four' },
+-{ value: 'five', label: 'Five' }
+-];
+-
+-class Form_EnableReqFullFP extends React.Component {
+-
+-
+-  constructor(props) {
+-    super(props);
+-    this.state = {expand:false,
+-      enableHttpReqFPCheckBox: false,
+-      UrlQueryHttp:false,
+-      allHttpHeaders:false,
+-      textFieldValue:true,
+-      captureSelectedValue:1,
+-      multiSelectValue: "1,2,3,4,4,4,4,4"
+-
+-    }
+-    this.updateSelected = this.updateSelected.bind(this);             
+-  }
+-
+-  updateSelected(value){
+-  this.setState({multiSelectValue : value });
+-}
+-
+-
+-submit(data){
+-}
+-
+-ChangeLogLevel(event,isInputChecked){
+-  this.setState({logLevelOneFpMethod:isInputChecked})
+-}
+-
+-render() {
+-  const { fields: {headersSelected,name,logLevelOneFpMethod}, resetForm, handleSubmit,submitting } = this.props
++const FieldArraysForm = (props) => {
++  const { array: { push }, handleSubmit, pristine, reset, submitting } = props
+   return (
+-    <form onSubmit = {handleSubmit(this.submit.bind(this))}>
++    <form onSubmit={handleSubmit}>
+       <div>
+-    <MultiSelect multi
+-    {...headersSelected}
+-    name ="HttpHeaders"
+-    value = {this.state.multiSelectValue}  
+-    options = {options} 
+-    customOnChange = {this.updateSelected.bind(this)}
+-    />
+-
+-    <TextField
+-    hintText="Hint Text"
+-    floatingLabelText="Set Cav NV Cookie"
+-    {...name}
+-    />
+-
+-    <Checkbox
+-    {...logLevelOneFpMethod}
+-    value="logLevelOneFpMethod"
+-    label="Log Level One FP Method"
+-    checked={this.state.logLevelOneFpMethod}
+-    onCustomChange ={this.ChangeLogLevel.bind(this)}       
+-    />
+-
++        <label>Club Name</label>
++        <Field name="clubName" key="clubName" component={clubName =>
++          <div>
++            <input type="text" {...clubName} placeholder="Club Name"/>
++            {clubName.touched && clubName.error && <span>{clubName.error}</span>}
++          </div>
++        }/>
++      </div>
++      <FieldArray name="members" component={members =>
++        <ul>
++          <li>
++            <button type="button" onClick={() => push('members', {})}>Add Member</button>
++          </li>
++          {members.map((member, memberIndex) =>
++            <li key={memberIndex}>
++              <button
++                type="button"
++                title="Remove Member"
++                onClick={() => members.remove(memberIndex)}/>
++              <h4>Member #{memberIndex + 1}</h4>
++              <div>
++                <label>First Name</label>
++                <Field name={`${member}.firstName`} component={firstName =>
++                  <div>
++                    <input type="text" {...firstName} placeholder="First Name"/>
++                    {firstName.touched && firstName.error && <span>{firstName.error}</span>}
++                  </div>
++                }/>
++              </div>
++              <div>
++                <label>Last Name</label>
++                <Field name={`${member}.lastName`} component={lastName =>
++                  <div>
++                    <input type="text" {...lastName} placeholder="Last Name"/>
++                    {lastName.touched && lastName.error && <span>{lastName.error}</span>}
++                  </div>
++                }/>
++              </div>
++              }/>
++            </li>
++          )}
++        </ul>
++      }/>
++      <div>
++        <button type="submit" disabled={submitting}>Submit</button>
++        <button type="button" disabled={pristine || submitting} onClick={reset}>Clear Values
++        </button>
+       </div>
+-    <RaisedButton  label="submit" type="submit" disabled={submitting}>
+-    {submitting ? <i/> : <i/>} 
+-    </RaisedButton >
+     </form>
+-    );
+-}
++  )
+ }
+ 
+-Form_EnableReqFullFP.propTypes = {
+-  fields: PropTypes.object.isRequired,
+-  handleSubmit: PropTypes.func.isRequired,
+-  resetForm: PropTypes.func.isRequired,
+-  submitting: PropTypes.bool.isRequired
+-}
+ export default reduxForm({
+-  form: 'httpReqForm',
+-  fields,
+-},
+-  state => ({ // mapStateToProps
+-  }),
+-  
+-  { 
+-
+- } // mapDispatchToProps (will bind action creator to dispatch)
+- )(Form_EnableReqFullFP);
+\ No newline at end of file
++  form: 'fieldArrays',     // a unique identifier for this form
++})(FieldArraysForm)
+\ No newline at end of file
+diff --git a/src/containers/application/ApplicationDetail.js b/src/containers/application/ApplicationDetail.js
+index d18e235..7abecf7 100644
+--- a/src/containers/application/ApplicationDetail.js
++++ b/src/containers/application/ApplicationDetail.js
+@@ -86,6 +86,7 @@ class ApplicationDetail extends React.Component {
+   }
+ 
+   createConfFile() {
++    console.log("this.refs.appTable--",this.refs.appTable)
+     let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+     if (selectedRow.length == 1) {
+       let selectedRowData = this.props.appDetail.tableData
+diff --git a/src/containers/application/Dialog_AppDetail_NewApp.js b/src/containers/application/Dialog_AppDetail_NewApp.js
+index 3d38cdb..97934d3 100644
+--- a/src/containers/application/Dialog_AppDetail_NewApp.js
++++ b/src/containers/application/Dialog_AppDetail_NewApp.js
+@@ -22,12 +22,14 @@ class Dialog_AppDetail_NewApp extends React.Component {
+   constructor(props) {
+   super(props);
+   this.state = {applicationdata:this.props.applicationdata}
++  this.state = {'a':10}
+   this.handleCancel = this.handleCancel.bind(this);
+   this.handleSubmit =this.handleSubmit.bind(this);
+  }
+ 
+   componentWillReceiveProps(nextProps)
+   {
++    console.log("this.state---",this.state)
+     if(this.props.applicationdata != nextProps.applicationdata){
+       this.setState({applicationdata:nextProps.applicationdata});
+       if(nextProps.applicationdata.openAppDialogType === "edit")
+diff --git a/src/containers/application/Form_ApplicationDetail_NewApp.js b/src/containers/application/Form_ApplicationDetail_NewApp.js
+index b834c93..e47b4d5 100644
+--- a/src/containers/application/Form_ApplicationDetail_NewApp.js
++++ b/src/containers/application/Form_ApplicationDetail_NewApp.js
+@@ -107,6 +107,7 @@ class Form_ApplicationDetail_NewApp extends React.Component {
+   }
+   
+ 
++
+   render() {
+ 
+    const { fields: { appName, appDesc, userName,topoId}, resetForm, handleSubmit, submitting } = this.props
+diff --git a/src/containers/configuration/general/InstrProfileMultiSelect.js b/src/containers/configuration/general/InstrProfileMultiSelect.js
+index d6211f6..a360b3c 100644
+--- a/src/containers/configuration/general/InstrProfileMultiSelect.js
++++ b/src/containers/configuration/general/InstrProfileMultiSelect.js
+@@ -5,7 +5,6 @@ import axios from 'axios';
+ import { bindActionCreators } from 'redux';
+ import { connect } from 'react-redux';
+ import RaisedButton from 'material-ui/RaisedButton';
+-import Snackbar from 'material-ui/Snackbar';
+ 
+ //Importing files
+ import * as actionCreators  from '../../../actions/index';
+@@ -33,7 +32,7 @@ const styles = {
+   
+   constructor(props) {
+     super(props);
+-    this.state = {value:[],openSnack: false};
++    this.state = {value:[]};
+     this.state = {listData :[]};
+   }
+ 
+@@ -54,37 +53,27 @@ const styles = {
+   }
+ 
+   updateSelected(value){
+-    
++    console.log("updateSelected function called---",value)
+     this.setState({value });
+   }
+-  handleRequestClose(){
+-   
+-    this.setState({openSnack: false,instrSnack: false})
+-  }
+   
+   submitInstr(){
++    console.log("in sub,itting ---",this.state.value)
+     var formData = [];
+ 
+     //for runtime changes
+     let keywordDataList = [];
+-    try{
++
+     var data = this.state.value;
+     data.map(function(value){
+       console.log("value---",value)
+       keywordDataList.push("instrProfile" + "=" + value.value);
+       formData.push(value.value)
+     })
+-    }
+-    catch(e){
+-      console.log(" exception Handled")
+-    }
+-    
+     var finaldata = {"instrProfile":formData}
+-    if(formData.length > 0){
+-    this.setState({openSnack: true,instrSnack:false})
+-     }
+-     else
+-      this.setState({openSnack:false,instrSnack: true})
++    console.log("finaldata---",finaldata)
++    this.props.handleSubmit(finaldata)
++
+ 
+     if(keywordDataList.length == 0)
+       keywordDataList.push("instrProfile" + "=" + "global.xml");
+@@ -120,18 +109,6 @@ const styles = {
+           </RaisedButton>
+          
+          </div>
+-          <Snackbar
+-          open={this.state.openSnack}
+-          message="Instrumentation Profiles are submitted successfully"
+-          autoHideDuration={4000}
+-          onRequestClose={this.handleRequestClose.bind(this)}
+-          />
+-          <Snackbar
+-          open={this.state.instrSnack}
+-          message="No Instrumentation Profiles are selected."
+-          autoHideDuration={4000}
+-          onRequestClose={this.handleRequestClose.bind(this)}
+-          />
+          </div>
+ 
+ 
+diff --git a/src/containers/configuration/general/bciCapture/Form_EnableBCICapturing.js b/src/containers/configuration/general/bciCapture/Form_EnableBCICapturing.js
+index 6200f0d..0c3a8b0 100644
+--- a/src/containers/configuration/general/bciCapture/Form_EnableBCICapturing.js
++++ b/src/containers/configuration/general/bciCapture/Form_EnableBCICapturing.js
+@@ -206,7 +206,7 @@ class Form_EnableBCICapturing extends React.Component {
+               />
+           </div>
+ 
+-          <div className="col-md-6"  >
++     {/*   <div className="col-md-6"  >
+ 
+             <TextField
+               style={styles.setCavNVCookieBlock}
+@@ -216,6 +216,8 @@ class Form_EnableBCICapturing extends React.Component {
+               errorText={setCavNVCookie.touched && setCavNVCookie.error && <div> {setCavNVCookie.error}</div>}
+               />
+           </div>
++  */}
++      
+ 
+        </div>
+       </form>
+diff --git a/src/containers/configuration/general/flowPathHeaderCapture/Form_EnableFpCapturing.js b/src/containers/configuration/general/flowPathHeaderCapture/Form_EnableFpCapturing.js
+index c906a7a..40e180a 100644
+--- a/src/containers/configuration/general/flowPathHeaderCapture/Form_EnableFpCapturing.js
++++ b/src/containers/configuration/general/flowPathHeaderCapture/Form_EnableFpCapturing.js
+@@ -15,13 +15,20 @@ import DropDownComponent from './DropDownComponent';
+ import RadioButtonGroup from '../../../../components/RadioButtonGroupWrapper';
+ import Checkbox from '../../../../components/CheckboxWrapper';
+ import Input from '../../../../components/InputWrapper';
++import IconButton from 'material-ui/IconButton';
++import FontIcon from 'material-ui/FontIcon';
+ 
+ 
+ //Importing React components
+-import {submitKeywordData,initializeInstrException,updateSessionType}  from '../../../../actions/index';
++import {submitKeywordData,initializeInstrException,updateSessionType,toggleAddCustomCapture,clearStepperData}  from '../../../../actions/index';
+ import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+ import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
+ import * as  modifiedVal from './ModifyValue';
++import MethodBasedCaptureCustomData from './MethodBasedCapturingCustomData';
++import  DialogCaptureCustomData from './Dialog_CustomCaptureData';
++import DialogStepper from './Dialog_Stepper';
++import MultiSelectCapturingMenu from './customDataCapture/MultiSelectCapturingOptionMenu';
++
+ 
+ 
+ 
+@@ -35,7 +42,8 @@ export const fields = ['enableCaptureHTTPReqFullFp',
+                         'selectedHdrsValRes',
+                         'hdrValChrRes',
+                         'enableCaptureSessionAttr',
+-                        'sessionType'
++                        'sessionType',
++                        'enableCaptureCustomData'
+ 
+ ];
+ 
+@@ -180,17 +188,21 @@ class Form_EnableFpCapturing extends React.Component {
+       'sessionType':this.props.sessionType,
+       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
+       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
+-      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA'
++      'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA',
++      'customDataCapturingMethodBlock':'hidden',
++      'addMenuDropDownBlock':'hidden'
+   }
+ }
+ 
+   componentWillMount() {
+    // this.props.initializeInstrException();
++   this.props.clearStepperData();
+   
+  }
+ 
+  componentWillUnmount() {
+    console.log("componentWillUnmount()  method called")
++
+  }
+ 
+  componentWillReceiveProps(nextProps)
+@@ -369,6 +381,7 @@ getProfileName(profileId)
+ submitForm(formData){
+ 
+   console.log("formData--",formData)
++  console.log("submitForm method called------------------Form_Enablefpcpaturing")
+   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
+   let keywordDataList = [];
+   /*handle the case of enabling keyword wd default value
+@@ -401,6 +414,7 @@ else{
+ 
+     
+   keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
++  keywordData["captureCustomData"]["value"] = formData.enableCaptureCustomData;
+   this.props.submitKeywordData(keywordData,this.props.profileId);
+ 
+    var data = {'sessionType':formData.sessionType}
+@@ -417,6 +431,25 @@ else{
+   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
+  }
+ 
++ handleCaptureCustomData(event,isInputChecked){
++   console.log("val---",isInputChecked)
++   console.log("dialogStepper----",this.refs.dialogStepper)
++   let customDataCapturingMethodBlockCss = isInputChecked ?'show':'hidden'
++   this.setState({enableCaptureCustomData:isInputChecked,
++                  customDataCapturingMethodBlock:customDataCapturingMethodBlockCss
++    })
++ }
++
++ handleOpen(){
++   console.log("handleOpen method called")
++   this.setState({addMenuDropDownBlock:'show'})
++ //  this.props.toggleAddCustomCapture();
++
++ }
++ handleOpenAgain(){
++   this.props.toggleAddCustomCapture();
++ }
++
+ render() {
+   const { fields: { enableCaptureHTTPReqFullFp,
+                     hdrModeForReqcapture,
+@@ -429,7 +462,8 @@ render() {
+                     captureModeRes,
+                     hdrValChrRes,
+                     enableCaptureSessionAttr,
+-                    sessionType
++                    sessionType,
++                    enableCaptureCustomData
+ 
+ 
+   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
+@@ -455,7 +489,7 @@ render() {
+ 
+     <RaisedButton  className = "pull-right"
+                       backgroundColor = "#18494F" 
+-                       label=" SAVE"
++                       label=" Add"
+                       labelColor="#FFF"
+                       type="submit" 
+                      labelStyle={{fontSize:12}} 
+@@ -600,7 +634,7 @@ render() {
+ {/*********************END OF captureHTTPRespFullFp*****************/}
+ 
+ {/***********CAPTURESESSIONATTRIBUTE**********/}
+-  <div className = "row  col-md-3">
++  <div className = "row  col-md-10">
+     <Checkbox
+     {...enableCaptureSessionAttr}
+     value = "CaptureSessionAttr"
+@@ -612,7 +646,7 @@ render() {
+   </div>
+ 
+   <div className = {`row ${this.state.captureSessionAttrCss}`}>
+-    <div className = " col-md-6" >
++    <div className = " col-md-8" >
+         <RadioButtonGroup 
+           {...sessionType}
+           name = "sessionType" 
+@@ -639,8 +673,38 @@ render() {
+     </div>
+ 
+ 
++    {/**********START OF CAPTURE CUSTOM DATA CAPTURING **************/}
++
++      <div className = "row  ">
++        <div className = "col-md-5">
++          <Checkbox
++          {...enableCaptureCustomData}
++          value = "CaptureCustomData"
++          checked  = {this.state.enableCaptureCustomData}
++          label = "Capture Custom Data"
++          labelStyle = {{width:200}}
++          onCustomChange={this.handleCaptureCustomData.bind(this)}
++          />
++       </div>
++
++         <div className ={`col-md-2 ${this.state.customDataCapturingMethodBlock}`} style = {{top:'-5px'}}>
++{/* <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>*/}
++            <IconButton  tooltip="Add" onTouchTap={this.handleOpenAgain.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
++
++        </div>
++
++    {/*    <div className = {`col-md-3 ${this.state.addMenuDropDownBlock}`} style = {{'width':1000,'left':26,'top':-40}}>
++          <MultiSelectCapturingMenu />
++        </div> 
++*/} </div>
+ 
+ 
++     <div className = {`row col-md-4 ${this.state.customDataCapturingMethodBlock}`} style = {{paddingLeft:'10px'}}>
++        <MethodBasedCaptureCustomData profileId={this.props.profileId} />
++     </div>
++
++     <DialogCaptureCustomData profileId = {this.props.profileId} />
++    {/*<DialogStepper profileId = {this.props.profileId} />*/}
+       </form>
+     </div>
+ 
+@@ -675,6 +739,8 @@ export default reduxForm({
+   { 
+    submitKeywordData:submitKeywordData,
+    initializeInstrException:initializeInstrException,
+-   updateSessionType :updateSessionType 
++   updateSessionType :updateSessionType ,
++   toggleAddCustomCapture:toggleAddCustomCapture,
++   clearStepperData:clearStepperData
+  } // mapDispatchToProps (will bind action creator to dispatch)
+  )(Form_EnableFpCapturing);
+\ No newline at end of file
+diff --git a/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethod.js b/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethod.js
+index 5dab9c2..c17e221 100644
+--- a/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethod.js
++++ b/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethod.js
+@@ -306,11 +306,11 @@ handleEnableArgumentType(evnt,isInputChecked){
+       afterSaveCell: this.onAfterSaveCell.bind(this)  // a hook for after saving cell
+  };
+ 
+-        const { fields: {fqm,enableArgumentType,argumentIndex,returnType, rules}, resetForm, handleSubmit, onSubmit, submitting} = this.props
++        
+         return (
+             <form >
+                 <div className="row col-md-10">
+-                    <div className="col-md-5">
++                    <div className="col-md-8">
+                         <TextField
+                             // hintText="Hint Text"
+                             floatingLabelText="Fully qualified Method Name"
+diff --git a/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethodEdit.js b/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethodEdit.js
+index c27aef3..91296e3 100644
+--- a/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethodEdit.js
++++ b/src/containers/configuration/instrumentation/businessTransaction/Form_BTMethodEdit.js
+@@ -82,7 +82,8 @@ const errMsgCss = {
+ var columns = {
+                 "key" : "btMethodRuleId",
+                 "data":['Value', 'Operation','BT Name', 'ID'],
+-                "field":['value', 'opCodeDropDown', 'btName','btMethodRuleId']
++                "field":['value', 'dropDownValCol', 'btName','btMethodRuleId']
++                
+               };  
+ 
+ 
+@@ -231,7 +232,7 @@ handleSubmitValType(){
+     console.log("this.props.initialData--",this.props.initialData)
+     console.log("valData---",valData)
+     this.props.addBTMethodRule(valData,this.props.initialData.btMethodId)
+-    this.setState({addCompCSS:'hidden',errMsgCss:'hidden'})
++    this.setState({addCompCSS:'hidden'})
+     }
+  }
+ 
+@@ -293,7 +294,7 @@ handleEnableArgumentType(evnt,isInputChecked){
+     })
+ }
+ 
+-    onChangeOpDropDown(val,row){
++    onChangeDropDown(val,row){
+         console.log("val----",val)
+         console.log("row---",row)
+         this.onAfterSaveCell(row,"opCode", val)
+@@ -322,12 +323,13 @@ handleEnableArgumentType(evnt,isInputChecked){
+         return (
+             <form>
+                 <div className="row col-md-10">
+-                    <div className="col-md-5">
++                    <div className="col-md-11">
+                         <TextField
+                             // hintText="Hint Text"
+                             floatingLabelText="Fully qualified Method Name"
+                             {...fqm}
+                             errorText = {fqm.touched && fqm.error && <div>{fqm.error }</div>}
++                            style = {{width:'600px'}}
+                             />
+                     </div>
+                 </div>
+@@ -394,7 +396,7 @@ handleEnableArgumentType(evnt,isInputChecked){
+ 
+             <div className="pull-right"  >
+                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+-                {/*<IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> */}
++                <IconButton tooltip = "Delete " className = "pull-right" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton>
+             </div>
+             
+ 
+@@ -406,8 +408,10 @@ handleEnableArgumentType(evnt,isInputChecked){
+                         column     = {columns}
+                         onClick    = {this.handleClick}
+                         style={{color:'#000000'}}
+-                        onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
++                        onChangeDropDown = {this.onChangeDropDown.bind(this)}
+                         tableStyle={{background:'#ffffff'}}
++                       
++
+             />
+ 
+             </div>
+diff --git a/src/containers/configuration/instrumentation/businessTransaction/MethodBTComponent.js b/src/containers/configuration/instrumentation/businessTransaction/MethodBTComponent.js
+index 28390dd..5d16796 100644
+--- a/src/containers/configuration/instrumentation/businessTransaction/MethodBTComponent.js
++++ b/src/containers/configuration/instrumentation/businessTransaction/MethodBTComponent.js
+@@ -64,7 +64,7 @@ class MethodBTComponent extends React.Component {
+         this.state={opData:arrBooleanOperation}
+ 
+       else if(this.props.value == "Char/Byte")
+-       this.state =({opData:arrCharOperation})
++       this.state ={opData:arrCharOperation}
+     }
+     this.handleChange = this.handleChange.bind(this);
+   }
+@@ -106,9 +106,7 @@ handleChange(event, index, value){
+     if(val.id == value)
+       operationName = val.option;
+   })
+-  console.log("operationName--",operationName)
+-  this.setState({value:value
+-  })
++  this.setState({value:value })
+   this.props.operationChange(value,this.props.value.btMethodRuleId,operationName)
+ 
+ }
+diff --git a/src/containers/configuration/instrumentation/businessTransaction/OperatorsData.js b/src/containers/configuration/instrumentation/businessTransaction/OperatorsData.js
+index 08d9b95..517e56e 100644
+--- a/src/containers/configuration/instrumentation/businessTransaction/OperatorsData.js
++++ b/src/containers/configuration/instrumentation/businessTransaction/OperatorsData.js
+@@ -1,12 +1,13 @@
+ 
+-var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
++
++export var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
+                           { 'id':2 ,'option': 'NOT EQUALS' },
+                           { 'id':3,'option': 'CONTAINS' },
+                           { 'id':4, 'option': 'STARTS WITH' },
+                           { 'id':5, 'option': 'ENDS WITH' }
+                           ];
+ 
+-var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
++export var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
+                           {'id':7, 'option': 'NOT EQUAL' },
+                           { 'id':8,'option': 'LESS THAN' },
+                           { 'id':9,'option': 'GREATER THAN' },
+@@ -14,15 +15,21 @@ var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
+                           { 'id':11 ,'option': 'GREATER THAN EQUAL TO' }
+                           ];
+ 
+-  var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
++export var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
+                           {'id':13, 'option': 'FALSE' }
++                        ];
+   
++export var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
++
++export var sessAttrTypeList = [ {'id':0 ,'option': 'String' },
++                                {'id':1, 'option': 'Integer' },
++                                {'id':2,'option': 'Decimal' },
+             ];
+ 
+-  var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
+ 
+-  export function gettingOpData(id){
++  export function gettingOpData(row){
+       var arrOp;
++      if(row.hasOwnProperty("opCode")){
+         if(id >=1 && id < 6)
+             arrOp = arrStringOperation
+ 
+@@ -34,16 +41,22 @@ var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
+ 
+         else
+             arrOp = arrCharOperation
+-    
++      }
++      else{
++          arrOp = sessAttrTypeList
++      }
+     console.log("arrOp--",arrOp)
+     return arrOp ;
+   }
+ 
++
++
+   export function getOperationName(id){
+       console.log("getOperationName method called")
+ 
+       var arrOp;
+       let operationName;
++      if(row.hasOwnProperty("opCode")){
+       if(id >=1 && id < 6)
+         arrOp = arrStringOperation
+ 
+@@ -62,6 +75,18 @@ var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
+                 operationName = val.option
+             }
+         })
++      }
++      
+    console.log("operationName--",operationName) 
+     return operationName;
+   }
++
++  export function getTypeName(typeId){
++      console.log("getTypeName method called")
++      let typeName = "NA";
++      sessAttrTypeList.map(function(val){
++          if(val.id == typeId)
++            typeName = val.option
++      })
++      return typeName;
++  }
+\ No newline at end of file
+diff --git a/src/containers/configuration/instrumentation/monitor/AttrValComponent.js b/src/containers/configuration/instrumentation/monitor/AttrValComponent.js
+index 8137c1b..1179c41 100644
+--- a/src/containers/configuration/instrumentation/monitor/AttrValComponent.js
++++ b/src/containers/configuration/instrumentation/monitor/AttrValComponent.js
+@@ -8,6 +8,10 @@ import { bindActionCreators } from 'redux';
+ import * as actionCreators  from '../../../../actions/index';
+ import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+ import TextField from 'material-ui/TextField';
++import DropDownMenu from 'material-ui/SelectField';
++import MenuItem from 'material-ui/MenuItem';
++import * as  opData from '../businessTransaction/OperatorsData';
++
+ 
+ const obj = {}
+ class AttrValComponent extends React.Component {
+@@ -15,6 +19,7 @@ class AttrValComponent extends React.Component {
+   constructor(props) {
+     super(props)    
+     console.log("this.props--",this.props)
++    this.state ={dropDownVal:'0'}
+    
+   }
+ 
+@@ -53,26 +58,48 @@ rbChange(evt,value){
+     this.props.rbChange(value,this.props.value.id)
+ }
+ 
++handleChange(event, index, value){
++  console.log("this.state---",this.state.dropDownVal)
++  this.setState({dropDownVal:value})  
++  let typeName = opData.getTypeName(value);
++  console.log("typeName--",typeName)
++  this.props.typeChange(value,typeName)
++}
++
++
+ 
+   render() {
+     
+     return ( 
+-         <div className ="row col-md-10" >
+-        <div className ="col-md-3" style= {{width:'50px'}}>
++       <div className ="row col-md-11" >
++        <div className ="col-md-2" style= {{width:'50px'}}>
+           <TextField
+                floatingLabelText="Value Name "
+                onChange ={this.valNameChange.bind(this)}
+                 style = {{width:'160px'}}
+           />
+        </div>
+-       <div className ="col-md-1">
++       <div className ="col-md-3">
++        <DropDownMenu 
++          onChange={this.handleChange.bind(this)} 
++          value={this.state.dropDownVal}
++          hintText="Select Operation" 
++          style={{position:'relative',left:'70px',top:'22px',width:'100px'}}
++      >
++        <MenuItem value={"0"} primaryText="String" />
++        <MenuItem value={"1"} primaryText="Integer" />
++        <MenuItem value={"2"} primaryText="Decimal" />
++
++      </DropDownMenu>
++       
++ 
+        </div>
+ 
+-       <div className ="col-md-2" style={{}}>
++       <div className ="col-md-3" style={{}}>
+           <TextField
+                floatingLabelText="Left Bound"
+                onChange ={this.lbChange.bind(this)}
+-               style = {{width:'160px',position:'relative',left:'18px'}}
++               style = {{width:'160px',position:'relative',left:'29px'}}
+           />
+      </div>
+ 
+diff --git a/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrAdd.js b/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrAdd.js
+index d91f43d..81f8f9f 100644
+--- a/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrAdd.js
++++ b/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrAdd.js
+@@ -20,7 +20,7 @@ const styles = {
+     padding: 8 
+   },
+   dialog:{
+-    top:'-30px'
++    top:'-50px'
+   }
+ 
+ }
+@@ -41,7 +41,7 @@ class Dialog_SessionAttrAdd extends React.Component {
+  submitForm(data){
+      console.log("data--",data)
+      console.log("this.props--",this.props.sessionAttrMonitor.valData)
+-     if(data.complete && data.specific){
++     if(data.complete == 'true' && data.specific == 'true'){
+         data["attrMode"]=3
+         data["attrType"] ='complete,specific'
+      }
+diff --git a/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrEdit.js b/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrEdit.js
+deleted file mode 100644
+index 368e3e7..0000000
+--- a/src/containers/configuration/instrumentation/monitor/Dialog_SessionAttrEdit.js
++++ /dev/null
+@@ -1,121 +0,0 @@
+-//Importing React components
+-import React from 'react';
+-import { connect } from 'react-redux';
+-import { Component, PropTypes } from 'react';
+-import AddNewButton from 'material-ui/FloatingActionButton';
+-import AddIcon from 'material-ui/svg-icons/content/add';
+-import DialogSessionAttr from 'material-ui/Dialog';
+-import FlatButton from 'material-ui/FlatButton';
+-import { bindActionCreators } from 'redux';
+-import { reset } from 'redux-form';
+-
+-//Importing React components
+-import * as actionCreators  from '../../../../actions/index';
+-import FormSessionAttrEdit from './Form_SessionAttrEdit';
+-import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+-
+-const styles = {
+-  title: {
+-    fontSize:16,
+-    padding: 8 
+-  }
+-
+-}
+-class Dialog_SessionAttrEdit extends React.Component {
+- 
+-  constructor(props) {
+-  super(props);
+-  this.handleCancel = this.handleCancel.bind(this);
+-  this.handleSubmit=this.handleSubmit.bind(this);
+-  this.state={sessionAttrMonitor : this.props.sessionAttrMonitor};
+-  this.submitForm =this.submitForm.bind(this);
+-
+-  }
+-
+-
+- submitForm(data){
+-   console.log("data-----",data)
+-     if(data.complete && data.specific){
+-        data["attrMode"]=3
+-        data["attrType"] ='complete,specific'
+-     }
+-    else if(data.complete == true){
+-        data["attrMode"]=2
+-        data["attrType"] ='complete'
+-    }
+-    else{
+-        data["attrMode"]=1
+-        data["attrType"] ='specific'
+-    }
+-    data['sessAttrId'] = this.state.sessionAttrMonitor.sessionAttrInitializeForm.sessAttrId;
+-   this.props.updateSpecificAttrMon(data);
+-   this.handleCancel();
+-  }
+-
+- 
+-
+-  componentWillReceiveProps(nextProps)
+-  {
+-      if(this.props.sessionAttrMonitor != nextProps.sessionAttrMonitor)
+-       this.setState({sessionAttrMonitor:nextProps.sessionAttrMonitor});
+-  }
+-
+-  handleCancel(){
+-   this.props.toggleEditSessionAttrForm();
+-  }
+-  
+-  handleSubmit(){
+-    this.refs.editSessionAttrMonitorForm.submit();
+-  }
+- 
+-  render() {
+-    const { onSubmit } = this.props
+-  	const actions = [
+-      <FlatButton
+-        label="Cancel"
+-        primary={true}
+-        onTouchTap={this.handleCancel}
+-      />,
+-      
+-      <FlatButton
+-        label="Submit"
+-        primary={true}
+-        keyboardFocused={true}
+-       // disabled = {this.props.sessionAttrMonitor.disabled}
+-        onClick={this.handleSubmit}
+-      />
+-    ];
+-    return (
+-      <div>
+-        <DialogSessionAttr
+-          title="Edit Session Attribute"
+-          actions={actions}
+-          modal={false}
+-          open={this.state.sessionAttrMonitor.openEditSessAttrMonDialog}
+-          onRequestClose={this.handleClose}
+-          autoScrollBodyContent={true}
+-          refs="insidedialog"
+-          titleStyle={styles.title}
+-        >
+-
+-        <FormSessionAttrEdit ref="editSessionAttrMonitorForm" onSubmit={this.submitForm.bind(this)}/>
+-      </DialogSessionAttr>
+-      
+-      </div>
+-    );
+-  }
+-} 
+-
+-function mapStateToProps(state) {
+-  return {
+-    sessionAttrMonitor : state.sessionAttrMonitor,
+-  
+-   };
+-}
+-
+-//method to dispatch actions to the reducers
+-function mapDispatchToProps(dispatch) {
+-
+-return bindActionCreators(actionCreators, dispatch);
+-}
+-export default connect(mapStateToProps, mapDispatchToProps)(Dialog_SessionAttrEdit);
+\ No newline at end of file
+diff --git a/src/containers/configuration/instrumentation/monitor/Form_SessionAttrAdd.js b/src/containers/configuration/instrumentation/monitor/Form_SessionAttrAdd.js
+index c3159e2..b13f42a 100644
+--- a/src/containers/configuration/instrumentation/monitor/Form_SessionAttrAdd.js
++++ b/src/containers/configuration/instrumentation/monitor/Form_SessionAttrAdd.js
+@@ -19,6 +19,7 @@ import DataGrid from '../../../../components/DCDetailTable';
+ import Toggle from '../../../../components/ToggleWrapper';
+ import AttrValComponent from './AttrValComponent';
+ import {addingValData,disableSubmitButtonState} from '../../../../actions/index';
++import * as  opData from '../businessTransaction/OperatorsData';
+ 
+ 
+ 
+@@ -31,12 +32,8 @@ const validate = values=>{
+     if(!values.attrName)
+     errors.attrName = 'Required'
+         
+-   else if(Number(values.attrName))
+-    errors.attrName = "Please enter only characters."
+-
+-   else if(!Is.alphaNumeric(values.attrName))
+-      errors.attrName = 'Special characters are not allowed.'
+-    
++    else if (!isNaN(values.attrName))
++    errors.attrName = 'Please Enter Only Characters'
+ 
+      if(!values.complete && !values.specific)
+      errors.complete = 'Must select any of the  Attribute Type'
+@@ -65,8 +62,8 @@ const  error={
+ 
+ var columns = {
+                 "key" : "id",
+-                "data":['Value Name', 'Lower Bound','Right Bound', 'ID'],
+-                "field":['valName', 'lb', 'rb','id']
++                "data":['Value Name','Type', 'Lower Bound','Right Bound', 'ID'],
++                "field":['valName','dropDownValCol', 'lb', 'rb','id']
+               };  
+ 
+ class Form_SessionAttrAdd extends React.Component {
+@@ -182,6 +179,12 @@ rbChange(value,id){
+     this.editValArr(id,'rb',value)
+ }
+ 
++  typeChange(value,typeName){
++    this.setState({type:value,
++                    typeName:typeName
++    })
++  }
++
+ del(val){
+   console.log("val--",val)
+   let arr = this.state.valDataArr;
+@@ -202,23 +205,6 @@ handleSubmitValType(attrValues){
+   
+   console.log("handleSubmitValType method called--",attrValues)
+   console.log("this.state.valName--",this.state.valName)
+-  /*  if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
+-       this.setState({errMsgCss:'show'})
+-    }
+-    else{
+-       this.setState({count:this.state.count+1})
+-       var valData = {'valName':this.state.valName,
+-                     'lb':this.state.lb,
+-                     'rb':this.state.rb,
+-                     'id':this.state.count
+-    }
+-    var finalArr = Object.assign([],this.state.valDataArr)
+-    finalArr.push(valData)
+-    attrValues.onChange(finalArr) ;
+-    
+-     this.props.disableSubmitButtonState();
+-     */
+-
+     if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
+        this.setState({errMsgCss:'show'})
+     }
+@@ -231,6 +217,10 @@ handleSubmitValType(attrValues){
+        var valData = {'valName':this.state.valName,
+                      'lb':this.state.lb,
+                      'rb':this.state.rb,
++                     'type':this.state.type,
++                     'typeName':this.state.typeName,
++                     'value':this.state.type,
++                     'dropDownValCol':{'dropDownVal':this.state.type},
+                      'id':this.state.count
+     }
+     this.state.valDataArr.push(valData);
+@@ -240,30 +230,6 @@ handleSubmitValType(attrValues){
+     
+  }
+ 
+-renderSessionAttrValues(arr)
+-{
+- let that = this;
+- console.log("arr--",arr)
+-// arr.push({'paramName':'','lb':'','rb':''});
+- let component = arr.map(function(val){
+-                  console.log("val---",val)
+-                 return <div >
+-                    <AttrValComponent value={val} valNameChange={that.valNameChange.bind(this)} lbChange = {that.lbChange.bind(this)} rbChange={that.rbChange.bind(this)} />
+-                    <div className="row col-md-1">
+-                    <IconButton style = {{position:'relative',left:'-3px'}} 
+-
+-                    tooltip="delete" onTouchTap={that.del.bind(this,val.id)}><FontIcon color='#D3D3D3' className="material-icons">delete</FontIcon></IconButton>
+-                    </div>
+-                   </div>
+-  })
+- 
+-
+-  return(
+-    <div>
+-      {component}
+-    </div>
+-  ); 
+-}
+ 
+  handleOpen(){
+       this.setState({addCompCSS:'show'})
+@@ -276,19 +242,29 @@ renderSessionAttrValues(arr)
+       console.log("in Dialog_Attr vcalues--",row)
+       console.log("cellName--",cellName)
+       console.log("cellVAlue--",cellValue)
+-      console.log("this.state.rilrtYpe--",this.state.ruleTypesChanged)
+-      var arrData = Object.assign([],this.state.ruleTypesChanged)
++      console.log("this.state.rilrtYpe--",this.state.valDataArr)
++      var arrData = Object.assign([],this.state.valDataArr)
+       //var arrData = this.state.changedValArr;
+       
+       if(arrData != null && arrData.length != 0){
+         arrData.map(function(value){
+             console.log("value---",value)
+-          if(value.btMethodRuleId == row.btMethodRuleId){ //handling the case when 1 row is edited multiple times or same row but diff column
++          if(value.id == row.id){ //handling the case when 1 row is edited multiple times or same row but diff column
+             console.log("in if condition")
+             value[cellName] = cellValue;
++             if(cellName == "type"){
++                let typeName = opData.getTypeName(cellValue);
++                console.log("typeName--",typeName)
++                 value["typeName"] = typeName
++             }
+           }
+         else{
+           console.log("in ekse con")
++          if(cellName == "type"){
++                let typeName = opData.getTypeName(cellValue);
++                console.log("typeName--",typeName)
++                row["typeName"] = typeName
++             }
+           arrData.push(row);
+           }
+         })
+@@ -297,14 +273,21 @@ renderSessionAttrValues(arr)
+         arrData.push(row);
+       }
+       console.log("arrData--",arrData)
+-      this.setState({ruleTypes:arrData})
+-      console.log("this.state--",this.state.ruleTypes)
++      this.setState({valDataArr:arrData})
++      console.log("this.state--",this.state.valDataArr)
+     }
+ 
+   onBeforeSaveCell(row, cellName, cellValue){
+       console.log("onBeforeSaveCell method called in dialog_AttrValues")
+     }
+ 
++    onChangeDropDown(val,row){
++       console.log("val----",val)
++        console.log("row---",row)
++      this.onAfterSaveCell(row,"type", val)
++
++    }
++
+ 
+   render() {
+ 
+@@ -377,11 +360,15 @@ renderSessionAttrValues(arr)
+                         ref        = "sessionAttrMonitorData" 
+                         column     = {columns}
+                         onClick    = {this.handleClick}
++                        onChangeDropDown = {this.onChangeDropDown.bind(this)}
++                        valList = {[opData.arrBooleanOperation,opData.arrStringOpersation,opData.arrNumericOperation,
++                                    opData.arrCharOperation,opData.sessAttrTypeList]}
++
+                       
+             />
+           </div>
+           <div className = {`row ${this.state.addCompCSS}`} style = {{'paddingLeft':'6px'}}>
+-              <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
++              <AttrValComponent value={{}} typeChange = {this.typeChange.bind(this)} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
+               <RaisedButton className ="pull-right"
+               label="Add"
+               backgroundColor = "#D3D3D3" 
+diff --git a/src/containers/configuration/instrumentation/monitor/Form_SessionAttrEdit.js b/src/containers/configuration/instrumentation/monitor/Form_SessionAttrEdit.js
+deleted file mode 100644
+index 3e58c08..0000000
+--- a/src/containers/configuration/instrumentation/monitor/Form_SessionAttrEdit.js
++++ /dev/null
+@@ -1,102 +0,0 @@
+-//Importing React components
+-import React, { PropTypes } from 'react'
+-import {reduxForm} from 'redux-form';
+-import { connect } from 'react-redux';
+-import { bindActionCreators } from 'redux';
+-import TextField from 'material-ui/TextField';
+-import Is from 'is_js';
+-import FlatButton from 'material-ui/FlatButton';
+-import RaisedButton from 'material-ui/RaisedButton';
+-import Checkbox from '../../../../components/CheckboxWrapper';
+-
+-export const fields = ['attrName','complete','specific']
+-
+-const validate = values=>{
+-  const errors ={}   
+-    if(!values.attrName)
+-    errors.attrName = 'Required'
+-        
+-   else if(Number(values.attrName))
+-    errors.attrName = "Please enter only characters."
+-
+-   else if(!Is.alphaNumeric(values.attrName))
+-      errors.attrName = 'Special characters are not allowed.'
+-
+-     if(!values.complete && !values.specific)
+-     errors.complete = 'Must select any of the  Attribute Type'
+-
+-      return errors;
+-}
+-
+-const  error={
+-        fontSize: 12,
+-        color: 'red',
+-        paddingLeft:3,
+-    };
+-
+-class FormSessionAttrEdit extends React.Component {
+-
+-  constructor(props) {
+-  super(props);
+-  }
+-
+-  render() {
+-     const { fields: {attrName,complete,specific}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+-  return (
+-    <form >
+-      <div className ="col-md-12">
+-          <TextField
+-              // hintText="Hint Text"
+-               floatingLabelText=" Name"
+-               {...attrName}
+-              errorText = {attrName.touched  && attrName.error && <div> {attrName.error}</div> }
+-               />
+-       </div>
+-
+-    <div className ="row ">
+-        <div className ="col-md-5">
+-              <Checkbox
+-              {...complete}
+-              value="complete"
+-              label="Complete"
+-             />
+-          <div style={error}> {complete.touched && complete.error && <div>{complete.error}</div>}</div>
+-
+-        
+-        </div>
+-        <div className = "col-md-3">
+-             <Checkbox
+-              {...specific}
+-              value="specific"
+-              label="Specific"
+-           />
+-            
+-        </div>
+-    </div>
+-
+-    </form>
+-    );
+-  }
+-}
+-
+-
+-FormSessionAttrEdit.propTypes = {
+-  fields: PropTypes.object.isRequired,
+-  handleSubmit: PropTypes.func.isRequired,
+-  resetForm: PropTypes.func.isRequired,
+-  submitting: PropTypes.bool.isRequired
+-}
+-
+-export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
+-  form: 'Session Attribute Monitor ',        // a unique name for this form
+-  fields,
+-  validate,
+-},
+-  state => ({ // mapStateToProps
+-    valData:state.sessionAttrMonitor.valData,
+-    initialValues: state.sessionAttrMonitor.sessionAttrInitializeForm,
+-}),
+- {
+- } // mapDispatchToProps (will bind action creator to dispatch)
+-) (FormSessionAttrEdit);
+-
+diff --git a/src/containers/configuration/instrumentation/monitor/InstrumentMonitors.js b/src/containers/configuration/instrumentation/monitor/InstrumentMonitors.js
+index a4b4dcd..778acd6 100644
+--- a/src/containers/configuration/instrumentation/monitor/InstrumentMonitors.js
++++ b/src/containers/configuration/instrumentation/monitor/InstrumentMonitors.js
+@@ -30,9 +30,12 @@ export default class InstrumentMonitors extends React.Component {
+     console.log("value in handlechamge--",value)    
+     //let profileId = this.props.routeParams.profileId;
+     //let routeURL = `instrumentation/monitors/${value}`;
++    console.log("")
++
+     let currPath = `${this.props.location.pathname}`;
+         currPath = currPath.substring(0, currPath.indexOf("monitors")+8)
+     let routeURL = `${currPath}/${value}`;
++    console.log("routeURL",routeURL)
+     hashHistory.push(routeURL);
+   }
+ 
+@@ -55,6 +58,7 @@ export default class InstrumentMonitors extends React.Component {
+           
+         </Tab>
+ 
++        
+       </Tabs>
+       </div>
+ 
+diff --git a/src/containers/configuration/instrumentation/monitor/SessionAttributeMonitors.js b/src/containers/configuration/instrumentation/monitor/SessionAttributeMonitors.js
+index d85d6dc..79a8f85 100644
+--- a/src/containers/configuration/instrumentation/monitor/SessionAttributeMonitors.js
++++ b/src/containers/configuration/instrumentation/monitor/SessionAttributeMonitors.js
+@@ -23,7 +23,6 @@ import DataGrid from '../../../../components/DCDetailTable';
+ import EnableMethodMonitor from './EnableMethodMonitor';
+ import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+ import DialogAttrVal from './Dialog_AttrValues';
+-import Dialog_SessionAttrEdit from './Dialog_SessionAttrEdit'
+ export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
+ 
+ var columns = {
+@@ -78,8 +77,7 @@ const styles = {
+      this.state = {openSnack: false,
+                    delDialog: false,
+                   attrType :'all',
+-                  specificModeCSS:'hidden',
+-                  editSessionAttr: false
++                  specificModeCSS:'hidden'
+                 }
+ 
+     console.log("SessionAttributeMonitors method called",this.props)
+@@ -152,27 +150,14 @@ loader(){
+         this.setState({delDialog:false})
+   }
+  
+- handleEdit(){
+-  var selectedRow = [];
+-    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+-      let selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function (value) {
+-          return value.sessAttrId == selectedRow
+-        });
+- if(selectedRow.length == 1){
+-   this.props.toggleEditSessionAttrForm();
+-   this.props.initializeSessionAttr(selectedRowData[0]);
+- }
+-
+- }
+   handleOpen(){
+-
+     this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
+   //  this.props.disableSubmitButtonState();
+    // this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
+     this.props.clearValData();
+   }
+ 
+-  handleOpen(openSessAttrMonDialog){
++ /* handleOpen(openSessAttrMonDialog){
+ 
+     //for editing form
+     let selectedRow= this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+@@ -199,6 +184,7 @@ loader(){
+           this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
+     }
+   }
++  */
+   
+   handleHref(row){
+     console.log("row---",row)
+@@ -275,8 +261,10 @@ loader(){
+            <DialogSessionAttr profileId ={this.props.profileId}/>
+ 
+           <div className="pull-right"  >
+-            <IconButton tooltip="Edit Session Attribute" onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>
++
++ {/*  <IconButton tooltip="Edit " onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton> */}
+               <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
++       {/*    <IconButton tooltip="Delete" onTouchTap={this.handleDel}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> */}
+           </div>
+         
+         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
+@@ -297,8 +285,6 @@ loader(){
+ 
+         
+          <DialogAttrVal />
+-          <Dialog_SessionAttrEdit  />
+-          
+           
+         </div>
+          <Snackbar
+diff --git a/src/reducers/index.js b/src/reducers/index.js
+index 3c8f6ec..a7bf9ef 100644
+--- a/src/reducers/index.js
++++ b/src/reducers/index.js
+@@ -33,6 +33,9 @@ import NDAgentStatus from './reducer_NDAgentStatus';
+ import ProfileDisabled from './reducer_ProfileDisabled';
+ import SessionAttrMonitor from './reducer_SessionAttrMonitor';
+ import MethodBT from './reducer_BTMethod';
++import CustomCapture from './reducer_CaptureCustomData';
++import MethodBasedCustomData from './reducer_MethodBasedCustomData';
++
+ 
+ /*import {INITIALIZE_APP}  from "../actions/const.js";
+ /* Populated by react-webpack-redux:reducer */
+@@ -63,7 +66,9 @@ module.exports = combineReducers({
+ 	ndAgent 		  : NDAgentStatus,
+ 	profileDisabled   : ProfileDisabled,
+ 	sessionAttrMonitor: SessionAttrMonitor,
+-	methodBT		  : MethodBT
++	methodBT		  : MethodBT,
++	methodBasedCustomData: MethodBasedCustomData,
++	customCapture   :CustomCapture
+ });
+ 
+ //const reducers = {addInitialAppData};
+diff --git a/src/reducers/reducer_BTMethod.js b/src/reducers/reducer_BTMethod.js
+index 6826d54..bc37629 100644
+--- a/src/reducers/reducer_BTMethod.js
++++ b/src/reducers/reducer_BTMethod.js
+@@ -53,7 +53,7 @@ export default function (state = initialState, action) {
+             if (data.rules == null) {
+                 data.rules = []
+             }
+-            newState.btMethodInitializeForm = data;
++            newState.D = data;
+             console.log("newState---", newState)
+             return newState;
+ 
+@@ -69,7 +69,8 @@ export default function (state = initialState, action) {
+             var respData = action.payload.data;
+             newState.tableData.map(function (val) {
+                 if (val.btMethodId == respData.parentBTMethodId) {
+-                    respData.opCodeDropDown = { "dropDownVal": respData.opCode }
++                    respData.dropDownValCol = { "dropDownVal": respData.opCode }
++                    respData.value = respData.opCode
+                     val.rules.push(respData)
+                 }
+ 
+diff --git a/src/reducers/reducer_SessionAttrMonitor.js b/src/reducers/reducer_SessionAttrMonitor.js
+index 396d1d5..e8a3ecc 100644
+--- a/src/reducers/reducer_SessionAttrMonitor.js
++++ b/src/reducers/reducer_SessionAttrMonitor.js
+@@ -1,11 +1,10 @@
+ const initialState = {tableData:[],
+                      openNewAppDialog:false,  //initializing varia
+-                     sessionAttrInitializeForm:null,
++                     appDetailInitializeForm:null,
+                      openAppDialogType:null,
+                      ndConfPath:null,
+                      valData:[],
+                      openNewSessAttrMonDialog:false,
+-                     openEditSessAttrMonDialog:false,
+                      disabled:false,
+                      openAttrValDialog:false,
+                      attrValues:[],
+@@ -19,9 +18,6 @@ function modifyingData(data){
+         var value='';
+         if(val.attrValues != null && val.attrValues.length != 0){
+           val.attrValues.map(function(attrVal,index){
+-          console.log("attrVal--",attrVal)
+-          console.log("index--",index)
+-          console.log("val.attrValues.length--",val.attrValues.length)
+           if(index != (val.attrValues.length - 1)){
+             value = value+attrVal.valName+",";
+           }
+@@ -33,9 +29,8 @@ function modifyingData(data){
+       val["values"]= {"href":value};
+     }
+       else{
+-        val["values"] = {"href":"Add Values"};
++        val["values"] = "NA"
+       }
+-      console.log("val---",val)
+     })
+     return data;
+ 
+@@ -72,7 +67,6 @@ export default function(state = initialState, action) {
+       newState.valData = [];
+       return newState;
+ 
+-
+     case 'ADD_ATTRIBUTE':
+     var newState = Object.assign({},state)
+     console.log("add attr--",action.payload)
+@@ -91,7 +85,7 @@ export default function(state = initialState, action) {
+      data["values"]= {"href":value};
+     }
+     else{
+-      data["values"]= {"href":"Add values"}
++      data["values"]= "NA"
+     }
+     newState.tableData.push(data)
+     console.log("newState--",newState.tableData)
+@@ -104,7 +98,6 @@ export default function(state = initialState, action) {
+       console.log("newState.openNewMethodMonDialog---",newState.openNewSessAttrMonDialog)
+       return newState;
+ 
+-
+         //NOT USED
+       case 'TOGGLE_STATE_SUBMIT_BUTTON':
+       var newState = Object.assign({},state)
+@@ -162,53 +155,7 @@ export default function(state = initialState, action) {
+       newState.tableData = data;
+       return newState;
+ 
+-     case 'TOGGLE_EDIT_SESSION_ATTR':
+-      var newState = Object.assign({}, state);
+-      newState.openEditSessAttrMonDialog= !newState.openEditSessAttrMonDialog;
+-      return newState;
+-
+-      case  'INITIALIZE_SESSION_ATTR':
+-        var newState = Object.assign({}, state);
+-        var data = action.payload;
+-        if(data.attrType == "specific"){
+-          data.specific = true
+-          data.complete = false
+-        }else if(data.attrType == "complete"){
+-          data.complete = true
+-          data.specific = false
+-        } 
+-        else{
+-          data.complete = true
+-          data.specific = true
+-        }
+-        newState.sessionAttrInitializeForm = action.payload;
+-      return newState;
+-
+-      case  'EDIT_SESSION_ATTR':
+-        var newState = Object.assign({}, state);
+-         newState.tableData.map(function(val){
+-          if(val.sessAttrId == action.payload.data.sessAttrId)
+-          {
+-             val.attrName = action.payload.data.attrName;
+-             val.attrType = action.payload.data.attrType;
+-             if(action.payload.data.attrType == 'complete'){
+-               console.log("action.payload.data.attrType --",action.payload.data.attrType)
+-               val.values = "NA"
+-             }
+-             
+ 
+-          }
+-             return val;
+-         });  
+-      return newState;
+-
+-      case 'DELETE_SESSION_ROWS':
+-        var newState = Object.assign({},state);
+-        console.log(" payload data -----> ",action.payload.data)
+-        newState.tableData  = newState.tableData.filter(function(value) {
+-        return action.payload.data.indexOf(Number(value.sessAttrId)) == -1;
+-      });
+-      return newState
+ 
+   default :
+     return state;

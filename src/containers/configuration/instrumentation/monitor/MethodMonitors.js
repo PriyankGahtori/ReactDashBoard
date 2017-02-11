@@ -188,11 +188,11 @@ loader(){
         <div className='row row-no-margin tableheader'>
         <div className="col-md-4">
              <EnableMethodMonitor />
-              <h4 style={{position: 'relative',bottom:11}}>Method Monitor(s)</h4>
+              <h4 style={{position: 'relative'}}>Method Monitor(s)</h4>
         </div>
         <div>
-     <IconButton tooltip ="Edit Method Monitor"  style={{position: 'absolute',right:82}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon  color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
-     <IconButton tooltip = "Delete Method Monitor" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+     <IconButton tooltip ="Edit"  style={{position: 'absolute',right:'82',height:'auto',padding:'8',fontSize:'16'}} onTouchTap={this.handleOpen.bind(this,"edit")}><FontIcon color="#FFF"  className="material-icons">edit_mode</FontIcon></IconButton>
+     <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
      </div>
         <DataGrid data = {this.props.methodMonitor.tableData} 
             pagination = {false} 
@@ -202,7 +202,7 @@ loader(){
             onToggle   = {this.onToggle.bind(this)} />
 
         <div>
-         <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,'add')}>
+         <AddNewButton className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,'add')}>
             <AddIcon />
          </AddNewButton>
          <DialogMethodMon profileId ={this.props.params.profileId}/>
@@ -219,7 +219,6 @@ loader(){
           actions={actions}
           modal={false}
           open={this.state.delDialog}
-      
         />
        </Paper>
     </div>

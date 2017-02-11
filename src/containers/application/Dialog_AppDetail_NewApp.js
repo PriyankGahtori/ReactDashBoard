@@ -22,12 +22,14 @@ class Dialog_AppDetail_NewApp extends React.Component {
   constructor(props) {
   super(props);
   this.state = {applicationdata:this.props.applicationdata}
+  this.state = {'a':10}
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit =this.handleSubmit.bind(this);
  }
 
   componentWillReceiveProps(nextProps)
   {
+    console.log("this.state---",this.state)
     if(this.props.applicationdata != nextProps.applicationdata){
       this.setState({applicationdata:nextProps.applicationdata});
       if(nextProps.applicationdata.openAppDialogType === "edit")

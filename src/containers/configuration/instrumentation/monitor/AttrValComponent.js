@@ -57,30 +57,29 @@ rbChange(evt,value){
   render() {
     
     return ( 
-         <div className ="row col-md-10" >
-        <div className ="col-md-3" style= {{width:'50px'}}>
+         <div className ="row col-md-12" >
+        <div className ="col-md-3">
           <TextField
                floatingLabelText="Value Name "
                onChange ={this.valNameChange.bind(this)}
-                style = {{width:'160px'}}
+               style={{width:'',position:'relative'}}
           />
        </div>
-       <div className ="col-md-1">
-       </div>
+    
 
-       <div className ="col-md-2" style={{}}>
+       <div className ="col-md-3">
           <TextField
                floatingLabelText="Left Bound"
                onChange ={this.lbChange.bind(this)}
-               style = {{width:'160px',position:'relative',left:'18px'}}
+               style = {{width:'',position:'relative'}}
           />
      </div>
 
-     <div className ="col-md-2" style ={{position:'relative',left:'10px'}}>
+     <div className ="col-md-3" style ={{position:'relative'}}>
           <TextField
             floatingLabelText="Right Bound"
             onChange ={this.rbChange.bind(this)}
-             style = {{width:'100px',position:'relative',left:'25px'}}
+             style = {{width:'',position:'relative'}}
           />
      </div>
 

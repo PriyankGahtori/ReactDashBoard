@@ -79,23 +79,17 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
     else
       this.setState({enableCaptureExceptCheckBox:true})
 
-    console.log("aftr setting--",this.state.exceptionConfDivCss)  
   }
 
   handleExceptStackTrace(event,value){
-    console.log("value---handleExceptStackTrace change",value)
      this.setState({
                    captureExceptStackTraceCheckBox:value
     })
-    console.log("aftr setting--",this.state.exceptionConfDivCss)  
   }
 
   submit(formData){
     let keywordData = Object.assign({},this.props.getAllKeywordData.data);
     var instrVal;
-
-    console.log("keywordData-in instrException-",keywordData)
-    console.log("formData---",formData)
     
     /*
     * final data is data that is fetched from server and its value is updated according to user input,
@@ -127,10 +121,8 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
             
 
       }
-      console.log("instrVal--",instrVal)      
       keywordData.instrExceptions["value"] = instrVal;
 
-    console.log("finalFormData---",keywordData)
 //    this.props.submitKeywordData(keywordData,this.props.profileId,"instrException"); 
     this.props.submitKeywordData(keywordData,this.props.profileId); 
 
@@ -146,12 +138,10 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 
   handleChangeStackTraceValue(value)
   {
-    console.log("handleChangeStackTraceValue--",value)
     this.setState({stackTraceDepthValue:value})
   }
 
    handleChange (event){
-    console.log("value---",event.target.value)
     this.setState({
       value: event.target.value,
     });
@@ -223,7 +213,6 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 
             <div className ={`row ${this.state.captureExceptStackTraceCheckBox? 'show' :'hidden'}`} style ={{'paddingTop':-15,'paddingLeft':17}}>
               <TextField
-                      hintText="Hint Text"
                       floatingLabelText="AS Sample Interval For Stack Trace"
                       defaultValue={this.state.stackTraceDepthValue}
                       onChange={this.handleChange}

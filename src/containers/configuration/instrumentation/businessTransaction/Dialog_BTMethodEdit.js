@@ -63,7 +63,7 @@ class Dialog_BTMethod extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-
+    console.log("this.props - ", this.props)
     if(this.props.methodBT != nextProps.methodBT)
       this.setState({methodBT:nextProps.methodBT});
 
@@ -84,7 +84,7 @@ class Dialog_BTMethod extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -100,8 +100,8 @@ class Dialog_BTMethod extends React.Component {
     ];
     return (
       <div>
-        <DialogBTMethod
-          title="Edit BT Method"
+        <DialogBTMethod className="dialog-modal"
+          title="Edit Business Transaction Method"
           actions={actions}
           modal={false}
           open={this.state.methodBT.openBTMethodDialogEdit}
@@ -117,7 +117,7 @@ class Dialog_BTMethod extends React.Component {
            */
         }
 
-        <FormBTMethodEdit ref="newBTMethodFormEdit" onSubmit={this.submitForm.bind(this)}/>
+        <FormBTMethodEdit ref="newBTMethodFormEdit" onSubmit={this.submitForm.bind(this)} profileId={this.props.profileId} />
       </DialogBTMethod>
       
       </div>

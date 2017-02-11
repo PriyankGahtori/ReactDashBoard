@@ -78,7 +78,7 @@ class Dialog_MethodMonitor extends React.Component {
      if(nextProps.methodMonitor.openMethodMonitorDialogType == 'edit')
         this.setState({title:"Edit Method Monitor"})
       else
-        this.setState({title:"New Method Monitor"})
+        this.setState({title:"Add Method Monitor"})
 
   }
 
@@ -94,7 +94,7 @@ class Dialog_MethodMonitor extends React.Component {
   render() {
     const { onSubmit } = this.props
   	const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -110,7 +110,7 @@ class Dialog_MethodMonitor extends React.Component {
     ];
     return (
       <div>
-        <DialogMethodMon
+        <DialogMethodMon className="dialog-modal"
           title={this.state.title}
           actions={actions}
           modal={false}

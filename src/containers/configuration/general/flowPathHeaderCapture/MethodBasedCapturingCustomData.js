@@ -17,7 +17,6 @@ import ConfirmDelDialog  from 'material-ui/Dialog';
 import Checkbox from 'material-ui/Checkbox';
 import FontIcon from 'material-ui/FontIcon';
 
-import ConfirmDelDialog  from 'material-ui/Dialog'
 //Importing files
 import * as actionCreators  from '../../../../actions/index';
 import DataGrid from '../../../../components/DCDetailTable';

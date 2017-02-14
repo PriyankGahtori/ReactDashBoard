@@ -213,7 +213,7 @@ class Form_EnableBCICapturing extends React.Component {
               />
           </div>
 
-         <div className="col-md-6"  >
+{/*         <div className="col-md-6"  >
 
             <TextField
               style={styles.setCavNVCookieBlock}
@@ -224,7 +224,7 @@ class Form_EnableBCICapturing extends React.Component {
               />
           </div>
 
-        </div>
+  */}        </div>
       </form>
     );
   }

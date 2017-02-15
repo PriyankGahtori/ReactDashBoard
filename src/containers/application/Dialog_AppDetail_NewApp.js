@@ -22,7 +22,6 @@ class Dialog_AppDetail_NewApp extends React.Component {
   constructor(props) {
   super(props);
   this.state = {applicationdata:this.props.applicationdata}
-  this.state = {'a':10}
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit =this.handleSubmit.bind(this);
  }

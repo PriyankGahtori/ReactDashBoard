@@ -138,7 +138,7 @@ export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/del
  export const FETCH_BTMETHOD_URL = `${SERVICE_URL}/custom/btmethod/getallbtmethoddata`;
  export const ADD_BTMETHOD_RULE = `${SERVICE_URL}/custom/btmethod/addbtmethodrule`;
  export const UPDATE_BTMETHOD = `${SERVICE_URL}/custom/btmethod/updatebtmethod`;
- export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/delete`;
+ export const DEL_METHOD_RULES =  `${SERVICE_URL}/custom/btmethod/deleteRules`;
  export const DEL_METHOD_BT =  `${SERVICE_URL}/custom/btmethod/delete`;
 
 

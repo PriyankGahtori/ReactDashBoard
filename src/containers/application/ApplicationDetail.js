@@ -247,7 +247,7 @@ class ApplicationDetail extends React.Component {
         </Paper>
 
         <div>
-          <AddNewButton style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this, "add")} >
+          <AddNewButton className="add-btn" style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this, "add")} >
             <AddIcon />
           </AddNewButton>
 

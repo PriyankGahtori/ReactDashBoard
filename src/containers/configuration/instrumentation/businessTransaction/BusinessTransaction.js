@@ -106,7 +106,7 @@ class BusinessTransaction extends React.Component {
         <h2 style={{'position': 'relative'}}>HTTP Business Transaction Configuration</h2>
 	      <div className='row' style= {{'padding':'4px 0','position': 'relative', color: '#FFF'}}>
 	      <RadioButtonGroup name="btType" 
-      		className={'col-xs-4 col-md-4'} 
+      		className={'col-xs-7 col-md-7'} 
       		style={{display: 'flex'}}
       		onChange={this.handleChange.bind(this)}
       		defaultSelected={this.state.btRuleType}

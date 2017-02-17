@@ -309,6 +309,12 @@ handleEnableArgumentType(evnt,isInputChecked){
      var selectedRow = [] ;
      selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
      this.props.delMethodRulesRow(this.props.profileId,selectedRow);
+     try{
+      this.refs.sessionAttrMonitorData.refs.table.cleanSelected();
+     }
+     catch(e){
+       console.error(" Exception Occured: FileName: Form_BTMethodEdit,MethodName: handleDeleteRow() ",e)
+     }
      
   }
 

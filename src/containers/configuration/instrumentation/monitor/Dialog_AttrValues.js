@@ -159,6 +159,13 @@ handleOpen(){
   this.setState({addCompCSS:'show'})  
 
 }
+
+
+onCustomValTypeChange(val,customValTypeName){
+        this.setState({customValType:val,
+                      customValTypeName:customValTypeName
+        })
+}
  
  valNameChange(value,id){
    console.log("value--",value)
@@ -177,7 +184,8 @@ addValType(){
   var value = { 
                 'valName':this.state.valName,
                 'lb':this.state.lb,
-                'rb':this.state.rb
+                'rb':this.state.rb,
+                'type':this.state.customValType
   }
  
   if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
@@ -244,7 +252,10 @@ addValType(){
           <AttrValComponent value = {{}}  
                         valNameChange={this.valNameChange.bind(this)} 
                         lbChange = {this.lbChange.bind(this)} 
-                        rbChange={this.rbChange.bind(this)} />
+                        rbChange={this.rbChange.bind(this)}
+                         onCustomValTypeChange = {this.onCustomValTypeChange.bind(this)}
+                        
+                         />
           <RaisedButton className ="pull-right"
           label="Submit"
           backgroundColor = "#D3D3D3" 

@@ -18,7 +18,7 @@ import DataGrid from '../../../../components/DCDetailTable';
 //Importing files
 import Toggle from '../../../../components/ToggleWrapper';
 import AttrValComponent from './AttrValComponent';
-import {addingValData,disableSubmitButtonState} from '../../../../actions/index';
+import {addingValData,disableSubmitButtonState,toggleAddCustomCapture} from '../../../../actions/index';
 
 
 
@@ -37,7 +37,6 @@ const validate = values=>{
    else if(!Is.alphaNumeric(values.attrName))
       errors.attrName = 'Special characters are not allowed.'
     
-
      if(!values.complete && !values.specific)
      errors.complete = 'Must select any of the  Attribute Type'
 
@@ -84,7 +83,21 @@ class Form_SessionAttrAdd extends React.Component {
         }
   this.del = this.del.bind(this);
   this.submitValType = this.submitValType.bind(this);
+  this.submitForm = this.submitForm.bind(this);
  
+  }
+
+  componentWillReceiveProps(nextProps){
+    console.log("componentWillReceiveProps method called of form Session Attr Add",nextProps)
+    console.log("componentWillReceiveProps method called this.props---",this.props)
+    
+     if(nextProps.isActive != null && nextProps.isActive){
+       // this.props.addMethodBasedCapturingDataToServer(data,this.props.profileId);
+       console.log("nextProps.active  ----",nextProps.active)
+  //      this.submit(); 
+       // this.props.toggleAddCustomCapture();
+       
+     }
   }
 
   specificChkBoxChange(event,isInputChecked){
@@ -157,6 +170,12 @@ editValArr(id,key,value){
   console.log("arr--", this.state.valDataArr)
 }
 
+onCustomValTypeChange(val,customValTypeName){
+        this.setState({customValType:val,
+                      customValTypeName:customValTypeName
+        })
+}
+
 
 valNameChange(value,id){
     console.log("value-valNameChange method--",value)
@@ -224,7 +243,9 @@ handleSubmitValType(attrValues){
        var valData = {'valName':this.state.valName,
                      'lb':this.state.lb,
                      'rb':this.state.rb,
-                     'id':this.state.count
+                     'id':this.state.count,
+                     'customValTypeName':this.state.customValTypeName,
+                     'type':this.state.customValType
     }
     this.state.valDataArr.push(valData);
     attrValues.onChange(this.state.valDataArr) ;
@@ -298,11 +319,27 @@ renderSessionAttrValues(arr)
       console.log("onBeforeSaveCell method called in dialog_AttrValues")
     }
 
+    submitData(data){
+      console.log("submit method called of form session atrr ad---",data)
+
+    }
+
+    submitForm(curr,isActive,handleSubmit)
+    {
+      console.log("curr--",curr.props)
+      console.info("curr----",curr.props.values)
+      console.info("isActive",isActive);
+      console.info("handleSubmit",handleSubmit);
+      handleSubmit(curr.props.values);
+      
+
+      
+    }
 
   render() {
 
     
-     const { fields: {attrName,complete,specific,attrValues}, resetForm, handleSubmit,onSubmit, submitting} = this.props
+     const { fields: {attrName,complete,specific,attrValues}, resetForm, handleSubmit,onSubmit, submitting,isActive} = this.props
      const cellEditProp = {
       mode: 'click',
       blurToSave: true,
@@ -372,7 +409,15 @@ renderSessionAttrValues(arr)
            <p style = {{color: 'red',paddingTop:20}}>Require Fields are empty</p>
         </div>
           <div className = {`row ${this.state.addCompCSS}`} >
-              <AttrValComponent value={{}} valNameChange={this.valNameChange.bind(this)} lbChange = {this.lbChange.bind(this)} rbChange={this.rbChange.bind(this)} />             
+              
+              <AttrValComponent value={{}} 
+              onCustomValTypeChange = {this.onCustomValTypeChange.bind(this)}
+              valNameChange={this.valNameChange.bind(this)} 
+              lbChange = {this.lbChange.bind(this)} 
+              rbChange={this.rbChange.bind(this)}
+              
+               />  
+
               <RaisedButton className ="pull-right"
               label="Add"
               backgroundColor = "#D3D3D3" 
@@ -414,7 +459,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
 }),
  {
   addingValData:addingValData ,
-  disableSubmitButtonState:disableSubmitButtonState   
+  disableSubmitButtonState:disableSubmitButtonState,
+  toggleAddCustomCapture:toggleAddCustomCapture 
  } // mapDispatchToProps (will bind action creator to dispatch)
 ) (Form_SessionAttrAdd);
 

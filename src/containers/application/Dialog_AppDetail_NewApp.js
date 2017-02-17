@@ -21,8 +21,9 @@ class Dialog_AppDetail_NewApp extends React.Component {
  
   constructor(props) {
   super(props);
+  console.log("this.props.applicationdata---",this.props.applicationdata)
   this.state = {applicationdata:this.props.applicationdata}
-  this.state = {'a':10}
+ // this.state = {'a':10}
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit =this.handleSubmit.bind(this);
  }
@@ -45,6 +46,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
   }
   
   handleSubmit(){
+    console.log("handleSubmit method called--",this.refs.newAppForm)
    this.refs.newAppForm.submit();
   }
 
@@ -66,7 +68,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
           title = {this.state.title}
           actions={actions}
           modal={false}
-          open={this.state.applicationdata.openNewAppDialog}
+          open={this.state.applicationdata.openNewAppDialog != null?this.state.applicationdata.openNewAppDialog :false}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"

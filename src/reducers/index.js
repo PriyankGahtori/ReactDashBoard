@@ -35,6 +35,7 @@ import SessionAttrMonitor from './reducer_SessionAttrMonitor';
 import MethodBT from './reducer_BTMethod';
 import CustomCapture from './reducer_CaptureCustomData';
 import MethodBasedCustomData from './reducer_MethodBasedCustomData';
+import HttpReqHdrBasedCustomData from './reducer_HttpReqHdr';
 
 
 /*import {INITIALIZE_APP}  from "../actions/const.js";
@@ -68,7 +69,8 @@ module.exports = combineReducers({
 	sessionAttrMonitor: SessionAttrMonitor,
 	methodBT		  : MethodBT,
 	methodBasedCustomData: MethodBasedCustomData,
-	customCapture   :CustomCapture
+	customCapture   :CustomCapture,
+	httpReqHdrBasedCustomData: HttpReqHdrBasedCustomData
 });
 
 //const reducers = {addInitialAppData};

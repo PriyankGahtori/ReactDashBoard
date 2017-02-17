@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import DropDownMenu from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
-import * as opData  from './OperationVal';
+import * as opData from './OperationVal';
 import React, { PropTypes } from 'react';
 import { reduxForm } from 'redux-form';
 
@@ -17,40 +17,40 @@ import { reduxForm } from 'redux-form';
 import * as actionCreators from '../../../../../actions/index';
 import { triggerRunTimeChanges } from '../../../../../actions/runTimeChanges';
 
-export const fields = ['headerName','index','operation','opVal']
+export const fields = ['headerName', 'index', 'operation', 'opVal']
 
 
 
-var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
-                          { 'id':2 ,'option': 'NOT EQUALS' },
-                          { 'id':3,'option': 'CONTAINS' },
-                          { 'id':4, 'option': 'STARTS WITH' },
-                          { 'id':5, 'option': 'ENDS WITH' }
-                          ];
+var arrStringOperation = [{ 'id': 1, 'option': 'EQUALS' },
+{ 'id': 2, 'option': 'NOT EQUALS' },
+{ 'id': 3, 'option': 'CONTAINS' },
+{ 'id': 4, 'option': 'STARTS WITH' },
+{ 'id': 5, 'option': 'ENDS WITH' }
+];
 
-var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
-                          {'id':7, 'option': 'NOT EQUAL' },
-                          { 'id':8,'option': 'LESS THAN' },
-                          { 'id':9,'option': 'GREATER THAN' },
-                          { 'id':10 ,'option': 'LESS THAN EQUAL TO' },
-                          { 'id':11 ,'option': 'GREATER THAN EQUAL TO' }
-                          ];
+var arrNumericOperation = [{ 'id': 6, 'option': 'EQUAL' },
+{ 'id': 7, 'option': 'NOT EQUAL' },
+{ 'id': 8, 'option': 'LESS THAN' },
+{ 'id': 9, 'option': 'GREATER THAN' },
+{ 'id': 10, 'option': 'LESS THAN EQUAL TO' },
+{ 'id': 11, 'option': 'GREATER THAN EQUAL TO' }
+];
 
-  var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
-                          {'id':13, 'option': 'FALSE' }
-                          
-  ];
-  
-  var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
+var arrBooleanOperation = [{ 'id': 12, 'option': 'TRUE' },
+{ 'id': 13, 'option': 'FALSE' }
 
+];
 
+var arrCharOperation = [{ 'id': 14, 'option': 'EXCEPTION' }];
 
 
 
-  var arrOperation = [{'id':0,operation:'String'},
-                    {'id':1,operation:'Integer'},
-                    {'id':2,operation:'Decimal'},
-                     ];
+
+
+var arrOperation = [{ 'id': 0, operation: 'String' },
+{ 'id': 1, operation: 'Integer' },
+{ 'id': 2, operation: 'Decimal' },
+];
 
 const items = [];
 
@@ -59,324 +59,392 @@ class AddComponent extends React.Component {
     super(props)
     console.log("this.props--", this.props)
     this.state = {
-      paramName:'',
-      operation:'',
-      btName:'',
-      value:'',
-      operation:'',
-      hdrName:'',
-      index:'',
-      opValCss:'hidden',
-      opValExtractCss:'hidden',
-      opList:this.props.opListForReturnType != null ? this.props.opListForReturnType :[]
-      
+      paramName: '',
+      operation: '',
+      btName: '',
+      value: '',
+      operation: '',
+      hdrName: '',
+      index: '',
+      opValCss: 'hidden',
+      opValExtractCss: 'hidden',
+      opList: this.props.opListForReturnType != null ? this.props.opListForReturnType : []
+
     }
 
-  /*  if(this.props.value != '' || this.props.value != null){
-      if(this.props.value == "String")
-        this.state={opData:arrStringOperation}
-
-      else if(this.props.value == "Numeric")
-        this.state={opData:arrNumericOperation}
-
-      else if(this.props.value == "Boolean")
-        this.state={opData:arrBooleanOperation}
-
-      else if(this.props.value == "Char/Byte")
-       this.state ={opData:arrCharOperation}
-    }
-    */
+    /*  if(this.props.value != '' || this.props.value != null){
+        if(this.props.value == "String")
+          this.state={opData:arrStringOperation}
   
+        else if(this.props.value == "Numeric")
+          this.state={opData:arrNumericOperation}
+  
+        else if(this.props.value == "Boolean")
+          this.state={opData:arrBooleanOperation}
+  
+        else if(this.props.value == "Char/Byte")
+         this.state ={opData:arrCharOperation}
+      }
+      */
+
 
     this.handleChange = this.handleChange.bind(this);
   }
 
 
 
-componentWillMount(){
-    
-}
+  componentWillMount() {
 
-componentWillReceiveProps(nextProps){
-  console.log("nextProps.value--",nextProps.opListForReturnType)
- 
-  if (this.props.opListForReturnType != nextProps.opListForReturnType) {
-        this.setState({opList:nextProps.opListForReturnType != null ? nextProps.opListForReturnType:[]})
+  }
+
+  componentWillReceiveProps(nextProps) {
+
+    let list;
+    if (nextProps.hideIndexField) {
+      if (nextProps.fqm != null) {
+        let currType = this.getTypeReturnType(this.props.fqm)
+        let nextType = this.getTypeReturnType(nextProps.fqm)
+
+
+        if (currType != nextType) {
+          list = opData.opValList(nextType)
+          console.log("list---", list)
+          this.setState({ opList: list })
+        }
       }
-} 
+    }
+    else {
+
+      let currType = this.getType(this.props.fqm, this.state.indexVal)
+      let nextType = this.getType(nextProps.fqm, this.state.indexVal)
 
 
-
-
-del(){
-
-}
-
-handleChange(event, index, value){
-  console.log("this.state.opData--",this.state.opData)
-  var operationName ;
-  this.state.opData.map(function(val){
-    console.log("val--",val)
-    if(val.id == value)
-      operationName = val.option;
-  })
-  this.setState({value:value })
-  this.props.operationChange(value,this.props.value.btMethodRuleId,operationName)
-
-}
+      if (currType != nextType) {
+        list = opData.opValList(nextType)
+        console.log("list---", list)
+        this.setState({ opList: list })
+      }
+    }
+  }
 
 
 
 
 
-
-handleCustomValType(evt,val){ 
-
-  console.log("val---",val)
-//  let list = opData.opValList(val);
-  let valName ;
-  arrOperation.map(function(data){
-                        if(data.id == val){
-                            valName = data.operation
-                        }
-  })
-  console.log("valName--",valName)
-  this.setState({value:val,
-  //               opList :list
+  handleChange(event, index, value) {
+    var operationName;
+    this.state.opData.map(function (val) {
+      console.log("val--", val)
+      if (val.id == value)
+        operationName = val.option;
     })
- this.props.onCustomValTypeChange(val,valName)
-}
+    this.setState({ value: value })
+    this.props.operationChange(value, this.props.value.btMethodRuleId, operationName)
 
-handleOperationChange(evt,value){
-  console.log("value--",value)
-  let operationName ;
-  let opValCss ;
-  let  opValExtractCss;
-  this.state.opList.map(function(data){
-    if(data.id == value){
-      operationName = data.opVal
-    } 
-  })
-  console.log("operationName---",operationName)
-  if(operationName == "CAPTURE" || operationName == "EXCEPTION"){
-    opValCss = "hidden",
-    opValExtractCss='hidden'
   }
-  else if(operationName == "EXTRACT_SUBPART"){
-    opValExtractCss = "show",
-     opValCss = "hidden"
-  }
-  else{
-     opValCss = "show",
-     opValExtractCss='hidden' 
-  }
-  this.setState({operation:value,
-                opValCss :opValCss,
-                opValExtractCss :opValExtractCss
-                
+
+
+
+
+
+
+  handleCustomValType(evt, val) {
+
+    let valName;
+    arrOperation.map(function (data) {
+      if (data.id == val) {
+        valName = data.operation
+      }
     })
-  this.props.onOperationChange(value,operationName)
-}
+    console.log("valName--", valName)
+    this.setState({
+      value: val,
+      //               opList :list
+    })
+    this.props.onCustomValTypeChange(val, valName)
+  }
 
-hdrNameChange(evt,value){
-    console.log("hdrNameChange method called",value)
-    //this.setState({headerName:value})
+  handleOperationChange(evt, value) {
+    console.log("value--", value)
+    let operationName;
+    let opValCss;
+    let opValExtractCss;
+    this.state.opList.map(function (data) {
+      if (data.id == value) {
+        operationName = data.opVal
+      }
+    })
+    console.log("operationName---", operationName)
+    if (operationName == "CAPTURE" || operationName == "EXCEPTION") {
+      opValCss = "hidden",
+        opValExtractCss = 'hidden'
+    }
+    else if (operationName == "EXTRACT_SUBPART") {
+      opValExtractCss = "show",
+        opValCss = "hidden"
+    }
+    else {
+      opValCss = "show",
+        opValExtractCss = 'hidden'
+    }
+    this.props.onOperationChange(value, operationName)
+    this.setState({
+      operation: value,
+      opValCss: opValCss,
+      opValExtractCss: opValExtractCss
+
+    })
+
+  }
+
+  hdrNameChange(evt, value) {
+    console.log("hdrNameChange method called", value)
 
     this.props.onHdrNameChange(value)
-}
+  }
 
-indexChange(evt,value){
+  indexChange(evt, value) {
     console.log("indexChange method called")
-   // this.setState({indexVal:value})
+    this.setState({ indexVal: value })
     this.props.onIndexChange(value)
-    console.log("index--",this.props.fqm)
+    console.log("index--", this.props.fqm)
 
-    let type = this.getType(value);
+    let type = this.getType(this.props.fqm, value);
 
-    console.log("type---",type)
+    console.log("type---", type)
     let list = opData.opValList(type);
-    console.log("list----",list)
-    this.setState({opList :list})
+    console.log("list----", list)
+    this.setState({ opList: list })
 
-    
-}
-  getType(index){
 
-    let fqm = this.props.fqm;
-    if(fqm != null){
-    if(index != -1){
-       let li = fqm.indexOf(')');
-       let bi = fqm.indexOf('(');
-       let i = bi + 1;
+  }
+
+  getTypeReturnType(fqm) {
+
+
+    //for getting return Type
+    let returnType = "NA";
+    if (fqm != null) {
+      let li = fqm.indexOf(')');
+      let i = li + 1;
+
+      let pi = 1;
+      let charArr = fqm.split('');
+      console.log("charArr----", charArr)
+
+      console.log("iiiiiiiiiiiiiii--", charArr[i])
+      //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
+      switch (charArr[i]) {
+        case 'Z':
+          returnType = "boolean";
+          break;
+        case 'B':
+          returnType = "byte";
+          break;
+        case 'C':
+          returnType = "char";
+          break;
+        case 'S':
+          returnType = "short";
+          break;
+        case 'I':
+          returnType = "int";
+          break;
+        case 'J':
+          returnType = "long";
+          break;
+        case 'F':
+          returnType = "float";
+          break;
+        case 'D':
+          returnType = "double";
+          break;
+        case 'L':
+        case '[':
+          while (charArr[i++] != ';')
+            ;
+          returnType = "object/string";
+          break;
+        default:
+          returnType = "void";
+          break;
+      }
+
+      return returnType;
+      //let list = opData.opValList(returnType);
+    }
+  }
+
+  getType(fqm, index) {
+
+    //    let fqm = this.props.fqm;
+    if (fqm != null) {
+      if (index != -1) {
+        let li = fqm.indexOf(')');
+        let bi = fqm.indexOf('(');
+        let i = bi + 1;
 
         let pi = 1;
         let charArr = fqm.split('');
-        console.log("charArr----",charArr)
+        console.log("charArr----", charArr)
 
-      while (i < li)
-      {
-        console.log("iiiiiiiiiiiiiii--",charArr[i])
-//      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
-      switch (charArr[i])
-      {
-      case 'Z':
-        if(pi == index)
-          return "boolean";
-        break;
-      case 'B':
-        if(pi == index)
-          return "byte";
-        break;
-      case 'C':
-        if(pi == index)
-          return "char";
-        break;
-      case 'S':
-        if(pi == index)
-          return "short";
-         break;
-      case 'I':
-        if(pi == index)
-          return "int";
-        break;
-      case 'J':
-        if(pi == index)
-          return "long";
-        break;
-      case 'F':
-        if(pi == index)
-          return "float";
-        break;
-      case 'D':
-        if(pi == index)
-          return "double";
-        break;
-      case 'L':
-      case '[':
-        while (charArr[i++] != ';')
-          ;
-        if(pi == index)
-          return "object/string";
-      default:
-        if(pi == index)
-          return "void";
-        break;
-      }
-      ++pi; i++;
-    }
-    //throw new InvalidOperationTypeException("Method argument index is not correct");
-    return "NA";
-  }
-  }
-}
-
-onOperationVal(evt,value){
-  console.log("value---",value)
-  this.props.onOperationVal(value);
-}
-
-lbChange(evt,value){
-  console.log("value---",value)
-  this.props.lbChange(value);
-}
-
-rbChange(evt,value){
-   console.log("value---",value)
-   this.props.rbChange(value);
-}
-
-
-
-render() {
-  return (
-    <div>
-    <div className="row">
-      <div className="col-md-5">
-        <TextField
-          floatingLabelText="Header Name "
-          defaultValue={this.state.hdrName}
-          onChange={this.hdrNameChange.bind(this)}
-          style = {{width:'220px'}}
-          />
-      </div>
-
-         <div className = {`col-md-4 ${this.props.hideIndexField ?'hidden':'show'}`} style={{position:'relative',width:'70px'}}>
-          <TextField
-          floatingLabelText="Index "
-          defaultValue={this.state.index}
-          onChange={this.indexChange.bind(this)}
-          style = {{position:'relative',left:'100px',width:'220px'}}
-          />
-    
-        </div>
-
-        
-
-      </div>
-
-      <div className = "row ">
-      
-      <div className="col-md-4"  >
-        <DropDownMenu
-         onChange={this.handleCustomValType.bind(this)} 
-          value={this.state.value}
-          hintText="Custom Value Type" 
-          style={{position:'relative',left:'0px',top:'0px',width:'200px'}}
-        >
-      {
-        arrOperation.map((data,index)=>(
-            <MenuItem value={data.id}  primaryText={data.operation}/>
-        ))
-      }
-      </DropDownMenu>
-      </div>
-
-        <div className="col-md-4" >
-            <DropDownMenu
-                onChange={this.handleOperationChange.bind(this)} 
-                value={this.state.operation}
-                hintText="Select Operation" 
-               style={{width:'200px',position:'relative',left:'147px'}}
-            >
-          {
-              this.state.opList.map((data, index) => (
-              <MenuItem value={data.id}  primaryText={data.opVal}/> 
-              ))
+        while (i < li) {
+          console.log("iiiiiiiiiiiiiii--", charArr[i])
+          //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
+          switch (charArr[i]) {
+            case 'Z':
+              if (pi == index)
+                return "boolean";
+              break;
+            case 'B':
+              if (pi == index)
+                return "byte";
+              break;
+            case 'C':
+              if (pi == index)
+                return "char";
+              break;
+            case 'S':
+              if (pi == index)
+                return "short";
+              break;
+            case 'I':
+              if (pi == index)
+                return "int";
+              break;
+            case 'J':
+              if (pi == index)
+                return "long";
+              break;
+            case 'F':
+              if (pi == index)
+                return "float";
+              break;
+            case 'D':
+              if (pi == index)
+                return "double";
+              break;
+            case 'L':
+            case '[':
+              while (charArr[i++] != ';' && i < charArr[i].length)
+                ;
+              if (pi == index)
+                return "object/string";
+            default:
+              if (pi == index)
+                return "void";
+              break;
           }
-      </DropDownMenu>
-        </div>
+          ++pi; i++;
+        }
+        //throw new InvalidOperationTypeException("Method argument index is not correct");
+        return "NA";
+      }
+    }
+  }
 
-      </div>
+  onOperationVal(evt, value) {
+    this.props.onOperationVal(value);
+  }
 
-      <div className =  {`row col-md-5 ${this.state.opValCss}`}>
-           <TextField
-          floatingLabelText="operation Value "
-          onChange={this.onOperationVal.bind(this)}
-          style = {{position:'relative',left:'0px',width:'220px'}}
-          />
-      </div>
+  lbChange(evt, value) {
+    this.props.lbChange(value);
+  }
 
-      <div className =  {`row ${this.state.opValExtractCss}`}>
-        <div className = "col-md-5">
-           <TextField
-          floatingLabelText="Left Bound "
-          onChange={this.lbChange.bind(this)}
-          style = {{position:'relative',left:'0px',width:'220px'}}
-          />
+  rbChange(evt, value) {
+    this.props.rbChange(value);
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="row">
+          <div className="col-md-5">
+            <TextField
+              floatingLabelText="Header Name "
+              defaultValue={this.state.hdrName}
+              onChange={this.hdrNameChange.bind(this)}
+              style={{ width: '220px' }}
+              />
           </div>
-          <div className = "col-md-5">
-           <TextField
-          floatingLabelText="Right Bound "
-          onChange={this.rbChange.bind(this)}
-          style = {{position:'relative',left:'107px',width:'220px'}}
-          />
+
+          <div className={`col-md-4 ${this.props.hideIndexField ? 'hidden' : 'show'}`} style={{ position: 'relative', width: '70px' }}>
+            <TextField
+              floatingLabelText="Index "
+              defaultValue={this.state.index}
+              onChange={this.indexChange.bind(this)}
+              style={{ position: 'relative', left: '100px', width: '220px' }}
+              />
+          </div>
+
+
+
         </div>
-      </div>
+
+        <div className="row ">
+
+          <div className="col-md-4"  >
+            <DropDownMenu
+              onChange={this.handleCustomValType.bind(this)}
+              value={this.state.value}
+              hintText="Custom Value Type"
+              style={{ position: 'relative', left: '0px', top: '0px', width: '200px' }}
+              >
+              {
+                arrOperation.map((data, index) => (
+                  <MenuItem value={data.id} primaryText={data.operation} />
+                ))
+              }
+            </DropDownMenu>
+          </div>
+
+          <div className="col-md-4" >
+            <DropDownMenu
+              onChange={this.handleOperationChange.bind(this)}
+              value={this.state.operation}
+              hintText="Select Operation"
+              style={{ width: '200px', position: 'relative', left: '147px' }}
+              >
+              {
+                this.state.opList.map((data, index) => (
+                  <MenuItem value={data.id} primaryText={data.opVal} />
+                ))
+              }
+            </DropDownMenu>
+          </div>
+
+        </div>
+
+        <div className={`row col-md-5 ${this.state.opValCss}`}>
+          <TextField
+            floatingLabelText="operation Value "
+            onChange={this.onOperationVal.bind(this)}
+            style={{ position: 'relative', left: '0px', width: '220px' }}
+            />
+        </div>
+
+
+        <div className={`row ${this.state.opValExtractCss}`}>
+          <div className="col-md-5">
+            <TextField
+              floatingLabelText="Left Bound "
+              onChange={this.lbChange.bind(this)}
+              style={{ position: 'relative', left: '0px', width: '220px' }}
+              />
+          </div>
+          <div className="col-md-5">
+            <TextField
+              floatingLabelText="Right Bound "
+              onChange={this.rbChange.bind(this)}
+              style={{ position: 'relative', left: '107px', width: '220px' }}
+              />
+          </div>
+        </div>
 
 
       </div>
-  )
-}
+    )
+  }
 }
 
 

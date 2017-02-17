@@ -56,7 +56,7 @@ class ApplicationDetail extends React.Component {
     super(props);
 
     this.delRow = this.delRow.bind(this);
-    this.state = { openNewAppDialog: false } //
+    this.state = { openNewAppDialog: false } 
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleDelConfirm = this.handleDelConfirm.bind(this);

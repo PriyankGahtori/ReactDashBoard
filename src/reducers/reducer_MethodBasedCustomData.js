@@ -28,25 +28,14 @@ export default function(state = initialState, action) {
 
   function modifyData(val){
     
-     /* if(val.returnTypeData != null){
-        val.returnTypeHref = {'href':val.returnTypeData.headerName}
-      }
-      else{
-        val.returnTypeHref = {'href':"Configure for ReturnType"}
-      }
-      */
-
       if(val.returnTypeData != null && val.returnTypeData.length != 0){
           let hdrNames = getHdrNames(val.returnTypeData);
-        //  val.returnTypeHref = {'href':hdrNames}
             val.returnTypeHref = hdrNames
       }
       else{
          val.returnTypeHref = "NA"
       } 
       
-
-      console.log("val----",val)
       if(val.argumentTypeData != null && val.argumentTypeData.length != 0){
           let hdrNames = getHdrNames(val.argumentTypeData);
           val.argTypeHref = hdrNames

@@ -187,6 +187,9 @@ class EnableFpHeaderCapturing extends React.Component {
     })
   }
 
+
+  //NOT USED
+
   submitForm(formData) {
     console.log("Fprmdata of enableFpHdrCapturing---", formData)
     console.log("deflyValu---", formData.enableCaptureHTTPReqFullFp)

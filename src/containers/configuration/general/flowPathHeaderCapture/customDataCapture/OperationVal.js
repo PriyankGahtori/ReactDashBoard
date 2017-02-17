@@ -7,16 +7,34 @@ const arrString = [{'id':0,'opVal':'CAPTURE'},
                     {'id':5, 'opVal':'CONTAINS'},
                     {'id':6,'opVal':'STARTS_WITH'},
                     {'id':7,'opVal':'ENDS_WITH'},
-                    {'id':8,'opVal':'EXCEPTION'}];
+                    {'id':8,'opVal':'EXCEPTION'},
+                    
+                    ];
  
 const arrNumeric = [{'id':0,'opVal':'CAPTURE'},
-                    {'id':1,'opval':'INVOCATION'}]
+                    {'id':1,'opVal':'INVOCATION'},
+                    {'id':2,'opVal':'EXCEPTION'},
+                    {'id':3,'opVal':'EQ'},
+                    {'id':4,'opVal':'NE'},
+                    {'id':5,'opVal':'LT'},
+                    {'id':6,'opVal':'GT'},
+                    {'id':7,'opVal':'LE'},
+                    {'id':7,'opVal':'GE'},
 
-const arrChar = [{'id':'0','opVal':'CAPTURE'}]
+                    
+                    ]
 
-const arrBoolean = [{'id':'0','opVal':'CAPTURE'},
-                 {'id':'1','opVal':'INVOCATION'},
-                 {'id':'2','opVal':'EXCEPTION'}
+const arrChar = [{'id':0,'opVal':'CAPTURE'},
+                 {'id':1,'opVal':'INVOCATION'},
+                 {'id':2,'opVal':'EXCEPTION'},
+                 {'id':3,'opVal':'EQ'},
+                 {'id':4,'opVal':'NE'},
+
+]
+
+const arrBoolean = [{'id':0,'opVal':'CAPTURE'},
+                 {'id':1,'opVal':'INVOCATION'},
+                 {'id':2,'opVal':'EXCEPTION'}
 ]
 
 export function opValList(type){

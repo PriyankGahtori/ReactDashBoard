@@ -11,6 +11,7 @@ import FormCustomCaptureData from './Form_CustomCapturingData';
 import MethodBasedCapturingAdd from './customDataCapture/MethodBasedCapturingAdd';
 import HttpReqBasedCapturingAdd from './customDataCapture/HttpReqBasedCapturingAdd';
 import HttpRespBasedCapturingAdd from './customDataCapture/HttpRespBasedCapturingAdd';
+import SessionAttrBasedCapturingAdd from '../../instrumentation/monitor/Form_SessionAttrAdd';
 
 
 const styles = {
@@ -38,6 +39,7 @@ class Dialog_CustomCaptureData extends React.Component {
                 methodBasedCaptureState:false,
                 httpBasedCaptureState:false,
                 httpRespBasedCaptureState:false,
+                sessionAttrBasedCaptureState:false,
                 count:0,
                 showOptions:'show'
                
@@ -53,7 +55,8 @@ class Dialog_CustomCaptureData extends React.Component {
       this.setState({'selectedVal':'',
                       showOptions:'show',
                       methodBasedCaptureState:false,
-                      httpBasedCaptureState:false
+                      httpBasedCaptureState:false,
+                      sessionAttrBasedCaptureState:false
       })
       }
     }
@@ -63,92 +66,160 @@ class Dialog_CustomCaptureData extends React.Component {
 
 
   handleCancel(){
-    console.log("handleCancel method called")
     this.props.toggleAddCustomCapture();
   }
   
   handleSubmit(){
-   console.log("handleSubmit method called")
-   this.refs.customCaptureMethodsList.submit();
+   if(this.state.selectedVal == 'enableAddSessionAttrBasedData'){
+      this.refs.newSessionAttrMonitorForm.submit();
+   }
+   else if(this.state.selectedVal == 'enableAddHttpReqHdr'){
+      this.refs.newHttpReqHdrForm.submit();
+   }
+   else{
+      this.refs.customCaptureMethodsList.submit();
+   }
+    
   }
 
   submitForm(data){
       console.log("data----",data)
-      if(!(this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddHttpResHdr')){
+      if(!(this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddSessionAttrBasedData')){
         let  compName = data[Object.keys(data)[0]];
         this.setState({'selectedVal':compName,
                         showOptions:'hidden',
                         methodBasedCaptureState:false,
-                        httpBasedCaptureState:false
+                        httpBasedCaptureState:false,
+                        sessionAttrBasedCaptureState:false
         })
       }
       else{
         console.log("this.state.selectedVal---",this.state.selectedVal)
-        console.log("this.state.selectedVal == 'enableAddHttpReqHdr'---",this.state.selectedVal == 'enableAddHttpReqHdr')
+        console.log("this.state.selectedVal == 'enableAddHttpReqHdr'---",this.state.selectedVal == 'enableAddSessionAttrBasedData')
         if(this.state.selectedVal == 'enableAddMethodBasedData'){
            this.setState({methodBasedCaptureState:true,
-                          httpBasedCaptureState:false
+                          httpBasedCaptureState:false,
+                          sessionAttrBasedCaptureState:false
             })
        }
-       if(this.state.selectedVal == 'enableAddHttpReqHdr'){
+       else if(this.state.selectedVal == 'enableAddHttpReqHdr'){
          console.log("this.state.selectedVal---enableAddHttpReqHdr---",this.state.selectedVal)
            this.setState({methodBasedCaptureState:false,
-                          httpBasedCaptureState:true
+                          httpBasedCaptureState:true,
+                          sessionAttrBasedCaptureState:false
             })
        }
-
-     //  this.props.listOfCapturingMethodsToConfigure(data);
-//     this.handleCancel();
+       else if(this.state.selectedVal == 'enableAddSessionAttrBasedData'){
+         this.setState({ sessionAttrBasedCaptureState:true,
+                         methodBasedCaptureState:false,
+                         httpBasedCaptureState:false
+         })
+       }
 
   }
   }
   finalData(){
      console.log("methodbaseddata---",this.props.customCapture.methodBasedCapturingAdd) 
+  }
+
+  submitSpecificSessionAttr(data){
+     if(data.complete && data.specific){
+        data["attrMode"]=3
+        data["attrType"] ='complete,specific'
+     }
+    else if(data.complete == true){
+        data["attrMode"]=2
+        data["attrType"] ='complete'
+    }
+    else{
+        data["attrMode"]=1
+        data["attrType"] ='specific'
+    }
+   this.props.addSpecificAttrMon(data,this.props.profileId);
+   this.props.toggleAddCustomCapture();
 
   }
 
+//function used for submitting data to server of http Request Header
+submitHttpReqHdr(data){
+  console.log("data--submitHttpReqHdrmethpod called---",data)
+  if(data.complete && data.specific){
+        data["dumpMode"]=3
+     }
+    else if(data.complete == true){
+        data["dumpMode"]=2
+    }
+    else{
+        data["dumpMode"]=1
+    }
+
+    /*Since Add Component is commonly used in Session Attr and HttpReqHdr so
+    * attrValues in session Attr 
+    * == rules here .For Naming convention attrVales is made to stored in rules
+    */
+
+    data.rules = [];
+
+    if(data.specific && data.attrValues == null){
+      var defaultVal = {'valName':data.headerName,
+                        'type':0,
+                        'lb':'NA',
+                        'rb':'NA'
+    }
+      data.rules.push(defaultVal)
+    }else{
+      data.rules = data.attrValues
+    }
+    this.props.addHttpReqHdr(data,this.props.profileId);
+    this.props.toggleAddCustomCapture();
+}
 
   renderComp(componentName){
     console.log("componentName--",componentName)
-    console.log("this.state.methodBasedCaptureState--",this.state.methodBasedCaptureState)
-    console.log("this.state.httpBasedCaptureState---",this.state.httpBasedCaptureState)
+    console.log("this.state.sessionAttrBasedCaptureState---",this.state.sessionAttrBasedCaptureState)
     console.log("componentName == 'enableAddMethodBasedData'---",componentName == 'enableAddMethodBasedData')
       return(
         <div>
-         <div className = {componentName == 'enableAddMethodBasedData' ?'show':'hidden'}>
+           <div className = {componentName == 'enableAddMethodBasedData' ?'show':'hidden'}>
             <MethodBasedCapturingAdd  profileId ={this.props.profileId} data = {this.finalData.bind(this)} active={this.state.methodBasedCaptureState}/>
             </div>
 
+            
+            <div className = {componentName == 'enableAddSessionAttrBasedData'?'show':'hidden'}>
+              <SessionAttrBasedCapturingAdd ref="newSessionAttrMonitorForm"  onSubmit={this.submitSpecificSessionAttr.bind(this)} data = {this.finalData.bind(this)} />
+            </div>
+
           <div className = {componentName == 'enableAddHttpReqHdr'?'show':'hidden'}>
-             <HttpReqBasedCapturingAdd  data = {this.finalData.bind(this)} active={this.state.httpBasedCaptureState}/>
+             <HttpReqBasedCapturingAdd  ref="newHttpReqHdrForm"  onSubmit = {this.submitHttpReqHdr.bind(this)} data = {this.finalData.bind(this)} active={this.state.httpBasedCaptureState}/>
            </div>
 
-            <div className = {componentName == 'enableAddHttpResHdr'?'show':'hidden'}>
+
+
+             <div className = {componentName == 'enableAddHttpResHdr'?'show':'hidden'}>
               <HttpRespBasedCapturingAdd data = {this.finalData.bind(this)} active={this.state.httpRespBasedCaptureState}/>
             </div>
+
                 
         </div>
-        
-      );
-
-
+      ) 
+      
   }
   render() {
     const actions = [
-      <FlatButton
+      <FlatButton className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel} />,
       <FlatButton
       //  label="Next"
-        label= {this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddHttpResHdr'?'Submit':'Next'}
+        label= {this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddSessionAttrBasedData'||this.state.selectedVal == 'enableAddHttpReqHdr'?'Submit':'Next'}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleSubmit.bind(this)} />
     ];
     return (
       <div>
-      <Dialog
+      <Dialog  className="dialog-modal"
           title ="Select Capturing Types to Configure"
           actions={actions}
           modal={false}

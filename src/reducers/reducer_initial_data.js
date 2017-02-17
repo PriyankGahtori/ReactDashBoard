@@ -2,7 +2,8 @@ const initialState = {
   homeData: null,
   trData: { trno: null, status: null, switch: false },
   ns_wdir: null,
-  appId: null
+  appId: null,
+  open:false
 
 }
 export default function (state = initialState, action) {
@@ -50,6 +51,11 @@ export default function (state = initialState, action) {
       var newState = Object.assign({}, state);
       newState.appId = -1;
       return newState;
+
+    case 'TOGGLE_SIDE_BAR':
+    var newState = Object.assign({}, state);
+    newState.open = action.payload.flag;
+    return newState;
 
   }
   return state;

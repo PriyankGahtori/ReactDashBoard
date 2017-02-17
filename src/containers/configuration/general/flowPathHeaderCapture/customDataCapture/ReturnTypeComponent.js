@@ -28,7 +28,7 @@ import AddComp from './AddComponent';
 var columns = {
   "key": "id",
   "data": ['Header Name', 'Type','Operation', 'Operation Value', 'id'],
-  "field": ['headerName','customValTypeName', 'operation', 'opVal', 'id']
+  "field": ['headerName','customValTypeName', 'operation', 'operatorValue', 'id']
 };
 
 const style = {
@@ -142,12 +142,13 @@ class ReturnTypeComponent extends React.Component {
   }else{
     opVal = this.state.opVal;
   }
+  
   var data = {headerName:this.state.headerName,
               type:this.state.operationId,
               operation:this.state.operationName,
-              opVal:opVal,
+             // opVal:opVal,
               customValTypeName:this.state.customValTypeName,
-              operatorValue:this.state.operatorValue,
+              operatorValue:opVal,
               operatorName:this.state.operatorName,
               id:this.state.id + 1,
               operationId:this.state.operationName
@@ -187,6 +188,8 @@ class ReturnTypeComponent extends React.Component {
       this.setState({indexVal:value})
     }
 
+
+//NOT USED
     operatorValue(value){
       this.setState({operatorValue:value})
     }
@@ -241,10 +244,11 @@ class ReturnTypeComponent extends React.Component {
                 onOperationChange = {this.onOperationChange.bind(this)}
                 onOperationVal = {this.onOperationVal.bind(this)}
                 onIndexChange = {this.onIndexChange.bind(this)}
-                operatorValue = {this.operatorValue.bind(this)}
+             //   operatorValue = {this.operatorValue.bind(this)}
                 onCustomValTypeChange = {this.onCustomValTypeChange.bind(this)}
                 lbChange ={this.lbChange.bind(this)}
                 rbChange ={this.rbChange.bind(this)}
+                fqm = {this.props.fqm}
                />  
             
 

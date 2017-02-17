@@ -2028,3 +2028,51 @@ export function enableJVMMonCheckBoxStatus(flag){
 
   }
 }
+
+
+export function toggleSideBar(flag){
+  return{
+    type:'TOGGLE_SIDE_BAR',
+    payload:flag
+
+  }
+}
+
+
+export function updateCustomCaptureDataFile(profileId){
+
+  const URLTable =  `${url.UPDATE_CUSTOM_CAPTURE_DATA_FILE}/${profileId}`;
+  const request_table = axios.get(URLTable);
+
+  return{
+    type:'UPDATE_CUSTOM_CAPTURE_DATA_FILE'
+  }
+}
+
+export function addHttpReqHdr(data,profileId){
+
+    var response = axios({
+       method:'post',
+       url : `${url.ADD_HTTP_REQ_HDR}/${profileId}`,
+       data: data,
+       headers:{'Content-Type':'application/json'}
+ });
+
+
+  return{
+    type:'ADD_HTTPREQ_HDR',
+    payload:response
+  }
+}
+
+export function fetchHttpReqHdrData(profileId){
+
+  const URLTable =  `${url.FETCH_HTTPREQ_HDR}/${profileId}`;
+  const response = axios.get(URLTable);
+
+  return{
+    type:'FETCH_HTTPREQ_HDR',
+    payload:response
+  }
+}
+

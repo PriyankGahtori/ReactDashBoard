@@ -76,13 +76,13 @@ class Form_CustomCapturingData extends React.Component {
             label="Method based Capture"  
         />
         <RadioButton
+            value="enableAddSessionAttrBasedData"
+            label="Specific Session Attribute Based Capture"  
+        />
+         <RadioButton
             value="enableAddHttpReqHdr"
             label="Capture Http Request Header"  
-        />
-         {/*<RadioButton
-            value="enableAddHttpResHdr"
-            label="Capture Http Response Header"  
-  />*/}
+  />
         </RadioButtonGroup>
       
      </div>

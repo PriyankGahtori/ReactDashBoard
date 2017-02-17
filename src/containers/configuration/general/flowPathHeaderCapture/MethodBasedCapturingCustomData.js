@@ -275,10 +275,10 @@ loader(){
                <Checkbox
                 value = "Method Based Capture Custom Data"
                 checked  = {this.state.methodBasedCaptureCustomData}
-                label = "Method Based Capture Custom Data "
+                label = "From Java Method "
                 onCheck={this.handleMethodBasedCaptureCustomData.bind(this)}
                 labelStyle = {{width:200}}
-      />
+         />
           </div>
 
 

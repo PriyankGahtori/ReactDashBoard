@@ -345,69 +345,9 @@ handleEnableReturnType(evt,isInputChecked){
 
     fqmChange(evt,val){
         console.log("fqmChange method called",val)
-        this.setState({'fqm':val})
+      this.setState({'fqm':val})
 
-        //for getting return Type
-            let fqm = val;
-            let returnType ;
-            if(fqm != null){
-            let li = fqm.indexOf(')');
-            //let bi = fqm.indexOf('(');
-            let i = li + 1;
-
-                let pi = 1;
-                let charArr = fqm.split('');
-                console.log("charArr----",charArr)
-            
-            //  while (i < li)
-            //{
-                console.log("iiiiiiiiiiiiiii--",charArr[i])
-        //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
-            switch (charArr[i])
-            {
-            case 'Z':
-                returnType = "boolean";
-                break;
-            case 'B':
-                returnType = "byte";
-                break;
-            case 'C':
-                returnType = "char";
-                break;
-            case 'S':
-                returnType= "short";
-                break;
-            case 'I':
-                returnType = "int";
-                break;
-            case 'J':
-                returnType = "long";
-                break;
-            case 'F':
-                returnType = "float";
-                break;
-            case 'D':
-                returnType = "double";
-                break;
-            case 'L':
-            case '[':
-                while (charArr[i++] != ';')
-                ;
-                returnType = "object/string";
-                break;
-            default:
-                returnType = "void";
-                break;
-            }
-            
-            console.log("returnType ---",returnType)
-            let list = opData.opValList(returnType);
-            console.log("list---",list)
-            this.setState({listForReturnType:list})
-
-            
-    //}
-  }
+      
 
     }
 
@@ -480,15 +420,12 @@ handleEnableReturnType(evt,isInputChecked){
                 </div>
 
                     <div className = {`row col-md-10 ${this.state.returnTypeBlockCss}`} style = {{'position':'relative','left':'30px'}}>
-                       {/*  <AddComp 
-                            data = {this.returnTypeData.bind(this)} 
-                            hideIndexField = {true} 
-                            onHdrNameChange={this.onHdrNameChnge.bind(this)}
-                            onOperationChange = {this.onOperationChange.bind(this)}
-                            onOperationVal = {this.onOperationVal.bind(this)}
-                            />
-                    */}
-                     <ReturnTypeComp data = {this.returnTypeData.bind(this)} oplistForReturnType={this.state.listForReturnType}/>
+                     <ReturnTypeComp 
+                     data = {this.returnTypeData.bind(this)} 
+                     oplistForReturnType={this.state.listForReturnType}
+                     fqm = {this.state.fqm}
+                     
+                     />
                     </div>
 
                     <div className = "row">

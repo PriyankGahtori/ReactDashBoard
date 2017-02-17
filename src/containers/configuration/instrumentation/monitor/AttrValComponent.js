@@ -8,14 +8,23 @@ import { bindActionCreators } from 'redux';
 import * as actionCreators  from '../../../../actions/index';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import TextField from 'material-ui/TextField';
+import DropDownMenu from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
 
 const obj = {}
+
+ var arrOperation = [{'id':0,operation:'String'},
+                    {'id':1,operation:'Integer'},
+                    {'id':2,operation:'Decimal'},
+                     ];
+
+
 class AttrValComponent extends React.Component {
   
   constructor(props) {
     super(props)    
     console.log("this.props--",this.props)
-   
+    this.state= {value:''}
   }
 
 
@@ -38,6 +47,22 @@ class AttrValComponent extends React.Component {
   del(){
 
 }
+
+handleCustomValType(evt,val){ 
+
+  let valName ;
+  arrOperation.map(function(data){
+                        if(data.id == val){
+                            valName = data.operation
+                        }
+  })
+  console.log("valName--",valName)
+  this.setState({value:val,
+  //               opList :list
+    })
+ this.props.onCustomValTypeChange(val,valName)
+}
+
   
 valNameChange(evt,value){
     console.log("value---",value)
@@ -57,16 +82,35 @@ rbChange(evt,value){
   render() {
     
     return ( 
-         <div className ="row col-md-12" >
+      <div>
+        <div className ="row " style = {{position:'relative',left:'25px'}}>
         <div className ="col-md-3">
           <TextField
-               floatingLabelText="Value Name "
+               floatingLabelText="Name "
                onChange ={this.valNameChange.bind(this)}
                style={{width:'',position:'relative'}}
           />
        </div>
-    
 
+      
+     <div className="col-md-4"  >
+        <DropDownMenu
+         onChange={this.handleCustomValType.bind(this)} 
+          value={this.state.value}
+          hintText="Custom Value Type" 
+          style={{position:'relative',left:'0px',top:'21px',width:'200px'}}
+        >
+      {
+        arrOperation.map((data,index)=>(
+            <MenuItem value={data.id}  primaryText={data.operation}/>
+        ))
+      }
+      </DropDownMenu>
+      </div>
+  
+      </div>
+
+      <div className = "row" style = {{position:'relative',left:'30px'}}>
        <div className ="col-md-3">
           <TextField
                floatingLabelText="Left Bound"
@@ -75,18 +119,16 @@ rbChange(evt,value){
           />
      </div>
 
-     <div className ="col-md-3" style ={{position:'relative'}}>
+     <div className ="col-md-4" style ={{position:'relative'}}>
           <TextField
             floatingLabelText="Right Bound"
             onChange ={this.rbChange.bind(this)}
-             style = {{width:'',position:'relative'}}
+            style = {{width:'',position:'relative'}}
           />
      </div>
 
-
-
-    
     </div>
+  </div>
     )  
   }
 }

@@ -17,10 +17,12 @@ import Checkbox from '../../../../components/CheckboxWrapper';
 import Input from '../../../../components/InputWrapper';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
+import CheckboxWithoutWrapper from 'material-ui/Checkbox';
+import RadioButtonGroupWithoutWrapper from 'material-ui/RadioButton';
 
 
 //Importing React components
-import {submitKeywordData,initializeInstrException,updateSessionType,toggleAddCustomCapture,clearStepperData}  from '../../../../actions/index';
+import {submitKeywordData,initializeInstrException,updateSessionType,toggleAddCustomCapture,clearStepperData,updateCustomCaptureDataFile }  from '../../../../actions/index';
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 import SessionAttr from '../../instrumentation/monitor/SessionAttributeMonitors';
 import * as  modifiedVal from './ModifyValue';
@@ -28,7 +30,9 @@ import MethodBasedCaptureCustomData from './MethodBasedCapturingCustomData';
 import  DialogCaptureCustomData from './Dialog_CustomCaptureData';
 import DialogStepper from './Dialog_Stepper';
 import MultiSelectCapturingMenu from './customDataCapture/MultiSelectCapturingOptionMenu';
-
+//import SpecificSessionAttr from './customDataCapture/SessionAttrBasedCapturingCustomData';
+import SessionAttrBasedCapturingCustomData from '../../instrumentation/monitor/SessionAttributeMonitors';
+import HttpReqHdr from './customDataCapture/HttpReqHdrBasedCapturingCustomData';
 
 
 
@@ -141,11 +145,10 @@ const styles = {
   width:40
  
   },
-    radioStyle:{
-      fontSize:'14px',
-      fontWeight:'normal'
-
-    }
+  radioStyle:{
+    fontSize:'14px',
+    fontWeight:'normal'
+  }
 }
 
 var dataForhdrTypeDropDown = [{'id':0 ,'option':'ALL Headers'},
@@ -159,8 +162,7 @@ var dataForCaptureDropDown = [{'id':0 , 'option' :'complete'},
 
 const validate = values=> {
   const errors = {}
-   if(!values.sessionType)
-       errors.sessionType = 'Must select any one of the Session Type'
+   
   return errors;
 }
 class Form_EnableFpCapturing extends React.Component {
@@ -184,13 +186,14 @@ class Form_EnableFpCapturing extends React.Component {
       'specificDivCSS':this.props.initialData.enableCaptureSessionAttr && this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
       'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
-      'captureSessionAttrCss':this.props.initialData.enableCaptureSessionAttr ?'show':'hidden',
       'sessionType':this.props.sessionType,
       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
       'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA',
       'customDataCapturingMethodBlock':'hidden',
-      'addMenuDropDownBlock':'hidden'
+      'addMenuDropDownBlock':'hidden',
+      'showTable':'hidden',
+      'showTableHttpReqHdr':'hidden'
   }
 }
 
@@ -378,18 +381,12 @@ getProfileName(profileId)
   	}
 
 
-submitForm(formData){
+  submitForm(formData){
 
-  console.log("formData--",formData)
-  console.log("submitForm method called------------------Form_Enablefpcpaturing")
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
   let keywordDataList = [];
-  /*handle the case of enabling keyword wd default value
-  * formData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
-                 "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
-             }
-             */
-if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
+  
+  if(formData.hasOwnProperty('enableCaptureHTTPReqFullFp')){
     var captureHttpFullReqFpVal = modifiedVal.constValCaptureHTTPReqFullFp(formData)
     console.log("captureHttpFullReqFpVal--",captureHttpFullReqFpVal)
     keywordData["captureHTTPReqFullFp"]["value"] = String(captureHttpFullReqFpVal); 
@@ -417,17 +414,17 @@ else{
   keywordData["captureCustomData"]["value"] = formData.enableCaptureCustomData;
   this.props.submitKeywordData(keywordData,this.props.profileId);
 
-   var data = {'sessionType':formData.sessionType}
+  /*var data = {'sessionType':formData.sessionType}
   this.props.updateSessionType(this.props.profileId,data)
-
+*/
+  this.props.updateCustomCaptureDataFile(this.props.profileId);
 
   //action for runtime change
-  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/captureHttpSessionAttr.hscf"
+  var filePath = this.props.ns_wdir + "/ndprof/conf/" + this.getProfileName(this.props.trModeDetail.profileId) + "/captureCustomData.cd"
 		  console.info("filePath", filePath);	
-  let value = formData.enableCaptureSessionAttr ? filePath :'NA' ;
-  keywordDataList.push("captureHttpSessionAttr"+ "=" +value)
-      
-  console.log("keywordDataList---",keywordDataList)
+  let value = formData.enableCaptureCustomData ? filePath :'NA' ;
+  keywordDataList.push("captureCustomData"+ "=" +value)
+   
   triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList); 
  }
 
@@ -449,6 +446,37 @@ else{
  handleOpenAgain(){
    this.props.toggleAddCustomCapture();
  }
+
+ handleSpecificSessionAttr(evt,isInputChecked){
+   console.log("handleSpecificSessionAttr method called",isInputChecked)
+    let sessionAttrCss = isInputChecked ?'show':'hidden' ;
+    let  showTableCss = !isInputChecked ? 'hidden' :'';
+    this.setState({specificSessionAttrCaptureCustomData:isInputChecked,
+                  captureSessionAttrCss:sessionAttrCss,
+                  showTable:showTableCss
+    })
+
+ }
+
+ handleSessionChange(evt ,val){
+   console.log("value----",val)
+   console.log("evt--",evt)
+    
+   	let css = val === 'specific' ? 'show' : 'hidden';
+    console.log("css---",css)
+  	this.setState({'showTable':css})
+
+
+    var data = {'sessionType':val}
+    this.props.updateSessionType(this.props.profileId,data)
+
+ }
+handleHttpReqHdrChkBox(evt,isInputChecked){
+  let showTableHttpReqHdrCss = isInputChecked ?'show':'hidden'
+  this.setState({httpReqHdrChkBox:isInputChecked,
+                showTableHttpReqHdr:showTableHttpReqHdrCss
+  })
+}
 
 render() {
   const { fields: { enableCaptureHTTPReqFullFp,
@@ -634,7 +662,7 @@ render() {
 {/*********************END OF captureHTTPRespFullFp*****************/}
 
 {/***********CAPTURESESSIONATTRIBUTE**********/}
-  <div className = "row  col-md-10">
+{/*  <div className = "row  col-md-10">
     <Checkbox
     {...enableCaptureSessionAttr}
     value = "CaptureSessionAttr"
@@ -644,8 +672,7 @@ render() {
     />
 
   </div>
-
-  <div className = {`row ${this.state.captureSessionAttrCss}`}>
+ <div className = {`row ${this.state.captureSessionAttrCss}`}>
     <div className = " col-md-8" >
         <RadioButtonGroup 
           {...sessionType}
@@ -671,7 +698,7 @@ render() {
       <SessionAttr profileId={this.props.profileId} /> 
       </div>
     </div>
-
+    */}
 
     {/**********START OF CAPTURE CUSTOM DATA CAPTURING **************/}
 
@@ -698,12 +725,76 @@ render() {
         </div> 
 */} </div>
 
-
-     <div className = {`row col-md-4 ${this.state.customDataCapturingMethodBlock}`} style = {{paddingLeft:'10px'}}>
+  <div className = {this.state.customDataCapturingMethodBlock}>
+     
+     <div className = {`row col-md-8 ${this.state.customDataCapturingMethodBlock}`} style = {{paddingLeft:'10px'}}>
         <MethodBasedCaptureCustomData profileId={this.props.profileId} />
      </div>
 
+  {/*<i style={{ paddingLeft: 40 }}>From Specific Session Attribute</i>*/}
+
+{/****************** Session Attribute Capturing *****************/}
+      <div className = "row col-md-8" style = {{paddingLeft:'21px'}}>
+         
+          <div className="row col-md-4">
+               <CheckboxWithoutWrapper
+                value = "Specific Session Attr Capturing"
+                checked  = {this.state.specificSessionAttrCaptureCustomData}
+                label = "From Session Attribute"
+                onCheck={this.handleSpecificSessionAttr.bind(this)}
+         />
+
+          </div>
+
+
+           <div className = {`row ${this.state.captureSessionAttrCss}`} style={{paddingLeft:'200'}}>
+            <div className = " col-md-4" >
+                <RadioButtonGroup
+                  defaultSelected={this.state.sessionType}
+                  onCustomChange={this.handleSessionChange.bind(this)}
+                  >
+                <RadioButton
+                    value="all"
+                    label="All"  
+                />
+                <RadioButton
+                    value="specific"
+                    label="Specific"  
+                />
+                </RadioButtonGroup>
+              </div>
+              </div>
+ 
+         
+
+          <div className = {`row col-md-8 ${this.state.showTable}`}>
+            <SessionAttrBasedCapturingCustomData profileId={this.props.profileId} />
+         </div>
+     </div>
+
+
+     {/********************HTTP REQ HDR CAPTURING****************************/}
+
+         <div className = "row col-md-8" style = {{paddingLeft:'21px'}}>
+         
+          <div className="row col-md-6">
+               <CheckboxWithoutWrapper
+                value = "Http Request Header"
+                checked  = {this.state.httpReqHdrChkBox}
+                label = "From Http Request Header"
+                onCheck={this.handleHttpReqHdrChkBox.bind(this)}
+         />
+
+          </div>
+
+          <div className = {`row col-md-8 ${this.state.showTableHttpReqHdr}`}>
+            <HttpReqHdr profileId={this.props.profileId} />
+         </div>
+     </div>
+
+
      <DialogCaptureCustomData profileId = {this.props.profileId} />
+     </div>
     {/*<DialogStepper profileId = {this.props.profileId} />*/}
       </form>
     </div>
@@ -721,7 +812,7 @@ Form_EnableFpCapturing.propTypes = {
 export default reduxForm({
   form: 'Form_EnableFpCapturing',
   fields,
-  validate,
+  validate
 
 },
   state => ({ // mapStateToProps
@@ -734,6 +825,7 @@ export default reduxForm({
     sessionType : state.sessionAttrMonitor.sessionType,
     profileDisabled: state.profileDisabled.disabled,
     homeData: state.initialData.homeData
+    
   }),
   
   { 
@@ -741,6 +833,7 @@ export default reduxForm({
    initializeInstrException:initializeInstrException,
    updateSessionType :updateSessionType ,
    toggleAddCustomCapture:toggleAddCustomCapture,
-   clearStepperData:clearStepperData
+   clearStepperData:clearStepperData,
+   updateCustomCaptureDataFile :updateCustomCaptureDataFile 
  } // mapDispatchToProps (will bind action creator to dispatch)
  )(Form_EnableFpCapturing);

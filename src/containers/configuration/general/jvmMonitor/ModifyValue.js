@@ -29,7 +29,7 @@ export function constructJVMValue(formData){
 
 export function splitValue(data){
    var jvmVal = {};
-   if(data != 0){
+   if(data != null && data != 0){
    var splittedData = data.split('%20') ;
    jvmVal.enableJVM = splittedData[0] != '0' ;
 

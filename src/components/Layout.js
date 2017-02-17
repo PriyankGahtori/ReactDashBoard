@@ -19,6 +19,10 @@ import SettingsDialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { hashHistory } from 'react-router';
 import NDAgentStatusDialog from 'material-ui/Dialog';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
 
 //Importing files
 import Tree from '../containers/tree/Tree';
@@ -27,6 +31,7 @@ import MigrateTopo from '../containers/settings/Dialog_Settings';
 import TRToggle from '../containers/settings/TRToggle';
 import Loader from '../containers/utils/Loader';
 import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
+import * as actionCreators from '../actions/index';
 
 injectTapEventPlugin();
 
@@ -83,29 +88,35 @@ export default class Layout extends React.Component {
     //this.setState({ showBackButton: routeChanged })
     console.log("routechanged", routeChanged);
     console.log("current", this.props.location);
-    console.log("next", nextProps.location);
+    console.log("next", nextProps.data);
 
-    if (nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" || nextProps.location.pathname === "/topology" || nextProps.location.pathname === "/profile" || nextProps.location.pathname === "/instrumnetat")
-      this.setState({
+    if (nextProps.location.pathname === "/" || nextProps.location.pathname === "/application" || nextProps.location.pathname === "/topology" || nextProps.location.pathname.startsWith("/profile") || nextProps.location.pathname === "/instrumnetat")
+     { 
+       this.setState({
         treeClass: "hide",
         open: false,
         headerClass: "col-md-12",
         drawerClass: "col-md-0"
       });
-    else
+      //if(nextProps.location.pathname  === "/" || nextProps.location.pathname  === "/application" )
+       // console.log("triggering togglr button")
+        //this.props.toggleSideBar(true);
+     }
+    else {
       this.setState({
         treeClass: "show",
         open: true,
         headerClass: "col-md-10",
         drawerClass: "col-md-2"
       });
+      }
   }
 
   handleToggle() {
-    if (this.props.location.pathname === "/" || this.props.location.pathname === "/application" || this.props.location.pathname === "/topology") {
+    if (this.props.location.pathname === "/" || this.props.location.pathname === "/application" || this.props.location.pathname === "/topology" ||this.props.location.pathname === "/profile") {
       return;
     }
-
+  //  this.props.toggleSideBar(true);
     var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10";
     var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2";
 
@@ -114,7 +125,9 @@ export default class Layout extends React.Component {
       headerClass: headercss,
       drawerClass: drawercss
     });
+    
   }
+
   settingScreen() {
     this.setState({ settingOpen: true })
   }
@@ -125,9 +138,11 @@ export default class Layout extends React.Component {
   homeScreen() {
     hashHistory.push(`/`)
   }
+
   handleClose() {
     var headercss = this.state.headerClass === "col-md-10" ? "col-md-12" : "col-md-10";
     var drawercss = this.state.drawerClass === "col-md-2" ? "col-md-0" : "col-md-2";
+  //  this.props.toggleSideBar(false);
     this.setState({ open: false });
   }
 
@@ -244,3 +259,20 @@ export default class Layout extends React.Component {
     );
   }
 }
+
+/*function mapStateToProps(state) {
+  return {
+    appDetail: state.applicationdata,
+    getAllKeywordData: state.Keywords,
+    data : state.initialData
+  };
+}
+
+//method to dispatch actions to the reducers
+function mapDispatchToProps(dispatch) {
+  //const actionMap = { loadInitTreeData: bindActionCreators(fetchTreeData, dispatch) };
+  //return actionMap;
+  return bindActionCreators(actionCreators, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
+*/

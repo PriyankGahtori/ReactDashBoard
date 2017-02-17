@@ -6,6 +6,8 @@ const SERVICE_URL = 'http://localhost:8090';
 //For Production use this SERVICE_URL
 
 //const SERVICE_URL = '/configUI';
+
+
 /* Url for Home Screen */
 export const HOME_SCREEN_URL = `${SERVICE_URL}/home`;
 export const UPDATE_TOPOLOGY = `${SERVICE_URL}/uploadtopology`;
@@ -149,3 +151,7 @@ export const ADD_RETURN_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/addre
 export const ADD_ARGUMENT_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/argtype`;
 
 
+export const UPDATE_CUSTOM_CAPTURE_DATA_FILE = `${SERVICE_URL}/custom/methodbasedcapturing/updatecustomcapturefile`;
+
+export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdr`;
+export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;

@@ -37,8 +37,8 @@ class Dialog_BTPattern extends React.Component {
     if(this.props.BTPattern.openBTPatternDialog == "edit"){
 
        data["id"] = this.props.BTPattern.patternFormInitialData.id
-       data["paramKeyValue"] = `${data.reqParamKey}=${data.reqParamValue}` 
-       data["headerKeyValue"] = `${data.reqHeaderKey}=${data.reqHeaderValue}` 
+       data["paramKeyValue"] = data.reqParamKey != null && data.reqParamKey != ''?`${data.reqParamKey}=${data.reqParamValue}`:''; 
+       data["headerKeyValue"] = data.reqHeaderKey != null && data.reqHeaderKey!= ''?`${data.reqHeaderKey}=${data.reqHeaderValue}` :'';
        data['include'] = data.enabled ? 'include' : 'exclude';
        this.props.addBTPatternData(data,this.props.profileId,this.props.BTPattern.openBTPatternDialog)
        this.handleCancel();

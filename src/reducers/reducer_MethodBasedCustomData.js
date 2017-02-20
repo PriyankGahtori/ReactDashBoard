@@ -116,6 +116,14 @@ export default function(state = initialState, action) {
            }
        })
        return newState;
+  
+  
+    case 'DEL_METHOD_CUSTOM_DATA':
+        var newState =  Object.assign({},state)
+        newState.tableData  = newState.tableData.filter(function(value) {
+          return action.payload.data.indexOf(Number(value.methodBasedId)) == -1;
+        })
+      return newState;
   }
 
 

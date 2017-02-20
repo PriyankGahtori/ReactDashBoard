@@ -99,7 +99,7 @@ class Form_EnableJVMMonitor extends React.Component {
               <Checkbox
                 {...doNotDelfactor}
                 value="doNotDelfactor"
-                label="Do not delete factor"
+                label="Do not delete Vector"
                 labelStyle={{ fontWeight: 'normal' }}
                 style={{paddingLeft:'15'}}
                 />

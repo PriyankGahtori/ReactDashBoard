@@ -111,7 +111,7 @@ class Dialog_SessionAttrAdd extends React.Component {
     ];
     return (
       <div>
-        <DialogSessionAttr
+        <DialogSessionAttr  className = "dialog-modal"
           title="Add Session Attribute"
           actions={actions}
           autoScrollBodyContent={true}

@@ -67,7 +67,15 @@ class ArgumentTypeComponent extends React.Component {
     this.state = {addCompCss:'hidden',
                   arr:[],
                   'argTypeAddComp':'hidden',
-                  id:-1
+                  id:-1,
+                  headerName:'',
+                  indexVal:'',
+                  operationName:'',
+                  type:'',
+                  operationName:'',
+                  Errormsg: 'hidden'
+
+
       }
    
   }
@@ -127,10 +135,13 @@ class ArgumentTypeComponent extends React.Component {
        this.setState({errMsgCss:'show'})
     }
     */
-  if(this.state.headerName == ''||this.state.indexVal  == ''|| this.state.operationName == '' ||this.state.operatorName == ''){
+  if(this.state.headerName == ''||this.state.indexVal  == ''|| this.state.customValTypeName == '' || this.state.operationName == ''){
       console.log("val empty")
+     this.setState({Errormsg: 'show'})
   }
   else{
+    this.setState({Errormsg: 'hidden'})
+     console.log("val not empty")
   this.setState({id:this.state.id +1,
                 argTypeAddComp:'hidden'  
   })
@@ -256,7 +267,10 @@ class ArgumentTypeComponent extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
           />
-
+         <div className= {this.state.Errormsg}> 
+             <p style={{color: 'red',bottom:'30px',position:'relative'}}> Fields are Empty </p>
+          </div> 
+        
           
         
     

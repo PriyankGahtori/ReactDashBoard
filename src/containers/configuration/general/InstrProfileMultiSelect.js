@@ -98,7 +98,7 @@ const styles = {
         Instrumentation Profiles 
       <p>  <i>Select profiles to instrument application methods</i></p>
         </div>
-        <div   className = "col-md-3" >   
+        <div   className = "col-md-3" style={{height:350,width:400}}>   
         	<MultiSelect multi
             name ="instrProfileMultiSelect"
            // value = {this.state.getAllKeywordData.initializeKeywords.instrProfile}

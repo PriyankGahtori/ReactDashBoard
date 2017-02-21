@@ -114,9 +114,8 @@ export function splitValue(keywords) {
 			//left fo rfuther initilaizing of multiselect comp
 		}
 		fpHdrInitializeObj.captureModeRes = valueResp[2]
-
 		}
-		fpHdrInitializeObj.enableCaptureSessionAttr = keywords.captureHttpSessionAttr == "true";
+		fpHdrInitializeObj.enableCaptureCustomData = keywords.captureCustomData == "true";
 	
 	return fpHdrInitializeObj;
 }

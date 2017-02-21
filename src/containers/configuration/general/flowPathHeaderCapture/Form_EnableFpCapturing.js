@@ -174,6 +174,7 @@ class Form_EnableFpCapturing extends React.Component {
     this.state = {
       enableCaptureHTTPReqFullFp : this.props.initialData != null ?this.props.initialData.enableCaptureHTTPReqFullFp:false,
       enableCaptureHTTPResFullFp :this.props.initialData != null ? this.props.initialData.enableCaptureHTTPRespFullFp:false,
+      enableCaptureCustomData :this.props.initialData != null ? this.props.initialData.enableCaptureCustomData:false,
       'hdrTypeCss'    :  'hidden',
       'multiSelectCss': 'hidden',
       'configDropDownCss': 'hidden',
@@ -186,11 +187,10 @@ class Form_EnableFpCapturing extends React.Component {
       'specificDivCSS':this.props.initialData.enableCaptureSessionAttr && this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
       'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
-      'sessionType':this.props.sessionType,
       'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
       'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
       'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA',
-      'customDataCapturingMethodBlock':'hidden',
+      'customDataCapturingMethodBlock':this.props.initialData != null && this.props.initialData.enableCaptureCustomData?'show':'hidden',
       'addMenuDropDownBlock':'hidden',
       'showTable':'hidden',
       'showTableHttpReqHdr':'hidden'
@@ -210,19 +210,22 @@ class Form_EnableFpCapturing extends React.Component {
 
  componentWillReceiveProps(nextProps)
  {
-  console.log("compo receice props called",nextProps.initialData.enableCaptureHTTPReqFullFp)
   if(this.props.initialData != nextProps.initialData)
    this.setState({enableCaptureHTTPReqFullFp:nextProps.initialData.enableCaptureHTTPReqFullFp,
-                  enableCaptureHTTPResFullFp:nextProps.initialData.enableCaptureHTTPRespFullFp
+                  enableCaptureHTTPResFullFp:nextProps.initialData.enableCaptureHTTPRespFullFp,
+                  enableCaptureCustomData:nextProps.initialData.enableCaptureCustomData,
+                  customDataCapturingMethodBlock:nextProps.initialData != null && nextProps.initialData.enableCaptureCustomData?'show':'hidden',
         })
+
   if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
     this.setState({getAllKeywordData : nextProps.getAllKeywordData,
     });
 
   }
-  console.log("nextProps.sessionType--",nextProps.sessionType)
   if(this.props.sessionType != nextProps.sessionType){
-    this.setState({'sessionType':nextProps.sessionType})
+    this.setState({'sessionType':nextProps.sessionType,
+                    'showTable':nextProps.sessionType === 'specific' ? 'show' : 'hidden'
+    })
   }
 }
 

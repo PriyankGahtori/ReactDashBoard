@@ -62,6 +62,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (8,'ASReportInterval','0','900000','4','0'),
 (9,'instrProfile','','','5',''),
 (10,'ASDepthFilter','0','100','2','20'),
+
 (11,'ASTraceLevel','0','20','2','1'),
 (12,'setCavNVCookie','0','10240','5','0'),
 (13,'enableCpuTime','0','1024','1','0'),
@@ -83,7 +84,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (29,'ndMethodMonFile','','','5','false'),
 (30,'BTErrorRules','','','5','false'),
 (31,'captureHttpSessionAttr','','','5','false'),
-(32,'enableJVMThreadMonitor','0','2048','5','0');
+(32,'enableJVMThreadMonitor','0','2048','5','0'),
+(33,'captureCustomData','','','5','false');
+
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

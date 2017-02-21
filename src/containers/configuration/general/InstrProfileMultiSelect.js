@@ -78,14 +78,15 @@ const styles = {
     
     var finaldata = {"instrProfile":formData}
     if(formData.length > 0){
-    this.setState({openSnack: true,instrSnack:false})
+       this.props.handleSubmit(finaldata);
+       this.setState({openSnack: true,instrSnack:false})
      }
      else
       this.setState({openSnack:false,instrSnack: true})
     
-    if(keywordDataList.length == 0)
+    /*if(keywordDataList.length == 0)
       keywordDataList.push("instrProfile" + "=" + "global.xml");
-
+*/
     //action for runtime changes
     triggerRunTimeChanges(this.props.trData, this.props.trModeDetail,keywordDataList);    
 

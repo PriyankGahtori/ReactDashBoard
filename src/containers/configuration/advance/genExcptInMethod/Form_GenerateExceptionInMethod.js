@@ -77,7 +77,7 @@ class Form_GenerateExceptInMethod extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-      'exceptionType':"unhandledException",
+      'exceptionTypeForMethod':this.props.initialData != null ?this.props.initialData.exceptionTypeForMethod:'',
       'enableGenExcptInMethodCheckbox' : false
     }
   }
@@ -156,7 +156,7 @@ render() {
     {...exceptionTypeForMethod}
     
     style={styles.customWidth}
-    value = {this.state.exceptionTypeForMethod}
+    value = {this.state.exceptionTypeForMethod +""}
     autoWidth={false}
     customOnChange={this.changeExceptionTypeMethod.bind(this)} 
     floatingLabelText="Exception Type"

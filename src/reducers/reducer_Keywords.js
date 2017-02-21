@@ -120,6 +120,7 @@ switch(action.type){
 
 		newState.enableJVMMonitorCheckBox = obj.enableJVMThreadMonitor != 0 ;
 
+		console.log("GET_ALL_KEYWORDS called---",newState)
 	return newState;
 
 

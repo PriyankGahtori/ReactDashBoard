@@ -5,7 +5,7 @@ const initialState = {btGlobalInitialize:{"uriType":"segment",
                                           "slowTransaction":"3000",
                                           "verySlowTransaction":"5000",
                                           "dynamicReqType":false,
-                                          "dynamicReqValue":"requestParam",
+                                          "dynamicReqValue":"httpMethod",
                                           "requestParam":'',
                                           "httpMethod":false,
                                           "requestHeader":"NA"

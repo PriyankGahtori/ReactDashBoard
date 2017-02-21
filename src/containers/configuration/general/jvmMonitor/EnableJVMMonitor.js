@@ -215,7 +215,7 @@ class EnableJVMMonitor extends React.Component {
         label="OK"
         primary={true}
         keyboardFocused={true}
-        onClick={this.confrmDisableJVMMon.bind(this)}
+        onTouchTap={this.confrmDisableJVMMon.bind(this)}
         />
     ]
 

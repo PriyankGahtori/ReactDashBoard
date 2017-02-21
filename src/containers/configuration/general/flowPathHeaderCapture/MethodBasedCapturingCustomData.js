@@ -117,20 +117,20 @@ loader(){
   // Below Method is called when the user tries to delete the method monitor.
   delRow(){
     var selectedRow=[];
-    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
-    this.props.delSessionAttrRows(selectedRow);
+    selectedRow = this.refs.methodCapturingData.refs.table.state.selectedRowKeys;
+    this.props.delMethodBasedCapturingData(selectedRow);
     try{
-         this.refs.sessionAttrMonitorData.refs.table.cleanSelected();
+         this.refs.methodCapturingData.refs.table.cleanSelected();
      }
      catch(e){
-        console.error(" Exception Occured: FileName:Session Attribute Monitors,MethodName: delRow()",e)
+        console.error(" Exception Occured: FileName:methodBasedCaptureCustomData ,MethodName: delRow()",e)
      }
     this.handleClose();
  }
   
   handleDelConfirm(){
      var selectedRow=[];
-    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    selectedRow = this.refs.methodCapturingData.refs.table.state.selectedRowKeys;
      if(selectedRow.length== 0)
       this.setState({openSnack: true,delDialog: false})
      else
@@ -256,7 +256,7 @@ loader(){
       <FlatButton
         label="Cancel"
         primary={true}
-       onTouchTap={this.handleClose}
+       onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
         label="Delete"
@@ -283,10 +283,11 @@ loader(){
 
 
        <div className = {`row col-md-10 ${this.state.showTable}`} >
-       
+      <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+
         <DataGrid data = {this.props.methodBasedCustomData.tableData} 
             pagination = {false} 
-            ref        = "sessionAttrMonitorData" 
+            ref        = "methodCapturingData" 
             column     = {columns}
             onClick    = {this.handleClick}
             onToggle   = {this.onToggle.bind(this)}
@@ -311,7 +312,7 @@ loader(){
           autoHideDuration={4000}
         />
        <ConfirmDelDialog
-          title="Are you sure want to delete the Session Attribute Monitor(s) ?"
+          title="Are you sure want to delete the Method Based Capturing Custom Data(s) ?"
           actions={actionsDel}
           modal={false}
           open={this.state.delDialog}

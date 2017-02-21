@@ -1975,6 +1975,21 @@ export function fetchMethodBasedCustomData(profileId){
 
 }
 
+
+export function delMethodBasedCapturingData(selectedRowKeys){
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_METHOD_BASED_CAPTURING}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+
+  return{
+    type: 'DEL_METHOD_CUSTOM_DATA',
+    payload: response
+  }
+}
+
 export function toggleArgumentTypeDialog(row){
   return{
     type:'TOGGLE_ARGTYPE_DIALOG',

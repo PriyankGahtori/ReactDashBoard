@@ -68,25 +68,12 @@ class AddComponent extends React.Component {
       index: '',
       opValCss: 'hidden',
       opValExtractCss: 'hidden',
-      opList: this.props.opListForReturnType != null ? this.props.opListForReturnType : []
+      opList: this.props.opListForReturnType != null ? this.props.opListForReturnType : [],
+      indexErrMsgCss:'hidden',
+      fqmErrorMsgCss:'hidden',
+      fqmEmptyMsg:'hidden'
 
     }
-
-    /*  if(this.props.value != '' || this.props.value != null){
-        if(this.props.value == "String")
-          this.state={opData:arrStringOperation}
-  
-        else if(this.props.value == "Numeric")
-          this.state={opData:arrNumericOperation}
-  
-        else if(this.props.value == "Boolean")
-          this.state={opData:arrBooleanOperation}
-  
-        else if(this.props.value == "Char/Byte")
-         this.state ={opData:arrCharOperation}
-      }
-      */
-
 
     this.handleChange = this.handleChange.bind(this);
   }
@@ -205,7 +192,45 @@ class AddComponent extends React.Component {
 
   indexChange(evt, value) {
     console.log("indexChange method called")
-    this.setState({ indexVal: value })
+    var data = this.props.fqm
+    console.log("data---",data)
+    if(data != null ){
+    if(data.includes("(") && data.includes(")")){
+      let charArr = data.split('');
+      console.log("charArr--",charArr)
+      console.log("charArr--",charArr.length)
+      console.log("value---",value)
+      if(value > charArr.length || value < charArr.length){
+         this.setState({indexErrMsgCss:'show',
+                        fqmErrorMsgCss:'hidden',
+                        fqmEmptyMsg:'hidden'
+        })
+       }
+       else{
+        this.setState({ indexVal: value ,
+                        indexErrMsgCss:'hidden',
+                        fqmErrorMsgCss:'hidden'
+          
+        })
+        this.props.onIndexChange(value)
+       let type = this.getType(this.props.fqm, value);
+        let list = opData.opValList(type);
+        console.log("list----", list)
+        this.setState({ opList: list })
+       }
+  }
+  else{
+    console.log("fqm not valid")
+    this.setState({fqmErrorMsgCss:'show',
+                    indexErrMsgCss:'hidden'
+    })
+  }
+}
+
+else{
+  this.setState({fqmEmptyMsg:'show'})
+}
+   /* this.setState({ indexVal: value })
     this.props.onIndexChange(value)
     console.log("index--", this.props.fqm)
 
@@ -214,7 +239,7 @@ class AddComponent extends React.Component {
     console.log("type---", type)
     let list = opData.opValList(type);
     console.log("list----", list)
-    this.setState({ opList: list })
+    this.setState({ opList: list })*/
 
 
   }
@@ -355,6 +380,11 @@ class AddComponent extends React.Component {
     this.props.rbChange(value);
   }
 
+  handleClickOpChange(){
+    console.log("handleClickOpChange methodb called--")
+  
+  }
+
   render() {
     return (
       <div>
@@ -377,9 +407,17 @@ class AddComponent extends React.Component {
               />
           </div>
 
-
-
-        </div>
+          <div className = {`col-md-5  ${this.state.indexErrMsgCss}`} style = {{paddingLeft:'92px'}}>
+               <p style = {{color: 'red',paddingTop:20}}>Index is not valid.Please check fqm</p>
+          </div>
+           <div className = {`col-md-5  ${this.state.fqmErrorMsgCss}`} style = {{paddingLeft:'92px'}}>
+               <p style = {{color: 'red',paddingTop:10}}>Fqm is not correct .Please check it</p>
+          </div>
+            <div className = {`col-md-5 ${this.state.fqmEmptyMsg}`} style = {{paddingLeft:'92px'}}>
+               <p style = {{color: 'red',paddingTop:10}}>Fqm is required</p>
+          </div>
+          
+          </div>
 
         <div className="row ">
 
@@ -402,6 +440,7 @@ class AddComponent extends React.Component {
             <DropDownMenu
               onChange={this.handleOperationChange.bind(this)}
               value={this.state.operation}
+              onClick = {this.handleClickOpChange.bind(this)}
               hintText="Select Operation"
               style={{ width: '200px', position: 'relative', left: '147px' }}
               >

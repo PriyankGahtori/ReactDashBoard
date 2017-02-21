@@ -250,6 +250,7 @@ handleChange(event,index,value){
         {...fqm}
         hintText="com.cavisson.nsecom.first.getData()"
         floatingLabelText="Fully Qualified Method Name"
+        style ={{width:550}}
        // disabled={!this.state.enable}    
        errorText={fqm.touched && fqm.error && <div>{fqm.error}</div>}/>   
     
@@ -258,7 +259,7 @@ handleChange(event,index,value){
         {...desc}
         hintText="This Is For Getting Initial Data"
         floatingLabelText="Description"
-       // disabled={!this.state.enable}  
+        style ={{width:550}}
        errorText={desc.touched && desc.error && <div>{desc.error}</div>}/>   
       
     

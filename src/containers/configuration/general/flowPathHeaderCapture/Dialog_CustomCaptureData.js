@@ -41,7 +41,8 @@ class Dialog_CustomCaptureData extends React.Component {
                 httpRespBasedCaptureState:false,
                 sessionAttrBasedCaptureState:false,
                 count:0,
-                showOptions:'show'
+                showOptions:'show',
+                setTitle:'Select Types to configure',
                
     }
  }
@@ -56,12 +57,11 @@ class Dialog_CustomCaptureData extends React.Component {
                       showOptions:'show',
                       methodBasedCaptureState:false,
                       httpBasedCaptureState:false,
-                      sessionAttrBasedCaptureState:false
+                      sessionAttrBasedCaptureState:false,
+                      setTitle:'Select Types To Configure'
       })
       }
     }
-    
-    
   }
 
 
@@ -70,6 +70,7 @@ class Dialog_CustomCaptureData extends React.Component {
   }
   
   handleSubmit(){
+
    if(this.state.selectedVal == 'enableAddSessionAttrBasedData'){
       this.refs.newSessionAttrMonitorForm.submit();
    }
@@ -83,14 +84,26 @@ class Dialog_CustomCaptureData extends React.Component {
   }
 
   submitForm(data){
-      console.log("data----",data)
       if(!(this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddSessionAttrBasedData')){
+        
         let  compName = data[Object.keys(data)[0]];
+        let title = '';
+        
+        if(compName == 'enableAddMethodBasedData')
+            title = "Capture Method Based Custom Data";
+
+        else if(compName == 'enableAddHttpReqHdr')
+          title = "Capture HTTP Request Custom Data";
+
+        else if(compName == 'enableAddSessionAttrBasedData')
+          title = "Capture Session Attribute Custom Data";
+
         this.setState({'selectedVal':compName,
                         showOptions:'hidden',
                         methodBasedCaptureState:false,
                         httpBasedCaptureState:false,
-                        sessionAttrBasedCaptureState:false
+                        sessionAttrBasedCaptureState:false,
+                        setTitle:title
         })
       }
       else{
@@ -113,6 +126,7 @@ class Dialog_CustomCaptureData extends React.Component {
          this.setState({ sessionAttrBasedCaptureState:true,
                          methodBasedCaptureState:false,
                          httpBasedCaptureState:false
+
          })
        }
 
@@ -175,9 +189,6 @@ submitHttpReqHdr(data){
 }
 
   renderComp(componentName){
-    console.log("componentName--",componentName)
-    console.log("this.state.sessionAttrBasedCaptureState---",this.state.sessionAttrBasedCaptureState)
-    console.log("componentName == 'enableAddMethodBasedData'---",componentName == 'enableAddMethodBasedData')
       return(
         <div>
            <div className = {componentName == 'enableAddMethodBasedData' ?'show':'hidden'}>
@@ -220,7 +231,7 @@ submitHttpReqHdr(data){
     return (
       <div>
       <Dialog  className="dialog-modal"
-          title ="Select Capturing Types to Configure"
+          title = {this.state.setTitle}
           actions={actions}
           modal={false}
           open={this.props.customCapture.openDialog}
@@ -237,6 +248,7 @@ submitHttpReqHdr(data){
            */
         }
         <div className = {this.state.showOptions}>
+
        <FormCustomCaptureData ref="customCaptureMethodsList" onSubmit={this.submitForm.bind(this)}/>
        </div>
 

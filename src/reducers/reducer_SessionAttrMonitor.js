@@ -14,7 +14,6 @@ const initialState = {tableData:[],
                    };
 
 function modifyingData(data){
-  console.log("data--",data)
     data.map(function(val){
         var value='';
         if(val.attrValues != null && val.attrValues.length != 0){
@@ -33,7 +32,10 @@ function modifyingData(data){
       val["values"]= {"href":value};
     }
       else{
-        val["values"] = {"href":"Add Values"};
+        if(val.attrType == 'specific')
+            val["values"] = {"href":"Add Values"};
+        else
+            val["values"]= 'NA'
       }
       console.log("val---",val)
     })
@@ -91,7 +93,10 @@ export default function(state = initialState, action) {
      data["values"]= {"href":value};
     }
     else{
-      data["values"]= {"href":"Add values"}
+        if(data.attrType == 'specific')
+             data["values"]= {"href":"Add values"}
+        else
+            data["values"]= 'NA'
     }
     newState.tableData.push(data)
     console.log("newState--",newState.tableData)

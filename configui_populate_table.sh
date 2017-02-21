@@ -62,6 +62,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (8,'ASReportInterval','0','900000','4','0'),
 (9,'instrProfile','','','5',''),
 (10,'ASDepthFilter','0','100','2','20'),
+
 (11,'ASTraceLevel','0','20','2','1'),
 (12,'setCavNVCookie','0','10240','5','0'),
 (13,'enableCpuTime','0','1024','1','0'),

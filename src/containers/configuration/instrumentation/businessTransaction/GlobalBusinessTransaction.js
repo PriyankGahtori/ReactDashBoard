@@ -58,7 +58,8 @@ class GlobalBusinessTransaction extends React.Component {
     this.state = {
       'segmentDivCSS': (this.props.initialData && this.props.initialData.uriType) === 'segment' ? 'show' : 'hidden',
       'dynamicReqType': this.props.initialData != null ? this.props.initialData.dynamicReqType : false,
-      'paramDiv': true,
+      'dynamicReqValue':this.props.initialData != null ? this.props.initialData.dynamicReqValue:'',
+      'paramDiv': false,
       'methodDiv': false,
       'headerDiv': false,
       'uriType': this.props.initialData != null ? this.props.initialData.uriType : "segment"

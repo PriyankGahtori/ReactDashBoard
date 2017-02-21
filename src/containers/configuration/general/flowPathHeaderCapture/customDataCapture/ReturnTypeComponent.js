@@ -67,7 +67,13 @@ class ReturnTypeComponent extends React.Component {
     this.state = {addCompCss:'hidden',
                   arr:[],
                   'argTypeAddComp':'hidden',
-                  id:-1
+                  id:-1,
+                  headerName:'',
+                  customValTypeName:'',
+                  operation:'',
+                 operationName:'',
+                 Errormsg: 'hidden'
+
       }
     console.log("constructor method called--",this.props.fqm)
    
@@ -129,10 +135,15 @@ class ReturnTypeComponent extends React.Component {
        this.setState({errMsgCss:'show'})
     }
     */
-  if(this.state.headerName == ''|| this.state.operationName == '' ||this.state.operatorName == ''){
+
+console.log("addData function called--",this.state.operationName)
+  if(this.state.headerName ==''|| this.state.customValTypeName =='' || this.state.operationName==''){
       console.log("val empty")
+      this.setState({Errormsg: 'show'})
   }
   else{
+      this.setState({Errormsg: 'hidden'})
+    console.log("val not empty")
   this.setState({id:this.state.id +1,
                 argTypeAddComp:'hidden'  
   })
@@ -271,8 +282,9 @@ class ReturnTypeComponent extends React.Component {
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
           />
-
-          
+           <div className= {this.state.Errormsg}> 
+             <p style={{color: 'red',bottom:'30px',position:'relative'}}> Fields are Empty </p>
+          </div> 
         
     
 

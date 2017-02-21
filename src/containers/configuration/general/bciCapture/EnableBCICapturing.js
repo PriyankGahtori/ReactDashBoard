@@ -77,7 +77,7 @@ const headerStyle =
     padding: '24px 24px 20px',
     color: 'rgba(255, 255, 255, 0.870588)',
     fontSize: '16px',
-    background: '#282828',
+   // background: '#282828',
     lineHeight: '8px',
     fontWeight: '400'
 }

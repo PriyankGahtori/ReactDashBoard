@@ -85,7 +85,7 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (30,'BTErrorRules','','','5','false'),
 (31,'captureHttpSessionAttr','','','5','false'),
 (32,'enableJVMThreadMonitor','0','2048','5','0'),
-(33,'captureCustomData','0','','5','false');
+(33,'captureCustomData','','','5','false');
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),

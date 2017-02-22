@@ -43,6 +43,9 @@ const validate = values => {
   if (!values.correlationIDHeader)
     errors.correlationIDHeader = 'Required'
 
+    if (values.correlationIDHeader > 1024)
+    errors.correlationIDHeader = 'Please enter only 1024 characters or less'
+
 
 
 

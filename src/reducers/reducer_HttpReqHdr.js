@@ -60,8 +60,13 @@ export default function(state = initialState, action) {
     newState.tableData.push(data);
     console.log("newState---",newState.tableData)
     return newState;
+
+     case 'DEL_HTTP_REQ_HEADER_ROW': 
+        var newState =  Object.assign({},state)
+        newState.tableData  = newState.tableData.filter(function(value) {
+          return action.payload.data.indexOf(Number(value.httpReqHdrBasedId)) == -1;
+        })
+      return newState;
   }
-
-
   return state;
 }

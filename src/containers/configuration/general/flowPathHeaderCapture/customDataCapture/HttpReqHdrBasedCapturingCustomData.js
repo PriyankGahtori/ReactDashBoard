@@ -112,16 +112,16 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
 
   }
 
-  // Below Method is called when the user tries to delete the method monitor.
+  // Below Method is called when the user tries to delete the HTTP Request Row.
   delRow() {
     var selectedRow = [];
-    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
-    this.props.delMethodMonitorRow(this.props.params.profileId, selectedRow);
+    selectedRow = this.refs.httpRequestHeaderTable.refs.table.state.selectedRowKeys;
+    this.props.delHttpReqRow(selectedRow);
     try {
-      this.refs.methodMonitorTable.refs.table.cleanSelected();
+      this.refs.httpRequestHeaderTable.refs.table.cleanSelected();
     }
     catch (e) {
-      console.error(" Exception Occured: FileName: Method Monitors,MethodName: delRow()", e)
+      console.error(" Exception Occured: FileName: HttpReqHdrBasedCapturingCustomData,MethodName: delRow()", e)
     }
     this.handleClose();
 
@@ -129,7 +129,7 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
 
   handleDelConfirm() {
     var selectedRow = [];
-    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+    selectedRow = this.refs.httpRequestHeaderTable.refs.table.state.selectedRowKeys;
     if (selectedRow.length == 0)
       this.setState({ openSnack: true, delDialog: false })
     else
@@ -232,14 +232,14 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
       <FlatButton
         label="Cancel"
         primary={true}
-        onTouchTap={this.handleClose}
+        onTouchTap={this.handleClose.bind(this)}
         />,
       <FlatButton
         label="Delete"
         // // primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
-        onTouchTap={this.delRow}
+        onTouchTap={this.delRow.bind(this)}
 
         />,
     ];
@@ -250,12 +250,12 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
         <div className="row col-md-12" style={{ position: 'relative', left: '24px' }}>
           <h4>Http Request Header</h4>
         </div>
-
+          <IconButton className="pull-right" tooltip="Delete" style={{bottom:25}} onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
 
 
         <DataGrid data={this.props.httpReqHdrBasedCustomData.tableData}
           pagination={false}
-          ref="sessionAttrMonitorData"
+          ref="httpRequestHeaderTable"
           column={columns}
           onClick={this.handleClick}
           />
@@ -268,7 +268,7 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
           />
 
         <ConfirmDelDialog
-          title="Are you sure want to delete the Method Monitor(s)?"
+          title="Are you sure want to delete the  Http Request Header(s)? " 
           actions={actionsDel}
           modal={false}
           open={this.state.delDialog}

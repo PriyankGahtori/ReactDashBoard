@@ -42,6 +42,8 @@ const validate = values=>{
 
       return errors;
 }
+
+
 const NewButtonstyle = {
     left:3,
     top:-7
@@ -230,7 +232,7 @@ handleSubmitValType(attrValues){
     
      this.props.disableSubmitButtonState();
      */
-
+    
      if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
        this.setState({errMsgCss:'show'})
     }
@@ -335,6 +337,15 @@ renderSessionAttrValues(arr)
 
       
     }
+    handleDelete(){
+    var  selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    var arrData = Object.assign([],this.state.valDataArr)
+      arrData = arrData.filter(function(value){
+        return selectedRow.indexOf(value.id) == -1;
+       })
+       this.setState({valDataArr:arrData})
+
+  }
 
   render() {
 
@@ -393,6 +404,7 @@ renderSessionAttrValues(arr)
 
             <div className="pull-right"  >
                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+                 <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
             </div>
             
           <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  

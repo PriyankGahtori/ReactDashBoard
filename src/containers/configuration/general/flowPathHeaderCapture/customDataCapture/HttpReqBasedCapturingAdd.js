@@ -25,6 +25,20 @@ import { addingValData, disableSubmitButtonState, toggleAddCustomCapture } from 
 
 export const fields = ['headerName', 'complete', 'specific', 'attrValues']
 
+const validate = values=>{
+  const errors ={}   
+  console.log("values ------------->>> ",values)
+    if(!values.headerName)
+    errors.headerName = 'Required'
+
+    if(!values.complete && !values.specific)
+        errors.complete = 'Must select any of the  Attribute Type'
+
+
+   
+      return errors;
+}
+
 
 const NewButtonstyle = {
   left: 3,
@@ -249,6 +263,16 @@ class HttpReqBasedCapturingAdd extends React.Component {
       customValTypeName: customValTypeName
     })
   }
+  handleDelete(){
+
+  var   selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    var arrData = Object.assign([],this.state.valDataArr)
+      arrData = arrData.filter(function(value){
+        return selectedRow.indexOf(value.id) == -1;
+       })
+       this.setState({valDataArr:arrData})
+
+  }
 
 
 
@@ -271,6 +295,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
             // hintText="Hint Text"
             floatingLabelText="Header Name"
             {...headerName}
+            errorText={headerName.touched && headerName.error && <div>{headerName.error}</div>}
             />
 
         </div>
@@ -282,7 +307,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
               value="complete"
               label="Complete"
               onCustomChange={this.completeChkBoxChange.bind(this)} />
-
+              <div style={error}> {complete.touched && complete.error && <div>{complete.error}</div>}</div>
 
           </div>
           <div className="col-md-3">
@@ -291,18 +316,22 @@ class HttpReqBasedCapturingAdd extends React.Component {
               value="specific"
               label="Specific"
               onCustomChange={this.specificChkBoxChange.bind(this)} />
+           
 
           </div>
         </div>
 
         <div className={`row col-md-10  ${this.state.valDataCss}`} style={{ 'paddingTop': 3, 'paddingLeft': 6 }}>
-          <h4>Add Value Types </h4>
+          <h4>Add Custom Setting </h4>
 
           <div className={`row col-md-12 ${this.state.addComp}`} style={{ paddingLeft: '12px' }}>
 
             <div className="pull-right"  >
               <IconButton tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
+               <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+
             </div>
+
 
             <div style={{ background: 'rgba(0,0,0,0.80)', color: '#FFF' }}>
               <DataGrid data={this.state.valDataArr}
@@ -358,7 +387,8 @@ HttpReqBasedCapturingAdd.propTypes = {
 
 export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   form: 'Session Attribute Monitor ',        // a unique name for this form
-  fields
+  fields,
+  validate
 },
   state => ({ // mapStateToProps
     valData: state.sessionAttrMonitor.valData

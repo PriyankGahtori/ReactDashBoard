@@ -155,5 +155,8 @@ export const DEL_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapt
 
 export const UPDATE_CUSTOM_CAPTURE_DATA_FILE = `${SERVICE_URL}/custom/methodbasedcapturing/updatecustomcapturefile`;
 
+export const DEL_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/delete`;
 export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdr`;
 export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;
+
+

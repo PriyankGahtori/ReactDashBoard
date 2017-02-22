@@ -112,7 +112,7 @@ const styles = {
 
   delRow(){
     let selectedRow = this.refs.btPatternTable.refs.table.state.selectedRowKeys;
-       this.props.delBTPatternRows(selectedRow);
+       this.props.delBTPatternRows(selectedRow,this.props.params.profileId);
     try{
          this.refs.btPatternTable.refs.table.cleanSelected();
      }

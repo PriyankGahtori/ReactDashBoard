@@ -1012,10 +1012,10 @@ else{
 }
 }
 
-export function delBTPatternRows(selectedRowKeys){
+export function delBTPatternRows(selectedRowKeys,profileId){
    var response = axios({
     method: 'post',
-    url:`${url.DEL_BT_PATTERN_DETAILS}`,
+    url:`${url.DEL_BT_PATTERN_DETAILS}/${profileId}`,
     data: selectedRowKeys,
     headers:{'Content-Type':'application/json'}
 
@@ -2088,6 +2088,22 @@ export function fetchHttpReqHdrData(profileId){
   return{
     type:'FETCH_HTTPREQ_HDR',
     payload:response
+  }
+}
+
+export function delHttpReqRow(selectedRowKeys)
+{
+    
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_HTTP_REQ_HDR}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type: 'DEL_HTTP_REQ_HEADER_ROW',
+    payload: response
   }
 }
 

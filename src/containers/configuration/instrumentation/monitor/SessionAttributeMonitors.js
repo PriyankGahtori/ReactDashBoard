@@ -116,13 +116,13 @@ loader(){
   // Below Method is called when the user tries to delete the method monitor.
   delRow(){
     var selectedRow=[];
-    selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
-    this.props.delMethodMonitorRow(this.props.params.profileId,selectedRow);
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+    this.props.delSessionAttrRows(selectedRow);
     try{
-         this.refs.methodMonitorTable.refs.table.cleanSelected();
+         this.refs.sessionAttrMonitorData.refs.table.cleanSelected();
      }
      catch(e){
-        console.error(" Exception Occured: FileName: Method Monitors,MethodName: delRow()",e)
+        console.error(" Exception Occured: FileName: Session Attribute,MethodName: delRow()",e)
      }
     this.handleClose();
    
@@ -130,7 +130,7 @@ loader(){
   
   handleDelConfirm(){
      var selectedRow=[];
-     selectedRow = this.refs.methodMonitorTable.refs.table.state.selectedRowKeys;
+     selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
      if(selectedRow.length== 0)
       this.setState({openSnack: true,delDialog: false})
      else
@@ -216,13 +216,11 @@ loader(){
     
   }
 
-  handleDel(){
-    let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+/*  handleDel(){
+    var selectedRow = [];
+    let selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
     console.log("selectedRow-",selectedRow)
-    var selectedRowKeys = [];
-    var selectedRowData = [];
-    selectedRowKeys  = this.refs.appTable.refs.table.state.selectedRowKeys;
-   /* this.props.sessionAttrMonitor.tableData.forEach(function (value) {
+    this.props.sessionAttrMonitor.tableData.forEach(function (value) {
     if (!(selectedRowKeys.indexOf(value.btMethodId) == -1))
         selectedRowData.push(value)
     });
@@ -230,23 +228,23 @@ loader(){
   
     console.log("selectedRowKeys--",selectedRowKeys)
     this.props.delSessAttrMon(selectedRowKeys,this.props.profileId);
-    */
 
-  }
+
+  }*/
 
   render() {
    const actionsDel = [
       <FlatButton
         label="Cancel"
         primary={true}
-       onTouchTap={this.handleClose}
+       onTouchTap={this.handleClose.bind(this)}
       />,
       <FlatButton
         label="Delete"
         // // primary={true}
         keyboardFocused={true}
         disabled = {this.props.profileDisabled}
-        onTouchTap={this.delRow}
+        onTouchTap={this.delRow.bind(this)}
     
       />,
     ];
@@ -263,8 +261,8 @@ loader(){
           <div className="pull-right"  >
 
  {/*  <IconButton tooltip="Edit " onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton> */}
-              <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-       {/*    <IconButton tooltip="Delete" onTouchTap={this.handleDel}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> */}
+        { /* <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon   color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>*/}
+          <IconButton tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
           </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 
@@ -293,7 +291,7 @@ loader(){
           autoHideDuration={4000}
         />
        <ConfirmDelDialog
-          title="Are you sure want to delete the Method Monitor(s)?"
+          title="Are you sure want to delete the Session Attribute(s)?"
           actions={actionsDel}
           modal={false}
           open={this.state.delDialog}

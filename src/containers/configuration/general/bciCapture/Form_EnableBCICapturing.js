@@ -22,9 +22,10 @@ const initialValues = {
 /* Code for validating form fields
 */
 const validate = values => {
+
   const errors = {}
 
-  if (!values.setCavNVCookie)
+ /* if (!values.setCavNVCookie)
     errors.setCavNVCookie = 'Required'
 
   else if(isNaN(values.setCavNVCookie))
@@ -32,7 +33,7 @@ const validate = values => {
 
   else if( values.setCavNVCookie.length >= 30)
     errors.setCavNVCookie = 'Please enter 30 characters or less '
-
+*/
   if (!values.bciInstrSessionPct && values.bciInstrSessionPct != 0)
     errors.bciInstrSessionPct = 'Required'
 
@@ -44,6 +45,8 @@ const validate = values => {
 
     if (values.correlationIDHeader > 1024)
     errors.correlationIDHeader = 'Please enter only 1024 characters or less'
+
+
 
 
   return errors

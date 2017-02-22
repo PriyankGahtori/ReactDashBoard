@@ -129,6 +129,7 @@ class Topology extends React.Component {
       return value.dcId == dcId
     })
     this.props.storeAppId(selectedRowData[0].id)
+   /* this.props.toggleSideBar(true);*/
   }
 
   componentWillReceiveProps(nextProps) {

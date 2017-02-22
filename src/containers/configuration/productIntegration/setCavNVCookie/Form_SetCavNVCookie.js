@@ -30,8 +30,9 @@ const validate = values =>{
   else if(isNaN(values.serviceMethodDepth))
     errors.serviceMethodDepth = 'Must enter only numbers'
 
-   if(isNaN(values.maxFpBucketSize))
+   if(values.maxFpBucketSize != null && isNaN(values.maxFpBucketSize))
     errors.maxFpBucketSize = 'Must enter only numbers'
+
   return errors;
 }
 export const fields = [

@@ -85,7 +85,6 @@ export function setDefaultValuesBackendMonitor(data){
 }
 
 export function setDefaultValuesJVMThreadMonitor(data){
-  console.log("setDefaultValuesJVMThreadMonitor called")
    var defaultKeywordData ={  "enableJVMThreadMonitor" : "1"
                             }
   return defaultKeywordData;
@@ -114,7 +113,6 @@ export function setDefaultValuesExcptCapturing(data){
 }
 
 export function setDefaultValuesFpHdrCapturing(data){
-  // console.log("data--",data)
   var defaultKeywordData = { "captureHTTPReqFullFp" : data.captureHTTPReqFullFp.defaultValue,
                               "captureHTTPRespFullFp":data.captureHTTPRespFullFp.defaultValue
                             }

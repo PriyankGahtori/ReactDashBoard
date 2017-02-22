@@ -826,7 +826,7 @@ export function toggleGenerateFileDialog(){
 export function updateToggleState(rowToggled,runTimeChange){
   console.log("in actions---",rowToggled)
   var response = axios({
-    method: 'put',
+    method: 'post',
     url : `${url.UPDATE_TOGGLE_PROFSEPASSOC}/${rowToggled.id}/${rowToggled.enabled}`,
 
   });

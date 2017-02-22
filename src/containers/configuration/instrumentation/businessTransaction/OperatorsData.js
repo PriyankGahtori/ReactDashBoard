@@ -19,7 +19,10 @@ export var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
                           {'id':13, 'option': 'FALSE' }
                         ];
   
-export var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
+export var arrCharOperation = [{'id':14,'option':'EXCEPTION'},
+                                
+
+];
 
 export var sessAttrTypeList = [ {'id':0 ,'option': 'String' },
                                 {'id':1, 'option': 'Integer' },

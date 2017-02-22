@@ -21,23 +21,33 @@ var arrStringOperation = [{ 'id':1, 'option': 'EQUALS' },
                           { 'id':2 ,'option': 'NOT EQUALS' },
                           { 'id':3,'option': 'CONTAINS' },
                           { 'id':4, 'option': 'STARTS WITH' },
-                          { 'id':5, 'option': 'ENDS WITH' }
+                          { 'id':5, 'option': 'ENDS WITH' },
+                          {'id':6,'option':'EXCEPTION'}
+
                           ];
 
-var arrNumericOperation = [{'id':6 ,'option': 'EQUAL' },
-                          {'id':7, 'option': 'NOT EQUAL' },
-                          { 'id':8,'option': 'LESS THAN' },
-                          { 'id':9,'option': 'GREATER THAN' },
-                          { 'id':10 ,'option': 'LESS THAN EQUAL TO' },
-                          { 'id':11 ,'option': 'GREATER THAN EQUAL TO' }
+var arrNumericOperation = [{'id':7 ,'option': 'EQUAL' },
+                          {'id':8, 'option': 'NOT EQUAL' },
+                          { 'id':9,'option': 'LESS THAN' },
+                          { 'id':10,'option': 'GREATER THAN' },
+                          { 'id':11 ,'option': 'LESS THAN EQUAL TO' },
+                          { 'id':12 ,'option': 'GREATER THAN EQUAL TO' },
+                          { 'id':13 ,'option': 'EQ' },
+                          { 'id':14 ,'option': 'NE' },
+                          {'id':15,'option':'EXCEPTION'}
                           ];
 
-  var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
-                          {'id':13, 'option': 'FALSE' }
+  var arrBooleanOperation = [ {'id':16 ,'option': 'TRUE' },
+                          {'id':17, 'option': 'FALSE' },
+                          {'id':18,'option':'EXCEPTION'}
                           
   ];
   
-  var arrCharOperation = [{'id':14,'option':'EXCEPTION'}];
+  var arrCharOperation = [{'id':19,'option':'EXCEPTION'},
+                          {'id':20 ,'option': 'EQ' },
+                          {'id':21 ,'option': 'NE' },
+                          
+  ];
 
 const items = [];
 
@@ -63,7 +73,7 @@ class MethodBTComponent extends React.Component {
       else if(this.props.value == "Boolean")
         this.state={opData:arrBooleanOperation}
 
-      else if(this.props.value == "Char/Byte")
+      else if(this.props.value == "Char or Byte")
        this.state =({opData:arrCharOperation})
     }
     this.handleChange = this.handleChange.bind(this);
@@ -88,7 +98,7 @@ componentWillReceiveProps(nextProps){
       else if(nextProps.value == "Boolean")
         this.setState({opData:arrBooleanOperation})
 
-      else if(nextProps.value == "Char/Byte")
+      else if(nextProps.value == "Char or Byte")
        this.setState({opData:arrCharOperation})
 }
 }

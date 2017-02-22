@@ -40,17 +40,16 @@ const styles = {
 
 const validate = (values) => {
   const errors = {}
-  if (isNaN(values.stackTraceDepthValue))
-    errors.stackTraceDepthValue = 'Please Enter Only Numbers'
-
   if (values.stackTraceDepthValue < 0 || values.stackTraceDepthValue > 9999)
     errors.stackTraceDepthValue = 'Please enter values between 0 and 9999'
 
   if (values.enableCaptureExcepStackTrace) {
     if (!values.stackTraceDepthValue)
-      errors.stackTraceDepthValue = 'Required'
+        errors.stackTraceDepthValue = 'Required'
+        
+    else if (isNaN(values.stackTraceDepthValue))
+        errors.stackTraceDepthValue = 'Please Enter Only Numbers'
   }
-
   return errors;
 }
 
@@ -120,7 +119,6 @@ class Form_EnableExcptcapturing extends React.Component {
 
     return (
       <div className="row" style={{ 'paddingLeft': 29, 'paddingTop': 13 }}>
-
         <form>
           <div className="row col-md-8">
             <Checkbox

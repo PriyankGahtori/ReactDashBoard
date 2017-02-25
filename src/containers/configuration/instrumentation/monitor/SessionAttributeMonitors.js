@@ -250,10 +250,11 @@ loader(){
     ];
 
     return (
-    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F'}}>
+    <div style ={{position:'relative',left:'10px',width:'1011px'}}>
      
-          <div className="col-md-10">
-              <h4>Session Attribute(s)</h4>
+          <div className="row row-no-margin tableheader">
+          <IconButton tooltip="Delete" className="pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
+              <h4 style={{color:'#FFF',paddingLeft:'10px'}}>Session Attribute(s)</h4>
           </div>
 
            <DialogSessionAttr profileId ={this.props.profileId}/>
@@ -262,7 +263,6 @@ loader(){
 
  {/*  <IconButton tooltip="Edit " onTouchTap={this.handleOpenEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton> */}
         { /* <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon   color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>*/}
-          <IconButton tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
           </div>
         
         <DataGrid data = {this.props.sessionAttrMonitor.tableData} 

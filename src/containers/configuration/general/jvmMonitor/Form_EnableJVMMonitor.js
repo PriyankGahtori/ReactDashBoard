@@ -29,7 +29,7 @@ const validate = values => {
     errors.cpuFilter = 'Please Enter Only Numbers'
 
     else if(!values.doNotDelfactor)
-      errors.doNotDelfactor = 'Please enable Do not delete factor'
+      errors.doNotDelfactor = 'Please enable Do not delete Vector'
   }
    
 
@@ -48,7 +48,7 @@ const styles = {
   error: {
     fontSize: 12,
     color: 'red',
-    position: 'relative'
+    position: 'relative',
   },
 };
 

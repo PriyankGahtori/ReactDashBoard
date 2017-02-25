@@ -82,24 +82,20 @@ rbChange(evt,value){
   render() {
     
     return ( 
-      <div>
-        <div className ="row " style = {{position:'relative',left:'25px'}}>
-        <div className ="col-md-3">
+      <div style={{paddingLeft:"10px"}}>
+  <div className="col-md-12"> 
+     <div className="col-md-6" >  
           <TextField
                floatingLabelText="Name "
-               onChange ={this.valNameChange.bind(this)}
-               style={{width:'',position:'relative'}}
-          />
+               onChange ={this.valNameChange.bind(this)}  
+               style={{width:"250px" ,position:'relative'}}/>
        </div>
-
-      
-     <div className="col-md-4"  >
+          <div className="col-md-6" > 
         <DropDownMenu
          onChange={this.handleCustomValType.bind(this)} 
           value={this.state.value}
-          hintText="Custom Value Type" 
-          style={{position:'relative',left:'0px',top:'21px',width:'200px'}}
-        >
+          hintText="Custom Value Type"  
+           style={{width:"250px" ,position:'relative', top: "20px"}}>
       {
         arrOperation.map((data,index)=>(
             <MenuItem value={data.id}  primaryText={data.operation}/>
@@ -107,26 +103,23 @@ rbChange(evt,value){
       }
       </DropDownMenu>
       </div>
-  
       </div>
+   
 
-      <div className = "row" style = {{position:'relative',left:'30px'}}>
-       <div className ="col-md-3">
+      <div className="col-md-12">
+         <div className="col-md-6">
           <TextField
                floatingLabelText="Left Bound"
                onChange ={this.lbChange.bind(this)}
-               style = {{width:'',position:'relative'}}
-          />
-     </div>
-
-     <div className ="col-md-4" style ={{position:'relative'}}>
+               style = {{width:'',position:'relative'}}   />
+          </div>
+          <div className="col-md-6">
           <TextField
             floatingLabelText="Right Bound"
             onChange ={this.rbChange.bind(this)}
             style = {{width:'',position:'relative'}}
           />
-     </div>
-
+          </div>
     </div>
   </div>
     )  

@@ -173,6 +173,7 @@ editValArr(id,key,value){
 }
 
 onCustomValTypeChange(val,customValTypeName){
+  
         this.setState({customValType:val,
                       customValTypeName:customValTypeName
         })
@@ -266,9 +267,7 @@ renderSessionAttrValues(arr)
                  return <div >
                     <AttrValComponent value={val} valNameChange={that.valNameChange.bind(this)} lbChange = {that.lbChange.bind(this)} rbChange={that.rbChange.bind(this)} />
                     <div className="row col-md-1">
-                    <IconButton style = {{position:'relative',left:'-3px'}} 
-
-                    tooltip="delete" onTouchTap={that.del.bind(this,val.id)}><FontIcon color='#D3D3D3' className="material-icons">delete</FontIcon></IconButton>
+                    <IconButton style = {{position:'relative',left:'-3px'}}  tooltip="delete" onTouchTap={that.del.bind(this,val.id)}><FontIcon color='#D3D3D3' className="material-icons">delete</FontIcon></IconButton>
                     </div>
                    </div>
   })
@@ -393,7 +392,6 @@ renderSessionAttrValues(arr)
     </div>
 
      <div className = {`row col-md-10  ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}}>
-        <h4>Add Value Types </h4>
        
 
        
@@ -402,9 +400,10 @@ renderSessionAttrValues(arr)
         
           <div className = {`row col-md-12 ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-            <div className="pull-right"  >
-                <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-                 <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+            <div className='row row-no-margin tableheader'>
+                 <IconButton className="pull-right" tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+                <IconButton  className=" pull-right" tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+                <h4 style={{color: '#FFF',paddingLeft:'10px'}} >Add Value Types </h4>
             </div>
             
           <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
@@ -434,7 +433,8 @@ renderSessionAttrValues(arr)
               label="Add"
               backgroundColor = "#D3D3D3" 
               onClick={this.handleSubmitValType.bind(this,attrValues)}
-              style={{color:'#000',position:'relative',bottom:'45px'}}>
+              style={{position:'relative',bottom:'45px'}}
+              labelStyle={{color:"#FFF"}}>
             </RaisedButton>
             </div>
          </div>

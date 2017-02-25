@@ -246,6 +246,7 @@ class EnableFpHeaderCapturing extends React.Component {
     const actions = [
       <FlatButton
         label="Cancel"
+	className="dialog-modal cancel"
         primary={true}
         onTouchTap={this.handleCancelEnableFpHdrCapturing.bind(this)}
         />,
@@ -321,6 +322,7 @@ class EnableFpHeaderCapturing extends React.Component {
 
         <DialogEnableFpHeaderCapturing
           title="FlowPath Header Capturing"
+	  className="dialog-modal"	
           actions={actions}
           autoScrollBodyContent={true}
           modal={true}

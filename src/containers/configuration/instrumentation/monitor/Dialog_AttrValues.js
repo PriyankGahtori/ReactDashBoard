@@ -202,7 +202,8 @@ addValType(){
     const { onSubmit } = this.props
   	const actions = [
       <FlatButton
-        label="Cancel"
+        className="dialog-modal cancel"
+	label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
       />,
@@ -224,6 +225,7 @@ addValType(){
     return(
       <div >
         <DialogSessionAttr
+	  className="dialog-modal"
           title="Attribute Values"
           actions={actions}
           modal={false}
@@ -234,8 +236,8 @@ addValType(){
           titleStyle={styles.title}
         >
         <Paper zDepth={2} style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
-          <div className="pull-right">
-          <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+          <div className="row row-no-margin tableheader">
+          <IconButton   className="pull-right" tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
         </div>
       <DataGrid data = {this.props.sessionAttrMonitor.attrValues} 
           cellEdit ={ cellEditProp }
@@ -258,7 +260,7 @@ addValType(){
                          />
           <RaisedButton className ="pull-right"
           label="Submit"
-          backgroundColor = "#D3D3D3" 
+          backgroundColor = "#3a9e95" 
           onClick={this.addValType.bind(this)}
           style={{color:'#000',position:'relative',bottom:'45px',right:'82px'}}>
     

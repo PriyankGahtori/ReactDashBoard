@@ -214,9 +214,7 @@ class ArgumentTypeComponent extends React.Component {
         <Paper zDepth={2} style={{ color: '#FFF' }}>
           <div className='row row-no-margin tableheader'>
 
-            <div className="pull-right"  >
-                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-            </div>
+            <IconButton  className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
 
           {/* Rendering table component  ,

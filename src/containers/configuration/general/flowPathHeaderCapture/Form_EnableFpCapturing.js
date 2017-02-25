@@ -19,7 +19,7 @@ import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import CheckboxWithoutWrapper from 'material-ui/Checkbox';
 import RadioButtonGroupWithoutWrapper from 'material-ui/RadioButton';
-
+import Paper from 'material-ui/Paper';
 
 //Importing React components
 import {submitKeywordData,initializeInstrException,updateSessionType,toggleAddCustomCapture,clearStepperData,updateCustomCaptureDataFile }  from '../../../../actions/index';
@@ -501,7 +501,7 @@ render() {
   
   return (
     <div  >
- 
+    <Paper> 
     <form onSubmit={handleSubmit(this.submitForm.bind(this))} >
 
    {/********************** START OF captureHTTPReqFullFp******************************/}
@@ -719,16 +719,16 @@ render() {
 
          <div className ={`col-md-2 ${this.state.customDataCapturingMethodBlock}`} style = {{top:'-5px'}}>
 {/* <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>*/}
-            <IconButton  tooltip="Add" onTouchTap={this.handleOpenAgain.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+            <IconButton  tooltip="Add" onTouchTap={this.handleOpenAgain.bind(this)}><FontIcon  color="#87CEFA"  className="material-icons">playlist_add</FontIcon></IconButton>
 
         </div>
 
     {/*    <div className = {`col-md-3 ${this.state.addMenuDropDownBlock}`} style = {{'width':1000,'left':26,'top':-40}}>
           <MultiSelectCapturingMenu />
         </div> 
-*/} </div>
+*/} 
 
-  <div className = {this.state.customDataCapturingMethodBlock}>
+  <div style={{left: '25px',position:'relative'}} className = {this.state.customDataCapturingMethodBlock}>
      
      <div className = {`row col-md-8 ${this.state.customDataCapturingMethodBlock}`} style = {{paddingLeft:'10px'}}>
         <MethodBasedCaptureCustomData profileId={this.props.profileId} />
@@ -794,12 +794,13 @@ render() {
             <HttpReqHdr profileId={this.props.profileId} />
          </div>
      </div>
-
+    </div>
 
      <DialogCaptureCustomData profileId = {this.props.profileId} />
      </div>
     {/*<DialogStepper profileId = {this.props.profileId} />*/}
       </form>
+    </Paper>
     </div>
 
     );

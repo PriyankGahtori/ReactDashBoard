@@ -218,7 +218,15 @@ console.log("addData function called--",this.state.operationName)
     rbChange(rbVal){
         this.setState({rbVal:rbVal})
     }
+handleDelete(){
+   var selectedRow = this.refs.returnTypeTable.refs.table.state.selectedRowKeys
+     var arrData = Object.assign([],this.state.arr)
+   arrData = arrData.filter(function(value){
+        return selectedRow.indexOf(value.id) == -1;
+       })
+      this.setState({arr:arrData})
 
+}
     
   render() {
     
@@ -226,10 +234,8 @@ console.log("addData function called--",this.state.operationName)
       <div  style = {{'left':'10px','position':'relative'}}>
         <Paper zDepth={2} style={{ color: '#FFF' }}>
           <div className='row row-no-margin tableheader'>
-
-            <div className="pull-right"  >
-                 <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
-            </div>
+                 <IconButton className="pull-right"  tooltip="Delete" onTouchTap={this.handleDelete.bind(this)} className="pull-right" ><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
+                 <IconButton className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
 
           {/* Rendering table component  ,
@@ -240,7 +246,7 @@ console.log("addData function called--",this.state.operationName)
 
           <DataGrid data={this.state.arr}
             pagination={false}
-            ref="appTable"
+            ref="returnTypeTable"
             column={columns}
             onClick={this.handleClick}
             />

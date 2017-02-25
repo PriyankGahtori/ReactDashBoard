@@ -322,13 +322,13 @@ class HttpReqBasedCapturingAdd extends React.Component {
         </div>
 
         <div className={`row col-md-10  ${this.state.valDataCss}`} style={{ 'paddingTop': 3, 'paddingLeft': 6 }}>
-          <h4>Add Custom Setting </h4>
 
           <div className={`row col-md-12 ${this.state.addComp}`} style={{ paddingLeft: '12px' }}>
 
-            <div className="pull-right"  >
-              <IconButton tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
-               <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+            <div className='row row-no-margin tableheader' >
+               <IconButton  tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+              <IconButton className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
+              <h4 style={{color: '#FFF',paddingLeft:'10px'}}>Add Custom Setting </h4>
 
             </div>
 
@@ -358,7 +358,9 @@ class HttpReqBasedCapturingAdd extends React.Component {
                 label="Add"
                 backgroundColor="#D3D3D3"
                 onClick={this.handleSubmitValType.bind(this, attrValues)}
-                style={{ color: '#000', position: 'relative', bottom: '45px' }}>
+                style={{position: 'relative', bottom: '45px' }}
+                labelStyle={{color:'#FFF'}}>
+
               </RaisedButton>
             </div>
           </div>

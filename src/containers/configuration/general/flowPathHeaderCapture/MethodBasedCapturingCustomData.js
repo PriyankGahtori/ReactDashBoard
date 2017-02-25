@@ -282,9 +282,12 @@ loader(){
           </div>
 
 
-       <div className = {`row col-md-10 ${this.state.showTable}`} >
-      <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
-
+       <div className = {`row col-md-10 ${this.state.showTable}`} style ={{position:'relative',width:'1011px'}} >
+   
+           <div  className='row row-no-margin tableheader' > 
+            <IconButton className=" pull-right" tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+             <h4 style={{paddingLeft:'10px'}}> Method Based Custom Data</h4> 
+             </div>
         <DataGrid data = {this.props.methodBasedCustomData.tableData} 
             pagination = {false} 
             ref        = "methodCapturingData" 
@@ -296,7 +299,7 @@ loader(){
             onHrefReturnType = {this.handleHrefReturnType.bind(this)}
              /> 
           </div>
-
+          
         <div>
 
        {/* <AddNewButton  style={NewButtonstyle} onTouchTap={this.handleOpen.bind(this,'add')}>

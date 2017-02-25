@@ -245,12 +245,11 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
     ];
 
     return (
-      <div style={{ position: 'relative', left: '0px', width: '1011px', 'background': '#18493F' }}>
-
-        <div className="row col-md-12" style={{ position: 'relative', left: '24px' }}>
-          <h4>Http Request Header</h4>
+     <div  style ={{position:'relative',width:'1011px'}}>
+        <div  className='row row-no-margin tableheader' > 
+          <IconButton className="pull-right" tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color='white' className="material-icons">delete</FontIcon></IconButton>
+          <h4 style={{color: '#FFF',paddingLeft: '10px'}}>Http Request Header</h4>
         </div>
-          <IconButton className="pull-right" tooltip="Delete" style={{bottom:25}} onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
 
 
         <DataGrid data={this.props.httpReqHdrBasedCustomData.tableData}
@@ -258,7 +257,7 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
           ref="httpRequestHeaderTable"
           column={columns}
           onClick={this.handleClick}
-          />
+           /> 
 
       
         <Snackbar

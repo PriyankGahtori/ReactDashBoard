@@ -52,6 +52,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
   render() {
     const actions = [
       <FlatButton
+      className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel} />,
@@ -64,6 +65,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
     return (
       <div>
       <DialogNewApp
+          className="dialog-modal "
           title = {this.state.title}
           actions={actions}
           modal={false}

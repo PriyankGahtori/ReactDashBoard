@@ -92,4 +92,4 @@ export var sessAttrTypeList = [ {'id':0 ,'option': 'String' },
             typeName = val.option
       })
       return typeName;
-  }
+}

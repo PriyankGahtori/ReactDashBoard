@@ -23,6 +23,7 @@ import DataGrid from '../../../../components/DCDetailTable';
 import EnableMethodMonitor from './EnableMethodMonitor';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
 import DialogAttrVal from './Dialog_AttrValues';
+import Dialog_SessionAttrEdit from './Dialog_SessionAttrEdit';
 export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
@@ -149,15 +150,29 @@ loader(){
   handleClose(){
         this.setState({delDialog:false})
   }
+
+
+  handleEdit(){
+  var selectedRow = [];
+    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+      let selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function (value) {
+          return value.sessAttrId == selectedRow
+        });
+ if(selectedRow.length == 1){
+   this.props.toggleEditSessionAttrForm();
+   this.props.initializeSessionAttr(selectedRowData[0]);
+ }
+  }
+
  
-  handleOpen(){
+ /* handleOpen(){
     this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
   //  this.props.disableSubmitButtonState();
    // this.props.methodMonitorInitializeForm(null,openMethodMonitorDialogType);
     this.props.clearValData();
-  }
-
- /* handleOpen(openSessAttrMonDialog){
+  }*/
+/*
+ handleOpenEdit(openSessAttrMonDialog){
 
     //for editing form
     let selectedRow= this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
@@ -184,14 +199,16 @@ loader(){
           this.props.toggleStateAddSessionAttrMonitor(); //opens dialog box
     }
   }
-  */
+  }*/
+  
   
   handleHref(row){
     console.log("row---",row)
     this.props.toggleStateAttrValDialog(row.sessAttrId);
 
   }
-  handleOpenEdit(){
+  
+  handleOpenEditNOTUSED(){
     console.log("handleOpenEdit method called--")
    /* let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
     if (selectedRow.length == 1) {
@@ -253,7 +270,11 @@ loader(){
     <div style ={{position:'relative',left:'10px',width:'1011px'}}>
      
           <div className="row row-no-margin tableheader">
-          <IconButton tooltip="Delete" className="pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
+             <div className="pull-right"  >
+               <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
+              <IconButton tooltip="Delete" className="pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
+            </div>
+
               <h4 style={{color:'#FFF',paddingLeft:'10px'}}>Session Attribute(s)</h4>
           </div>
 
@@ -283,6 +304,7 @@ loader(){
 
         
          <DialogAttrVal />
+           <Dialog_SessionAttrEdit  />
           
         </div>
          <Snackbar

@@ -170,6 +170,7 @@ export default function(state = initialState, action) {
      case 'TOGGLE_EDIT_SESSION_ATTR':
       var newState = Object.assign({}, state);
       newState.openEditSessAttrMonDialog= !newState.openEditSessAttrMonDialog;
+      console.log("newState---in reducer nsesionATrr",newState)
       return newState;
 
       case  'INITIALIZE_SESSION_ATTR':

@@ -23,6 +23,8 @@ import DataGrid from '../../../../../components/DCDetailTable';
 //import EnableMethodMonitor from './EnableMethodMonitor';
 import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
 //import DialogAttrVal from './Dialog_AttrValues';
+
+import DialogHttpReqHdrEdit from './Dialog_HttpReqHdrEdit';
 export const fields = ['methodDisplayName', 'methodName', 'methodDesc']
 
 var columns = {
@@ -209,6 +211,25 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
 
   }
 
+  handleEdit(){
+    console.log("handleEdit method called")
+     var selectedRow = [];
+     selectedRow = this.refs.httpRequestHeaderTable.refs.table.state.selectedRowKeys;
+     let selectedRowData = this.props.httpReqHdrBasedCustomData.tableData.filter(function (value) {
+          return value.httpReqHdrBasedId == selectedRow
+        });
+      
+    console.log("selectedRowData--",selectedRowData)
+    if(selectedRow.length == 1){
+     // this.props.toggleEditSessionAttrForm();
+      //this.props.initializeSessionAttr(selectedRowData[0]);
+      this.props.toggleHttpReqHdrEditForm();
+      this.props.initializeHttpReqHdr(selectedRowData[0]);
+    }
+ 
+
+  }
+
   handleDel() {
     let selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
     console.log("selectedRow-", selectedRow)
@@ -247,7 +268,10 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
     return (
      <div  style ={{position:'relative',width:'1011px'}}>
         <div  className='row row-no-margin tableheader' > 
+        <div className = "pull-right">
+          <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
           <IconButton className="pull-right" tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color='white' className="material-icons">delete</FontIcon></IconButton>
+        </div>
           <h4 style={{color: '#FFF',paddingLeft: '10px'}}>Http Request Header</h4>
         </div>
 
@@ -274,6 +298,7 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
 
           />
 
+          <DialogHttpReqHdrEdit/>
       </div>
     );
   }

@@ -48,8 +48,8 @@ var arrCharOperation = [{ 'id': 14, 'option': 'EXCEPTION' }];
 
 
 var arrOperation = [{ 'id': 0, operation: 'String' },
-{ 'id': 1, operation: 'Integer' },
-{ 'id': 2, operation: 'Decimal' },
+                    { 'id': 1, operation: 'Integer' },
+                    { 'id': 2, operation: 'Decimal' },
 ];
 
 const items = [];
@@ -192,7 +192,7 @@ class AddComponent extends React.Component {
 
   indexChange(evt, value) {
     console.log("indexChange method called")
-    var data = this.props.fqm
+  /*  var data = this.props.fqm
     console.log("data---",data)
     if(data != null ){
     if(data.includes("(") && data.includes(")")){
@@ -229,8 +229,8 @@ class AddComponent extends React.Component {
 
 else{
   this.setState({fqmEmptyMsg:'show'})
-}
-   /* this.setState({ indexVal: value })
+}*/
+    this.setState({ indexVal: value })
     this.props.onIndexChange(value)
     console.log("index--", this.props.fqm)
 
@@ -239,7 +239,7 @@ else{
     console.log("type---", type)
     let list = opData.opValList(type);
     console.log("list----", list)
-    this.setState({ opList: list })*/
+    this.setState({ opList: list })
 
 
   }
@@ -402,7 +402,7 @@ else{
             <TextField
               floatingLabelText="Index "
               defaultValue={this.state.index}
-              //onChange={this.indexChange.bind(this)}
+              onChange={this.indexChange.bind(this)}
               style={{ position: 'relative', left: '100px', width: '220px' }}
               />
           </div>

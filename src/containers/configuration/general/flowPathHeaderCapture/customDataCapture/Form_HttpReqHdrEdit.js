@@ -18,7 +18,7 @@ import DataGrid from '../../../../../components/DCDetailTable';
 //Importing files
 import Toggle from '../../../../../components/ToggleWrapper';
 import AttrValComponent from '../../../instrumentation/monitor/AttrValComponent';
-import { addingValData, disableSubmitButtonState, toggleAddCustomCapture } from '../../../../../actions/index';
+import { addingValData, disableSubmitButtonState, toggleAddCustomCapture,addRules,updateHttpReqHdr } from '../../../../../actions/index';
 
 
 
@@ -33,6 +33,8 @@ const validate = values=>{
 
     if(!values.complete && !values.specific)
         errors.complete = 'Must select any of the  Attribute Type'
+
+
 
 
    
@@ -59,7 +61,7 @@ var columns = {
   "field": ['valName', 'customValTypeName', 'lb', 'rb', 'id']
 };
 
-class HttpReqBasedCapturingAdd extends React.Component {
+class Form_HttpReqHdrEdit extends React.Component {
 
   constructor(props) {
     super(props);
@@ -74,10 +76,11 @@ class HttpReqBasedCapturingAdd extends React.Component {
       valName: '',
       lb: '',
       rb: '',
-      'valDataCss': 'hidden',
-      valDataArr: [],
+      'valDataCss': this.props.initialData != null && (this.props.initialData.dumpMode == 1 || this.props.initialData.dumpMode ==3) ?'show':'hidden',
+      valDataArr: this.props.initialData != null ? this.props.initialData.rules :[],
       'errMsgCss': 'hidden',
-      'addCompCSS': 'hidden'
+      'addCompCSS': 'hidden',
+      specificChkBox:this.props.initialData != null ? this.props.initialData.specific : false,
 
     }
     this.del = this.del.bind(this);
@@ -85,7 +88,12 @@ class HttpReqBasedCapturingAdd extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
+        if(this.props.initialData != nextProps.initialData){
+            if(nextProps.initialData != null && nextProps.initialData.rules != null)
+               this.setState({valDataArr:nextProps.initialData.rules})
+            else
+                this.setState({valDataArr:[]})
+        }
   }
 
   specificChkBoxChange(event, isInputChecked) {
@@ -165,17 +173,17 @@ class HttpReqBasedCapturingAdd extends React.Component {
     console.log("value-valNameChange method--", value)
     console.log("id--", id)
     this.setState({ valName: value })
-    this.editValArr(id, 'valName', value)
+   // this.editValArr(id, 'valName', value)
   }
 
   lbChange(value, id) {
     this.setState({ lb: value })
-    this.editValArr(id, 'lb', value)
+    //this.editValArr(id, 'lb', value)
   }
 
   rbChange(value, id) {
     this.setState({ rb: value })
-    this.editValArr(id, 'rb', value)
+    //this.editValArr(id, 'rb', value)
   }
 
   del(val) {
@@ -200,7 +208,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
     }
     else {
       this.setState({
-        count: this.state.count + 1,
+        //count: this.state.count + 1,
         errMsgCss: 'hidden',
         addCompCSS: 'hidden'
       })
@@ -212,8 +220,9 @@ class HttpReqBasedCapturingAdd extends React.Component {
         'customValTypeName': this.state.customValTypeName,
         'type': this.state.customValType
       }
-      this.state.valDataArr.push(valData);
-      attrValues.onChange(this.state.valDataArr);
+      //this.state.valDataArr.push(valData);
+      //attrValues.onChange(this.state.valDataArr);
+      this.props.addRules(valData,this.props.initialData.httpReqHdrBasedId);
     }
   }
 
@@ -263,6 +272,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
       customValTypeName: customValTypeName
     })
   }
+
   handleDelete(){
 
   var   selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
@@ -326,7 +336,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
           <div className={`row col-md-12 ${this.state.addComp}`} style={{ paddingLeft: '12px' }}>
 
             <div className='row row-no-margin tableheader' >
-               <IconButton  tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+            {/*   <IconButton  tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> */}
               <IconButton className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
               <h4 style={{color: '#FFF',paddingLeft:'10px'}}>Add Custom Setting </h4>
 
@@ -335,7 +345,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
 
             <div style={{ background: 'rgba(0,0,0,0.80)', color: '#FFF' }}>
               <DataGrid data={this.state.valDataArr}
-                cellEdit={cellEditProp}
+                //cellEdit={cellEditProp}
                 pagination={false}
                 ref="sessionAttrMonitorData"
                 column={columns}
@@ -380,7 +390,7 @@ class HttpReqBasedCapturingAdd extends React.Component {
 }
 
 
-HttpReqBasedCapturingAdd.propTypes = {
+Form_HttpReqHdrEdit.propTypes = {
   fields: PropTypes.object.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   resetForm: PropTypes.func.isRequired,
@@ -393,13 +403,16 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
   validate
 },
   state => ({ // mapStateToProps
-    valData: state.sessionAttrMonitor.valData
+    valData: state.sessionAttrMonitor.valData,
+    initialValues : state.httpReqHdrBasedCustomData.initializeForm,
+    initialData : state.httpReqHdrBasedCustomData.initializeForm
   }),
   {
     addingValData: addingValData,
     disableSubmitButtonState: disableSubmitButtonState,
-    toggleAddCustomCapture: toggleAddCustomCapture
+    toggleAddCustomCapture: toggleAddCustomCapture,
+    addRules:addRules,
+    updateHttpReqHdr :updateHttpReqHdr 
   } // mapDispatchToProps (will bind action creator to dispatch)
-)(HttpReqBasedCapturingAdd);
+)(Form_HttpReqHdrEdit);
 
-``

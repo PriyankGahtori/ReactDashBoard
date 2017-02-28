@@ -2107,3 +2107,48 @@ export function delHttpReqRow(selectedRowKeys)
   }
 }
 
+export function toggleHttpReqHdrEditForm(){
+    return{
+    type:'TOGGLE_HTTPREQHDR_EDIT'
+  }
+  
+}
+
+export function initializeHttpReqHdr(data){
+
+    return{
+    type:'INITIALIZE_HTTPREQHDR_FORM',
+    payload:data
+    
+  }
+}
+
+export function addRules(data,httpReqHdrId){
+  console.log("data---",data)
+   var response = axios({
+    method:'post',
+    url : `${url.ADD_RULES_HTTPREQHDR}/${httpReqHdrId}`,
+    data: data,
+  });
+  return{
+    type: 'ADD_RULES_HTTPREQHDR',
+    payload: response
+
+}
+}
+
+export function updateHttpReqHdr(data,httpReqHdrBasedId){
+
+  console.log("UPDATE_HTTPREQHDR method called")
+  var response = axios({
+    method:'post',
+    url : `${url.UPDATE_HTTPREQHDR}/${httpReqHdrBasedId}`,
+    data: data,
+  });
+  return{
+    type: 'UPDATE_HTTPREQHDR',
+    payload: response
+
+} 
+
+}

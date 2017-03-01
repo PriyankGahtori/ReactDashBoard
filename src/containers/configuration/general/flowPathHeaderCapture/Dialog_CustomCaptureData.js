@@ -41,6 +41,7 @@ class Dialog_CustomCaptureData extends React.Component {
                 httpRespBasedCaptureState:false,
                 sessionAttrBasedCaptureState:false,
                 count:0,
+                errMsg:'hidden',
                 showOptions:'show',
                 setTitle:'Select Types to configure',
                
@@ -66,6 +67,7 @@ class Dialog_CustomCaptureData extends React.Component {
 
 
   handleCancel(){
+    this.setState({errMsg:'hidden'})
     this.props.toggleAddCustomCapture();
   }
   
@@ -84,8 +86,12 @@ class Dialog_CustomCaptureData extends React.Component {
   }
 
   submitForm(data){
-      if(!(this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddSessionAttrBasedData')){
-        
+    if(data.capturingMethod == null)
+    {
+      this.setState({errMsg:'show'})
+    }
+    else  if(!(this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddHttpReqHdr'||this.state.selectedVal == 'enableAddSessionAttrBasedData')){
+        this.setState({errMsg:'hidden'})
         let  compName = data[Object.keys(data)[0]];
         let title = '';
         
@@ -93,10 +99,16 @@ class Dialog_CustomCaptureData extends React.Component {
             title = "Capture Method Based Custom Data";
 
         else if(compName == 'enableAddHttpReqHdr')
+        {
+          this.setState({errMsg:'hidden'})
           title = "Capture HTTP Request Custom Data";
+        }
 
         else if(compName == 'enableAddSessionAttrBasedData')
+        {
+          this.setState({errMsg:'hidden'})
           title = "Capture Session Attribute Custom Data";
+        }
 
         this.setState({'selectedVal':compName,
                         showOptions:'hidden',
@@ -107,6 +119,7 @@ class Dialog_CustomCaptureData extends React.Component {
         })
       }
       else{
+        this.setState({errMsg:'hidden'})
         console.log("this.state.selectedVal---",this.state.selectedVal)
         console.log("this.state.selectedVal == 'enableAddHttpReqHdr'---",this.state.selectedVal == 'enableAddSessionAttrBasedData')
         if(this.state.selectedVal == 'enableAddMethodBasedData'){
@@ -254,7 +267,7 @@ submitHttpReqHdr(data){
 
        {this.renderComp(this.state.selectedVal)}
        
-     
+     <p style={{color:'red'}} className={this.state.errMsg}>No type is selected. </p>
       </Dialog>
       </div>
     );

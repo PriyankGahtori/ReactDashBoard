@@ -2180,3 +2180,31 @@ export function updateMethodBasedCustomData(data,methodBasedId){
     payload:response
   }
 }
+
+export function delReturnValuesRow(selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_CUSTOM_METHOD_RETURN_VALUE}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_CUSTOM_METHOD_RETURN_VALUE_ROW',
+    payload: response
+  }
+}
+
+export function delArgumentValuesRow(selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_CUSTOM_METHOD_ARG_VALUE}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_CUSTOM_METHOD_ARG_VALUE_ROW',
+    payload: response
+  }
+}

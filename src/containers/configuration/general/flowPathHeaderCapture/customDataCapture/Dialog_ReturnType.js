@@ -305,7 +305,6 @@ onBeforeSaveCell(row, cellName, cellValue){
               disabled={this.props.profileDisabled}
               disabledLabelColor="#000"
               labelStyle={{ fontSize: 12 }}>
-              
             </RaisedButton>          
             </div>
 

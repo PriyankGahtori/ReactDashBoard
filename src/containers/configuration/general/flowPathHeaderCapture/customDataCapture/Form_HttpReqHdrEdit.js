@@ -281,11 +281,7 @@ class Form_HttpReqHdrEdit extends React.Component {
         return selectedRow.indexOf(value.id) == -1;
        })
        this.setState({valDataArr:arrData})
-
   }
-
-
-
 
   render() {
 

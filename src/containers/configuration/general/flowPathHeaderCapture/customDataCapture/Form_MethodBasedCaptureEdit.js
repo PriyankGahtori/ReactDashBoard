@@ -135,6 +135,7 @@ class Form_MethodBasedCaptureEdit extends React.Component {
 
     componentWillReceiveProps(nextProps) {
       console.log("nextProps--Form_MethodBasedCaptureEdit---",nextProps.initialData)
+      console.log("this.props in methodBasedCaptureEdit---",this.props.initialData)
       if(this.props.initialData != nextProps.initialData){
           this.setState({'fqm':nextProps.initialData.fqm,
                         'returnTypeTableData':nextProps.initialData.returnTypeData,
@@ -402,7 +403,7 @@ handleEnableReturnType(evt,isInputChecked){
                      data = {this.returnTypeData.bind(this)} 
                      oplistForReturnType={this.state.listForReturnType}
                      fqm = {this.state.fqm}
-                     tableData = {this.state.returnTypeTableData}
+                     tableData = {this.props.initialData != null ?this.props.initialData.returnTypeData:[]}
 
                      
                      />
@@ -425,7 +426,7 @@ handleEnableReturnType(evt,isInputChecked){
                         <ArgumentTypeComp 
                         data = {this.argumentTypeData.bind(this)} 
                         fqm = {this.state.fqm}
-                        tableData = {this.state.argumentTypeTableData}
+                        tableData = {this.props.initialData != null ? this.props.initialData.argumentTypeData:[]}
                         />
                  </div>
                  

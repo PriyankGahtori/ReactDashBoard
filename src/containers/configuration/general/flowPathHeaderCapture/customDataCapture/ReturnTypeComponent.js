@@ -26,9 +26,9 @@ import AddComp from './AddComponent';
 */
 
 var columns = {
-  "key": "id",
-  "data": ['Header Name', 'Type','Operation', 'Operation Value', 'id'],
-  "field": ['headerName','customValTypeName', 'operation', 'operatorValue', 'id']
+  "key": "returnTypeId",
+  "data": ['Header Name', 'Type', 'Operation', 'Operation Value', 'id'],
+  "field": ['headerName', 'customValTypeName', 'operation', 'operatorValue', 'returnTypeId']
 };
 
 const style = {
@@ -62,55 +62,57 @@ class ReturnTypeComponent extends React.Component {
     this.loader = this.loader.bind(this);
     this.appLoader = this.appLoader.bind(this);
     this.addData = this.addData.bind(this);
-    
-    this.state = {addCompCss:'hidden',
-                 'argTypeAddComp':'hidden',
-                  arr:this.props.tableData != null ? this.props.tableData :[],
-                  id:-1,
-                  headerName:'',
-                  customValTypeName:'',
-                  operation:'',
-                 operationName:'',
-                 Errormsg: 'hidden'
 
-      }
-    console.log("constructor method called--",this.props.fqm)
-   
+    this.state = {
+      addCompCss: 'hidden',
+      'argTypeAddComp': 'hidden',
+      arr: this.props.tableData != null ? this.props.tableData : [],
+      id: -1,
+      headerName: '',
+      customValTypeName: '',
+      operation: '',
+      operationName: '',
+      Errormsg: 'hidden'
+
+    }
+    console.log("constructor method called--", this.props.fqm)
+
   }
 
 
   handleDelConfirm() {
-    this.setState({ open: true
-     });
+    this.setState({
+      open: true
+    });
   }
 
 
 
-  
+
   handleClick() {
   }
 
-  
+
   handleOpen() {
-      console.log("handleOpen method called")
-      this.setState({argTypeAddComp: 'show'})
-   
+    console.log("handleOpen method called")
+    this.setState({ argTypeAddComp: 'show' })
+
   }
 
   //this function is called first when component gets first loaded
   componentWillMount() {
-   
+
   }
 
   componentWillReceiveProps(nextProps) {
-    if(this.props.tableData != nextProps.tableData){
-      if(nextProps.tableData != null)
-        this.setState({arr:nextProps.tableData})
+    if (this.props.tableData != nextProps.tableData) {
+      if (nextProps.tableData != null)
+        this.setState({ arr: nextProps.tableData })
       else
-        this.setState({arr:[]})
+        this.setState({ arr: [] })
 
     }
-    
+
   }
 
   /* function to trigger event for closing loader 
@@ -126,122 +128,132 @@ class ReturnTypeComponent extends React.Component {
     this.props.triggerLoader(false, message);
   }
 
-  returnTypeData(data){
-    console.log("data---",data)
+  returnTypeData(data) {
+    console.log("data---", data)
     this.state.arr.push(data);
     this.props.returnTypeData(this.state.arr)
 
 
   }
 
-  addData(){
-  
-console.log("addData function called--",this.state.operationName)
-  if(this.state.headerName ==''|| this.state.customValTypeName =='' || this.state.operationName==''){
+  addData() {
+
+    console.log("addData function called--", this.state.operationName)
+    if (this.state.headerName == '' || this.state.customValTypeName == '' || this.state.operationName == '') {
       console.log("val empty")
-      this.setState({Errormsg: 'show'})
-  }
-  else{
-      this.setState({Errormsg: 'hidden'})
-    console.log("val not empty")
-  this.setState({id:this.state.id +1,
-                argTypeAddComp:'hidden'  
-  })
-  let opVal;
-  if(this.state.operationName == "EXTRACT_SUBPART"){
-    opVal = this.state.lbVal +"-"+ this.state.rbVal
-  }else{
-    opVal = this.state.opVal;
-  }
-  
-  var data = {headerName:this.state.headerName,
-              type:this.state.operationId,
-              operation:this.state.operationName,
-             // opVal:opVal,
-              customValTypeName:this.state.customValTypeName,
-              operatorValue:opVal,
-              operatorName:this.state.operatorName,
-              id:this.state.id + 1,
-              operationId:this.state.operationName
-             
+      this.setState({ Errormsg: 'show' })
+    }
+    else {
+      this.setState({ Errormsg: 'hidden' })
+      console.log("val not empty")
+      this.setState({
+        id: this.state.id + 1,
+        argTypeAddComp: 'hidden'
+      })
+      let opVal;
+      if (this.state.operationName == "EXTRACT_SUBPART") {
+        opVal = this.state.lbVal + "-" + this.state.rbVal
+      } else {
+        opVal = this.state.opVal;
+      }
 
-  }
-  console.log("data---",data)
- // this.props.addReturnType(data)
- console.log("this.props.methodBasedCustomData--",this.props.methodBasedCustomData)
- if(this.props.methodBasedCustomData.openEditMethodBasedCaptureDialog){
-    this.props.addReturnType(data,this.props.methodBasedCustomData.initializeForm.methodBasedId);
- }
- else{
-    this.state.arr.push(data)
-    this.props.data(this.state.arr);
+      var data = {
+        headerName: this.state.headerName,
+        type: this.state.operationId,
+        operation: this.state.operationName,
+        // opVal:opVal,
+        customValTypeName: this.state.customValTypeName,
+        operatorValue: opVal,
+        operatorName: this.state.operatorName,
+        id: this.state.id + 1,
+        operationId: this.state.operationName
+
+
+      }
+      console.log("data---", data)
+      // this.props.addReturnType(data)
+      console.log("this.props.methodBasedCustomData--", this.props.methodBasedCustomData)
+      if (this.props.methodBasedCustomData.openEditMethodBasedCaptureDialog) {
+        this.props.addReturnType(data, this.props.methodBasedCustomData.initializeForm.methodBasedId);
+      }
+      else {
+        this.state.arr.push(data)
+        this.props.data(this.state.arr);
+      }
     }
   }
-}
 
 
-/**********add component fields************** */
-    onHdrNameChnge(val){
-        console.log("onHdrNameChngeval---",val)
-        this.setState({headerName:val})
-    }
+  /**********add component fields************** */
+  onHdrNameChnge(val) {
+    console.log("onHdrNameChngeval---", val)
+    this.setState({ headerName: val })
+  }
 
-    onOperationChange(operationId,operationName){
-        console.log("val---onOperationChange---",operationId)
-        console.log("operationName---",operationName)
-        this.setState({operationName:operationName,
-                        operationId:operationId
-          })
-    }
+  onOperationChange(operationId, operationName) {
+    console.log("val---onOperationChange---", operationId)
+    console.log("operationName---", operationName)
+    this.setState({
+      operationName: operationName,
+      operationId: operationId
+    })
+  }
 
-    onOperationVal(val){
-        console.log("operatorName---",val)
-        this.setState({opVal:val
-        })
-    }
+  onOperationVal(val) {
+    console.log("operatorName---", val)
+    this.setState({
+      opVal: val
+    })
+  }
 
-    onIndexChange(value){
-      console.log("indexVal chane---",value)
-      this.setState({indexVal:value})
-    }
+  onIndexChange(value) {
+    console.log("indexVal chane---", value)
+    this.setState({ indexVal: value })
+  }
 
 
-//NOT USED
-    operatorValue(value){
-      this.setState({operatorValue:value})
-    }
+  //NOT USED
+  operatorValue(value) {
+    this.setState({ operatorValue: value })
+  }
 
-  onCustomValTypeChange(val,customValTypeName){
-  this.setState({customValType:val,
-                customValTypeName:customValTypeName
-  })
-}
+  onCustomValTypeChange(val, customValTypeName) {
+    this.setState({
+      customValType: val,
+      customValTypeName: customValTypeName
+    })
+  }
 
-     lbChange(lbVal){
-        this.setState({lbVal:lbVal})
-    }
-    
-    rbChange(rbVal){
-        this.setState({rbVal:rbVal})
-    }
-handleDelete(){
-   var selectedRow = this.refs.returnTypeTable.refs.table.state.selectedRowKeys
-     var arrData = Object.assign([],this.state.arr)
-   arrData = arrData.filter(function(value){
-        return selectedRow.indexOf(value.id) == -1;
-       })
-      this.setState({arr:arrData})
+  lbChange(lbVal) {
+    this.setState({ lbVal: lbVal })
+  }
 
-}
-    
+  rbChange(rbVal) {
+    this.setState({ rbVal: rbVal })
+  }
+
+  handleDelete() {
+    console.log("this.refs.returnTypeTable - ",this.refs.returnTypeTable);
+    var selectedRow = [] ;
+    var selectedRow = this.refs.returnTypeTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRow - ",selectedRow);
+    this.props.delReturnValuesRow(selectedRow);
+     try{
+      this.refs.returnTypeTable.refs.table.cleanSelected();
+     }
+     catch(e){
+       console.error(" Exception Occured: FileName: ReturnTypeComponent,MethodName: handleDelete() ",e)
+     } 
+  }
+
   render() {
-    
+
     return (
-      <div  style = {{'left':'10px','position':'relative'}}>
+      <div style={{ 'left': '10px', 'position': 'relative' }}>
         <Paper zDepth={2} style={{ color: '#FFF' }}>
           <div className='row row-no-margin tableheader'>
-                 <IconButton className="pull-right"  tooltip="Delete" onTouchTap={this.handleDelete.bind(this)} className="pull-right" ><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
-                 <IconButton className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+            <IconButton className="pull-right" tooltip="Delete" onTouchTap={this.handleDelete.bind(this)} className="pull-right" ><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
+            <IconButton className="pull-right" tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
 
           {/* Rendering table component  ,
@@ -252,39 +264,39 @@ handleDelete(){
 
           <DataGrid data={this.state.arr}
             pagination={false}
-            ref="returnTypeTable"
+          ref="returnTypeTable"
             column={columns}
             onClick={this.handleClick}
-            />
-          
-          </Paper>
+          />
 
-            <div className = {`row ${this.state.argTypeAddComp}`} style = {{paddingLeft: '18px'}}>
-              <AddComp data = {this.returnTypeData.bind(this)}  
-               hideIndexField = {true} 
-               opListForReturnType = {this.props.oplistForReturnType}
-                onHdrNameChange={this.onHdrNameChnge.bind(this)}
-                onOperationChange = {this.onOperationChange.bind(this)}
-                onOperationVal = {this.onOperationVal.bind(this)}
-                onIndexChange = {this.onIndexChange.bind(this)}
-             //   operatorValue = {this.operatorValue.bind(this)}
-                onCustomValTypeChange = {this.onCustomValTypeChange.bind(this)}
-                lbChange ={this.lbChange.bind(this)}
-                rbChange ={this.rbChange.bind(this)}
-                fqm = {this.props.fqm}
-               />  
-            
+        </Paper>
 
-             <RaisedButton className="pull-right"
-              backgroundColor="#18494F"
-              label="Add"
-              labelColor="#FFF"
-              onClick={this.addData.bind(this)}
-              disabled={this.props.profileDisabled}
-              disabledLabelColor="#000"
-              labelStyle={{ fontSize: 12 }}
-              style={{ position: 'relative', left:'0px',top:'2px'}}>
-            </RaisedButton>
+        <div className={`row ${this.state.argTypeAddComp}`} style={{ paddingLeft: '18px' }}>
+          <AddComp data={this.returnTypeData.bind(this)}
+            hideIndexField={true}
+            opListForReturnType={this.props.oplistForReturnType}
+            onHdrNameChange={this.onHdrNameChnge.bind(this)}
+            onOperationChange={this.onOperationChange.bind(this)}
+            onOperationVal={this.onOperationVal.bind(this)}
+            onIndexChange={this.onIndexChange.bind(this)}
+            //   operatorValue = {this.operatorValue.bind(this)}
+            onCustomValTypeChange={this.onCustomValTypeChange.bind(this)}
+            lbChange={this.lbChange.bind(this)}
+            rbChange={this.rbChange.bind(this)}
+            fqm={this.props.fqm}
+          />
+
+
+          <RaisedButton className="pull-right"
+            backgroundColor="#18494F"
+            label="Add"
+            labelColor="#FFF"
+            onClick={this.addData.bind(this)}
+            disabled={this.props.profileDisabled}
+            disabledLabelColor="#000"
+            labelStyle={{ fontSize: 12 }}
+            style={{ position: 'relative', left: '0px', top: '2px' }}>
+          </RaisedButton>
 
         </div>
 
@@ -293,12 +305,12 @@ handleDelete(){
           message="No row selected or multiple rows selected"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose}
-          />
-           <div className= {this.state.Errormsg}> 
-             <p style={{color: 'red',bottom:'30px',position:'relative'}}> Fields are Empty </p>
-          </div> 
-        
-    
+        />
+        <div className={this.state.Errormsg}>
+          <p style={{ color: 'red', bottom: '30px', position: 'relative' }}> Fields are Empty </p>
+        </div>
+
+
 
       </div>
 
@@ -310,7 +322,7 @@ function mapStateToProps(state) {
   return {
     appDetail: state.applicationdata,
     getAllKeywordData: state.Keywords,
-    methodBasedCustomData:state.methodBasedCustomData
+    methodBasedCustomData: state.methodBasedCustomData
   };
 }
 

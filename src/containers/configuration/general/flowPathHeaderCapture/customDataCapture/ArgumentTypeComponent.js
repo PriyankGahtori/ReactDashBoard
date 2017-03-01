@@ -26,9 +26,9 @@ import AddComp from './AddComponent';
 */
 
 var columns = {
-  "key": "id",
+  "key": "argTypeId",
   "data": ['Header Name', 'Type','Index', 'Operation Value','Operation', 'id'],
-  "field": ['headerName','customValTypeName','indexVal','operatorValue', 'operationName',  'id']
+  "field": ['headerName','customValTypeName','indexVal','operatorValue', 'operationName',  'argTypeId']
 };
 
 const style = {
@@ -86,6 +86,19 @@ class ArgumentTypeComponent extends React.Component {
      });
   }
 
+  handleDelete() {
+    console.log("this.refs.appTable - ",this.refs.appTable);
+    var selectedRow = [] ;
+    var selectedRow = this.refs.appTable.refs.table.state.selectedRowKeys;
+    console.log("selectedRow - ",selectedRow);
+    this.props.delArgumentValuesRow(selectedRow);
+     try{
+      this.refs.appTable.refs.table.cleanSelected();
+     }
+     catch(e){
+       console.error(" Exception Occured: FileName: ArgumentTypeComponent,MethodName: handleDelete() ",e)
+     } 
+  }
 
 
   
@@ -219,7 +232,7 @@ else{
       <div style = {{'left':'10px','position':'relative'}}>
         <Paper zDepth={2} style={{ color: '#FFF' }}>
           <div className='row row-no-margin tableheader'>
-
+            <IconButton className="pull-right" tooltip="Delete" onTouchTap={this.handleDelete.bind(this)} className="pull-right" ><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
             <IconButton  className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
           </div>
 

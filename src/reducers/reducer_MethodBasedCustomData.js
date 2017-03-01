@@ -186,6 +186,36 @@ export default function(state = initialState, action) {
          }
        })
        return newState;
+
+        case 'DEL_CUSTOM_METHOD_RETURN_VALUE_ROW':
+            var newState = Object.assign({}, state)
+            console.log("newState.table - ",newState)
+            newState.tableData.map(function (val) {
+                if (val.methodBasedId == newState.initializeForm.methodBasedId) {
+                    val.returnTypeData = val.returnTypeData.filter(function (value) {
+                        console.log("value deleted - ",value.returnTypeId)
+                        return action.payload.data.indexOf(value.returnTypeId) == -1;
+                    })
+ //                   newState.initializeForm = val
+                }
+            }) 
+            console.log("newState--deletimg return type----",newState)
+            return newState;
+
+             case 'DEL_CUSTOM_METHOD_ARG_VALUE_ROW':
+            var newState = Object.assign({}, state)
+            console.log("newState.table - ",newState)
+            newState.tableData.map(function (val) {
+                if (val.methodBasedId == newState.initializeForm.methodBasedId) {
+                    val.argumentTypeData = val.argumentTypeData.filter(function (value) {
+                        console.log("value deleted - ",value.argTypeId)
+                        return action.payload.data.indexOf(value.argTypeId) == -1;
+                    })
+   //                 newState.initializeForm = val
+                }
+            }) 
+             console.log("newState--deletimg argument type----",newState)
+            return newState;
   }
 
 

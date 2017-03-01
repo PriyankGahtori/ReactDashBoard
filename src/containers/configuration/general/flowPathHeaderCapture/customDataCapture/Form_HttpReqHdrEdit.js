@@ -347,7 +347,6 @@ class Form_HttpReqHdrEdit extends React.Component {
               <DataGrid data={this.state.valDataArr}
                 //cellEdit={cellEditProp}
                 pagination={false}
-                ref="sessionAttrMonitorData"
                 column={columns}
                 onClick={this.handleClick}
 

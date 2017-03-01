@@ -2180,3 +2180,18 @@ export function updateMethodBasedCustomData(data,methodBasedId){
     payload:response
   }
 }
+
+export function delAttrValues(selectedRowKeys){
+      var response = axios({
+       method:'post',
+       url : `${url.DEL_ATTR_VALUES}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type: 'DEL_ATTR_VALUES',
+    payload: response
+  }
+  
+}

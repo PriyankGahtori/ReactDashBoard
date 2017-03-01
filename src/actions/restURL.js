@@ -1,11 +1,11 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
 
-//const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 
 /* Url for Home Screen */
@@ -130,6 +130,8 @@ export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addsp
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
+
+export const DEL_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/delattrvalues`;
 export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionAttribute`;
 export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
 

@@ -154,7 +154,7 @@ loader(){
 
   handleEdit(){
   var selectedRow = [];
-    selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
+  selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
       let selectedRowData = this.props.sessionAttrMonitor.tableData.filter(function (value) {
           return value.sessAttrId == selectedRow
         });

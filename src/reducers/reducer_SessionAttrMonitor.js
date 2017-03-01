@@ -18,16 +18,12 @@ function modifyingData(data){
         var value='';
         if(val.attrValues != null && val.attrValues.length != 0){
           val.attrValues.map(function(attrVal,index){
-          console.log("attrVal--",attrVal)
-          console.log("index--",index)
-          console.log("val.attrValues.length--",val.attrValues.length)
           if(index != (val.attrValues.length - 1)){
             value = value+attrVal.valName+",";
           }
           else{
             value = value+attrVal.valName ;
           }
-        console.log("value--",value)
       })
       val["values"]= {"href":value};
     }
@@ -37,26 +33,49 @@ function modifyingData(data){
         else
             val["values"]= 'NA'
       }
-      console.log("val---",val)
     })
     return data;
 
 }
 
+//function to display only hdrNames on tableData
+
+function getValNames(val){
+
+    var value='';
+        if(val.attrValues != null && val.attrValues.length != 0){
+          val.attrValues.map(function(attrVal,index){
+          if(index != (val.attrValues.length - 1)){
+            value = value+attrVal.valName+",";
+          }
+          else{
+            value = value+attrVal.valName ;
+          }
+      })
+      val["values"]= {"href":value};
+    }
+      else{
+        if(val.attrType == 'specific')
+            val["values"] = {"href":"Add Values"};
+        else
+            val["values"]= 'NA'
+      }
+      
+      return val;
+}
+
+
 export default function(state = initialState, action) {
 
-	/*console.log("inside reducerappdetail", action.type);*/
-
- /* console.log("reducerdcdetail called----",initialState)*/
   switch(action.type) {
 
     case 'FETCH_SESSION_ATTR_MONITOR':
     var newState = Object.assign({},state)
     newState.sessionType = action.payload.data.sessionType ;
      var data = [];
-    console.log("action.payload--",action.payload.data)
     if(action.payload.data.attrList != null){
       data = action.payload.data.attrList;
+      //need to optimise code
        var data = modifyingData(data);
     }
      newState.tableData = data;
@@ -64,9 +83,7 @@ export default function(state = initialState, action) {
 
     case 'VAL_DATA':
     var newState = Object.assign({},state)
-    console.log("valdata reducer--",action.payload)
     newState.valData.push(action.payload);
-    console.log("newState.valData--",newState.valData)
     return newState;
 
     case 'CLEAR_VAL_DATA':
@@ -157,9 +174,9 @@ export default function(state = initialState, action) {
       case 'ADD_ATTR_VALUES':
       var newState = Object.assign({},state)
       console.log("action-",action.payload)
+      console.log(" newState.sessionAttrInitializeForm.sessAttrId--", newState.sessionAttrInitializeForm)
       newState.tableData.map(function(val){
-        if(val.sessAttrId == newState.attrRowId){
-          console.log("val---",val)
+        if(val.sessAttrId == newState.sessionAttrInitializeForm.sessAttrId){
           val.attrValues.push(action.payload.data)
         }
       })
@@ -213,6 +230,22 @@ export default function(state = initialState, action) {
         return action.payload.data.indexOf(Number(value.sessAttrId)) == -1;
       });
       return newState
+
+
+      case 'DEL_ATTR_VALUES':
+        var newState = Object.assign({},state);
+        let data = action.payload.data;
+        newState.tableData.map(function(val){
+          if(val.sessAttrId == newState.sessionAttrInitializeForm.sessAttrId){
+            val.attrValues = val.attrValues.filter(function(values){
+              return  data.indexOf(values.specAttrValId) == -1
+            })
+           val = getValNames(val)
+          }
+          console.log("val------",val)
+        })
+        
+        return newState
 
   default :
     return state;

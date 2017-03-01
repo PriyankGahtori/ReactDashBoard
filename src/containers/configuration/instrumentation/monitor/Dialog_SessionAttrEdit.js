@@ -18,6 +18,9 @@ const styles = {
   title: {
     fontSize:16,
     padding: 8 
+  },
+   dialog:{
+    top:'-70px',
   }
 
 }
@@ -73,6 +76,7 @@ class Dialog_SessionAttrEdit extends React.Component {
   	const actions = [
       <FlatButton
         label="Cancel"
+        className="dialog-modal cancel"
         primary={true}
         onTouchTap={this.handleCancel}
       />,
@@ -87,7 +91,7 @@ class Dialog_SessionAttrEdit extends React.Component {
     ];
     return (
       <div>
-        <DialogSessionAttr
+        <DialogSessionAttr  className="dialog-modal"
           title="Edit Session Attribute"
           actions={actions}
           modal={false}
@@ -96,6 +100,7 @@ class Dialog_SessionAttrEdit extends React.Component {
           autoScrollBodyContent={true}
           refs="insidedialog"
           titleStyle={styles.title}
+          style = {styles.dialog}
         >
 
         <FormSessionAttrEdit ref="editSessionAttrMonitorForm" onSubmit={this.submitForm.bind(this)}/>

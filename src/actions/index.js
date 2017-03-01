@@ -2107,6 +2107,19 @@ export function delHttpReqRow(selectedRowKeys)
   }
 }
 
+export function delCustomRows(selectedRowKeys)
+{
+   var response = axios({
+       method:'post',
+       url : `${url.DEL_HTTP_CUSTOM_DATA}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_HTTP_CUSTOM_ROW',
+    payload: response
+  }
+}
 export function toggleHttpReqHdrEditForm(){
   return{
     type:'TOGGLE_HTTPREQHDR_EDIT'

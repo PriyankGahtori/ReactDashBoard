@@ -386,17 +386,17 @@ handleEnableArgumentType(evnt,isInputChecked){
                     </div>
 
                 <div className={`row col-md-10 ${this.state.ruleTypeDivCss}`}>
-                        <h4>Add Rules </h4>
                     { /* {this.renderMethodBTValues(this.state.valDataArr)} */}
 
           <div className = {`row ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
-            <div>
+            <div  className = 'row row-no-margin tableheader'>
                 <IconButton tooltip = "Delete" className="pull-left" onTouchTap={this.handleDeleteRow.bind(this)}><FontIcon  color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
                 <IconButton  tooltip="Add" className="pull-left" onTouchTap={this.handleOpen.bind(this)}><FontIcon  color="#FFF"  className="material-icons">playlist_add</FontIcon></IconButton>
+                        <h4 style={{color:'#FFF',paddingLeft:'10px'}}>Add Rules </h4>
             </div>
 
-         <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF'}}>  
+         <div style={{background:'rgba(0,0,0,0.80)', color:'#FFF' }}>  
             <DataGrid data = {this.props.initialData.rules} 
                          cellEdit ={ cellEditProp }
                         pagination = {false} 
@@ -404,6 +404,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                         column     = {columns}
                         onClick    = {this.handleClick}
                         onChangeOpDropDown = {this.onChangeOpDropDown.bind(this)}
+
             />
 
             </div>

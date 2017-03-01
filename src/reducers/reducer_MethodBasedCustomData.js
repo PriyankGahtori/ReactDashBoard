@@ -182,7 +182,10 @@ export default function(state = initialState, action) {
        newState.tableData.map(function(val){
          if(val.methodBasedId == data.methodBasedId){
            val.enableArgumentType = data.enableArgumentType,
-           val.enableReturnType = data.enableReturnType
+           val.enableReturnType = data.enableReturnType,
+           val.returnTypeData = data.returnTypeData,
+           val.argumentTypeData = data.argumentTypeData
+           modifyData(val);
          }
        })
        return newState;

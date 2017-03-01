@@ -90,14 +90,9 @@ class Form_SessionAttrAdd extends React.Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log("componentWillReceiveProps method called of form Session Attr Add",nextProps)
-    console.log("componentWillReceiveProps method called this.props---",this.props)
     
      if(nextProps.isActive != null && nextProps.isActive){
-       // this.props.addMethodBasedCapturingDataToServer(data,this.props.profileId);
        console.log("nextProps.active  ----",nextProps.active)
-  //      this.submit(); 
-       // this.props.toggleAddCustomCapture();
        
      }
   }
@@ -109,7 +104,6 @@ class Form_SessionAttrAdd extends React.Component {
                       specificChkBox:isInputChecked
         })
     
-     //this.props.disableSubmitButtonState();
   }
 
   completeChkBoxChange(event,isInputChecked){
@@ -217,23 +211,6 @@ handleSubmitValType(attrValues){
   
   console.log("handleSubmitValType method called--",attrValues)
   console.log("this.state.valName--",this.state.valName)
-  /*  if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
-       this.setState({errMsgCss:'show'})
-    }
-    else{
-       this.setState({count:this.state.count+1})
-       var valData = {'valName':this.state.valName,
-                     'lb':this.state.lb,
-                     'rb':this.state.rb,
-                     'id':this.state.count
-    }
-    var finalArr = Object.assign([],this.state.valDataArr)
-    finalArr.push(valData)
-    attrValues.onChange(finalArr) ;
-    
-     this.props.disableSubmitButtonState();
-     */
-    
      if(this.state.valName == '' || this.state.lb == '' || this.state.rb == '' ){
        this.setState({errMsgCss:'show'})
     }
@@ -253,8 +230,6 @@ handleSubmitValType(attrValues){
     this.state.valDataArr.push(valData);
     attrValues.onChange(this.state.valDataArr) ;
     }
-  
-    
  }
 
 renderSessionAttrValues(arr)
@@ -393,11 +368,6 @@ renderSessionAttrValues(arr)
 
      <div className = {`row col-md-10  ${this.state.valDataCss}`} style ={{'paddingTop':3,'paddingLeft':6}}>
        
-
-       
-  {/*     {this.renderSessionAttrValues(this.state.valDataArr)} */}
-
-        
           <div className = {`row col-md-12 ${this.state.addComp}`} style={{paddingLeft:'12px'}}>
 
             <div className='row row-no-margin tableheader'>
@@ -416,9 +386,11 @@ renderSessionAttrValues(arr)
                       
             />
           </div>
+          
           <div className =  {`col-md-12 ${this.state.errMsgCss}`}>
            <p style = {{color: 'red',paddingTop:20}}>Require Fields are empty</p>
         </div>
+        
           <div className = {`row ${this.state.addCompCSS}`} >
               
               <AttrValComponent value={{}} 
@@ -426,7 +398,6 @@ renderSessionAttrValues(arr)
               valNameChange={this.valNameChange.bind(this)} 
               lbChange = {this.lbChange.bind(this)} 
               rbChange={this.rbChange.bind(this)}
-              
                />  
 
               <RaisedButton className ="pull-right"
@@ -436,7 +407,9 @@ renderSessionAttrValues(arr)
               style={{position:'relative',bottom:'45px'}}
               labelStyle={{color:"#FFF"}}>
             </RaisedButton>
-            </div>
+        </div>
+
+
          </div>
 
          </div>

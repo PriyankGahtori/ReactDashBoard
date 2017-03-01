@@ -286,10 +286,8 @@ class Form_HttpReqHdrEdit extends React.Component {
        catch(e){
         console.error(" Exception Occured: FileName: Form_HttpReqHdrEdit,MethodName: handleDelete()",e)
       }
+
   }
-
-
-
 
   render() {
 

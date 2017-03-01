@@ -4,54 +4,41 @@ import { connect } from 'react-redux';
 import { Component, PropTypes } from 'react';
 import AddNewButton from 'material-ui/FloatingActionButton';
 import AddIcon from 'material-ui/svg-icons/content/add';
-import DialogSessionAttr from 'material-ui/Dialog';
+import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { bindActionCreators } from 'redux';
 import { reset } from 'redux-form';
 
 //Importing React components
-import * as actionCreators  from '../../../../actions/index';
-import FormSessionAttrEdit from './Form_SessionAttrEdit';
-import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
+import * as actionCreators  from '../../../../../actions/index';
+import FormMethodBasedCaptureEdit from './Form_MethodBasedCaptureEdit';
+import {triggerRunTimeChanges} from '../../../../../actions/runTimeChanges';
 
 const styles = {
   title: {
     fontSize:16,
     padding: 8 
   },
-   dialog:{
+  dialog:{
     top:'-70px',
   }
 
 }
-class Dialog_SessionAttrEdit extends React.Component {
+class Dialog_MethodBasedCaptureEdit extends React.Component {
  
   constructor(props) {
   super(props);
   this.handleCancel = this.handleCancel.bind(this);
   this.handleSubmit=this.handleSubmit.bind(this);
-  this.state={sessionAttrMonitor : this.props.sessionAttrMonitor};
-  this.submitForm =this.submitForm.bind(this);
+  this.state={methodBasedCustomData : this.props.methodBasedCustomData};
+ // this.submitForm =this.submitForm.bind(this);
 
   }
 
 
  submitForm(data){
    console.log("data-----",data)
-     if(data.complete && data.specific){
-        data["attrMode"]=3
-        data["attrType"] ='complete,specific'
-     }
-    else if(data.complete == true){
-        data["attrMode"]=2
-        data["attrType"] ='complete'
-    }
-    else{
-        data["attrMode"]=1
-        data["attrType"] ='specific'
-    }
-    data['sessAttrId'] = this.state.sessionAttrMonitor.sessionAttrInitializeForm.sessAttrId;
-   this.props.updateSpecificAttrMon(data);
+   this.props.updateMethodBasedCustomData(data,this.props.methodBasedCustomData.initializeForm.methodBasedId);
    this.handleCancel();
   }
 
@@ -59,16 +46,17 @@ class Dialog_SessionAttrEdit extends React.Component {
 
   componentWillReceiveProps(nextProps)
   {
-      if(this.props.sessionAttrMonitor != nextProps.sessionAttrMonitor)
-       this.setState({sessionAttrMonitor:nextProps.sessionAttrMonitor});
+      if(this.props.methodBasedCustomData != nextProps.methodBasedCustomData)
+       this.setState({methodBasedCustomData:nextProps.methodBasedCustomData});
   }
 
   handleCancel(){
-   this.props.toggleEditSessionAttrForm();
+    this.props.toggleMethodBasedCapturingEditForm();
   }
   
   handleSubmit(){
-    this.refs.editSessionAttrMonitorForm.submit();
+    console.log("handleSubmit method called---",this.refs.editMethodBasedCaptureForm)
+    this.refs.editMethodBasedCaptureForm.submit();
   }
  
   render() {
@@ -91,11 +79,12 @@ class Dialog_SessionAttrEdit extends React.Component {
     ];
     return (
       <div>
-        <DialogSessionAttr  className="dialog-modal"
-          title="Edit Session Attribute"
+        <Dialog
+          className="dialog-modal"
+          title="Edit Method Based Capturing Data "
           actions={actions}
           modal={false}
-          open={this.state.sessionAttrMonitor.openEditSessAttrMonDialog}
+          open={this.state.methodBasedCustomData.openEditMethodBasedCaptureDialog}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
           refs="insidedialog"
@@ -103,8 +92,8 @@ class Dialog_SessionAttrEdit extends React.Component {
           style = {styles.dialog}
         >
 
-        <FormSessionAttrEdit ref="editSessionAttrMonitorForm" onSubmit={this.submitForm.bind(this)}/>
-      </DialogSessionAttr>
+        <FormMethodBasedCaptureEdit ref="editMethodBasedCaptureForm" onSubmit={this.submitForm.bind(this)}/>
+      </Dialog>
       
       </div>
     );
@@ -113,8 +102,8 @@ class Dialog_SessionAttrEdit extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    sessionAttrMonitor : state.sessionAttrMonitor,
-  
+    httpReqHdrBasedCustomData:state.httpReqHdrBasedCustomData,
+    methodBasedCustomData:state.methodBasedCustomData
    };
 }
 
@@ -123,4 +112,4 @@ function mapDispatchToProps(dispatch) {
 
 return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Dialog_SessionAttrEdit);
+export default connect(mapStateToProps, mapDispatchToProps)(Dialog_MethodBasedCaptureEdit);

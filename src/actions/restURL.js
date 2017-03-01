@@ -130,6 +130,8 @@ export const ADD_SPECIFIC_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/addsp
 export const UPDATE_SESSION_TYPE = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionType`;
 export const UPDATE_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/updateAttrValues`;
 export const ADD_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/addAttrValues`;
+
+export const DEL_ATTR_VALUES = `${SERVICE_URL}/custom/sessionattrmonitor/delattrvalues`;
 export const UPDATE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/updateSessionAttribute`;
 export const DELETE_SESSION_ATTR = `${SERVICE_URL}/custom/sessionattrmonitor/delete`;
 
@@ -150,7 +152,9 @@ export const FETCH_METHOD_BASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedc
 export const ADD_RETURN_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/addreturntype`;
 export const ADD_ARGUMENT_TYPE = `${SERVICE_URL}/custom/methodbasedcapturing/argtype`;
 export const DEL_METHOD_BASED_CAPTURING = `${SERVICE_URL}/custom/methodbasedcapturing/delete`;
-
+export const UPDATE_METHODBASED_CUSTOMDATA = `${SERVICE_URL}/custom/methodbasedcapturing/updatemethodbasedcapture`;
+export const DEL_CUSTOM_METHOD_RETURN_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deletereturnvalue`;
+export const DEL_CUSTOM_METHOD_ARG_VALUE = `${SERVICE_URL}/custom/methodbasedcapturing/deleteargvalue`;
 
 
 export const UPDATE_CUSTOM_CAPTURE_DATA_FILE = `${SERVICE_URL}/custom/methodbasedcapturing/updatecustomcapturefile`;

@@ -2121,7 +2121,7 @@ export function delCustomRows(selectedRowKeys)
   }
 }
 export function toggleHttpReqHdrEditForm(){
-    return{
+  return{
     type:'TOGGLE_HTTPREQHDR_EDIT'
   }
   
@@ -2152,7 +2152,6 @@ export function addRules(data,httpReqHdrId){
 
 export function updateHttpReqHdr(data,httpReqHdrBasedId){
 
-  console.log("UPDATE_HTTPREQHDR method called")
   var response = axios({
     method:'post',
     url : `${url.UPDATE_HTTPREQHDR}/${httpReqHdrBasedId}`,
@@ -2164,4 +2163,77 @@ export function updateHttpReqHdr(data,httpReqHdrBasedId){
 
 } 
 
+}
+
+export function toggleMethodBasedCapturingEditForm(){
+
+  return{
+    type:'TOGGLE_METHODBASED_EDIT'
+  }
+}
+
+export function initializeMethodBasedCapturingEditForm(data){
+
+  return{
+    type:'INITIALIZE_METHODBASEDCAPTURE_FORM',
+    payload:data
+  }
+}
+
+export function updateMethodBasedCustomData(data,methodBasedId){
+
+    var response = axios({
+    method:'post',
+    url : `${url.UPDATE_METHODBASED_CUSTOMDATA}/${methodBasedId}`,
+    data: data,
+  });
+
+  return{
+    type:'UPDATE_METHODBASED_CUSTOMDATA',
+    payload:response
+  }
+}
+
+
+export function delAttrValues(selectedRowKeys){
+      var response = axios({
+       method:'post',
+       url : `${url.DEL_ATTR_VALUES}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  
+  return{
+    type: 'DEL_ATTR_VALUES',
+    payload: response
+  }
+
+}
+  
+export function delReturnValuesRow(selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_CUSTOM_METHOD_RETURN_VALUE}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_CUSTOM_METHOD_RETURN_VALUE_ROW',
+    payload: response
+  }
+}
+
+export function delArgumentValuesRow(selectedRowKeys)
+{
+    var response = axios({
+       method:'post',
+       url : `${url.DEL_CUSTOM_METHOD_ARG_VALUE}`,
+       data: selectedRowKeys,
+       headers:{'Content-Type':'application/json'}
+ });
+  return{
+    type: 'DEL_CUSTOM_METHOD_ARG_VALUE_ROW',
+    payload: response
+  }
 }

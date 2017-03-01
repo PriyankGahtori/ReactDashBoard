@@ -57,7 +57,16 @@ const items = [];
 class AddComponent extends React.Component {
   constructor(props) {
     super(props)
-    console.log("this.props--", this.props)
+
+    let list=[];
+    if (this.props.hideIndexField) {
+      if (this.props.fqm != null) {
+        let type = this.getTypeReturnType(this.props.fqm)
+        list = opData.opValList(type)
+        }
+      }
+    
+  
     this.state = {
       paramName: '',
       operation: '',
@@ -68,7 +77,7 @@ class AddComponent extends React.Component {
       index: '',
       opValCss: 'hidden',
       opValExtractCss: 'hidden',
-      opList: this.props.opListForReturnType != null ? this.props.opListForReturnType : [],
+      opList: list,
       indexErrMsgCss:'hidden',
       fqmErrorMsgCss:'hidden',
       fqmEmptyMsg:'hidden'
@@ -76,7 +85,8 @@ class AddComponent extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
-  }
+  
+}
 
 
 
@@ -95,7 +105,6 @@ class AddComponent extends React.Component {
 
         if (currType != nextType) {
           list = opData.opValList(nextType)
-          console.log("list---", list)
           this.setState({ opList: list })
         }
       }
@@ -108,7 +117,6 @@ class AddComponent extends React.Component {
 
       if (currType != nextType) {
         list = opData.opValList(nextType)
-        console.log("list---", list)
         this.setState({ opList: list })
       }
     }
@@ -121,7 +129,6 @@ class AddComponent extends React.Component {
   handleChange(event, index, value) {
     var operationName;
     this.state.opData.map(function (val) {
-      console.log("val--", val)
       if (val.id == value)
         operationName = val.option;
     })
@@ -143,7 +150,6 @@ class AddComponent extends React.Component {
         valName = data.operation
       }
     })
-    console.log("valName--", valName)
     this.setState({
       value: val,
       //               opList :list
@@ -152,7 +158,6 @@ class AddComponent extends React.Component {
   }
 
   handleOperationChange(evt, value) {
-    console.log("value--", value)
     let operationName;
     let opValCss;
     let opValExtractCss;
@@ -161,7 +166,6 @@ class AddComponent extends React.Component {
         operationName = data.opVal
       }
     })
-    console.log("operationName---", operationName)
     if (operationName == "CAPTURE" || operationName == "EXCEPTION") {
       opValCss = "hidden",
         opValExtractCss = 'hidden'
@@ -185,13 +189,10 @@ class AddComponent extends React.Component {
   }
 
   hdrNameChange(evt, value) {
-    console.log("hdrNameChange method called", value)
-
     this.props.onHdrNameChange(value)
   }
 
   indexChange(evt, value) {
-    console.log("indexChange method called")
   /*  var data = this.props.fqm
     console.log("data---",data)
     if(data != null ){
@@ -232,21 +233,13 @@ else{
 }*/
     this.setState({ indexVal: value })
     this.props.onIndexChange(value)
-    console.log("index--", this.props.fqm)
-
     let type = this.getType(this.props.fqm, value);
 
-    console.log("type---", type)
     let list = opData.opValList(type);
-    console.log("list----", list)
     this.setState({ opList: list })
-
-
   }
 
   getTypeReturnType(fqm) {
-
-
     //for getting return Type
     let returnType = "NA";
     if (fqm != null) {
@@ -255,9 +248,6 @@ else{
 
       let pi = 1;
       let charArr = fqm.split('');
-      console.log("charArr----", charArr)
-
-      console.log("iiiiiiiiiiiiiii--", charArr[i])
       //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
       switch (charArr[i]) {
         case 'Z':
@@ -311,10 +301,8 @@ else{
 
         let pi = 1;
         let charArr = fqm.split('');
-        console.log("charArr----", charArr)
 
         while (i < li) {
-          console.log("iiiiiiiiiiiiiii--", charArr[i])
           //      System.out.println("pi " + pi + ", index - " + index + ", char - " + charArr[i] + ", i" + i + " bracket -" + (bi +1));
           switch (charArr[i]) {
             case 'Z':

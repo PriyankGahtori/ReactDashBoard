@@ -2108,7 +2108,7 @@ export function delHttpReqRow(selectedRowKeys)
 }
 
 export function toggleHttpReqHdrEditForm(){
-    return{
+  return{
     type:'TOGGLE_HTTPREQHDR_EDIT'
   }
   
@@ -2139,7 +2139,6 @@ export function addRules(data,httpReqHdrId){
 
 export function updateHttpReqHdr(data,httpReqHdrBasedId){
 
-  console.log("UPDATE_HTTPREQHDR method called")
   var response = axios({
     method:'post',
     url : `${url.UPDATE_HTTPREQHDR}/${httpReqHdrBasedId}`,
@@ -2151,4 +2150,33 @@ export function updateHttpReqHdr(data,httpReqHdrBasedId){
 
 } 
 
+}
+
+export function toggleMethodBasedCapturingEditForm(){
+
+  return{
+    type:'TOGGLE_METHODBASED_EDIT'
+  }
+}
+
+export function initializeMethodBasedCapturingEditForm(data){
+
+  return{
+    type:'INITIALIZE_METHODBASEDCAPTURE_FORM',
+    payload:data
+  }
+}
+
+export function updateMethodBasedCustomData(data,methodBasedId){
+
+    var response = axios({
+    method:'post',
+    url : `${url.UPDATE_METHODBASED_CUSTOMDATA}/${methodBasedId}`,
+    data: data,
+  });
+
+  return{
+    type:'UPDATE_METHODBASED_CUSTOMDATA',
+    payload:response
+  }
 }

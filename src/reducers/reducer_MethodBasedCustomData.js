@@ -5,7 +5,10 @@ const initialState = {tableData:[],
                       openArgTypeDialog:false,
                       openReturnTypeDialog:false,
                       argumentTypeData:[],
-                      returnTypeData:[]
+                      returnTypeData:[],
+                      openEditMethodBasedCaptureDialog:false,
+                      initializeForm:{}
+                      
 }
 export default function(state = initialState, action) {
 
@@ -45,6 +48,21 @@ export default function(state = initialState, action) {
       } 
       console.log("in modifyData function valled--",val)
         return val;
+  }
+
+  
+
+
+  function getCustomTypeName(data){
+    console.log("data---",data)
+    if(data.type == 0)
+      data.customValTypeName = 'String'
+    else if(data.type == 1) 
+      data.customValTypeName = 'Integer'
+    else if(data.type == 2)
+      data.customValTypeName ='Decimal'
+    
+    return data;
   }
 
   switch(action.type) {
@@ -91,13 +109,15 @@ export default function(state = initialState, action) {
 
       case 'ADD_RETURN_TYPE':
        var newState = Object.assign({}, state);
+       var data = action.payload.data
        newState.tableData.map(function(value){
          if(value.methodBasedId == newState.methodBasedId){
            if(value.returnTypeData == null){
              value.returnTypeData = [];
           }
-            value.returnTypeData.push(action.payload.data)
-            newState.returnTypeData =  value.returnTypeData;
+          //this fuction used to get custom Type name to display in table
+            getCustomTypeName(data)
+            value.returnTypeData.push(data)
             modifyData(value);
          }
        })
@@ -105,13 +125,14 @@ export default function(state = initialState, action) {
 
       case 'ADD_ARGUMENT_TYPE':
        var newState = Object.assign({}, state);
+       var data = action.payload.data ;
        newState.tableData.map(function(value){
        if(value.methodBasedId == newState.methodBasedId){
             if(value.argumentTypeData == null){
              value.argumentTypeData = [];
           }
-            value.argumentTypeData.push(action.payload.data)
-            newState.argumentTypeData =  value.argumentTypeData;
+            getCustomTypeName(data)
+            value.argumentTypeData.push(data)
             modifyData(value);
            }
        })
@@ -124,6 +145,47 @@ export default function(state = initialState, action) {
           return action.payload.data.indexOf(Number(value.methodBasedId)) == -1;
         })
       return newState;
+
+
+    case 'TOGGLE_METHODBASED_EDIT':
+      var newState = Object.assign({}, state);
+      newState.openEditMethodBasedCaptureDialog= !newState.openEditMethodBasedCaptureDialog;
+      console.log("newState---in reducer nsesionATrr",newState)
+      return newState;
+
+    case 'INITIALIZE_METHODBASEDCAPTURE_FORM':
+      var newState = Object.assign({}, state);
+      var data = action.payload;
+      if(data.returnTypeData != null ){
+        console.log("not null returnTypeData")
+        data.returnTypeData.map(function(val){
+          getCustomTypeName(val)
+        })
+      }
+      console.log("data aftr returnType---",data)
+
+       if(data.argumentTypeData != null ){
+        data.argumentTypeData.map(function(val){
+          getCustomTypeName(val)
+        })
+      }
+      console.log("data-----",data)
+      newState.initializeForm = data
+      newState.methodBasedId = data.methodBasedId;
+      return newState;
+
+
+      case 'UPDATE_METHODBASED_CUSTOMDATA':
+       var newState = Object.assign({}, state);
+       var data = action.payload.data;
+       console.log("data----",data)
+       newState.tableData.map(function(val){
+         if(val.methodBasedId == data.methodBasedId){
+           val.enableArgumentType = data.enableArgumentType,
+           val.enableReturnType = data.enableReturnType
+         }
+       })
+       return newState;
   }
 
 

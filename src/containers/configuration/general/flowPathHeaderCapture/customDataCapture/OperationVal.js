@@ -19,7 +19,7 @@ const arrNumeric = [{'id':0,'opVal':'CAPTURE'},
                     {'id':5,'opVal':'LT'},
                     {'id':6,'opVal':'GT'},
                     {'id':7,'opVal':'LE'},
-                    {'id':7,'opVal':'GE'},
+                    {'id':8,'opVal':'GE'},
 
                     
                     ]

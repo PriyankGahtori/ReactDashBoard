@@ -58,6 +58,16 @@ class AddComponent extends React.Component {
   constructor(props) {
     super(props)
     console.log("this.props--", this.props)
+
+    let list=[];
+    if (this.props.hideIndexField) {
+      if (this.props.fqm != null) {
+        let type = this.getTypeReturnType(this.props.fqm)
+        list = opData.opValList(type)
+        }
+      }
+    
+  
     this.state = {
       paramName: '',
       operation: '',
@@ -68,7 +78,7 @@ class AddComponent extends React.Component {
       index: '',
       opValCss: 'hidden',
       opValExtractCss: 'hidden',
-      opList: this.props.opListForReturnType != null ? this.props.opListForReturnType : [],
+      opList: list,
       indexErrMsgCss:'hidden',
       fqmErrorMsgCss:'hidden',
       fqmEmptyMsg:'hidden'
@@ -76,7 +86,8 @@ class AddComponent extends React.Component {
     }
 
     this.handleChange = this.handleChange.bind(this);
-  }
+  
+}
 
 
 
@@ -86,6 +97,7 @@ class AddComponent extends React.Component {
 
   componentWillReceiveProps(nextProps) {
 
+    console.log("componentWillReceiveProps add componenet loaded--",nextProps)
     let list;
     if (nextProps.hideIndexField) {
       if (nextProps.fqm != null) {

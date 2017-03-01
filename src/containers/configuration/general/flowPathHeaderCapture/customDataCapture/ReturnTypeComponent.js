@@ -55,7 +55,6 @@ class ReturnTypeComponent extends React.Component {
 
   constructor(props) {
     super(props);
-
     this.state = { openNewAppDialog: false } //
     this.handleOpen = this.handleOpen.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -65,8 +64,8 @@ class ReturnTypeComponent extends React.Component {
     this.addData = this.addData.bind(this);
     
     this.state = {addCompCss:'hidden',
-                  arr:[],
-                  'argTypeAddComp':'hidden',
+                 'argTypeAddComp':'hidden',
+                  arr:this.props.tableData != null ? this.props.tableData :[],
                   id:-1,
                   headerName:'',
                   customValTypeName:'',
@@ -104,7 +103,13 @@ class ReturnTypeComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("nextProps of Returntype--",nextProps)
+    if(this.props.tableData != nextProps.tableData){
+      if(nextProps.tableData != null)
+        this.setState({arr:nextProps.tableData})
+      else
+        this.setState({arr:[]})
+
+    }
     
   }
 
@@ -130,12 +135,7 @@ class ReturnTypeComponent extends React.Component {
   }
 
   addData(){
-  console.log("addData function called")
-  /* if(this.state.headerName == '' || this.state.opValue == '' || this.state.value == '' ){
-       this.setState({errMsgCss:'show'})
-    }
-    */
-
+  
 console.log("addData function called--",this.state.operationName)
   if(this.state.headerName ==''|| this.state.customValTypeName =='' || this.state.operationName==''){
       console.log("val empty")
@@ -168,8 +168,14 @@ console.log("addData function called--",this.state.operationName)
   }
   console.log("data---",data)
  // this.props.addReturnType(data)
- this.state.arr.push(data)
- this.props.data(this.state.arr);
+ console.log("this.props.methodBasedCustomData--",this.props.methodBasedCustomData)
+ if(this.props.methodBasedCustomData.openEditMethodBasedCaptureDialog){
+    this.props.addReturnType(data,this.props.methodBasedCustomData.initializeForm.methodBasedId);
+ }
+ else{
+    this.state.arr.push(data)
+    this.props.data(this.state.arr);
+    }
   }
 }
 
@@ -303,7 +309,8 @@ handleDelete(){
 function mapStateToProps(state) {
   return {
     appDetail: state.applicationdata,
-    getAllKeywordData: state.Keywords
+    getAllKeywordData: state.Keywords,
+    methodBasedCustomData:state.methodBasedCustomData
   };
 }
 

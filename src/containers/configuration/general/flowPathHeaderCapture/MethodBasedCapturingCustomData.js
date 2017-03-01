@@ -21,6 +21,7 @@ import FontIcon from 'material-ui/FontIcon';
 import * as actionCreators  from '../../../../actions/index';
 import DataGrid from '../../../../components/DCDetailTable';
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
+import DialogMethodBasedCapturingEdit from './customDataCapture/Dialog_MethodBasedCaptureEdit';
 import DialogReturnType from './customDataCapture/Dialog_ReturnType';
 import DialogArgumentType from './customDataCapture/Dialog_ArgumentType';
 
@@ -207,7 +208,7 @@ loader(){
 
         //called this act                                                                                                                                                                                             ion to toggle the state of opened FormDialog. 
         this.props.toggleStateDialogNewApp();
-        try {
+        try {zd
           this.refs.appTable.refs.table.state.cleanSelected();
         } catch (ex) {
           console.error("Exception in ApplicationDetail file-", ex)
@@ -251,6 +252,20 @@ loader(){
     this.props.toggleReturnTypeDialog(row);  
   }
 
+
+    handleEdit(){
+     var selectedRow = [];
+     selectedRow = this.refs.methodCapturingData.refs.table.state.selectedRowKeys;
+     let selectedRowData = this.props.methodBasedCustomData.tableData.filter(function (value) {
+          return value.methodBasedId == selectedRow
+        });
+      
+    if(selectedRow.length == 1){
+      this.props.toggleMethodBasedCapturingEditForm();
+      this.props.initializeMethodBasedCapturingEditForm(selectedRowData[0]);
+    }
+    }
+
   render() {
    const actionsDel = [
       <FlatButton
@@ -285,7 +300,10 @@ loader(){
        <div className = {`row col-md-10 ${this.state.showTable}`} style ={{position:'relative',width:'1011px'}} >
    
            <div  className='row row-no-margin tableheader' > 
-            <IconButton className=" pull-right" tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+           <div  className=" pull-right">
+             <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
+             <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+            </div>
              <h4 style={{paddingLeft:'10px'}}> Method Based Custom Data</h4> 
              </div>
         <DataGrid data = {this.props.methodBasedCustomData.tableData} 
@@ -322,8 +340,11 @@ loader(){
       
         />
 
-        <DialogReturnType/>
-        <DialogArgumentType/>
+       {/* <DialogReturnType/>
+            <DialogArgumentType/>*/}
+
+
+        <DialogMethodBasedCapturingEdit/>
       
     </div>
     );

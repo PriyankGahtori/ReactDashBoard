@@ -18,7 +18,7 @@ import DataGrid from '../../../../../components/DCDetailTable';
 //Importing files
 import Toggle from '../../../../../components/ToggleWrapper';
 import AttrValComponent from '../../../instrumentation/monitor/AttrValComponent';
-import { addingValData, disableSubmitButtonState, toggleAddCustomCapture,addRules,updateHttpReqHdr } from '../../../../../actions/index';
+import { delCustomRows,addingValData, disableSubmitButtonState, toggleAddCustomCapture,addRules,updateHttpReqHdr } from '../../../../../actions/index';
 
 
 
@@ -56,9 +56,9 @@ const error = {
 
 
 var columns = {
-  "key": "id",
+  "key": "ruleId",
   "data": ['Display Name', 'Type', 'Lower Bound', 'Right Bound', 'ID'],
-  "field": ['valName', 'customValTypeName', 'lb', 'rb', 'id']
+  "field": ['valName', 'customValTypeName', 'lb', 'rb', 'ruleId']
 };
 
 class Form_HttpReqHdrEdit extends React.Component {
@@ -77,7 +77,7 @@ class Form_HttpReqHdrEdit extends React.Component {
       lb: '',
       rb: '',
       'valDataCss': this.props.initialData != null && (this.props.initialData.dumpMode == 1 || this.props.initialData.dumpMode ==3) ?'show':'hidden',
-      valDataArr: this.props.initialData != null ? this.props.initialData.rules :[],
+      valDataArr: this.props.initialData != null && this.props.initialData.rules != null ? this.props.initialData.rules :[],
       'errMsgCss': 'hidden',
       'addCompCSS': 'hidden',
       specificChkBox:this.props.initialData != null ? this.props.initialData.specific : false,
@@ -274,14 +274,18 @@ class Form_HttpReqHdrEdit extends React.Component {
   }
 
   handleDelete(){
-
-  var   selectedRow = this.refs.sessionAttrMonitorData.refs.table.state.selectedRowKeys;
-    var arrData = Object.assign([],this.state.valDataArr)
-      arrData = arrData.filter(function(value){
-        return selectedRow.indexOf(value.id) == -1;
-       })
-       this.setState({valDataArr:arrData})
-
+     var   selectedRow = this.refs.httpReqFormTable.refs.table.state.selectedRowKeys;
+       /*   arrData = arrData.filter(function(value){
+          return selectedRow.indexOf(value.id) == -1;
+         })
+      this.setState({valDataArr:arrData})*/
+      this.props.delCustomRows(selectedRow);
+       try{
+         this.refs.httpReqFormTable.refs.table.cleanSelected();
+       }
+       catch(e){
+        console.error(" Exception Occured: FileName: Form_HttpReqHdrEdit,MethodName: handleDelete()",e)
+      }
   }
 
 
@@ -336,18 +340,20 @@ class Form_HttpReqHdrEdit extends React.Component {
           <div className={`row col-md-12 ${this.state.addComp}`} style={{ paddingLeft: '12px' }}>
 
             <div className='row row-no-margin tableheader' >
-            {/*   <IconButton  tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> */}
-              <IconButton className="pull-right"  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
+             <div className = "pull-right"> 
+              <IconButton  tooltip="Add" onTouchTap={this.handleOpen.bind(this)}><FontIcon color="#FFF" className="material-icons">playlist_add</FontIcon></IconButton>
+              <IconButton  tooltip = "Delete"  onTouchTap={this.handleDelete.bind(this)}><FontIcon color="#FFF" className="material-icons"> delete </FontIcon> </IconButton> 
+               </div> 
               <h4 style={{color: '#FFF',paddingLeft:'10px'}}>Add Custom Setting </h4>
 
             </div>
 
 
-            <div style={{ background: 'rgba(0,0,0,0.80)', color: '#FFF' }}>
-              <DataGrid data={this.state.valDataArr}
+            <div style={{ background: 'rgba(0,0,0,0.80)', color: '#FFF'}}>
+              <DataGrid data={this.props.initialData != null && this.props.initialData.rules != null ? this.props.initialData.rules :[]}
                 //cellEdit={cellEditProp}
                 pagination={false}
-                ref="sessionAttrMonitorData"
+                ref="httpReqFormTable"
                 column={columns}
                 onClick={this.handleClick}
 
@@ -361,8 +367,7 @@ class Form_HttpReqHdrEdit extends React.Component {
                 valNameChange={this.valNameChange.bind(this)}
                 onCustomValTypeChange={this.onCustomValTypeChange.bind(this)}
                 lbChange={this.lbChange.bind(this)}
-                rbChange={this.rbChange.bind(this)}
-                />
+                rbChange={this.rbChange.bind(this)} />
 
               <RaisedButton className="pull-right"
                 label="Add"
@@ -412,7 +417,9 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
     disableSubmitButtonState: disableSubmitButtonState,
     toggleAddCustomCapture: toggleAddCustomCapture,
     addRules:addRules,
-    updateHttpReqHdr :updateHttpReqHdr 
+    updateHttpReqHdr :updateHttpReqHdr ,
+    delCustomRows: delCustomRows
+
   } // mapDispatchToProps (will bind action creator to dispatch)
 )(Form_HttpReqHdrEdit);
 

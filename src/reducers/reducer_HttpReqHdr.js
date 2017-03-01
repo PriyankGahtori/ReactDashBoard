@@ -157,7 +157,16 @@ export default function(state = initialState, action) {
       console.log("newState--",newState.tableData)  
       return newState;
 
-
+     case 'DEL_HTTP_CUSTOM_ROW':
+        var newState = Object.assign({},state);
+        newState.tableData.map(function(value) {
+          if(value.httpReqHdrBasedId == newState.httpReqHdrBasedId){
+            value.rules =  value.rules.filter(function(value){
+                return action.payload.data.indexOf(value.ruleId) == -1;
+            })
+          }
+      });
+      return newState
 
   }
   return state;

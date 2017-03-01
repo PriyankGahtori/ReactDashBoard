@@ -1,11 +1,11 @@
-const SERVICE_URL = 'http://localhost:8090';
+//const SERVICE_URL = 'http://localhost:8090';
 //const  SERVICE_URL = 'http://10.10.40.7:8006/configUI';
 //const  SERVICE_URL = 'http://10.10.40.12:8002/configUI';
 //const  SERVICE_URL = 'http://localhost:8001/configUI';
 
 //For Production use this SERVICE_URL
 
-//const SERVICE_URL = '/configUI';
+const SERVICE_URL = '/configUI';
 
 
 /* Url for Home Screen */
@@ -159,6 +159,9 @@ export const DEL_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/del
 export const ADD_HTTP_REQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdr`;
 export const FETCH_HTTPREQ_HDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/gethttpreqhdr`;
 export const ADD_RULES_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/addhttpreqhdrrules`;
+
 export const UPDATE_HTTPREQHDR = `${SERVICE_URL}/custom/httpreqbasedcapturing/updatehttpreqbasedcustomdata`;
+export const DEL_HTTP_CUSTOM_DATA = `${SERVICE_URL}/custom/httpreqbasedcapturing/httpCustomData/delete`;
+
 
 

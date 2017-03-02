@@ -95,8 +95,8 @@ class AddComponent extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-
-    let list;
+    console.log("nextProps--",nextProps)
+    let list=[];
     if (nextProps.hideIndexField) {
       if (nextProps.fqm != null) {
         let currType = this.getTypeReturnType(this.props.fqm)

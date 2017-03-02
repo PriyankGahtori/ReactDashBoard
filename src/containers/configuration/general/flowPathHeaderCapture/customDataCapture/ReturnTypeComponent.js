@@ -72,7 +72,8 @@ class ReturnTypeComponent extends React.Component {
       customValTypeName: '',
       operation: '',
       operationName: '',
-      Errormsg: 'hidden'
+      Errormsg: 'hidden',
+      renderAddComp:false
 
     }
     console.log("constructor method called--", this.props.fqm)
@@ -94,9 +95,14 @@ class ReturnTypeComponent extends React.Component {
 
 
   handleOpen() {
-    console.log("handleOpen method called")
-    this.setState({ argTypeAddComp: 'show' })
-
+    this.setState({ argTypeAddComp: 'show',
+                    renderAddComp:true,
+                     id: -1,
+                   headerName: '',
+                   customValTypeName: '',
+                   operation: '',
+                   operationName: '',
+   })
   }
 
   //this function is called first when component gets first loaded
@@ -144,12 +150,13 @@ class ReturnTypeComponent extends React.Component {
       this.setState({ Errormsg: 'show' })
     }
     else {
-      this.setState({ Errormsg: 'hidden' })
-      console.log("val not empty")
       this.setState({
         id: this.state.id + 1,
-        argTypeAddComp: 'hidden'
+        argTypeAddComp: 'hidden',
+        Errormsg: 'hidden',
+        renderAddComp:false
       })
+
       let opVal;
       if (this.state.operationName == "EXTRACT_SUBPART") {
         opVal = this.state.lbVal + "-" + this.state.rbVal
@@ -272,7 +279,10 @@ class ReturnTypeComponent extends React.Component {
         </Paper>
 
         <div className={`row ${this.state.argTypeAddComp}`} style={{ paddingLeft: '18px' }}>
-          <AddComp data={this.returnTypeData.bind(this)}
+
+        {/********************* add compoment is made to render only when it is added*** *****************/}
+         {this.state.renderAddComp ?
+            <AddComp data={this.returnTypeData.bind(this)}
             hideIndexField={true}
             opListForReturnType={this.props.oplistForReturnType}
             onHdrNameChange={this.onHdrNameChnge.bind(this)}
@@ -285,6 +295,7 @@ class ReturnTypeComponent extends React.Component {
             rbChange={this.rbChange.bind(this)}
             fqm={this.props.fqm}
           />
+         : null }
 
 
           <RaisedButton className="pull-right"

@@ -224,7 +224,7 @@ class Form_EnableFpCapturing extends React.Component {
   }
   if(this.props.sessionType != nextProps.sessionType){
     this.setState({'sessionType':nextProps.sessionType,
-                    'showTable':nextProps.sessionType === 'specific' ? 'show' : 'hidden'
+                    'showTable':nextProps.sessionType =='specific' ? 'show' : 'hidden'
     })
   }
 }
@@ -453,7 +453,8 @@ else{
  handleSpecificSessionAttr(evt,isInputChecked){
    console.log("handleSpecificSessionAttr method called",isInputChecked)
     let sessionAttrCss = isInputChecked ?'show':'hidden' ;
-    let  showTableCss = !isInputChecked ? 'hidden' :'';
+   // let  showTableCss = !isInputChecked ? 'hidden' :'';
+    let  showTableCss = isInputChecked && this.state.sessionType == 'specific' ? 'show' :'hidden';
     this.setState({specificSessionAttrCaptureCustomData:isInputChecked,
                   captureSessionAttrCss:sessionAttrCss,
                   showTable:showTableCss
@@ -769,7 +770,7 @@ render() {
               </div>
  
          
-
+             
           <div className = {`row col-md-8 ${this.state.showTable}`}>
             <SessionAttrBasedCapturingCustomData profileId={this.props.profileId} />
          </div>

@@ -81,6 +81,7 @@ class Form_HttpReqHdrEdit extends React.Component {
       'errMsgCss': 'hidden',
       'addCompCSS': 'hidden',
       specificChkBox:this.props.initialData != null ? this.props.initialData.specific : false,
+      renderAttrValComponent:false
 
     }
     this.del = this.del.bind(this);
@@ -210,7 +211,8 @@ class Form_HttpReqHdrEdit extends React.Component {
       this.setState({
         //count: this.state.count + 1,
         errMsgCss: 'hidden',
-        addCompCSS: 'hidden'
+        addCompCSS: 'hidden',
+        renderAttrValComponent:false
       })
       var valData = {
         'valName': this.state.valName,
@@ -226,9 +228,17 @@ class Form_HttpReqHdrEdit extends React.Component {
     }
   }
 
-
   handleOpen() {
-    this.setState({ addCompCSS: 'show' })
+    this.setState({ addCompCSS: 'show',
+    renderAttrValComponent:true,
+    lb:'',
+    rb:'',
+    id:'',
+    customValTypeName:'',
+    type:''
+
+
+ })
   }
 
 
@@ -361,11 +371,13 @@ class Form_HttpReqHdrEdit extends React.Component {
               <p style={{ color: 'red', paddingTop: 20 }}>Require Fields are empty</p>
             </div>
             <div className={`row ${this.state.addCompCSS}`} style={{ position: 'relative', left: '10px' }}>
+              {this.state.renderAttrValComponent ?
               <AttrValComponent value={{}}
                 valNameChange={this.valNameChange.bind(this)}
                 onCustomValTypeChange={this.onCustomValTypeChange.bind(this)}
                 lbChange={this.lbChange.bind(this)}
                 rbChange={this.rbChange.bind(this)} />
+                : null}
 
               <RaisedButton className="pull-right"
                 label="Add"

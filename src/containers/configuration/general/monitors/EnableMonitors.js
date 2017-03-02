@@ -165,6 +165,7 @@ class EnableMonitors extends React.Component {
 
   submitForm(formData) {
     let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
+    console.log("value of getKeywordsData is-------------->",keywordData)
 
     /*
     * final data is data that is fetched from server and its value is updated according to user input,

@@ -63,7 +63,8 @@ class FormSessionAttrEdit extends React.Component {
       'errMsgCss': 'hidden',
       'addCompCSS': 'hidden',
       complete:this.props.initialData != null ? this.props.initialData.complete :false,
-      specificChkBox:this.props.initialData != null ? this.props.initialData.specific : false
+      specificChkBox:this.props.initialData != null ? this.props.initialData.specific : false,
+      renderAttrValComponent:false
     }
   }
 
@@ -105,7 +106,16 @@ class FormSessionAttrEdit extends React.Component {
   }
 
   handleOpen() {
-    this.setState({ addCompCSS: 'show' })
+    this.setState({ addCompCSS: 'show',
+    renderAttrValComponent:true ,
+    lb:'',
+    rb:'',
+    customValTypeName:'',
+    id:'',
+    type:''
+
+
+  })
   }
 
 
@@ -143,7 +153,8 @@ handleSubmitValType(attrValues){
       console.log("in else condition")
        this.setState({count:this.state.count+1,
                       errMsgCss:'hidden',
-                      addCompCSS:'hidden'
+                      addCompCSS:'hidden',
+                      renderAttrValComponent:false
         })
        let valData = {'valName':this.state.valName,
                      'lb':this.state.lb,
@@ -228,7 +239,7 @@ handleDelete(){
           </div>
 
           <div className={`row ${this.state.addCompCSS}`} >
-
+            {this.state.renderAttrValComponent ?
             <AttrValComponent value={{}}
               onCustomValTypeChange={this.onCustomValTypeChange.bind(this)}
               valNameChange={this.valNameChange.bind(this)}
@@ -236,6 +247,7 @@ handleDelete(){
               rbChange={this.rbChange.bind(this)}
 
               />
+              :null}
 
             <RaisedButton className="pull-right"
               label="Add"

@@ -80,7 +80,8 @@ class Form_SessionAttrAdd extends React.Component {
               'valDataCss':'hidden',
               valDataArr :[],
               'errMsgCss':'hidden',
-              'addCompCSS':'hidden'
+              'addCompCSS':'hidden',
+              rendeAttrValComponent:false
 
         }
   this.del = this.del.bind(this);
@@ -218,7 +219,8 @@ handleSubmitValType(attrValues){
       console.log("in else condition")
        this.setState({count:this.state.count+1,
                       errMsgCss:'hidden',
-                      addCompCSS:'hidden'
+                      addCompCSS:'hidden',
+                      renderAttrValComponent:false
         })
        var valData = {'valName':this.state.valName,
                      'lb':this.state.lb,
@@ -256,7 +258,15 @@ renderSessionAttrValues(arr)
 }
 
  handleOpen(){
-      this.setState({addCompCSS:'show'})
+      this.setState({addCompCSS:'show',
+                    renderAttrValComponent:true,
+                    valName:'',
+                    lb:'',
+                    rb:'',
+                    customValTypeName:'',
+                    customValType:''
+                })
+      
   }
 
   
@@ -392,13 +402,14 @@ renderSessionAttrValues(arr)
         </div>
         
           <div className = {`row ${this.state.addCompCSS}`} >
-              
+            {this.state.renderAttrValComponent ? 
               <AttrValComponent value={{}} 
               onCustomValTypeChange = {this.onCustomValTypeChange.bind(this)}
               valNameChange={this.valNameChange.bind(this)} 
               lbChange = {this.lbChange.bind(this)} 
               rbChange={this.rbChange.bind(this)}
                />  
+               : null }
 
               <RaisedButton className ="pull-right"
               label="Add"
@@ -421,6 +432,7 @@ renderSessionAttrValues(arr)
               value={this.state.valDataArr}
             />
           </div>
+        
     </form>
     );
   }

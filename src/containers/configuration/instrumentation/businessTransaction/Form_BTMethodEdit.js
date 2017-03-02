@@ -140,10 +140,7 @@ class Form_BTMethodEdit extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log("nextProps--",nextProps.initialData)
-        console.log("this.props.initialData--",this.props.initialData)
         if(this.props.initialData != nextProps.initialData){
-            console.log("again setState methid called")
            // this.setState({ ruleTypes:nextProps.initialData.rules})
         }
 
@@ -188,21 +185,17 @@ class Form_BTMethodEdit extends React.Component {
     }
 
     operationChange(value, id,operationName) {
-        console.log("operationChange called--",value);
-          console.log("operationChange called--",operationName);
         this.setState({opCode:value,
                        operationName:operationName 
         })
     }
 
     btNameChange(value, id) {
-        console.log("btNameChange called--",value);
         this.setState({btName:value})
     }
 
     
 del(val){
-  console.log("val--",val)
   let arr = this.state.valDataArr;
   arr = arr.filter(function(value){
    if(val == value.id)
@@ -212,9 +205,7 @@ del(val){
    else
    return true;
   })
-  console.log("arr---",arr)
   this.setState({valDataArr:arr})
-
 }
 
 
@@ -225,16 +216,13 @@ handleSubmitValType(){
        this.setState({errMsgCss:'show'})
     }
     else{
-   
     var valData = {'value':this.state.value,
                    'opCode':this.state.opCode,
                    'btName':this.state.btName,
                     'operationName':this.state.operationName
     }
-    console.log("this.props.initialData--",this.props.initialData)
-    console.log("valData---",valData)
     this.props.addBTMethodRule(valData,this.props.initialData.btMethodId)
-    this.setState({addCompCSS:'hidden',errMsgCss:'hidden'})
+    this.setState({addCompCSS:'hidden',errMsgCss:'hidden',renderAddComp:false})
     }
  }
 
@@ -253,7 +241,6 @@ onAfterSaveCell(row, cellName, cellValue){
         if(value.btMethodRuleId == row.btMethodRuleId ){ 
              value[cellName] = cellValue
              if(cellName == "opCode")
-                console.log("opData.getOperationName(cellValue)--",opData.getOperationName(cellValue))
                 value["operationName"] = opData.getOperationName(cellValue);
          }
          else{
@@ -283,8 +270,15 @@ onBeforeSaveCell(row, cellName, cellValue){
 
   //To open adding component
 
+
   handleOpen(){
-      this.setState({addCompCSS:'show'})
+      this.setState({addCompCSS:'show',
+                    renderAddComp:true,
+                    'value':'',
+                   'opCode':'',
+                   'btName':'',
+                   'operationName':''
+    })
   }
 
   
@@ -369,6 +363,7 @@ handleEnableArgumentType(evnt,isInputChecked){
                     </div>
 
                     <div className="row col-md-7" style= {{left:'17px'}}>
+                    <pre>{this.state.operator}</pre>
                         <DropDownMenu
                               {...returnType}
                             value={this.state.operator+""}
@@ -415,7 +410,9 @@ handleEnableArgumentType(evnt,isInputChecked){
 
                </div>
           <div className = {`row ${this.state.addCompCSS}`}>
+            {this.state.renderAddComp?
             <MethodBTComponent value={this.state.operator}   paramNameChange={this.paramNameChange.bind(this)} operationChange={this.operationChange.bind(this)} btNameChange={this.btNameChange.bind(this)} /> 
+            : null}
             <RaisedButton className ="pull-right"
             label="Add"
             labelColor="#FFF"

@@ -83,12 +83,10 @@ class GlobalBusinessTransaction extends React.Component {
           "paramDiv": data.dynamicReqValue === "requestParam" ? true : false,
           "methodDiv": data.dynamicReqValue === "httpMethod" ? true : false,
           "headerDiv": data.dynamicReqValue === "requestHeader" ? true : false,
-
+          "uriType": nextProps.initialData.uriType
         })
       }
-      if (this.props.initialData.uriType != nextProps.initialData.uriType) {
-        this.setState({ "uriType": nextProps.initialData.uriType })
-      }
+     
     }
   }
   loader() {
@@ -162,7 +160,6 @@ class GlobalBusinessTransaction extends React.Component {
           <div style={{ 'paddingTop': 12 }}>
             <h4>Select part of URI used in Transaction name</h4>
           </div>
-
           <RadioButtonGroup
             {...uriType}
             name="uriType"
@@ -180,7 +177,6 @@ class GlobalBusinessTransaction extends React.Component {
               />
 
           </RadioButtonGroup>
-
           <div className={`row ${this.state.segmentDivCSS}`} style={{ 'marginLeft': 40 }} enabled={false}>
             <SelectField value={"first"} {...segmentType} >
               <MenuItem value={"first"} primaryText="First" />
@@ -274,7 +270,7 @@ class GlobalBusinessTransaction extends React.Component {
             </div>
 
           </div>
-          <RaisedButton className="pull-right-btn"
+          <RaisedButton 
             backgroundColor="rgb(58, 158, 149)"
             label=" Submit"
             labelColor="#FFF"
@@ -282,7 +278,7 @@ class GlobalBusinessTransaction extends React.Component {
             disabled={this.props.profileDisabled}
             disabledLabelColor="#000"
             labelStyle={{ fontSize: 12 }}
-            style={{ position: 'absolute', right: 40 }}>
+            style={{ position: 'absolute'}}> {submitting ? <i/> : <i/>} 
           </RaisedButton>
         </Card>
       </form>

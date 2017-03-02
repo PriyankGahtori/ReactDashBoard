@@ -28,8 +28,8 @@ const validate = values => {
     else if (isNaN(values.cpuFilter))
     errors.cpuFilter = 'Please Enter Only Numbers'
 
-    else if(!values.doNotDelfactor)
-      errors.doNotDelfactor = 'Please enable Do not delete Vector'
+    else if(!values.enableJVM)
+      errors.enableJVM = 'Please enable JVM monitor'
   }
    
 

@@ -126,7 +126,7 @@ const styles = {
           />
           <Snackbar
           open={this.state.instrSnack}
-          message="No Instrumentation Profiles are selected."
+          message="Select any Instrumentation profiles for changes"
           autoHideDuration={4000}
           onRequestClose={this.handleRequestClose.bind(this)}
           />

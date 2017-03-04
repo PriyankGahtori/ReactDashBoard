@@ -193,50 +193,56 @@ class AddComponent extends React.Component {
   }
 
   indexChange(evt, value) {
-  /*  var data = this.props.fqm
-    console.log("data---",data)
-    if(data != null ){
-    if(data.includes("(") && data.includes(")")){
-      let charArr = data.split('');
-      console.log("charArr--",charArr)
-      console.log("charArr--",charArr.length)
-      console.log("value---",value)
-      if(value > charArr.length || value < charArr.length){
-         this.setState({indexErrMsgCss:'show',
-                        fqmErrorMsgCss:'hidden',
-                        fqmEmptyMsg:'hidden'
-        })
-       }
-       else{
-        this.setState({ indexVal: value ,
-                        indexErrMsgCss:'hidden',
-                        fqmErrorMsgCss:'hidden'
-          
-        })
-        this.props.onIndexChange(value)
-       let type = this.getType(this.props.fqm, value);
-        let list = opData.opValList(type);
-        console.log("list----", list)
-        this.setState({ opList: list })
-       }
-  }
-  else{
-    console.log("fqm not valid")
-    this.setState({fqmErrorMsgCss:'show',
-                    indexErrMsgCss:'hidden'
-    })
-  }
-}
 
-else{
-  this.setState({fqmEmptyMsg:'show'})
-}*/
-    this.setState({ indexVal: value })
+
+    let indexErrMsgCss;
+    let fqmEmptyMsg;
+    let fqmErrorMsgCss;
+
+    if(isNaN(value)){
+       indexErrMsgCss ='show',
+       fqmEmptyMsg = 'hidden',
+       fqmErrorMsgCss = 'hidden'
+      
+    }
+    else if(this.props.fqm == null){
+      fqmEmptyMsg = 'show',
+      indexErrMsgCss = 'hidden',
+      fqmErrorMsgCss = 'hidden'
+    }
+    else{
+        let li = this.props.fqm.indexOf(')');
+        let bi = this.props.fqm.indexOf('(');
+
+        let str = '';
+        str = this.props.fqm.substring(li,bi+1)
+        
+      if(str == null || str.length == 0 || str === ''){
+          fqmErrorMsgCss ='show',
+          indexErrMsgCss ='hidden',
+          fqmEmptyMsg = 'hidden'
+      
+        }
+        else{
+          fqmErrorMsgCss = 'hidden',
+          indexErrMsgCss= 'hidden',
+          fqmEmptyMsg = 'hidden'
+
+        }
+    }
+
+ //   this.setState({ indexVal: value })
     this.props.onIndexChange(value)
     let type = this.getType(this.props.fqm, value);
+    let list = [];
+    list = opData.opValList(type);
+    this.setState({ opList: list ,
+                    indexVal: value,
+                    'fqmErrorMsgCss':fqmErrorMsgCss,
+                    'indexErrMsgCss':indexErrMsgCss,
+                    'fqmEmptyMsg':fqmEmptyMsg
+    })
 
-    let list = opData.opValList(type);
-    this.setState({ opList: list })
   }
 
   getTypeReturnType(fqm) {
@@ -396,13 +402,13 @@ else{
           </div>
 
           <div className = {`col-md-5  ${this.state.indexErrMsgCss}`} style = {{paddingLeft:'92px'}}>
-               <p style = {{color: 'red',paddingTop:20}}>Index is not valid.Please check fqm</p>
+               <p style = {{color: 'red',paddingTop:20,fontSize:12}}>Enter Only Numbers</p>
           </div>
            <div className = {`col-md-5  ${this.state.fqmErrorMsgCss}`} style = {{paddingLeft:'92px'}}>
-               <p style = {{color: 'red',paddingTop:10}}>Fqm is not correct .Please check it</p>
+               <p style = {{color: 'red',paddingTop:10,fontSize:12}}>Fqm does not contains any arguments</p>
           </div>
             <div className = {`col-md-5 ${this.state.fqmEmptyMsg}`} style = {{paddingLeft:'92px'}}>
-               <p style = {{color: 'red',paddingTop:10}}>Fqm is required</p>
+               <p style = {{color: 'red',paddingTop:10,fontSize:12}}>Fqm is required</p>
           </div>
           
           </div>

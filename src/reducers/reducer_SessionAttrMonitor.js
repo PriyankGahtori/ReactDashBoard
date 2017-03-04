@@ -25,11 +25,14 @@ function modifyingData(data){
             value = value+attrVal.valName ;
           }
       })
-      val["values"]= {"href":value};
+      //val["values"]= {"href":value};
+       val["values"]= value
     }
       else{
         if(val.attrType == 'specific')
-            val["values"] = {"href":"Add Values"};
+        //    val["values"] = {"href":"Add Values"};
+         val["values"] = "Add Values";
+
         else
             val["values"]= 'NA'
       }
@@ -52,14 +55,11 @@ function getValNames(val){
             value = value+attrVal.valName ;
           }
       })
-      val["values"]= {"href":value};
+      val["values"]= value;
     }
       else{
         if(val.attrType == 'specific')
-            val["values"] = {"href":"Add Values"};
-        else
             val["values"]= 'NA'
-      }
       
       return val;
 }
@@ -107,12 +107,13 @@ export default function(state = initialState, action) {
         }
         
     })
-     data["values"]= {"href":value};
+//     data["values"]= {"href":value};
+       data["values"]= value;
     }
     else{
         if(data.attrType == 'specific')
-             data["values"]= {"href":"Add values"}
-        else
+            // data["values"]= {"hrefAdd values"}
+        //else
             data["values"]= 'NA'
     }
     newState.tableData.push(data)

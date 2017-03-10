@@ -60,7 +60,7 @@ function getValNames(val){
       else{
         if(val.attrType == 'specific')
             val["values"]= 'NA'
-      
+      }
       return val;
 }
 

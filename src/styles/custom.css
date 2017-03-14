@@ -7,7 +7,7 @@ body {
   margin: 0;    
   padding: 0;     
   font-size: 13px !important;   
-  background : url('default.jpg') no-repeat center #000;
+  background : url('default.jpg') no-repeat center fixed #000;
  /* background-size: cover;*/
 }
 
@@ -21,6 +21,7 @@ body {
 }
 .tableheader{
 	background-color: #183d65;
+  height:38px;
 }
 .breadcrumbs {
   padding: 8px 15px;
@@ -119,8 +120,8 @@ h2{
   width: 99%;
 }
 .pull-right{
-  height: auto !important;
-  padding: 8px 0 0 !important;
+  /*height: auto !important;*/
+  /*padding: 8px 0 0 !important;*/
 }
 .pull-right-btn {
       position: absolute;
@@ -143,11 +144,11 @@ h2{
     color: rgb(255, 255, 255) !important;
     font-size: 12px !important;
     line-height: normal !important;
-    background: #1565c0 !important;
+    background:  #5299d3 !important;
     margin: 0 2px 0 2px !important;
 }
 .dialog-modal .cancel{
-  background: #f44336 !important;
+  background: #f27e54 !important;
 }
 button, input, select, textarea {
   font-size:12px !important;

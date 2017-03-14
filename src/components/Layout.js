@@ -52,6 +52,23 @@ const customContentStyle = {
   maxWidth: 'none',
 };
 
+var styles = {
+  dialogRoot: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 0
+  },
+  dialogContent: {
+    position: 'relative',
+    width: '90vw',
+    maxWidth: 500
+  },
+  dialogBody: {
+    paddingBottom: 0
+  }
+};
+
 const title = {
   backgroundImage: "url('../images/cavi_logo_new.png')",
   backgroundRepeat: "no-repeat",
@@ -188,7 +205,10 @@ export default class Layout extends React.Component {
             open={this.state.agentStatusOpen}
             actions={actionsNDAgent}
             autoScrollBodyContent={true}
-            contentStyle={customContentStyle}>
+            contentStyle={ styles.dialogContent }
+            bodyStyle={ styles.dialogBody }
+            style={ styles.dialogRoot }
+			      repositionOnUpdate={ false }>
             <NDAgentStatus closeDialog={this.handleClose} />
           </NDAgentStatusDialog >
 

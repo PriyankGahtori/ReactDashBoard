@@ -267,12 +267,12 @@ loader(){
     ];
 
     return (
-    <div style ={{position:'relative',left:'10px',width:'1011px'}}>
+    <div style ={{position:'relative',width:'1011px','background':'#FFF',color: '#FFF'}}>
      
           <div className="row row-no-margin tableheader">
              <div className="pull-right"  >
-               <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
-              <IconButton tooltip="Delete" className="pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
+               <IconButton tooltip="Edit "style={{padding:'5px' ,height:'auto'}}  onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
+              <IconButton tooltip="Delete" style={{padding:'5px' ,height:'auto'}} className="pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton> 
             </div>
 
               <h4 style={{color:'#FFF',paddingLeft:'10px'}}>Session Attribute(s)</h4>

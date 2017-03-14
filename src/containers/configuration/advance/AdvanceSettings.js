@@ -75,6 +75,7 @@ class AdvanceSettings extends React.Component {
     this.loader = this.loader.bind(this);
     this.getProfileName = this.getProfileName.bind(this);
     this.state = {profileName : this.getProfileName(this.props.params.profileId)}
+    console.log("this.props - ",this.props)
   }
 
 
@@ -152,10 +153,12 @@ loader(){
         <div style={{color: '#FFF'}}><p>Profile Name : {this.state.profileName}</p></div>
         <Card style={{paddingTop:10,paddingBottom:10}}>
         <EnableDebugCapturing profileId = {this.props.params.profileId}/>
-        <PutDelayInMethod profileId = {this.props.params.profileId} />
         <EnableBackendMonitor profileId = {this.props.params.profileId}/>
         <EnableMonitors profileId = {this.props.params.profileId}/>
-        <GenExceptionInMethod profileId = {this.props.params.profileId}/>
+        {(this.props.adminMode === 'true')?
+            <div><PutDelayInMethod profileId = {this.props.params.profileId} /></div>:null}
+       {(this.props.adminMode === 'true')?
+            <div><GenExceptionInMethod profileId = {this.props.params.profileId}/></div>:null}
       </Card>
     </div>
     );
@@ -164,10 +167,11 @@ loader(){
 
 
 function mapStateToProps(state) {
-  console.log("AdvanceSettings---",state.Keywords)
+  console.log("AdvanceSettings---",state.initialData)
   return {
     getAllKeywordData :state.Keywords,
-    homeData : state.initialData.homeData
+    homeData : state.initialData.homeData,
+    adminMode : state.initialData.adminMode
    };
 }
 

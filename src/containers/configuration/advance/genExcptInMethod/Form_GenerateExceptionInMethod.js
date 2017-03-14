@@ -64,7 +64,7 @@ const styles = {
     width: 150,
   },
   customWidth: {
-    width: 300
+    width: 280
   },
   error:{
     fontSize: 12,
@@ -121,11 +121,21 @@ render() {
     <form>
 
     <div className = "row">
+
+  <div className = "col-md-8">
+    <TextField
+    floatingLabelText = " Fully Qualified Method Name"
+    {...fqm}
+    errorText = {fqm.touched &&  fqm.error && <div> { fqm.error}</div> }
+     style={{ 'width': '400' }}
+    />
+    </div>
+
     <div className = "col-md-2" style={{'paddingTop':29}}>
     <p for="sess_perct" >Percentage  </p>
     </div>
 
-    <div className = "col-md-4" style={{'paddingTop':29}}>
+    <div className = "col-md-2" style={{'paddingTop':29}}>
     <Input
     {...excptPerct} 
     id="sess_perct"
@@ -133,20 +143,14 @@ render() {
     type="number" 
     min="0" 
     max="100" 
-    step="1"   />
+    step="1" 
+    style={{ 'width': '50' }}
+      />
     <div style={styles.error}>   {excptPerct.touched && excptPerct.error && <div>{excptPerct.error} </div> } </div>
 
     </div>
 
-    <div className = "col-md-6">
-    <TextField
-    hintText = "Hint Text"
-    floatingLabelText = " Fully Qualified Method Name"
-    {...fqm}
-    errorText = {fqm.touched &&  fqm.error && <div> { fqm.error}</div> }
-
-    />
-    </div>
+  
     </div>
 
     <div className = "row">
@@ -164,7 +168,7 @@ render() {
     >
 
     <MenuItem value = {"1"}  primaryText = "Null Pointer Exception"/>
-    <MenuItem value = {"2"}  primaryText = "Array Index Out Of Bound Exception"/>
+    <MenuItem value = {"2"}  primaryText = "Array IndexOutOfBounds Exception"/>
     <MenuItem value = {"3"}  primaryText = "Class cast Exception" />
     <MenuItem value = {"4"}  primaryText = "Arithmetic Exception" />
     <MenuItem value = {"5"}  primaryText = "Illegal Exception" />
@@ -177,7 +181,6 @@ render() {
 
     <div className = "col-md-6">
     <TextField
-    hintText="Hint Text"
     floatingLabelText=" Exception Name"
     {...exceptnName}
     errorText={exceptnName.touched && exceptnName.error && <div> {exceptnName.error}</div> }

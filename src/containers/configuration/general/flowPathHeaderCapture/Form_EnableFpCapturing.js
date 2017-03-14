@@ -214,6 +214,8 @@ class Form_EnableFpCapturing extends React.Component {
    this.setState({enableCaptureHTTPReqFullFp:nextProps.initialData.enableCaptureHTTPReqFullFp,
                   enableCaptureHTTPResFullFp:nextProps.initialData.enableCaptureHTTPRespFullFp,
                   enableCaptureCustomData:nextProps.initialData.enableCaptureCustomData,
+                  hdrModeForReqcapture:nextProps.initialData.hdrModeForReqcapture,
+                  hdrModeForResCapture:nextProps.initialData.hdrModeForResCapture,
                   customDataCapturingMethodBlock:nextProps.initialData != null && nextProps.initialData.enableCaptureCustomData?'show':'hidden',
         })
 
@@ -385,7 +387,6 @@ getProfileName(profileId)
 
 
   submitForm(formData){
-
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
   let keywordDataList = [];
   
@@ -412,8 +413,7 @@ else{
      keywordDataList.push("captureHTTPRespFullFp" + "=" +formData.captureHTTPRespFullFp)
 }
 
-    
-  keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
+  // keywordData["captureHttpSessionAttr"]["value"] = formData.enableCaptureSessionAttr;
   keywordData["captureCustomData"]["value"] = formData.enableCaptureCustomData;
   this.props.submitKeywordData(keywordData,this.props.profileId);
 
@@ -512,7 +512,7 @@ render() {
     {...enableCaptureHTTPReqFullFp}
     value = "CaptureHTTPReqFullFp"
     checked  = {this.state.enableCaptureHTTPReqFullFp}
-    label = "Capture HTTP Request "
+    label = "Capture HTTP Request Header"
     onCustomChange={this.handleCaptureHTTPReqFullFp.bind(this)}
     />
     </div> 
@@ -541,7 +541,6 @@ render() {
           
           <div className = "row">
             <div className='col-md-3' style = {{position:'relative',left:'2px'}}>
-          
                 <DropDownComponent 
                 {...hdrModeForReqcapture}
                 data = {dataForhdrTypeDropDown}
@@ -553,7 +552,7 @@ render() {
 
         {/*******div block  when "Specified headers" is selected**********/}
 
-          <div className ={`col-md-4 ${this.state.multiSelectCss}`}  style = {{'width':230,'paddingTop':24}}>
+          <div className ={`col-md-4 ${this.state.multiSelectCss}`}  style = {{'width':430,'paddingTop':24}}>
           <MultiSelect multi
               {...selectedHdrsValReq}
             name ="SelectdHttpHdrs"
@@ -569,7 +568,7 @@ render() {
    
 
       <div className = {`row ${this.state.captureModeCss}`} style = {{'paddingLeft':-3}}>
-        <div className = "col-md-6">
+        <div className = "col-md-3">
                 <DropDownComponent 
                 {...captureModeReq}
                 data = {dataForCaptureDropDown}
@@ -578,10 +577,9 @@ render() {
                 />
       </div>
     
-        <div className = {`col-md-6 ${this.state.briefCaptureModeConfigReq}`}>
+        <div className = {`col-md-3 ${this.state.briefCaptureModeConfigReq}`}>
         <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="Enter range of characters "
+                  floatingLabelText="Limit for header values "
                   {...hdrValChrReq}
                 />
         </div>
@@ -602,7 +600,7 @@ render() {
         {...enableCaptureHTTPRespFullFp}
         value = "CaptureHTTPResFullFp"
         checked  = {this.state.enableCaptureHTTPResFullFp}
-        label = "Capture HTTP Response "
+        label = "Capture HTTP Response Header"
         onCustomChange={this.handleCaptureHTTPResFullFp.bind(this)}
       />
   
@@ -617,7 +615,7 @@ render() {
        {/******START of div block when 2nd radio button is selected*******/}
         <div className = {this.state.enableCaptureHTTPResFullFp ? 'show' :'hidden'} style = {{'paddingLeft':0}}>
           <div className = "row">
-            <div className='col-md-6' >
+            <div className='col-md-3' >
                <DropDownComponent 
                 {...hdrModeForResCapture}
                 data = {dataForhdrTypeDropDown}
@@ -629,7 +627,7 @@ render() {
 
         {/*******div block  when "Specified headers" is selected**********/}
 
-          <div className ={`col-md-4 ${this.state.multiSelectRespCss}`}  style = {{'width':200,'paddingTop':24}}>
+          <div className ={`col-md-4 ${this.state.multiSelectRespCss}`}  style = {{'width':430,'paddingTop':24}}>
           <MultiSelect multi
               {...selectedHdrsValRes}
             name ="SelectdHttpHdrs"
@@ -642,7 +640,7 @@ render() {
    
 
       <div className = {`row ${this.state.captureModeCss}`} style = {{'paddingLeft':5}}>
-        <div className = "col-md-6">
+        <div className = "col-md-3">
                  <DropDownComponent 
                 {...captureModeRes}
                 data = {dataForCaptureDropDown}
@@ -650,10 +648,9 @@ render() {
                 floatingLabelText = "Select Capture Mode"
                 />
       </div>
-      <div className = {`col-md-4 ${this.state.briefCaptureModeConfigRespCss}`}>
+      <div className = {`col-md-3 ${this.state.briefCaptureModeConfigRespCss}`}>
         <TextField
-                  hintText="Hint Text"
-                  floatingLabelText="Enter range of characters "
+                  floatingLabelText="Limit for header values "
                   {...hdrValChrRes}
                 />
       </div>

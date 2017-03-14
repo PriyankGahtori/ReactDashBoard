@@ -156,13 +156,39 @@ class setCavNVCookie extends React.Component {
 	}
 
 	submitForm(formData) {
-        console.log("formData--",formData)
+        console.log("formData.maxFpBucketSize--",formData.maxFpBucketSize)
 	    let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
         let setCavNVCookie;
         var length = Object.keys(formData).length ;
+		console.log("length--",length)
         if(length > 1){
             let maxFpBucketSize = 4;
-            if(!formData.enableNewFormat ){
+
+			if(!formData.enableNewFormat ){
+                setCavNVCookie = "1%20"
+            }
+            else{
+                setCavNVCookie = "2%20"
+            }
+
+			setCavNVCookie = "1%20"
+
+            if(formData.cookieName != null){
+                setCavNVCookie = setCavNVCookie + formData.cookieName
+            }
+            else{
+                setCavNVCookie = setCavNVCookie + "CavNV" 
+            }
+            
+                setCavNVCookie = setCavNVCookie +"%20"+ 2;
+
+
+            maxFpBucketSize = formData.maxFpBucketSize != undefined ?formData.maxFpBucketSize :maxFpBucketSize;
+
+            setCavNVCookie = setCavNVCookie+"%20"+maxFpBucketSize;
+
+            keywordData.setCavNVCookie["value"] = setCavNVCookie;
+        /*    if(!formData.enableNewFormat ){
                 setCavNVCookie = "1%20"
             }
             else{
@@ -184,7 +210,7 @@ class setCavNVCookie extends React.Component {
             }
             setCavNVCookie = setCavNVCookie+"%20"+maxFpBucketSize;
 
-            keywordData.setCavNVCookie["value"] = setCavNVCookie;
+            keywordData.setCavNVCookie["value"] = setCavNVCookie;   */
         }
         else{
 			if(formData.setCavNVCookie != 0){
@@ -241,7 +267,7 @@ class setCavNVCookie extends React.Component {
 					<div className="col-md-5">
 						<Checkbox
 							value="genExcptInMethod"
-							label="Set Cav NV Cookie"
+							label="Integrate with other Cavisson products"
 							 disabled={this.props.profileDisabled}
 							checked={this.state.setCavNVCookie}
 							onCustomChange={this.handleSetCavNVCookie.bind(this)} />
@@ -263,7 +289,7 @@ class setCavNVCookie extends React.Component {
 				</div>
 
 				<DialogSetCavNVCookie className="dialog-modal"
-					title="Set Cav NV Cookie Settings"
+					title="Integrate with other Cavisson products"
 					actions={actions}
 					modal={false}
 					open={this.state.openSetCavNVCookieDialog}

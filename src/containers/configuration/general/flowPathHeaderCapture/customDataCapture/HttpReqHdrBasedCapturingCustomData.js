@@ -266,11 +266,11 @@ class HttpReqHdrBasedCapturingCustomData extends React.Component {
     ];
 
     return (
-     <div  style ={{position:'relative',width:'1011px'}}>
+     <div  style ={{position:'relative',width:'1011px','background':'#FFF',color: '#FFF'}}>
         <div  className='row row-no-margin tableheader' > 
         <div className = "pull-right">
-          <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
-          <IconButton className="pull-right" tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color='white' className="material-icons">delete</FontIcon></IconButton>
+          <IconButton tooltip="Edit " style={{padding:'5px' ,height:'auto'}} onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
+          <IconButton className="pull-right" style={{padding:'5px' ,height:'auto'}} tooltip="Delete" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon color='white' className="material-icons">delete</FontIcon></IconButton>
         </div>
           <h4 style={{color: '#FFF',paddingLeft: '10px'}}>Http Request Header</h4>
         </div>

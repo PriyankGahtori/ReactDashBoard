@@ -47,6 +47,7 @@ class DialogAttachProfile_Instance extends React.Component {
     const { onSubmit } = this.props
   	const actions = [
       <FlatButton
+        className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -62,6 +63,7 @@ class DialogAttachProfile_Instance extends React.Component {
     return (
       <div>
       <DialogEditInstance
+          className="dialog-modal"
           title="Attach Profile"
           actions={actions}
           modal={false}

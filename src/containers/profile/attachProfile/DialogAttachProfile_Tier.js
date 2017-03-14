@@ -49,6 +49,7 @@ class DialogAttachProfile_Tier extends React.Component {
     const { onSubmit } = this.props
   	const actions = [
       <FlatButton
+      className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
@@ -64,6 +65,7 @@ class DialogAttachProfile_Tier extends React.Component {
     return (
       <div>
       <DialogEditTopo
+          className="dialog-modal"
           title="Attach Profile"
           actions={actions}
           modal={false}

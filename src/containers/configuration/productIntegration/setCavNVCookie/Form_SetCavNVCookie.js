@@ -24,21 +24,20 @@ const validate = values =>{
   if(!values.cookieName)
     errors.cookieName = 'Required'
 
-  if(!values.serviceMethodDepth)
-    errors.serviceMethodDepth = 'Required'
+  // if(!values.serviceMethodDepth)
+  //   errors.serviceMethodDepth = 'Required'
 
-  else if(isNaN(values.serviceMethodDepth))
-    errors.serviceMethodDepth = 'Must enter only numbers'
+  // else if(isNaN(values.serviceMethodDepth))
+  //   errors.serviceMethodDepth = 'Must enter only numbers'
 
    if(values.maxFpBucketSize != null && isNaN(values.maxFpBucketSize))
     errors.maxFpBucketSize = 'Must enter only numbers'
 
   return errors;
 }
+
 export const fields = [
 'cookieName',
-'serviceMethodDepth',
-'enableNewFormat',
 'maxFpBucketSize'
 
 ];
@@ -61,10 +60,9 @@ class Form_SetCavNVCookie extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-     'maxDepthSizeCss':this.props.initialData.enableNewFormat?'show':'hidden',
-     enableNewFormat :this.props.initialData.enableNewFormat
+    //  enableNewFormat :this.props.initialData.enableNewFormat
     }
-    this.enableNewFormat = this.enableNewFormat.bind(this);
+    // this.enableNewFormat = this.enableNewFormat.bind(this);
   }
   componentWillMount() {
    // this.props.initializeInstrException();
@@ -80,9 +78,7 @@ class Form_SetCavNVCookie extends React.Component {
 enableNewFormat(evt,isInputChecked){
   console.log("isInputChecked--",isInputChecked)
   let maxDepthSizeCss = isInputChecked ?'show':'hidden'
-  this.setState({'maxDepthSizeCss':maxDepthSizeCss,
-                 'enableNewFormat':isInputChecked
-  })
+  this.setState({'maxDepthSizeCss':maxDepthSizeCss})
 
 }
 
@@ -94,8 +90,6 @@ handleGenExcptInMethodCheckboxChange(event,isInputChecked){
 render() {
   const { fields: {
           cookieName,
-          serviceMethodDepth,
-          enableNewFormat,
           maxFpBucketSize
 
 
@@ -115,38 +109,35 @@ render() {
          errorText={cookieName.touched && cookieName.error && <div>{cookieName.error}</div>}/>   
         
       </div>
-      <div className = "col-md-4">
+      {/*<div className = "col-md-4">
           <TextField
           floatingLabelText="Service Method Depth"
           {...serviceMethodDepth}
           style={{ 'width': '150' }}
         errorText={serviceMethodDepth.touched && serviceMethodDepth.error && <div>{serviceMethodDepth.error}</div>}/>   
        
-        </div>
+        </div>*/}
     </div>
 
    
     <div className = "row">
-      <div className = "col-md-6">
+      {/*<div className = "col-md-6">
         <Checkbox
         {...enableNewFormat}
         label="Capture All Flow Paths "
         value = "enableNewFormat"
         checked  = {this.state.enableNewFormat}
         onCustomChange ={this.enableNewFormat.bind(this)}  />
-    </div>
+    </div>*/}
   </div>
 
-      <div className = {`row ${this.state.maxDepthSizeCss}`}>
+    
           <div className = "col-md-6">
             <TextField
             floatingLabelText="Maximum flow path Bucket Size"
           {...maxFpBucketSize}
          errorText={maxFpBucketSize.touched && maxFpBucketSize.error && <div>{maxFpBucketSize.error}</div>}/>   
         </div>
-    </div>
-
-
     </form>
 
     

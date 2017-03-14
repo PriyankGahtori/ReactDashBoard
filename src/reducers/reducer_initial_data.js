@@ -16,6 +16,7 @@ export default function (state = initialState, action) {
       newState.homeData = action.payload.data.homeData;
       newState.trData = action.payload.data.trData;
       newState.ns_wdir = action.payload.data.ns_wdir;
+      newState.adminMode = action.payload.data.adminMode;
       newState.trData.switch = trStatus == null ? false : trStatus;
       return newState;
 

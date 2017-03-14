@@ -37,12 +37,13 @@ class Dialog_Profile_NewProfile extends React.Component {
     const { onSubmit } = this.props
     const actions = [
       <FlatButton
+        className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel} />,
      
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true} 
         onClick={this.handleSubmit}/>
@@ -51,6 +52,7 @@ class Dialog_Profile_NewProfile extends React.Component {
       <div>
       <DialogNewDC
           title="New Profile Configuration"
+          className="dialog-modal"
           actions={actions}
           modal={false}
           open={this.state.profileDetailData.openNewProfileDialog}

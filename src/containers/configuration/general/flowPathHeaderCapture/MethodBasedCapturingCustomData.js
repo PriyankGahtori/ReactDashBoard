@@ -284,7 +284,7 @@ loader(){
     ];
 
     return (
-    <div style ={{position:'relative',left:'10px',width:'1011px','background':'#18493F',color: '#FFF'}}>
+    <div style ={{position:'relative',left:'10px','background':'#FFF',color: '#FFF'}}>
      
           <div className="row col-md-4">
                <Checkbox
@@ -297,14 +297,14 @@ loader(){
           </div>
 
 
-       <div className = {`row col-md-10 ${this.state.showTable}`} style ={{position:'relative',width:'1011px'}} >
+       <div className = {`row col-md-12 ${this.state.showTable}`} style ={{position:'relative',width:'1041px'}} >
    
            <div  className='row row-no-margin tableheader' > 
            <div  className=" pull-right">
-             <IconButton tooltip="Edit " onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
-             <IconButton tooltip = "Delete" className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
+             <IconButton tooltip="Edit" style={{padding:'5px' ,height:'auto'}} onTouchTap={this.handleEdit.bind(this)}><FontIcon color="#FFF" className="material-icons">edit_mode</FontIcon></IconButton>           
+             <IconButton tooltip = "Delete" style={{padding:'5px' ,height:'auto'}} className = "pull-right" onTouchTap={this.handleDelConfirm.bind(this)}><FontIcon  color="#FFF"  className="material-icons">delete</FontIcon></IconButton>
             </div>
-             <h4 style={{paddingLeft:'10px'}}> Method Based Custom Data</h4> 
+             <h4 style={{padding:'10px',margin:0}}> Method Based Custom Data</h4> 
              </div>
         <DataGrid data = {this.props.methodBasedCustomData.tableData} 
             pagination = {false} 

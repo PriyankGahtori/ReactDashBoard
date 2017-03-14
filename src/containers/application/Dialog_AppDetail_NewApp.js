@@ -57,7 +57,7 @@ class Dialog_AppDetail_NewApp extends React.Component {
         primary={true}
         onTouchTap={this.handleCancel} />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleSubmit} />

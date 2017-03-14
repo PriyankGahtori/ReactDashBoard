@@ -147,7 +147,7 @@ class Form_EnableExcptcapturing extends React.Component {
               <TextField
                 {...stackTraceDepthValue}
                 hintText="0-9999"
-                floatingLabelText="Stack Trace Depth"
+                floatingLabelText="Stack Trace limit for frames"
                 errorText={stackTraceDepthValue.touched && stackTraceDepthValue.error && <div>{stackTraceDepthValue.error} </div>}
                 />
             </div>
@@ -165,7 +165,7 @@ class Form_EnableExcptcapturing extends React.Component {
 
                 <RadioButton
                   value="unhandledException"
-                  label="Unhandled"
+                  label="Unchecked Exceptions"
                   labelStyle={{ fontWeight: 'normal' }}
                   />
                 <RadioButton

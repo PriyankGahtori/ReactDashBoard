@@ -247,7 +247,7 @@ class EnableHotSpotCapturing extends React.Component {
         <div className="row" >
           <div className="col-md-5">
             <Checkbox
-              label="Enable Hotspot Capturing"
+              label="Enable Thread Hotspot Capturing"
               value="enableHotSpotCapturing"
               checked={this.state.hotSpotCapturingCheckBox}
                disabled={this.props.profileDisabled}
@@ -270,7 +270,7 @@ class EnableHotSpotCapturing extends React.Component {
         </div>
 
         <DialogEnableHotSpotCapturing className="dialog-modal"
-          title="Hotspot Capturing Settings"
+          title="Thread Hotspot Configuration Settings"
           actions={actionsHotSpotCapturing}
           modal={false}
           open={this.state.openEnableHotSpotCapturingDialog}

@@ -52,12 +52,13 @@ class Dialog_Topo_NewTopo extends React.Component {
     const { onSubmit } = this.props
   	const actions = [
       <FlatButton
+        className="dialog-modal cancel"
         label="Cancel"
         primary={true}
         onTouchTap={this.handleCancel}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit}
@@ -67,6 +68,7 @@ class Dialog_Topo_NewTopo extends React.Component {
     return (
       <div>
       <DialogEditTopo
+          className="dialog-modal"
           title="Change Profile"
           actions={actions}
           modal={false}

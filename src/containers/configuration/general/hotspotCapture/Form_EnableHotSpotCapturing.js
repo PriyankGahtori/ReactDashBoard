@@ -8,9 +8,9 @@ import Checkbox from '../../../../components/CheckboxWrapper';
 import IconButton from 'material-ui/IconButton';
 import FontIcon from 'material-ui/FontIcon';
 import CheckboxWithoutWrapper from 'material-ui/Checkbox';
-import RaisedButton  from 'material-ui/RaisedButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-
+import Subheader from 'material-ui/Subheader'
 
 //Importing files
 import Input from '../../../../components/InputWrapper';
@@ -18,7 +18,7 @@ import { initializeKeywords } from '../../../../actions/index';
 import AddComp from './AddComp';
 
 
-export const fields = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth','ASPositiveThreadFilters'];
+export const fields = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth', 'ASPositiveThreadFilters'];
 
 
 const validate = values => {
@@ -90,22 +90,22 @@ const styles = {
   block: {
     paddingTop: 10
   },
-  asPositiveFilterThread:{
-    paddingTop:37
+  asPositiveFilterThread: {
+    paddingTop: 37
   },
-  icons:{
-    width:7,
-    height:7
+  icons: {
+    width: 7,
+    height: 7
   },
-  iconsButton:{
-    width:7,
-    height:7,
-   paddingLeft:12
+  iconsButton: {
+    width: 7,
+    height: 7,
+    paddingLeft: 12
   },
-  errMsg:{
-    color:'red',
-    paddingLeft:'439px'
-    
+  errMsg: {
+    color: 'red',
+    paddingLeft: '439px'
+
   }
 
 };
@@ -114,135 +114,140 @@ class Form_EnableHotSpotCapturing extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = { enableHotSpotBlock: false,
-                    showAddThreadName:'hidden',
-                    arr:[],
-                    count:0,
-                    threadNames:'',
-                    asPositiveThreadNamesBlock:'hidden',
-                    errMsg:'hidden'
-     };
+    this.state = {
+      enableHotSpotBlock: false,
+      showAddThreadName: 'hidden',
+      arr: [],
+      count: 0,
+      threadNames: '',
+      asPositiveThreadNamesBlock: 'hidden',
+      errMsg: 'hidden'
+    };
     this.handleAddThreadNames = this.handleAddThreadNames.bind(this)
     this.renderAddThreadName = this.renderAddThreadName.bind(this)
     this.onChangeASPositiveThreadFilter = this.onChangeASPositiveThreadFilter.bind(this)
     this.handleDelThreadNames = this.handleDelThreadNames.bind(this)
   }
 
-  handleAddThreadNames(threadNames){
-   console.log("threadNames--",threadNames)
-   if(this.state.threadNames == ''){
-     console.log("thread name blank")
-     this.setState({errMsg:'show'})
-   }
-   else{
-   this.setState({'showAddThreadName': 'show',
-                    count:this.state.count + 1,
-                    errMsg:'hidden'
-  })
+  handleAddThreadNames(threadNames) {
+    console.log("threadNames--", threadNames)
+    if (this.state.threadNames == '') {
+      console.log("thread name blank")
+      this.setState({ errMsg: 'show' })
+    }
+    else {
+      this.setState({
+        'showAddThreadName': 'show',
+        count: this.state.count + 1,
+        errMsg: 'hidden'
+      })
 
-   var data = {'threadName':this.state.threadNames,
-                count:this.state.count
-  }  
-  this.state.arr.push(data);
-  this.setState({'threadNames':''})
-   }
-}
+      var data = {
+        'threadName': this.state.threadNames,
+        count: this.state.count
+      }
+      this.state.arr.push(data);
+      this.setState({ 'threadNames': '' })
+    }
+  }
 
   handleEnableHotSpot(event, isInputChecked) {
     this.setState({ enableHotSpotBlock: !isInputChecked })
   }
 
-  handleDelThreadNames(id){
+  handleDelThreadNames(id) {
     let id2 = id + 1;
     let arrId = [];
-    arrId.push(id2 +1);
+    arrId.push(id2 + 1);
     let arr = this.state.arr
-    arr = arr.filter(function(val){
+    arr = arr.filter(function (val) {
       return arrId.indexOf(arr.id) == -1
     })
-    console.log("arr--",arr)
-    console.log("arr---",arr.length)
-    this.setState({arr:arr})
+    console.log("arr--", arr)
+    console.log("arr---", arr.length)
+    this.setState({ arr: arr })
 
   }
 
-renderAddComp(val){
-  console.log("val---",val)
-   return(
-        <div className = "row">
-              <div className = "col-md-6">
-              </div>
+  renderAddComp(val) {
+    console.log("val---", val)
+    return (
+      <div className="row">
+        <div className="col-md-6">
+        </div>
 
-            <div className = "col-md-6">
-              <TextField
-                  hintText="Hint Text" 
-                  id={val.count}
-                  floatingLabelText="AS Positive Thread Filters"
-                />
-                <IconButton  tooltip="Delete Thread" onTouchTap={this.handleDelThreadNames.bind(val.count)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
-            </div>
+        <div className="col-md-6">
+          <TextField
+            hintText="Hint Text"
+            id={val.count}
+            floatingLabelText="AS Positive Thread Filters"
+          />
+          <IconButton tooltip="Delete Thread" onTouchTap={this.handleDelThreadNames.bind(val.count)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
+        </div>
 
-         </div>
-        )
-}
+      </div>
+    )
+  }
 
-  renderAddThreadName(){
- 
-  let that = this;
-  let component = this.state.arr.map(function(val,index){
-                return(
-                  <div>
-                  <AddComp threadNames = {that.onChangeASPositiveThreadFilter.bind(this)}
-                           value={val}
-                           deleteThreadNames = {that.handleDelThreadNames.bind(this)}
-                  />
-                  </div>
-                 )
-               })
+  renderAddThreadName() {
 
-  return(
-    <div>
-      {component}
-    </div>
-     )  
-  
+    let that = this;
+    let component = this.state.arr.map(function (val, index) {
+      return (
+        <div>
+          <AddComp threadNames={that.onChangeASPositiveThreadFilter.bind(this)}
+            value={val}
+            deleteThreadNames={that.handleDelThreadNames.bind(this)}
+          />
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        {component}
+      </div>
+    )
+
   }
 
 
-  onChangeASPositiveThreadFilter(evt, value){
-    this.setState({'threadNames':value})
+  onChangeASPositiveThreadFilter(evt, value) {
+    this.setState({ 'threadNames': value })
   }
 
-  asPositiveFilterThreadChkBoxChange(evt,isInputChecked){
-    this.setState({'asPositiveThreadNamesBlock': isInputChecked ?'show':'hidden',
-                    'asPositiveFilterThreadChkBox':isInputChecked
-  })
+  asPositiveFilterThreadChkBoxChange(evt, isInputChecked) {
+    this.setState({
+      'asPositiveThreadNamesBlock': isInputChecked ? 'show' : 'hidden',
+      'asPositiveFilterThreadChkBox': isInputChecked
+    })
 
-}
+  }
 
-handleASPositiveThreadNamesDone(ASPositiveThreadFilters){
-  let values = '';
-  let arr =  this.state.arr;
-  arr.map(function(val,index){
-    console.log("val--",val)
-      if(index != (arr.length - 1)){
-        values = values + val.threadName+"&";
+  handleASPositiveThreadNamesDone(ASPositiveThreadFilters) {
+    let values = '';
+    let arr = this.state.arr;
+    arr.map(function (val, index) {
+      console.log("val--", val)
+      if (index != (arr.length - 1)) {
+        values = values + val.threadName + "&";
       }
-      else{
+      else {
         values = values + val.threadName;
       }
-  })
-  console.log("value---",values)
-  // case handled for last threadNames
-  if(this.state.threadNames != ''){
-    values= values +"&"+ this.state.threadNames 
-  }
-  ASPositiveThreadFilters.onChange(values)
+    })
+    console.log("value---", values)
+    // case handled for last threadNames
+    if (this.state.threadNames != '') {
+      values = values + "&" + this.state.threadNames
+    }
+    console.log("values !!---", values)
+    ASPositiveThreadFilters.onChange(values)
 
-}
+  }
 
   render() {
-    const { fields: {ASSampleInterval, ASThresholdMatchCount, ASReportInterval, ASDepthFilter, ASTraceLevel, ASStackComparingDepth,ASPositiveThreadFilters}, resetForm, handleSubmit, onSubmit, submitting } = this.props
+    const { fields: { ASSampleInterval, ASThresholdMatchCount, ASReportInterval, ASDepthFilter, ASTraceLevel, ASStackComparingDepth, ASPositiveThreadFilters }, resetForm, handleSubmit, onSubmit, submitting } = this.props
     return (
       <form >
         {/*    <div className ="row" style={{paddingTop:8}}>
@@ -255,123 +260,120 @@ handleASPositiveThreadNamesDone(ASPositiveThreadFilters){
               </div>
            </div>
            */}
+
         <div className="row">
 
           <div className="col-md-6">
-            <p>{this.state.enableHotSpotBlock}</p>
             <TextField
-
-              hintText="Hint Text"
-              floatingLabelText="AS Sample Interval for Stack Trace"
+              floatingLabelText="Hotspot Sample Interval for Stack Trace"
               disabled={this.state.enableHotSpotBlock}
               {...ASSampleInterval}
+              style={{ 'width': '280' }}
               errorText={ASSampleInterval.touched && ASSampleInterval.error && <div>{ASSampleInterval.error}</div>}
-              />
+            />
           </div>
-
-          <div className="col-md-6" style={styles.block}>
+          <div className="col-md-6" >
             <TextField
-              hintText="Hint Text"
-              floatingLabelText="AS Threshold Match Count"
-              disabled={this.state.enableHotSpotBlock}
-              {...ASThresholdMatchCount}
-              errorText={ASThresholdMatchCount.touched && ASThresholdMatchCount.error && <div>{ASThresholdMatchCount.error}</div>}
-              />
+              floatingLabelText="Hotspot Stack Comparing Depth"
+              {...ASStackComparingDepth}
+              style={{ 'width': '250' }}
+              errorText={ASStackComparingDepth.touched && ASStackComparingDepth.error && <div>{ASStackComparingDepth.error}</div>}
+            />
           </div>
         </div>
+      
+        <Subheader><b>Advance Settings</b></Subheader>
 
         <div className="row">
 
-          <div className="col-md-6">
+          <div className="col-md-4">
             <TextField
               hintText="Hint Text"
               floatingLabelText="Hotspot Reporting Interval "
               disabled={this.state.enableHotSpotBlock}
               {...ASReportInterval}
+              style={{ 'width': '200' }}
               errorText={ASReportInterval.touched && ASReportInterval.error && <div>{ASReportInterval.error}</div>}
-
-              />
+            />
           </div>
+
+          <div className="col-md-3">
+            <TextField
+              floatingLabelText="Hotspot Trace Level"
+              disabled={this.state.enableHotSpotBlock}
+              {...ASTraceLevel}
+              style={{ 'width': '150' }}
+              errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
+
+            />
+          </div>
+          <div className="col-md-4" >
+            <TextField
+              floatingLabelText="Hotspot Threshold Match Count"
+              disabled={this.state.enableHotSpotBlock}
+              {...ASThresholdMatchCount}
+              style={{ 'width': '215' }}
+              errorText={ASThresholdMatchCount.touched && ASThresholdMatchCount.error && <div>{ASThresholdMatchCount.error}</div>}
+            />
+          </div>
+
+        </div>
+
+        <div className="row">
 
           <div className="col-md-6">
             <TextField
-              hintText="Hint Text"
               floatingLabelText="Min Stack Depth for Hotspot"
               disabled={this.state.enableHotSpotBlock}
               {...ASDepthFilter}
               errorText={ASDepthFilter.touched && ASDepthFilter.error && <div>{ASDepthFilter.error}</div>}
-              />
+            />
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-md-6">
-            <TextField
-              hintText="Hint Text"
-              floatingLabelText="AS Trace Level"
-              disabled={this.state.enableHotSpotBlock}
-              {...ASTraceLevel}
-              errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
-
-              />
-          </div>
-
-          <div className="col-md-6">
-            <TextField
-              hintText="Hint Text"
-              floatingLabelText="AS Stack Comparing Depth"
-              disabled={this.state.enableHotSpotBlock}
-              {...ASStackComparingDepth}
-              errorText={ASStackComparingDepth.touched && ASStackComparingDepth.error && <div>{ASStackComparingDepth.error}</div>}
-              />
-          </div>
-        </div>
-
-   
-
-        <div className = "row">
-        <div className = "col-md-9">
+        {/*<div className="row">
+          <div className="col-md-9">
             <CheckboxWithoutWrapper
-                value = "Specific Session Attr Capturing"
-                checked  = {this.state.asPositiveFilterThreadChkBox}
-                label = "List of thread names to be included in AS data"
-                onCheck={this.asPositiveFilterThreadChkBoxChange.bind(this)}
-         />
-          
+              value="AS Positive Thread Filters"
+              checked={this.state.asPositiveFilterThreadChkBox}
+              label="List of thread names to be included in AS data"
+              onCheck={this.asPositiveFilterThreadChkBoxChange.bind(this)}
+            />
+
+          </div>
         </div>
+
+        <div className={`row ${this.state.asPositiveThreadNamesBlock}`} style={{ 'paddingLeft': 8 }}>
+
+          <div className="col-md-7">
+            <TextField
+              hintText="Hint Text"
+              floatingLabelText="AS Positive Thread Filters"
+              onChange={this.onChangeASPositiveThreadFilter.bind(this)}
+            />
+          </div>
+
+          <div className="col-md-3">
+            <IconButton tooltip="Add more" onTouchTap={this.handleAddThreadNames.bind(this, ASPositiveThreadFilters)}><FontIcon color="#FFF" className="material-icons">add</FontIcon></IconButton>
+          </div>
+
+          <div className="col-md-2">
+            <FlatButton
+              label="Done"
+              primary={true}
+              keyboardFocused={true}
+              disabled={this.props.profileDisabled}
+              onClick={this.handleASPositiveThreadNamesDone.bind(this, ASPositiveThreadFilters)}
+            />
+          </div>
         </div>
 
-        <div className = {`row ${this.state.asPositiveThreadNamesBlock}`} style={{'paddingLeft':8}}>
-          
-          <div className = "col-md-7">
-              <TextField
-                hintText="Hint Text"
-                floatingLabelText="AS Positive Thread Filters"
-                onChange = {this.onChangeASPositiveThreadFilter.bind(this)}
-              />
-          </div>
 
-              <div className = "col-md-3">
-                <IconButton tooltip="Add more" onTouchTap={this.handleAddThreadNames.bind(this,ASPositiveThreadFilters)}><FontIcon   color="#FFF" className="material-icons">add</FontIcon></IconButton>
-              </div>
-              
-               <div className = "col-md-2">
-                    <FlatButton
-                    label="Done"
-                    primary={true}
-                    keyboardFocused={true}
-                    disabled = {this.props.profileDisabled}
-                    onClick={this.handleASPositiveThreadNamesDone.bind(this,ASPositiveThreadFilters)}
-      />
-              </div>
-          </div>
+        <p style={styles.errMsg} className={this.state.errMsg}>Thread Name Field required !! </p>
+        <div>
+        </div>
+        {this.renderAddThreadName()}*/}
 
-          
-            <p style={styles.errMsg} className={this.state.errMsg}>Thread Name Field required !! </p>
-          <div>
-          </div>
-        {this.renderAddThreadName()}
-       
       </form>
     );
   }

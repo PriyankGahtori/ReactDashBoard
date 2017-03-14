@@ -26,8 +26,8 @@ const validate = values => {
   else if (values.btName.length > 50)
     errors.btName = "Must be 50 characters or less"
 
-  else if (!is.alphaNumeric(values.btName))
-    errors.btName = 'Special character is not allowed.'
+  // else if (!is.alphaNumeric(values.btName))
+  //   errors.btName = 'Special character is not allowed.'
 
   if (!values.slowTransaction)
     errors.slowTransaction = 'Required'

@@ -202,7 +202,7 @@ class EnableExceptionCapturing extends React.Component {
 				onTouchTap={this.handleCancelEnableExcptCapturing.bind(this)}
 				/>,
 			<FlatButton
-				label="Submit"
+				label="Save"
 				primary={true}
 				keyboardFocused={true}
 				onClick={this.handleSubmitEnableExcptCapturing.bind(this)}
@@ -230,7 +230,7 @@ class EnableExceptionCapturing extends React.Component {
 					<div className="col-md-5">
 						<Checkbox
 							value="enableExceptionCapturing"
-							label="Enable Exception Capturing"
+							label="Exception Capturing"
 							checked={this.state.enableExcptCheckBox}
 							 disabled={this.props.profileDisabled}
 							onCustomChange={this.handleExcptCapture.bind(this)} />

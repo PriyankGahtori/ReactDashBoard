@@ -89,7 +89,7 @@ class Dialog_HttpReqHdrEdit extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
        // disabled = {this.props.sessionAttrMonitor.disabled}

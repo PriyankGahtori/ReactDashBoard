@@ -194,7 +194,7 @@ class EnableMonitors extends React.Component {
         onTouchTap={this.handleCancel.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         disabled={this.props.profileDisabled}
         keyboardFocused={true}

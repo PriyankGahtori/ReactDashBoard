@@ -50,7 +50,7 @@ class Dialog_DCDetail_NewDC extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit}

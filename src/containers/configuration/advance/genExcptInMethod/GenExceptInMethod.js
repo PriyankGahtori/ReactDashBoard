@@ -200,7 +200,7 @@ class GenExcptInMethod extends React.Component {
 				onTouchTap={this.handleCancelGenExcptInMethod.bind(this)}
 				/>,
 			<FlatButton
-				label="Submit"
+				label="Save"
 				primary={true}
 				keyboardFocused={true}
 				disabled={this.props.profileDisabled}

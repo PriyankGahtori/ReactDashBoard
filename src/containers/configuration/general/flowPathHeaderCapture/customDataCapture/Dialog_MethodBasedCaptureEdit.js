@@ -70,7 +70,7 @@ class Dialog_MethodBasedCaptureEdit extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
        // disabled = {this.props.sessionAttrMonitor.disabled}

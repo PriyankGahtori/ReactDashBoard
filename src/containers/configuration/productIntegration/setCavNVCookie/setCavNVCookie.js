@@ -238,7 +238,7 @@ class setCavNVCookie extends React.Component {
 				onTouchTap={this.handleCancelSetCavNVCookie.bind(this)}
 				/>,
 			<FlatButton
-				label="Submit"
+				label="Save"
 				primary={true}
 				keyboardFocused={true}
 				disabled={this.props.profileDisabled}

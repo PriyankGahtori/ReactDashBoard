@@ -162,7 +162,7 @@ class ConfigurationSettings extends React.Component {
             <Divider />
             <ListItem
               primaryText=" Advance Settings"
-              secondaryText="Debug Level Capturing, Put Delay in Method, Backend Monitor, Monitors, Generate Exception in Method "
+              secondaryText="Debug Level Capturing,Backend Monitor,Monitors"
               onTouchTap={this.handleAdvanceSettingTab} />
             <Divider />
             <ListItem

@@ -189,7 +189,7 @@ class EnableBackendMonitor extends React.Component {
         onTouchTap={this.handleCancel.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -237,7 +237,7 @@ class EnableBackendMonitor extends React.Component {
         </div>
 
         <DialogEnableBackendMonitor className="dialog-modal"
-          title="Enable Backend Monitor"
+          title=" Backend Monitor"
           actions={actions}
           modal={false}
           open={this.state.openEnableBackendMonitorDialog}

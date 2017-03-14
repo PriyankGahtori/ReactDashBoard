@@ -236,7 +236,7 @@ submitHttpReqHdr(data){
         onTouchTap={this.handleCancel} />,
       <FlatButton
       //  label="Next"
-        label= {this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddSessionAttrBasedData'||this.state.selectedVal == 'enableAddHttpReqHdr'?'Submit':'Next'}
+        label= {this.state.selectedVal == 'enableAddMethodBasedData'|| this.state.selectedVal == 'enableAddSessionAttrBasedData'||this.state.selectedVal == 'enableAddHttpReqHdr'?'Save':'Next'}
         primary={true}
         keyboardFocused={true}
         onTouchTap={this.handleSubmit.bind(this)} />

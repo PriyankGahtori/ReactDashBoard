@@ -101,7 +101,7 @@ class Dialog_BTPattern extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled = {this.props.profileDisabled}

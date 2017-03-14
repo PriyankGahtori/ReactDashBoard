@@ -144,11 +144,12 @@ h2{
     color: rgb(255, 255, 255) !important;
     font-size: 12px !important;
     line-height: normal !important;
-    background:  #5299d3 !important;
+    background: #4c8dc9 !important;
     margin: 0 2px 0 2px !important;
 }
+
 .dialog-modal .cancel{
-  background: #f27e54 !important;
+  background: #e0610d !important;
 }
 button, input, select, textarea {
   font-size:12px !important;

@@ -253,7 +253,7 @@ export const fields = ['enable','enableCaptureExcepStackTrace','stackTraceDepthV
 
         
       <div>
-          <RaisedButton  label="submit" type="submit" disabled={submitting}>
+          <RaisedButton  label="save" type="submit" disabled={submitting}>
                      {submitting ? <i/> : <i/>} 
           </RaisedButton >
         </div>  

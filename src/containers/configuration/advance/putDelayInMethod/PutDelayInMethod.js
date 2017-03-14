@@ -170,7 +170,7 @@ class PutDelayInMethod extends React.Component {
         onTouchTap={this.handleCancelPutDelayInMethod.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}

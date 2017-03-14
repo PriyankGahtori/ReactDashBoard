@@ -77,7 +77,7 @@ class Dialog_HttpStatsCond extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         disabled={this.props.profileDisabled}
         keyboardFocused={true}

@@ -228,7 +228,7 @@ const styles = {
         onTouchTap={this.handleCloseEditEndPt.bind(this)}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         disabled = {this.props.profileDisabled}
         onTouchTap={this.handleSubmitEditEndPt.bind(this)}
@@ -243,7 +243,7 @@ const styles = {
         onTouchTap={this.handleCloseNewendPoint.bind(this)}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         disabled = {this.props.profileDisabled}
         onTouchTap={this.handleSubmitNewendPoint.bind(this)}

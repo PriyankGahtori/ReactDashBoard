@@ -109,10 +109,10 @@ const styles = {
              </div>
           <div  className = "col-md-1"  style={{paddingLeft:60}} >
           <RaisedButton
-            label="Submit"
+            label="Save"
             onClick={this.submitInstr.bind(this)}
             disabled = {this.props.profileDisabled}
-            backgroundColor="#3a9e95"
+            backgroundColor="#4c8dc9"
             labelColor="#FFF"
             labelStyle={{fontSize:12}}>
           </RaisedButton>

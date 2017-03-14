@@ -286,8 +286,7 @@ class EnableFpHeaderCapturing extends React.Component {
         primary={true}
         keyboardFocused={true}
         onClick={this.cnfrmDisableFpVal.bind(this)}
-        />
-    ]
+        />]
 
     return (
       <div>

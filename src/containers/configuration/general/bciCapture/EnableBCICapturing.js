@@ -214,7 +214,7 @@ class EnableBCICapturing extends React.Component {
         onTouchTap={this.handleCancelEnableBCICapturing.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -242,7 +242,7 @@ class EnableBCICapturing extends React.Component {
           <div className="col-md-5" >
 
             <Checkbox
-              label="Enable FlowPath Capturing "
+              label="FlowPath Capturing "
               value="enableBCICapturing"
               disabled={this.props.profileDisabled}
               checked={this.state.enableBCICheckBox}

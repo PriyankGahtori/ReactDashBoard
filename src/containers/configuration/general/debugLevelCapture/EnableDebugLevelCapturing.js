@@ -198,7 +198,7 @@ class EnableDebugLevelCapturing extends React.Component {
         onTouchTap={this.handleCancelEnableDebugCapturing.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -226,7 +226,7 @@ class EnableDebugLevelCapturing extends React.Component {
         <div className="row" style={{ 'paddingLeft': 10 }}>
           <div className="col-md-5">
             <Checkbox
-              label="Enable Debug Level Capturing"
+              label="Debug Level Capturing"
               value="enableDebugLevel"
               disabled={this.props.profileDisabled}
               checked={this.state.enableDebugCheckBox}

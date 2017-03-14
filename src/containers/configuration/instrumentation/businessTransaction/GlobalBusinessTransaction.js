@@ -272,7 +272,7 @@ class GlobalBusinessTransaction extends React.Component {
           </div>
           <RaisedButton 
             backgroundColor="rgb(58, 158, 149)"
-            label=" Submit"
+            label=" Save"
             labelColor="#FFF"
             type="submit" 
             disabled={this.props.profileDisabled}

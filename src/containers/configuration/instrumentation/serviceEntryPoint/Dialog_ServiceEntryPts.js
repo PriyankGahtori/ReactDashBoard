@@ -152,7 +152,7 @@ class Dialog_ServiceEntryPts extends React.Component {
       />,
       
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         disabled = {this.props.profileDisabled}
         keyboardFocused={true}

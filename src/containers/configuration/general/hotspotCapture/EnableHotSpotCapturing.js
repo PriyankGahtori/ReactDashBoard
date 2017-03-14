@@ -218,7 +218,7 @@ class EnableHotSpotCapturing extends React.Component {
         onTouchTap={this.handleCancelEnableHotSpotCapturing.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -247,7 +247,7 @@ class EnableHotSpotCapturing extends React.Component {
         <div className="row" >
           <div className="col-md-5">
             <Checkbox
-              label="Enable Hotspot Capturing"
+              label="Hotspot Capturing"
               value="enableHotSpotCapturing"
               checked={this.state.hotSpotCapturingCheckBox}
                disabled={this.props.profileDisabled}

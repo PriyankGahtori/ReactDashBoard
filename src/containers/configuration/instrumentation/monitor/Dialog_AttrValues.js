@@ -259,7 +259,7 @@ addValType(){
                         
                          />
           <RaisedButton className ="pull-right"
-          label="Submit"
+          label="Save"
           backgroundColor = "#3a9e95" 
           onClick={this.addValType.bind(this)}
           style={{color:'#000',position:'relative',bottom:'45px',right:'82px'}}>

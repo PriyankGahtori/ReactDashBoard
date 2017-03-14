@@ -251,7 +251,7 @@ class EnableFpHeaderCapturing extends React.Component {
         onTouchTap={this.handleCancelEnableFpHdrCapturing.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -296,7 +296,7 @@ class EnableFpHeaderCapturing extends React.Component {
           <div className="col-md-5">
             <Checkbox
               value="enableFpHeaderCapturing"
-              label="Enable FlowPath Header Capturing"
+              label="FlowPath Header Capturing"
               checked={this.state.enableFpHdrChkBox}
               disabled={this.props.profileDisabled}
               onCustomChange={this.handleEnableFpHdrCapturingCheckboxChange.bind(this)} />

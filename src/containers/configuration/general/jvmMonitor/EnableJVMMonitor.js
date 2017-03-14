@@ -197,7 +197,7 @@ class EnableJVMMonitor extends React.Component {
         onTouchTap={this.handleCancelJVMMonitor.bind(this)}
         />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         disabled={this.props.profileDisabled}
@@ -225,7 +225,7 @@ class EnableJVMMonitor extends React.Component {
           <div className="col-md-5" >
 
             <Checkbox
-              label="Enable JVM Monitor "
+              label="JVM Thread Stats Monitor"
               value="enableJVMMonitor"
               disabled={this.props.profileDisabled}
               checked={this.state.enableJVMMonitorCheckBox}

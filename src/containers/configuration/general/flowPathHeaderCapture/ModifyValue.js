@@ -2,8 +2,6 @@
  * code needs to changed as per changed in keyords
  */
 export function constValCaptureHTTPReqFullFp(formData) {
-
-
 	var value = 0;
 	if (formData.enableCaptureHTTPReqFullFp === 'true' || formData.enableCaptureHTTPReqFullFp == true) {
 		//value = formData.urlMode;
@@ -17,11 +15,13 @@ export function constValCaptureHTTPReqFullFp(formData) {
 
 			else if (formData.hdrModeForReqcapture === 1) { //when Specified header option is selected
 				value = value + "%20";
-				for (var i = 0; i < formData.selectedHdrsValReq.length; i++) {
-					if (i == (formData.selectedHdrsValReq.length - 1))
-						value = value + formData.selectedHdrsValReq[i].value
-					else
-						value = value + formData.selectedHdrsValReq[i].value + ','
+				if(formData.selectedHdrsValReq != undefined){
+					for (var i = 0; i < formData.selectedHdrsValReq.length; i++) {
+						if (i == (formData.selectedHdrsValReq.length - 1))
+							value = value + formData.selectedHdrsValReq[i].value
+						else
+							value = value + formData.selectedHdrsValReq[i].value + ','
+					}
 				}
 			}
 			else if(formData.hdrModeForReqcapture === 0){
@@ -47,7 +47,6 @@ export function constValCaptureHTTPReqFullFp(formData) {
 }
 
 export function constValCaptureHTTPResFullFp(formData) {
-	console.log("formData---", formData)
 	var value = 0;
 	if (formData.enableCaptureHTTPRespFullFp === 'true' || formData.enableCaptureHTTPRespFullFp == true) {
 	//	value = formData.responseData;
@@ -61,12 +60,13 @@ export function constValCaptureHTTPResFullFp(formData) {
 
 		 if (formData.hdrModeForResCapture === 1) {  // casr of Specified Hedaers
 				value = value + "%20";
-
-				for (var i = 0; i < formData.selectedHdrsValRes.length; i++) {
-					if (i == (formData.selectedHdrsValRes.length - 1))
-						value = value + formData.selectedHdrsValRes[i].value
-					else
-						value = value + formData.selectedHdrsValRes[i].value + ','
+				if(formData.selectedHdrsValRes != undefined){
+					for (var i = 0; i < formData.selectedHdrsValRes.length; i++) {
+						if (i == (formData.selectedHdrsValRes.length - 1))
+							value = value + formData.selectedHdrsValRes[i].value
+						else
+							value = value + formData.selectedHdrsValRes[i].value + ','
+					}
 				}
 			}
 			else if(formData.hdrModeForResCapture === 0){ //case when All headers option is selected
@@ -79,7 +79,8 @@ export function constValCaptureHTTPResFullFp(formData) {
 				value = value + "%200";
 
 		}
-		else{
+		else
+		{
 		value = 1;
 	 }
 	}
@@ -98,22 +99,36 @@ export function splitValue(keywords) {
 		fpHdrInitializeObj.enableCaptureHTTPReqFullFp = true;
 		fpHdrInitializeObj.urlMode = value[0];
 		fpHdrInitializeObj.hdrModeForReqcapture = value[1] === 'ALL' ? 0 : (value[1] === 'CONFIGURED' ? 2 : 1);
-		if (fpHdrInitializeObj.hdrModeForReqcapture === 1) {
 
+		if (fpHdrInitializeObj.hdrModeForReqcapture === 1) {
+			var multiSelectValue =[];
+			var arrTemp = value[1].split(',');
+			for (var i=0;i<arrTemp.length;i++)
+			{
+				multiSelectValue.push(arrTemp[i]);
+			}
+			fpHdrInitializeObj.multiSelectValue = multiSelectValue;
 		}
-		fpHdrInitializeObj.captureModeReq = value[2]
-		if (fpHdrInitializeObj.captureModeReq === 1)
+
+		fpHdrInitializeObj.captureModeReq = value[2];
+
+		if (fpHdrInitializeObj.captureModeReq > 0){
 			fpHdrInitializeObj.hdrValChrReq = value[3];
+		}
 	}
 	if (keywords.captureHTTPRespFullFp != 0 && keywords.captureHTTPRespFullFp != null) {
 		var valueResp = keywords.captureHTTPRespFullFp.split('%20');
 		fpHdrInitializeObj.enableCaptureHTTPRespFullFp = true;
 		fpHdrInitializeObj.responseData = valueResp[0];
 		fpHdrInitializeObj.hdrModeForResCapture = valueResp[1] === 'ALL' ? 0 : (valueResp[1] === 'CONFIGURED' ? 2 : 1);
-		if (fpHdrInitializeObj.hdrModeForReqcapture === 1) {
+		if (fpHdrInitializeObj.hdrModeForResCapture === 1) {
 			//left fo rfuther initilaizing of multiselect comp
 		}
 		fpHdrInitializeObj.captureModeRes = valueResp[2]
+		if (fpHdrInitializeObj.captureModeRes > 0){
+			fpHdrInitializeObj.hdrValChrRes = valueResp[3];
+		}
+
 		}
 		fpHdrInitializeObj.enableCaptureCustomData = keywords.captureCustomData == "true";
 	

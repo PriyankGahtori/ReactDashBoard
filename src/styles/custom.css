@@ -21,7 +21,7 @@ body {
 }
 .tableheader{
 	background-color: #183d65;
-  height:38px;
+  min-height : 38px;
 }
 .breadcrumbs {
   padding: 8px 15px;

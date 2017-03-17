@@ -211,7 +211,6 @@ class Form_EnableHotSpotCapturing extends React.Component {
 
   }
 
-
   onChangeASPositiveThreadFilter(evt, value) {
     this.setState({ 'threadNames': value })
   }
@@ -331,7 +330,7 @@ class Form_EnableHotSpotCapturing extends React.Component {
           </div>
         </div>
 
-        {/*<div className="row">
+        <div className="row">
           <div className="col-md-9">
             <CheckboxWithoutWrapper
               value="AS Positive Thread Filters"
@@ -363,7 +362,7 @@ class Form_EnableHotSpotCapturing extends React.Component {
               primary={true}
               keyboardFocused={true}
               disabled={this.props.profileDisabled}
-              onClick={this.handleASPositiveThreadNamesDone.bind(this, ASPositiveThreadFilters)}
+              onTouchTap={this.handleASPositiveThreadNamesDone.bind(this, ASPositiveThreadFilters)}
             />
           </div>
         </div>
@@ -372,7 +371,7 @@ class Form_EnableHotSpotCapturing extends React.Component {
         <p style={styles.errMsg} className={this.state.errMsg}>Thread Name Field required !! </p>
         <div>
         </div>
-        {this.renderAddThreadName()}*/}
+        {this.renderAddThreadName()}
 
       </form>
     );

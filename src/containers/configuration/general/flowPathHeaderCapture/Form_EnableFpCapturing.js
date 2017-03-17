@@ -40,6 +40,7 @@ export const fields = ['enableCaptureHTTPReqFullFp',
                         'hdrModeForReqcapture',
                         'selectedHdrsValReq',
                         'captureModeReq',
+                        'captureModeRes',
                         'hdrValChrReq',
                         'enableCaptureHTTPRespFullFp',
                         'hdrModeForResCapture',
@@ -175,11 +176,16 @@ class Form_EnableFpCapturing extends React.Component {
       enableCaptureHTTPReqFullFp : this.props.initialData != null ?this.props.initialData.enableCaptureHTTPReqFullFp:false,
       enableCaptureHTTPResFullFp :this.props.initialData != null ? this.props.initialData.enableCaptureHTTPRespFullFp:false,
       enableCaptureCustomData :this.props.initialData != null ? this.props.initialData.enableCaptureCustomData:false,
+      hdrModeForReqcapture:this.props.initialData.hdrModeForReqcapture,
+      hdrModeForResCapture:this.props.initialData.hdrModeForResCapture,
+      captureModeReq :this.props.initialData.captureModeReq,
+      captureModeRes :this.props.initialData.captureModeRes,
+      hdrValChrReq:this.props.initialData.hdrValChrReq,
+      multiSelectValue:this.props.initialData.multiSelectValue,
       'hdrTypeCss'    :  'hidden',
       'multiSelectCss': 'hidden',
       'configDropDownCss': 'hidden',
       'briefCaptureModeConfigReq' : 'hidden',
-      'multiSelectRespCss':'hidden',
       'briefCaptureModeConfigRespCss':'hidden',
       'hdrTypeRespCss':'hidden',
       'multiSelectRespCss':'hidden',
@@ -187,8 +193,6 @@ class Form_EnableFpCapturing extends React.Component {
       'specificDivCSS':this.props.initialData.enableCaptureSessionAttr && this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
       'enableCaptureSessionAttr':this.props.initialData.enableCaptureSessionAttr,
-      'hdrModeForReqcapture':this.props.initialData.hdrModeForReqcapture,
-      'hdrModeForResCapture':this.props.initialData.hdrModeForResCapture,
       'sessionType':this.props.sessionType != null ?this.props.sessionType :'NA',
       'customDataCapturingMethodBlock':this.props.initialData != null && this.props.initialData.enableCaptureCustomData?'show':'hidden',
       'addMenuDropDownBlock':'hidden',
@@ -216,6 +220,10 @@ class Form_EnableFpCapturing extends React.Component {
                   enableCaptureCustomData:nextProps.initialData.enableCaptureCustomData,
                   hdrModeForReqcapture:nextProps.initialData.hdrModeForReqcapture,
                   hdrModeForResCapture:nextProps.initialData.hdrModeForResCapture,
+                  captureModeReq:nextProps.initialData.captureModeReq,
+                  captureModeRes:nextProps.initialData.captureModeRes,
+                  hdrValChrReq:nextProps.initialData.hdrValChrReq,
+                  multiSelectValue:nextProps.initialData.multiSelectValue,
                   customDataCapturingMethodBlock:nextProps.initialData != null && nextProps.initialData.enableCaptureCustomData?'show':'hidden',
         })
 
@@ -335,8 +343,6 @@ handleHdrModeResChange(event, index, value){
                         'captureModeRespCss': 'show'
 
       })
-  
-  
 }
 
 handleCaptureModeResChange(event, index, value){
@@ -353,9 +359,7 @@ handleCaptureSessionAttr(event,isInputChecked){
   this.setState({'enableCaptureSessionAttr':isInputChecked,
                   captureSessionAttrCss:captureSessionAttrCss,
                   specificDivCSS: isInputChecked && this.state.sessionType == 'specific' ? 'show':'hidden'
-
     })
-
 }
 
 handleSessionTypeChange(event, value){
@@ -363,7 +367,6 @@ handleSessionTypeChange(event, value){
   	let css = value === 'specific' ? 'show' : 'hidden';
     console.log("css---",css)
   	this.setState({'specificDivCSS':css})
-
 }
 
 getProfileName(profileId)
@@ -517,7 +520,7 @@ render() {
     />
     </div> 
 
-    <div className=" col-md-5"  style={{left:'300'}}>
+    <div className=" col-md-5"  style={{left:300}}>
 
     <RaisedButton  className = "pull-right"
                       backgroundColor = "#4c8dc9" 
@@ -572,6 +575,7 @@ render() {
                 <DropDownComponent 
                 {...captureModeReq}
                 data = {dataForCaptureDropDown}
+                value = {this.state.captureModeReq}
                 onChangeOption = {this.handleCaptureModeReqChange.bind(this)}
                 floatingLabelText = "Select Capture Mode"
                 />
@@ -748,7 +752,7 @@ render() {
           </div>
 
 
-           <div className = {`row ${this.state.captureSessionAttrCss}`} style={{paddingLeft:'200'}}>
+           <div className = {`row ${this.state.captureSessionAttrCss}`} style={{paddingLeft:200}}>
             <div className = " col-md-4" >
                 <RadioButtonGroup
                   defaultSelected={this.state.sessionType}

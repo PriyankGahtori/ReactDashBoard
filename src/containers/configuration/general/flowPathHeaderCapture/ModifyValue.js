@@ -102,7 +102,8 @@ export function splitValue(keywords) {
 
 		if (fpHdrInitializeObj.hdrModeForReqcapture === 1) {
 			var multiSelectValue =[];
-			var arrTemp = value[1].split(',');
+			var headers = value[1];
+			var arrTemp = headers.split(',');
 			for (var i=0;i<arrTemp.length;i++)
 			{
 				multiSelectValue.push(arrTemp[i]);

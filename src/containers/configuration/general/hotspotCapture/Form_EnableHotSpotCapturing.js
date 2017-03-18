@@ -408,6 +408,7 @@ renderAddASNegativeThreads() {
           </div>
         </div>
 
+      <Subheader><b>Filter Settings</b></Subheader>
         <div className="row">
           <div className="col-md-9">
             <CheckboxWithoutWrapper

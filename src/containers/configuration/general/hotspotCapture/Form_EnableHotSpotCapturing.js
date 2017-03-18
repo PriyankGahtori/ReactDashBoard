@@ -15,10 +15,11 @@ import Subheader from 'material-ui/Subheader'
 //Importing files
 import Input from '../../../../components/InputWrapper';
 import { initializeKeywords } from '../../../../actions/index';
-import AddComp from './AddComp';
+import AddASPositiveComp from './AddASPositiveComp';
+import AddASNegativeComp from './AddASNegativeComp';
 
 
-export const fields = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth', 'ASPositiveThreadFilters'];
+export const fields = ['ASSampleInterval', 'ASThresholdMatchCount', 'ASReportInterval', 'ASDepthFilter', 'ASTraceLevel', 'ASStackComparingDepth', 'ASPositiveThreadFilters','ASNegativeThreadFilter'];
 
 
 const validate = values => {
@@ -105,7 +106,10 @@ const styles = {
   errMsg: {
     color: 'red',
     paddingLeft: '439px'
-
+  },
+  errNegMsg: {
+    color: 'red',
+    paddingLeft: '439px'
   }
 
 };
@@ -117,22 +121,29 @@ class Form_EnableHotSpotCapturing extends React.Component {
     this.state = {
       enableHotSpotBlock: false,
       showAddThreadName: 'hidden',
+      showAddNegThreadName: 'hidden',
       arr: [],
+      arrNeg: [],
       count: 0,
+      negCount: 0,
       threadNames: '',
+      negThreadNames: '',
       asPositiveThreadNamesBlock: 'hidden',
-      errMsg: 'hidden'
+      asNegativeThreadNamesBlock: 'hidden',
+      errMsg: 'hidden',
+      errNegMsg: 'hidden'
     };
     this.handleAddThreadNames = this.handleAddThreadNames.bind(this)
-    this.renderAddThreadName = this.renderAddThreadName.bind(this)
+    this.handleAddNegativeThreadNames = this.handleAddNegativeThreadNames.bind(this);
+    this.renderAddASPositiveThreads = this.renderAddASPositiveThreads.bind(this)
+    this.renderAddASNegativeThreads = this.renderAddASNegativeThreads.bind(this)
     this.onChangeASPositiveThreadFilter = this.onChangeASPositiveThreadFilter.bind(this)
+    this.onChangeASNegativeThreadFilter = this.onChangeASNegativeThreadFilter.bind(this)
     this.handleDelThreadNames = this.handleDelThreadNames.bind(this)
   }
 
   handleAddThreadNames(threadNames) {
-    console.log("threadNames--", threadNames)
     if (this.state.threadNames == '') {
-      console.log("thread name blank")
       this.setState({ errMsg: 'show' })
     }
     else {
@@ -151,6 +162,27 @@ class Form_EnableHotSpotCapturing extends React.Component {
     }
   }
 
+handleAddNegativeThreadNames(threadNames) {
+    if (this.state.negThreadNames == '') {
+      this.setState({ errNegMsg: 'show' })
+    }
+    else {
+      this.setState({
+        'showAddNegThreadName': 'show',
+        negCount: this.state.negCount + 1,
+        errNegMsg: 'hidden'
+      })
+
+      var data = {
+        'negThreadNames': this.state.negThreadNames,
+        negCount: this.state.negCount
+      }
+      this.state.arrNeg.push(data);
+      this.setState({ 'negThreadNames': '' })
+    }
+  }
+
+
   handleEnableHotSpot(event, isInputChecked) {
     this.setState({ enableHotSpotBlock: !isInputChecked })
   }
@@ -163,14 +195,11 @@ class Form_EnableHotSpotCapturing extends React.Component {
     arr = arr.filter(function (val) {
       return arrId.indexOf(arr.id) == -1
     })
-    console.log("arr--", arr)
-    console.log("arr---", arr.length)
     this.setState({ arr: arr })
 
   }
 
   renderAddComp(val) {
-    console.log("val---", val)
     return (
       <div className="row">
         <div className="col-md-6">
@@ -178,7 +207,6 @@ class Form_EnableHotSpotCapturing extends React.Component {
 
         <div className="col-md-6">
           <TextField
-            hintText="Hint Text"
             id={val.count}
             floatingLabelText="AS Positive Thread Filters"
           />
@@ -189,13 +217,35 @@ class Form_EnableHotSpotCapturing extends React.Component {
     )
   }
 
-  renderAddThreadName() {
+  renderAddASPositiveThreads() {
 
     let that = this;
     let component = this.state.arr.map(function (val, index) {
       return (
         <div>
-          <AddComp threadNames={that.onChangeASPositiveThreadFilter.bind(this)}
+          <AddASPositiveComp threadNames={that.onChangeASPositiveThreadFilter.bind(this)}
+            value={val}
+            deleteThreadNames={that.handleDelThreadNames.bind(this)}
+          />
+        </div>
+      )
+    })
+
+    return (
+      <div>
+        {component}
+      </div>
+    )
+
+  }
+
+renderAddASNegativeThreads() {
+
+    let that = this;
+    let component = this.state.arrNeg.map(function (val, index) {
+      return (
+        <div>
+          <AddASNegativeComp negThreadNames={that.onChangeASNegativeThreadFilter.bind(this)}
             value={val}
             deleteThreadNames={that.handleDelThreadNames.bind(this)}
           />
@@ -215,19 +265,28 @@ class Form_EnableHotSpotCapturing extends React.Component {
     this.setState({ 'threadNames': value })
   }
 
+ onChangeASNegativeThreadFilter(evt, value) {
+    this.setState({ 'negThreadNames': value })
+  }
+
   asPositiveFilterThreadChkBoxChange(evt, isInputChecked) {
     this.setState({
       'asPositiveThreadNamesBlock': isInputChecked ? 'show' : 'hidden',
       'asPositiveFilterThreadChkBox': isInputChecked
     })
+  }
 
+  asNegativeFilterThreadChkBoxChange(evt, isInputChecked) {
+    this.setState({
+      'asNegativeThreadNamesBlock': isInputChecked ? 'show' : 'hidden',
+      'asNegativeFilterThreadChkBox': isInputChecked
+    })
   }
 
   handleASPositiveThreadNamesDone(ASPositiveThreadFilters) {
     let values = '';
     let arr = this.state.arr;
     arr.map(function (val, index) {
-      console.log("val--", val)
       if (index != (arr.length - 1)) {
         values = values + val.threadName + "&";
       }
@@ -235,18 +294,40 @@ class Form_EnableHotSpotCapturing extends React.Component {
         values = values + val.threadName;
       }
     })
-    console.log("value---", values)
     // case handled for last threadNames
     if (this.state.threadNames != '') {
-      values = values + "&" + this.state.threadNames
+      if(values != '')
+        values = values + "&" + this.state.threadNames
+      else
+        values = this.state.threadNames
     }
-    console.log("values !!---", values)
     ASPositiveThreadFilters.onChange(values)
-
   }
 
+  handleASNegativeThreadNamesDone(ASNegativeThreadFilter) {
+    let values = '';
+    let arr = this.state.arrNeg;
+    arr.map(function (val, index) {
+      if (index != (arr.length - 1)) {
+        values = values + val.negThreadNames + "&";
+      }
+      else {
+        values = values + val.negThreadNames;
+      }
+    })
+    // case handled for last threadNames
+    if (this.state.negThreadNames != '') {
+      if(values != '')
+        values = values + "&" + this.state.negThreadNames
+      else
+        values = this.state.negThreadNames
+    }
+    ASNegativeThreadFilter.onChange(values)
+  }
+
+
   render() {
-    const { fields: { ASSampleInterval, ASThresholdMatchCount, ASReportInterval, ASDepthFilter, ASTraceLevel, ASStackComparingDepth, ASPositiveThreadFilters }, resetForm, handleSubmit, onSubmit, submitting } = this.props
+    const { fields: { ASSampleInterval, ASThresholdMatchCount, ASReportInterval, ASDepthFilter, ASTraceLevel, ASStackComparingDepth, ASPositiveThreadFilters,ASNegativeThreadFilter }, resetForm, handleSubmit, onSubmit, submitting } = this.props
     return (
       <form >
         {/*    <div className ="row" style={{paddingTop:8}}>
@@ -261,7 +342,6 @@ class Form_EnableHotSpotCapturing extends React.Component {
            */}
 
         <div className="row">
-
           <div className="col-md-6">
             <TextField
               floatingLabelText="Hotspot Sample Interval for Stack Trace"
@@ -284,7 +364,6 @@ class Form_EnableHotSpotCapturing extends React.Component {
         <Subheader><b>Advance Settings</b></Subheader>
 
         <div className="row">
-
           <div className="col-md-4">
             <TextField
               hintText="Hint Text"
@@ -303,7 +382,6 @@ class Form_EnableHotSpotCapturing extends React.Component {
               {...ASTraceLevel}
               style={{ 'width': '150' }}
               errorText={ASTraceLevel.touched && ASTraceLevel.error && <div>{ASTraceLevel.error}</div>}
-
             />
           </div>
           <div className="col-md-4" >
@@ -335,7 +413,7 @@ class Form_EnableHotSpotCapturing extends React.Component {
             <CheckboxWithoutWrapper
               value="AS Positive Thread Filters"
               checked={this.state.asPositiveFilterThreadChkBox}
-              label="List of thread names to be included in AS data"
+              label="List of thread names to be included in HotSpot data"
               onCheck={this.asPositiveFilterThreadChkBoxChange.bind(this)}
             />
 
@@ -344,15 +422,14 @@ class Form_EnableHotSpotCapturing extends React.Component {
 
         <div className={`row ${this.state.asPositiveThreadNamesBlock}`} style={{ 'paddingLeft': 8 }}>
 
-          <div className="col-md-7">
+          <div className="col-md-5">
             <TextField
-              hintText="Hint Text"
-              floatingLabelText="AS Positive Thread Filters"
+              floatingLabelText="Include thread in HotSpot data"
               onChange={this.onChangeASPositiveThreadFilter.bind(this)}
             />
           </div>
 
-          <div className="col-md-3">
+          <div className="col-md-2">
             <IconButton tooltip="Add more" onTouchTap={this.handleAddThreadNames.bind(this, ASPositiveThreadFilters)}><FontIcon color="#FFF" className="material-icons">add</FontIcon></IconButton>
           </div>
 
@@ -368,10 +445,53 @@ class Form_EnableHotSpotCapturing extends React.Component {
         </div>
 
 
-        <p style={styles.errMsg} className={this.state.errMsg}>Thread Name Field required !! </p>
+        <p style={styles.errMsg} className={this.state.errMsg}>Thread Name Field required !!! </p>
         <div>
         </div>
-        {this.renderAddThreadName()}
+        {this.renderAddASPositiveThreads()}
+
+        <div className="row">
+          <div className="col-md-9">
+            <CheckboxWithoutWrapper
+              value="AS Negative Thread Filters"
+              checked={this.state.asNegativeFilterThreadChkBox}
+              label="List of thread names to be excluded in HotSpot data"
+              onCheck={this.asNegativeFilterThreadChkBoxChange.bind(this)}
+            />
+
+          </div>
+        </div>
+
+        <div className={`row ${this.state.asNegativeThreadNamesBlock}`} style={{ 'paddingLeft': 8 }}>
+
+          <div className="col-md-5">
+            <TextField
+              floatingLabelText="Exclude thread in HotSpot data"
+              onChange={this.onChangeASNegativeThreadFilter.bind(this)}
+            />
+          </div>
+
+          <div className="col-md-2">
+            <IconButton tooltip="Add more" onTouchTap={this.handleAddNegativeThreadNames.bind(this, ASNegativeThreadFilter)}><FontIcon color="#FFF" className="material-icons">add</FontIcon></IconButton>
+          </div>
+
+          <div className="col-md-2">
+            <FlatButton
+              label="Done"
+              primary={true}
+              keyboardFocused={true}
+              disabled={this.props.profileDisabled}
+              onTouchTap={this.handleASNegativeThreadNamesDone.bind(this, ASNegativeThreadFilter)}
+            />
+          </div>
+        </div>
+
+
+        <p style={styles.errNegMsg} className={this.state.errNegMsg}>Thread Name Field required !!! </p>
+        <div>
+        </div>
+        {this.renderAddASNegativeThreads()}
+
 
       </form>
     );
@@ -395,7 +515,8 @@ export default reduxForm({ // <----- THIS IS THE IMPORTANT PART!
       ASDepthFilter: state.Keywords.initializeKeywords.ASDepthFilter,
       ASTraceLevel: state.Keywords.initializeKeywords.ASTraceLevel,
       ASStackComparingDepth: state.Keywords.initializeKeywords.ASStackComparingDepth,
-
+      ASPositiveThreadFilters: state.Keywords.initializeKeywords.ASPositiveThreadFilters,
+      ASNegativeThreadFilter: state.Keywords.initializeKeywords.ASNegativeThreadFilter
     }
   }),
 

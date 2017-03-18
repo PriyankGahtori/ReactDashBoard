@@ -23,8 +23,9 @@ var columns = {
   "field": ['tier', 'server', 'instance', 'installDir', 'version', 'bciRunningSince', 'state', 'agentId']
 };
 
+
 const customContentStyle = {
-  width: '80%',
+  width: '90%',
   maxWidth: 'none',
 };
 
@@ -61,8 +62,6 @@ class NDAgentStatus extends React.Component {
             contentStyle={customContentStyle}
             onClick={this.handleClick}
             onToggle={this.onToggle.bind(this)}
-            style= {{width: 120}}
-            
             />
          </Paper>
         </div>

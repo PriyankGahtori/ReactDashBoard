@@ -30,7 +30,7 @@ import DropDownAppList from '../containers/DropDownAppList';
 import MigrateTopo from '../containers/settings/Dialog_Settings';
 import TRToggle from '../containers/settings/TRToggle';
 import Loader from '../containers/utils/Loader';
-import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
+// import NDAgentStatus from '../containers/actions/ndAgentStatus/NDAgentStatus';
 import * as actionCreators from '../actions/index';
 
 injectTapEventPlugin();
@@ -197,11 +197,11 @@ export default class Layout extends React.Component {
             open={this.state.settingOpen}
             actions={actions}
             contentStyle={{ width: '550' }}>
-            <MigrateTopo closeDialog={this.handleCloseTopoDialog} />
+            <MigrateTopo closeDialog={this.handleCloseTopoDialog} /> 
           </SettingsDialog >
 
-          <NDAgentStatusDialog
-            title="ND Agent Status Information"
+          {/*<NDAgentStatusDialog
+            title="ND Agent Status Information22"
             open={this.state.agentStatusOpen}
             actions={actionsNDAgent}
             autoScrollBodyContent={true}
@@ -210,7 +210,7 @@ export default class Layout extends React.Component {
             style={ styles.dialogRoot }
 			      repositionOnUpdate={ false }>
             <NDAgentStatus closeDialog={this.handleClose} />
-          </NDAgentStatusDialog >
+          </NDAgentStatusDialog >*/}
 
           <Drawer
             docked={true}

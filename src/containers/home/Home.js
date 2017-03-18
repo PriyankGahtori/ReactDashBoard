@@ -41,13 +41,12 @@ const divStyle ={
   marginLeft: '2.7em',
   marginBottom:'2em',
   minHeight: '111px',
- 
 }  
 
 const customContentStyle = {
-  width: '73%',
+  width: '90%',
   maxWidth: 'none',
-  padding:'0 !Important'
+  padding:'0 !Important',
 };
 
 const divCenter = {

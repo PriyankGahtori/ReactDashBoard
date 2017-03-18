@@ -10,7 +10,9 @@ body {
   background : url('default.jpg') no-repeat center fixed #000;
  /* background-size: cover;*/
 }
-
+.dialog-modal>div>div {
+    margin: -3em auto !important;
+}
 .table {
 	margin-bottom: 0px;
 }

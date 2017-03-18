@@ -53,7 +53,7 @@ class DialogAttachProfile_Instance extends React.Component {
         onTouchTap={this.handleCancel}
       />,
       <FlatButton
-        label="Submit"
+        label="Save"
         primary={true}
         keyboardFocused={true}
         onClick={this.handleSubmit}

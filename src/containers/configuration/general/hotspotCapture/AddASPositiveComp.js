@@ -25,7 +25,7 @@ export const fields = ['headerName', 'index', 'operation', 'opVal']
 
 const items = [];
 
-class AddComp extends React.Component {
+class AddASPositiveComp extends React.Component {
   constructor(props) {
     super(props)
 
@@ -63,12 +63,9 @@ class AddComp extends React.Component {
 
 
   componentWillReceiveProps(nextProps) {
-      console.log("nextProps---",nextProps)
   }
 
   handleDelThreadNames(){
-      console.log("this.props.value.count--",this.props.value)
-      
       this.props.deleteThreadNames(this.props.value.count)
   }
 
@@ -79,17 +76,16 @@ class AddComp extends React.Component {
   render() {
     return (
          <div className = "row">
-            <div className = "col-md-6">
+            <div className = "col-md-5">
               <TextField
-                  hintText="Hint Text" 
-                  floatingLabelText="AS Positive Thread Filters"
+                  floatingLabelText="Include thread in HotSpot data"
                   onChange = {this.onChangeASPositiveThreadFilter.bind(this)}
                 />
             </div>
 
-        {/*   <div className = "col-md-3">
+           {/*<div className = "col-md-2">
                 <IconButton  tooltip="Delete Thread" onTouchTap={this.handleDelThreadNames.bind(this)}><FontIcon color="#FFF" className="material-icons">delete</FontIcon></IconButton>
-  </div> */}
+           </div> */}
          </div>
 
     )
@@ -110,4 +106,4 @@ function mapDispatchToProps(dispatch) {
   //return actionMap;
   return bindActionCreators(actionCreators, dispatch);
 }
-export default connect(mapStateToProps, mapDispatchToProps)(AddComp);
+export default connect(mapStateToProps, mapDispatchToProps)(AddASPositiveComp);

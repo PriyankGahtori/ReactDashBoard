@@ -1411,18 +1411,28 @@ export function setTRModeDetail(trModeobj,loader){
 
 /* ************** Send Run Time Changes ******************* */
 
-export function sendRunTimeChange(URL,keywordList){
+export function sendRunTimeChange(URL,keywordList,runTimeChangesMsg){
 
-  var response = axios({
+ /* var response = axios({
     method:'post',
     url : URL,
     data: keywordList,
     headers:{'Content-Type':'application/json'}
   });
 
+  */
+
+  const URLTable =  `${url.FETCH_APP_TABLE_DATA}`;
+  const response = axios.get(URLTable);
+
+
+   response.then(function(){
+    runTimeChangesMsg();
+  });
+
   return {
-    type : 'RUNTIME_CHANGE',
-    payload : response
+   // type : 'RUNTIME_CHANGE',
+    //payload : response
   }
 }
 

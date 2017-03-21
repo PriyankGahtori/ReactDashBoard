@@ -152,13 +152,13 @@ const styles = {
   }
 }
 
-var dataForhdrTypeDropDown = [{'id':0 ,'option':'ALL Headers'},
-                              {'id':1 ,'option':'Specified headers'},
+var dataForhdrTypeDropDown = [{'id':'0' ,'option':'ALL Headers'},
+                              {'id':'1' ,'option':'Specified headers'},
                              // {'id':2 ,'option':'Configured'}
 ]
 
-var dataForCaptureDropDown = [{'id':0 , 'option' :'complete'},
-                               {'id':1, 'option':'brief'}
+var dataForCaptureDropDown = [{'id':'0' , 'option' :'complete'},
+                               {'id':'1', 'option':'brief'}
   ]
 
 const validate = values=> {
@@ -181,14 +181,18 @@ class Form_EnableFpCapturing extends React.Component {
       captureModeReq :this.props.initialData.captureModeReq,
       captureModeRes :this.props.initialData.captureModeRes,
       hdrValChrReq:this.props.initialData.hdrValChrReq,
-      multiSelectValue:this.props.initialData.multiSelectValue,
+      multiSelectValue:this.props.initialData.selectedHdrsValReq,
+
+
       'hdrTypeCss'    :  'hidden',
-      'multiSelectCss': 'hidden',
+      'multiSelectCss': this.props.initialData != null && this.props.initialData.hdrModeForReqcapture == '1'?'show':'hidden',
       'configDropDownCss': 'hidden',
-      'briefCaptureModeConfigReq' : 'hidden',
-      'briefCaptureModeConfigRespCss':'hidden',
+      'briefCaptureModeConfigReq' :this.props.initialData != null && this.props.initialData.captureModeReq == '1'?'show':'hidden',
+      'briefCaptureModeConfigRespCss':this.props.initialData != null && this.props.initialData.captureModeRes == '1'?'show':'hidden',
       'hdrTypeRespCss':'hidden',
-      'multiSelectRespCss':'hidden',
+      'multiSelectRespCss':this.props.initialData != null && this.props.initialData.hdrModeForResCapture == '1'?'show':'hidden',
+      'multiSelectValueResp':this.props.initialData.selectedHdrsValRes,
+
       'configDropDownRespCss':'hidden',
       'specificDivCSS':this.props.initialData.enableCaptureSessionAttr && this.props.sessionType == 'specific'?'show':'hidden',
       'captureSessionAttrCss':'hidden',
@@ -202,7 +206,6 @@ class Form_EnableFpCapturing extends React.Component {
 }
 
   componentWillMount() {
-   // this.props.initializeInstrException();
    this.props.clearStepperData();
   
  }
@@ -223,7 +226,8 @@ class Form_EnableFpCapturing extends React.Component {
                   captureModeReq:nextProps.initialData.captureModeReq,
                   captureModeRes:nextProps.initialData.captureModeRes,
                   hdrValChrReq:nextProps.initialData.hdrValChrReq,
-                  multiSelectValue:nextProps.initialData.multiSelectValue,
+                  multiSelectValue:nextProps.initialData.selectedHdrsValReq,
+                  multiSelectValueResp:nextProps.initialData.selectedHdrsValRes,
                   customDataCapturingMethodBlock:nextProps.initialData != null && nextProps.initialData.enableCaptureCustomData?'show':'hidden',
         })
 
@@ -259,12 +263,12 @@ handleURLModeChange(event, value){
 */
 handleHdrModeReqChange(event, index, value){
   console.log("value--handleHdrModeChange--value === 1",value === '1')
-        if(value === 1)
+        if(value === '1')
           this.setState({'multiSelectCss':'show',
                            'configDropDownCss':'hidden',
                            'captureModeCss': 'show'
         })
-        else if(value === 2)
+        else if(value === '2')
           this.setState({'configDropDownCss':'show',
                           'multiSelectCss':'hidden',
                           'captureModeCss': 'show'
@@ -304,7 +308,7 @@ handleConfiguredFileChange(event, index, value){
 
 handleCaptureModeReqChange(event, index, value){
   console.log("handle handleCaptureModeReqChange function change called--",value)
-  if(value === 1)
+  if(value === '1')
    this.setState({
                   'briefCaptureModeConfigReq':'show'})
  else 
@@ -325,12 +329,12 @@ handleURLRespModeChange(event, value){
 
 handleHdrModeResChange(event, index, value){
   console.log("handleHdrRespModeChange---",value)
-  if(value === 1)
+  if(value === '1')
           this.setState({'multiSelectRespCss':'show',
                            'configDropDownRespCss':'hidden',
                            'captureModeRespCss': 'show'
         })
-        else if(value === 2)
+        else if(value === '2')
           this.setState({ 'multiSelectRespCss':'hidden',
                           'configDropDownRespCss':'show',
                           'captureModeRespCss': 'hidden'
@@ -346,7 +350,7 @@ handleHdrModeResChange(event, index, value){
 }
 
 handleCaptureModeResChange(event, index, value){
-  if(value === 1)
+  if(value === '1')
    this.setState({
                   'briefCaptureModeConfigRespCss':'show'})
  else 
@@ -390,6 +394,7 @@ getProfileName(profileId)
 
 
   submitForm(formData){
+  console.log("formData---",formData)
   let keywordData = Object.assign({},this.props.getAllKeywordData.data);
   let keywordDataList = [];
   
@@ -548,8 +553,8 @@ render() {
                 {...hdrModeForReqcapture}
                 data = {dataForhdrTypeDropDown}
                 onChangeOption = {this.handleHdrModeReqChange.bind(this)}
-                defaultValue={this.state.hdrModeForReqcapture}
-                floatingLabelText = " Header Type"
+                defaultValue = {this.state.hdrModeForReqcapture}
+                floatingLabelText = " Header Mode"
                 />
             </div>
 
@@ -575,7 +580,7 @@ render() {
                 <DropDownComponent 
                 {...captureModeReq}
                 data = {dataForCaptureDropDown}
-                value = {this.state.captureModeReq}
+                defaultValue = {this.state.captureModeReq}
                 onChangeOption = {this.handleCaptureModeReqChange.bind(this)}
                 floatingLabelText = "Select Capture Mode"
                 />
@@ -650,6 +655,7 @@ render() {
                 data = {dataForCaptureDropDown}
                 onChangeOption = {this.handleCaptureModeResChange.bind(this)}
                 floatingLabelText = "Select Capture Mode"
+                defaultValue = {this.state.captureModeRes}
                 />
       </div>
       <div className = {`col-md-3 ${this.state.briefCaptureModeConfigRespCss}`}>

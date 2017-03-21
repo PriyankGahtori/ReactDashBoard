@@ -62,7 +62,7 @@ class DropDownComponent extends React.Component {
       'configDropDownCss': 'hidden',
       'briefCaptureModeConfig' : 'hidden',
       'multiSelectRespCss':'hidden',
-      'defaultValue':this.props.defaultValue
+      'hdrMode':this.props.defaultValue
 
     }
   }
@@ -72,10 +72,15 @@ class DropDownComponent extends React.Component {
 
  componentWillReceiveProps(nextProps)
  {
-  console.log("nextProps---",nextProps)
+  console.log("nextProps---",nextProps.data)
   if(this.props.getAllKeywordData != nextProps.getAllKeywordData){
     this.setState({getAllKeywordData : nextProps.getAllKeywordData,
     });
+  }
+  console.log("this.props.data[0].option --",this.props.data[0].option)
+  console.log("nextProps.data[0].option---",nextProps.data[0].option)
+  if(this.props.data[0].option != nextProps.data[0].option){
+    console.log("componenet varies")
   }
 }
 
@@ -88,14 +93,13 @@ handleHdrModeChange(event, index, value){
 render() {
   return (
     <div>
-{/*<pre>{this.state.defaultValue}</pre> */}
     <DropDownMenu 
                 {...this.props}
                   style={styles.customWidth}
-                  value = {this.state.hdrMode}
+                  value = {this.state.hdrMode+""}
                   autoWidth={false}
                   customOnChange={this.handleHdrModeChange.bind(this)} 
-                  defaultValue = {this.state.defaultValue}
+                  //defaultValue = {this.state.defaultValue + ""}
                   floatingLabelText = {this.props.floatingLabelText}
                   autoScrollBodyContent={true}
                  >

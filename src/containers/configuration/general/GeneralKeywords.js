@@ -110,7 +110,7 @@ class GeneralKeywords extends React.Component {
   componentWillMount() {
     this.props.triggerLoader(true, null)
     this.props.getKeywordsData(this.props.params.profileId,this.loader);
-     this.props.fetchSessionAttrMonitorData(this.props.params.profileId);
+    this.props.fetchSessionAttrMonitorData(this.props.params.profileId);
   }
 
   componentWillReceiveProps(nextProps)

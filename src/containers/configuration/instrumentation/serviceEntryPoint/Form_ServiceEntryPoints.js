@@ -22,7 +22,7 @@ const initialValues = {
 */               
 
 const validate = values => {
-  console.log(" value of entry type ------------>",values.entryType )
+  console.log(" value of entry type ------------>",values )
   const errors = {}
    
   if (!values.name) 
@@ -42,6 +42,8 @@ const validate = values => {
     
    if (!values.entryTypeId) 
     errors.entryTypeId = 'Required' 
+
+    console.log("errors----",errors)
 
   return errors
  }

@@ -111,11 +111,12 @@ class ApplicationDetail extends React.Component {
     var selectedRowKeys = [];
     var selectedRowData = [];
     selectedRowKeys = this.refs.appTable.refs.table.state.selectedRowKeys;
-    this.props.appDetail.tableData.forEach(function (value) {
+   /* this.props.appDetail.tableData.forEach(function (value) {
       if (!(selectedRowKeys.indexOf(value.appId) == -1))
         selectedRowData.push(value)
     });
-    this.props.delAppTableRow(selectedRowData)
+    */
+    this.props.delAppTableRow(selectedRowKeys)
     this.refs.appTable.refs.table.cleanSelected();
     this.handleClose();
   }

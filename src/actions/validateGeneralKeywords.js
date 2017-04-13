@@ -4,7 +4,7 @@ export function validateBCICapturingKeywords(data) {
          data.logLevelOneFpMethod.value === "0" &&
          data.correlationIDHeader.value === "0" && 
          data.doNotDiscardFlowPaths.value === "0" &&
-         data.setCavNVCookie.value === "0" &&
+         data.enableNDSession.value === "0" &&
          data.enableCpuTime.value === "0" &&
          data.enableForcedFPChain.value === "0";
 }

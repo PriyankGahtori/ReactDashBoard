@@ -20,7 +20,6 @@ export var arrBooleanOperation = [ {'id':12 ,'option': 'TRUE' },
                         ];
   
 export var arrCharOperation = [{'id':14,'option':'EXCEPTION'},
-                                
 
 ];
 

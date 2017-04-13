@@ -18,27 +18,35 @@ import {submitKeywordData,initializeInstrException}  from '../../../../actions/i
 import {triggerRunTimeChanges} from '../../../../actions/runTimeChanges';
 
 
-const validate = values =>{
-  const errors = {}
 
-  if(!values.cookieName)
-    errors.cookieName = 'Required'
+// const validate = values =>{
+//   const errors = {}
 
-  // if(!values.serviceMethodDepth)
-  //   errors.serviceMethodDepth = 'Required'
+//   if(!values.cookieName)
+//     errors.cookieName = 'Required'
 
-  // else if(isNaN(values.serviceMethodDepth))
-  //   errors.serviceMethodDepth = 'Must enter only numbers'
+//   // if(!values.serviceMethodDepth)
+//   //   errors.serviceMethodDepth = 'Required'
 
-   if(values.maxFpBucketSize != null && isNaN(values.maxFpBucketSize))
-    errors.maxFpBucketSize = 'Must enter only numbers'
+//   // else if(isNaN(values.serviceMethodDepth))
+//   //   errors.serviceMethodDepth = 'Must enter only numbers'
 
-  return errors;
-}
+//    if(values.maxFpBucketSize != null && isNaN(values.maxFpBucketSize))
+//     errors.maxFpBucketSize = 'Must enter only numbers'
+
+//   return errors;
+// }
 
 export const fields = [
-'cookieName',
-'maxFpBucketSize'
+
+       'serviceMethodEntryDepth',
+         'serviceMethodExitDepth',
+          'onResponseCommitEvent',
+          'enableCavNVHeader',
+          'ndSessionCookieName',
+          'domainName',
+          'idleTimeOut',
+          'maxFlowpathInSessionCount'
 
 ];
 
@@ -60,7 +68,10 @@ class Form_SetCavNVCookie extends React.Component {
   constructor(props) {
     super(props);
     this.state ={
-    //  enableNewFormat :this.props.initialData.enableNewFormat
+                   serviceMethodEntryDepth : this.props.initialData.serviceMethodEntryDepth,
+                    serviceMethodExitDepth : this.props.initialData.serviceMethodExitDepth,
+                    onResponseCommitEvent:this.props.initialData.onResponseCommitEvent,
+                    enableCavNVHeader:this.props.initialData.enableCavNVHeader
     }
     // this.enableNewFormat = this.enableNewFormat.bind(this);
   }
@@ -70,6 +81,11 @@ class Form_SetCavNVCookie extends React.Component {
 
  componentWillReceiveProps(nextProps)  {
   if(this.props.initialData != nextProps.initialData){
+    this.setState({ serviceMethodEntryDepth : nextProps.initialData.serviceMethodEntryDepth,
+                    serviceMethodExitDepth : nextProps.initialData.serviceMethodExitDepth,
+                    onResponseCommitEvent:nextProps.initialData.onResponseCommitEvent,
+                    enableCavNVHeader:nextProps.initialData.enableCavNVHeader
+    })
  }
 }
 
@@ -86,61 +102,120 @@ handleGenExcptInMethodCheckboxChange(event,isInputChecked){
   this.setState({enableGenExcptInMethodCheckbox:isInputChecked})
 }
 
+handleServiceMethodEntryDepth(evt,isInputChecked){
+  this.setState({serviceMethodEntryDepth:isInputChecked})
+}
+
+handleServiceMethodExitDepth(evt,isInputChecked){
+  this.setState({serviceMethodExitDepth:isInputChecked})
+}
+
+handleOnResponseCommitEvent(evt,isInputChecked){
+  this.setState({onResponseCommitEvent:isInputChecked})
+}
+
+handleEnableCavNVHeader(evt,isInputChecked){
+  this.setState({enableCavNVHeader:isInputChecked})
+}
+
+
 
 render() {
   const { fields: {
-          cookieName,
-          maxFpBucketSize
-
-
+          serviceMethodEntryDepth,
+          serviceMethodExitDepth,
+          onResponseCommitEvent,
+          enableCavNVHeader,
+          ndSessionCookieName,
+          domainName,
+          idleTimeOut,
+          maxFlowpathInSessionCount
   }, resetForm, handleSubmit,onSubmit, submitting } = this.props
   
   return (
-    <div  style={{'paddingLeft':29}}>
+    <div  style={{'paddingLeft':29,'paddingTop':20}}>
 
     <form>
 
     <div className = "row">
-      <div className = "col-md-8">
-          <TextField
-          floatingLabelText = " Cookie Name"
-          {...cookieName}
-          style={{ 'width': '350' }}
-         errorText={cookieName.touched && cookieName.error && <div>{cookieName.error}</div>}/>   
-        
+      <div className = "col-md-6">
+         <Checkbox
+              {...serviceMethodEntryDepth}
+              value="serviceMethodEntryDepth"
+              label = "Enable Cookie at Method Entry"
+              checked={this.state.serviceMethodEntryDepth}
+              onCustomChange={this.handleServiceMethodEntryDepth.bind(this)}
+              />
       </div>
-      {/*<div className = "col-md-4">
-          <TextField
-          floatingLabelText="Service Method Depth"
-          {...serviceMethodDepth}
-          style={{ 'width': '150' }}
-        errorText={serviceMethodDepth.touched && serviceMethodDepth.error && <div>{serviceMethodDepth.error}</div>}/>   
-       
-        </div>*/}
+
+       <div className = "col-md-6">
+         <Checkbox
+              {...serviceMethodExitDepth}
+              value="serviceMethodExitDepth"
+              label = "Enable Cookie at Method Exit"
+              checked={this.state.serviceMethodExitDepth}
+              onCustomChange={this.handleServiceMethodExitDepth.bind(this)}
+              />
+      </div>
+      
     </div>
 
    
     <div className = "row">
-      {/*<div className = "col-md-6">
+      <div className = "col-md-6">
         <Checkbox
-        {...enableNewFormat}
-        label="Capture All Flow Paths "
-        value = "enableNewFormat"
-        checked  = {this.state.enableNewFormat}
-        onCustomChange ={this.enableNewFormat.bind(this)}  />
-    </div>*/}
+        {...onResponseCommitEvent}
+        label="Enable Cookie OnResponseCommitEvent "
+        value = "onResponseCommitEvent"
+         checked={this.state.onResponseCommitEvent}
+        onCustomChange={this.handleOnResponseCommitEvent.bind(this)}
+        />
+    </div>
+
+     <div className = "col-md-6">
+         <Checkbox
+        {...enableCavNVHeader}
+        label="Enable X CavNV Header "
+        value = "enableCavNVHeader"
+         checked={this.state.enableCavNVHeader}
+        onCustomChange={this.handleEnableCavNVHeader.bind(this)}
+        /> 
+    </div>
   </div>
 
-    
+      <div className = "row">
           <div className = "col-md-6">
             <TextField
-            floatingLabelText="Maximum flow path Bucket Size"
-          {...maxFpBucketSize}
-         errorText={maxFpBucketSize.touched && maxFpBucketSize.error && <div>{maxFpBucketSize.error}</div>}/>   
-        </div>
-    </form>
+            floatingLabelText="ND Session Cookie Name"
+            {...ndSessionCookieName}
+            />
+         </div>
 
-    
+          <div className = "col-md-6">
+            <TextField
+            floatingLabelText="Domain Name"
+            {...domainName}
+            />
+         </div>
+      </div>
+
+      <div className = "row">
+        <div className = "col-md-6">
+         <TextField
+            floatingLabelText="Idle TimeOut"
+            {...idleTimeOut}
+            />
+        </div>
+
+       <div className = "col-md-6">
+          <TextField
+            floatingLabelText="Maximum Flowpath In SessionCount"
+            {...maxFlowpathInSessionCount}
+            />
+        </div> 
+      </div>
+
+    </form>
     </div>
 
     );
@@ -155,8 +230,8 @@ Form_SetCavNVCookie.propTypes = {
 
 export default reduxForm({
   form: 'Form_setCavNVCookie',
-  fields,
-  validate
+  fields
+  //validate
   
 
 },

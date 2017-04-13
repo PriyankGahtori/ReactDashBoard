@@ -363,7 +363,6 @@ handleEnableArgumentType(evnt,isInputChecked){
                     </div>
 
                     <div className="row col-md-7" style= {{left:'17px'}}>
-                    <pre>{this.state.operator}</pre>
                         <DropDownMenu
                               {...returnType}
                             value={this.state.operator+""}

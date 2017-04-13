@@ -109,7 +109,7 @@ class setCavNVCookie extends React.Component {
 	handleSetCavNVCookie(event, isInputChecked) {
 		if (isInputChecked === true) {
 			this.setState({ openSnackBar: true })
-			this.submitForm({'setCavNVCookie':1});
+			this.submitForm({'enableNDSession':1});
 		//	this.props.genExcptInMethod(true);
 		}
 		else {
@@ -140,7 +140,7 @@ class setCavNVCookie extends React.Component {
 	* Disable Dialog functions
 	*/
 	cnfrmDisableVal() {
-		var data = { 'setCavNVCookie': '0' }
+		var data = { 'enableNDSession': '0' }
 		this.submitForm(data);
 		this.setState({
 			openCnfrmDisbleDialog: false
@@ -156,78 +156,69 @@ class setCavNVCookie extends React.Component {
 	}
 
 	submitForm(formData) {
-        console.log("formData.maxFpBucketSize--",formData.maxFpBucketSize)
-	    let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
+
+		/**enhanced keyword ***/
+		let keywordData = Object.assign({}, this.props.getAllKeywordData.data);
         let setCavNVCookie;
-        var length = Object.keys(formData).length ;
-		console.log("length--",length)
-        if(length > 1){
-            let maxFpBucketSize = 4;
+         var length = Object.keys(formData).length ;
+		 if(length > 1){
 
-			if(!formData.enableNewFormat ){
-                setCavNVCookie = "1%20"
-            }
-            else{
-                setCavNVCookie = "2%20"
-            }
+		 if(formData.serviceMethodEntryDepth)
+		 	setCavNVCookie =  "1%20"
+		 else
+			setCavNVCookie = "0%20"
 
-			setCavNVCookie = "1%20"
+		if(formData.serviceMethodExitDepth)
+		 	setCavNVCookie = setCavNVCookie + "1%20"
+		else
+			setCavNVCookie = setCavNVCookie +"0%20"
 
-            if(formData.cookieName != null){
-                setCavNVCookie = setCavNVCookie + formData.cookieName
-            }
-            else{
-                setCavNVCookie = setCavNVCookie + "CavNV" 
-            }
-            
-                setCavNVCookie = setCavNVCookie +"%20"+ 2;
+		if(formData.onResponseCommitEvent)
+		 	setCavNVCookie = setCavNVCookie + "1%20"
+		else
+			setCavNVCookie = setCavNVCookie +"0%20"
 
+		if(formData.enableCavNVHeader)
+		 	setCavNVCookie = setCavNVCookie + "1%20"
+		else
+			setCavNVCookie = setCavNVCookie +"0%20"
 
-            maxFpBucketSize = formData.maxFpBucketSize != undefined ?formData.maxFpBucketSize :maxFpBucketSize;
+		if(formData.ndSessionCookieName != null)
+		 	if(formData.ndSessionCookieName.startsWith("X-"))
+		 		 setCavNVCookie = setCavNVCookie + formData.ndSessionCookieName + "%20"
+			else
+				setCavNVCookie = setCavNVCookie + "X-"+formData.ndSessionCookieName + "%20"
+		else
+		   setCavNVCookie = setCavNVCookie + "X-CavNV%20"
 
-            setCavNVCookie = setCavNVCookie+"%20"+maxFpBucketSize;
+		if(formData.domainName != null)
+			setCavNVCookie = setCavNVCookie + formData.domainName + "%20"
+		else
+			setCavNVCookie = setCavNVCookie + "-" + "%20"
+		
+		if(formData.idleTimeOut != null)
+			setCavNVCookie = setCavNVCookie + formData.idleTimeOut + "%20"
+		else
+			setCavNVCookie = setCavNVCookie + "1800" + "%20"
+		
+		if(formData.maxFlowpathInSessionCount != null)
+			setCavNVCookie = setCavNVCookie + formData.maxFlowpathInSessionCount
+		else
+			setCavNVCookie = setCavNVCookie + "1000"
 
-            keywordData.setCavNVCookie["value"] = setCavNVCookie;
-        /*    if(!formData.enableNewFormat ){
-                setCavNVCookie = "1%20"
-            }
-            else{
-                setCavNVCookie = "2%20"
-                maxFpBucketSize = formData.maxFpBucketSize != null ?formData.maxFpBucketSize :maxFpBucketSize;
-            }
+		keywordData.enableNDSession["value"] = setCavNVCookie;
+		 }
+		 else{
+			 keywordData.enableNDSession["value"] = formData.enableNDSession
+		 }
 
-            if(formData.cookieName != null){
-                setCavNVCookie = setCavNVCookie + formData.cookieName
-            }
-            else{
-                setCavNVCookie = setCavNVCookie + "CavNV" 
-            }
-            if(formData.serviceMethodDepth != null){
-                setCavNVCookie = setCavNVCookie +"%20"+ formData.serviceMethodDepth
-            }
-            else{
-                setCavNVCookie = setCavNVCookie +"%20"+ 2;
-            }
-            setCavNVCookie = setCavNVCookie+"%20"+maxFpBucketSize;
+	    this.props.submitKeywordData(keywordData, this.props.profileId);
 
-            keywordData.setCavNVCookie["value"] = setCavNVCookie;   */
-        }
-        else{
-			if(formData.setCavNVCookie != 0){
-				 keywordData.setCavNVCookie["value"] = "1%20CavNV%202"
-			}
-			else{
-             keywordData.setCavNVCookie["value"] = 0;
-			}
-        }
-		this.props.submitKeywordData(keywordData, this.props.profileId);
-
-		//action for runtime change
-		//triggerRunTimeChanges(trData,trModeDetail,formData);
-		let keywordDataList = [];
-		keywordDataList.push("setCavNVCookie" + "=" + keywordData.setCavNVCookie)
-        triggerRunTimeChanges(this.props.trData, this.props.trModeDetail, keywordDataList);
-		this.handleCancelSetCavNVCookie();
+		 //action for runtime change
+		 let keywordDataList = [];
+		 keywordDataList.push("enableNDSession" + "=" + keywordData.enableNDSession.value)
+         triggerRunTimeChanges(this.props.trData, this.props.trModeDetail, keywordDataList);
+		 this.handleCancelSetCavNVCookie();
 	}
 
 	render() {
@@ -302,13 +293,13 @@ class setCavNVCookie extends React.Component {
 
 				<Snackbar
 					open={this.state.openSnackBar}
-					message="Set Cav NV Cookie keyword with default values is enabled now."
+					message="Settings with default values is enabled now."
 					autoHideDuration={4000}
 					onRequestClose={this.handleRequestClose.bind(this)}
 					/>
 
 				<ConfirmDialog
-					title="Are you sure want to disable SetCavNVCookie keyword ?"
+					title="Are you sure want to disable the settings?"
 					actions={actionsDisable}
 					modal={false}
 					open={this.state.openCnfrmDisbleDialog}

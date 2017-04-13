@@ -64,7 +64,7 @@ class Form_BackendDetection_Edit extends React.Component {
   this.state = { hostPortUrl:false,
                  query      :false,
                  serviceName:false,
-                 hostPortUrl:false,
+               //  hostPortUrl:false,
                  databaseProductName:false,
                  databaseProductVersion:false,
                  driverName:false,

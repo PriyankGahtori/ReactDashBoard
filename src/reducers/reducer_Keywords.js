@@ -49,9 +49,10 @@ switch(action.type){
 		var instrExceptionObj = modifiedValInstrExcptCapt.splitValue(obj.instrExceptions)
 		obj.instrExceptionObj = instrExceptionObj;
 
+		obj.setCavCookieInitializeObj = obj.enableNDSession != 0;
+
 		
-		var setCavCookieInitializeObj = modifiedValSetCavNVCookie.splitValue(obj.setCavNVCookie)
-		console.log("obj--",setCavCookieInitializeObj)
+		var setCavCookieInitializeObj = modifiedValSetCavNVCookie.splitValue(obj.enableNDSession)
 		obj.setCavCookieInitializeObj = setCavCookieInitializeObj;
 
 		var setJVMMonInitializeObj = modifiedValSetJVMMon.splitValue(obj.enableJVMThreadMonitor)
@@ -116,11 +117,12 @@ switch(action.type){
 
 		newState.enableExcptCheckBox = obj.instrExceptions != 0;
 
-		newState.setCavNVCookie = obj.setCavNVCookie != 0 ;
+		console.log("obj.setCavNVCookie !=--",obj.enableNDSession != "0")
+		newState.setCavNVCookie = obj.enableNDSession != "0" ;
 
 		newState.enableJVMMonitorCheckBox = obj.enableJVMThreadMonitor != 0 ;
 
-		console.log("GET_ALL_KEYWORDS called---",newState)
+		console.log("GET_ALL_KEYWORDS called---9999999999999999",newState)
 	return newState;
 
 

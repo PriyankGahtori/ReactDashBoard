@@ -192,6 +192,7 @@ class EnableBCICapturing extends React.Component {
       else if (value === "false" || value === false) {
         value = "0";
       }
+
       keywordData[key]["value"] = String(value);
     });
     this.props.submitKeywordData(keywordData, this.props.profileId);

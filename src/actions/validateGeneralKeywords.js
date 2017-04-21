@@ -51,7 +51,6 @@ export function setDefaultValuesBCICapturing(data){
                               "logLevelOneFpMethod" : data.logLevelOneFpMethod.defaultValue,
                               "correlationIDHeader" : data.correlationIDHeader.defaultValue,
                               "doNotDiscardFlowPaths" : data.doNotDiscardFlowPaths.defaultValue,
-                              "setCavNVCookie":data.setCavNVCookie.defaultValue,
                               "enableCpuTime":data.enableCpuTime.defaultValue,
                               "enableForcedFPChain":data.enableForcedFPChain.defaultValue
   }
@@ -129,7 +128,6 @@ export const disabledBCICapturing = {
                                       "enableBciDebug" : "0",
                                       "correlationIDHeader" : "0",
                                       "logLevelOneFpMethod" : "0",
-                                      "setCavNVCookie":"0",
                                       "enableCpuTime":"0",
                                       "enableForcedFPChain":"0"
                                     }; 

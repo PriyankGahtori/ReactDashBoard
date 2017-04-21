@@ -12,7 +12,7 @@ import Is from 'is_js';
 import { initializeInstrProf } from '../../../../actions/index';
 
 
-export const fields = ['bciInstrSessionPct', 'logLevelOneFpMethod', 'correlationIDHeader', 'doNotDiscardFlowPaths', 'setCavNVCookie', 'enableCpuTime', 'enableForcedFPChain'];
+export const fields = ['bciInstrSessionPct', 'logLevelOneFpMethod', 'correlationIDHeader', 'doNotDiscardFlowPaths', 'enableCpuTime', 'enableForcedFPChain'];
 
 const initialValues = {
   'logLevelOneFpMethod': true,
@@ -119,7 +119,7 @@ class Form_EnableBCICapturing extends React.Component {
   }
 
   render() {
-    const { fields: { bciInstrSessionPct, logLevelOneFpMethod,correlationIDHeader, doNotDiscardFlowPaths, setCavNVCookie, enableCpuTime, enableForcedFPChain }, resetForm, handleSubmit, onSubmit, submitting } = this.props
+    const { fields: { bciInstrSessionPct, logLevelOneFpMethod,correlationIDHeader, doNotDiscardFlowPaths, enableCpuTime, enableForcedFPChain }, resetForm, handleSubmit, onSubmit, submitting } = this.props
     return (
       <form >
         <div className="row" style={{ paddingTop: 16, color: '#000' }}>

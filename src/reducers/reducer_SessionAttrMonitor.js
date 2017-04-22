@@ -29,11 +29,11 @@ function modifyingData(data){
        val["values"]= value
     }
       else{
-        if(val.attrType == 'specific')
+        //if(val.attrType == 'specific')
         //    val["values"] = {"href":"Add Values"};
-         val["values"] = "Add Values";
+        // val["values"] = "Add Values";
 
-        else
+        //else
             val["values"]= 'NA'
       }
     })

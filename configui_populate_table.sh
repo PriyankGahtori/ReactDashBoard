@@ -86,7 +86,9 @@ INSERT INTO config.keywords(key_id,key_name,key_min,key_max,kmd_id,key_def_value
 (32,'enableJVMThreadMonitor','0','2048','5','0'),
 (33,'captureCustomData','','','5','false'),
 (34,'ASPositiveThreadFilters','2','1048576','5','NA'),
-(35,'ASNegativeThreadFilter','2','1048576','5','NDControlConnection');
+(35,'ASNegativeThreadFilter','2','1048576','5','NDControlConnection'),
+(36,'maxStackSizeDiff','0','1000','4','20'),
+(37,'ASMethodHotspots','0','1','1','-1')
 
 INSERT INTO config.backend_type(backend_type_id,backend_type_detail,backend_type_name,backend_type_name_entrypointsfile,backend_type_name_rulefile) VALUES
 (1,'http backend','HTTP','HttpCallout','HTTP'),
